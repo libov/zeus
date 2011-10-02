@@ -1,2 +1,17 @@
 # ignore object files
 *.o
+# ignore executables
+analysis
+createMiniNtuples
+BaseClass.h
+BaseClass.cxx
+submit_analysis
+compare_CN_versions
+compare_fit_results
+jet_energy_scale
+systematics
+test
+plotter
+merger
+fitter
+plot_results
