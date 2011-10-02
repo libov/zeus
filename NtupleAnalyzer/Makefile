@@ -95,3 +95,4 @@ clean:
 	-rm -rf doc
 	-rm -f src/BaseClass.cxx
 	-rm -f inc/BaseClass.h
+	-rm -f submit_analysis
