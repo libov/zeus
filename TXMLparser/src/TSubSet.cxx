@@ -162,7 +162,7 @@ void    TSubSet::operator=(TSubSet      newset) {
     fFlavourENUM = newset.getFlavourENUM();
     fPeriodENUM = newset.getPeriodENUM();
     fQ2ENUM = newset.getQ2ENUM();
-    fProsessENUM = newset.getProcessENUM();
+    fProcessENUM = newset.getProcessENUM();
     fTypeENUM = newset.getTypeENUM();
     fID = newset.getID();
 
