@@ -70,4 +70,4 @@ jet_energy_scale: $(OBJECTS) jet_energy_scale.o
 .PHONY: clean
 clean:
 	-rm -rf $(OBJ)/*.o
-	-rm -rf test
+	-rm -rf compare_CN_versions compare_fit_results systematics jet_energy_scale
