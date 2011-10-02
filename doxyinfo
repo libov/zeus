@@ -1,0 +1,14 @@
+/**
+\file samples.data.db
+Contains information about data samples.
+\file samples.mc.db
+Contains information about Monte Carlo samples
+*/
+
+/**
+\mainpage	Framework for ZEUS Common ntuple based analyses
+\section TMiniNtupleCreator
+This program is used to create so called Minintuples from common ntuples being stored on dCache. User can select desirable variables to be stored.
+\section TMiniNtupleAnalyzer
+This program is used to analyze minintuples obtain in the previous step. Histograms from each sample are stored into separate file.
+*/

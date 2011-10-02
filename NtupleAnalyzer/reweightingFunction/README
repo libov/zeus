@@ -1,0 +1,45 @@
+Some important information about class TRew:
+
+for using this class:
+1) initialize it with four parameters, which corresponds addresses of Fmck_nstor, Fmck_id, Fmck_prt, Fmck_daug (see example).
+2) function TRew::GetEventWeight(isCharm) return 'Double_t' value of weight.
+3) isCharm - 'bool' condition which should be equal true if sample which is using is charm and false if sample is beauty.
+4) IMPORTANT! if fragmentation fraction and BR cards are not opened it is necessary to set proper path in 'prefix' string-variable in script src/weight_function.cxx in constructor TRew::TRew().
+
+
+
+example of using:
+
+/* some code */
+
+Int_t Fmck_nstor;    
+ntD->SetBranchStatus("Fmck_nstor", 1);            
+ntD->SetBranchAddress("Fmck_nstor", &Fmck_nstor);
+
+Int_t Fmck_id[1000];
+ntD->SetBranchStatus("Fmck_id",1);
+ntD->SetBranchAddress("Fmck_id",Fmck_id);
+
+Int_t Fmck_prt[1000];  
+ntD->SetBranchStatus("Fmck_prt", 1); 
+ntD->SetBranchAddress("Fmck_prt", Fmck_prt);
+
+Int_t Fmck_daug[1000]; 
+ntD->SetBranchStatus("Fmck_daug",1);
+ntD->SetBranchAddress("Fmck_daug",Fmck_daug);
+
+/* some code */
+
+TRew rewObj(&Fmck_nstor,Fmck_id,Fmck_prt,Fmck_daug);  //  initialization of class object
+
+/* some code */
+
+  for (Int_t ii=0; ii<nevents; ii++){ // loop by events
+    /* some code */
+    
+    weight = rewObj.GetEventWeight(isCharm);  //  weight for whole event (only for beauty and charm MC samples)
+                                              //  bool isCharm, should be equal true if sample is charm and false if sample is beauty!
+    /* some code */
+  }
+  
+/* some code */

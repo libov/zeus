@@ -1,0 +1,50 @@
+#ifndef TLIPATTERN_HH
+#define TLIPATTERN_HH
+
+
+// define pattern of decay chain
+// match pattern to Fmckin/Fmcvtx
+// match stable particles to ZTTRHL/ZTPRHL/VCTRHL
+
+#include <vector>
+#include <string>
+
+class tliPattern {
+ private:
+  int particleId;
+  std::string particleName;
+  int antiId;
+  std::string antiName;
+  std::vector <tliPattern*> daughters;
+  int matchFmckin;
+  int matchCC;
+  int matchRec;
+  int reconstructed;
+
+ public:
+  tliPattern();  // default constructor. Not to be used.
+  tliPattern(const std::string& theParticleName);  // constructor for stable particles
+  tliPattern(std::string name,const tliPattern&); // constructor for particle with daughters
+  ~tliPattern();  // Destructor
+  tliPattern(const tliPattern&); // copy constructor
+  tliPattern& operator=(const tliPattern& tp); // assignment operator
+  tliPattern operator+(const tliPattern& tp2) const; // combination operator
+  void addDaughter(tliPattern*);
+  int doMatchFmckin(int fmckinId,int cc);
+  int doMatchRec() { return doMatchRec(4);};
+  int doMatchRec(int mode);
+  tliPattern spd(); // convert to single prong decay
+  tliPattern* d(const unsigned i); // pointer to i-th daughter (starting from zero)
+  int getId() { return particleId;}; // return id of particle in ZEUS particle table
+  int getFmckin() { return matchFmckin;}; // return # of matched fmckin entry
+  int getRec() { return matchRec;};  // return # of matched ZTTRHL entry
+  int getReconstructed() { return reconstructed;}; // true if (whole tree) reconstructed
+  int fillMatches(std::vector<tliPattern*>& output);  // find all instances of chain in fmckin
+  int countMatches();  // return number of fmckin matches
+  void print(const std::string& prefix);  // printout this instance of a chain
+
+};
+
+
+
+#endif

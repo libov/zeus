@@ -1,0 +1,124 @@
+# year	version	type(data/MC)	luminosity	details(for MC only )
+#
+#	DATA
+# 03		v02d	 data		1.9467
+# Runnr > 48600 (no pnov03)
+04		v02d	data		30.60376
+05		v02d	 data		132.21127
+06e	v02d	 data		52.320
+06p	v02d	 data		0
+07p	v02d	 data		136.07
+# year	version	type(data/MC)	luminosity	details(for MC only )
+# MONTE CARLO
+#
+# -- light flavour ariadne, Q2>4,  http://www-zeus.desy.de/~mforrest/ZEUS_ONLY/qcd_mc.php3
+# 04		v02e	 mc		40.735		.0304p.q4.ari_					# splitted to diff. trig. periods (13/03/2010)
+# 04		v02e	 mc		8.639			cpz324.h13622.0304p.q4.ari_
+04		v02e	 mc		4.820			cpz424.h13622.0304p.q4.ari_
+04		v02e	 mc		14.570		cpu424.h13622.0304p.q4.ari_
+04		v02e	 mc		7.449			cpr424.h13622.0304p.q4.ari_
+04		v02e	 mc		5.258			cpx424.h13622.0304p.q4.ari_
+#
+05		v02e	 mc		134.454		.0405e.q4.ari_
+06e	v02e	 mc		54.691		.06e.q4.ari_
+07p	v02e	 mc		141.75		.0607p.q4.ari_
+#
+#
+# heavy flavours in BGF, rapgap, see http://www-zeus.desy.de/~shehzadi/06_07MC/MC.html
+#
+#	-- BEAUTY --
+# 04		v02e	 mc		1167.78			.rgap3.nc.b.q2g1.
+# 04		v02e	 mc		242.360			cpz324.f13695.rgap3.nc.b.q2g1.
+04		v02e	 mc		132.202			cpz424.f13695.rgap3.nc.b.q2g1.
+04		v02e	 mc		396.607			cpu424.f13695.rgap3.nc.b.q2g1.
+04		v02e	 mc		242.371			cpr424.f13695.rgap3.nc.b.q2g1.
+04		v02e	 mc		154.236			cpx424.f13695.rgap3.nc.b.q2g1.
+05		v02e	 mc		2115.177		.rgap3.nc.b.q2g1.e.
+06e	v02e	 mc		912.499		.rgap3.nc.bbdir.e.q2g1.
+07p	v02e	 mc		2577.88		.rgap3.nc.b.q2g1.p
+#
+# -- charm --
+# - only Q2 > 1.5 GeV2 and Q2 > 4. GeV2 are used for the timebeing
+# 04		v02e	mc			40.63			ccbar.rg30.q2g1.5.bgf		# splitted to diff. trig. periods (13/03/2010)
+# 04		v02e	mc			8.6096			cpz324.f15643.ccbar.rg30.q2g1.5.bgf	# not using - triggers not understood
+04		v02e	mc			4.8307			cpz424.f15643.ccbar.rg30.q2g1.5.bgf
+04		v02e	mc			14.4582			cpu424.f15643.ccbar.rg30.q2g1.5.bgf
+04		v02e	mc			7.4523			cpr424.f15643.ccbar.rg30.q2g1.5.bgf
+04		v02e	mc			5.2808			cpx424.f15643.ccbar.rg30.q2g1.5.bgf
+# 04		v02e	 mc		124.335		.rgap3.nc.ccdir.p.q2g4		# splitted to diff. trig. periods (13/03/2010)
+# 04		v02e	 mc		26.597			cpz324.f13695.rgap3.nc.ccdir.p.q2g4 # not using - triggers not understood
+04		v02e	 mc		14.714			cpz424.f13695.rgap3.nc.ccdir.p.q2g4
+04		v02e	 mc		44.141			cpu424.f13695.rgap3.nc.ccdir.p.q2g4
+04		v02e	 mc		22.637			cpr424.f13695.rgap3.nc.ccdir.p.q2g4
+04		v02e	 mc		16.411		cpx424.f13695.rgap3.nc.ccdir.p.q2g4
+# 04		v02e	 mc		198.970		.rgap3.nc.ccdir.p.q2g16
+05		v02e	 mc		147.537		.rgap3.nc.c.q2g1.5
+05		v02e	 mc		282.964		.rgap3.nc.c.q2g4
+# 05		v02e	 mc		280.5			.rgap3.nc.c.q2g8
+# 05		v02e	 mc		276.8			.rgap3.nc.c.q2g16
+# 05		v02e	 mc		421.75		.rgap3.nc.c.q2g50
+06e	v02e	mc			54.509			ccbar.rg30.q2g1.5.bgf
+06e	v02e	 mc		166.303		.rgap3.nc.ccdir.e.q2g4
+# 06e	v02e	 mc		276.8			.rgap3.nc.ccdir.e.q2g16
+07p	v02e	mc			141.929		ccbar.rg30.q2g1.5.bgf
+07p	v02e	 mc		497.778		.rgap3.nc.c.
+#
+#
+# -- resolved DIS (non BGF samples)
+# -- for the timebenig, luminosity is just taken from webpage
+# http://www-zeus.desy.de/~libov/MC/cbrgap.htm
+# assuming no lost files
+#
+# -- resolved DIS (non BGF samples)
+# 0304p beauty
+# 04		v02e	mc		242.		cpz324.f15643.bbbar.rg30.q2g1.resc
+#  04		v02e	mc		132.		cpz424.f15643.bbbar.rg30.q2g1.resc
+#  04		v02e	mc		396.		cpu424.f15643.bbbar.rg30.q2g1.resc
+#  04		v02e	mc		242.		cpr424.f15643.bbbar.rg30.q2g1.resc
+#  04		v02e	mc		154.		cpx424.f15643.bbbar.rg30.q2g1.resc
+#
+# 04		v02e	mc		287.		cpz324.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		156.		cpz424.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		469.		cpu424.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		287.		cpr424.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		183.		cpx424.f15643.bbbar.rg30.q2g1.resae
+# 0304p charm
+# 04		v02e	mc		8.86.		cpz324.f15643.ccbar.rg30.q2g1.5.resc
+#  04		v02e	mc		4.9		cpz424.f15643.ccbar.rg30.q2g1.5.resc
+#  04		v02e	mc		14.69		cpu424.f15643.ccbar.rg30.q2g1.5.resc
+#  04		v02e	mc		7.53		cpr424.f15643.ccbar.rg30.q2g1.5.resc
+#  04		v02e	mc		5.46		cpx424.f15643.ccbar.rg30.q2g1.5.resc
+#
+# 04		v02e	mc		287.		cpz324.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		156.		cpz424.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		469.		cpu424.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		287.		cpr424.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		183.		cpx424.f15643.ccbar.rg30.q2g1.5.resae
+#
+# 04		v02e	mc		242.		cpz324.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		132.		cpz424.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		396.		cpu424.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		242.		cpr424.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		154.		cpx424.f15643.ccbar.rg30.q2g4.resc
+#
+# 05e
+#  05e		v02e	mc		2115.264			f15643.bbbar.rg30.q2g1.resc
+# 05e		v02e	mc		4230				f15643.bbbar.rg30.q2g1.resae
+#
+#  05e		v02e	mc		147.375			f15643.ccbar.rg30.q2g1.5.resc
+# 05e		v02e	mc		0					f15643.ccbar.rg30.q2g4.resc
+# 05e		v02e	mc		0					f15643.ccbar.rg30.q2g1.5.resae
+
+# 06e
+#  06e	v02e	mc		925.26		f15643.bbbar.rg30.q2g1.resc
+# 06e	v02e	mc		0				f15643.bbbar.rg30.q2g1.resae
+#
+#  06e	v02e	mc		54.9		f15643.ccbar.rg30.q2g1.5.resc
+# 06e	v02e	mc		0			f15643.ccbar.rg30.q2g4.resc
+# 06e	v02e	mc		0			f15643.ccbar.rg30.q2g1.5.resae
+# 0607p
+#  07p	v02e	mc		2574.08		f15643.bbbar.rg30.resc.bg
+# 07p	v02e	mc		0				f15643.bbbar.rg30.resae.gg.qqbar
+#
+#  07p	v02e	mc		498.085		f15643.ccbar.rg30.resc.cg
+# 07p	v02e	mc		0				f15643.ccbar.rg30.resae.gg.qqbar

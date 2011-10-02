@@ -1,0 +1,55 @@
+#ifndef DAFREVERTEXINGMODULE_HH
+#define DAFREVERTEXINGMODULE_HH  ($Id: DAFRevertexingModule.hh,v 1.2 2006/11/01 12:55:15 stadie Exp $)
+
+#include "DAFVertexFinder.hh"
+#include "VertexFitter.hh"
+
+
+#include <map>
+
+namespace VxLite {
+  class LinearizedTrack;
+
+  class DAFRevertexingModule {
+    
+  public:
+    static  DAFRevertexingModule* instance();
+    int init();
+    int event();    
+    int eventinit();
+    int term();
+
+ private:
+    DAFRevertexingModule();
+    ~DAFRevertexingModule();
+
+    void clearTables();
+    void printTables();
+    void reconstructPrimary();
+    void reconstructSecondaries();
+    LinearizedTrack* zttrackByVctrhl(int id);
+ 
+    static DAFRevertexingModule* m_instance;
+    
+    bool m_beamconstraint,m_verbose;
+    float m_beamwidth[2];
+    DAFVertexFinder m_daffinder;
+    VertexFitter m_fitter;
+    int m_index;
+
+    class Cleaner {
+    public:
+      Cleaner() {}
+      ~Cleaner()
+      {
+	if(DAFRevertexingModule::m_instance) {
+	  delete DAFRevertexingModule::m_instance;
+	  DAFRevertexingModule::m_instance = 0;
+	}
+      }
+    };
+    friend class Cleaner;
+  };
+}
+
+#endif

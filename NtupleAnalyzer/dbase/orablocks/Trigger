@@ -1,0 +1,9 @@
+Int_t           Fltw				[2]
+Int_t           Fltpsw			[2]
+Int_t           Fltfl
+Int_t           Gslt_global
+Int_t           Sltw				[6]
+Int_t           Sltupw			[6]
+Int_t           Tltw				[15]
+Int_t           Dstw				[4]
+Int_t           Fltpsfcw		[2]

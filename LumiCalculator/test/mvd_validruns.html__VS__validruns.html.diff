@@ -1,0 +1,111 @@
+3c3
+< <title>ZEUS good DQ run list for   2004/5 e- data - reprocessed   : good MVD   </title>
+---
+> <title>ZEUS good DQ run list for   2004/5 e- data - reprocessed    </title>
+7c7
+< <A HREF="./evtake_52243_57123_14.12.2008/Mvd_evtake_52243_57123_14.12.2008/infi_all_evtake_52243_57123"> INFI cards corresponding to all ep runs  : good MVD  </a> 
+---
+> <A HREF="./evtake_52243_57123_14.12.2008/evtake_52243_57123_14.12.2008/infi_all_evtake_52243_57123"> INFI cards corresponding to all ep runs  </a> 
+9c9
+< <A HREF="./evtake_52243_57123_14.12.2008/Mvd_evtake_52243_57123_14.12.2008/infi_ok_evtake_52243_57123">  INFI cards corresponding to all good DQ runs on disk   : good MVD  </a>
+---
+> <A HREF="./evtake_52243_57123_14.12.2008/evtake_52243_57123_14.12.2008/infi_ok_evtake_52243_57123">  INFI cards corresponding to all good DQ runs on disk   </a>
+11c11
+< <A HREF="./evtake_52243_57123_14.12.2008/Mvd_evtake_52243_57123_14.12.2008/PCAL_infi_ok_evtake_52243_57123"> INFI cards corresponding to EVTAKE PCAL runs on disk   : good MVD </a>
+---
+> <A HREF="./evtake_52243_57123_14.12.2008/evtake_52243_57123_14.12.2008/PCAL_infi_ok_evtake_52243_57123"> INFI cards corresponding to EVTAKE PCAL runs on disk  </a>
+13c13
+< <A HREF="./evtake_52243_57123_14.12.2008/Mvd_evtake_52243_57123_14.12.2008/SPEC_infi_ok_evtake_52243_57123"> INFI cards corresponding to good DQ and SPEC lumi runs on disk   : good MVD  </a>
+---
+> <A HREF="./evtake_52243_57123_14.12.2008/evtake_52243_57123_14.12.2008/SPEC_infi_ok_evtake_52243_57123"> INFI cards corresponding to good DQ and SPEC lumi runs on disk   </a>
+16,19c16,22
+< + number of taken ep runs / events : 1818  / 140524313 
+< + number of processed ep runs : 1818  
+< + number of recorded  evts : 140524313 
+< + number of processed evts : 138962230 
+---
+> + number of taken ep runs / events : 1881  / 143895987 
+> + number of processed ep runs : 1881  
+> + number of recorded  evts : 143895987 
+> + number of processed evts : 142287987 
+> +------------------------------------------------------------------------ 
+> <A HREF="./internal/lumi_comp.html">Some photon calorimeter versus spectrometer luminosity comparisons </a>
+> <A HREF="./evtake_52243_57123_14.12.2008/current.html">Beam current ratios </a>
+22,28c25,31
+< + number of good DQ processed runs : 1557  
+< + number of good DQ recorded  evts : 132505916 
+< + number of good DQ processed evts : 131056550  
+< +    EVTAKE photon cal lumi runs   :         1523   
+< +    number of processed evts :     129714887  and lumi :      132211.12  nb-1  
+< +    good DQ spectrometer lumi runs :         1250  
+< +    number of processed evts :     110587467  and lumi :      116152.19  nb-1  
+---
+> + number of good DQ processed runs : 1605  
+> + number of good DQ recorded  evts : 135122312 
+> + number of good DQ processed evts : 133635938  
+> +    EVTAKE photon cal lumi runs   :         1571   
+> +    number of processed evts :     132294275  and lumi :      134159.79  nb-1  
+> +    good DQ spectrometer lumi runs :         1255  
+> +    number of processed evts :     111074659  and lumi :      116636.95  nb-1  
+33c36
+< +  2004/5 e- data - reprocessed  : good MVD  
+---
+> +  2004/5 e- data - reprocessed  
+51a55,58
+> +  52364         19116       13.27       0.00        209772     STD_041217_HIGH 
+> +  52365         35114       26.73       0.00        431460     STD_041217_HIGH 
+> +  52366          6362        5.22       0.00         62178     STD_041217_HIGH 
+> +  52367         65293       67.16       0.00        554130     STD_041217_HIGH 
+52a60,75
+> +  52371         42775       28.50       0.00        528413     STD_041217_HIGH 
+> +  52372         34263       20.24       0.00        399017      STD_041217_LOW 
+> +  52381         20526       20.51       0.00        169957     STD_041217_HIGH 
+> +  52382         27277       21.40       0.00        204472      STD_041217_LOW 
+> +  52384         57433       47.45       0.00        535368      STD_041217_LOW 
+> +  52386         33740       24.08       0.00        357459      STD_041217_LOW 
+> +  52393         68844       38.85       0.00        901212      STD_041217_LOW 
+> +  52394        122741      102.69       0.00       1115730      STD_041217_LOW 
+> +  52396         72334       59.32       0.00        711888      STD_041217_LOW 
+> +  52407         29716       17.88       0.00        280823      STD_041217_LOW 
+> +  52408         77662       57.64       0.00        910111      STD_041217_LOW 
+> +  52409         45787       35.25       0.00        516207      STD_041217_LOW 
+> +  52410         23716       17.16       0.00        285959      STD_041217_LOW 
+> +  52411         18224       12.69       0.00        238260      STD_041217_LOW 
+> +  52415         28677       18.42       0.00        429276      STD_041217_LOW 
+> +  52441         83881       40.23       0.00       1287470      STD_041217_LOW 
+53a77,97
+> +  52459          3927        0.74       0.00        170889     STD_041217_HIGH 
+> +  52500         20564       12.41       0.00        266688      STD_041217_LOW 
+> +  52501        407423      247.49       0.00       6806371     STD_041217_HIGH 
+> +  52513         17185       11.47       0.00        222468     STD_041217_HIGH 
+> +  52529         57202       42.41       0.00        602855      STD_041217_LOW 
+> +  52530         59848       44.17       0.00        639759      STD_041217_LOW 
+> +  52532        127653       86.54       0.00       1736562      STD_041217_LOW 
+> +  52535         97781       61.18       0.00       1420409     STD_041217_HIGH 
+> +  52538         30285       20.00       0.00        399554      STD_041217_LOW 
+> +  52539         70584       46.29       0.00        969977      STD_041217_LOW 
+> +  52547         76842       71.57       0.00        777544     STD_041217_HIGH 
+> +  52548          4737        4.20       0.00         44591     STD_041217_HIGH 
+> +  52550         72393       66.32       0.00        744895     STD_041217_HIGH 
+> +  52571          4808        2.84       0.00        101903      TST_050106_LOW 
+> +  52573          6267        4.36       0.00        150738     STD_041217_HIGH 
+> +  52575          8228        4.99       0.00        208426     STD_041217_HIGH 
+> +  52576         44528       26.95       0.00       1139555     STD_041217_HIGH 
+> +  52577          3414        2.03       0.00         91812     STD_041217_HIGH 
+> +  52578         17635       11.04       0.00        506913     STD_041217_HIGH 
+> +  52579         12965        7.52       0.00        408679     STD_041217_HIGH 
+> +  52580          3211        2.09       0.00        126989     STD_041217_HIGH 
+188a233
+> +  53026          7789        7.72       0.00         86424     STD_050128_HIGH 
+207a253
+> +  53128         23446       14.41       0.00        273997      STD_050128_LOW 
+388a435
+> +  53636         12773       11.77      12.11        150112     STD_050315_HIGH 
+389a437
+> +  53642         70474       48.13      49.34        989641      STD_050315_LOW 
+644a693
+> +  54344        226024      229.26     232.81       2336362     STD_050426_HIGH 
+648a698
+> +  54356        105196      118.08     120.64        844438     STD_050426_HIGH 
+912a963
+> +  55125         72725       68.03      69.86        805536      STD_050617_LOW 

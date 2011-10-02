@@ -1,0 +1,9 @@
+Int_t           Evtake
+Int_t           Evtake_iwant
+Int_t           Mvdtake
+Int_t           Stttake
+Int_t           Tpoltake
+Int_t           Lpoltake
+Int_t           Fmutake
+Int_t           Mbtake
+Int_t           Tag6take

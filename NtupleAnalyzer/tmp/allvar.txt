@@ -1,0 +1,199 @@
+Int_t		Runnr
+Int_t		Eventnr
+Int_t       Kt_njet_a
+Float_t     Kt_etjet_a      [30]        [Kt_njet_a]
+Float_t     Kt_etajet_a     [30]        [Kt_njet_a]
+Float_t     Kt_phijet_a     [30]        [Kt_njet_a]
+Float_t     Kt_masjet_a     [30]        [Kt_njet_a]
+Int_t       Kt_njet_b
+Float_t     Kt_etjet_b      [30]        [Kt_njet_b]
+Float_t     Kt_etajet_b     [30]        [Kt_njet_b]
+Float_t     Kt_phijet_b     [30]        [Kt_njet_b]
+Float_t     Kt_masjet_b     [30]        [Kt_njet_b]
+Float_t     Kt_bst_b        [4]         [Kt_njet_b]
+Int_t           Bspt_prog
+Float_t         Bspt_x
+Float_t         Bspt_y
+Float_t         Bspt_z
+Float_t         Bspt_xer
+Float_t         Bspt_yer
+Float_t         Bspt_zer
+Float_t         Bspt_dxdz
+Float_t         Bspt_dydz
+Float_t         Bspt_dxdzer
+Float_t         Bspt_dydzer
+Int_t           Trk_ntracks
+Int_t           Trk_type		[400]		[Trk_ntracks]
+Int_t           Ntrack_type	[4]
+Int_t           Def_trk_type
+Int_t           Trk_id			[400]		[Trk_ntracks]
+Int_t           Trk_id2			[400]		[Trk_ntracks]
+Float_t         Trk_px			[400]		[Trk_ntracks]
+Float_t         Trk_py			[400]		[Trk_ntracks]
+Float_t         Trk_pz			[400]		[Trk_ntracks]
+Float_t         Trk_charge		[400]		[Trk_ntracks]
+Float_t         Trk_helpar              [400][5]        [Trk_ntracks][5]
+Float_t         Trk_covmat              [400][15]       [Trk_ntracks][15]
+Float_t         Trk_helmom              [400]		[Trk_ntracks]
+Int_t       Trk_nbr         [400]       [Trk_ntracks]
+Int_t       Trk_nbz         [400]       [Trk_ntracks]
+Int_t       Trk_nwu         [400]       [Trk_ntracks]
+Int_t       Trk_nwv         [400]       [Trk_ntracks]
+Int_t       Trk_nstt        [400]       [Trk_ntracks]
+Float_t     Trk_dedxmvd     [400]       [Trk_ntracks]
+Int_t           Sincand
+Int_t           Sierror
+Float_t         Siprob 		[10]			[Sincand]
+Float_t         Sipos 		[10][3]		[Sincand][3]
+Float_t         Sicalpos 	[10][3]		[Sincand][3]
+Float_t         Sicalene 	[10]			[Sincand]
+Float_t         Siein 		[10]			[Sincand]
+Float_t         Sienin 		[10]			[Sincand]
+Float_t         Siecorr 	[10][3]		[Sincand][3]
+Float_t         Sith 		[10]			[Sincand]
+Float_t         Siph 		[10]			[Sincand]
+Float_t         Sipt 		[10]			[Sincand]
+Int_t           Sixdet 		[10][3]		[Sincand][3]
+Int_t           Siydet		[10][3]		[Sincand][3]
+Float_t         Sixel			[10]				[Sincand]
+Float_t         Siyel			[10]				[Sincand]
+Float_t         Siq2el			[10]				[Sincand]
+Float_t         Sixda			[10]				[Sincand]
+Float_t         Siyda			[10]				[Sincand]
+Float_t         Siq2da			[10]				[Sincand]
+Float_t         Sixda_cell		[10]				[Sincand]
+Float_t         Siyda_cell		[10]				[Sincand]
+Float_t         Siq2da_cell	[10]				[Sincand]
+Float_t         Sixjb			[10]				[Sincand]
+Float_t         Siyjb			[10]				[Sincand]
+Float_t         Siq2jb			[10]				[Sincand]
+Float_t         Sixjb_cell		[10]				[Sincand]
+Float_t         Siyjb_cell		[10]				[Sincand]
+Float_t         Siq2jb_cell	[10]				[Sincand]
+Float_t         Vtxredprm_x
+Float_t         Vtxredprm_y
+Float_t         Vtxredprm_z
+Float_t         Vtxredprm_chi2
+Float_t         Vtxredprm_cov       [6]
+Float_t         Vtxredprm_ndf
+Int_t           Nr_secvtx
+Float_t         Vtxsec_x            [60]        [Nr_secvtx]
+Float_t         Vtxsec_y            [60]        [Nr_secvtx]
+Float_t         Vtxsec_z            [60]        [Nr_secvtx]
+Float_t         Vtxsec_mass         [60]        [Nr_secvtx]
+Float_t         Vtxsec_chi2         [60]        [Nr_secvtx]
+Float_t         Vtxsec_ndf          [60]        [Nr_secvtx]
+Int_t           Vtxsec_multi        [60]        [Nr_secvtx]
+Float_t         Vtxsec_cov          [60][6]     [Nr_secvtx][6]
+Int_t           Vtxsec_zttid        [60][15]    [Nr_secvtx][15]
+Float_t         V_h_px_zu
+Float_t         V_h_py_zu
+Float_t         V_h_pz_zu
+Float_t         V_h_e_zu
+Float_t         Etamax_zu
+Float_t         Etamax_zu4
+Float_t         Fgap
+Float_t         Bgap
+Int_t           Nzufos
+Int_t           Tufo				[250][4]		[Nzufos][4]
+Int_t           Zufo_bsp		[250]			[Nzufos]
+Float_t         Zufo				[250][4]		[Nzufos][4]
+Int_t       Nlepton
+Int_t       Nradpho
+Int_t       Nboson
+Int_t       Nquark
+Int_t       Ngluon
+Int_t       Idscatlep
+Int_t       Idradpho
+Int_t       Idboson
+Int_t       Idquark
+Int_t       Idgluon
+Int_t       Dolepton
+Int_t       Doradpho
+Int_t       Doboson
+Int_t       Doquark
+Int_t       Dogluon
+Float_t     Plepton     [5]
+Float_t     Pradpho     [5]
+Float_t     Pboson      [5]
+Float_t     Pquark      [5]
+Float_t     Pgluon      [5]
+Int_t       Nqg
+Int_t       Quarkprt
+Int_t       Idqg        [50]        [Nqg]
+Int_t       Doqg        [50]        [Nqg]
+Int_t       Prtqg       [50]        [Nqg]
+Float_t     Pqg         [50][5]     [Nqg][5]
+Int_t       Npmjets
+Float_t     Pxpmjet     [10]    [Npmjets]
+Float_t     Pypmjet     [10]    [Npmjets]
+Float_t     Pzpmjet     [10]    [Npmjets]
+Float_t     Epmjet      [10]    [Npmjets]
+Int_t       Kt_njet_d
+Float_t     Kt_etjet_d      [30]        [Kt_njet_d]
+Float_t     Kt_etajet_d     [30]        [Kt_njet_d]
+Float_t     Kt_phijet_d     [30]        [Kt_njet_d]
+Float_t     Kt_masjet_d     [30]        [Kt_njet_d]
+Float_t     Kt_bst_d        [4]         [Kt_njet_d]
+Int_t           Evtake
+Int_t           Evtake_iwant
+Int_t           Mvdtake
+Int_t           Tltw				[15]
+Float_t         Xvtx
+Float_t         Yvtx
+Float_t         Zvtx
+Int_t           Ntrkvtx
+Int_t       Trk_layinner            [400]           [Trk_ntracks]
+Int_t       Trk_layouter            [400]           [Trk_ntracks]
+Int_t       Sitrknr             [10]        [Sincand]
+Float_t     Sizuhmom    [10][4]     [Sincand][4]
+Int_t			Nhbmjets
+Float_t		Pxhbmjet			[100]			[Nhbmjets]
+Float_t		Pyhbmjet			[100]			[Nhbmjets]
+Float_t		Pzhbmjet			[100]			[Nhbmjets]
+Float_t		Ehbmjet			[100]			[Nhbmjets]
+Float_t		Mc_q2_cr
+Float_t		Mc_x_cr
+Int_t			Simrun
+Int_t           Fmck_nkin
+Float_t         Fmck_q2
+Float_t         Fmck_w
+Float_t         Fmck_xg
+Int_t           Fmck_nstor
+Int_t           Fmck_id                     [3000]        [Fmck_nstor]
+Float_t         Fmck_px                     [3000]        [Fmck_nstor]
+Float_t         Fmck_py                     [3000]        [Fmck_nstor]
+Float_t         Fmck_pz                     [3000]        [Fmck_nstor]
+Float_t         Fmck_e                      [3000]        [Fmck_nstor]
+Float_t         Fmck_m                      [3000]        [Fmck_nstor]
+Int_t           Fmck_isthep                 [3000]        [Fmck_nstor]
+Int_t           Fmck_daug                   [3000]        [Fmck_nstor]
+Int_t           Fmck_daug2                  [3000]        [Fmck_nstor]
+Int_t           Fmck_prt                    [3000]        [Fmck_nstor]
+Int_t           Fmck_prat                   [3000]        [Fmck_nstor]
+Float_t         Fmck_impar                  [3000]        [Fmck_nstor]
+Float_t         Fmck_impar2                 [3000]        [Fmck_nstor]
+Int_t           Fmck_hadjet                 [3000]        [Fmck_nstor]
+Int_t           Fmck_mhadjet                [3000]        [Fmck_nstor]
+Int_t           Fmck_bhadjet                [3000]        [Fmck_nstor]
+Int_t           Fmck_mbhadjet               [3000]        [Fmck_nstor]
+Int_t           Fmck_partjet                [3000]        [Fmck_nstor]
+Int_t           Fmck_mpartjet               [3000]        [Fmck_nstor]
+Int_t           Fmck_brhadjet               [3000]        [Fmck_nstor]
+Int_t           Fmck_brmhadjet              [3000]        [Fmck_nstor]
+Int_t           Fmck_brbhadjet              [3000]        [Fmck_nstor]
+Int_t           Fmck_brmbhadjet             [3000]        [Fmck_nstor]
+Int_t           Fmck_brpartjet              [3000]        [Fmck_nstor]
+Int_t           Fmck_brmpartjet             [3000]        [Fmck_nstor]
+Int_t           Npart
+Int_t           Idlepton
+Int_t           Idphoton
+Int_t           Part_id		[2044]			[Npart]
+Int_t           Part_prt	[2044]			[Npart]
+Float_t         Part_p		[2044][4]		[Npart][4]
+Int_t           Ncb
+Float_t			Mc_x
+Float_t			Mc_y
+Float_t			Mc_q2
+Float_t			Mc_vtx				[3]
+Float_t			Mc_xgam

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>VxLite- Utility Functions</title>
+  </head>
+
+  <body>
+    <table border=0 cellspacing=0 width="100%">
+	<tr><td bgcolor=yellow>
+	    <img SRC="zeus_small2.gif" ALT="ZEUS" height=77 width=77 align=Right>
+	    <h1 align=center><font color=black>VxLite - A Lightweight Vertexing Package</font></h1>
+	  </td></tr>
+    </table>
+    <br><br>
+  
+    <strong>Functions:</strong>
+    <ul>
+      <li> vxlitebs(beamwidth,vertex,vertexcov,ierr)<br>
+	vxlitebs uses bstilt(the beam spot GAF) to construct an estimate of the primary vertex. The beam tilt is included in the covariance matrix.<br><br>
+	input variables:
+	<ul>
+	  <li> beamwidth <br> 
+	    real(2); beam width in x and y to use (cm)<br>
+	    if both values are 0 the GAF values are used. It is recommened to
+	    overwrite these with e.g. 0.0120 0.0030 by setting beamwidth.
+	</ul>
+	output variables:
+	<ul>
+	  <li>vertex <br> 
+	    real(3); Cartesian coordinates in cm of the constructed vertex.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the constructed vertex.
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+	  <li> ierr <br>
+	    integer; error code from bstilt<br>
+	      0 = OK<br>
+              1 = GAF unavailable<br>
+              2 = run not in GAF<br>
+	</ul>
+    </ul>
+    <hr>
+    <address><a href="mailto:stadie@mail.desy.de">Hartmut Stadie</a></address>
+<!-- Created: Fri Oct 14 13:20:41 CEST 2005 -->
+<!-- hhmts start -->
+Last modified: Mon Sep 18 15:41:06 CEST 2006
+<!-- hhmts end -->
+  </body>
+</html>

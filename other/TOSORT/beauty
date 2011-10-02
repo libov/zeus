@@ -1,0 +1,10 @@
+beauty
+sigma {Jet(Et>5, |eta|<2.5)} = 569.399 (06e), 543.12 (0607p)
+ relative difference: 4.61517
+beauty
+sigma {Jet(no cuts)} = 876.385 (06e) 848.049 (0607p)
+ relative difference: 3.23317
+beauty
+sigma (5<Q2<1000, 0.02<y<0.7) = 445.073 (06e) 444.629 (0607p)
+ relative difference: 0.0998206
+

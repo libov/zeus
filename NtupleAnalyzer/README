@@ -1,0 +1,24 @@
+In this file you will find instructions how to build and run analysis framework.
+
+1. Adjust orablocks.cfg: choose orange variables to be read from your ntuple (common ntuple also?)
+1a. adjust these files (actually links to sources in src/)
+	SetBinning.cxx  (choose binning - the whole analysis chain is repeated for each bin)
+	DeclareHistograms.cxx	(declare output histograms, the same set for each bin but filling is separate of course)
+	Loop.cxx (put here your analysis code)
+
+2. To build simply type:
+	make
+This will update BaseClass.h according to selected orablocks.cfg using create-BaseClass.py
+and afterwards compile the whole analysis framework.
+3. Launch the executable:
+
+./analysis
+
+notes:
+1. be careful not to put any newlines in config/declarehisto.cfg
+
+
+-------------------------
+room for improvement:
+1. Minimize changing of source code, use steering files instead.
+

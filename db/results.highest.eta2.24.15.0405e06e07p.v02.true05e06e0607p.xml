@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE dataset SYSTEM "binning.dtd"><?xml-stylesheet type="text/xsl" href="binning.xsl"?><binning>
+        <!-- eta jet -->
+	<bin_group>
+        <bin id="1">
+                <subbin>
+                        <variable>etajet</variable>
+                        <low_edge>1.6</low_edge>
+                        <up_edge>2.2</up_edge>
+                </subbin>
+                <k_uds>0.615361</k_uds>
+                <k_c>1.93313</k_c>
+                <k_b>1.90915</k_b>
+                <k_uds_err>0.0382652</k_uds_err>
+                <k_c_err>0.225253</k_c_err>
+                <k_b_err>0.491546</k_b_err>
+                <sigma_uds_true>0</sigma_uds_true>
+                <sigma_c_true>1549.92</sigma_c_true>
+                <sigma_b_true>93.8556</sigma_b_true>
+                <sigma_uds>0</sigma_uds>
+                <sigma_c>4993.65</sigma_c>
+                <sigma_b>298.64</sigma_b>
+                <sigma_uds_err>0</sigma_uds_err>
+                <sigma_c_err>581.872</sigma_c_err>
+                <sigma_b_err>76.8906</sigma_b_err>
+        </bin>
+        </bin_group>
+</binning>

@@ -1,0 +1,8 @@
+Int_t			Nhbmjets
+Float_t		Pxhbmjet			[100]			[Nhbmjets]
+Float_t		Pyhbmjet			[100]			[Nhbmjets]
+Float_t		Pzhbmjet			[100]			[Nhbmjets]
+Float_t		Ehbmjet			[100]			[Nhbmjets]
+Int_t			Flhbmjet			[100]			[Nhbmjets]
+Int_t			Nphbmjet			[100]			[Nhbmjets]
+Int_t			Phbmjet			[100][100]	[Nhbmjets][Nphbmjet]

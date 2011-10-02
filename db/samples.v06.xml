@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE dataset SYSTEM "sample.dtd"><?xml-stylesheet type="text/xsl" href="sample.xsl"?><dataset>
+    <!-- - - - - - - - - - - - - - - - v06 Data(v06a) - - - - - - - - - - - - - - - - - - - -->
+    <!--NOTE: LUMINOSITIES FOR DATA ARE NOT CORRECTED YET! SEE SAMPLES.DATA.DB FOR THE CORRECTION FACTORS-->
+<!--    <sample>
+        <year>03</year>
+        <type>data</type>
+        <flavour/>
+        <CN_version>v06a</CN_version>
+        <name_pattern/>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>1.94</luminosity_recalculated>
+    </sample>
+    <sample>
+        <year>04</year>
+        <type>data</type>
+        <flavour/>
+        <CN_version>v06a</CN_version>
+        <name_pattern/>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>36.679</luminosity_recalculated>
+    </sample>
+    <sample>
+        <year>05</year>
+        <type>data</type>
+        <flavour/>
+        <CN_version>v06a</CN_version>
+        <name_pattern/>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>132.075</luminosity_recalculated>
+    </sample>-->
+
+    <sample>
+        <year>06e</year>
+        <type>data</type>
+        <flavour/>
+        <CN_version>v06a</CN_version>
+        <name_pattern/>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>54.685</luminosity_recalculated>
+    </sample>
+
+<!--    <sample>
+        <year>06p</year>
+        <type>data</type>
+        <flavour/>
+        <CN_version>v06a</CN_version>
+        <name_pattern/>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>95.865</luminosity_recalculated>
+    </sample>
+    <sample>
+        <year>07p</year>
+        <type>data</type>
+        <flavour/>
+        <CN_version>v06a</CN_version>
+        <name_pattern/>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>45.982</luminosity_recalculated>
+    </sample>-->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <!-- - - - - - - - - - - - - - - - v06 MC(v06b) - - - - - - - - - - - - - - - - - - - -->
+    <!-- LIGHT FLAVOUR -->
+<!--    <sample>
+        <year>05</year>
+        <type>mc</type>
+        <flavour>light_ariadne</flavour>
+        <q2>4</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.0405e.q4.ari_</name_pattern>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>0</luminosity_recalculated>
+    </sample>-->
+    <sample>
+        <year>06e</year>
+        <type>mc</type>
+        <flavour>light_ariadne</flavour>
+        <q2>4</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.06e.q4.ari_</name_pattern>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>108.465</luminosity_recalculated>
+    </sample>
+    <!-- BEAUTY -->
+<!--    <sample>
+        <year>05</year>
+        <type>mc</type>
+        <flavour>beauty_rapgap</flavour>
+        <q2>1</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.bbbar.rg30.q2g1.bgf</name_pattern>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>0</luminosity_recalculated>
+    </sample>-->
+    <sample>
+        <year>06e</year>
+        <type>mc</type>
+        <flavour>beauty_rapgap</flavour>
+        <q2>1</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.bbbar.rg30.q2g1.bgf</name_pattern>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>925.64</luminosity_recalculated>
+    </sample>
+    <!-- CHARM -->
+    <sample>
+        <year>06e</year>
+        <type>mc</type>
+        <flavour>charm_rapgap</flavour>
+        <q2>1.5</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.ccbar.rg30.q2g1.5.bgf</name_pattern>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>54.5092</luminosity_recalculated>
+    </sample>
+    <sample>
+        <year>06e</year>
+        <type>mc</type>
+        <flavour>charm_rapgap</flavour>
+        <q2>4</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.rgap3.nc.ccdir.e.q2g4</name_pattern>
+        <luminosity>0</luminosity>
+        <luminosity_recalculated>166.921</luminosity_recalculated>
+    </sample>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+</dataset>

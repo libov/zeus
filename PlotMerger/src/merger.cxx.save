@@ -1,0 +1,422 @@
+// System includes
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <map>
+using namespace std;
+
+// ROOT includes
+#include <TChain.h>
+#include <TMath.h>
+#include <TH1F.h>
+#include <TFile.h>
+#include <TTree.h>
+#include <TClonesArray.h>
+#include <TROOT.h>
+#include <TSystem.h>
+
+// my includes
+#include <inc/TPlotMerger.h>
+#include <../NtupleAnalyzer/inc/periods.h>
+#include <TCrossSection.h>
+
+TString   CN_VERSION="v02";
+//TString   CN_VERSION="v04";
+//TString   CN_VERSION="v06";
+
+enum    DataType {
+    kData,
+    kCharm,
+    kBeauty,
+    kLight,
+    kCharmResolved,
+    kBeautyResolved
+};
+
+struct    Sample {
+    TString     Name;
+    TString     Year;
+    Float_t     Lumi;
+    period      Period;
+    DataType    Type;
+};
+
+// declare global map
+map <period, map <DataType, Float_t> > LumiMap;
+
+// function declaration; see the implementation after main()
+void readfile(TString filename, vector <Sample> * samplevector);
+
+// the main() function
+int main(int argc, char **argv) {
+
+    // check whether number of arguments is at least two and print help message otherwise
+    if ( argc < 3 ) {
+        cout<<"Please provide necessary parameters\n"<<endl;
+        cout<<"usage:\n\t merger -b <Binning File Suffix> -v <Histograms Version Ending> [options]\n"<<endl;
+        cout<<"List of options:"<<endl;
+        cout<<"-d\tInclude direct part"<<endl;
+        cout<<"-e\tInclude excitation part"<<endl;
+        cout<<"-s\tScale plots"<<endl;
+        cout<<"-r\tremark"<<endl;
+        cout<<"Terminating, sorry."<<endl;
+        exit(-1);
+    }
+
+    // print welcome message
+    cout<<"******************************************************"<<endl;
+    cout<<"* Welcome to ZEUS Common Ntuple analysis framework   *"<<endl;
+    cout<<"* Step 3: analyis of Histograms                      *"<<endl;
+    cout<<"* Input: root files with histograms                  *"<<endl;
+    cout<<"******************************************************"<<endl;
+
+    // some declarations
+    TString     BinningFileSuffix;// = argv[1];
+    TString     HistogramsVersionEnding;// = argv[2];
+    TString     remark = "";
+
+    Bool_t      use_scaling_factors =0;
+    Bool_t      include_resolved = 0;
+    Bool_t      include_direct = 0;
+    Float_t     k_uds=0;
+    Float_t     k_c=0;
+    Float_t     k_b=0;
+
+        // handle options
+        opterr = 0;
+    int c;
+    while ((c = getopt (argc, argv, "b:v:desr:")) != -1) {
+        switch (c) {
+            case 'b':
+                BinningFileSuffix=optarg;
+                break;
+            case 'v':
+                HistogramsVersionEnding=optarg;
+                break;
+            case 'd':
+                include_direct = 1;
+                break;
+            case 'e':
+                include_resolved=1;
+                k_b = 7.46;
+                k_c = 10.14;
+                k_uds = 0.8392;
+                break;
+            case 's':
+                use_scaling_factors=1;
+                break;
+            case    'r':
+                cout<<optarg<<endl;
+                remark = (TString)optarg;
+                cout<<"INFO: remark: "<<remark<<endl;
+                break;
+            default:
+                abort ();
+        }
+    }
+    for (int index = optind; index < argc; index++)
+        printf ("WARNING: Non-option argument %s\n", argv[index]);
+
+        // construct files suffix as binning file suffix concatenated with version of histograms
+        TString     HistogramsVersion=BinningFileSuffix + HistogramsVersionEnding;
+    cout<<"Histograms Version: "<<HistogramsVersion<<endl;
+
+        if (remark == "") remark = ".0405e06e07p";
+
+    // in case k-factors scaling was requested, determine these factors
+        // depending on the version of the factors
+        // TODO: heavily hardcoded now; IMPROVE!! to be read from an XML files
+    TString XMLfilename;
+    if (include_direct and !include_resolved and use_scaling_factors) {
+
+
+            XMLfilename = "results."+HistogramsVersion+remark+"."+CN_VERSION+".true05e06e0607p.xml";
+            //XMLfilename = "results."+HistogramsVersion+remark+"."+CN_VERSION+".true06e.xml";
+            cout << "INFO: XMLfilename= " << XMLfilename << endl;
+
+            TCrossSection   cCrossSection(XMLfilename);
+            cCrossSection.setVerbose(false);
+            
+            k_c = cCrossSection.getCrossSectionBin(1).get_k_c();
+            k_b = cCrossSection.getCrossSectionBin(1).get_k_b();
+            k_uds = cCrossSection.getCrossSectionBin(1).get_k_uds();
+            cout << "INFO: using caling factors: " << k_b << " " << k_c << " "<< k_uds << endl;
+        }
+
+        if (use_scaling_factors) {
+            remark += ".scaled";
+        }
+        cout << "INFO: remark " << remark << endl;
+
+
+    if (include_direct and include_resolved ) {
+        cout << "ERROR: inclusion of both direct and resolved contributions has to be checked for correctness" << endl;
+        abort();
+    }
+    
+    vector <string>    yearData;
+    vector <string>    yearMC;
+
+    // pay attention which samples you add here - data samples have to have corresponding samples from mc (in principle)
+    if (remark.Contains("04")) {
+        // don't use 03 anymore
+        //yearData.push_back("03");
+        yearData.push_back("04");
+        yearMC.push_back("04");
+    }
+
+    if (remark.Contains("05e")) {
+        yearData.push_back("05");
+        yearMC.push_back("05");
+        yearMC.push_back("05e");
+    }
+
+    if (remark.Contains("06e")) {
+        yearData.push_back("06e");
+        yearMC.push_back("06e");
+    }
+
+    if (remark.Contains("07p")) {
+        yearData.push_back("06p");
+        yearData.push_back("07p");
+        yearMC.push_back("07p");
+    }
+    
+        // NOTE: heavily hardcoded. however it seems there's no universal recipe of
+        // normalization of the samples.... think/write more
+    DataType    DataTypeArray[6] = { kData, kCharm, kBeauty, kLight, kCharmResolved, kBeautyResolved };
+    period        PeriodArray[4] = { k0304p, k05e, k06e, k0607p };
+    for (int period_ind = 0; period_ind < 4; period_ind++) {
+        map <DataType, Float_t> tempMap;
+        for (int type_ind = 0; type_ind < 6; type_ind++) {
+            tempMap.insert(make_pair (DataTypeArray[type_ind], 0) );
+        }
+        LumiMap.insert(make_pair(PeriodArray[period_ind], tempMap) );
+    }
+
+    vector <Sample>        samplesData;
+    vector <Sample>        samplesMC;
+    samplesData.clear();
+    samplesMC.clear();
+
+
+    if (CN_VERSION== "v02") {
+        readfile("samples.data.db", &samplesData);
+        readfile("samples.mc.db", &samplesMC);
+    } else if (CN_VERSION== "v04") {
+        readfile("samples.data.v04.db", &samplesData);
+        readfile("samples.mc.v04.db", &samplesMC);
+    } else if (CN_VERSION== "v06") {
+        readfile("samples.data.v06.db", &samplesData);
+        readfile("samples.mc.v06.db", &samplesMC);
+    } else {
+        cout << "ERROR: such a CN version is not supported" << endl;
+        abort();
+    }
+ 
+    for (int period_ind = 0; period_ind < 4; period_ind++) {
+        for (int type_ind = 0; type_ind < 6; type_ind++) {
+            cout<<period_ind<<" "<<type_ind<<" "<<LumiMap[PeriodArray[period_ind]][DataTypeArray[type_ind]]<<endl;
+        }
+    }
+
+    // USAGE REMINDER:
+    // 1) Create Instance of TPlotMerger
+    // 2) Use TPlotMerger::AddSample() to add samples you want to merge
+    // 3) Call TPlotMerger::Merge() to merge the distributions
+    TPlotMerger *myPlots=new TPlotMerger(HistogramsVersion, remark);
+    myPlots -> SetXMLFileName(XMLfilename);
+    if (use_scaling_factors) myPlots -> SetScaleFitResults(true);
+    myPlots -> Initialize();
+
+    TString    fFileName1=getenv("HISTO_PATH");
+    TString    fFileName2=getenv("HISTO_PATH");
+    fFileName1+="/merged."+HistogramsVersion+".beautySamples.txt";
+    fFileName2+="/merged."+HistogramsVersion+".charmSamples.txt";
+    ofstream    charmSamples(fFileName1);
+    ofstream    beautySamples(fFileName2);
+
+    Double_t        scaling_factor = 1.000;
+
+    cout<<"Adding 'data' group"<<endl;
+    myPlots->AddSampleGroup("data", kNone);
+
+    for (int k=0; k<yearData.size(); k++) {
+        for (int j=0; j<samplesData.size(); j++) {
+            if (samplesData[j].Year==yearData[k]) {
+                cout <<"INFO: Adding sample "<< samplesData[j].Name << " with lumi "<<samplesData[j].Lumi<< endl;
+                myPlots->AddSample("data", samplesData[j].Name, samplesData[j].Lumi, -1);
+            }
+        }
+    }
+
+    cout<<"Adding 'mc' group"<<endl;
+    myPlots->AddSampleGroup("mc", kLumi);
+    for (int k=0; k<yearMC.size(); k++)    {
+        for (int j=0; j<samplesMC.size(); j++){
+            if ( samplesMC[j].Year == yearMC[k] ){
+
+                if ( (!include_resolved ) && ((samplesMC[j].Type == kCharmResolved) || (samplesMC[j].Type == kBeautyResolved)) ) continue;
+                if ( (!include_direct ) && ((samplesMC[j].Type == kCharm) || (samplesMC[j].Type == kBeauty)) ) continue;
+                cout <<"adding sample "<< samplesMC[j].Name << " with lumi "<<samplesMC[j].Lumi<< endl;
+
+                if ( use_scaling_factors ) {
+                    if ( samplesMC[j].Type == kLight) scaling_factor = k_uds;
+                    if ( (samplesMC[j].Type == kCharm) || (samplesMC[j].Type == kCharmResolved) ) scaling_factor = k_c;
+                    if ( (samplesMC[j].Type == kBeauty) || (samplesMC[j].Type == kBeautyResolved) ) scaling_factor = k_b;
+                }
+                else {
+                    scaling_factor = 1.000;
+                }
+                period cPeriod = samplesMC[j].Period;
+
+                myPlots->AddSample("mc", samplesMC[j].Name, LumiMap[cPeriod][kData]/LumiMap[cPeriod][samplesMC[j].Type], scaling_factor);
+                cout<<LumiMap[cPeriod][kData]<<" "<<LumiMap[cPeriod][samplesMC[j].Type]<<endl;
+            }
+        }
+    }
+
+    cout<<"Adding 'light' group"<<endl;
+    myPlots->AddSampleGroup("light", kLumi);
+    for (int k=0; k<yearMC.size(); k++)    {
+        for (int j=0; j<samplesMC.size(); j++){
+            if ( samplesMC[j].Year == yearMC[k] ){
+                if ( ! samplesMC[j].Name.Contains("ari") ) continue;
+                if ( use_scaling_factors ) scaling_factor = k_uds;
+                else    scaling_factor = 1.000;
+                cout <<"adding sample "<< samplesMC[j].Name << " with lumi "<<samplesMC[j].Lumi<< endl;
+                period cPeriod = samplesMC[j].Period;
+
+                myPlots->AddSample("light", samplesMC[j].Name, LumiMap[cPeriod][kData]/LumiMap[cPeriod][samplesMC[j].Type], scaling_factor);
+            }
+        }
+    }
+
+    cout<<"Adding 'charm' group"<<endl;
+    myPlots->AddSampleGroup("charm", kLumi);
+    for (int k=0; k<yearMC.size(); k++)    {
+        for (int j=0; j<samplesMC.size(); j++){
+            if ( samplesMC[j].Year == yearMC[k] ){
+                if ( (! samplesMC[j].Name.Contains("nc.c")) &&  (! samplesMC[j].Name.Contains("ccbar"))   ) continue;
+                if ( use_scaling_factors ) scaling_factor = k_c;
+                else    scaling_factor = 1.000;
+                if ( (!include_resolved ) && (samplesMC[j].Type == kCharmResolved)  ) continue;
+                if ( (!include_direct ) && (samplesMC[j].Type == kCharm) ) continue;
+                cout <<"adding sample "<< samplesMC[j].Name << " with lumi "<<samplesMC[j].Lumi<< endl;
+                period cPeriod = samplesMC[j].Period;
+
+                myPlots->AddSample("charm", samplesMC[j].Name, LumiMap[cPeriod][kData]/LumiMap[cPeriod][samplesMC[j].Type], scaling_factor);
+                charmSamples<<samplesMC[j].Name<<endl;
+            }
+        }
+    }
+
+    cout<<"Adding 'beauty' group"<<endl;
+    myPlots->AddSampleGroup("beauty", kLumi);
+    for (int k=0; k<yearMC.size(); k++)    {
+        for (int j=0; j<samplesMC.size(); j++){
+            if ( samplesMC[j].Year == yearMC[k] ){
+                if ( ( ! samplesMC[j].Name.Contains("nc.b") ) && (! samplesMC[j].Name.Contains("bbbar") ) ) continue;
+                if ( use_scaling_factors ) scaling_factor = k_b;
+                else    scaling_factor = 1.000;
+                if ( (!include_resolved ) && (samplesMC[j].Type == kBeautyResolved) ) continue;
+                if ( (!include_direct ) && (samplesMC[j].Type == kBeauty) ) continue;
+                cout <<"adding sample "<< samplesMC[j].Name << " with lumi "<<samplesMC[j].Lumi<< endl;
+                period cPeriod = samplesMC[j].Period;
+                myPlots->AddSample("beauty", samplesMC[j].Name, LumiMap[cPeriod][kData]/LumiMap[cPeriod][samplesMC[j].Type], scaling_factor);
+                
+                beautySamples<<samplesMC[j].Name<<endl;
+            }
+        }
+    }
+
+    cout<<" INFO: calling myPlots->Merge()"<<endl;
+    myPlots->Merge();
+    cout<<" INFO: myPlots->Merge() done"<<endl;
+
+    cout<<" INFO: Closing text files"<<endl;
+    beautySamples.close();
+    charmSamples.close();
+    cout<<" INFO: Closing text files done"<<endl;
+    cout<<" INFO: end of the program"<<endl;
+    return 0;
+}
+
+
+void readfile(TString filename, vector <Sample> * samplevector) {
+        cout<<"DEBUG: Entered readfile() routine"<<endl;
+        cout<<"filename= "<<filename<<endl;
+
+    TString    DATABASE_PATH=getenv("DATABASE_PATH");
+    ifstream file (DATABASE_PATH+"/"+filename, ios::in);
+
+    char           year[256], version[256], type[256], details[256];
+    Float_t        lumi;
+    string         line;
+
+
+    while ( !file.eof() ) {
+        getline(file, line);
+        TString        first_char=line[0];
+        if ( first_char == "#" or (TString)line=="" ) continue;
+        for (int i =0; i < 256; i++) details[i]=0;
+        sscanf ( line.c_str(), "%s %s %s %f %s", year, version, type, &lumi,  details );
+
+        Sample    cSample;
+        cSample.Name=TString(type)+(TString)year+(TString)version+TString(details);
+        cSample.Lumi=lumi;
+        cSample.Year=TString(year);
+
+        if ((TString)type == "data") {
+            if ( (cSample.Name).Contains("03") || (cSample.Name).Contains("04") ) cSample.Period=k0304p;
+            if ( cSample.Name.Contains("05")    ) cSample.Period=k05e;
+            if ( cSample.Name.Contains("06e") ) cSample.Period=k06e;
+            if ( cSample.Name.Contains("06p") || cSample.Name.Contains("07p") ) cSample.Period=k0607p;
+            cSample.Type = kData;
+        }
+        else if ((TString)type == "mc")  {
+            // define period
+            if ( cSample.Name.Contains("04") && (!cSample.Name.Contains("05")) ) cSample.Period=k0304p;
+            if ( cSample.Name.Contains("05") || cSample.Name.Contains("05e"))     cSample.Period=k05e;
+            if ( cSample.Name.Contains("06e") ) cSample.Period=k06e;
+            if ( cSample.Name.Contains("07p") ) cSample.Period=k0607p;
+
+            // define type of mc sample
+            if (cSample.Name.Contains("ari")) cSample.Type = kLight;
+            if (cSample.Name.Contains("ccbar") or cSample.Name.Contains("nc.c"))
+            {
+                if (cSample.Name.Contains("res")) cSample.Type = kCharmResolved;
+                else    cSample.Type = kCharm;
+            }
+            if ( cSample.Name.Contains("nc.b") || cSample.Name.Contains("bbbar"))
+            {
+                if (cSample.Name.Contains("res")) cSample.Type = kBeautyResolved;
+                else cSample.Type = kBeauty;
+            }
+        }
+
+        /**
+        Here one should be very careful - this defines normalisation; Depending on samples
+        you want to and (in particular - which charm q2 subsamples should be used) lumi noirmalization
+        should be different. Depends on what you do in TMiniNtupleAnalyzer. If weighting factors are applied
+        there - then only 1.5 charm samples should be counted for the luminosity! If you want to add
+        samples for the same process in the SAME kinematic region - ALL luminosities should be added.
+        */
+
+        /** assuming no weighting - add all luminosities
+         */
+        //LumiMap[cSample.Period][cSample.Type] += cSample.Lumi;
+
+        /** assuming proper weighting during analysis step - so that all charm subsamples are weighted in such
+            a way that the sum has luminosity of  Q2>1.5 sample
+        */
+        cout<<"cSample.Name= "<<cSample.Name<<"; cSample.Lumi= "<<cSample.Lumi<<"; cSample.Type= "<<cSample.Type<<endl;
+
+
+        if ( ((cSample.Type == kCharm ) && (cSample.Name.Contains("q2g1.5"))) || (cSample.Type != kCharm) )    {
+            LumiMap[cSample.Period][cSample.Type] += cSample.Lumi;
+        }
+
+        samplevector->push_back(cSample);
+    }
+}

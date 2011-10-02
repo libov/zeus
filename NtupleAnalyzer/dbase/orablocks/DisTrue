@@ -1,0 +1,26 @@
+Int_t       Nlepton
+Int_t       Nradpho
+Int_t       Nboson
+Int_t       Nquark
+Int_t       Ngluon
+Int_t       Idscatlep
+Int_t       Idradpho
+Int_t       Idboson
+Int_t       Idquark
+Int_t       Idgluon
+Int_t       Dolepton
+Int_t       Doradpho
+Int_t       Doboson
+Int_t       Doquark
+Int_t       Dogluon
+Float_t     Plepton     [5]
+Float_t     Pradpho     [5]
+Float_t     Pboson      [5]
+Float_t     Pquark      [5]
+Float_t     Pgluon      [5]
+Int_t       Nqg
+Int_t       Quarkprt
+Int_t       Idqg        [50]        [Nqg]
+Int_t       Doqg        [50]        [Nqg]
+Int_t       Prtqg       [50]        [Nqg]
+Float_t     Pqg         [50][5]     [Nqg][5]

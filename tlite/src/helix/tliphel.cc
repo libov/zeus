@@ -1,0 +1,103 @@
+//*****************************************************************************
+// File:      LinearizedTrack.cc
+// ----------------------------------------------------------------------------
+//=============================================================================
+// RCS Current Revision Record
+//-----------------------------------------------------------------------------
+// $Source: /afs/desy.de/user/s/stadie/zeus/cvsroot/tlite/src/helix/tliphel.cc,v $
+// $Revision: 1.3 $
+// $Date: 2006/08/01 16:11:17 $
+// $Author: stadie $
+// $State: Exp $
+// $Locker:  $
+//*****************************************************************************
+// tliphel calculates the four momentum and its covariance matrix using the 
+// helix parameters and their covariance matrix. The momentum is calculated 
+// close to the reference point of the track. 
+// Input:
+//    par     - the helix parameters
+//    cov     - the helix covariance matrix
+//    bfieldz - the z component of the magnet field in kgauss
+//    mass    - the mass of the particle
+//    mode    - if mode > 0 the covariance matrix of the four momentum is 
+//              calculated
+//
+// Output:
+//    p       - the four momentum at the point of closest approach to the
+//              reference point of the helix
+//    pcov    - the covariance matrix for the calculated four momentum
+//              format:    1  2  4  7
+//                            3  5  8
+//                               6  9
+//                                 10   
+//*****************************************************************************
+#include "LinearizedTrack.hh"
+
+
+extern "C" {
+  void tliphel_(float par[5], float cov[15], float &bfieldz, float& mass,
+		int &mode, double p[4], double pcov[10]) 
+  {
+    double sin_phi = sin(par[0]);
+    double cos_phi = cos(par[0]);
+    double r = 1/par[1];
+    float B = bfieldz;
+
+    if(B == 0) {
+      B = VxLite::LinearizedTrack::BFIELD_TESLA * 10;
+    }
+    
+    double pt = std::abs(VxLite::LinearizedTrack::CURVATURE_CONSTANT * B * r 
+			 * 0.1);
+    p[0] = cos_phi * pt;
+    p[1] = sin_phi * pt;
+    p[2] = par[4] * pt;
+    if(mass == 0) {
+      mass = VxLite::LinearizedTrack::PI_PLUS_MASS;
+    }
+    p[3] = sqrt(mass * mass + (1 + par[4] * par[4]) * pt * pt); 
+  
+    if(mode > 0)  {   
+      double dpdalpha00 = - p[1];//a
+      double dpdalpha01 = - p[0] * r;//b
+      double dpdalpha10 =   p[0];//c
+      double dpdalpha11 = - p[1] * r;//d
+      double dpdalpha21 = - p[2] * r;//e
+      double dpdalpha24 =   pt;//f
+      double denom = pt * pt/p[3];
+      double dpdalpha31 = -(1 + par[4] * par[4])* r * denom;//g
+      double dpdalpha34 =  par[4] * denom;//h
+
+      double cov1acov2b = dpdalpha00 * cov[0] + dpdalpha01 * cov[1];
+      double cov2acov6b = dpdalpha00 * cov[1] + dpdalpha01 * cov[5];
+      double cov2ccov6d = dpdalpha10 * cov[1] + dpdalpha11 * cov[5];
+      double cov5acov9b = dpdalpha00 * cov[4] + dpdalpha01 * cov[8];
+      double cov5ccov9d = dpdalpha10 * cov[4] + dpdalpha11 * cov[8];
+      double cov6ecov9f = dpdalpha21 * cov[5] + dpdalpha24 * cov[8];
+      double cov9ecov15f = dpdalpha21 * cov[8] + dpdalpha24 * cov[14];
+      //pcov[0][0]
+      pcov[0] = cov1acov2b * dpdalpha00 + cov2acov6b * dpdalpha01;
+      //pcov[0][1]
+      pcov[1] = cov1acov2b * dpdalpha10 + cov2acov6b * dpdalpha11;
+      //pcov[0][2]
+      pcov[3] = cov2acov6b * dpdalpha21 + cov5acov9b * dpdalpha24;
+      //pcov[0][3]
+      pcov[6] = cov2acov6b * dpdalpha31 + cov5acov9b * dpdalpha34;
+      //pcov[1][1]
+      pcov[2] = (dpdalpha10 * cov[0] + dpdalpha11 * cov[1]) *  dpdalpha10 +
+	cov2ccov6d * dpdalpha11;
+      //pcov[1][2]
+      pcov[4] = cov2ccov6d * dpdalpha21 + cov5ccov9d * dpdalpha24;
+      //pcov[1][3]
+      pcov[7] = cov2ccov6d * dpdalpha31 + cov5ccov9d * dpdalpha34;
+      //pcov[2][2]
+      pcov[5] =  cov6ecov9f * dpdalpha21 + cov9ecov15f * dpdalpha24;
+      //pcov[2][3]
+      pcov[8] =  cov6ecov9f * dpdalpha31 + cov9ecov15f * dpdalpha34;
+      //pcov[3][3]
+      pcov[9] =  dpdalpha31*cov[5]*dpdalpha31 + 
+	2*dpdalpha31*cov[8]*dpdalpha34 + dpdalpha34*cov[14]*dpdalpha34;
+
+    }
+  }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Deterministic Annealing Filter for Vertexing</title>
+  </head>
+
+  <body>
+    <table border=0 cellspacing=0 width="100%">
+	<tr><td bgcolor=yellow>
+	    <img SRC="zeus_small2.gif" ALT="ZEUS" height=77 width=77 align=Right>
+	    <h1 align=center><font color=black>Vertex Reconstruction with a Deterministic Annealing Filter</font></h1>
+	  </td></tr>
+    </table>
+    <br><br>
+    Their are two ways to use the deterministic annealing filter (DAF). One
+is to call it explicitly one's code, the other is to enable it within 
+Orange to refill the ZT vertex tables.
+
+    <br><br><br>
+    <strong>DAFVtx Module in Orange:</strong>
+    <br><br>
+    This modules refits the vertices found by the REG vertex reconstruction using ZT tracks. In case of the primary vertex, a smooth outlier removal is done
+using the DAF.<br>
+    To enable this module in your <a href="http://www-zeus.desy.de/ZEUS_ONLY/analysis/orange/release.notes/test.060815.html">orange job</a>, you have to set:
+    <br>
+    ORANGE-doDAFVtx ON
+    </br>
+    The following cards are read by the module:
+    <br>
+    <ul>
+      <li> DAFVTX-BeamCstr ON/OFF 
+	<br> Turns the beam constraint on and off. The default is ON.
+      <li> DAFVTX-Verbose  ON/OFF
+	<br> Enables debug output. The default is OFF.
+      <li> DAFVTX-Width 0.0120 0.0030
+	<br> The width of the beam in x and y in cm. These values are used in 
+	the beam constraint mode. The defaults are  0.0120 cm and 0.0030 cm.
+      <li> DAFVTX-CHICUT 20
+	<br> Tracks that contribute to the vertex fit with a &chi;&sup2; 
+above the cut value are downweighted. The default is 20.
+    </ul>
+    <strong>Functions:</strong>
+    <ul>
+      <li> vxlitedaffit(ntracks,par,cov,vertex,vertexcov,chi2_cut,mode,chi,ndof,weights,newpar)<br>
+	vxlitedaffit performs a vertex fit with smooth outlier removal using a DAF. The weights assigned to the tracks in the last fitting step are returned in addition to the usual results.<br> 
+	input variables:
+	<ul>
+	  <li> ntracks <br> 
+	    integer; the number of tracks to be fitted.
+	  <li> par <br> 
+	    real(5,100); an array holding the parameters of the tracks. <br>
+	    The track parameters follow the ZEUS convention(&Phi;H, Q/R, QDH, ZH,cot &theta;).
+	  <li>cov <br> 
+	    real(15,100); an array holding the elements of the covariance matrix  of the tracks. <br>
+	    The ordering follows the convention used in the ZTTRHL and VCTRHL tables.
+	  <li>vertex <br>
+	    real(3); Cartesian coordinates in cm of the starting point of the fit or vertex to constrain to.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the vertex to constrain to
+	  <li>chi2_cut<br>
+	    real;  tracks that contribute to the vertex fit with a &chi;&sup2; 
+above the cut value are downweighted
+	  <li>mode <br>
+	    int; if mode eq 1, the vertex is constraint to vertex and vertexcov.
+	</ul>
+	output variables:
+	<ul>
+	  <li>vertex <br> 
+	    real(3); Cartesian coordinates in cm of the fitted vertex.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the fitted vertex.
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+	  <li>chi <br>
+	    real; &chi;&sup2; of the fit.
+	  <li>ndof <br>
+	    real; number of degrees of freedom of the fit. 
+	  <li>weights<br>
+	    real(100); weights assigned to the tracks in the vertex fit.
+	  <li>newpar <br> 
+	    real(3,100); vertex constrained track parameters(&theta;, &Phi;, Q/R). These can be used the calculate the momentum of the fitted particle.
+	</ul>
+	<br>      
+	<hr>
+    <address><a href="mailto:stadie@mail.desy.de">Hartmut Stadie</a></address>
+<!-- Created: Fri Aug 18 17:51:40 CEST 2006 -->
+<!-- hhmts start -->
+Last modified: Mon Sep 18 15:44:01 CEST 2006
+<!-- hhmts end -->
+  </body>
+</html>

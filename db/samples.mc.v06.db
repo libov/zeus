@@ -1,0 +1,9 @@
+# # -- light flavour ariadne, Q2>4,  http://www-zeus.desy.de/~mforrest/ZEUS_ONLY/qcd_mc.php3
+06e     v06b        mc      108.465     .06e.q4.ari_
+#
+# heavy flavours in BGF, rapgap, see http://www-zeus.desy.de/~shehzadi/06_07MC/MC.html
+# -- beauty
+06e     v06b        mc      925.64      .bbbar.rg30.q2g1.bgf
+# -- charm
+06e     v06b        mc      54.5092     .ccbar.rg30.q2g1.5.bgf
+06e     v06b        mc      166.921     .rgap3.nc.ccdir.e.q2g4

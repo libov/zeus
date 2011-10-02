@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>VxLite - A Lightweight Vertexing Package</title>
+  </head>
+
+  <body>
+    <table border=0 cellspacing=0 width="100%">
+	<tr><td bgcolor=yellow>
+	    <img SRC="zeus_small2.gif" ALT="ZEUS" height=77 width=77 align=Right>
+	    <h1 align=center><font color=black>VxLite - A Lightweight Vertexing Package</font></h1>
+	  </td></tr>
+    </table>
+    <br><br>
+    VxLite is an implementation of the global vertex fit by Billoir, Fr&uuml;hwirth, Regler (1985, NIM A 241, p 115-131).<br>
+    <strong>Functions:</strong>
+    <ul>
+      <li> vxlitefit(ntracks,par,cov,start,vertex,vertexcov,chi,newpar)<br>
+	input variables:
+	<ul>
+	  <li> ntracks <br> 
+	    integer; the number of tracks to be fitted.
+	  <li> par <br> 
+	    real(5,100); an array holding the parameters of the tracks. <br>
+	    The track parameters follow the ZEUS convention(&Phi;H, Q/R, QDH, ZH,cot &theta;).
+	  <li>cov <br> 
+	    real(15,100); an array holding the elements of the covariance matrix  of the tracks. <br>
+	    The ordering follows the convention used in the ZTTRHL and VCTRHL tables.
+	  <li>start <br>
+	    real(3); Cartesian coordinates in cm of the starting point of the fit.
+	</ul>
+	output variables:
+	<ul>
+	  <li>vertex <br> 
+	    real(3); Cartesian coordinates in cm of the fitted vertex.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the fitted vertex.
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+	  <li>chi <br>
+	    real; &chi;&sup2; of the fit.
+	  <li>newpar <br> 
+	    real(3,100); vertex constrained track parameters(&theta;, &Phi;, Q/R). These can be used the calculate the momentum of the fitted particle.
+	</ul>
+	<br>      
+      <li> vxlitefitcov(ntracks,par,cov,start,vertex,vertexcov,chi,newpar,newparcov)<br>
+	input variables:
+	<ul>
+	  <li> ntracks <br> 
+	    integer; the number of tracks to be fitted.
+	  <li> par <br> 
+	    real(5,100); an array holding the parameters of the tracks. <br>
+	    The track parameters follow the ZEUS convention(&Phi;H, Q/R, QDH, ZH,cot &theta;).
+	  <li>cov <br> 
+	    real(15,100); an array holding the elements of the covariance matrix  of the tracks. <br>
+	    The ordering follows the convention used in the ZTTRHL and VCTRHL tables.
+	  <li>start <br>
+	    real(3); Cartesian coordinates in cm of the starting point of the fit.
+	</ul>
+	output variables:
+	<ul>
+	  <li>vertex <br> 
+	    real(3); Cartesian coordinates in cm of the fitted vertex.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the fitted vertex.
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+	  <li>chi <br>
+	    real; &chi;&sup2; of the fit.
+	  <li>newpar <br> 
+	    real(3,100); vertex constrained track parameters(&theta;, &Phi;, Q/R). These can be used the calculate the momentum of the fitted particle.
+	  <li>newparcov <br> 
+	    real(6,100); elements of the covariance matrix of the vertex constrained track parameters(&theta;, &Phi;, Q/R). 
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+
+	</ul>
+	<br>
+      <li> vxlitefitit(ntracks,par,cov,start,iterations,vertex,vertexcov,chi,newpar)<br>
+	The same as vxlitefit, but the number of fitting iterations can be specified.
+       <br>
+	input variables:
+	<ul>
+	  <li> ntracks <br> 
+	    integer; the number of tracks to be fitted.
+	  <li> par <br> 
+	    real(5,100); an array holding the parameters of the tracks. <br>
+	    The track parameters follow the ZEUS convention(&Phi;H, Q/R, QDH, ZH,cot &theta;).
+	  <li>cov <br> 
+	    real(15,100); an array holding the elements of the covariance matrix  of the tracks. <br>
+	    The ordering follows the convention used in the ZTTRHL and VCTRHL tables.
+	  <li>start <br>
+	    real(3); Cartesian coordinates in cm of the starting point of the fit.
+	  <li> iterations <br>
+	    integer; the maximum number of fitting iterations.
+	</ul>
+	output variables:
+	<ul>
+	  <li>vertex <br> 
+	    real(3); Cartesian coordinates in cm of the fitted vertex.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the fitted vertex.
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+	  <li>chi <br>
+	    real; &chi;&sup2; of the fit.
+	  <li>newpar <br> 
+	    real(3,100); vertex constrained track parameters(&theta;, &Phi;, Q/R). These can be used the calculate the momentum of the fitted particle.
+	</ul>
+	<br>
+	<li> vxlitefititcstr(ntracks,par,cov,iterations,vertex,vertexcov,chi,newpar)<br>
+	vertex constraining fit
+	<br>
+	input variables:
+	<ul>
+	  <li> ntracks <br> 
+	    integer; the number of tracks to be fitted.
+	  <li> par <br> 
+	    real(5,100); an array holding the parameters of the tracks. <br>
+	    The track parameters follow the ZEUS convention(&Phi;H, Q/R, QDH, ZH,cot &theta;).
+	  <li>cov <br> 
+	    real(15,100); an array holding the elements of the covariance matrix  of the tracks. <br>
+	    The ordering follows the convention used in the ZTTRHL and VCTRHL tables.
+	  <li>vertex <br>
+	    real(3); Cartesian coordinates in cm of the input vertex.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the input vertex.
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+	</ul>
+	output variables:
+	<ul>
+	  <li>vertex <br> 
+	    real(3); Cartesian coordinates in cm of the fitted vertex.
+	  <li>vertexcov <br>
+	    real(6); elements of the covariance matrix of the fitted vertex.
+	    <br> The order of the elements is:
+	    <table border=0 cellspacing=0 width="100%">
+		<tr><td>1</td><td>2</td><td>4</td></tr>   
+		<tr><td> </td><td>3</td><td>5</td></tr>
+		<tr><td> </td><td> </td><td>6</td></tr>
+	    </table>
+	  <li>chi <br>
+	    real; &chi;&sup2; of the fit.
+	  <li>newpar <br> 
+	    real(3,100); vertex constrained track parameters(&theta;, &Phi;, Q/R). These can be used the calculate the momentum of the fitted particle.
+	</ul>
+    </ul>
+    <hr>
+    <address><a href="mailto:stadie@mail.desy.de">Hartmut Stadie</a></address>
+<!-- Created: Fri Oct 14 13:20:41 CEST 2005 -->
+<!-- hhmts start -->
+Last modified: Mon Sep 18 15:41:06 CEST 2006
+<!-- hhmts end -->
+  </body>
+</html>

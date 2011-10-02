@@ -1,0 +1,67 @@
+# Charm differential cross sections d sigma / dY in bins of Eta:
+Bin 1: 1360.32 +/- 63.9726
+Bin 2: 3036.87 +/- 134.145
+Bin 3: 3891.99 +/- 137.311
+Bin 4: 4041.44 +/- 148.884
+Bin 5: 4377.29 +/- 153.57
+Bin 6: 4138.79 +/- 154.008
+Bin 7: 4110.49 +/- 166.364
+Bin 8: 3470.3 +/- 183.978
+Bin 9: 3017.26 +/- 242.547
+Bin 10: 2882.61 +/- 352.944
+# Charm differential cross sections d sigma / dY in bins of Et:
+Bin 1: 2963.43 +/- 95.7567
+Bin 2: 734.076 +/- 21.7042
+Bin 3: 218.617 +/- 9.7322
+Bin 4: 84.0884 +/- 5.77824
+Bin 5: 35.3453 +/- 3.89478
+Bin 6: 11.4983 +/- 2.37034
+Bin 7: 1.67721 +/- 1.14695
+# Charm differential cross sections d sigma / dY in bins of Phi:
+Bin 1: 2008.73 +/- 88.787
+Bin 2: 1918.31 +/- 76.3221
+Bin 3: 2076.89 +/- 67.9447
+Bin 4: 1976.1 +/- 121.42
+Bin 5: 1820.16 +/- 173.049
+Bin 6: 1858.63 +/- 80.8567
+Bin 7: 1946.28 +/- 61.5701
+Bin 8: 1994.4 +/- 83.3058
+# Charm differential cross sections d sigma / dY in bins of x:
+Bin 1: 8.99179e+06 +/- 701847
+Bin 2: 7.86359e+06 +/- 287950
+Bin 3: 3.6843e+06 +/- 96553.2
+Bin 4: 883723 +/- 22184.4
+Bin 5: 188522 +/- 8708.66
+Bin 6: 7960.16 +/- 587.797
+# Charm differential cross sections d sigma / dY in bins of Q2:
+Bin 1: 554.722 +/- 23.0684
+Bin 2: 310.675 +/- 10.1049
+Bin 3: 156.782 +/- 4.70057
+Bin 4: 55.6024 +/- 2.31481
+Bin 5: 20.1397 +/- 0.930756
+Bin 6: 6.23358 +/- 0.408015
+Bin 7: 1.65636 +/- 0.117227
+Bin 8: 0.168658 +/- 0.0276518
+# Charm differential cross sections d sigma / dY in bins of x_q2bin1:
+Bin 1: 8.99179e+06 +/- 701847
+Bin 2: 9.78624e+06 +/- 688353
+Bin 3: 6.1381e+06 +/- 358824
+Bin 4: 943439 +/- 32400.7
+# Charm differential cross sections d sigma / dY in bins of x_q2bin2:
+Bin 1: 1.4659e+06 +/- 210657
+Bin 2: 2.29372e+06 +/- 95370.4
+Bin 3: 1.12336e+06 +/- 53886
+Bin 4: 463396 +/- 24265.4
+Bin 5: 120368 +/- 8483.44
+# Charm differential cross sections d sigma / dY in bins of x_q2bin3:
+Bin 1: 304322 +/- 31815.5
+Bin 2: 274013 +/- 20951.6
+Bin 3: 125117 +/- 7367.39
+Bin 4: 11615.7 +/- 1128.88
+# Charm differential cross sections d sigma / dY in bins of x_q2bin4:
+Bin 1: 108226 +/- 7270.02
+Bin 2: 31891.5 +/- 2027.7
+Bin 3: 3391.83 +/- 577.76
+# Charm differential cross sections d sigma / dY in bins of x_q2bin5:
+Bin 1: 4944.06 +/- 730.793
+Bin 2: 333.193 +/- 151.531

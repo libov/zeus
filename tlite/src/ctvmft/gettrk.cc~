@@ -1,0 +1,22 @@
+#include <vector>
+#include "ctvmft.h"
+#include "LinearizedTrack.hh"
+
+using namespace VxLite;
+
+extern "C" void gettrk_(int& track,char type[],float& mass,float& radius,
+			int& beam,int& vrtx,float* xm1,float* elm1,int& ierr) 
+{
+//  INTEGER track,beam,vrtx,ierr
+//  CHARACTER*4 type
+//  REAL mass,radius,xm1(5),elm1(5,5),zpar1(5),zcov1(15)
+  LinearizedTrack* t = gTracks[track-1];
+  if(! t) {
+    ierr = -1;
+    return;
+  }
+  xm1[0] = t->alpha()[4];
+  elm1[0][0] = t->covalpha()[4][4];
+  ierr = 0;
+};
+

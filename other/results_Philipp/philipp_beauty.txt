@@ -1,0 +1,67 @@
+# Beauty differential cross sections d sigma / dY in bins of Eta:
+Bin 1: 82.2628 +/- 25.5876
+Bin 2: 230.302 +/- 26.9902
+Bin 3: 187.862 +/- 21.1005
+Bin 4: 268.38 +/- 19.9997
+Bin 5: 257.143 +/- 20.3178
+Bin 6: 310.704 +/- 21.7433
+Bin 7: 269.432 +/- 23.7063
+Bin 8: 271.924 +/- 27.7327
+Bin 9: 207.168 +/- 37.1506
+Bin 10: 173.046 +/- 53.5172
+# Beauty differential cross sections d sigma / dY in bins of Et:
+Bin 1: 149.526 +/- 22.1063
+Bin 2: 72.8811 +/- 5.07035
+Bin 3: 27.5455 +/- 1.66329
+Bin 4: 10.8183 +/- 0.754774
+Bin 5: 4.1165 +/- 0.453219
+Bin 6: 1.82009 +/- 0.236451
+Bin 7: 0.31985 +/- 0.0830927
+# Beauty differential cross sections d sigma / dY in bins of Phi:
+Bin 1: 105.523 +/- 13.2554
+Bin 2: 118.635 +/- 13.4795
+Bin 3: 107.901 +/- 11.1034
+Bin 4: 119.405 +/- 14.4345
+Bin 5: 142.175 +/- 17.7992
+Bin 6: 133.842 +/- 11.7577
+Bin 7: 135.659 +/- 10.1651
+Bin 8: 129.104 +/- 11.9422
+# Beauty differential cross sections d sigma / dY in bins of x:
+Bin 1: 773909 +/- 123066
+Bin 2: 683224 +/- 45220.1
+Bin 3: 220898 +/- 13385.5
+Bin 4: 49055.8 +/- 3100.92
+Bin 5: 10309.6 +/- 1075.29
+Bin 6: 268.933 +/- 53.5463
+# Beauty differential cross sections d sigma / dY in bins of Q2:
+Bin 1: 44.6743 +/- 3.9937
+Bin 2: 20.3737 +/- 1.61438
+Bin 3: 8.00529 +/- 0.706077
+Bin 4: 4.00759 +/- 0.353367
+Bin 5: 1.2241 +/- 0.138737
+Bin 6: 0.672773 +/- 0.0627296
+Bin 7: 0.134436 +/- 0.0160209
+Bin 8: 0.0168269 +/- 0.00303029
+# Beauty differential cross sections d sigma / dY in bins of x_q2bin1:
+Bin 1: 773909 +/- 123066
+Bin 2: 871548 +/- 116143
+Bin 3: 541949 +/- 54272.4
+Bin 4: 47834.4 +/- 4634.97
+# Beauty differential cross sections d sigma / dY in bins of x_q2bin2:
+Bin 1: 125964 +/- 28910.8
+Bin 2: 144921 +/- 12957.2
+Bin 3: 69106.7 +/- 7615.54
+Bin 4: 23851.3 +/- 3663.18
+Bin 5: 3284.46 +/- 1288.38
+# Beauty differential cross sections d sigma / dY in bins of x_q2bin3:
+Bin 1: 34164.7 +/- 4206.64
+Bin 2: 24822.4 +/- 2966.82
+Bin 3: 7092.17 +/- 1153.23
+Bin 4: 146.464 +/- 153.964
+# Beauty differential cross sections d sigma / dY in bins of x_q2bin4:
+Bin 1: 7488.17 +/- 975.381
+Bin 2: 3870.37 +/- 315.578
+Bin 3: 150.694 +/- 62.8928
+# Beauty differential cross sections d sigma / dY in bins of x_q2bin5:
+Bin 1: 400.212 +/- 86.4045
+Bin 2: 44.2577 +/- 14.3513

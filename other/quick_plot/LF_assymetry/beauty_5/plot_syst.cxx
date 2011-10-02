@@ -1,0 +1,162 @@
+// ROOT includes
+#include <TGraphErrors.h>
+#include <TPad.h>
+#include <TAxis.h>
+#include <TF1.h>
+#include <TPaveText.h>
+
+// main program
+int plot_syst () {
+    
+    // number of point to appear in a graph
+    const int     NPOINTS = 11;
+
+    // declare the arrays
+    double  x[NPOINTS];
+    double  x_err[NPOINTS];
+    double  k_c[NPOINTS];
+    double  k_c_err[NPOINTS];
+    double  k_b[NPOINTS];
+    double  k_b_err[NPOINTS];
+    double  sigma_c[NPOINTS];
+    double  sigma_c_err[NPOINTS];
+    double  sigma_b[NPOINTS];
+    double  sigma_b_err[NPOINTS];
+    double  chi2[NPOINTS];
+
+    // now fill the arrays
+
+    // x-axis, i.e. probabilities of track dropping in percent
+    x [0] = 0.5;
+    x [1] = 0.6;
+    x [2] = 0.7;
+    x [3] = 0.8;
+    x [4] = 0.9;
+    x [5] = 1.0;
+    x [6] = 1.1;
+    x [7] = 1.2;
+    x [8] = 1.3;
+    x [9] = 1.4;
+    x [10] = 1.5;
+
+    // x-axis error is zero
+    for (int i = 0; i < NPOINTS; i++) {
+        x_err [i] = 0;
+    }
+
+    //----- 2.15.2 -------
+    k_c[0]= 1.30903; k_c_err[0]= 0.0179998;
+    k_b[0]= 1.46629; k_b_err[0]= 0.0456169;
+    
+    //----- 2.15.2 -------
+    k_c[1]= 1.30123; k_c_err[1]= 0.018292;
+    k_b[1]= 1.46651; k_b_err[1]= 0.0462999;
+    
+    //----- 2.15.2 -------
+    k_c[2]= 1.29346; k_c_err[2]= 0.018642;
+    k_b[2]= 1.46669; k_b_err[2]= 0.0471105;
+    
+    //----- 2.15.2 -------
+    k_c[3]= 1.28572; k_c_err[3]= 0.0190325;
+    k_b[3]= 1.46678; k_b_err[3]= 0.0480305;
+    
+    //----- 2.15.2 -------
+    k_c[4]= 1.27801; k_c_err[4]= 0.0194701;
+    k_b[4]= 1.46684; k_b_err[4]= 0.0490634;
+    
+    //----- 2.15.2 -------
+    k_c[5]= 1.27032; k_c_err[5]= 0.0199508;
+    k_b[5]= 1.4668; k_b_err[5]= 0.0502009;
+    
+    //----- 2.15.2 -------
+    k_c[6]= 1.26264; k_c_err[6]= 0.0204727;
+    k_b[6]= 1.4667; k_b_err[6]= 0.0514372;
+    
+    //----- 2.15.2 -------
+    k_c[7]= 1.25497; k_c_err[7]= 0.0210348;
+    k_b[7]= 1.46653; k_b_err[7]= 0.0527679;
+    
+    //----- 2.15.2 -------
+    k_c[8]= 1.24731; k_c_err[8]= 0.0216352;
+    k_b[8]= 1.46627; k_b_err[8]= 0.0541877;
+    
+    //----- 2.15.2 -------
+    k_c[9]= 1.23962; k_c_err[9]= 0.0222697;
+    k_b[9]= 1.46601; k_b_err[9]= 0.0556874;
+    
+    //----- 2.15.2 -------
+    k_c[10]= 1.23195; k_c_err[10]= 0.0229412;
+    k_b[10]= 1.46562; k_b_err[10]= 0.0572696;
+
+
+    chi2[0]= 1.67853;
+    chi2[1]= 1.58814;
+    chi2[2]= 1.51626;
+    chi2[3]= 1.46249;
+    chi2[4]= 1.42589;
+    chi2[5]= 1.40512;
+    chi2[6]= 1.3986;
+    chi2[7]= 1.40458;
+    chi2[8]= 1.4213;
+    chi2[9]= 1.44703;
+    chi2[10]= 1.48016;
+
+
+
+
+
+    // create and draw graph for charm
+    TGraphErrors * gr_charm = new TGraphErrors(NPOINTS, x, k_c, x_err, k_c_err);
+    gr_charm -> SetMarkerStyle(22);
+    gr_charm -> SetMarkerColor(kGreen);
+    gr_charm -> SetMarkerSize(1.5);
+    gr_charm -> Draw("ap");
+
+    // create and draw graph for beauty
+    TGraphErrors * gr_beauty = new TGraphErrors(NPOINTS, x, k_b, x_err, k_b_err);
+    gr_beauty -> SetMarkerStyle(23);
+    gr_beauty -> SetMarkerColor(kBlue);
+    gr_beauty -> SetMarkerSize(1.5);
+    gr_beauty -> Draw("psame");
+
+    TAxis * axis = gr_charm -> GetXaxis();
+    axis -> SetTitle("Light flavour assymetry scaling");
+    TAxis * y_axis = gr_charm -> GetYaxis();
+    y_axis -> SetTitle("Scaling Factor");
+    y_axis -> SetLimits (0, 2);
+    y_axis -> SetRange (0, 2);
+
+    TAxis * y_axis_b = gr_beauty -> GetYaxis();
+    y_axis_b -> SetRange (0, 2);
+    gPad -> Update();
+
+    // now fit the graphs
+    gr_charm -> Fit("pol1", "", "", 0, 5);
+    gr_beauty -> Fit("pol1", "", "", 0, 5);
+
+    // calculate systematic uncertainties from the fit parameters
+    TF1 * fcn_c = gr_charm -> GetFunction("pol1");
+    TF1 * fcn_b = gr_beauty -> GetFunction("pol1");
+    Double_t    syst_beauty  = 2 * 100 * fcn_b -> GetParameter(1) / fcn_b -> GetParameter(0);
+    Double_t    syst_charm  = 2 * 100 * fcn_c -> GetParameter(1) / fcn_c -> GetParameter(0);*/
+
+/*    // draw text paves with systematic uncertainties
+    char    tmp[256];
+
+    TPaveText   *  syst_b = new TPaveText(0.44, 0.65, 0.8, 0.73 ,"NDC");
+    syst_b -> SetShadowColor(0);
+    syst_b -> SetTextAlign(12);
+    sprintf (tmp, "Syst. unc. beauty: %.3f %% ", syst_beauty);
+    syst_b -> AddText(tmp);
+    syst_b -> Draw();
+
+    TPaveText   *  syst_c = new TPaveText(0.44, 0.65, 0.8, 0.73 ,"NDC");
+    syst_c -> SetShadowColor(0);
+    syst_c -> SetTextAlign(12);
+    sprintf (tmp, "Syst. unc. charm: %.3f %% ", syst_charm);
+    syst_c -> AddText(tmp);
+    syst_c -> Draw();*/
+
+
+    return 0;
+}

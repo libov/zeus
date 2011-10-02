@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>tLite</title>
+  </head>
+  
+  <body>
+    <table border=0 cellspacing=0 width="100%">
+	<tr><td bgcolor=yellow>
+	    <img SRC="zeus_small2.gif" ALT="ZEUS" height=77 width=77 align=Right>
+	    <h1 align=center><font color=black>tLite Home page</font></h1>
+	  </td></tr>
+    </table>
+    <br> <br>
+    The tLite library is a collection of tracking related analysis tools.<br>
+    New analysis strategies that use the improved spatial resolution of the MVD
+can be implemented with these tools.
+    <br><br>
+    <table border=0 cellspacing=0 width="100%">
+	<tr>
+	  <td align=left>
+	    <strong>Packages:</strong>
+	    <ul> 
+	      <li> VxLite:<br>
+		lightweight vertexing package
+		<ul>
+		  <li> <a href="vxlite.html">vxlitefit</a> (vertex fit) 
+		  <li> <a href="vxlite.html">vxlitefitcov</a> (vertex fit returning the errors on the improved track parameters)
+		  <li> <a href="vxlite.html">vxlitefitit</a> (iterated vertex fit)
+		  <li> <a href="vxlite.html">vxlitefititcstr</a> (constraining vertex fit)
+		  <li> <a href="daf.html">vxlitedaffit</a> (vertex fit with smooth outlier removal)
+		  <li> <a href="vxlitebs.html">vxlitebs</a> (estimate vertex from beam spot information) 
+		</ul>
+	      <li> DCA:<br>
+		distance of closest approach of two helices or a helix and a point
+		<ul>
+		  <li> <a href="dca.html">tlidca</a> (distance of closest approach)
+		  <li> <a href="dca.html">tlidcav</a> (distance of closest approach)
+		  <li> <a href="dcapoint.html">tlidcapoint</a> (distance from space point)
+		</ul>
+	      <li> helix utility functions:
+		<ul>
+		  <li> <a href="helix.html">tliphel</a> (four momentum and its covariance matrix from a helix)
+		  <li> <a href="helix.html">tlipnewpar</a> (four momentum from vertex constrained track parameters)
+		</ul>
+	      <li> kinematic Fits: 
+		<ul>
+		  <li> <a href="fitm.html">tlifitm</a> (mass constraint fit)
+		</ul>
+	      <li> MC tools:
+		<ul>
+		  <li> <a href="tliPattern.html">tliPattern</a>(analysis of complex decay chains)
+		  <li> <a href="tliPartTab.html">tliPartTab</a>(interface to the ZEUS particle table)
+		</ul>
+	    </ul><br>
+	    <stronG>Example:</strong><br>
+	    <a href="zuanal.fpp">Some example code</a> using most of the described functions.
+	    <br><br>
+	    <strong>Usage:</strong><br>
+	    Since ZEUS release v2005a.1 the tLite library is included into the linking of any eaze job. Therefore, no modifications are required in your makefiles.
+<!--	    For linking include the following lines in your Makefile.postamble:<br>
+	    USERLIBS += -L/opt/products/CLHEP/1.8.2/lib -lCLHEP<br>
+	    USERLIBS += -L/data/zenith217a/stadie/tlite/lib/${ZARCH_TYPE} -ltlite-->
+	    <br><br>
+	    <strong>Other useful functions (vcrecon):</strong><br>
+	    <ul>
+	      <li> vcreref (change reference point for helix parameters). It is described in this <a href="hartner.ps.gz">talk</a> on page 36.
+	      <li> <a href="vmcu.ps.gz">vmcu</a> (matches tracks and MC particles) 
+	    </ul>
+	  </td>
+	  <td align=left>
+	    <img src="k0.png" align=MIDDLE alt="K0s decay">   
+	  </td></tr>
+    </table>
+    <br><br>
+    <hr>
+    <address><a href="mailto:stadie@mail.desy.de">Hartmut Stadie</a></address>
+<!-- Created: Fri Oct 14 13:10:24 CEST 2005 -->
+<!-- hhmts start -->
+Last modified: Tue Sep 26 10:59:43 CEST 2006
+<!-- hhmts end -->
+  </body>
+</html>

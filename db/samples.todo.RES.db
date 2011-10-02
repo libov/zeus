@@ -1,0 +1,58 @@
+# -- resolved DIS (non BGF samples)
+# -- for the timebenig, luminosity is just taken from webpage
+# http://www-zeus.desy.de/~libov/MC/cbrgap.htm
+# assuming no lost files
+#
+# -- resolved DIS (non BGF samples)
+# 0304p beauty
+# 04		v02e	mc		242.		cpz324.f15643.bbbar.rg30.q2g1.resc
+04		v02e	mc		132.		cpz424.f15643.bbbar.rg30.q2g1.resc
+04		v02e	mc		396.		cpu424.f15643.bbbar.rg30.q2g1.resc
+04		v02e	mc		242.		cpr424.f15643.bbbar.rg30.q2g1.resc
+04		v02e	mc		154.		cpx424.f15643.bbbar.rg30.q2g1.resc
+#
+# 04		v02e	mc		287.		cpz324.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		156.		cpz424.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		469.		cpu424.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		287.		cpr424.f15643.bbbar.rg30.q2g1.resae
+# 04		v02e	mc		183.		cpx424.f15643.bbbar.rg30.q2g1.resae
+# 0304p charm
+# 04		v02e	mc		8.86.		cpz324.f15643.ccbar.rg30.q2g1.5.resc
+04		v02e	mc		4.9		cpz424.f15643.ccbar.rg30.q2g1.5.resc
+04		v02e	mc		14.69		cpu424.f15643.ccbar.rg30.q2g1.5.resc
+04		v02e	mc		7.53		cpr424.f15643.ccbar.rg30.q2g1.5.resc
+04		v02e	mc		5.46		cpx424.f15643.ccbar.rg30.q2g1.5.resc
+#
+# 04		v02e	mc		287.		cpz324.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		156.		cpz424.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		469.		cpu424.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		287.		cpr424.f15643.ccbar.rg30.q2g1.5.resae
+# 04		v02e	mc		183.		cpx424.f15643.ccbar.rg30.q2g1.5.resae
+#
+# 04		v02e	mc		242.		cpz324.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		132.		cpz424.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		396.		cpu424.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		242.		cpr424.f15643.ccbar.rg30.q2g4.resc
+# 04		v02e	mc		154.		cpx424.f15643.ccbar.rg30.q2g4.resc
+#
+# 05e
+05e		v02e	mc		2115.264			f15643.bbbar.rg30.q2g1.resc
+# 05e		v02e	mc		4230				f15643.bbbar.rg30.q2g1.resae
+#
+05e		v02e	mc		147.375			f15643.ccbar.rg30.q2g1.5.resc
+# 05e		v02e	mc		0					f15643.ccbar.rg30.q2g4.resc
+# 05e		v02e	mc		0					f15643.ccbar.rg30.q2g1.5.resae
+
+# 06e
+06e	v02e	mc		925.26		f15643.bbbar.rg30.q2g1.resc
+# 06e	v02e	mc		0				f15643.bbbar.rg30.q2g1.resae
+#
+06e	v02e	mc		54.9		f15643.ccbar.rg30.q2g1.5.resc
+# 06e	v02e	mc		0			f15643.ccbar.rg30.q2g4.resc
+# 06e	v02e	mc		0			f15643.ccbar.rg30.q2g1.5.resae
+# 0607p
+07p	v02e	mc		2574.08		f15643.bbbar.rg30.resc.bg
+# 07p	v02e	mc		0				f15643.bbbar.rg30.resae.gg.qqbar
+#
+07p	v02e	mc		498.085		f15643.ccbar.rg30.resc.cg
+# 07p	v02e	mc		0				f15643.ccbar.rg30.resae.gg.qqbar

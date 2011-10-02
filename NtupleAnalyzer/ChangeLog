@@ -1,0 +1,28 @@
+30 November 2009.
+* Significantly changed the analysis framework. From now on detailed description of changes.
+* Each class is now compiled separately.
+* Ntupleanalyzer is now derived from BaseClass, which is created by python script create-BaseClass.py
+
+05 December
+* added 'mirroring' stuff; more details in code itself and log.txt
+
+06 December
+* added _all and _svtx jet variables, see log.txt
+
+07 December
+* implemented filling of inclusive/non-inclusive histos in one go - added more histograms
+(drawback: code looks more messy; some histos are declared twice in config file;
+ advantage: no need to launch code twice)
+ 
+12 December
+* removed some of the TGlobalBin methods that should better belong to TMiniNtupleAnalyzer
+* Assigned 'phase' variable to each TBin in TGlobalBin so that one can choose which variables to check now
+--> changed TGlobalBin::AddBin(), TGlobalBin::CheckGlobalBin()
+
+
+15-16 February 2010
+* changed python class creator - added AddTreeBranches method so that class can be used for minintuple
+  creation (sime kind of zacon replacement)
+* created TMiniNtupleCreator class, automatized submission
+
+

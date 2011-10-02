@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>tliPattern</title>
+</head>
+    <table border=0 cellspacing=0 width="100%">
+	<tr><td bgcolor=yellow>
+	    <img SRC="zeus_small2.gif" ALT="ZEUS" height=77 width=77 align=Right>
+	    <h1 align=center><font color=black>The tliPattern Class</font></h1>
+	  </td></tr>
+    </table>
+<h2>Purpose</h2>
+The purpose of this class is to facilitate the analysis of complex
+decay chains in ZEUS Monte Carlo events at MDST level. Frequently, the
+analysis user looking at a MC sample is interested only in events where
+a certain decay pattern occurs, and&nbsp;can save much time by ignoring
+all other events. This normally involves intensive gymnastics on the
+fmckin/fmcvtx tables. For determination of tracking efficiencies, it is
+important whether all charged stable particles comprising the
+measurable part of the decay signature are properly reconstructed by
+the tracking chain. With tliPattern, the user can<br>
+<ul>
+  <li>find out whether a certain decay chain is present in the event at MC level. This includes its charge conjugate.</li>
+  <li>identify all intermediate states</li>
+  <li>find out whether the whole chain, or parts of it, are reconstructed at the level of fitted tracks (ZTTRHL).</li>
+</ul>
+<h2>Implementation</h2>
+Since decay chains are complex objects appearing on input and output of
+this tool, a direct implementation in Fortran is inefficient. All
+functionality is therefore implemented in a C++ class, and the output
+is in form of STL vectors. tliPattern makes use of a second class, <a href="tliPartTab.html">tliPartTab</a>,
+to interface to the ZEUS particle table. Both classes are therefore
+required to obtain the described functionality in an orange job.<br>
+<br>
+<h2>How to use tliPattern</h2>
+<h3>Simple Patterns</h3>
+A simple pattern can be created with a stable particle like the pion.
+In this case, the single-parameter constructor should be used:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; tliPattern* pion = new tliPattern("<span style="font-family: Courier New,Courier,monospace;">PI&nbsp;&nbsp;&nbsp;&nbsp; +");</span><br>
+<br>
+</span>This blank pattern can be used to address all pi+ and pi- in the
+event. It does not matter whether the pion undergoes a subsequent
+decay, e.g. leptonic, or not. The string "PI &nbsp; &nbsp; +"
+corresponds to the name of the particle in the ZEUS particle table.
+Click here for a <a href="ZEUSParticleTable.html">full list of the particle table</a>.<br>
+<br>
+The intermediate blanks in the ZEUS naming convention must be specified
+correctly,&nbsp;trailing blanks can be omitted. If the given string
+does not correspond to a valid particle name within the ZEUS particle
+table, the constructor will print an error message, and create a
+pattern that will not be able to match anything. For such a pattern,
+the method getId() will return a value of zero.<br>
+<span style="font-family: Courier New,Courier,monospace;"></span>
+<h3>Matching a Pattern to MC</h3>
+The member function doMatchFmckin can be used to find matching entries in the FMCKin table. Example:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; vector&lt;tliPattern*&gt; thePions;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; pion-&gt;fillMatches(thePions);</span><br>
+<br>
+For each occurence of a pi+ or pi- in the FMCKin table, the pion blank
+pattern creates a clone of itself &nbsp;and stores its pointer into the
+the vector. The clone will be aware of its associated FMCKin entry. For
+example, to print the FMCKin_ID of all pi+- in the event:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;for (vector&lt;tliPattern*&gt;::iterator titr=thePions.begin(); <br>
+&nbsp;&nbsp; titr != thePions.end(); ++titr) {</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp;&nbsp; cout &lt;&lt; " Pion FMCKin_ID=" &lt;&lt; (*titr)-&gt;getFmckin() &lt;&lt; endl;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp; &nbsp; tliPattern* thisPion = *titr;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; &nbsp;fmckin_id = (*titr)-&gt;getFmckin();</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; &nbsp;gettab_(fmckin_.fmckin); &nbsp; &nbsp;// access row in Adamo table <br>
+&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // for further use</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;}</span><br>
+<br>
+A tliPattern instance that is assigned to an FMCKin entry will be called an "assigned pattern" in the following.<br>
+<h3>Matching a Pattern to Reconstruction</h3>
+A pattern which is associated to an FMCKin entry, as those produced by
+the fillMatches method, can be matched to an existing reconstructed
+track in the ZTTRHL table. The matching is performed at hit level using
+the vmcu utility (by Gerd Hartner). The matching is performed using the
+doMatchRec method, and the resulting row number in the ZTTRHL table is
+stored inside of the tliPattern instance. It can be retrieved using the
+getRec() method:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp;&nbsp;thisPion-&gt;doMatchRec();</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; zttrhl_id = thisPion-&gt;getRec();</span><br style="font-family: Courier New,Courier,monospace;">
+<br>
+It should be noted that only one matching reconstructed object is
+stored. The method reconstructed() returns 1 when a reconstructed
+object exists, and 0 otherwise. Its use on an object makes sense only
+after the doMatchRec() method has been invoked.<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; if (thisPion-&gt;reconstructed()) {<br>
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;cout &lt;&lt; "Pion is reconstructed" &lt;&lt; endl;<br>
+&nbsp; &nbsp; }</span><br>
+<br>
+<h3>Building a Decay Chain Pattern</h3>
+The addition operator "+" creates a combination of individual patterns. For example:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; &nbsp;tliPattern("PI &nbsp; &nbsp; +") + tliPattern("PI &nbsp; &nbsp; -")</span><br style="font-family: Courier New,Courier,monospace;">
+<br>
+will create a (nameless) mother state decaying into two pion daughter
+particles. In practice, one will want to assign a new name to such a
+combination. This can be done by passing the combination into the
+"renaming constructor" which has two parameters:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; &nbsp;tliPattern* rho = new tliPattern("RHO0",&nbsp; <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tliPattern("PI &nbsp; &nbsp; +") + tliPattern("PI &nbsp; &nbsp; -") );</span><br>
+<br>
+A very important property of tliPattern is its recursive nature. Member
+functions like fillMatches(...), doMatchRec(), reconstructed() etc will
+work recursively on the whole decay chain. An assigned pattern with
+daughters is called reconstructed when all its daughters are
+reconstructed.<br>
+<br>
+Access to the daughter particles is possible with the member function
+d(int n). This function returns a pointer to the n-th daughter
+particle, where the numbering starts at 0, as usual in C/C++. Daughters
+of daughters can be accessed by cascading the function. <br>
+<h3>Printing</h3>
+The contents of a blank or assigned instance of tliPattern can be
+displayed using the print(const string&amp; prefix) method. The
+printout will recursively the whole daughter tree, where the prefix
+string passed as a parameter will be used for indentation. Example:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; rho-&gt;print("-");</span>
+<h3>A Complex Example</h3>
+In the following, we create a pattern for the decay chain Lambda-c
+--&gt; Delta++ K*-, with the subsequent decays Delta++ --&gt; proton
+pi+ and K*- --&gt; K0bar pi- . The K0bar then decays as a K0-short into
+pi+ pi-.<br>
+<br>
+&nbsp;<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp; tliPattern* lc2</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = new tliPattern</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ("LAMBC&nbsp; +",</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tliPattern("DELTA 2+",</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tliPattern("P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +")</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++tliPattern("PI&nbsp;&nbsp;&nbsp;&nbsp; +"))</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tliPattern("K*&nbsp;&nbsp;&nbsp;&nbsp; -",</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tliPattern("K0&nbsp;&nbsp;&nbsp;&nbsp; B",</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tliPattern("KSHORT",</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tliPattern("PI&nbsp;&nbsp;&nbsp;&nbsp; +")</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++tliPattern("PI&nbsp;&nbsp;&nbsp;&nbsp; -")).spd())</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++tliPattern("PI&nbsp;&nbsp;&nbsp;&nbsp; -")));</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; lc2-&gt;print("-");<br style="font-family: Courier New,Courier,monospace;">
+</span><br>
+Please note the subtlety that the ZEUS Monte Carlo machinery encodes
+the transition from K0bar to K0-short like a single prong decay. For
+covering this oddity, tliPattern provides the "spd()" method to build a
+single prong decay pattern. This can be seen as a single-particle
+version of&nbsp;the "+" operator that normally creates mother/daughter
+relationships, where the latter cannot be used here since it requires
+at least two operands. Please note also that, in spite of the
+complexity of the decay chain, tliPattern allows to describe it in a
+single statement.<br>
+<br>
+The above example is also suitable to illustrate access to the daughter
+particles. For example,&nbsp; access to the&nbsp;pion from the Delta++
+decay is possible via<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; &nbsp; tliPattern* piFromDelta = lc2-&gt;d(0)-&gt;d(1); </span><br>
+<br>
+<br>
+<h3>Memory Management</h3>
+It is important to note that ownership of tliPattern instances created
+by the findMatches method passes into the responsibility of the calling
+program. Thus, in order to avoid a memory leak, the user must ensure
+deletion of assigned patterns once the analysis of the current event is
+finished:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; // cleanup</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; for (vector&lt;tliPattern*&gt;::iterator titr=thePions.begin();</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; &nbsp;titr != thePions.end(); ++titr) {</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delete (*titr);</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; }</span><br style="font-family: Courier New,Courier,monospace;">
+<br>
+<br>
+<hr style="width: 100%; height: 2px;">15-Aug-2006 &nbsp; Rainer Mankel<br>
+</body>
+</html>

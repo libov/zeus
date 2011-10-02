@@ -1,0 +1,473 @@
+p: -2.55894e-08 -1.24717e-08 109.836 109.84
+q: 2.55894e-08 1.24717e-08 -109.836 109.811
+event 0; 114 particles stored (Fmck_nkin= 327, Npart= 62)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 3.54117 Eta= -4.87042
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 2.84604e-08 Eta= -22.5273
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 3.54117 Eta= -4.22463
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.746756 Eta= -4.84147
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.746756 Eta= -4.84147
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.165791 Eta= 5.71474
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.147465 Eta= 3.202
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 1.36073 Eta= -4.22943
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 1.27983 Eta= 1.22809
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 1.31283 Eta= -4.22967
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 0.920346 Eta= 0.923511
+particle 11 of type 33 (g) with fmckin id 13 produced at 1 by 9;  Et= 0.460076 Eta= 0.0263081
+particle 12 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 1.51178 Eta= -0.397222
+particle 13 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 0.342968 Eta= -1.10098
+particle 14 of type 2 () with fmckin id 16 produced at 1 by 2147483647;  Et= 1.77525 Eta= 2.09958
+0x80ca114
+13 outgoing quarks and gluons
+type: 7 Et: 0.746756 Eta: -4.84147 Phi: 2.86867; fmckin: 5, daughter of 3
+type: 7 Et: 0.746756 Eta: -4.84147 Phi: 2.86867; fmckin: 6, daughter of 5
+type: 33 Et: 0.165791 Eta: 5.71474 Phi: 3.89156; fmckin: 7, daughter of 2
+type: 33 Et: 0.147465 Eta: 3.202 Phi: 3.69323; fmckin: 8, daughter of 7
+type: 7 Et: 1.36073 Eta: -4.22943 Phi: 3.83095; fmckin: 9, daughter of 3
+type: 33 Et: 1.27983 Eta: 1.22809 Phi: 1.38658; fmckin: 10, daughter of 3
+type: 7 Et: 1.31283 Eta: -4.22967 Phi: 3.83074; fmckin: 11, daughter of 9
+type: 33 Et: 0.920346 Eta: 0.923511 Phi: 5.57746; fmckin: 12, daughter of 9
+type: 33 Et: 0.460076 Eta: 0.0263081 Phi: 1.68035; fmckin: 13, daughter of 9
+type: 33 Et: 1.51178 Eta: -0.397222 Phi: 1.90801; fmckin: 14, daughter of 9
+type: 33 Et: 0.342968 Eta: -1.10098 Phi: 4.69721; fmckin: 15, daughter of 9
+type: 8 Et: 0.746921 Eta: -5.12076 Phi: 6.0102; fmckin: 19, daughter of 1
+type: 3 Et: 0.123078 Eta: 6.52038 Phi: 2.40681; fmckin: 20, daughter of 2
+
+
+p: 1.78823e-08 -1.74386e-07 55.2272 55.2352
+q: -1.78823e-08 1.74386e-07 -55.2272 55.0116
+event 1; 66 particles stored (Fmck_nkin= 185, Npart= 33)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 38.0916 Eta= -3.18236
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 1.74616e-07 Eta= -20.261
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 38.0916 Eta= -3.05446
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.504367 Eta= -2.62108
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.504367 Eta= -2.62108
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.333711 Eta= 4.15699
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 1.94557 Eta= 1.90278
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 3.25441 Eta= -0.419981
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 2.36152 Eta= 1.68846
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 2.45329 Eta= -0.716795
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 0.688142 Eta= 1.66082
+particle 11 of type 33 (g) with fmckin id 13 produced at 1 by 9;  Et= 1.66916 Eta= 1.38376
+particle 12 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 0.511125 Eta= 1.82517
+particle 13 of type 33 (g) with fmckin id 15 produced at 1 by 2147483647;  Et= 2.6196 Eta= 0.67618
+particle 14 of type 33 (g) with fmckin id 16 produced at 1 by 2147483647;  Et= 0.499813 Eta= 0.967174
+0x80ca114
+12 outgoing quarks and gluons
+type: 7 Et: 0.504367 Eta: -2.62108 Phi: 4.81984; fmckin: 5, daughter of 3
+type: 7 Et: 0.504367 Eta: -2.62108 Phi: 4.81984; fmckin: 6, daughter of 5
+type: 33 Et: 0.333711 Eta: 4.15699 Phi: 2.53155; fmckin: 7, daughter of 2
+type: 33 Et: 1.94557 Eta: 1.90278 Phi: 3.68806; fmckin: 8, daughter of 7
+type: 7 Et: 3.25441 Eta: -0.419981 Phi: 4.68301; fmckin: 9, daughter of 3
+type: 33 Et: 2.36152 Eta: 1.68846 Phi: 2.61869; fmckin: 10, daughter of 3
+type: 7 Et: 2.45329 Eta: -0.716795 Phi: 4.67466; fmckin: 11, daughter of 9
+type: 33 Et: 0.688142 Eta: 1.66082 Phi: 4.00408; fmckin: 12, daughter of 9
+type: 33 Et: 1.66916 Eta: 1.38376 Phi: 2.33878; fmckin: 13, daughter of 9
+type: 33 Et: 0.511125 Eta: 1.82517 Phi: 3.84169; fmckin: 14, daughter of 9
+type: 8 Et: 0.504352 Eta: -5.31735 Phi: 1.67954; fmckin: 18, daughter of 1
+type: 3 Et: 0.596734 Eta: 0.206136 Phi: 1.36012; fmckin: 19, daughter of 2
+
+
+p: -3.87184e-08 7.534e-09 70.5459 70.5521
+q: 3.87184e-08 -7.534e-09 -70.5459 70.5153
+
+
+p: -3.61287e-08 -1.25357e-08 106.124 106.128
+q: 3.61287e-08 1.25357e-08 -106.124 106.053
+event 3; 96 particles stored (Fmck_nkin= 234, Npart= 48)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 6.51395 Eta= -4.29531
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 3.82161e-08 Eta= -22.5273
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 6.51395 Eta= -3.70826
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.506262 Eta= -5.02451
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.506262 Eta= -5.02451
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.352524 Eta= 0.10653
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.352524 Eta= 0.10653
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 1.85119 Eta= -3.532
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 1.46383 Eta= -2.27298
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 1.70027 Eta= -3.54563
+particle 10 of type 8 (cbar) with fmckin id 13 produced at 1 by 1;  Et= 0.506418 Eta= -5.58469
+particle 11 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 0.947461 Eta= -2.07629
+particle 12 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 0.668615 Eta= -1.27056
+particle 13 of type 33 (g) with fmckin id 16 produced at 1 by 9;  Et= 0.12527 Eta= -4.2154
+particle 14 of type 3 () with fmckin id 17 produced at 1 by 2;  Et= 0.450926 Eta= 4.88533
+0x80ca114
+12 outgoing quarks and gluons
+type: 7 Et: 0.506262 Eta: -5.02451 Phi: 5.42291; fmckin: 5, daughter of 3
+type: 7 Et: 0.506262 Eta: -5.02451 Phi: 5.42291; fmckin: 6, daughter of 5
+type: 33 Et: 0.352524 Eta: 0.10653 Phi: 0.828571; fmckin: 7, daughter of 2
+type: 33 Et: 0.352524 Eta: 0.10653 Phi: 0.828571; fmckin: 8, daughter of 7
+type: 7 Et: 1.85119 Eta: -3.532 Phi: 0.438786; fmckin: 9, daughter of 3
+type: 33 Et: 1.46383 Eta: -2.27298 Phi: 3.83006; fmckin: 10, daughter of 3
+type: 7 Et: 1.70027 Eta: -3.54563 Phi: 0.436069; fmckin: 11, daughter of 9
+type: 8 Et: 0.506418 Eta: -5.58469 Phi: 2.28155; fmckin: 13, daughter of 1
+type: 33 Et: 0.947461 Eta: -2.07629 Phi: 4.48934; fmckin: 14, daughter of 9
+type: 33 Et: 0.668615 Eta: -1.27056 Phi: 2.92235; fmckin: 15, daughter of 9
+type: 33 Et: 0.12527 Eta: -4.2154 Phi: 3.66505; fmckin: 16, daughter of 9
+type: 3 Et: 0.450926 Eta: 4.88533 Phi: 2.6615; fmckin: 17, daughter of 2
+
+
+p: 2.60231e-08 -4.90585e-08 39.9463 39.9573
+q: -2.60231e-08 4.90585e-08 -39.9463 39.8943
+
+
+p: -5.65743e-11 -8.23524e-11 136.235 136.238
+q: 5.65746e-11 8.2353e-11 -136.235 136.155
+
+
+p: 4.89834e-10 1.53573e-08 112.951 112.955
+q: -4.89834e-10 -1.53573e-08 -112.951 112.906
+event 6; 117 particles stored (Fmck_nkin= 344, Npart= 70)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 4.48771 Eta= -4.60557
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 1.53589e-08 Eta= -1e+11
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 4.48771 Eta= -3.90625
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.437126 Eta= -5.49599
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.437126 Eta= -5.49599
+particle 5 of type 1 () with fmckin id 7 produced at 1 by 2;  Et= 0.474353 Eta= 4.61113
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.249832 Eta= 1.3613
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 1.68816 Eta= -4.10489
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 2.27623 Eta= -0.520149
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 1.83292 Eta= -3.81847
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 0.861949 Eta= -3.0671
+particle 11 of type 33 (g) with fmckin id 13 produced at 1 by 9;  Et= 1.06578 Eta= -1.20762
+particle 12 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 0.718569 Eta= 0.51742
+particle 13 of type 33 (g) with fmckin id 15 produced at 1 by 2147483647;  Et= 0.469107 Eta= 3.1979
+particle 14 of type 1 () with fmckin id 17 produced at 1 by 2147483647;  Et= 0.25078 Eta= 4.62468
+0x80ca114
+11 outgoing quarks and gluons
+type: 7 Et: 0.437126 Eta: -5.49599 Phi: 1.55189; fmckin: 5, daughter of 3
+type: 7 Et: 0.437126 Eta: -5.49599 Phi: 1.55189; fmckin: 6, daughter of 5
+type: 1 Et: 0.474353 Eta: 4.61113 Phi: 4.14469; fmckin: 7, daughter of 2
+type: 33 Et: 0.249832 Eta: 1.3613 Phi: 4.93741; fmckin: 8, daughter of 7
+type: 7 Et: 1.68816 Eta: -4.10489 Phi: 3.00955; fmckin: 9, daughter of 3
+type: 33 Et: 2.27623 Eta: -0.520149 Phi: 6.07755; fmckin: 10, daughter of 3
+type: 7 Et: 1.83292 Eta: -3.81847 Phi: 3.50256; fmckin: 11, daughter of 9
+type: 33 Et: 0.861949 Eta: -3.0671 Phi: 1.43596; fmckin: 12, daughter of 9
+type: 33 Et: 1.06578 Eta: -1.20762 Phi: 6.13682; fmckin: 13, daughter of 9
+type: 33 Et: 0.718569 Eta: 0.51742 Phi: 5.9887; fmckin: 14, daughter of 9
+type: 8 Et: 0.437301 Eta: -5.60908 Phi: 4.69331; fmckin: 20, daughter of 1
+
+
+p: -4.39268e-08 -1.18502e-08 67.5362 67.5427
+q: 4.39268e-08 1.18502e-08 -67.5362 67.5006
+
+
+p: 6.88988e-08 -1.80289e-08 95.9348 95.9394
+q: -6.88988e-08 1.80289e-08 -95.9348 95.7851
+event 8; 84 particles stored (Fmck_nkin= 259, Npart= 50)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 11.7914 Eta= -3.80282
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 7.11074e-08 Eta= -21.7226
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 11.7914 Eta= -3.35229
+particle 3 of type 8 (cbar) with fmckin id 5 produced at 1 by 3;  Et= 0.0658439 Eta= -7.05123
+particle 4 of type 8 (cbar) with fmckin id 6 produced at 1 by 5;  Et= 0.0658439 Eta= -7.05123
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.422227 Eta= 4.27844
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.84916 Eta= 3.20638
+particle 7 of type 8 (cbar) with fmckin id 9 produced at 1 by 3;  Et= 2.06636 Eta= -3.60269
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 1.31306 Eta= 2.77381
+particle 9 of type 8 (cbar) with fmckin id 11 produced at 1 by 9;  Et= 2.03564 Eta= -3.60271
+particle 10 of type 1 () with fmckin id 12 produced at 1 by 2;  Et= 0.00897353 Eta= 8.84689
+particle 11 of type 7 (c) with fmckin id 13 produced at 1 by 1;  Et= 0.0660806 Eta= -7.46811
+particle 12 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 2.10834 Eta= 2.06473
+particle 13 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 0.960973 Eta= 1.49601
+particle 14 of type 33 (g) with fmckin id 16 produced at 1 by 9;  Et= 0.124554 Eta= -1.8994
+0x80ca114
+12 outgoing quarks and gluons
+type: 8 Et: 0.0658439 Eta: -7.05123 Phi: 0.942707; fmckin: 5, daughter of 3
+type: 8 Et: 0.0658439 Eta: -7.05123 Phi: 0.942708; fmckin: 6, daughter of 5
+type: 33 Et: 0.422227 Eta: 4.27844 Phi: 3.7139; fmckin: 7, daughter of 2
+type: 33 Et: 0.84916 Eta: 3.20638 Phi: 3.584; fmckin: 8, daughter of 7
+type: 8 Et: 2.06636 Eta: -3.60269 Phi: 3.76476; fmckin: 9, daughter of 3
+type: 33 Et: 1.31306 Eta: 2.77381 Phi: 0.757494; fmckin: 10, daughter of 3
+type: 8 Et: 2.03564 Eta: -3.60271 Phi: 3.76476; fmckin: 11, daughter of 9
+type: 1 Et: 0.00897353 Eta: 8.84689 Phi: 1.82064; fmckin: 12, daughter of 2
+type: 7 Et: 0.0660806 Eta: -7.46811 Phi: 4.08255; fmckin: 13, daughter of 1
+type: 33 Et: 2.10834 Eta: 2.06473 Phi: 0.891896; fmckin: 14, daughter of 9
+type: 33 Et: 0.960973 Eta: 1.49601 Phi: 4.13796; fmckin: 15, daughter of 9
+type: 33 Et: 0.124554 Eta: -1.8994 Phi: 0.335376; fmckin: 16, daughter of 9
+
+
+p: -1.60637e-08 1.1942e-08 79.9315 79.937
+q: 1.60637e-08 -1.1942e-08 -79.9315 79.8705
+event 9; 108 particles stored (Fmck_nkin= 304, Npart= 55)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 10.7192 Eta= -4.08064
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 2.00011e-08 Eta= -1e+11
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 10.7192 Eta= -3.79043
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 1.5185 Eta= -3.17176
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 1.5185 Eta= -3.17176
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.418836 Eta= 1.83983
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.418832 Eta= 1.83984
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 1.80833 Eta= -2.95993
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 1.81781 Eta= 0.440381
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 1.02547 Eta= -3.30769
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 0.933921 Eta= -1.92796
+particle 11 of type 33 (g) with fmckin id 13 produced at 1 by 9;  Et= 0.801574 Eta= 0.137879
+particle 12 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 0.637498 Eta= 0.607896
+particle 13 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 0.559058 Eta= -0.451376
+particle 14 of type 8 (cbar) with fmckin id 17 produced at 1 by 1;  Et= 1.51922 Eta= -4.39833
+0x80ca114
+13 outgoing quarks and gluons
+type: 7 Et: 1.5185 Eta: -3.17176 Phi: 0.675974; fmckin: 5, daughter of 3
+type: 7 Et: 1.5185 Eta: -3.17176 Phi: 0.675974; fmckin: 6, daughter of 5
+type: 33 Et: 0.418836 Eta: 1.83983 Phi: 4.49018; fmckin: 7, daughter of 2
+type: 33 Et: 0.418832 Eta: 1.83984 Phi: 4.49018; fmckin: 8, daughter of 7
+type: 7 Et: 1.80833 Eta: -2.95993 Phi: 6.01988; fmckin: 9, daughter of 3
+type: 33 Et: 1.81781 Eta: 0.440381 Phi: 2.14055; fmckin: 10, daughter of 3
+type: 7 Et: 1.02547 Eta: -3.30769 Phi: 0.204236; fmckin: 11, daughter of 9
+type: 33 Et: 0.933921 Eta: -1.92796 Phi: 5.5434; fmckin: 12, daughter of 9
+type: 33 Et: 0.801574 Eta: 0.137879 Phi: 1.96695; fmckin: 13, daughter of 9
+type: 33 Et: 0.637498 Eta: 0.607896 Phi: 3.53769; fmckin: 14, daughter of 9
+type: 33 Et: 0.559058 Eta: -0.451376 Phi: 1.00115; fmckin: 15, daughter of 9
+type: 8 Et: 1.51922 Eta: -4.39833 Phi: 3.81753; fmckin: 17, daughter of 1
+type: 3 Et: 0.088907 Eta: 6.12099 Phi: 2.45688; fmckin: 18, daughter of 2
+
+
+p: -6.6451e-08 3.97307e-09 93.939 93.9437
+q: 6.6451e-08 -3.97307e-09 -93.939 93.8584
+event 10; 115 particles stored (Fmck_nkin= 356, Npart= 63)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 9.03349 Eta= -4.09028
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 6.65125e-08 Eta= -21.8341
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 9.03349 Eta= -3.66273
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.463024 Eta= -4.61734
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.463024 Eta= -4.61734
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.354695 Eta= 1.70975
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.354695 Eta= 1.70975
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 3.56992 Eta= -2.35932
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 3.63738 Eta= -0.945787
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 2.93008 Eta= -2.39187
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 1.08721 Eta= -1.52145
+particle 11 of type 8 (cbar) with fmckin id 14 produced at 1 by 1;  Et= 0.463274 Eta= -5.7173
+particle 12 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 1.59865 Eta= -0.517188
+particle 13 of type 33 (g) with fmckin id 16 produced at 1 by 9;  Et= 1.43659 Eta= -1.22128
+particle 14 of type 33 (g) with fmckin id 17 produced at 1 by 9;  Et= 0.187303 Eta= -2.56416
+0x80ca114
+13 outgoing quarks and gluons
+type: 7 Et: 0.463024 Eta: -4.61734 Phi: 0.166035; fmckin: 5, daughter of 3
+type: 7 Et: 0.463024 Eta: -4.61734 Phi: 0.166035; fmckin: 6, daughter of 5
+type: 33 Et: 0.354695 Eta: 1.70975 Phi: 3.15321; fmckin: 7, daughter of 2
+type: 33 Et: 0.354695 Eta: 1.70975 Phi: 3.15321; fmckin: 8, daughter of 7
+type: 7 Et: 3.56992 Eta: -2.35932 Phi: 1.6247; fmckin: 9, daughter of 3
+type: 33 Et: 3.63738 Eta: -0.945787 Phi: 4.79657; fmckin: 10, daughter of 3
+type: 7 Et: 2.93008 Eta: -2.39187 Phi: 1.99397; fmckin: 11, daughter of 9
+type: 33 Et: 1.08721 Eta: -1.52145 Phi: 0.249824; fmckin: 12, daughter of 9
+type: 8 Et: 0.463274 Eta: -5.7173 Phi: 3.30772; fmckin: 14, daughter of 1
+type: 33 Et: 1.59865 Eta: -0.517188 Phi: 4.83148; fmckin: 15, daughter of 9
+type: 33 Et: 1.43659 Eta: -1.22128 Phi: 4.82095; fmckin: 16, daughter of 9
+type: 33 Et: 0.187303 Eta: -2.56416 Phi: 2.12768; fmckin: 17, daughter of 9
+type: 3 Et: 0.317958 Eta: 5.3947 Phi: 6.05298; fmckin: 18, daughter of 2
+
+
+p: -5.68738e-08 -2.13863e-08 12.4934 12.5285
+q: 5.68737e-08 2.13862e-08 -12.4934 12.3209
+
+
+p: -2.10788e-08 3.05759e-08 34.917 34.9296
+q: 2.10788e-08 -3.0576e-08 -34.917 34.8567
+
+
+p: -7.95018e-08 -4.96881e-08 50.6202 50.6289
+q: 7.95019e-08 4.96881e-08 -50.6202 50.576
+
+
+p: -5.69959e-08 2.50692e-08 57.8475 57.8551
+q: 5.69959e-08 -2.50692e-08 -57.8475 57.801
+event 14; 73 particles stored (Fmck_nkin= 311, Npart= 55)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 16.3743 Eta= -3.9803
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 6.22155e-08 Eta= -21.376
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 16.3743 Eta= -3.83881
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 1.48835 Eta= -4.02135
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 1.48835 Eta= -4.02135
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.397979 Eta= -0.710738
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.397978 Eta= -0.710737
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 1.1011 Eta= -3.89304
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 1.5794 Eta= -2.94152
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 1.18552 Eta= -3.87441
+particle 10 of type 8 (cbar) with fmckin id 13 produced at 1 by 1;  Et= 1.49503 Eta= -3.05972
+particle 11 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 0.840983 Eta= -2.11049
+particle 12 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 1.05664 Eta= -2.93239
+particle 13 of type 3 () with fmckin id 16 produced at 1 by 2;  Et= 0.695558 Eta= 4.36122
+particle 14 of type 2092 (string) with fmckin id 17 produced at 1 by 11;  Et= 36.2944 Eta= 1.06637
+0x80ca114
+11 outgoing quarks and gluons
+type: 7 Et: 1.48835 Eta: -4.02135 Phi: 5.29182; fmckin: 5, daughter of 3
+type: 7 Et: 1.48835 Eta: -4.02135 Phi: 5.29182; fmckin: 6, daughter of 5
+type: 33 Et: 0.397979 Eta: -0.710738 Phi: 4.94919; fmckin: 7, daughter of 2
+type: 33 Et: 0.397978 Eta: -0.710737 Phi: 4.94919; fmckin: 8, daughter of 7
+type: 7 Et: 1.1011 Eta: -3.89304 Phi: 6.21749; fmckin: 9, daughter of 3
+type: 33 Et: 1.5794 Eta: -2.94152 Phi: 4.59201; fmckin: 10, daughter of 3
+type: 7 Et: 1.18552 Eta: -3.87441 Phi: 6.25761; fmckin: 11, daughter of 9
+type: 8 Et: 1.49503 Eta: -3.05972 Phi: 2.15057; fmckin: 13, daughter of 1
+type: 33 Et: 0.840983 Eta: -2.11049 Phi: 5.15735; fmckin: 14, daughter of 9
+type: 33 Et: 1.05664 Eta: -2.93239 Phi: 4.06511; fmckin: 15, daughter of 9
+type: 3 Et: 0.695558 Eta: 4.36122 Phi: 2.75033; fmckin: 16, daughter of 2
+
+
+p: -5.23308e-08 -2.06699e-08 130.484 130.487
+q: 5.23308e-08 2.06699e-08 -130.484 130.447
+event 15; 104 particles stored (Fmck_nkin= 311, Npart= 61)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 2.65027 Eta= -4.98797
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 5.62491e-08 Eta= -22.1807
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 2.65027 Eta= -3.87501
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.563487 Eta= -6.03777
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.563487 Eta= -6.03777
+particle 5 of type 1 () with fmckin id 7 produced at 1 by 2;  Et= 0.22452 Eta= 5.87702
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= -0.232107 Eta= 1.40687
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 3.69362 Eta= -4.12336
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 2.77985 Eta= -0.674059
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 3.84352 Eta= -3.99793
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 0.382404 Eta= -3.48864
+particle 11 of type 33 (g) with fmckin id 13 produced at 1 by 9;  Et= 0.491558 Eta= -1.49833
+particle 12 of type 4 () with fmckin id 14 produced at 1 by 9;  Et= 0.597974 Eta= -1.30939
+particle 13 of type 3 () with fmckin id 15 produced at 1 by 9;  Et= 3.00787 Eta= -0.858105
+particle 14 of type 33 (g) with fmckin id 16 produced at 1 by 2147483647;  Et= 0.222536 Eta= 0.971054
+0x80ca114
+12 outgoing quarks and gluons
+type: 7 Et: 0.563487 Eta: -6.03777 Phi: 2.91863; fmckin: 5, daughter of 3
+type: 7 Et: 0.563487 Eta: -6.03777 Phi: 2.91863; fmckin: 6, daughter of 5
+type: 1 Et: 0.22452 Eta: 5.87702 Phi: 2.66193; fmckin: 7, daughter of 2
+type: 33 Et: -0.232107 Eta: 1.40687 Phi: 4.53415; fmckin: 8, daughter of 7
+type: 7 Et: 3.69362 Eta: -4.12336 Phi: 3.81823; fmckin: 9, daughter of 3
+type: 33 Et: 2.77985 Eta: -0.674059 Phi: 0.553314; fmckin: 10, daughter of 3
+type: 7 Et: 3.84352 Eta: -3.99793 Phi: 3.88696; fmckin: 11, daughter of 9
+type: 33 Et: 0.382404 Eta: -3.48864 Phi: 1.42117; fmckin: 12, daughter of 9
+type: 33 Et: 0.491558 Eta: -1.49833 Phi: 3.91164; fmckin: 13, daughter of 9
+type: 4 Et: 0.597974 Eta: -1.30939 Phi: 5.11954; fmckin: 14, daughter of 9
+type: 3 Et: 3.00787 Eta: -0.858105 Phi: 0.775755; fmckin: 15, daughter of 9
+type: 8 Et: 0.567486 Eta: -3.78307 Phi: 6.06006; fmckin: 22, daughter of 1
+
+
+p: 4.87184e-08 3.78647e-08 100.227 100.231
+q: -4.87184e-08 -3.78647e-08 -100.227 100.171
+event 16; 79 particles stored (Fmck_nkin= 192, Npart= 45)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 6.58561 Eta= -4.34154
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 6.16681e-08 Eta= -21.8341
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 6.58561 Eta= -3.83722
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.793634 Eta= -3.77552
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.793634 Eta= -3.77552
+particle 5 of type 3 () with fmckin id 7 produced at 1 by 2;  Et= 0.898149 Eta= 3.56166
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 1.01017 Eta= 1.58663
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 2.9299 Eta= -2.44988
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 1.37492 Eta= 1.33342
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 2.80587 Eta= -2.49679
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 0.102157 Eta= 0.618658
+particle 11 of type 3 () with fmckin id 14 produced at 1 by 2147483647;  Et= 0.587548 Eta= 3.80906
+particle 12 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 1.22759 Eta= 0.793487
+particle 13 of type 33 (g) with fmckin id 16 produced at 1 by 9;  Et= 0.129771 Eta= 2.71167
+particle 14 of type 8 (cbar) with fmckin id 17 produced at 1 by 1;  Et= 0.793742 Eta= -5.34154
+0x80ca114
+11 outgoing quarks and gluons
+type: 7 Et: 0.793634 Eta: -3.77552 Phi: 2.19117; fmckin: 5, daughter of 3
+type: 7 Et: 0.793634 Eta: -3.77552 Phi: 2.19117; fmckin: 6, daughter of 5
+type: 3 Et: 0.898149 Eta: 3.56166 Phi: 1.57336; fmckin: 7, daughter of 2
+type: 33 Et: 1.01017 Eta: 1.58663 Phi: 2.13897; fmckin: 8, daughter of 7
+type: 7 Et: 2.9299 Eta: -2.44988 Phi: 1.93445; fmckin: 9, daughter of 3
+type: 33 Et: 1.37492 Eta: 1.33342 Phi: 4.70169; fmckin: 10, daughter of 3
+type: 7 Et: 2.80587 Eta: -2.49679 Phi: 1.94736; fmckin: 11, daughter of 9
+type: 33 Et: 0.102157 Eta: 0.618658 Phi: 1.72241; fmckin: 12, daughter of 9
+type: 33 Et: 1.22759 Eta: 0.793487 Phi: 4.78016; fmckin: 15, daughter of 9
+type: 33 Et: 0.129771 Eta: 2.71167 Phi: 2.3414; fmckin: 16, daughter of 9
+type: 8 Et: 0.793742 Eta: -5.34154 Phi: 5.33261; fmckin: 17, daughter of 1
+
+
+p: -3.85259e-08 2.9933e-08 42.2991 42.3095
+q: 3.85259e-08 -2.99331e-08 -42.2991 42.2377
+event 17; 62 particles stored (Fmck_nkin= 160, Npart= 35)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 31.1487 Eta= -3.65023
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 4.87168e-08 Eta= -21.2848
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 31.1487 Eta= -3.57709
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 1.11897 Eta= -4.08614
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 1.11897 Eta= -4.08614
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.136189 Eta= 1.17621
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.136184 Eta= 1.17623
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 1.54249 Eta= -3.17298
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 2.79759 Eta= -2.37021
+particle 9 of type 7 (c) with fmckin id 11 produced at 1 by 9;  Et= 1.60584 Eta= -3.15886
+particle 10 of type 33 (g) with fmckin id 12 produced at 1 by 9;  Et= 0.534172 Eta= -1.73928
+particle 11 of type 33 (g) with fmckin id 13 produced at 1 by 9;  Et= 2.48533 Eta= -2.34161
+particle 12 of type 8 (cbar) with fmckin id 15 produced at 1 by 1;  Et= 1.13386 Eta= -2.76574
+particle 13 of type 3 () with fmckin id 16 produced at 1 by 2;  Et= 0.409434 Eta= 4.7071
+particle 14 of type 2092 (string) with fmckin id 17 produced at 1 by 11;  Et= 5.00708 Eta= -3.04713
+0x80ca114
+11 outgoing quarks and gluons
+type: 7 Et: 1.11897 Eta: -4.08614 Phi: 3.15383; fmckin: 5, daughter of 3
+type: 7 Et: 1.11897 Eta: -4.08614 Phi: 3.15383; fmckin: 6, daughter of 5
+type: 33 Et: 0.136189 Eta: 1.17621 Phi: 3.4713; fmckin: 7, daughter of 2
+type: 33 Et: 0.136184 Eta: 1.17623 Phi: 3.4713; fmckin: 8, daughter of 7
+type: 7 Et: 1.54249 Eta: -3.17298 Phi: 6.24078; fmckin: 9, daughter of 3
+type: 33 Et: 2.79759 Eta: -2.37021 Phi: 3.13894; fmckin: 10, daughter of 3
+type: 7 Et: 1.60584 Eta: -3.15886 Phi: 6.24117; fmckin: 11, daughter of 9
+type: 33 Et: 0.534172 Eta: -1.73928 Phi: 2.38301; fmckin: 12, daughter of 9
+type: 33 Et: 2.48533 Eta: -2.34161 Phi: 3.28614; fmckin: 13, daughter of 9
+type: 8 Et: 1.13386 Eta: -2.76574 Phi: 0.0118971; fmckin: 15, daughter of 1
+type: 3 Et: 0.409434 Eta: 4.7071 Phi: 4.51751; fmckin: 16, daughter of 2
+
+
+p: 8.1924e-08 -4.26005e-08 112.59 112.594
+q: -8.1924e-08 4.26005e-08 -112.59 112.536
+event 18; 116 particles stored (Fmck_nkin= 306, Npart= 74)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 4.94035 Eta= -4.51268
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 9.22938e-08 Eta= -21.5543
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 4.94035 Eta= -3.81983
+particle 3 of type 8 (cbar) with fmckin id 5 produced at 1 by 3;  Et= 1.24034 Eta= -4.14464
+particle 4 of type 8 (cbar) with fmckin id 6 produced at 1 by 5;  Et= 1.24034 Eta= -4.14464
+particle 5 of type 33 (g) with fmckin id 7 produced at 1 by 2;  Et= 0.30105 Eta= 1.42184
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 0.301048 Eta= 1.42185
+particle 7 of type 8 (cbar) with fmckin id 9 produced at 1 by 3;  Et= 4.87394 Eta= -2.31599
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 4.41111 Eta= -1.88495
+particle 9 of type 8 (cbar) with fmckin id 11 produced at 1 by 9;  Et= 4.14958 Eta= -2.32841
+particle 10 of type 3 () with fmckin id 12 produced at 1 by 2;  Et= 0.171744 Eta= 5.33417
+particle 11 of type 7 (c) with fmckin id 13 produced at 1 by 1;  Et= 1.24052 Eta= -4.77357
+particle 12 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 0.557712 Eta= -2.72583
+particle 13 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 3.76081 Eta= -1.66171
+particle 14 of type 33 (g) with fmckin id 16 produced at 1 by 9;  Et= 0.676576 Eta= -2.40199
+0x80ca114
+12 outgoing quarks and gluons
+type: 8 Et: 1.24034 Eta: -4.14464 Phi: 4.43308; fmckin: 5, daughter of 3
+type: 8 Et: 1.24034 Eta: -4.14464 Phi: 4.43308; fmckin: 6, daughter of 5
+type: 33 Et: 0.30105 Eta: 1.42184 Phi: 2.03238; fmckin: 7, daughter of 2
+type: 33 Et: 0.301048 Eta: 1.42185 Phi: 2.03238; fmckin: 8, daughter of 7
+type: 8 Et: 4.87394 Eta: -2.31599 Phi: 3.23955; fmckin: 9, daughter of 3
+type: 33 Et: 4.41111 Eta: -1.88495 Phi: 6.18117; fmckin: 10, daughter of 3
+type: 8 Et: 4.14958 Eta: -2.32841 Phi: 3.24111; fmckin: 11, daughter of 9
+type: 3 Et: 0.171744 Eta: 5.33417 Phi: 5.13408; fmckin: 12, daughter of 2
+type: 7 Et: 1.24052 Eta: -4.77357 Phi: 1.29156; fmckin: 13, daughter of 1
+type: 33 Et: 0.557712 Eta: -2.72583 Phi: 0.775957; fmckin: 14, daughter of 9
+type: 33 Et: 3.76081 Eta: -1.66171 Phi: 5.85711; fmckin: 15, daughter of 9
+type: 33 Et: 0.676576 Eta: -2.40199 Phi: 1.83961; fmckin: 16, daughter of 9
+
+
+p: 1.03908e-07 -3.40542e-08 33.7501 33.7631
+q: -1.03908e-07 3.40542e-08 -33.7501 32.2762
+event 19; 78 particles stored (Fmck_nkin= 357, Npart= 36)
+particle 0 of type 23 (e-) with fmckin id 1 produced at 1 by 2147483647;  Et= 219.454 Eta= -1.92356
+particle 1 of type 32 (Z0) with fmckin id 3 produced at 1 by 1;  Et= 1.04571e-07 Eta= -20.2399
+particle 2 of type 23 (e-) with fmckin id 4 produced at 1 by 1;  Et= 219.454 Eta= -1.87862
+particle 3 of type 7 (c) with fmckin id 5 produced at 1 by 3;  Et= 0.413802 Eta= -5.0138
+particle 4 of type 7 (c) with fmckin id 6 produced at 1 by 5;  Et= 0.413795 Eta= -5.01382
+particle 5 of type 3 () with fmckin id 7 produced at 1 by 2;  Et= 0.174468 Eta= 5.27849
+particle 6 of type 33 (g) with fmckin id 8 produced at 1 by 7;  Et= 3.06758 Eta= 1.55973
+particle 7 of type 7 (c) with fmckin id 9 produced at 1 by 3;  Et= 4.74887 Eta= -2.54117
+particle 8 of type 33 (g) with fmckin id 10 produced at 1 by 3;  Et= 2.53596 Eta= 1.87031
+particle 9 of type 29 (gamma) with fmckin id 11 produced at 1 by 2147483647;  Et= 0.303078 Eta= 0.0115445
+particle 10 of type 7 (c) with fmckin id 12 produced at 1 by 9;  Et= 5.0924 Eta= -2.29418
+particle 11 of type 33 (g) with fmckin id 13 produced at 1 by 9;  Et= 0.462652 Eta= -2.55311
+particle 12 of type 33 (g) with fmckin id 14 produced at 1 by 9;  Et= 1.3203 Eta= -0.62036
+particle 13 of type 33 (g) with fmckin id 15 produced at 1 by 9;  Et= 0.66748 Eta= 1.75054
+particle 14 of type 33 (g) with fmckin id 16 produced at 1 by 9;  Et= 0.843008 Eta= 2.41276
+0x80ca114
+13 outgoing quarks and gluons
+type: 7 Et: 0.413802 Eta: -5.0138 Phi: 3.2208; fmckin: 5, daughter of 3
+type: 7 Et: 0.413795 Eta: -5.01382 Phi: 3.22081; fmckin: 6, daughter of 5
+type: 3 Et: 0.174468 Eta: 5.27849 Phi: 4.89959; fmckin: 7, daughter of 2
+type: 33 Et: 3.06758 Eta: 1.55973 Phi: 5.22513; fmckin: 8, daughter of 7
+type: 7 Et: 4.74887 Eta: -2.54117 Phi: 4.57516; fmckin: 9, daughter of 3
+type: 33 Et: 2.53596 Eta: 1.87031 Phi: 0.488199; fmckin: 10, daughter of 3
+type: 7 Et: 5.0924 Eta: -2.29418 Phi: 4.29747; fmckin: 12, daughter of 9
+type: 33 Et: 0.462652 Eta: -2.55311 Phi: 1.01586; fmckin: 13, daughter of 9
+type: 33 Et: 1.3203 Eta: -0.62036 Phi: 6.082; fmckin: 14, daughter of 9
+type: 33 Et: 0.66748 Eta: 1.75054 Phi: 4.44089; fmckin: 15, daughter of 9
+type: 33 Et: 0.843008 Eta: 2.41276 Phi: 0.564044; fmckin: 16, daughter of 9
+type: 33 Et: 1.93943 Eta: 0.118881 Phi: 0.658827; fmckin: 17, daughter of 9
+type: 8 Et: 0.555836 Eta: -2.05 Phi: 0.071507; fmckin: 22, daughter of 1
+Histograms written to file
+total nr of vertices by orange finder 0
+total nr of vertices by cn finder 0
+nr of events where there are more vertices in orange 0
+nr of events where there are more vertices in cn 0

@@ -1,0 +1,10 @@
+Int_t           Trk_ntracks
+Int_t           Trk_type		[400]		[Trk_ntracks]
+Int_t           Ntrack_type	[4]
+Int_t           Def_trk_type
+Int_t           Trk_id			[400]		[Trk_ntracks]
+Int_t           Trk_id2			[400]		[Trk_ntracks]
+Float_t         Trk_px			[400]		[Trk_ntracks]
+Float_t         Trk_py			[400]		[Trk_ntracks]
+Float_t         Trk_pz			[400]		[Trk_ntracks]
+Float_t         Trk_charge		[400]		[Trk_ntracks]

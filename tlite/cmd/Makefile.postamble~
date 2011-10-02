@@ -1,0 +1,4 @@
+CCPP_FLAGS += $(CWINDOWSINCS)
+#CCPP_FLAGS += -g -pg
+#CCPP_FLAGS += -g -O1
+#CCPP_FLAGS += -g

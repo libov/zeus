@@ -1,0 +1,6 @@
+# year	version	type(data/MC)	luminosity	details(for MC only )
+# Note: for 04 Runnr > 48600 is used (no pnov03)
+05      v04b        data        133.0
+06e     v04b        data        55.07
+06p     v04b        data        0
+07p     v04b        data        143.12

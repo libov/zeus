@@ -1,0 +1,6 @@
+Int_t       Kt_njet_d
+Float_t     Kt_etjet_d      [30]        [Kt_njet_d]
+Float_t     Kt_etajet_d     [30]        [Kt_njet_d]
+Float_t     Kt_phijet_d     [30]        [Kt_njet_d]
+Float_t     Kt_masjet_d     [30]        [Kt_njet_d]
+Float_t     Kt_bst_d        [4]         [Kt_njet_d]

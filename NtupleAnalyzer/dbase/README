@@ -1,0 +1,13 @@
+This is directory with 'database' files, i.e. various data that are needed for programs
+but are not supposed not be changed or change very rarely
+
+./orablocks:
+orange block definitions.
+Format:
+File name=Name of the block (First letter big, other small)
+File content:
+<type>  <name>  [<array dimensions>]
+
+put a newline after the last variable!
+Room for improvement: make these control cards mechanism more robust, so that there's no
+dependence on newlines etc.

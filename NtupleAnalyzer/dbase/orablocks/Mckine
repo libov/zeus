@@ -1,0 +1,20 @@
+Float_t			Mc_el
+Float_t			Mc_ep
+Float_t			Mc_x
+Float_t			Mc_y
+Float_t			Mc_q2
+Float_t			Mc_mu
+Float_t			Mc_pt
+Float_t			Mc_xpro
+Float_t			Mc_xgam
+Float_t			Mc_xpom
+Float_t			Mc_beta
+Float_t			Mc_t
+Int_t			Mc_idl
+Int_t			Mc_pidl
+Int_t			Mc_pidp
+Int_t			Mc_idfsl
+Float_t			Mc_Pfsl				[4]
+Float_t			Mc_Pfsph				[4]
+Float_t			Mc_vtx				[3]
+Int_t			Mc_ichnn

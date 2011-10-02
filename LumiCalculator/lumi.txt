@@ -1,0 +1,58 @@
+*****     Luminosities for CN version v04  ***********
+05e
+                     PCAL                 SPEC                
+URL:                 134159.97            115588.83           
+CN ALL:              134022.2223          115475.859076       
+CN EVTAKE/MVDTAKE:   132075.578441        114991.661131       
+
+
+06e
+                     PCAL                 SPEC                
+URL:                 54795.74             53235.78            
+CN ALL:              54734.4245973        53177.6601396       
+CN EVTAKE/MVDTAKE:   54685.3884969        53128.4537304       
+
+
+06p
+                     PCAL                 SPEC                
+URL:                 96267.15             72299.84            
+CN ALL:              96215.1764494        72264.9963294       
+CN EVTAKE/MVDTAKE:   95865.4875179        71914.5876675       
+
+
+07p
+                     PCAL                 SPEC                
+URL:                 46109.59             25279.05            
+CN ALL:              46060.4793179        25260.745056        
+CN EVTAKE/MVDTAKE:   45982.1884249        25260.745056        
+
+
+*****     Luminosities for CN version v02  ***********
+05e
+                     PCAL                 SPEC                
+URL:                 134159.97            115588.83           
+CN ALL:              133884.77214         115337.14619        
+CN EVTAKE/MVDTAKE:   131807.146195        114852.948245       
+
+
+06e
+                     PCAL                 SPEC                
+URL:                 54795.74             53235.78            
+CN ALL:              54614.0080309        53056.1056525       
+CN EVTAKE/MVDTAKE:   52953.3396479        51518.6718562       
+
+
+06p
+                     PCAL                 SPEC                
+URL:                 96250.82             72286.21            
+CN ALL:              96205.4708612        72251.3681778       
+CN EVTAKE/MVDTAKE:   89914.18322          65903.2748744       
+
+
+07p
+                     PCAL                 SPEC                
+URL:                 46109.59             25279.05            
+CN ALL:              45961.4779106        25230.3923599       
+CN EVTAKE/MVDTAKE:   45883.1870176        25230.3923599       
+
+

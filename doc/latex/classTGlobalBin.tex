@@ -1,0 +1,105 @@
+\section{TGlobal\-Bin Class Reference}
+\label{classTGlobalBin}\index{TGlobalBin@{TGlobalBin}}
+Class for automatic binning.  
+
+
+{\tt \#include $<$TGlobal\-Bin.h$>$}
+
+Collaboration diagram for TGlobal\-Bin:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=93pt]{classTGlobalBin__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\textbf{TGlobal\-Bin} (\bf{TMini\-Ntuple\-Analyzer} $\ast$instance)\label{classTGlobalBin_af0b836dae1a8dc5797c426955d8aa0a}
+
+\item 
+void \textbf{Add\-Bin} (\bf{TBin} $\ast$bin)\label{classTGlobalBin_a77decc96a8b952805ef1784a3ba57f2}
+
+\item 
+Bool\_\-t \textbf{Check\-Global\-Bin} (Variable\-Phase Var\-Phase)\label{classTGlobalBin_b28b58554593096c7eeccba0a322c3c3}
+
+\item 
+TString \textbf{Get\-Bin\-Description} ()\label{classTGlobalBin_c561922a5aa413bdbf24ae459226eefc}
+
+\item 
+void \textbf{Add\-Histogram} (TH1F $\ast$histogram)\label{classTGlobalBin_a5e870beaa02dbd32fe498e062d56991}
+
+\item 
+int \textbf{Fill\-Histogram} (TString Hist\-Title, Float\_\-t Value)\label{classTGlobalBin_97c00061be98c0925ce482a716a3b1b6}
+
+\item 
+TList $\ast$ \textbf{Get\-Hist\-List} ()\label{classTGlobalBin_be9e8b4ae688d36fecafef1706a83450}
+
+\item 
+void \textbf{Add\-Mirrored\-Hist\-Title} (TString title)\label{classTGlobalBin_b6a2f1486df0b2c68e1ae5a7d19daecf}
+
+\item 
+void \textbf{Mirror\-Histograms} ()\label{classTGlobalBin_60fb277e1f009d41d07079545a32e586}
+
+\item 
+void \textbf{Set\-Weighting\-Factor} (Double\_\-t factor)\label{classTGlobalBin_5b27866bdcecc48e58738437b1c1c688}
+
+\item 
+Double\_\-t \textbf{Get\-Weighting\-Factor} ()\label{classTGlobalBin_cd362057eecf84f0a1f39f4797030b31}
+
+\item 
+void \textbf{Apply\-Weighting} (Bool\_\-t apply)\label{classTGlobalBin_c83c2cbce90860e269ef65c688d1734a}
+
+\end{CompactItemize}
+\subsection*{Public Attributes}
+\begin{CompactItemize}
+\item 
+TString \textbf{Bin\-Name}\label{classTGlobalBin_c61f142246f3d058196f20ce85903cdc}
+
+\end{CompactItemize}
+\subsection*{Private Attributes}
+\begin{CompactItemize}
+\item 
+TList $\ast$ \textbf{f\-List\_\-TBin}\label{classTGlobalBin_2cc85bb69e33da1edd32346ca27cce18}
+
+\item 
+TString \textbf{f\-Bin\-Description}\label{classTGlobalBin_0f0faa871f5e7c0366d919fa2bfa7523}
+
+\item 
+TList $\ast$ \textbf{f\-List\-Histograms}\label{classTGlobalBin_2293c62294ba72f986d86b1d9c73c35a}
+
+\item 
+\bf{TMini\-Ntuple\-Analyzer} $\ast$ \textbf{f\-Analyzer\-Instance}\label{classTGlobalBin_418bc50d3f8e5eb46e06426f455c38e8}
+
+\item 
+vector$<$ TString $>$ \textbf{f\-Mirrored\-Hist\-Title}\label{classTGlobalBin_38d57732c1d84d26dd621abe023b4556}
+
+\item 
+Int\_\-t \textbf{f\-Nevents}\label{classTGlobalBin_ec4b680afff687ba1944072fa96aa2a9}
+
+\item 
+Double\_\-t \bf{f\-Weighting\-Factor}
+\item 
+Bool\_\-t \textbf{f\-Apply\-Weighting}\label{classTGlobalBin_f228f8acba01b0ca441fa105f40f6bc1}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Class for automatic binning. 
+
+Contains list of \doxyref{TBin}{p.}{classTBin} objects. Probably many members here that should better belong to \doxyref{TMini\-Ntuple\-Analyzer}{p.}{classTMiniNtupleAnalyzer}... 
+
+
+
+\subsection{Member Data Documentation}
+\index{TGlobalBin@{TGlobal\-Bin}!fWeightingFactor@{fWeightingFactor}}
+\index{fWeightingFactor@{fWeightingFactor}!TGlobalBin@{TGlobal\-Bin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Double\_\-t \bf{TGlobal\-Bin::f\-Weighting\-Factor}\hspace{0.3cm}{\tt  [private]}}\label{classTGlobalBin_3ea862d2ff6b72dec0540d1ec35bb81d}
+
+
+Weighting factor for histograms filling. Is used to scale charm distribution when adding up samples with different q2-min-cut 
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+Ntuple\-Analyzer/inc/TGlobal\-Bin.h\item 
+Ntuple\-Analyzer/src/TGlobal\-Bin.cxx\end{CompactItemize}

@@ -1,0 +1,15 @@
+Int_t           Bspt_prog
+Float_t         Bspt_x
+Float_t         Bspt_y
+Float_t         Bspt_z
+Float_t         Bspt_xer
+Float_t         Bspt_yer
+Float_t         Bspt_zer
+Float_t         Bspt_dxdz
+Float_t         Bspt_dydz
+Float_t         Bspt_dxdzer
+Float_t         Bspt_dydzer
+Float_t         Bspt_xoff
+Float_t         Bspt_yoff
+Float_t         Bspt_xoffer
+Float_t         Bspt_yoffer

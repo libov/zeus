@@ -1,0 +1,6 @@
+Int_t           Npart
+Int_t           Idlepton
+Int_t           Idphoton
+Int_t           Part_id		[2044]			[Npart]
+Int_t           Part_prt	[2044]			[Npart]
+Float_t         Part_p		[2044][4]		[Npart][4]

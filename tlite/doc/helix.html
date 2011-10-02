@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Helix Utility Functions</title>
+  </head>
+  <body>
+    <table border=0 cellspacing=0 width="100%">
+	<tr><td bgcolor=yellow>
+	    <img SRC="zeus_small2.gif" ALT="ZEUS" height=77 width=77 align=Right>
+	    <h1 align=center><font color=black>Helix Utility Functions</font></h1>
+	  </td></tr>
+    </table>
+    <br><br>
+    These routines calculate the four momentum of a particle from its helix parameters or the vertex constrained parameters(theta, phi, and curvature).
+    For the helix parameters the momentum is calculated at the point of closest approach to the reference point, so one might want to call vcreref before.
+<br><br>
+    <strong>Functions:</strong> <br>
+    <ul>
+      <li> tliphel(par,cov,bfieldz,mass,mode,p,pcov)
+<br><br>
+	The momentum is calculated at the point of closest approach to the reference point, so one might want to call vcreref before.<br><br>
+	input variables:
+	<ul>
+	  <li> par <br> 
+	    real(5); an array holding the parameters of the track. <br>
+	    The track parameters follow the ZEUS convention(&Phi;H, Q/R, QDH, ZH,cot &theta;). 
+	  <li> cov <br> 
+	    real(15); an array holding the covariance matrix elements of the track parameters. 
+	  <li> bfieldz <br>
+	    real; the z component of the magnet field in kGauss
+	  <li> mass <br>
+	    real; mass of the particle
+	  <li> mode <br>
+	    integer; compute covariance matrix if mode &gt; 1
+	</ul>
+	output variables:
+	<ul> 
+	  <li> p <br>
+	    double precision(4); the four momentum at the point of closest approach to the reference point of the helix.<br> Order: Px,Py,Pz,E
+	  <li> pcov <br>
+	    double precision(10); the covariance matrix of the calculated four momentum<br>
+	    format:  <table border=0 cellspacing=0 width="20%">
+		<tr><td>1</td><td>2</td><td>4</td><td>7</td></tr>
+		<tr><td> </td><td>3</td><td>5</td><td>8</td></tr>
+		<tr><td> </td><td> </td><td>6</td><td>9</td></tr>
+		<tr><td> </td><td> </td><td> </td><td>10</td></tr>             
+	    </table>
+
+	</ul>
+      <li>  tlipnewpar(par,bfieldz,mass,p)
+	<br><br>
+	input variables:
+	<ul>
+	  <li> par <br> 
+	    real(5); an array holding the vertex constrained parameters of the track. <br>
+	    These parameters are  &theta,&Phi, and Q/R. 
+	  <li> bfieldz <br>
+	    real; the z component of the magnet field in kGauss
+	  <li> mass <br>
+	    real; mass of the particle
+	</ul>
+	output variables:
+	<ul> 
+	  <li> p <br>
+	    double precision(4); the four momentum<br>
+	    Order: Px,Py,Pz,E
+	</ul>
+    </ul>
+    <hr>
+    <address><a href="mailto:stadie@mail.desy.de">Hartmut Stadie</a></address>
+<!-- Created: Wed Nov  2 16:21:11 CET 2005 -->
+<!-- hhmts start -->
+Last modified: Wed Nov  9 10:15:42 CET 2005
+<!-- hhmts end -->
+  </body>
+</html>

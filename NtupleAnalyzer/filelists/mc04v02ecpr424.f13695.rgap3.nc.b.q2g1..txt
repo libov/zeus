@@ -1,0 +1,11 @@
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.36.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.37.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.38.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.39.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.41.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.43.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.45.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f13695.rgap3.nc.b.q2g1.46.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.ocpr424.f13695.rgap3.nc.b.q2g1.40.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.ycpr424.f13695.rgap3.nc.b.q2g1.42.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.ycpr424.f13695.rgap3.nc.b.q2g1.44.root

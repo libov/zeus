@@ -1,0 +1,33 @@
+#___________________________________________________________________________
+#
+#		Pull in Machine-dependent local locations:
+#
+#___________________________________________________________________________
+#
+#  For running the Debugger, it's easier to use the default EXEDIR.
+#  But, this can be used to create the executable on the scratch area:
+#  ------------------------------------------------------------------
+#EXEDIR=/tmp/jryan$(ZARCH_TYPER)
+#___________________________________________________________________________
+#
+#    Definitions for FPP
+#___________________________________________________________________________
+#
+CONDITIONAL_FLAGS =  #
+#
+CONDITIONAL_FLAGS_OFF =  #
+#___________________________________________________________________________
+#
+#    Definitions for FPP
+#___________________________________________________________________________
+#
+#  For running the Debugger, one must use the debug Linker flag:
+#DEBUG_LIBRARY=0
+#LD_OPTS += -g
+#____________________________________________________________________
+#
+#ZADAMODIR = /afs/desy.de/user/z/ztrack/zeus/ZeusAdamo/vpro
+#WINDOWSDIR = $(ZADAMODIR)/inc/windows 
+#ZADAMODIR=/data/zenith221a/mankel/release-2006a.3/ZeusAdamo
+#WINDOWSDIR = $(ZADAMODIR)/inc/windows
+

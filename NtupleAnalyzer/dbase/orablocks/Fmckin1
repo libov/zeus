@@ -1,0 +1,30 @@
+Int_t           Fmck_nkin
+Float_t         Fmck_q2
+Float_t         Fmck_w
+Float_t         Fmck_xg
+Int_t           Fmck_nstor
+Int_t           Fmck_id                     [3000]        [Fmck_nstor]
+Float_t         Fmck_px                     [3000]        [Fmck_nstor]
+Float_t         Fmck_py                     [3000]        [Fmck_nstor]
+Float_t         Fmck_pz                     [3000]        [Fmck_nstor]
+Float_t         Fmck_e                      [3000]        [Fmck_nstor]
+Float_t         Fmck_m                      [3000]        [Fmck_nstor]
+Int_t           Fmck_isthep                 [3000]        [Fmck_nstor]
+Int_t           Fmck_daug                   [3000]        [Fmck_nstor]
+Int_t           Fmck_daug2                  [3000]        [Fmck_nstor]
+Int_t           Fmck_prt                    [3000]        [Fmck_nstor]
+Int_t           Fmck_prat                   [3000]        [Fmck_nstor]
+Float_t         Fmck_impar                  [3000]        [Fmck_nstor]
+Float_t         Fmck_impar2                 [3000]        [Fmck_nstor]
+Int_t           Fmck_hadjet                 [3000]        [Fmck_nstor]
+Int_t           Fmck_mhadjet                [3000]        [Fmck_nstor]
+Int_t           Fmck_bhadjet                [3000]        [Fmck_nstor]
+Int_t           Fmck_mbhadjet               [3000]        [Fmck_nstor]
+Int_t           Fmck_partjet                [3000]        [Fmck_nstor]
+Int_t           Fmck_mpartjet               [3000]        [Fmck_nstor]
+Int_t           Fmck_brhadjet               [3000]        [Fmck_nstor]
+Int_t           Fmck_brmhadjet              [3000]        [Fmck_nstor]
+Int_t           Fmck_brbhadjet              [3000]        [Fmck_nstor]
+Int_t           Fmck_brmbhadjet             [3000]        [Fmck_nstor]
+Int_t           Fmck_brpartjet              [3000]        [Fmck_nstor]
+Int_t           Fmck_brmpartjet             [3000]        [Fmck_nstor]

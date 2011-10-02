@@ -1,0 +1,69 @@
+#__________________________________________________________________________
+#
+#   Makefile for tLite library generation
+#
+#__________________________________________________________________________
+#
+#____________________________________________________________________
+#
+#     Library
+#____________________________________________________________________
+#
+FULLLIBPATH = $(LIBDIR)/libtLite
+#_____________________________________________________________________________
+#
+.PHONY : all
+all : cleanall lib
+lib_make : $(FULLLIBPATH)$(A)
+#____________________________________________________________________
+#
+#     Program Dependencies
+#____________________________________________________________________
+#
+#   Define the subdirectories of the Include tree
+#   ---------------------------------------------
+LIB_SUBINCS := dca vxlite kinematicFits helix mctools ctvmft
+#
+#   Define the subdirectories of the Source tree
+#   --------------------------------------------
+LIB_SUBSRCS := dca vxlite kinematicFits helix mctools ctvmft
+#_____________________________________________________________________________
+#
+#    Use the standard GNU Make tools
+#_____________________________________________________________________________
+#
+include  $(ZMAKEDIR)/lib_mgr_dep.make
+#_____________________________________________________________________________
+#
+#____________________________________________________________________
+#
+#    Include File Search Pathes 
+#____________________________________________________________________
+#
+FPPFLAGS   +=  $(WINDOWSINCS)
+FPPFLAGS   +=  $(ZEUSINCS)
+
+
+CCPP_FLAGS += -fPIC -O2 -Wall -Wno-shadow
+CCPP_FLAGS += -I${CLHEPINCDIR}
+
+#____________________________________________________________________
+#
+help : 
+	$(SAY) " This procedure generates the tlite library:"
+	$(SAY) "    $(FULLLIBPATH)$(A)."
+	$(SAY) "Just type make all"
+	$(SAY) "Other options: "
+	$(SAY) "  make purge    -> removes backup files $(SRCDIR)/*~ "
+	$(SAY) "  make cleanobj -> removes object modules $(OBJDIR)/*$(O) "
+	$(SAY) "  make cleangen -> removes all the FPP-ed files: $(GENDIR)/*.f"
+	$(SAY) "  make cleanlib -> removes the library $(FULLLIBPATH)$(A)."
+	$(SAY) "  make cleanall -> all of the above."
+
+test :
+	$(SAY) "$(DEBUG_LIBRARY)"
+	$(SAY) "$(CFLAGS)"
+	$(SAY) "$(CCPP_FLAGS)" 
+#____________________________________________________________________
+#
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>tliPartTab</title>
+</head> 
+    <table border=0 cellspacing=0 width="100%">
+	<tr><td bgcolor=yellow>
+	    <img SRC="zeus_small2.gif" ALT="ZEUS" height=77 width=77 align=Right>
+	    <h1 align=center><font color=black>The tliPartTab Class</font></h1>
+	  </td></tr>
+    </table>
+<h2>Purpose</h2>
+The purpose of this class is to provide an interface to the ZEUS particle table that is easy to use from C++. <br>
+<h2>Implementation</h2>
+The class is implemented as a singleton. Upon its first invocation, an
+instance is created which loads its information from the FMCPrt and
+FMCPcd tables.<br>
+<br>
+<h2>Member functions</h2>
+&nbsp; <span style="font-family: monospace;">static tliPartTab* Instance();</span> &nbsp; // give pointer to singleton instance <br>
+&nbsp; <span style="font-family: monospace;">int getFmcId(const string&amp; partName); </span>&nbsp; // convert particle name to integer particle id<br>
+&nbsp; i<span style="font-family: monospace;">nt getAntiFmcId(const string&amp; partName);</span> &nbsp;// find id of anti-particle<br>
+&nbsp; <span style="font-family: monospace;">string getAntiName(const string&amp; partName);</span> &nbsp; // give name of anti-particle for given name of particle<br>
+&nbsp;&nbsp;<span style="font-family: monospace;">static int getFmcDaug(const int fmckinId,vector&lt;int&gt;&amp; output);</span> &nbsp;// expand mother-daughter relations in FMCKin table<br>
+<hr style="width: 100%; height: 2px;">15-Aug-2006 &nbsp; Rainer Mankel
+</body>
+</html>

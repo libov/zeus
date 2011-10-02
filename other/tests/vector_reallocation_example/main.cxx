@@ -1,0 +1,55 @@
+#include <vector>
+#include <iostream>
+using namespace std;
+
+struct CMyClass
+{
+    int a;
+    float b;
+
+    ~CMyClass(){std::cout << "~ "<<endl;}
+};
+/*
+int main(int argc, char **argv)
+{
+    std::vector<CMyClass> v;
+
+    for (int i=0; i<5; ++i)
+    {
+        std::cout << i << endl;
+        CMyClass obj;
+        obj.a = 1;
+        obj.b = 3.14159f;
+        cout << "pushing" << endl;
+        v.push_back(obj);
+        cout << "done" << endl;
+    }
+    cout << endl << "done with push_back()" << endl;
+
+
+    return 0;
+}*/
+
+
+
+int main()
+{
+    std::vector<CMyClass> v;
+    v.reserve(5);    // so reallocations will not occur
+
+    CMyClass obj;    // declared outside of the loop
+    for (int i=0; i<5; ++i)
+    {
+        std::cout << i << endl;
+        obj.a = 1;
+        obj.b = 3.14159f;
+        cout << "pushing" << endl;
+        v.push_back(obj);
+        cout << "done" << endl;
+    }
+    std::cout << std::endl << "done with push_back()" << std::endl;
+
+
+    return 0;
+}
+

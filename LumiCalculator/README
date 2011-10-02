@@ -1,0 +1,175 @@
+Here some information regarding data luminosity is summarized
+Source: http://www-zeus.desy.de/physics/lumi/
+
+-- 0607p --
+60005 - 62639
+
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 1563  / 136328591 
++ number of processed ep runs : 1563  
++ number of recorded  evts : 136328591 
++ number of processed evts : 134968416 
++------------------------------------------------------------------------ 
++ number of good DQ processed runs : 1395  
++ number of good DQ recorded  evts : 133214624 
++ number of good DQ processed evts : 131981502  
++    EVTAKE photon cal lumi runs   :         1395   
++    number of processed evts :     131944394  and lumi :      142937.69  nb-1  
++    good DQ spectrometer lumi runs :          925  
++    number of processed evts :      86270787  and lumi :       97578.93  nb-1  
+
+WITH MVD
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 1546  / 135802288 
++ number of processed ep runs : 1546  
++ number of recorded  evts : 135802288 
++ number of processed evts : 134448461 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 1382  
++ number of good DQ recorded  evts : 132694102 
++ number of good DQ processed evts : 131467236  
++    EVTAKE photon cal lumi runs   :         1382   
++    number of processed evts :     131430128  and lumi :      142508.99  nb-1  
++    good DQ spectrometer lumi runs :          914  
++    number of processed evts :      85905410  and lumi :       97228.26  nb-1  
+
+
+06E
+58181 - 59947
+
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 812  / 48406443 
++ number of processed ep runs : 812  
++ number of recorded  evts : 48406443 
++ number of processed evts : 47905353 
++------------------------------------------------------------------------ 
+Some photon calorimeter versus spectrometer luminosity comparisons 
+Beam current ratios 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 643  
++ number of good DQ recorded  evts : 45097768 
++ number of good DQ processed evts : 44638855  
++    EVTAKE photon cal lumi runs   :          639   
++    number of processed evts :      44222675  and lumi :       54795.59  nb-1  
++    good DQ spectrometer lumi runs :          605  
++    number of processed evts :      42642555  and lumi :       53547.02  nb-1  
+
+
+MVD
+
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 804  / 48325125 
++ number of processed ep runs : 804  
++ number of recorded  evts : 48325125 
++ number of processed evts : 47825777 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 641  
++ number of good DQ recorded  evts : 45051906 
++ number of good DQ processed evts : 44594122  
++    EVTAKE photon cal lumi runs   :          637   
++    number of processed evts :      44177942  and lumi :       54746.55  nb-1  
++    good DQ spectrometer lumi runs :          603  
++    number of processed evts :      42597822  and lumi :       53497.79  nb-1  
+
+05E 52258-57123
+----------------------------------------------------------------------- 
++ number of taken ep runs / events : 1881  / 143895987 
++ number of processed ep runs : 1881  
++ number of recorded  evts : 143895987 
++ number of processed evts : 142287987 
++------------------------------------------------------------------------ 
+Some photon calorimeter versus spectrometer luminosity comparisons 
+Beam current ratios 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 1605  
++ number of good DQ recorded  evts : 135122312 
++ number of good DQ processed evts : 133635938  
++    EVTAKE photon cal lumi runs   :         1571   
++    number of processed evts :     132294275  and lumi :      134159.79  nb-1  
++    good DQ spectrometer lumi runs :         1255  
++    number of processed evts :     111074659  and lumi :      116636.95  nb-1  
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 1818  / 140524313 
++ number of processed ep runs : 1818  
++ number of recorded  evts : 140524313 
++ number of processed evts : 138962230 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 1557  
++ number of good DQ recorded  evts : 132505916 
++ number of good DQ processed evts : 131056550  
++    EVTAKE photon cal lumi runs   :         1523   
++    number of processed evts :     129714887  and lumi :      132211.12  nb-1  
++    good DQ spectrometer lumi runs :         1250  
++    number of processed evts :     110587467  and lumi :      116152.19  nb-1  
++ 
+
+04P
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 1815  / 52443629 
++ number of processed ep runs : 1815  
++ number of recorded  evts : 52443629 
++ number of processed evts : 51876221 
++------------------------------------------------------------------------ 
+Some photon calorimeter versus spectrometer luminosity comparisons 
+Beam current ratios 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 1457  
++ number of good DQ recorded  evts : 48148119 
++ number of good DQ processed evts : 47625125  
++    EVTAKE photon cal lumi runs   :         1457   
++    number of processed evts :      47625126  and lumi :       38684.10  nb-1  
++    good DQ spectrometer lumi runs :         1427  
++    number of processed evts :      46936341  and lumi :       36989.02  nb-1  
++ 
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 1703  / 49816496 
++ number of processed ep runs : 1703  
++ number of recorded  evts : 49816496 
++ number of processed evts : 49277591 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 1374  
++ number of good DQ recorded  evts : 45779637 
++ number of good DQ processed evts : 45282207  
++    EVTAKE photon cal lumi runs   :         1374   
++    number of processed evts :      45282207  and lumi :       36744.56  nb-1  
++    good DQ spectrometer lumi runs :         1346  
++    number of processed evts :      44619413  and lumi :       35104.69  nb-1  
+
+03P
++------------------------------------------------------------------------ 
++ number of taken ep runs / events : 543  / 6686770 
++ number of processed ep runs : 543  
++ number of recorded  evts : 6686770 
++ number of processed evts : 6534645 
++------------------------------------------------------------------------ 
+Some photon calorimeter versus spectrometer luminosity comparisons 
+Beam current ratios 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 295  
++ number of good DQ recorded  evts : 3823012 
++ number of good DQ processed evts : 3717479  
++    EVTAKE photon cal lumi runs   :          295   
++    number of processed evts :       3717479  and lumi :        2078.62  nb-1  
++    good DQ spectrometer lumi runs :          140  
++    number of processed evts :       2069355  and lumi :        1208.47  nb-1  
++ number of taken ep runs / events : 447  / 5318869 
++ number of processed ep runs : 447  
++ number of recorded  evts : 5318869 
++ number of processed evts : 5191642 
++------------------------------------------------------------------------ 
++ 
++ number of good DQ processed runs : 282  
++ number of good DQ recorded  evts : 3562899 
++ number of good DQ processed evts : 3465105  
++    EVTAKE photon cal lumi runs   :          282   
++    number of processed evts :       3465105  and lumi :        1946.70  nb-1  
++    good DQ spectrometer lumi runs :          133  
++    number of processed evts :       1902998  and lumi :        1089.92  nb-1  

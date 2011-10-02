@@ -1,0 +1,555 @@
+//*****************************************************************************
+// File:      DAFRevertexingModule.cc
+// ----------------------------------------------------------------------------
+//=============================================================================
+// RCS Current Revision Record
+//-----------------------------------------------------------------------------
+// $Source: /afs/desy.de/user/s/stadie/zeus/cvsroot/tlite/src/vxlite/DAFRevertexingModule.cc,v $
+// $Revision: 1.14 $
+// $Date: 2008/04/07 16:21:49 $
+// $Author: stadie $
+// $State: Exp $
+// $Locker:  $
+//*****************************************************************************
+//=============================================================================
+// Declarations and Definitions
+//=============================================================================
+#include "DAFRevertexingModule.hh"
+
+#include "LinearizedTrack.hh"
+
+#include "CLHEP/Matrix/Vector.h"
+#include "CLHEP/Matrix/SymMatrix.h"
+
+
+  //Adamo tables
+#include "VCTPAR.h"
+#include "VCTVTX.h"
+#include "VCVTXSEC.h"
+#include "VCPARSEC.h"
+#include "ZTTRHL.h"
+#include "ZTVTXPRM.h"
+#include "ZTTRSEC.h"
+#include "ZTVTXSEC.h"
+#include "ZTTRPRM.h"
+#include "ZDSKEY.h"
+
+
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+#include <cassert>
+
+#include <string.h>
+
+using namespace VxLite;
+
+using CLHEP::HepVector;
+using CLHEP::HepMatrix;
+using CLHEP::HepSymMatrix;
+
+//FORTRAN function stubs
+extern "C" {
+  //cards
+  void kwffrd_(int& ierr);
+  void kwffgo_(const char* name,int& ierr,int l_name);
+  void ffkey_(const char* name,void* var,int& length,
+	      const char* type,int l_name,int l_type); 
+  //momo
+  void modin_(char* name,int& dummy,int l_name);
+  void modout_(char* name,int l_name);
+  void mosetc_(char* name,float& weight,int& severity, int l_name);
+  //adamo
+  int coutab_(int& tab);
+  void fettab_(int& tab, int& acc, int& cur);
+  void cletab_(int& tab);
+  void instab_(int& tab); 
+  int  getind_(int& tab,const char* indname,int l_indname);
+  void seltab_(int& tab,int& ind,int& cur1,int& cur2);
+  void natrel_(int& ent1,int& col,int& ent2,int& ok);
+  void nafrel_(int& ent1,int& col,int& ent2,int& ind,int& cur1,int& cur2);
+  void pritab_(int& tab,int& acc,int& cur1,int& cur2,int& pro);
+  //VC function
+  void vcgetreg_(int& ierror);
+  //RTFit function
+  void rtf_zttrvcal__();
+  //tlite function
+  void vxlitebs_(float beam_width[2],float vertex[3],float vertex_cov[6],
+		 int& ierr);
+}
+
+#define ADAMO_INULLREP 2147483647
+
+//FORTRAN callable function 
+extern "C" {
+  void dafvertinit_(int& ierr) {
+    ierr = DAFRevertexingModule::instance()->init();
+  }   
+  void dafvertevin_(int& ierr) {
+    ierr = DAFRevertexingModule::instance()->eventinit();
+  }
+  void dafvertfit_(int& ierr) {
+    ierr = DAFRevertexingModule::instance()->event();
+  }
+  void dafvertterm_(int& ierr) {
+    ierr = DAFRevertexingModule::instance()->term();
+  }
+}
+
+
+DAFRevertexingModule* DAFRevertexingModule::m_instance = 0;
+
+
+DAFRevertexingModule::DAFRevertexingModule() :
+  m_beamconstraint(true),m_verbose(false),m_daffinder(20)
+{
+  m_beamwidth[0] = 0.0120;
+  m_beamwidth[1] = 0.0030;
+  m_fitter.setMaxIterations(6);
+}
+
+DAFRevertexingModule::~DAFRevertexingModule() 
+{
+}
+
+DAFRevertexingModule* DAFRevertexingModule::instance() 
+{
+  static Cleaner cleanup;
+  return m_instance ? m_instance : m_instance = new DAFRevertexingModule();
+}
+
+int DAFRevertexingModule::init()
+{
+  int dummy = 0;
+  char modname[] = "DAFVTXin";
+  modin_(modname,dummy,strlen(modname));
+  int ierr = 0;
+
+  std::cout << "=======================================================================\n";
+  std::cout << "This is DAFRevertexingModule: $Id: DAFRevertexingModule.cc,v 1.14 2008/04/07 16:21:49 stadie Exp $ \n";
+  std::cout << "                              written by Hartmut Stadie in 2006\n"; 
+
+  kwffrd_(ierr);
+  char int_type[] = "INTE";
+  char float_type[] = "REAL";
+  int size = 1;
+
+  int beamconstr = m_beamconstraint;
+  char name1[] = "BEAMCSTR";  
+  ffkey_(name1,&beamconstr,size,int_type,strlen(name1),strlen(int_type));
+
+  char name2[] = "WIDTH";
+  size = 2;
+  ffkey_(name2,m_beamwidth,size,float_type,strlen(name2),strlen(float_type));
+  
+  char name3[]  = "CHICUT";
+  size = 1;
+  float chicut = m_daffinder.chi2Cut();
+  ffkey_(name3,&chicut,size,float_type,strlen(name3),strlen(float_type));  
+
+  int verbose = m_verbose;
+  char name4[] = "VERBOSE";  
+  ffkey_(name4,&verbose,size,int_type,strlen(name4),strlen(int_type)); 
+
+  char name[]  = "DAFVtx";
+  kwffgo_(name,ierr,strlen(name));  
+  m_beamconstraint = beamconstr;
+  m_daffinder.setChi2Cut(chicut);
+  m_verbose = verbose;
+
+  std::cout << "Paramters:\n";
+  std::cout << " verbose           : " << m_verbose << "\n";
+  std::cout << " Chi2 cut          : " << m_daffinder.chi2Cut() << "\n";
+  std::cout << " do beam constraint: " << m_beamconstraint << "\n";
+  std::cout << " beam width        : " << m_beamwidth[0] << ", " 
+	    << m_beamwidth[1] << "\n";
+  std::cout << "=======================================================================\n";
+  modout_(modname,strlen(modname));
+  return ierr;
+}
+    
+int DAFRevertexingModule::event()
+{
+  int dummy = 0;
+  char modname[] = "DAFVTXev";
+  modin_(modname,dummy,strlen(modname));
+  int ierr = 0;
+  
+  if(m_verbose) {
+    std::cout << " DAFRevertexingModule:event() \n";
+  }
+  //get regular tracking
+  vcgetreg_(ierr);
+  if(ierr) {
+    return ierr;
+  }
+  clearTables();
+  //check number of ZT tracks
+  if(coutab_(zttrhl_.zttrhl) > 0) {
+    char field[] = "VCTRHL";
+    m_index = getind_(zttrhl_.zttrhl,field,strlen(field));
+    reconstructPrimary();
+    reconstructSecondaries(); 
+    //fill ZTTRVCAL table
+    rtf_zttrvcal__();
+    //printTables();
+  }
+  modout_(modname,strlen(modname));
+  return ierr;
+}
+
+int DAFRevertexingModule::eventinit()
+{
+  int dummy = 0;
+  char modname[] = "DAFVTXei";
+  modin_(modname,dummy,strlen(modname));
+  int ierr = 0;  
+
+  modout_(modname,strlen(modname));
+  return ierr;
+}
+  
+int DAFRevertexingModule::term()
+{
+  int dummy = 0;
+  char modname[] = "DAFVTXtr";
+  modin_(modname,dummy,strlen(modname));
+  int ierr = 0;  
+
+  modout_(modname,strlen(modname));
+  return ierr;
+}
+  
+void DAFRevertexingModule::reconstructPrimary() 
+{    
+  if(m_verbose) {
+    std::cout << " reconstructing primary vertex...\n";
+  }
+  int ADAMO_NEXT = ADAMO_INULLREP;
+  int ADAMO_ID = ADAMO_INULLREP - 1;
+  //read tracks assigned to regular primary vertex
+  int vertex_id = 1;
+  int ntracks = coutab_(vctpar_.vctpar);
+  if(ntracks == 0) {
+    if(m_verbose) {
+      std::cout << "DAFRevertexingModule: no primary from REG!\n";
+    }
+    return;
+  }
+  for(int i = 1; i <= ntracks ; ++i) {
+    fettab_(vctpar_.vctpar,ADAMO_ID,i);
+    LinearizedTrack* t = zttrackByVctrhl(vctpar_.VCTRHL);
+    if(t) {
+      m_daffinder.addTrack(t);
+    } else {
+      if(m_verbose) {
+	std::cout << "DAFRevertexingModule: cannot find track " 
+		  << vctpar_.VCTRHL << " in ZTTRHL\n";
+      }	
+      float weight = 1;
+      int severity = 0;
+      char name[] = "Corresponding ZT track not found";
+      mosetc_(name,weight,severity,strlen(name));
+    }
+  }
+  double sumofweights = 0;
+  if(m_beamconstraint) {
+    float beamvtx[3];
+    float beamcov[6];
+    int ierr;
+    vxlitebs_(m_beamwidth,beamvtx,beamcov,ierr);
+    if(ierr) {
+      std::cout << "DAFRevertexingModule: cannot get the beam spot informaton!\n"
+		<< "                      beam constraint was requested in the control cards: aborting run.\n"; 
+      float weight = 1;
+      int severity = 3;
+      char name[] = "Requested beam spot not found";
+      mosetc_(name,weight,severity,strlen(name));
+    }
+    if(m_verbose) {
+      std::cout << "using beam spot: " << beamvtx[0] << ", " << beamvtx[1]
+		<< ", " << beamvtx[2] << "\n";
+    }
+    HepVector vxin(3);
+    vxin[0] = beamvtx[0];
+    vxin[1] = beamvtx[1];
+    vxin[2] = beamvtx[2];
+    HepSymMatrix covxin(3);
+    covxin[0][0] = beamcov[0];
+    covxin[0][1] = beamcov[1];
+    covxin[1][1] = beamcov[2];
+    covxin[0][2] = beamcov[3];
+    covxin[1][2] = beamcov[4];
+    covxin[2][2] = beamcov[5];
+    sumofweights = m_daffinder.findVertex(vxin,covxin);
+    if(sumofweights < 0.4) {
+      sumofweights = -1;
+    }
+  } else {
+    //get regular vertex
+    fettab_(vctvtx_.vctvtx,ADAMO_ID,vertex_id);
+    HepVector seed(3);
+    seed[0] = vctvtx_.V[0];
+    seed[1] = vctvtx_.V[1];
+    seed[2] = vctvtx_.V[2];
+    sumofweights = m_daffinder.findVertex(seed);
+    if(sumofweights < 1.5) {
+      sumofweights = -1;
+    }
+  }
+  if(sumofweights > 0) {
+    if(m_verbose) {
+      m_daffinder.show();
+    }
+    const VertexFitter* fitter = m_daffinder.fitter();
+    //fill ZTT vertex tables   
+    ztvtxprm_.ID = ADAMO_NEXT;
+    ztvtxprm_.V[0] = fitter->vertex()[0];
+    ztvtxprm_.V[1] = fitter->vertex()[1];
+    ztvtxprm_.V[2] = fitter->vertex()[2];
+    const HepSymMatrix vtxcov = fitter->covariance();
+    ztvtxprm_.Cov[0] = vtxcov[0][0];
+    ztvtxprm_.Cov[1] = vtxcov[0][1];
+    ztvtxprm_.Cov[2] = vtxcov[1][1];
+    ztvtxprm_.Cov[3] = vtxcov[2][0];
+    ztvtxprm_.Cov[4] = vtxcov[2][1];
+    ztvtxprm_.Cov[5] = vtxcov[2][2];
+
+    ztvtxprm_.Chi2 = fitter->chi2();
+    ztvtxprm_.NDF  = (fitter->ndof() - std::floor(fitter->ndof()) > 0.5)? 
+      (int)std::ceil(fitter->ndof()) : (int)std::floor(fitter->ndof());
+    instab_(ztvtxprm_.ztvtxprm);
+    for(unsigned int i = 0 ; i < m_daffinder.number_of_tracks() ; ++i) {
+      const LinearizedTrack* t = m_daffinder.track(i);
+      if(! t->expanded()) {
+	assert(t->weight() == 0);
+	continue;
+      }
+      zttrprm_.ID = ADAMO_NEXT;
+      zttrprm_.Par[0] = M_PI_2 - atan(t->q()[2]);//theta
+      zttrprm_.Par[1] = (t->q()[0] < 0) ? 2 * M_PI + t->q()[0] : t->q()[0];//phi
+      zttrprm_.Par[2] = t->q()[1];//Q/R    		 
+
+      HepMatrix d1 = t->EBG() * t->A();
+      HepSymMatrix cq = (t->E());
+      cq += vtxcov.similarity(d1);
+
+      //transform the covariance
+      HepMatrix dZeusdq(3,3,0);
+      dZeusdq[0][2] = -1 /(1 + t->q()[2] * t->q()[2]);
+      dZeusdq[1][0] = 1;
+      dZeusdq[2][1] = 1;
+      cq = cq.similarity(dZeusdq);
+      zttrprm_.Cov[0] =  cq[0][0];
+      zttrprm_.Cov[1] =  cq[0][1];
+      zttrprm_.Cov[2] =  cq[1][1];
+      zttrprm_.Cov[3] =  cq[2][0];
+      zttrprm_.Cov[4] =  cq[2][1];
+      zttrprm_.Cov[5] =  cq[2][2];
+      zttrprm_.Chi2 = t->chi2();
+      zttrprm_.Weight = t->weight();
+      zttrprm_.PRoducedAt = ztvtxprm_.ID;
+      double QR = 1/t->alpha()[1];
+      double xC =   (t->alpha()[2] + QR) * sin(t->alpha()[0]);
+      double yC = - (t->alpha()[2] + QR) * cos(t->alpha()[0]);
+      zttrprm_.D0 = t->charge() * (sqrt((fitter->vertex()[0]-xC)*(fitter->vertex()[0]-xC) + (fitter->vertex()[1]-yC)*(fitter->vertex()[1]-yC)) - std::abs(QR));
+      zttrprm_.ZTTRHL = t->id();
+      instab_(zttrprm_.zttrprm);
+    }
+  }
+  m_daffinder.reset();
+}
+
+void DAFRevertexingModule::reconstructSecondaries() 
+{  
+  if(m_verbose) {
+    std::cout << " reconstructing secondary vertices...\n";
+  }
+  int ADAMO_NEXT = ADAMO_INULLREP;
+  int ADAMO_ID = ADAMO_INULLREP - 1; 
+
+  std::vector<LinearizedTrack*> tracks;
+  HepVector seed(3);
+  HepMatrix dZeusdq(3,3,0);
+  dZeusdq[1][0] = 1;
+  dZeusdq[2][1] = 1;		 
+  char field[] = "PRoducedAt";
+  int ICM = getind_(vcparsec_.vcparsec,field,strlen(field));
+  int nvert = coutab_(vcvtxsec_.vcvtxsec);
+  for(int i = 1 ; i <= nvert ; ++i) {
+    fettab_(vcvtxsec_.vcvtxsec,ADAMO_ID,i);
+    seed[0] = vcvtxsec_.V[0];
+    seed[1] = vcvtxsec_.V[1];
+    seed[2] = vcvtxsec_.V[2];
+    int cur1,cur2;
+    nafrel_(vcvtxsec_.vcvtxsec,vcparsec_.PRoducedAt,vcparsec_.vcparsec,
+	    ICM,cur1,cur2);
+    for(int j = cur1 ; j <= cur2 ; ++j) {
+      fettab_(vcparsec_.vcparsec,ICM,j);
+      LinearizedTrack* t= zttrackByVctrhl(vcparsec_.VCTRHL);
+      if(t) {
+	tracks.push_back(t);
+	//t->show();
+      } else {
+	if(m_verbose) {
+	  std::cout << "DAFRevertexingModule: cannot find track " 
+		    << vcparsec_.VCTRHL << " in ZTTRHL\n";
+	}      
+	float weight = 1;
+	int severity = 0;
+	char name[] = "Corresponding ZT track not found";
+	mosetc_(name,weight,severity,strlen(name));
+      }
+    }
+    if(m_fitter.fit(tracks.begin(),tracks.end(),seed) > 9999990) {
+      if(m_verbose) {
+	std::cout << "fit failed for " << tracks.size() 
+		  << " tracks with start value " << seed[0] << ", " 
+		  << seed[1] << ", " << seed[2] << "\n";
+	m_fitter.show();
+      }	
+      float weight = 1;
+      int severity = 0;
+      char name[] = "Failed to fit secondary vertex";
+      mosetc_(name,weight,severity,strlen(name));
+      for(unsigned int i = 0 ; i < tracks.size() ; ++i) {
+	const LinearizedTrack* t = tracks[i];
+	delete t;
+      }
+      tracks.clear();
+      continue;
+    }
+    if(m_verbose) {
+      m_fitter.show();
+    }
+    //fill table
+    ztvtxsec_.ID = ADAMO_NEXT;
+    ztvtxsec_.V[0] = m_fitter.vertex()[0];
+    ztvtxsec_.V[1] = m_fitter.vertex()[1];
+    ztvtxsec_.V[2] = m_fitter.vertex()[2];
+    const HepSymMatrix vtxcov = m_fitter.covariance();
+    ztvtxsec_.Cov[0] = vtxcov[0][0];
+    ztvtxsec_.Cov[1] = vtxcov[0][1];
+    ztvtxsec_.Cov[2] = vtxcov[1][1];
+    ztvtxsec_.Cov[3] = vtxcov[2][0];
+    ztvtxsec_.Cov[4] = vtxcov[2][1];
+    ztvtxsec_.Cov[5] = vtxcov[2][2];
+
+    ztvtxsec_.Chi2 = m_fitter.chi2();
+    ztvtxsec_.NDF  = (m_fitter.ndof() - std::floor(m_fitter.ndof()) > 0.5)? 
+      (int)std::ceil(m_fitter.ndof()) : (int)std::floor(m_fitter.ndof());
+    instab_(ztvtxsec_.ztvtxsec);
+    for(unsigned int i = 0 ; i < tracks.size() ; ++i) {
+      const LinearizedTrack* t = tracks[i];
+      if(t->weight() == 0) {
+	if(m_verbose) {
+	  std::cout << "DAFRevertexingModule: track dropped from secondary vertex\n";
+	}      
+	float weight = 1;
+	int severity = 0;
+	char name[] = "Track dropped from secondary vtx";
+	mosetc_(name,weight,severity,strlen(name));
+	continue;
+      }
+      zttrsec_.ID = ADAMO_NEXT;
+      zttrsec_.Par[0] = M_PI_2 - atan(t->q()[2]);//theta
+      zttrsec_.Par[1] = (t->q()[0] < 0) ? 2 * M_PI + t->q()[0] : t->q()[0];//phi
+      zttrsec_.Par[2] = t->q()[1];//Q/R
+
+      HepMatrix d1(t->EBG() * t->A());
+      HepSymMatrix cq(t->E());
+      cq += vtxcov.similarity(d1);
+
+      //transform the covariance  
+      dZeusdq[0][2] = -1 /(1 + t->q()[2] * t->q()[2]);
+      cq.assign(cq.similarity(dZeusdq));
+      zttrsec_.Cov[0] =  cq[0][0];
+      zttrsec_.Cov[1] =  cq[0][1];
+      zttrsec_.Cov[2] =  cq[1][1];
+      zttrsec_.Cov[3] =  cq[2][0];
+      zttrsec_.Cov[4] =  cq[2][1];
+      zttrsec_.Cov[5] =  cq[2][2];
+      zttrsec_.Chi2 = t->chi2();
+      zttrsec_.PRoducedAt = ztvtxsec_.ID;
+      double QR = 1/t->alpha()[1];
+      double xC =   (t->alpha()[2] + QR) * sin(t->alpha()[0]);
+      double yC = - (t->alpha()[2] + QR) * cos(t->alpha()[0]);
+      zttrsec_.D0 = t->charge() * (sqrt((m_fitter.vertex()[0]-xC)*(m_fitter.vertex()[0]-xC) + (m_fitter.vertex()[1]-yC)*(m_fitter.vertex()[1]-yC)) - std::abs(QR));
+      zttrsec_.ZTTRHL = t->id();
+      instab_(zttrsec_.zttrsec);
+      delete t;
+    }
+    tracks.clear();
+  }
+}
+
+void DAFRevertexingModule::clearTables()
+{ 
+  cletab_(ztvtxprm_.ztvtxprm);
+  cletab_(ztvtxsec_.ztvtxsec);
+  cletab_(zttrprm_.zttrprm);
+  cletab_(zttrsec_.zttrsec); 
+}
+
+void DAFRevertexingModule::printTables()
+{
+  int ADAMO_ID = ADAMO_INULLREP - 1;
+  int ADAMO_MINC = 1;
+  int ADAMO_MAXC = ADAMO_INULLREP;
+  int ADAMO_ALL = 1 - ADAMO_INULLREP;
+  
+  std::cout << "VCTVTX:\n";
+  pritab_(vctvtx_.vctvtx,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+  std::cout << "VCTPAR:\n";
+  pritab_(vctpar_.vctpar,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+  std::cout << "ZTVTXPRM:\n";
+  pritab_(ztvtxprm_.ztvtxprm,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+  std::cout << "ZTTRPRM:\n";
+  pritab_(zttrprm_.zttrprm,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+  std::cout << "VCVTXSEC:\n";
+  pritab_(vcvtxsec_.vcvtxsec,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+  std::cout << "VCPARSEC:\n";
+  pritab_(vcparsec_.vcparsec,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+  std::cout << "ZTVTXSEC:\n";
+  pritab_(ztvtxsec_.ztvtxsec,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+  std::cout << "ZTTRSEC:\n";
+  pritab_(zttrsec_.zttrsec,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+}
+
+LinearizedTrack* DAFRevertexingModule::zttrackByVctrhl(int id) 
+{      
+  int n,m;
+  zttrhl_.VCTRHL = id;
+  seltab_(zttrhl_.zttrhl,m_index,n,m);
+  if(n != m) {
+    int ADAMO_ID = ADAMO_INULLREP - 1;
+    int ADAMO_MINC = 1;
+    int ADAMO_MAXC = ADAMO_INULLREP;
+    int ADAMO_ALL = 1 - ADAMO_INULLREP;
+    int adid = 1;
+    fettab_(zdskey_.zdskey,ADAMO_ID,adid);
+    std::cout << "DAFRevertexingModule::zttrackByVctrhl: Run: " 
+	      << zdskey_.Nr1 << " Event:" << zdskey_.Nr2 << "\n";
+    std::cout << "cannot find corresponding ZT track for VCTRHL track " 
+	      << id << " returned ZTTRHL ids:" << n << ", " << m << "\n";
+    std::cout << "ZTTRHL table dump:\n";
+    pritab_(zttrhl_.zttrhl,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+    return 0;
+  }
+  if(zttrhl_.VCTRHL != id) {
+    int ADAMO_ID = ADAMO_INULLREP - 1;
+    int ADAMO_MINC = 1;
+    int ADAMO_MAXC = ADAMO_INULLREP;
+    int ADAMO_ALL = 1 - ADAMO_INULLREP;
+    int adid = 1;
+    fettab_(zdskey_.zdskey,ADAMO_ID,adid);
+    std::cout << "DAFRevertexingModule::zttrackByVctrhl: Run: " 
+	      << zdskey_.Nr1 << " Event:" << zdskey_.Nr2 << "\n";
+    std::cout << "cannot find corresponding ZT track for VCTRHL track " 
+	      << id << " returned ZTTRHL id:" << zttrhl_.ID << "\n";
+    std::cout << "ZTTRHL table dump:\n";
+    pritab_(zttrhl_.zttrhl,ADAMO_ID,ADAMO_MINC,ADAMO_MAXC,ADAMO_ALL);
+    return 0;
+  }
+  return new LinearizedTrack(zttrhl_.ID,zttrhl_.hel,zttrhl_.Cov);
+}

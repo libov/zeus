@@ -1,0 +1,20 @@
+Int_t           Ntrkvtx
+Float_t         Xvtx
+Float_t         Yvtx
+Float_t         Zvtx
+Float_t         Chivtx
+Int_t           Nsecvtx
+Float_t         Xsecvtx		[40]		[Nsecvtx]
+Float_t         Ysecvtx		[40]		[Nsecvtx]
+Float_t         Zsecvtx		[40]		[Nsecvtx]
+Float_t         Chisecvtx	[40]		[Nsecvtx]
+Float_t         Fetatr
+Float_t         Betatr
+Float_t         Pt_tr
+Float_t         Empz_tr_pi
+Float_t         Et_tr
+Float_t         E_tr_pi
+Float_t         Phi_tr
+Float_t         Zvtx_fcal
+Int_t           Fcal_nrgoodcells
+Float_t         Fcal_vzerr

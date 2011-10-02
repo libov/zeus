@@ -1,0 +1,14 @@
+Int_t           Sincand
+Int_t           Sierror
+Float_t         Siprob 		[10]			[Sincand]
+Float_t         Sipos 		[10][3]		[Sincand][3]
+Float_t         Sicalpos 	[10][3]		[Sincand][3]
+Float_t         Sicalene 	[10]			[Sincand]
+Float_t         Siein 		[10]			[Sincand]
+Float_t         Sienin 		[10]			[Sincand]
+Float_t         Siecorr 	[10][3]		[Sincand][3]
+Float_t         Sith 		[10]			[Sincand]
+Float_t         Siph 		[10]			[Sincand]
+Float_t         Sipt 		[10]			[Sincand]
+Int_t           Sixdet 		[10][3]		[Sincand][3]
+Int_t           Siydet		[10][3]		[Sincand][3]

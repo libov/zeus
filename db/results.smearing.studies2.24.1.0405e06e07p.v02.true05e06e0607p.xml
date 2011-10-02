@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE dataset SYSTEM "binning.dtd"><?xml-stylesheet type="text/xsl" href="binning.xsl"?><binning>
+        <!-- eta jet -->
+        <bin id="1" type="inlcusive">
+                <subbin>
+                        <variable>etajet</variable>
+                        <low_edge>-1.6</low_edge>
+                        <up_edge>2.2</up_edge>
+                </subbin>
+                <k_uds>0.9083</k_uds>
+                <k_c>1.26263</k_c>
+                <k_b>1.52179</k_b>
+                <k_uds_err>0.00455342</k_uds_err>
+                <k_c_err>0.0187169</k_c_err>
+                <k_b_err>0.0498951</k_b_err>
+                <sigma_uds_true>0</sigma_uds_true>
+                <sigma_c_true>14015.3</sigma_c_true>
+                <sigma_b_true>676.917</sigma_b_true>
+                <sigma_uds>0</sigma_uds>
+                <sigma_c>4656.87</sigma_c>
+                <sigma_b>271.085</sigma_b>
+                <sigma_uds_err>0</sigma_uds_err>
+                <sigma_c_err>69.0322</sigma_c_err>
+                <sigma_b_err>8.88811</sigma_b_err>
+        </bin>
+        <bin_group id="etajet">
+        <bin id="2">
+                <subbin>
+                        <variable>etajet</variable>
+                        <low_edge>1.0</low_edge>
+                        <up_edge>1.3</up_edge>
+                </subbin>
+                <k_uds>0.908856</k_uds>
+                <k_c>1.39704</k_c>
+                <k_b>1.70539</k_b>
+                <k_uds_err>0.016717</k_uds_err>
+                <k_c_err>0.0745985</k_c_err>
+                <k_b_err>0.152893</k_b_err>
+                <sigma_uds_true>0</sigma_uds_true>
+                <sigma_c_true>1131.61</sigma_c_true>
+                <sigma_b_true>66.7672</sigma_b_true>
+                <sigma_uds>0</sigma_uds>
+                <sigma_c>5269.72</sigma_c>
+                <sigma_b>379.547</sigma_b>
+                <sigma_uds_err>0</sigma_uds_err>
+                <sigma_c_err>281.389</sigma_c_err>
+                <sigma_b_err>34.0275</sigma_b_err>
+        </bin>
+        <bin id="3">
+                <subbin>
+                        <variable>etajet</variable>
+                        <low_edge>1.3</low_edge>
+                        <up_edge>1.6</up_edge>
+                </subbin>
+                <k_uds>0.818258</k_uds>
+                <k_c>1.38774</k_c>
+                <k_b>1.46333</k_b>
+                <k_uds_err>0.0229404</k_uds_err>
+                <k_c_err>0.113446</k_c_err>
+                <k_b_err>0.23655</k_b_err>
+                <sigma_uds_true>0</sigma_uds_true>
+                <sigma_c_true>983.895</sigma_c_true>
+                <sigma_b_true>59.2686</sigma_b_true>
+                <sigma_uds>0</sigma_uds>
+                <sigma_c>4551.28</sigma_c>
+                <sigma_b>289.099</sigma_b>
+                <sigma_uds_err>0</sigma_uds_err>
+                <sigma_c_err>372.062</sigma_c_err>
+                <sigma_b_err>46.7332</sigma_b_err>
+        </bin>
+        <bin id="4">
+                <subbin>
+                        <variable>etajet</variable>
+                        <low_edge>1.6</low_edge>
+                        <up_edge>2.2</up_edge>
+                </subbin>
+                <k_uds>0.656325</k_uds>
+                <k_c>1.74187</k_c>
+                <k_b>1.51808</k_b>
+                <k_uds_err>0.0373332</k_uds_err>
+                <k_c_err>0.219092</k_c_err>
+                <k_b_err>0.464885</k_b_err>
+                <sigma_uds_true>0</sigma_uds_true>
+                <sigma_c_true>1549.92</sigma_c_true>
+                <sigma_b_true>93.8556</sigma_b_true>
+                <sigma_uds>0</sigma_uds>
+                <sigma_c>4499.6</sigma_c>
+                <sigma_b>237.468</sigma_b>
+                <sigma_uds_err>0</sigma_uds_err>
+                <sigma_c_err>565.956</sigma_c_err>
+                <sigma_b_err>72.7202</sigma_b_err>
+        </bin>
+        </bin_group>
+</binning>

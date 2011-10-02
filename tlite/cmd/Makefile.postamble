@@ -1,0 +1,6 @@
+CCPP_FLAGS += $(CWINDOWSINCS)
+#CCPP_FLAGS += -g -pg
+#CCPP_FLAGS += -g -O1
+#CCPP_FLAGS += -g
+CLHEPVERS=2.0.3.1
+#CLHEPINCDIR=/opt/products/CLHEP/2.0.3.1/include

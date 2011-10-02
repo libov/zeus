@@ -1,0 +1,6 @@
+Float_t     Siccet      [10]        [Sincand]
+Float_t     Siccempz    [10]        [Sincand]
+Float_t     Sietamax    [10]        [Sincand]
+Float_t     Sicehmom    [10][4]     [Sincand][4]
+Float_t     Sizuhmom    [10][4]     [Sincand][4]
+Float_t     Sichmom    [10][4]     [Sincand][4]

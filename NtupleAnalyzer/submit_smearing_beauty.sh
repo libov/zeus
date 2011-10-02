@@ -1,0 +1,9 @@
+./submit_analysis -b full -v 2.19.0 -s 0
+./submit_analysis -b full -v 2.19.1 -s 0.25
+./submit_analysis -b full -v 2.19.2 -s 0.5
+./submit_analysis -b full -v 2.19.3 -s 0.75
+./submit_analysis -b full -v 2.19.4 -s 1.0
+./submit_analysis -b full -v 2.19.5 -s 1.25
+./submit_analysis -b full -v 2.19.6 -s 1.5
+./submit_analysis -b full -v 2.19.7 -s 1.75
+./submit_analysis -b full -v 2.19.8 -s 2.0

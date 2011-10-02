@@ -1,0 +1,12 @@
+Int_t           Ncb
+Int_t           Cb_id				[160]			[Ncb]
+Int_t           Cb_mother			[160]			[Ncb]
+Int_t           Cb_daughter		[160]			[Ncb]
+Int_t           Cb_daughter2		[160]			[Ncb]
+Int_t           Cb_prt				[160]			[Ncb]
+Int_t           Nlight_daughters	[160]			[Ncb]
+Int_t           Plight_daughters	[160]			[Ncb]
+Float_t         Cb_p					[160][5]		[Ncb][5]
+Int_t           Tot_daughters
+Int_t           Light_dau_id		[1024]		[Tot_daughters]
+Int_t           Light_dau_index	[1024]		[Tot_daughters]

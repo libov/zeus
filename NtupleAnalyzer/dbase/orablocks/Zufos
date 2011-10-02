@@ -1,0 +1,12 @@
+Float_t         V_h_px_zu
+Float_t         V_h_py_zu
+Float_t         V_h_pz_zu
+Float_t         V_h_e_zu
+Float_t         Etamax_zu
+Float_t         Etamax_zu4
+Float_t         Fgap
+Float_t         Bgap
+Int_t           Nzufos
+Int_t           Tufo				[250][4]		[Nzufos][4]
+Int_t           Zufo_bsp		[250]			[Nzufos]
+Float_t         Zufo				[250][4]		[Nzufos][4]

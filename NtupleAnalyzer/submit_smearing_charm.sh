@@ -1,0 +1,9 @@
+./submit_analysis -b full.forCHARM -v 2.18.0 -s 0
+./submit_analysis -b full.forCHARM -v 2.18.1 -s 0.25
+./submit_analysis -b full.forCHARM -v 2.18.2 -s 0.5
+./submit_analysis -b full.forCHARM -v 2.18.3 -s 0.75
+./submit_analysis -b full.forCHARM -v 2.18.4 -s 1.0
+./submit_analysis -b full.forCHARM -v 2.18.5 -s 1.25
+./submit_analysis -b full.forCHARM -v 2.18.6 -s 1.5
+./submit_analysis -b full.forCHARM -v 2.18.7 -s 1.75
+./submit_analysis -b full.forCHARM -v 2.18.8 -s 2.0

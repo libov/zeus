@@ -1,0 +1,5 @@
+Int_t       Npmjets
+Float_t     Pxpmjet     [10]    [Npmjets]
+Float_t     Pypmjet     [10]    [Npmjets]
+Float_t     Pzpmjet     [10]    [Npmjets]
+Float_t     Epmjet      [10]    [Npmjets]

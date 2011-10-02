@@ -1,0 +1,242 @@
+      subroutine tlifitm(parrm,covrm,m,chi2,err)
+******************************************************************************
+* File:      VertexFitter.cc
+* ----------------------------------------------------------------------------
+*=============================================================================
+* RCS Current Revision Record
+*-----------------------------------------------------------------------------
+* $Source: /afs/desy.de/user/s/stadie/zeus/cvsroot/tlite/src/kinematicFits/tlifitm.fpp,v $
+* $Revision: 1.1 $
+* $Date: 2005/11/02 14:51:35 $
+* $Author: stadie $
+* $State: Exp $
+* $Locker:  $
+*****************************************************************************
+*
+*       Author: Rainer Mankel                 Created: 3-Apr-2004
+*       DESY Hamburg
+*
+*       Perform mass-constraint fit on a momentum 4-vector
+*
+*        input:
+*
+*         parrm - (px,py,pz,E) of resonance
+*         covrm - packed covariance matrix
+*         m     - tabulated mass
+*
+*        output:
+*         parrm - constrained (px,py,pz,E) of resonance
+*         covrm - constrained packed covariance matrix
+*         chi2  - chi**2 of mass constraint fit
+*         err   - error flag (0 if OK)
+*
+*       Method: by Paul Avery
+*
+*       Note:
+*         - momentum parameters/covariances are double precision 
+*         - packing scheme for covariance matrix:
+*                  1 2 4 7 
+*                    3 5 8
+*                      6 9
+*                        10
+*
+      implicit none	
+
+      double precision parrm(4),covrm(10),covn(10)
+      integer ii, iter, maxiter, pk(4,4), jj, kk, ll, extra, err
+      real m,chi2
+      double precision m0,d(4),vd,vdinv,lambda,mn,parn(4),ma,para(4),
+     +     vdvdv,dvd, chi2d
+      data pk /1, 2, 4, 7, 2, 3, 5, 8, 4, 5, 6, 9, 7, 8, 9, 10/
+      save pk
+
+*     **** apply mass-constrained fit
+      m0 = dsqrt(parrm(4)**2 -  parrm(1)**2 - parrm(2)**2 - parrm(3)**2)
+
+      maxiter = 5
+      ma = m0  ! expansion point
+      extra = 0
+      do ii=1,4
+         para(ii) = parrm(ii)
+      enddo
+
+      do 10 iter=1,maxiter
+
+*     **** derivative
+         d(1) =   para(1) / ma
+         d(2) =   para(2) / ma
+         d(3) =   para(3) / ma
+         d(4) = - para(4) / ma
+
+         vdinv = d(1)**2 * covrm(1) + d(2)**2 * covrm(3)
+     +        + d(3)**2 * covrm(6) + d(4)**2 * covrm(10)
+     +        + 2.d0 * d(1) * d(2) * covrm(2)
+     +        + 2.d0 * d(1) * d(3) * covrm(4)
+     +        + 2.d0 * d(1) * d(4) * covrm(7)
+     +        + 2.d0 * d(2) * d(3) * covrm(5)
+     +        + 2.d0 * d(2) * d(4) * covrm(8)
+     +        + 2.d0 * d(3) * d(4) * covrm(9)
+
+#ifdef PRINTMORE
+         print *,d(1)**2 * covrm(1)
+         print *,d(2)**2 * covrm(3)
+         print *,d(3)**2 * covrm(6)
+         print *,d(4)**2 * covrm(10)
+         print *,2.d0 * d(1) * d(2) * covrm(2)
+         print *,2.d0 * d(1) * d(3) * covrm(4)
+         print *,2.d0 * d(1) * d(4) * covrm(7)
+         print *,2.d0 * d(2) * d(3) * covrm(5)
+         print *,2.d0 * d(2) * d(4) * covrm(8)
+         print *,2.d0 * d(3) * d(4) * covrm(9)
+#endif
+
+         
+         vd = 1.d0 / vdinv
+         lambda = vd * (d(1) * (parrm(1)-para(1)) 
+     +        + d(2) * (parrm(2)-para(2))
+     +        + d(3) * (parrm(3)-para(3))
+     +        + d(4) * (parrm(4)-para(4))  + (dble(m)-ma))
+         parn(1) = parrm(1) - (covrm(1) * d(1) + covrm(2) * d(2)
+     +        + covrm(4) * d(3) + covrm(7)* d(4)) * lambda
+         parn(2) = parrm(2) - (covrm(2) * d(1) + covrm(3) * d(2)
+     +        + covrm(5) * d(3) + covrm(8)* d(4)) * lambda
+         parn(3) = parrm(3) - (covrm(4) * d(1) + covrm(5) * d(2)
+     +        + covrm(6) * d(3) + covrm(9)* d(4)) * lambda
+         parn(4) = parrm(4) - (covrm(7) * d(1) + covrm(8) * d(2)
+     +        + covrm(9) * d(3) + covrm(10)* d(4)) * lambda
+
+#ifdef PRINTMORE
+         do ii=1,4
+            print *,ii,' param old ',parrm(ii),' new ',parn(ii)
+         enddo
+#endif
+
+*     **** now check the new mass
+         mn = parn(4)**2 - parn(1)**2 - parn(2)**2 - parn(3)**2
+         if (mn.le.0.0) then
+            err = 1
+            return
+         endif
+         mn = dsqrt(parn(4)**2 - parn(1)**2 - parn(2)**2 - parn(3)**2)
+#ifdef PRINTSUM
+         print *,' old mass=',m0,' new mass=',mn,
+     +        ' diff ',mn-m0
+         print *,  ' resid ',m-mn,' dist to exp=',mn-ma,' iter=',iter
+#endif
+
+**         if (dabs(mn-m).lt.0.00001.and.extra.ge.1) go to 11
+         if (dabs(mn-ma).lt.0.000001.and.extra.ge.1) go to 11
+         extra = extra + 1
+
+*        **** move the expansion point
+         do ii=1,4
+            para(ii) = parn(ii)
+         enddo
+         ma = mn
+
+ 10   continue
+ 11   continue
+
+*     **** here we should calculate cov matrix, chi2 etc
+**      print *,' vdinv=',vdinv,' vd=',vd,' d=',d
+      do ii=1,4
+         do jj=1,4
+            vdvdv = 0.d0
+            do kk=1,4
+               do ll=1,4
+                  vdvdv = vdvdv +  covrm(pk(ii,kk))
+     +                 * d(kk) * vd * d(ll) * covrm(pk(ll,jj))
+               enddo
+            enddo
+            covn(pk(ii,jj)) = covrm(pk(ii,jj)) - vdvdv
+         enddo
+      enddo
+
+*     **** calculate the chi2
+      chi2d = lambda * vdinv * lambda
+
+#ifdef PRINTSUM
+      print *,' This is fitrm: before'
+      print '(a10,4f10.3)','par',parrm
+      print '(a10,4f10.3)','cov',1.e6*covrm(1),1.e6*covrm(2),
+     +     1.e6*covrm(4), 1.e6*covrm(7)
+      print '(a10,4f10.3)','cov',          0,1.e6*covrm(3),
+     +     1.e6*covrm(5), 1.e6*covrm(8)
+      print '(a10,4f10.3)','cov',          0,          0,1.e6*covrm(6),
+     +     1.e6*covrm(9)
+      print '(a10,4f10.3)','cov',          0,          0,          0,
+     +     1.e6*covrm(10)
+
+      print '(a10,4f10.3)','cor',          1.,
+     +     covrm(2)/sqrt(covrm(1)*covrm(3)),
+     +     covrm(4)/sqrt(covrm(1)*covrm(6)),
+     +     covrm(7)/sqrt(covrm(1)*covrm(10))
+      print '(a10,4f10.3)',' ',          0.,
+     +                                   1.,
+     +     covrm(5)/sqrt(covrm(3)*covrm(6)),
+     +     covrm(8)/sqrt(covrm(3)*covrm(10))
+      print '(a10,4f10.3)',' ',          0.,
+     +                                   0.,
+     +                                   1.,
+     +     covrm(9)/sqrt(covrm(6)*covrm(10))
+      print '(a10,4f10.3)',' ',          0.,
+     +                                   0.,
+     +                                   0.,
+     +                                    1.
+      print *,' after'
+      print '(a10,4f10.3)','par',parn
+      do ii=1,4
+         print '(a10,4f10.3)','cov',1.e6*covn(pk(ii,1)),
+     +        1.e6*covn(pk(ii,2)),
+     +        1.e6*covn(pk(ii,3)), 1.e6*covn(pk(ii,4))
+      enddo
+      print '(a10,4f10.3)','cor',          1.,
+     +     covn(2)/sqrt(covn(1)*covn(3)),
+     +     covn(4)/sqrt(covn(1)*covn(6)),
+     +     covn(7)/sqrt(covn(1)*covn(10))
+      print '(a10,4f10.3)',' ',          0.,
+     +                                   1.,
+     +     covn(5)/sqrt(covn(3)*covn(6)),
+     +     covn(8)/sqrt(covn(3)*covn(10))
+      print '(a10,4f10.3)',' ',          0.,
+     +                                   0.,
+     +                                   1.,
+     +     covn(9)/sqrt(covn(6)*covn(10))
+      print '(a10,4f10.3)',' ',          0.,
+     +                                   0.,
+     +                                   0.,
+     +                                    1.
+#endif
+
+      do ii=1,4
+         if (covn(pk(ii,ii)).lt.0.d0) print *,' fitWarning: diag'
+         do jj=ii+1,4
+            if (dabs(covn(pk(ii,jj))/
+     +           sqrt(covn(pk(ii,ii))*covn(pk(jj,jj)))).gt.1.d0)
+     +           print *,' fitWarning: off-diag'
+         enddo
+      enddo
+
+*     **** calculate mass width of new cov
+      dvd = d(1)**2 * covn(1) + d(2)**2 * covn(3)
+     +        + d(3)**2 * covn(6) + d(4)**2 * covn(10)
+     +        + 2.d0 * d(1) * d(2) * covn(2)
+     +        + 2.d0 * d(1) * d(3) * covn(4)
+     +        + 2.d0 * d(1) * d(4) * covn(7)
+     +        + 2.d0 * d(2) * d(3) * covn(5)
+     +        + 2.d0 * d(2) * d(4) * covn(8)
+     +        + 2.d0 * d(3) * d(4) * covn(9)
+
+**      print *,' chi2 =', chi2d,' dvd=',dvd
+
+*     **** overwrite input par/cov
+      do ii=1,4
+         parrm(ii) = parn(ii)
+      enddo
+      do ii=1,10
+         covrm(ii) = covn(ii)
+      enddo
+      chi2 = sngl(chi2d)
+      err = 0
+
+      end

@@ -1,0 +1,10 @@
+<!ELEMENT dataset (sample)>
+<!ELEMENT sample (year, type, flavour, CN_version, name_pattern, trigger_period, luminosity, luminosity_recalculated)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT flavour (#PCDATA)>
+<!ELEMENT CN_version (#PCDATA)>
+<!ELEMENT name_pattern (#PCDATA)>
+<!ELEMENT trigger_period (#PCDATA)>
+<!ELEMENT luminosity (#PCDATA)>
+<!ELEMENT luminosity_recalculated (#PCDATA)>
