@@ -15,6 +15,7 @@
 
 // system  includes
 #include <iostream>
+#include <getopt.h>
 using namespace std;
 
 // my includes
@@ -66,12 +67,19 @@ int main(int argc, char **argv) {
     Bool_t      use_scaling_factors = false;
     Bool_t      include_resolved = false;
     Bool_t      include_direct = false;
+    Bool_t      no_beauty_resolved = false;
+    // declare long options
+    static struct option long_options[] = {
+        {"no_beauty_resolved", no_argument, 0, 1},
+    };
+
 
     // handle command line options
     opterr = 0;
-    int c;
-    while ((c = getopt (argc, argv, "b:v:der:h")) != -1) {
-        switch (c) {
+    int option;
+    int option_index;
+    while ((option = getopt_long (argc, argv, "b:v:der:h", long_options, &option_index)) != -1) {
+        switch (option) {
             case 'b':
                 BinningFileSuffix = optarg;
                 break;
@@ -90,13 +98,17 @@ int main(int argc, char **argv) {
             case 'r':
                 remark = (TString)optarg;
                 break;
+            case 1:
+                no_beauty_resolved = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t fitter  -b <Binning File Suffix> -v <Histograms Version Ending> [options]\n"<<endl;
                 cout << "List of options\n" << endl;
-                cout << "-d\tInclude direct part"<<endl;
-                cout << "-e\tInclude excitation part"<<endl;
-                cout << "-r\tremark; default: .0405e06e07p"<<endl;
-                cout << "-h\tprint this help"<<endl;
+                cout << "-d\t\tInclude direct part"<<endl;
+                cout << "-e\t\tInclude excitation part"<<endl;
+                cout << "-r\t\tremark; default: .0405e06e07p"<<endl;
+                cout << "--no_beauty_resolved\tdon't add beauty resolved samples, if -e options is selected"<<endl;
+                cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
             default:
@@ -115,9 +127,11 @@ int main(int argc, char **argv) {
     cout<<"******************************************************"<<endl;
 
     // by default, process all periods
-    if (remark == "") remark = ".0405e06e07p";
-
-    if (include_resolved) remark += ".including_resolved";
+    if (remark == "") {
+        remark = ".0405e06e07p";
+        if (include_resolved) remark += ".including_resolved";
+        if (no_beauty_resolved) remark += ".no_beauty_resolved";
+    }
     cout << "INFO: remark " << remark << endl;
 
     // construct files suffix as binning file suffix concatenated with version of histograms
@@ -327,7 +341,11 @@ int main(int argc, char **argv) {
 
         if (include_resolved) {
             CrossSect_c_MC_true = CrossSect_c_MC_true_BGF + CrossSect_c_MC_true_RESOLVED;
-            CrossSect_b_MC_true = CrossSect_b_MC_true_BGF + CrossSect_b_MC_true_RESOLVED;
+            if (no_beauty_resolved) {
+                CrossSect_b_MC_true = CrossSect_b_MC_true_BGF;
+            } else {
+                CrossSect_b_MC_true = CrossSect_b_MC_true_BGF + CrossSect_b_MC_true_RESOLVED;
+            }
         } else {
             CrossSect_c_MC_true = CrossSect_c_MC_true_BGF;
             CrossSect_b_MC_true = CrossSect_b_MC_true_BGF;

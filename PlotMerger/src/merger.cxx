@@ -25,6 +25,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <map>
+#include <getopt.h>
 using namespace std;
 
 // ROOT headers
@@ -88,6 +89,7 @@ int main(int argc, char **argv) {
         cout<<"-e\tInclude excitation part"<<endl;
         cout<<"-s\tScale plots"<<endl;
         cout<<"-r\tremark; default: .0405e06e07p"<<endl;
+        cout<<"--no_beauty_resolved\tdon't add beauty resolved samples, if -e options is selected"<<endl;
         cout<<"Terminating, sorry."<<endl;
         exit(-1);
     }
@@ -106,12 +108,21 @@ int main(int argc, char **argv) {
     Bool_t      use_scaling_factors = false;
     Bool_t      include_resolved = false;
     Bool_t      include_direct = false;
+    Bool_t      no_beauty_resolved = false;
+    // declare long options
+    static struct option long_options[] = {
+        {"no_beauty_resolved", no_argument, 0, 1},
+    };
 
     // handle command line options
+    // loop over program arguments (i.e. argv array) and store info to above variables
+    // depending on an option
+
     opterr = 0;
-    int c;
-    while ((c = getopt (argc, argv, "b:v:desr:")) != -1) {
-        switch (c) {
+    int option;
+    int option_index;
+    while ((option = getopt_long (argc, argv, "b:v:desr:", long_options, &option_index)) != -1) {
+        switch (option) {
             case 'b':
                 BinningFileSuffix=optarg;
                 break;
@@ -130,6 +141,9 @@ int main(int argc, char **argv) {
             case 'r':
                 remark = (TString)optarg;
                 break;
+            case 1:
+                no_beauty_resolved = true;
+                break;
             default:
                 abort ();
         }
@@ -146,7 +160,7 @@ int main(int argc, char **argv) {
     if (remark == "") remark = ".0405e06e07p";
     
     if (include_resolved) remark += ".including_resolved";
-
+    if (no_beauty_resolved) remark += ".no_beauty_resolved";
     // in case k-factors scaling was requested, determine these factors
     // depending on the version of the factors
     TString XMLfilename;
@@ -334,7 +348,7 @@ int main(int argc, char **argv) {
                 }
                 break;
             case kBeautyResolved:
-                if (include_resolved) {
+                if (include_resolved && (!no_beauty_resolved)) {
                     instance->AddSample("beauty", cSubSet, scaling_factor);
                     instance->AddSample("mc", cSubSet, scaling_factor);
                     instance->AddSample("beauty_resolved", cSubSet, scaling_factor);
