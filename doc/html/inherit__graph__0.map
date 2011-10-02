@@ -1,5 +1,0 @@
-base referer
-rect $classBaseClass.html 5,32 93,61
-rect $classTNtupleAnalyzer.html 143,32 268,61
-rect $classTMiniNtupleAnalyzer.html 319,5 468,35
-rect $classTMiniNtupleCreator.html 323,59 464,88
