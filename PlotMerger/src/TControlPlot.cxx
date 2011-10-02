@@ -199,7 +199,7 @@ void TControlPlot::Draw() {
                 cPad++;
             }
             if (SubDirName=="bin1") {
-              cCanvas->Print((TString)getenv("ANALYSIS")+"/data/plots/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+".png");
+              cCanvas->Print((TString)getenv("PLOTS_PATH")+"/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+".png");
 //              cCanvas->Print((TString)getenv("ANALYSIS")+"/data/plots/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+".root");
 
             }
