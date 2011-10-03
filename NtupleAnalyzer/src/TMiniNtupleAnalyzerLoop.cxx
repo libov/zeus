@@ -47,10 +47,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     cout << "INFO: " << Nevents << " events will be processed" << endl;
 
     // get a pointer to inclusive bin - NOT USED AT THE MOMENT
-    TGlobalBin      *eventBin = NULL;
+    TGlobalBin      *inclusiveBin = NULL;
     TIter           Iter_TGlobalBin_event(fList_TGlobalBin);
-    eventBin = (TGlobalBin*) Iter_TGlobalBin_event.Next();
-    if ( (eventBin == NULL) || (eventBin -> BinName != "bin1")) {
+    inclusiveBin = (TGlobalBin*) Iter_TGlobalBin_event.Next();
+    if ( (inclusiveBin == NULL) || (inclusiveBin -> BinName != "bin1")) {
         cout << "ERROR: not able to get the global bin" << endl;
         abort();
     }
@@ -633,7 +633,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         matched++;
                         matched_et += et_zufo;
                         matched_e += e_zufo;
-                        //eventBin -> FillHistogram("ZUFO_type", Tufo[m][0]);
+                        //inclusiveBin -> FillHistogram("ZUFO_type", Tufo[m][0]);
                         ZUFO_type = Tufo[m][0];
                         if ( (Tufo[m][0] == 30) || (Tufo[m][0] == 31) ) {
                             from_CAL ++;
