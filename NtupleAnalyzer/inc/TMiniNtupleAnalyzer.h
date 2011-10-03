@@ -245,6 +245,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         // this is event-by-event weitght to be applied to charm MC
         Double_t    fZstring_weight;
+        void        get_Zstring_weight(TGlobalBin * bin);
         // this is a variable to allow the usual systematics scan: 0 = no effect taken into account; 1 = reweighting according to weight
         Double_t    fCharmFragm_variation_size;
         Double_t    fBeautyFragm_variation_size;
@@ -282,7 +283,10 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         void    get_gammaP_boost();             //!< sets the relevant variables used for transformation to gamma-p
 
         void    print_fmckin_table();
-        void    checkArrayBounds();              //!< checks whether array bounds are not violated
+        void    checkArrayBounds();             //!< checks whether array bounds are not violated
+
+        bool            fIsCharm;               //!< true, if this sample is charm, false otherwise
+        bool            fIsBeauty;              //!< true, if this sample is beauty, false otherwise
 
 };
 #endif

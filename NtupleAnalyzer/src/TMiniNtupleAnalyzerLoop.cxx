@@ -60,17 +60,17 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     Double_t        FragFracBRWeight = 1;
 
     // quite often we need to distinguish charm and beauty so let's define these flags once
-    bool            isCharm = false;
-    bool            isBeauty = false;
+    fIsCharm = false;
+    fIsBeauty = false;
     if (fIsMC) {
-        if (fSubSet.getFlavourENUM() == TSubSet::kCHARM) isCharm = true;
-        if (fSubSet.getFlavourENUM() == TSubSet::kBEAUTY) isBeauty = true;
+        if (fSubSet.getFlavourENUM() == TSubSet::kCHARM) fIsCharm = true;
+        if (fSubSet.getFlavourENUM() == TSubSet::kBEAUTY) fIsBeauty = true;
         // sanity checks
-        if (isCharm and isBeauty) {
+        if (fIsCharm and fIsBeauty) {
             cout << "ERROR from Loop(): something is wrong with flavour identification" << endl;
             abort ();
         }
-        if ( (!isCharm) and (!isBeauty) and (fSubSet.getFlavourENUM() != TSubSet::kLIGHT)) {
+        if ( (!fIsCharm) and (!fIsBeauty) and (fSubSet.getFlavourENUM() != TSubSet::kLIGHT)) {
             cout << "ERROR from Loop(): something is wrong with flavour identification (none of the flavours selected)" << endl;
             cout << fSubSet.getFlavourENUM() << endl;
             abort ();
@@ -162,9 +162,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         get_gammaP_boost();
 
         // get the weight from Sasha's reweighting routine
-        if (fSashasReweighting && (isCharm || isBeauty) ) {
-            if (isCharm) FragFracBRWeight = rewObj.GetEventWeight(true);
-            else if (isBeauty) FragFracBRWeight = rewObj.GetEventWeight(false);
+        if (fSashasReweighting && (fIsCharm || fIsBeauty) ) {
+            if (fIsCharm) FragFracBRWeight = rewObj.GetEventWeight(true);
+            else if (fIsBeauty) FragFracBRWeight = rewObj.GetEventWeight(false);
         }
 
         // Calculate number of jets that satisfy true level cuts. Should be done before any cuts on reconstructed level.
@@ -181,11 +181,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 // apply weight for the true cross-sections (for charm and beauty MC)
                 Bool_t  weight_true = false;
-                if ( isCharm ) {
+                if ( fIsCharm ) {
                     fTrueQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
                     weight_true = true;
                 }
-                if ( isBeauty ){
+                if ( fIsBeauty ){
                     fTrueQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
                     weight_true = true;
                 }
@@ -216,135 +216,22 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     currentTGlobalBin->FillHistogram("Mc_q2", Mc_q2);
                     // if (currentTGlobalBin -> BinName == "bin1") print_fmckin_table();
 
-                    // look for charm hadrons
-                    // loop over all true particles
-                    if ((currentTGlobalBin -> BinName == "bin1") && fFragmentationReweighting && (isCharm || isBeauty)) {
- 
-                        for (int k = 0; k < Fmck_nstor; k++) {
- 
-                            // get particle type
-                            Int_t   t = Fmck_prt[k];
-                    
-                            // proceed only for some charm and beauty hadrons (for charm and beauty sample respectively)
-                            if ( isCharm ) {
-                                if (!( ( (t>=64) && (t<=71) ) || ( (t>=186) && (t<=189) ) || (t==208) || (t==209) )) continue;
-                            } else if ( isBeauty ) {
-                                if (!( ( (t>=72) && (t<=75) ) || (t==214) || (t==215) || ( (t>=468) && (t<=529)) || ( (t>=2349) && (t<=2378)))) continue;
-                            } else {        // sanity check
-                                cout << "ERROR from Loop(): shouldn't get here" << endl;
-                                abort();
-                            }
-                            
-                            // get 4-momentum of the charm/beauty hadron
-                            TLorentzVector hadron(Fmck_px[k], Fmck_py[k], Fmck_pz[k], Fmck_e[k]);
-                            
-                            // loop over the table again to find index of the mother particle of our charm hadron
-                            Int_t       string_ind = -1;
-                            for (int ii = 0; ii < Fmck_nstor; ii++) {
-                                if (Fmck_daug[k] == Fmck_id[ii]) {
-                                    string_ind = ii;
-                                    break;
-                                }
-                            }
-                            
-                            // we are interested only in hadrons created directly in string fragmentation (not in the decays 
-                            // of other hadrons);
-                            // string code is 2092
-                            if (Fmck_prt[string_ind] != 2092) continue;
-
-                            // get 4-momentum of the string
-                            TLorentzVector  string(Fmck_px[string_ind], Fmck_py[string_ind], Fmck_pz[string_ind], Fmck_e[string_ind]);
-
-                            // get also c/cbar quark - parent of the string
-                            Int_t       quark_ind = -1;
-                            for (int ii = 0; ii < Fmck_nstor; ii++) {
-                                if (Fmck_daug[string_ind] == Fmck_id[ii]) {
-                                    quark_ind = ii;
-                                    break;
-                                }
-                            }
-
-                            // check whether this is c/cbar
-                            Int_t   quark_id = Fmck_prt[quark_ind];
-                            if ( (isCharm&&(quark_id != 7)&&(quark_id != 8)) || (isBeauty&&(quark_id != 9)&&(quark_id != 10)) ) {
-                                cout << "parent of string not c/cbar or b/bar! Skipping this event" << endl;
-                                cout << quark_id << endl;
-                                continue;
-                            }
-
-                            TLorentzVector  quark(Fmck_px[quark_ind], Fmck_py[quark_ind], Fmck_pz[quark_ind], Fmck_e[quark_ind]);
-
-                            // charm hadron variables
-                            Double_t    qphi = hadron.Phi();
-                            if (qphi<0) qphi += (2*TMath::Pi());
-                            Double_t    qeta = hadron.Eta();
-
-                            // find a jet to which charm hadron is associated;
-                            // first, find closest jet to the hadron
-                            Double_t    Rmin = 99999;
-                            Int_t       jet_ind = -1;
-                            for (int m = 0; m < Nhbmjets; m++) {
-                                TLorentzVector jet(Pxhbmjet[m], Pyhbmjet[m], Pzhbmjet[m], Ehbmjet[m]);
-                                Double_t    jphi = jet.Phi();
-                                if (jphi<0) jphi += (2*TMath::Pi());
-                            
-                                Double_t    deta = qeta - jet.Eta();
-                                Double_t    dphi = qphi - jphi;
-                                Double_t    R = sqrt(deta*deta + dphi*dphi);
-                                if (R<Rmin) {
-                                    Rmin = R;
-                                    jet_ind = m;
-                                }
-                            }
-
-                            currentTGlobalBin->FillHistogram( "R_hadron_jet", Rmin);
-                            // closest jet should be close enough
-                            if (Rmin>1) continue;
-
-                            // ok, found a jet which contains our charm hadron
-                            TLorentzVector jet(Pxhbmjet[jet_ind], Pyhbmjet[jet_ind], Pzhbmjet[jet_ind], Ehbmjet[jet_ind]);
-
-                            // now boost to string rest frame, where we want to work;
-                            // first, get a boost vector;
-                            // original frame: string rest frame
-                            // rod frame: laboratory frame
-                            // boost vector: speed of laboratory frame wrt string rest frame,
-                            // obviously (-1)x(string velocity,lab)=(-1)x(string momentum,lab)/(string energy, lab)
-                            TVector3     boost((-1)*string.Px()/string.E(), (-1)*string.Py()/string.E(), (-1)*string.Pz()/string.E());
-
-                            // boosting to string rest frame
-                            hadron.Boost(boost);
-                            jet.Boost(boost);
-                            quark.Boost(boost);
-                            string.Boost(boost);
-                            
-                            // now can calculate z, taking different variables
-                            Double_t    p_hadr_parallel = (quark.Vect().Dot(hadron.Vect()))/quark.Vect().Mag();
-                            Double_t    z_quark = (hadron.E() + p_hadr_parallel) / (quark.E() + quark.P());
-                            Double_t    z_string = (hadron.E() + p_hadr_parallel) / (string.E() + string.P());
-                            currentTGlobalBin->FillHistogram( "z_true_quark", z_quark);
-                            currentTGlobalBin->FillHistogram( "z_true_string", z_string);
-
-                            Double_t    p_charm_hadr_parallel_jet = (jet.Vect().Dot(hadron.Vect()))/jet.Vect().Mag();
-                            Double_t    z_jet = (hadron.E() + p_hadr_parallel) / (jet.E() + jet.P());
-                            currentTGlobalBin->FillHistogram( "z_true_jet", z_jet);
-
-                            // now define weight from this hadron
-                            // first get a bin number
-                            Int_t   bin_rew_histo = getReweightingHistoBin(fFragmentationReweighting_histo, z_string);
-                            // now get value
-                            Double_t    weight = fFragmentationReweighting_histo -> GetBinContent(bin_rew_histo);
-                            fZstring_weight *= weight;
-                        }
+                    // get a fragmentation function weight, if selected so;
+                    // do this for the 1st bin only and apply that afterwards for every bin
+                    // TODO: at the moment, there's no check whether there's already a weighinh histo or not;
+                    // in principle, we first want to run the code in order to get the weighting function,
+                    // and only later apply it...
+                    if ((currentTGlobalBin -> BinName == "bin1") && fFragmentationReweighting && (fIsCharm || fIsBeauty)) {
+                        get_Zstring_weight(currentTGlobalBin);
                     }
 
                     // set fragmentation function weighting factor
-                    if (fFragmentationReweighting && (isCharm || isBeauty) ) {
+                    if (fFragmentationReweighting && (fIsCharm || fIsBeauty) ) {
                         Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
                         Double_t        new_factor = old_factor;
-                        if (isCharm) {
+                        if (fIsCharm) {
                             new_factor = old_factor * ( 1 - (1 - fZstring_weight) * fCharmFragm_variation_size);
-                        } else if (isBeauty) {
+                        } else if (fIsBeauty) {
                             new_factor = old_factor * ( 1 - (1 - fZstring_weight) * fBeautyFragm_variation_size);
                         } else {
                             cout << "ERROR from Loop(): shouldn't get here" << endl;
@@ -354,7 +241,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     }
 
                     // apply Sasha's reweighting
-                    if (fSashasReweighting && (isCharm || isBeauty) ) {
+                    if (fSashasReweighting && (fIsCharm || fIsBeauty) ) {
                         // apply the weight
                         Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
                         Double_t        new_factor = old_factor * FragFracBRWeight;
@@ -1007,12 +894,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             if ( weight_reco && weight_q2g4 ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight * fCharmQ2g4Weight);
 
             // fragmentation function studies - reweight the z distribution
-            if (fFragmentationReweighting && fIsMC && (isCharm || isBeauty)) {
+            if (fFragmentationReweighting && fIsMC && (fIsCharm || fIsBeauty)) {
                 Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
                 Double_t        new_factor = old_factor;
-                if (isCharm) {
+                if (fIsCharm) {
                     new_factor = old_factor * ( 1 - (1 - fZstring_weight) * fCharmFragm_variation_size);
-                } else if (isBeauty) {
+                } else if (fIsBeauty) {
                     new_factor = old_factor * ( 1 - (1 - fZstring_weight) * fBeautyFragm_variation_size);
                 } else {
                     cout << "ERROR from Loop(): shouldn't get here" << endl;
@@ -1022,7 +909,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             }
 
             // apply Sasha's reweighting
-            if (fSashasReweighting && (isCharm || isBeauty) ) {
+            if (fSashasReweighting && (fIsCharm || fIsBeauty) ) {
                 // apply it
                 Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
                 Double_t        new_factor = old_factor * FragFracBRWeight;
@@ -1622,6 +1509,128 @@ void TMiniNtupleAnalyzer::get_gammaP_boost() {
     
     // true scattered electron
     f_k_prim_true.SetPxPyPzE(Plepton[0], Plepton[1], Plepton[2], Plepton[3]);
+}
+
+void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
+
+    // look for charm/beauty hadrons,
+    // loop over all true particles
+    for (int k = 0; k < Fmck_nstor; k++) {
+    
+        // get a particle type
+        Int_t   t = Fmck_prt[k];
+                        
+        // proceed only for some charm and beauty hadrons (for charm and beauty sample respectively)
+        if ( fIsCharm ) {
+            if (!( ( (t>=64) && (t<=71) ) || ( (t>=186) && (t<=189) ) || (t==208) || (t==209) )) continue;
+        } else if ( fIsBeauty ) {
+            if (!( ( (t>=72) && (t<=75) ) || (t==214) || (t==215) || ( (t>=468) && (t<=529)) || ( (t>=2349) && (t<=2378)))) continue;
+        } else { // sanity check
+            cout << "ERROR from Loop(): shouldn't get here" << endl;
+            abort();
+        }
+        
+        // get 4-momentum of the charm/beauty hadron
+        TLorentzVector hadron(Fmck_px[k], Fmck_py[k], Fmck_pz[k], Fmck_e[k]);
+        
+        // loop over the table again to find index of the mother particle of our charm hadron
+        Int_t       string_ind = -1;
+        for (int ii = 0; ii < Fmck_nstor; ii++) {
+            if (Fmck_daug[k] == Fmck_id[ii]) {
+                string_ind = ii;
+                break;
+            }
+        }
+        
+        // we are interested only in hadrons created directly in string fragmentation (not in the decays 
+        // of other hadrons);
+        // string code is 2092
+        if (Fmck_prt[string_ind] != 2092) continue;
+    
+        // get 4-momentum of the string
+        TLorentzVector  string(Fmck_px[string_ind], Fmck_py[string_ind], Fmck_pz[string_ind], Fmck_e[string_ind]);
+    
+        // get also c/cbar quark - parent of the string
+        Int_t       quark_ind = -1;
+        for (int ii = 0; ii < Fmck_nstor; ii++) {
+            if (Fmck_daug[string_ind] == Fmck_id[ii]) {
+                quark_ind = ii;
+                break;
+            }
+        }
+    
+        // check whether this is c/cbar
+        Int_t   quark_id = Fmck_prt[quark_ind];
+        if ( (fIsCharm&&(quark_id != 7)&&(quark_id != 8)) || (fIsBeauty&&(quark_id != 9)&&(quark_id != 10)) ) {
+            cout << "WARNING: parent of the string is not c/cbar or b/bar! Skipping this event" << endl;
+            cout << quark_id << endl;
+            continue;
+        }
+    
+        TLorentzVector  quark(Fmck_px[quark_ind], Fmck_py[quark_ind], Fmck_pz[quark_ind], Fmck_e[quark_ind]);
+    
+        // charm hadron variables
+        Double_t    qphi = hadron.Phi();
+        if (qphi<0) qphi += (2*TMath::Pi());
+        Double_t    qeta = hadron.Eta();
+    
+        // find a jet to which charm hadron is associated;
+        // first, find closest jet to the hadron
+        Double_t    Rmin = 99999;
+        Int_t       jet_ind = -1;
+        for (int m = 0; m < Nhbmjets; m++) {
+            TLorentzVector jet(Pxhbmjet[m], Pyhbmjet[m], Pzhbmjet[m], Ehbmjet[m]);
+            Double_t    jphi = jet.Phi();
+            if (jphi<0) jphi += (2*TMath::Pi());
+        
+            Double_t    deta = qeta - jet.Eta();
+            Double_t    dphi = qphi - jphi;
+            Double_t    R = sqrt(deta*deta + dphi*dphi);
+            if (R<Rmin) {
+                Rmin = R;
+                jet_ind = m;
+            }
+        }
+    
+        currentTGlobalBin->FillHistogram( "R_hadron_jet", Rmin);
+        // closest jet should be close enough
+        if (Rmin>1) continue;
+    
+        // ok, found a jet which contains our charm hadron
+        TLorentzVector jet(Pxhbmjet[jet_ind], Pyhbmjet[jet_ind], Pzhbmjet[jet_ind], Ehbmjet[jet_ind]);
+    
+        // now boost to string rest frame, where we want to work;
+        // first, get a boost vector;
+        // original frame: string rest frame
+        // rod frame: laboratory frame
+        // boost vector: speed of laboratory frame wrt string rest frame,
+        // obviously (-1)x(string velocity,lab)=(-1)x(string momentum,lab)/(string energy, lab)
+        TVector3     boost((-1)*string.Px()/string.E(), (-1)*string.Py()/string.E(), (-1)*string.Pz()/string.E());
+    
+        // boosting to string rest frame
+        hadron.Boost(boost);
+        jet.Boost(boost);
+        quark.Boost(boost);
+        string.Boost(boost);
+        
+        // now can calculate z, taking different variables
+        Double_t    p_hadr_parallel = (quark.Vect().Dot(hadron.Vect()))/quark.Vect().Mag();
+        Double_t    z_quark = (hadron.E() + p_hadr_parallel) / (quark.E() + quark.P());
+        Double_t    z_string = (hadron.E() + p_hadr_parallel) / (string.E() + string.P());
+        currentTGlobalBin->FillHistogram( "z_true_quark", z_quark);
+        currentTGlobalBin->FillHistogram( "z_true_string", z_string);
+    
+        Double_t    p_charm_hadr_parallel_jet = (jet.Vect().Dot(hadron.Vect()))/jet.Vect().Mag();
+        Double_t    z_jet = (hadron.E() + p_hadr_parallel) / (jet.E() + jet.P());
+        currentTGlobalBin->FillHistogram( "z_true_jet", z_jet);
+    
+        // now define weight from this hadron
+        // first get a bin number
+        Int_t   bin_rew_histo = getReweightingHistoBin(fFragmentationReweighting_histo, z_string);
+        // now get value
+        Double_t    weight = fFragmentationReweighting_histo -> GetBinContent(bin_rew_histo);
+        fZstring_weight *= weight;
+    }
 }
 
 // hadron jet matching to partons
