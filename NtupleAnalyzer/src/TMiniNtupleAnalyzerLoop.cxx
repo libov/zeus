@@ -33,10 +33,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     // check if user selected to run in a test mode
     unsigned    first_event=0;
     if (fTestMode) {
-        Nevents=fTestNumberOfEvents;
+        Nevents = fTestNumberOfEvents;
         first_event = fTestFirstEvent;
     } else {
-        Nevents=fNevents;
+        Nevents = fNevents;
     }
 
     // some options, hardcoded at the moment;
