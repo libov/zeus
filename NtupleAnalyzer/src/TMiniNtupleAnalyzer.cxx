@@ -72,7 +72,8 @@ fpT(0.5),
 fSTT(0),
 fCTD(3),
 fMVD(4),
-fUseHelixTrackParameters(false)
+fUseHelixTrackParameters(false),
+fStudyResolutions(true)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);

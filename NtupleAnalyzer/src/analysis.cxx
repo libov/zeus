@@ -354,6 +354,10 @@ int main(int argc, char **argv) {
     instance -> SetMVD(4);
     instance -> SetUseHelixTrackParameters(false);
 
+    // some histograms to study resolutions (MC only); quite cpu expensive, so do this
+    // on part of the sample
+    instance -> SetStudyResolutions (false);
+
     // select whether to run on Minintuples or on dCache
     instance -> SetRundCache (true);
 

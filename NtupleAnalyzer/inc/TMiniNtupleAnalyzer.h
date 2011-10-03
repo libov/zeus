@@ -101,6 +101,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         void            SetMVD(Int_t mvd) {fMVD = mvd;};                   //!< Set minimal number of MVD hits
         void            SetUseHelixTrackParameters(Bool_t   setHelix) {fUseHelixTrackParameters = setHelix;};
 
+        void            SetStudyResolutions(bool study) {fStudyResolutions = study;};
+
         // -- analysis-specific variables (not generic)
         // -- change if you want to use for your own analysis
         // NOTE: this remark is rather obsolete, as most of the stuff here is already
@@ -288,5 +290,6 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         bool            fIsCharm;               //!< true, if this sample is charm, false otherwise
         bool            fIsBeauty;              //!< true, if this sample is beauty, false otherwise
 
+        bool            fStudyResolutions;      //!< a switch to select resolution studies
 };
 #endif

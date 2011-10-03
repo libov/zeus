@@ -195,6 +195,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 // variable to store a weight for fragmentation fraction studies
                 fZstring_weight = 1;
 
+                // some histograms are desirable to have, but they are quite CPU
+                // expensive to fill for every single GlobalBin (i.e. in the loop below);
+                // hence filling it here once for the inclusive bin
+                inclusiveBin -> FillHistogram("Mc_q2", Mc_q2);
+                inclusiveBin -> FillHistogram( "Nhbmjets", Nhbmjets);
+
                 // loop over all bins to fill histograms, which will be used later for
                 // true cross-section calculation
                 TGlobalBin      *currentTGlobalBin;
@@ -215,7 +221,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     }
 
                     //fill_parton_histograms(currentTGlobalBin);
-                    currentTGlobalBin->FillHistogram("Mc_q2", Mc_q2);
                     // if (currentTGlobalBin -> BinName == "bin1") print_fmckin_table();
 
                     // get a fragmentation function weight, if selected so;
@@ -249,11 +254,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Double_t        new_factor = old_factor * FragFracBRWeight;
                         currentTGlobalBin -> SetWeightingFactor (new_factor);
                     }
-                    
+
                     // Calculate number of true jets in current bin; will be used at the fitter level
                     // to get the true cross-sections
-                    currentTGlobalBin->FillHistogram( "Nhbmjets", Nhbmjets);
-
                     // loop over the true jets
                     for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
 
@@ -287,20 +290,24 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin->FillHistogram( "truejeteta", fTrueJetEta);
                     }
 
-                    currentTGlobalBin->FillHistogram("sira_px_reso", f_k_prim_reco.Px() - f_k_prim_true.Px());
-                    currentTGlobalBin->FillHistogram("sira_py_reso", f_k_prim_reco.Py() - f_k_prim_true.Py());
-                    currentTGlobalBin->FillHistogram("sira_pz_reso", f_k_prim_reco.Pz() - f_k_prim_true.Pz());
-                    currentTGlobalBin->FillHistogram("sira_E_reso", f_k_prim_reco.E() - f_k_prim_true.E());
-                    currentTGlobalBin->FillHistogram("q2_reco_reso", fq.M2() - f_true_q.M2());
-                    currentTGlobalBin->FillHistogram("q2da_reso", Siq2da[0] - TMath::Abs(f_true_q.M2()));
-                    currentTGlobalBin->FillHistogram("q2el_reso", Siq2el[0] - TMath::Abs(f_true_q.M2()));
-                    currentTGlobalBin->FillHistogram("q2jb_reso", Siq2jb[0] - TMath::Abs(f_true_q.M2()));
+                    // resolution histograms - fill on request only [SetStudyResolutions(true)] since
+                    // this is quite CPU expensive here in this loop.
+                    if (fStudyResolutions) {
+                        currentTGlobalBin->FillHistogram("sira_px_reso", f_k_prim_reco.Px() - f_k_prim_true.Px());
+                        currentTGlobalBin->FillHistogram("sira_py_reso", f_k_prim_reco.Py() - f_k_prim_true.Py());
+                        currentTGlobalBin->FillHistogram("sira_pz_reso", f_k_prim_reco.Pz() - f_k_prim_true.Pz());
+                        currentTGlobalBin->FillHistogram("sira_E_reso", f_k_prim_reco.E() - f_k_prim_true.E());
+                        currentTGlobalBin->FillHistogram("q2_reco_reso", fq.M2() - f_true_q.M2());
+                        currentTGlobalBin->FillHistogram("q2da_reso", Siq2da[0] - TMath::Abs(f_true_q.M2()));
+                        currentTGlobalBin->FillHistogram("q2el_reso", Siq2el[0] - TMath::Abs(f_true_q.M2()));
+                        currentTGlobalBin->FillHistogram("q2jb_reso", Siq2jb[0] - TMath::Abs(f_true_q.M2()));
+    
+                        currentTGlobalBin->FillHistogram("Wda_reso", fWda - fW_true);
+                        currentTGlobalBin->FillHistogram("W_reso", f_gamma_p.M() - fW_true);
+    
+                        currentTGlobalBin->FillHistogram("photon_energy_gp_reso", fq.E() - f_true_q.E());
+                    }
 
-                    currentTGlobalBin->FillHistogram("Wda_reso", fWda - fW_true);
-                    currentTGlobalBin->FillHistogram("W_reso", f_gamma_p.M() - fW_true);
-
-                    currentTGlobalBin->FillHistogram("photon_energy_gp_reso", fq.E() - f_true_q.E());
-                    
                     // calculate x_gamma on true level: based on parton and also hadron jets;
                     // to save some time, doing this for the 1st bin only
                     if ( currentTGlobalBin -> BinName == "bin1") {
@@ -332,7 +339,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
         // check whether this is only for true studies and skip if the case
         if (fTrueLevelStudies) continue;
-    
+
         // ********************************************************************************************
         // ********************************************************************************************
         // ******************************* part2 - reco level analysis ********************************
