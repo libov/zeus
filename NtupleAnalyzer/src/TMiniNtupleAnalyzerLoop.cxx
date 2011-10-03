@@ -158,9 +158,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         // ********************************************************************************************
         // ********************************************************************************************
 
-        // get some event-wise quantities (related to the boost to gamma p frame)
+        // set the variables, needed for the transformation to the gamma-p frame
         get_gammaP_boost();
-        // end get some event-wise quantities
 
         // get the weight from Sasha's reweighting routine
         if (fSashasReweighting && (isCharm || isBeauty) ) {
