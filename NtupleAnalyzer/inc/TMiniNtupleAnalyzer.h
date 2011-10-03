@@ -282,14 +282,16 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         TLorentzVector  f_true_q;               //!< 4 vector of the exchanged boson, true level
         Float_t         fWda;                   //!< W reconstructed by DA method
         Float_t         fW_true;                //!< W true value
-        void    get_gammaP_boost();             //!< sets the relevant variables used for transformation to gamma-p
+        void            get_gammaP_boost();             //!< sets the relevant variables used for transformation to gamma-p
 
-        void    print_fmckin_table();
-        void    checkArrayBounds();             //!< checks whether array bounds are not violated
+        void            print_fmckin_table();
+        void            checkArrayBounds();             //!< checks whether array bounds are not violated
 
         bool            fIsCharm;               //!< true, if this sample is charm, false otherwise
         bool            fIsBeauty;              //!< true, if this sample is beauty, false otherwise
 
         bool            fStudyResolutions;      //!< a switch to select resolution studies
+        
+        Float_t         getAverageAngle(Int_t  vertex_id);  //!< calculates an average angle between all possible track combination in the vertex
 };
 #endif

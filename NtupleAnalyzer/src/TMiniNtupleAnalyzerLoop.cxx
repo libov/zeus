@@ -938,7 +938,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 // TODO: not really sure that this should be different for v02 and v04 - check!
                 #ifdef CN_VERSION_V02
-
                 fSignificance = fVertices[j].Significance;
                 fRecoJetEta = Kt_etajet_a[vertex];
                 fRecoJetEt = Kt_etjet_a[vertex];
@@ -957,7 +956,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 Int_t       vtx_multi = fVertices[j].GetNTracks() - fVertices[j].GetNTracksDropped();
                 Float_t chi2 = fVertices[j].GetChi2();
                 #endif
-                
+
+                Float_t average_angle = getAverageAngle(vertex);
+
                 // estimate efficiency with the method proposed by Olaf
                 if (estimate_trackeff_uncertainty_crude && fIsMC) {
                     // get a random number
@@ -1079,6 +1080,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 currentTGlobalBin->FillHistogram("ZUFO_jet_ratio", fVertices[j].GetZUFO_jet_ratio());
                 currentTGlobalBin->FillHistogram("CAL_total_ratio", fVertices[j].GetCAL_total_ratio());
                 currentTGlobalBin->FillHistogram("ZUFO_type", fVertices[j].GetZUFO_type());
+                
+                currentTGlobalBin->FillHistogram("average_angle", average_angle);
 
                 // fill some histos related to track density effects
 
@@ -1632,6 +1635,66 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
         Double_t    weight = fFragmentationReweighting_histo -> GetBinContent(bin_rew_histo);
         fZstring_weight *= weight;
     }
+}
+
+Float_t TMiniNtupleAnalyzer::getAverageAngle(Int_t  vertex_id) {
+
+    // get nr of tracks belonging to this vertex
+    Int_t   ntracks = Vtxsec_multi[vertex_id];
+    Int_t   n_combinations = 0;
+    Float_t total_angle = 0;
+    // loop over the all possible combinations and calculate an angle
+    for (int t1 = 0; t1<ntracks; t1++) {
+        // get an id of the 1st track
+        Int_t   id1 = Vtxsec_zttid[vertex_id][t1];
+
+        // search for it in the Tracking block
+        Int_t   idtrk1 = -1;
+        for (int i=0; i < Trk_ntracks; i++) {
+            if (Trk_id[i] == id1) {
+                idtrk1 = i;
+                break;
+            }
+        }
+        // sanity check
+        if (idtrk1 == -1) {
+            cout << "ERROR: not possible to find a track" << endl;
+            abort();
+        }
+
+        // create a 3-vector corresponding to this track
+        TVector3 track1(Trk_px[idtrk1], Trk_py[idtrk1], Trk_pz[idtrk1]);
+
+        for (int t2 = t1+1; t2<ntracks; t2++) {
+            // get an id of the 2nd track
+            Int_t   id2 = Vtxsec_zttid[vertex_id][t2];
+            
+            // search for it in the Tracking block
+            Int_t   idtrk2 = -1;
+            for (int i=0; i < Trk_ntracks; i++) {
+                if (Trk_id[i] == id2) {
+                    idtrk2 = i;
+                    break;
+                }
+            }
+            // sanity check
+            if (idtrk2 == -1) {
+                cout << "ERROR: not possible to find a track" << endl;
+                abort();
+            }
+
+            // create a 3-vector corresponding to this track
+            TVector3 track2(Trk_px[idtrk2], Trk_py[idtrk2], Trk_pz[idtrk2]);
+            
+            // now get angle between this pair
+            Double_t angle = track1.Angle(track2);
+            total_angle += angle;
+            n_combinations++;
+        }
+    }
+    // now get an average angle
+    Double_t    average_angle = total_angle / n_combinations;
+    return average_angle;
 }
 
 // hadron jet matching to partons
