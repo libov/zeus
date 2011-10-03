@@ -203,7 +203,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     /** Check if MC event is in current bin, true event level
                     *  (see VaribalePhase for variables classification)
                     */
-                    if ( ! currentTGlobalBin->CheckGlobalBin(kTrueVarEvent) )	continue;
+                    if ( ! currentTGlobalBin->CheckGlobalBin(kTrueVarEvent) ) continue;
 
                     // set weighting factor
                     // reset from previous event
@@ -301,10 +301,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                     currentTGlobalBin->FillHistogram("photon_energy_gp_reso", fq.E() - f_true_q.E());
                     
-                    if (f_gamma_p.M() < 0) {
-                        continue;
-                    }
-
                     // calculate x_gamma on true level: based on parton and also hadron jets;
                     // to save some time, doing this for the 1st bin only
                     if ( currentTGlobalBin -> BinName == "bin1") {
