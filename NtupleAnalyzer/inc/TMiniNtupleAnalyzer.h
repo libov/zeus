@@ -276,5 +276,6 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         TLorentzVector  f_gamma_p;              //!< 4 vector of the gamma-p system, not boosted to the gamma-p frame
 
         void    print_fmckin_table();
+        void    checkArrayBounds();              //!< checks whether array bounds are not violated
 };
 #endif

@@ -102,19 +102,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             abort();
         }
 
-        // some temporary sanity checks: array bounds check
-        if (Sincand >= 10) {cout << " ALARM! Sincand= " << Sincand << endl; abort();}
-        if (Kt_njet_b >= 30) {cout << " ALARM! Kt_njet_b= " << Kt_njet_b << endl; abort();}
-        if (Kt_njet_a >= 30) {cout << " ALARM! Kt_njet_a= " << Kt_njet_a << endl; abort();}
-        if (Nzufos >= 250){ cout << " ALARM! Nzufos= " << Nzufos << endl; abort();}
-        if (Trk_ntracks >= 400) {cout << " ALARM! Trk_ntracks= " << Trk_ntracks << endl; abort();}
-        if (Nr_secvtx >= 60) {cout << " ALARM! Nr_secvtx= " << Nr_secvtx << endl; abort();}
-        #ifdef CN_VERSION_V06
-        if (Nr_redprim >= 30) {cout << " ALARM! Nr_redprim= " << Nr_redprim << endl; abort();}
-        #endif
-        if (Npart >= 2044){ cout << " ALARM! Npart= " << Npart << endl; abort();}
-        if (Fmck_nstor >= 3000) {cout << " ALARM! Fmck_nstor= " << Fmck_nstor << endl; abort();}
-        if (Nhbmjets >= 100){ cout << " ALARM! Nhbmjets= " << Nhbmjets << endl; abort();}
+        //sanity checks: array bounds check
+        checkArrayBounds();
 
         // in case selected to calculate data luminosity (data only):
         // get a runnumber and increment an event counter for this run,
@@ -1619,6 +1608,21 @@ void TMiniNtupleAnalyzer::print_fmckin_table() {
             if (Fmck_prt[Fmck_daug[k]-1] == 29) abort();
         }
     }
+}
+
+void TMiniNtupleAnalyzer::checkArrayBounds() {
+    if (Sincand >= 10) {cout << " ALARM! Sincand= " << Sincand << endl; abort();}
+    if (Kt_njet_b >= 30) {cout << " ALARM! Kt_njet_b= " << Kt_njet_b << endl; abort();}
+    if (Kt_njet_a >= 30) {cout << " ALARM! Kt_njet_a= " << Kt_njet_a << endl; abort();}
+    if (Nzufos >= 250){ cout << " ALARM! Nzufos= " << Nzufos << endl; abort();}
+    if (Trk_ntracks >= 400) {cout << " ALARM! Trk_ntracks= " << Trk_ntracks << endl; abort();}
+    if (Nr_secvtx >= 60) {cout << " ALARM! Nr_secvtx= " << Nr_secvtx << endl; abort();}
+    #ifdef CN_VERSION_V06
+    if (Nr_redprim >= 30) {cout << " ALARM! Nr_redprim= " << Nr_redprim << endl; abort();}
+    #endif
+    if (Npart >= 2044){ cout << " ALARM! Npart= " << Npart << endl; abort();}
+    if (Fmck_nstor >= 3000) {cout << " ALARM! Fmck_nstor= " << Fmck_nstor << endl; abort();}
+    if (Nhbmjets >= 100){ cout << " ALARM! Nhbmjets= " << Nhbmjets << endl; abort();}
 }
 
 // hadron jet matching to partons
