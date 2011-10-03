@@ -303,6 +303,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         continue;
                     }
 
+                    // calculate x_gamma on true level: based on parton and also hadron jets;
                     // to save some time, doing this for the 1st bin only
                     if ( currentTGlobalBin -> BinName == "bin1") {
 
@@ -324,6 +325,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Float_t x_gamma_hadrons = get_x_gamma(hadron_jets, false);
                         if ( x_gamma_hadrons >= 0 ) currentTGlobalBin->FillHistogram("x_gamma_true_hadrons", x_gamma_hadrons);
                     }
+
                     currentTGlobalBin -> ApplyWeighting (false);    // extra protection ;)
 
                 }   // end loop over global bins
