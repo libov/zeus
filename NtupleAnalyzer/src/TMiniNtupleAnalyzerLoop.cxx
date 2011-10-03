@@ -159,75 +159,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         // ********************************************************************************************
 
         // get some event-wise quantities (related to the boost to gamma p frame)
-        bool    q_reco = true;
-        bool    pure_electron = true;   // valid only for q_reco = true;
-        // q reconstructed from leptons
-        TLorentzVector  k(0, 0, (-1)*27.5, sqrt(27.5*27.5 + 0.000511 * 0.000511));
-        TLorentzVector  k_prim_reco;
-        if (pure_electron) {
-            k_prim_reco.SetPxPyPzE(sin(Sith[0])*cos(Siph[0]), sin(Sith[0])*sin(Siph[0]), cos(Sith[0]), 1);
-            k_prim_reco *= Siecorr[0][2];
-        } else {
-            Float_t ratio = Siq2da[0] / (4 * 27.5 * 27.5 * (1-Siyda[0]));
-            Float_t c_theta = (ratio - 1) / (ratio + 1);
-            Float_t E_prim = Siq2da[0]/(2 * 27.5 * (1 + c_theta));
-            Float_t s_theta = sqrt(1-c_theta*c_theta);
-            k_prim_reco.SetPxPyPzE(s_theta*cos(Siph[0]), s_theta*sin(Siph[0]), c_theta, 1);
-            k_prim_reco *= E_prim;
-        }
-
-        if (q_reco) {
-            fq = k - k_prim_reco;
-        } else {
-            fq.SetPxPyPzE(Pboson[0], Pboson[1], Pboson[2], Pboson[3]);
-        }
-
-        // initial state proton
-        TLorentzVector  p(0, 0, 920, sqrt(920*920+0.938*0.938));
-        // gamma+p vector
-        f_gamma_p = fq + p;
-
-        // now boost to gamma p
-        // first, get a boost vector;
-        // original frame: gamma p rest frame
-        // rod frame: laboratory frame
-        // boost vector: speed of laboratory frame wrt gamma p rest frame,
-        // obviously (-1)x(f_gamma_p velocity,lab)=(-1)x(f_gamma_p momentum,lab)/(f_gamma_p energy, lab)
-        fBoost.SetXYZ((-1)*f_gamma_p.Px()/f_gamma_p.E(), (-1)*f_gamma_p.Py()/f_gamma_p.E(), (-1)*f_gamma_p.Pz()/f_gamma_p.E());
-        // boosting to gamma p rest frame; these will be needed in gamma-p frame
-        fq.Boost(fBoost);
-        p.Boost(fBoost);
-
-        // now need to rotate the frame, so that z axis is aligned with proton direction
-        // get a rotation angle (=angle between old and new z axis, that is proton direction
-        // in the old frame)
-        TVector3 z_new(p.Px()/p.P(), p.Py()/p.P(), p.Pz()/p.P());
-        TVector3 z_old(0,0,1);
-        fAngle = acos(z_new * z_old);
-        // get a direction of rotation - that is a vector perpendicular
-        // to the plane that contains old z and new z
-        // can be obtained by a vector product
-        fRotationAxis = z_new.Cross(z_old);
-        fq.Rotate(fAngle, fRotationAxis);
-        p.Rotate(fAngle, fRotationAxis);
-
-        // calculate W from this
-        Float_t Wda = sqrt(0.938*0.938 + Siq2da[0]*(1./Sixda[0] - 1));
-        // true W
-        TLorentzVector  true_q(Pboson[0], Pboson[1], Pboson[2], Pboson[3]);
-        TLorentzVector  true_p(0, 0, 920, sqrt(920*920+0.938*0.938));
-        TLorentzVector  true_gamma_p = true_q + true_p;
-        Float_t         W_true = true_gamma_p.M();
-
-        // true q
-        true_q.Boost(fBoost);
-        true_q.Rotate(fAngle, fRotationAxis);
-        Float_t     q_energy_gamma_p_true = true_q.E();
-        Float_t     q_energy_gamma_p_reco = fq.E();
-
-        // true scattered electron
-        TLorentzVector  k_prim_true;
-        k_prim_true.SetPxPyPzE(Plepton[0], Plepton[1], Plepton[2], Plepton[3]);
+        get_gammaP_boost();
         // end get some event-wise quantities
 
         // get the weight from Sasha's reweighting routine
@@ -467,20 +399,19 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin->FillHistogram( "truejeteta", fTrueJetEta);
                     }
 
-                    currentTGlobalBin->FillHistogram("sira_px_reso", k_prim_reco.Px() - k_prim_true.Px());
-                    currentTGlobalBin->FillHistogram("sira_py_reso", k_prim_reco.Py() - k_prim_true.Py());
-                    currentTGlobalBin->FillHistogram("sira_pz_reso", k_prim_reco.Pz() - k_prim_true.Pz());
-                    currentTGlobalBin->FillHistogram("sira_E_reso", k_prim_reco.E() - k_prim_true.E());
-                    currentTGlobalBin->FillHistogram("q2_reco_reso", fq.M2() - true_q.M2());
-                    currentTGlobalBin->FillHistogram("q2da_reso", Siq2da[0] - TMath::Abs(true_q.M2()));
-                    currentTGlobalBin->FillHistogram("q2el_reso", Siq2el[0] - TMath::Abs(true_q.M2()));
-                    currentTGlobalBin->FillHistogram("q2jb_reso", Siq2jb[0] - TMath::Abs(true_q.M2()));
+                    currentTGlobalBin->FillHistogram("sira_px_reso", f_k_prim_reco.Px() - f_k_prim_true.Px());
+                    currentTGlobalBin->FillHistogram("sira_py_reso", f_k_prim_reco.Py() - f_k_prim_true.Py());
+                    currentTGlobalBin->FillHistogram("sira_pz_reso", f_k_prim_reco.Pz() - f_k_prim_true.Pz());
+                    currentTGlobalBin->FillHistogram("sira_E_reso", f_k_prim_reco.E() - f_k_prim_true.E());
+                    currentTGlobalBin->FillHistogram("q2_reco_reso", fq.M2() - f_true_q.M2());
+                    currentTGlobalBin->FillHistogram("q2da_reso", Siq2da[0] - TMath::Abs(f_true_q.M2()));
+                    currentTGlobalBin->FillHistogram("q2el_reso", Siq2el[0] - TMath::Abs(f_true_q.M2()));
+                    currentTGlobalBin->FillHistogram("q2jb_reso", Siq2jb[0] - TMath::Abs(f_true_q.M2()));
 
-                    currentTGlobalBin->FillHistogram("Wda_reso", Wda - W_true);
-                    currentTGlobalBin->FillHistogram("W_reso", f_gamma_p.M() - W_true);
+                    currentTGlobalBin->FillHistogram("Wda_reso", fWda - fW_true);
+                    currentTGlobalBin->FillHistogram("W_reso", f_gamma_p.M() - fW_true);
 
-                    currentTGlobalBin->FillHistogram("photon_energy_gp_reso", q_energy_gamma_p_reco - q_energy_gamma_p_true);
-
+                    currentTGlobalBin->FillHistogram("photon_energy_gp_reso", fq.E() - f_true_q.E());
                     
                     if (f_gamma_p.M() < 0) {
                         continue;
@@ -1625,6 +1556,75 @@ void TMiniNtupleAnalyzer::checkArrayBounds() {
     if (Nhbmjets >= 100){ cout << " ALARM! Nhbmjets= " << Nhbmjets << endl; abort();}
 }
 
+void TMiniNtupleAnalyzer::get_gammaP_boost() {
+    bool    q_reco = true;
+    bool    pure_electron = true;   // valid only for q_reco = true;
+    // q reconstructed from leptons
+    TLorentzVector  k(0, 0, (-1)*27.5, sqrt(27.5*27.5 + 0.000511 * 0.000511));
+    TLorentzVector  k_prim_reco;
+    if (pure_electron) {
+        f_k_prim_reco.SetPxPyPzE(sin(Sith[0])*cos(Siph[0]), sin(Sith[0])*sin(Siph[0]), cos(Sith[0]), 1);
+        f_k_prim_reco *= Siecorr[0][2];
+    } else {
+        Float_t ratio = Siq2da[0] / (4 * 27.5 * 27.5 * (1-Siyda[0]));
+        Float_t c_theta = (ratio - 1) / (ratio + 1);
+        Float_t E_prim = Siq2da[0]/(2 * 27.5 * (1 + c_theta));
+        Float_t s_theta = sqrt(1-c_theta*c_theta);
+        f_k_prim_reco.SetPxPyPzE(s_theta*cos(Siph[0]), s_theta*sin(Siph[0]), c_theta, 1);
+        f_k_prim_reco *= E_prim;
+    }
+    
+    if (q_reco) {
+        fq = k - f_k_prim_reco;
+    } else {
+        fq.SetPxPyPzE(Pboson[0], Pboson[1], Pboson[2], Pboson[3]);
+    }
+    
+    // initial state proton
+    TLorentzVector  p(0, 0, 920, sqrt(920*920+0.938*0.938));
+    // gamma+p vector
+    f_gamma_p = fq + p;
+    
+    // now boost to gamma p
+    // first, get a boost vector;
+    // original frame: gamma p rest frame
+    // rod frame: laboratory frame
+    // boost vector: speed of laboratory frame wrt gamma p rest frame,
+    // obviously (-1)x(f_gamma_p velocity,lab)=(-1)x(f_gamma_p momentum,lab)/(f_gamma_p energy, lab)
+    fBoost.SetXYZ((-1)*f_gamma_p.Px()/f_gamma_p.E(), (-1)*f_gamma_p.Py()/f_gamma_p.E(), (-1)*f_gamma_p.Pz()/f_gamma_p.E());
+    // boosting to gamma p rest frame; these will be needed in gamma-p frame
+    fq.Boost(fBoost);
+    p.Boost(fBoost);
+    
+    // now need to rotate the frame, so that z axis is aligned with proton direction
+    // get a rotation angle (=angle between old and new z axis, that is proton direction
+    // in the old frame)
+    TVector3 z_new(p.Px()/p.P(), p.Py()/p.P(), p.Pz()/p.P());
+    TVector3 z_old(0,0,1);
+    fAngle = acos(z_new * z_old);
+    // get a direction of rotation - that is a vector perpendicular
+    // to the plane that contains old z and new z
+    // can be obtained by a vector product
+    fRotationAxis = z_new.Cross(z_old);
+    fq.Rotate(fAngle, fRotationAxis);
+    p.Rotate(fAngle, fRotationAxis);
+    
+    // calculate W from this
+    Float_t fWda = sqrt(0.938*0.938 + Siq2da[0]*(1./Sixda[0] - 1));
+    // true W
+    TLorentzVector  f_true_q(Pboson[0], Pboson[1], Pboson[2], Pboson[3]);
+    TLorentzVector  true_p(0, 0, 920, sqrt(920*920+0.938*0.938));
+    TLorentzVector  true_gamma_p = f_true_q + true_p;
+    Float_t fW_true = true_gamma_p.M();
+    
+    // true q
+    f_true_q.Boost(fBoost);
+    f_true_q.Rotate(fAngle, fRotationAxis);
+    
+    // true scattered electron
+    f_k_prim_true.SetPxPyPzE(Plepton[0], Plepton[1], Plepton[2], Plepton[3]);
+}
+
 // hadron jet matching to partons
 /*
                 // hacks 17 May 2011, closer look onto true distributions in context
@@ -1756,7 +1756,7 @@ void TMiniNtupleAnalyzer::checkArrayBounds() {
         TLorentzVector  zufo(Zufo[z][0], Zufo[z][1], Zufo[z][2], Zufo[z][3]);
         total_ZUFO += zufo;
     }
-    total_ZUFO -= k_prim_reco;
+    total_ZUFO -= f_k_prim_reco;
     // now boost
     total_ZUFO.Boost(boost);
     total_ZUFO.Rotate(fAngle, fRotationAxis);

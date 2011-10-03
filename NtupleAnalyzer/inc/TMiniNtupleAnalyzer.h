@@ -274,8 +274,15 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         TLorentzVector  fq;                     //!< 4-vector of the exchanged boson, to be boosted to the gamma-p frame
         TLorentzVector  f_gamma_p;              //!< 4 vector of the gamma-p system, not boosted to the gamma-p frame
+        TLorentzVector  f_k_prim_reco;          //!< 4 vector of the scattered electron, reco level (at the moment electron method)
+        TLorentzVector  f_k_prim_true;          //!< 4 vector of the scattered electron, true level, makes sennse for MC only
+        TLorentzVector  f_true_q;               //!< 4 vector of the exchanged boson, true level
+        Float_t         fWda;                   //!< W reconstructed by DA method
+        Float_t         fW_true;                //!< W true value
+        void    get_gammaP_boost();             //!< sets the relevant variables used for transformation to gamma-p
 
         void    print_fmckin_table();
         void    checkArrayBounds();              //!< checks whether array bounds are not violated
+
 };
 #endif
