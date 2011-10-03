@@ -260,10 +260,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // loop over the true jets
                     for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
 
-                        // create root lorentz vectors whith jet 4-momentum
+                        // create a ROOT Lorentz vector whith - a jet 4-momentum
                         TLorentzVector	jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
-                        /** Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
-                        */
+
+                        //Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
                         fTrueJetEta=jet.Eta();
                         fTrueJetEt=jet.Et();
                         fTrueJetPhi=jet.Phi();
@@ -274,16 +274,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin->FillHistogram( "truejetet1", fTrueJetEt);
                         currentTGlobalBin->FillHistogram( "truejeteta1", fTrueJetEta);
                         
-                        // ------------------------------------------------------------------
-
-                        /** Fiducial volume cuts, jet level.
-                        */
+                        // Fiducial volume cuts, true jet level
                         // TODO: these cuts are hardcoded here and duplicated elsewhere!!! to be improved!!
                         if ( ( fTrueJetEta > 2.2 ) || ( fTrueJetEta < - 1.6 ) ) continue;
                         if ( fTrueJetEt < fJetEtCut ) continue;
 
-                        /** Check if jet is in current bin, jet level
-                        */
+                        //Check whether jet is in current bin, true jet level
                         if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
                         currentTGlobalBin->FillHistogram( "truejets", 0);
                         currentTGlobalBin->FillHistogram( "truejetet", fTrueJetEt);
