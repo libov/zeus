@@ -362,6 +362,7 @@ h_out->SetBinError(i,TMath::Sqrt(h_in->GetBinError(PosBin)*h_in->GetBinError(Pos
 void TMiniNtupleAnalyzer::WriteHistograms()
 {
     // write histograms to file, for this loop over subdirectories
+    cout << "INFO: writing histograms to file" << endl;
     TGlobalBin        *currentTGlobalBin;
     TIter                Iter_TGlobalBin(fList_TGlobalBin);
     char                currentDirName[256];
@@ -378,7 +379,7 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     fDebug->Write();
     fDebugSVTX->Write();
     fHistogramsFile->Close();
-    cout<<"Histograms written to file"<<endl;
+    cout<<"INFO: Histograms written to file"<<endl;
 }
 
 Float_t    TMiniNtupleAnalyzer::CalculateProjDecayLength(Int_t    vertex) {
