@@ -151,21 +151,23 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         // ********************************************************************************************
         // ********************************************************************************************
 
+        // set the variables, needed for the transformation to the gamma-p frame
+        get_gammaP_boost();
+
+        // get the weight from Sasha's reweighting routine
+        // NOTE: this is done before any selection, also on true level, because
+        // this weighting has to be applied also on true level, where we might have
+        // events outside true level fiducial volume, due to migrations
+        if (fSashasReweighting && (fIsCharm || fIsBeauty) ) {
+            if (fIsCharm) FragFracBRWeight = rewObj.GetEventWeight(true);
+            else if (fIsBeauty) FragFracBRWeight = rewObj.GetEventWeight(false);
+        }
 
         // ********************************************************************************************
         // ********************************************************************************************
         // *********************************** True level analysis ************************************
         // ********************************************************************************************
         // ********************************************************************************************
-
-        // set the variables, needed for the transformation to the gamma-p frame
-        get_gammaP_boost();
-
-        // get the weight from Sasha's reweighting routine
-        if (fSashasReweighting && (fIsCharm || fIsBeauty) ) {
-            if (fIsCharm) FragFracBRWeight = rewObj.GetEventWeight(true);
-            else if (fIsBeauty) FragFracBRWeight = rewObj.GetEventWeight(false);
-        }
 
         // Calculate number of jets that satisfy true level cuts. Should be done before any cuts on reconstructed level.
         if ( fIsMC ) {
