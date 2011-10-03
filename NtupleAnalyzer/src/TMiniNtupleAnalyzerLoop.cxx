@@ -919,8 +919,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 currentTGlobalBin -> SetWeightingFactor (new_factor);
             }
 
-            // fill true Q2 distribution
-            if (fIsMC) currentTGlobalBin -> FillHistogram("Mc_q2", Mc_q2);
             currentTGlobalBin->FillHistogram("nvertices", fVertices.size());
 
             // Now loop over selected vertices and fill histos for each vertex
