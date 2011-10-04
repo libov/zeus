@@ -94,11 +94,12 @@ void TMiniNtupleAnalyzer::Initialize() {
     // add files from dCache or from disk
     if (!fRun_dCache) {
         if (fMiniNtuplesOn_dCache) {
+            TString  minintuples_filelist = "MiniNtupleList.txt";
             cout << "INFO: path to mini ntuples " << fPathToMiniNtuples << endl;
-            system ("ls -1 " + fPathToMiniNtuples + "/* > MiniNtupleList.txt ");
+            system ("ls -1 " + fPathToMiniNtuples + "/* > "+minintuples_filelist);
             // open the text file
             ifstream NtupleListFile;
-            NtupleListFile.open ("MiniNtupleList.txt");
+            NtupleListFile.open (minintuples_filelist);
 
             // loop over lines of the text file
             string line;
@@ -116,8 +117,9 @@ void TMiniNtupleAnalyzer::Initialize() {
                 }
                 NtupleListFile.close();
                 cout<<"INFO: " << FilesNumber << " files added to chain" << endl;
+                remove(minintuples_filelist);
             } else { // complain
-                cout<<"Unable to open file with ntuple list ("<<fFileList<<"). The program will terminate, sorry."<<endl;
+                cout<<"Unable to open file with ntuple list ("<<minintuples_filelist<<"). The program will terminate, sorry."<<endl;
                 abort();
             }
         } else {
