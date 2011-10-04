@@ -350,4 +350,7 @@ void submitJob(TString run_command, TString samplename) {
     TString submit_command="zarah-jobsub -q "+ZARAH_QUEUE+" -s run_zarah.sh " + resources + " ../NtupleAnalyzer.tar.gz "+ANALYSIS+"/*.sh"+" ../xerces/$ZARCH_TYPE/lib* " + " filelists/"+samplename+".txt" ;
     cout << "INFO: submission command: " << submit_command << endl;
     system (submit_command.Data());
+
+    // clean up
+    remove("run_zarah.sh");
 }
