@@ -1658,7 +1658,7 @@ Float_t TMiniNtupleAnalyzer::getAverageAngle(Int_t  vertex_id) {
         }
         // sanity check
         if (idtrk1 == -1) {
-            cout << "ERROR: not possible to find a track" << endl;
+            cout << "ERROR: not possible to find a track (1st track)" << endl;
             abort();
         }
 
@@ -1679,7 +1679,7 @@ Float_t TMiniNtupleAnalyzer::getAverageAngle(Int_t  vertex_id) {
             }
             // sanity check
             if (idtrk2 == -1) {
-                cout << "ERROR: not possible to find a track" << endl;
+                cout << "ERROR: not possible to find a track (2nd track)" << endl;
                 abort();
             }
 
