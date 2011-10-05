@@ -68,9 +68,12 @@ int main(int argc, char **argv) {
     Bool_t      include_resolved = false;
     Bool_t      include_direct = false;
     Bool_t      no_beauty_resolved = false;
+    Bool_t      no_charm_resolved = false;
+
     // declare long options
     static struct option long_options[] = {
         {"no_beauty_resolved", no_argument, 0, 1},
+        {"no_charm_resolved", no_argument, 0, 2},
     };
 
 
@@ -101,6 +104,9 @@ int main(int argc, char **argv) {
             case 1:
                 no_beauty_resolved = true;
                 break;
+            case 2:
+                no_charm_resolved = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t fitter  -b <Binning File Suffix> -v <Histograms Version Ending> [options]\n"<<endl;
                 cout << "List of options\n" << endl;
@@ -108,6 +114,7 @@ int main(int argc, char **argv) {
                 cout << "-e\t\tInclude excitation part"<<endl;
                 cout << "-r\t\tremark; default: .0405e06e07p"<<endl;
                 cout << "--no_beauty_resolved\tdon't add beauty resolved samples, if -e options is selected"<<endl;
+                cout << "--no_charm_resolved\tdon't add charm resolved samples, if -e options is selected"<<endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -129,8 +136,12 @@ int main(int argc, char **argv) {
     // by default, process all periods
     if (remark == "") {
         remark = ".0405e06e07p";
-        if (include_resolved) remark += ".including_resolved";
-        if (no_beauty_resolved) remark += ".no_beauty_resolved";
+        if (no_beauty_resolved && no_charm_resolved) include_resolved = false;
+        if (include_resolved) {
+            remark += ".including_resolved";
+            if (no_beauty_resolved) remark += ".no_beauty_resolved";
+            if (no_charm_resolved) remark += ".no_charm_resolved";
+        }
     }
     cout << "INFO: remark " << remark << endl;
 
@@ -339,18 +350,17 @@ int main(int argc, char **argv) {
         Double_t      CrossSect_c_MC_true;
         Double_t      CrossSect_b_MC_true;
 
-        if (include_resolved) {
-            CrossSect_c_MC_true = CrossSect_c_MC_true_BGF + CrossSect_c_MC_true_RESOLVED;
-            if (no_beauty_resolved) {
-                CrossSect_b_MC_true = CrossSect_b_MC_true_BGF;
-            } else {
-                CrossSect_b_MC_true = CrossSect_b_MC_true_BGF + CrossSect_b_MC_true_RESOLVED;
-            }
+        if (include_resolved && (!no_beauty_resolved)) {
+            CrossSect_b_MC_true = CrossSect_b_MC_true_BGF + CrossSect_b_MC_true_RESOLVED;
         } else {
-            CrossSect_c_MC_true = CrossSect_c_MC_true_BGF;
             CrossSect_b_MC_true = CrossSect_b_MC_true_BGF;
         }
 
+        if (include_resolved && (!no_charm_resolved)) {
+            CrossSect_c_MC_true = CrossSect_c_MC_true_BGF + CrossSect_c_MC_true_RESOLVED;
+        } else {
+            CrossSect_c_MC_true = CrossSect_c_MC_true_BGF;
+        }
 
         // get TCrossSectionBin object by id
         TCrossSectionBin cBin = cCrossSection.getCrossSectionBin(counter);

@@ -90,6 +90,7 @@ int main(int argc, char **argv) {
         cout<<"-s\tScale plots"<<endl;
         cout<<"-r\tremark; default: .0405e06e07p"<<endl;
         cout<<"--no_beauty_resolved\tdon't add beauty resolved samples, if -e options is selected"<<endl;
+        cout<<"--no_charm_resolved\tdon't add charm resolved samples, if -e options is selected"<<endl;
         cout<<"Terminating, sorry."<<endl;
         exit(-1);
     }
@@ -109,9 +110,12 @@ int main(int argc, char **argv) {
     Bool_t      include_resolved = false;
     Bool_t      include_direct = false;
     Bool_t      no_beauty_resolved = false;
+    Bool_t      no_charm_resolved = false;
+
     // declare long options
     static struct option long_options[] = {
         {"no_beauty_resolved", no_argument, 0, 1},
+        {"no_charm_resolved", no_argument, 0, 2},
     };
 
     // handle command line options
@@ -144,6 +148,9 @@ int main(int argc, char **argv) {
             case 1:
                 no_beauty_resolved = true;
                 break;
+            case 2:
+                no_charm_resolved = true;
+                break;
             default:
                 abort ();
         }
@@ -158,9 +165,14 @@ int main(int argc, char **argv) {
 
     // by default, process all periods
     if (remark == "") remark = ".0405e06e07p";
-    
-    if (include_resolved) remark += ".including_resolved";
-    if (no_beauty_resolved) remark += ".no_beauty_resolved";
+    // in case selected to add resolved, but no charm and beauty - switch off including resolved,
+    // i.e. no_beauty_resolved and no_charm_resolved options override include_resolved
+    if (no_beauty_resolved && no_charm_resolved) include_resolved = false;
+    if (include_resolved) {
+        remark += ".including_resolved";
+        if (no_beauty_resolved) remark += ".no_beauty_resolved";
+        if (no_charm_resolved) remark += ".no_charm_resolved";
+    }
     // in case k-factors scaling was requested, determine these factors
     // depending on the version of the factors
     TString XMLfilename;
@@ -334,7 +346,7 @@ int main(int argc, char **argv) {
                 }
                 break;
             case kCharmResolved:
-                if (include_resolved) {
+                if (include_resolved && (!no_charm_resolved)) {
                     instance->AddSample("charm", cSubSet, scaling_factor);
                     instance->AddSample("mc", cSubSet, scaling_factor);
                     instance->AddSample("charm_resolved", cSubSet, scaling_factor);
