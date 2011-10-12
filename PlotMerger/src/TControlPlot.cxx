@@ -101,6 +101,7 @@ void TControlPlot::Draw() {
                     TString        NewHistName=cDataType+cVar+buffer;
                     if (!fInputFile->Get(SubDirName+"/"+cVar+"/"+cDataType)) {
                         cout<<"ERROR: no "<<SubDirName+"/"+cVar+"/"+cDataType<<" histogram found"<<endl;
+                        abort();
                     }
 
                     TH1F*    cHist=(TH1F*)fInputFile->Get(SubDirName+"/"+cVar+"/"+cDataType)->Clone(NewHistName);
