@@ -297,5 +297,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         bool            fStudyResolutions;      //!< a switch to select resolution studies
         
         Float_t         getAverageAngle(Int_t  vertex_id);  //!< calculates an average angle between all possible track combination in the vertex
+
+        bool            isHFLJet(TLorentzVector * jet);     //!< for the true cross section calculation: is used to separate
+                                                            //!< charm/beauty jets from other (e.g. gluon jets)
 };
 #endif

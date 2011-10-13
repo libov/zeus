@@ -281,6 +281,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                             currentTGlobalBin->FillHistogram( "truejets", 0);
                             currentTGlobalBin->FillHistogram( "truejetet", fTrueJetEt);
                             currentTGlobalBin->FillHistogram( "truejeteta", fTrueJetEta);
+                            if ( isHFLJet(&jet) ) currentTGlobalBin->FillHistogram( "trueHFLjets", 0 );
                         }
                     }
 
@@ -1497,7 +1498,7 @@ void TMiniNtupleAnalyzer::print_fmckin_table() {
         // and boost it
         particle.Boost(fBoost);
         particle.Rotate(fAngle, fRotationAxis);
-        cout << "INFO: particle " << k << " of type " << Fmck_prt[k] << " (" << type << ") with fmckin id " << Fmck_id[k] << " produced at " << Fmck_prat[k] << " by " << Fmck_daug[k] <<"; " << " Et= "<<particle.Et() << " Eta= "<<particle.Eta() << endl;
+        cout << "INFO: particle " << k << " of type " << Fmck_prt[k] << " (" << type << ") with fmckin id " << Fmck_id[k] << " produced at " << Fmck_prat[k] << " by " << Fmck_daug[k] <<"; " << " Et= "<<particle.Et() << " Eta= "<<particle.Eta() << "; mass= " <<particle.M() << " and "<< Fmck_m[k] << endl;
         // trying to find conversions
         if ((Fmck_prt[k] == 23) || (Fmck_prt[k] == 24)) {
             cout << "Mother of e-/e+:" << Fmck_prt[Fmck_daug[k]-1] << endl;
@@ -1770,4 +1771,19 @@ Float_t TMiniNtupleAnalyzer::getAverageAngle(Int_t  vertex_id) {
     // now get an average angle
     Double_t    average_angle = total_angle / n_combinations;
     return average_angle;
+}
+
+bool TMiniNtupleAnalyzer::isHFLJet(TLorentzVector * jet) {
+    // loop over all stored particles
+    for ( int k = 0; k < Fmck_nstor; k++ ) {
+        // skip if this is not heavy quark (c, cbar, b, bbar = 7, 8, 9, 10 respectively)
+        bool    charm_on_shell = false;
+        bool    beauty_on_shell = false;
+        if ( ((Fmck_prt[k] == 7 )||( Fmck_prt[k] == 8)) && (Fmck_m[k]==1.5) ) charm_on_shell = true;
+        if ( ((Fmck_prt[k] == 9 )||( Fmck_prt[k] == 10)) && (Fmck_m[k]==4.75) ) beauty_on_shell = true;
+        if ( (!charm_on_shell) && (!beauty_on_shell) ) continue;
+        TLorentzVector  particle(Fmck_px[k], Fmck_py[k], Fmck_pz[k], Fmck_e[k]);
+        if (jet -> DeltaR(particle) < 1) return true;
+    }
+    return false;
 }
