@@ -964,7 +964,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 Float_t chi2 = fVertices[j].GetChi2();
                 #endif
 
-                Float_t average_angle = getAverageAngle(vertex);
+                //Float_t average_angle = getAverageAngle(vertex);
 
                 // estimate efficiency with the method proposed by Olaf
                 if (estimate_trackeff_uncertainty_crude && fIsMC) {
