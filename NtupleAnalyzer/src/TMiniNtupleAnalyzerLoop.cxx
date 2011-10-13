@@ -258,28 +258,30 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // Calculate number of true jets in current bin; will be used at the fitter level
                     // to get the true cross-sections
                     // loop over the true jets
-                    for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
-
-                        // create a ROOT Lorentz vector whith - a jet 4-momentum
-                        TLorentzVector	jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
-
-                        //Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
-                        fTrueJetEta=jet.Eta();
-                        fTrueJetEt=jet.Et();
-                        fTrueJetPhi=jet.Phi();
-
-                        // ROOT gives values in range [-pi, pi]. We need [0, 2*pi]
-                        if (fTrueJetPhi<0) fTrueJetPhi += (2*TMath::Pi());
-
-                        // Fiducial volume cuts, true jet level
-                        if ( ( fTrueJetEta > fJetEtaUpCut ) || ( fTrueJetEta < fJetEtaLowCut ) ) continue;
-                        if ( fTrueJetEt < fJetEtCut ) continue;
-
-                        //Check whether jet is in current bin, true jet level
-                        if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
-                        currentTGlobalBin->FillHistogram( "truejets", 0);
-                        currentTGlobalBin->FillHistogram( "truejetet", fTrueJetEt);
-                        currentTGlobalBin->FillHistogram( "truejeteta", fTrueJetEta);
+                    if (fIsCharm || fIsBeauty) {
+                        for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
+    
+                            // create a ROOT Lorentz vector whith - a jet 4-momentum
+                            TLorentzVector	jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
+    
+                            //Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
+                            fTrueJetEta=jet.Eta();
+                            fTrueJetEt=jet.Et();
+                            fTrueJetPhi=jet.Phi();
+    
+                            // ROOT gives values in range [-pi, pi]. We need [0, 2*pi]
+                            if (fTrueJetPhi<0) fTrueJetPhi += (2*TMath::Pi());
+    
+                            // Fiducial volume cuts, true jet level
+                            if ( ( fTrueJetEta > fJetEtaUpCut ) || ( fTrueJetEta < fJetEtaLowCut ) ) continue;
+                            if ( fTrueJetEt < fJetEtCut ) continue;
+    
+                            //Check whether jet is in current bin, true jet level
+                            if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
+                            currentTGlobalBin->FillHistogram( "truejets", 0);
+                            currentTGlobalBin->FillHistogram( "truejetet", fTrueJetEt);
+                            currentTGlobalBin->FillHistogram( "truejeteta", fTrueJetEta);
+                        }
                     }
 
                     // resolution histograms - fill on request only [SetStudyResolutions(true)] since
