@@ -931,6 +931,13 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 abort();
             }
 
+            // these are helping variables for the double tagging
+            bool        first_charm_vertex = true;  // used in the loop over vertices: false if a charm
+                                                    // vertex was already found, true otherwise;
+                                                    // charm vertex is defined as a vtx with 1<M<2 and S>4 or S<4
+                                                    // (exactly the same as for charm enrichment)
+            unsigned    first_charm_vertex_id;      // this tells us the id of the first charm vertex in the event
+            // the loop over vertices!
             for ( int j=0; j < fVertices.size(); j++ ) {
 
                 Int_t   jetB=fVertices[j].fJetB;
@@ -1140,6 +1147,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     if (x_gamma_lab_jets>=0) currentTGlobalBin->FillHistogram("x_gamma_lab_jets_charm", x_gamma_lab_jets);
                     if (x_gamma_lab_jets_tagged>=0) currentTGlobalBin->FillHistogram("x_gamma_lab_jets_tagged_charm", x_gamma_lab_jets_tagged);
                     if (x_gamma_breit_jets>=0) currentTGlobalBin->FillHistogram("x_gamma_breit_jets_charm", x_gamma_breit_jets);
+                    if (first_charm_vertex) {
+                        first_charm_vertex_id = j;
+                        first_charm_vertex = false;
+                    }
                 }
                 // for the mass plot it is desired to see it in the full mass range, and not just from 1 to 2 GeV
                 if (TMath::Abs(fSignificance) > 4) currentTGlobalBin->FillHistogram("vtxsec_mass_charm", mass);
@@ -1169,8 +1180,63 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 if (TMath::Abs(fSignificance) > 8) currentTGlobalBin->FillHistogram("vtxsec_mass_beauty", mass);
                 fFillMirrored=false;
 
-            } // end loop over bins
-        }
+            } // end loop over vertices
+            // if there was found a charm vertex, try to find another vertex;
+            // for this, loop over all vertices again, skip the found charm vertex
+            // and see if anything remains
+            if (!first_charm_vertex){
+                // set fSignificance variable to significance of the charm vertex
+                // so that mirroring will be done wrt to this vertex
+                #ifdef CN_VERSION_V02
+                fSignificance = fVertices[first_charm_vertex_id].Significance;
+                #endif
+                #if defined CN_VERSION_V04 || defined CN_VERSION_V06
+                fSignificance = fVertices[first_charm_vertex_id].GetVertexSignificance();
+                #endif
+                // actually the loop
+                for ( int j=0; j < fVertices.size(); j++ ) {
+                    // skip the charm vertex
+                    if ( j == first_charm_vertex_id) continue;
+
+                    // get info about the vertex
+                    Int_t   jetB=fVertices[j].fJetB;
+                    Int_t   vertex=fVertices[j].id;
+                    #ifdef CN_VERSION_V02
+                    Float_t Significance = fVertices[j].Significance;
+                    Float_t mass = Vtxsec_mass[vertex];
+                    fRecoJetEt = Kt_etjet_a[vertex];
+                    #endif
+                    #if defined CN_VERSION_V04 || defined CN_VERSION_V06
+                    Float_t Significance = fVertices[j].GetVertexSignificance();
+                    Float_t     mass = fVertices[j].GetVertexMass();
+                    fRecoJetEta = Kt_etajet_b[jetB];
+                    #endif
+                    // apply LF weighting (done here in the loop because the weighting depends on jet et which is
+                    // a vertex variable)
+                    if (fIsMC && (fSubSet.getFlavourENUM()==TSubSet::kLIGHT) && fEtReweightingLF) {
+                        currentTGlobalBin -> ApplyWeighting(true);
+                        Double_t    et_weighting_factor = getEtReweighting(fRecoJetEt);
+                        currentTGlobalBin -> SetWeightingFactor(et_weighting_factor);
+                    }
+    
+                    // fill the significance of the "other" vertex - that is an additional vertex
+                    // to the charm ones
+                    fFillMirrored=true;
+                    currentTGlobalBin->FillHistogram("significance_2ndvtx", Significance);
+                    if ( (mass<1.4) && (mass>1.) ) {
+                        currentTGlobalBin->FillHistogram("significance_massbin1_2ndvtx", Significance);
+                    }
+                    if ( (mass>1.4) && (mass<2.) ) {
+                        currentTGlobalBin->FillHistogram("significance_massbin2_2ndvtx", Significance);
+                    }
+                    if ( (mass>2.) && (mass<6.) ) {
+                        currentTGlobalBin->FillHistogram("significance_massbin3_2ndvtx", Significance);
+                    }
+                    fFillMirrored=false;
+                }
+                
+            }
+        }   // end loop over bins
     }   // *** end main event loop ***
 
     // mirror histograms
@@ -1189,6 +1255,16 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     this->MirrorHistogramOLD("significance_massbin1");
     this->MirrorHistogramOLD("significance_massbin2");
     this->MirrorHistogramOLD("significance_massbin3");
+    // mirror also dignificance distributions of the other vertices in addition to a charm vertex
+    this->MirrorHistogramOLD("significance_2ndvtx");
+    this->MirrorHistogramOLD("significance_massbin1_2ndvtx");
+    this->MirrorHistogramOLD("significance_massbin2_2ndvtx");
+    this->MirrorHistogramOLD("significance_massbin3_2ndvtx");
+    // double mirroring!
+    this->MirrorHistogramOLD("significance_2ndvtx_diff");
+    this->MirrorHistogramOLD("significance_massbin1_2ndvtx_diff");
+    this->MirrorHistogramOLD("significance_massbin2_2ndvtx_diff");
+    this->MirrorHistogramOLD("significance_massbin3_2ndvtx_diff");
 
     // store the histograms to file
     this->WriteHistograms();
