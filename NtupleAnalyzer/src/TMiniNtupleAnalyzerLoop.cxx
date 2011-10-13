@@ -271,9 +271,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         // ROOT gives values in range [-pi, pi]. We need [0, 2*pi]
                         if (fTrueJetPhi<0) fTrueJetPhi += (2*TMath::Pi());
 
-                        currentTGlobalBin->FillHistogram( "truejetet1", fTrueJetEt);
-                        currentTGlobalBin->FillHistogram( "truejeteta1", fTrueJetEta);
-                        
                         // Fiducial volume cuts, true jet level
                         // TODO: these cuts are hardcoded here and duplicated elsewhere!!! to be improved!!
                         if ( ( fTrueJetEta > 2.2 ) || ( fTrueJetEta < - 1.6 ) ) continue;
