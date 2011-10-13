@@ -965,6 +965,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 #endif
 
                 //Float_t average_angle = getAverageAngle(vertex);
+                Float_t average_angle;
 
                 // estimate efficiency with the method proposed by Olaf
                 if (estimate_trackeff_uncertainty_crude && fIsMC) {
