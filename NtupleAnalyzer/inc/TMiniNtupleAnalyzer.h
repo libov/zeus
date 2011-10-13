@@ -73,6 +73,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         void            SetSashasReweighting(bool apply_reweighting) {fSashasReweighting = apply_reweighting;};
 
         void            SetJetEtCut(Double_t    jet_et_cut) {fJetEtCut = jet_et_cut;};
+        void            SetUpEtaCut(Double_t    jet_eta_cut) {fJetEtaUpCut = jet_eta_cut;};
+        void            SetLowEtaCut(Double_t    jet_eta_cut) {fJetEtaLowCut = jet_eta_cut;};
     
         // initialisator the class - TODO: more info here
         void            Initialize();
@@ -178,7 +180,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
                                                 //!< more flexibility like lower track pT cut
         Float_t     get_x_gamma(vector<TLorentzVector> jet_list, bool breit_jets, Int_t tagged_jet_id = -1);
         void        fill_parton_histograms(TGlobalBin* global_bin);
-
+        
         // tells whether the program should run on dCache files or on mini ntuples on disk
         bool        fRun_dCache;
 
@@ -257,6 +259,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         // variable to store a value of the jet Et cut;
         Double_t    fJetEtCut;
+        Double_t    fJetEtaUpCut;
+        Double_t    fJetEtaLowCut;
 
         // bla bla
         Int_t       fPrintingFreq;

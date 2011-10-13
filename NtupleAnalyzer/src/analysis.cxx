@@ -342,8 +342,8 @@ int main(int argc, char **argv) {
 
     // set Et cut for jets
     instance -> SetJetEtCut (4.2);
-    // instance -> SetUpEtaCut (2.2);
-    // instance -> SetLowEtaCut (-1.6);
+    instance -> SetUpEtaCut (2.2);
+    instance -> SetLowEtaCut (-1.6);
 
     // redo vertex track selection and revertexing
     instance -> SetRedoVertexing(false);
@@ -359,7 +359,7 @@ int main(int argc, char **argv) {
     instance -> SetStudyResolutions (false);
 
     // select whether to run on Minintuples or on dCache
-    instance -> SetRundCache (true);
+    instance -> SetRundCache (false);
 
     // in case of Minintuples, specify the path
     TString     MINI_NTUPLES_PATH = getenv("MINI_NTUPLES_PATH_v02");
