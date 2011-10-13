@@ -272,8 +272,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         if (fTrueJetPhi<0) fTrueJetPhi += (2*TMath::Pi());
 
                         // Fiducial volume cuts, true jet level
-                        // TODO: these cuts are hardcoded here and duplicated elsewhere!!! to be improved!!
-                        if ( ( fTrueJetEta > 2.2 ) || ( fTrueJetEta < - 1.6 ) ) continue;
+                        if ( ( fTrueJetEta > fJetEtaUpCut ) || ( fTrueJetEta < fJetEtaLowCut ) ) continue;
                         if ( fTrueJetEt < fJetEtCut ) continue;
 
                         //Check whether jet is in current bin, true jet level
@@ -483,7 +482,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             fDebugSVTX->Fill(2);
 
             // JET ETA CUT
-            if ( ( Kt_etajet_b[correspjetB] > 2.2 ) || ( Kt_etajet_b[correspjetB] < -1.6 ) ) continue;
+            if ( ( Kt_etajet_b[correspjetB] > fJetEtaUpCut ) || ( Kt_etajet_b[correspjetB] < fJetEtaLowCut ) ) continue;
             fDebugSVTX->Fill(3);
 
             // calculate significance of the vertex
@@ -549,7 +548,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 fDebugSVTX->Fill(2);
     
                 // JET ETA CUT
-                if ( ( Kt_etajet_b[correspjetB] > 2.2 ) || ( Kt_etajet_b[correspjetB] < -1.6 ) ) continue;
+                if ( ( Kt_etajet_b[correspjetB] > fJetEtaUpCut ) || ( Kt_etajet_b[correspjetB] < fJetEtaLowCut ) ) continue;
                 fDebugSVTX->Fill(3);
     
                 // now look at the vertex; TVertex class is designed to deal with e.g. calculations of significance
