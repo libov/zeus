@@ -295,12 +295,12 @@ int main(int argc, char **argv) {
     // print out final values for a later access
     if (type == TSubSet::kMC) {
         cout << "INFO: the following smearing parameters are used:\n";
-        cout << "Gaus1 Probability(%): " << instance -> fSmearingGauss1Prob << endl;
-        cout << "Gaus1 Width: " << instance -> fSmearingGauss1Width << endl;
-        cout << "Gaus2 Probability(%): " << instance -> fSmearingGauss2Prob << endl;
-        cout << "Gaus2 Width: " << instance -> fSmearingGauss2Width << endl;
-        cout << "Exponent probability: " << instance -> fSmearingExpProb << endl;
-        cout << "Exponent coefficient: " << instance -> fSmearingExpCoeff << endl;
+        cout << "   Gaus1 Probability(%): " << instance -> fSmearingGauss1Prob << endl;
+        cout << "   Gaus1 Width: " << instance -> fSmearingGauss1Width << endl;
+        cout << "   Gaus2 Probability(%): " << instance -> fSmearingGauss2Prob << endl;
+        cout << "   Gaus2 Width: " << instance -> fSmearingGauss2Width << endl;
+        cout << "   Exponent probability: " << instance -> fSmearingExpProb << endl;
+        cout << "   Exponent coefficient: " << instance -> fSmearingExpCoeff << endl;
     }
 
     // set the name of the histogram that contains reweighting function
