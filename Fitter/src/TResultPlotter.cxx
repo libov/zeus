@@ -93,11 +93,21 @@ void    TResultPlotter::AddXMLFile(TString file_name){
 
                         // assign also values and errors
                         if (isCharm) {
-                            cBinGroup.y_value.push_back(cBin.get_sigma_c());
-                            cBinGroup.y_error.push_back(cBin.get_sigma_c_err());
+                            if (fPlotScalingFactors) {
+                                cBinGroup.y_value.push_back(cBin.get_k_c());
+                                cBinGroup.y_error.push_back(cBin.get_k_c_err());
+                            } else {
+                                cBinGroup.y_value.push_back(cBin.get_sigma_c());
+                                cBinGroup.y_error.push_back(cBin.get_sigma_c_err());
+                            }
                         } else {
-                            cBinGroup.y_value.push_back(cBin.get_sigma_b());
-                            cBinGroup.y_error.push_back(cBin.get_sigma_b_err());
+                            if (fPlotScalingFactors) {
+                                cBinGroup.y_value.push_back(cBin.get_k_b());
+                                cBinGroup.y_error.push_back(cBin.get_k_b_err());
+                            } else {
+                                cBinGroup.y_value.push_back(cBin.get_sigma_b());
+                                cBinGroup.y_error.push_back(cBin.get_sigma_b_err());
+                            }
                         }
                 }
 

@@ -68,6 +68,9 @@ int main(int argc, char **argv) {
     cResultPlotter.SetPlotCharm(true);
     if (plot_beauty) cResultPlotter.SetPlotCharm(false);
 
+    // false: plot cross-sections; true: plot scaling factors
+    cResultPlotter.SetPlotScalingFactors(false);
+
     // add XML files, where results to be displayed are
     cResultPlotter.AddXMLFile(binningXMLfileName1);
     cResultPlotter.AddXMLFile(binningXMLfileName2);

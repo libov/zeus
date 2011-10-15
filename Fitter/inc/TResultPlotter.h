@@ -39,6 +39,8 @@ class TResultPlotter {
 
                 void    SetPlotCharm(bool plot_charm) {isCharm = plot_charm;};
 
+                void    SetPlotScalingFactors(bool  plot_scaling) {fPlotScalingFactors = plot_scaling;};
+
         private:
 
                 struct BinGroup{
@@ -70,7 +72,8 @@ class TResultPlotter {
                 };
                 std::map <unsigned, DrawOption>   fMap_padID_Option;
 
-                bool    isCharm;
+                bool    isCharm;                    //!< true: plot charm results; false: plot beauty results
+                bool    fPlotScalingFactors;        //!< true: plot scaling factors; false: plot cross-section
           
 };
 
