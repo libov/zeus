@@ -75,6 +75,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         void            SetJetEtCut(Double_t    jet_et_cut) {fJetEtCut = jet_et_cut;};
         void            SetUpEtaCut(Double_t    jet_eta_cut) {fJetEtaUpCut = jet_eta_cut;};
         void            SetLowEtaCut(Double_t    jet_eta_cut) {fJetEtaLowCut = jet_eta_cut;};
+
+        void            SetApplyQ2Reweighting(bool apply_reweighting) {fApplyQ2Reweighting = apply_reweighting;};
     
         // initialisator the class - TODO: more info here
         void            Initialize();
@@ -196,6 +198,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Double_t    fCharmQ2g4Weight;
         Double_t    fTrueQ2Weight;
         Double_t    fRecoQ2Weight;
+        bool        fApplyQ2Reweighting;
 
         // Random numbers generators
         TRandom3    *rnd;

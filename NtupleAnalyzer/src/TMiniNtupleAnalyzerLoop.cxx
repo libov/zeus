@@ -181,16 +181,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             // if this MC event passes true cuts on Q2 and y:
             if (InFiducial) {
 
-                // apply weight for the true cross-sections (for charm and beauty MC)
-                Bool_t  weight_true = false;
-                if ( fIsCharm ) {
-                    fTrueQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
-                    weight_true = true;
-                }
-                if ( fIsBeauty ){
-                    fTrueQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
-                    weight_true = true;
-                }
+                // calcualte weight for the true cross-sections (for charm and beauty MC)
+                if ( fIsCharm ) fTrueQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
+                if ( fIsBeauty ) fTrueQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
 
                 // variable to store a weight for fragmentation fraction studies
                 fZstring_weight = 1;
@@ -215,7 +208,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // reset from previous event
                     currentTGlobalBin -> ApplyWeighting (false);
                     // set if needed; NB. in principle could do it just before the loop over bins!!
-                    if (weight_true) {
+                    if (fApplyQ2Reweighting && (fIsCharm || fIsBeauty)) {
                         currentTGlobalBin -> ApplyWeighting (true);
                         currentTGlobalBin -> SetWeightingFactor (fTrueQ2Weight);
                     }
@@ -862,18 +855,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         TIter           Iter_TGlobalBin(fList_TGlobalBin);
         
         // determine the Q2 weight
-        Bool_t          weight_reco = false;
-        if ( fSampleName.Contains("nc.c") or fSampleName.Contains("ccbar") ){
-            fRecoQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
-            weight_reco = true;
-        }
-        if ( fSampleName.Contains("nc.b") or fSampleName.Contains("bbbar") ){
-            fRecoQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
-            weight_reco = true;
-        }
+        if ( fIsCharm ) fRecoQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
+        if ( fIsBeauty ) fRecoQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
 
-        Bool_t          weight_q2g4 = false;
-        if ((fApplyQ2g4Weighting) && (Mc_q2_cr > 4)) weight_q2g4 = 1;
+        Bool_t weight_q2g4 = false;
+        if ((fApplyQ2g4Weighting) && (Mc_q2_cr > 4)) weight_q2g4 = true;
 
         // now fill the histograms
         // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
@@ -889,14 +875,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
             // reweight Q2 according to Philipp's recipe
             currentTGlobalBin -> ApplyWeighting (false);
-            if (weight_reco or weight_q2g4 ) currentTGlobalBin ->ApplyWeighting (true);
+            if (fApplyQ2Reweighting || weight_q2g4 ) currentTGlobalBin ->ApplyWeighting (true);
 
-            if ( weight_reco && (!weight_q2g4) ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight);
-            if ( weight_q2g4  && (!weight_reco) ) currentTGlobalBin -> SetWeightingFactor (fCharmQ2g4Weight);
-            if ( weight_reco && weight_q2g4 ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight * fCharmQ2g4Weight);
+            if ( fApplyQ2Reweighting && (!weight_q2g4) ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight);
+            if ( weight_q2g4  && (!fApplyQ2Reweighting) ) currentTGlobalBin -> SetWeightingFactor (fCharmQ2g4Weight);
+            if ( fApplyQ2Reweighting && weight_q2g4 ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight * fCharmQ2g4Weight);
 
             // fragmentation function studies - reweight the z distribution
-            if (fFragmentationReweighting && fIsMC && (fIsCharm || fIsBeauty)) {
+            if (fFragmentationReweighting && (fIsCharm || fIsBeauty) ) {
                 Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
                 Double_t        new_factor = old_factor;
                 if (fIsCharm) {

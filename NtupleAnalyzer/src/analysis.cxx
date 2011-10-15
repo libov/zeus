@@ -308,6 +308,9 @@ int main(int argc, char **argv) {
     instance -> SetEtReweightingLF(true);
     instance -> SetEtReweightingLF_filename ("ET_reweighting_LF.root");
 
+    // Q2 reweighting
+    instance -> SetApplyQ2Reweighting(true);
+
     // a flag to say whether we want to do tracking uncertainty studies
     instance -> SetDropTracks (false);
     instance -> SetDropTrackProbability (0);
@@ -315,7 +318,6 @@ int main(int argc, char **argv) {
     // for the jet energy scale uncertainty
     // 0 = no change, default
     // +/- 3%  - increase/decrease CAL part of the jet energy by given amount
-
     instance -> SetDoJetEnergyScaleSyst (vary_jet_energy_scale);
     if (vary_jet_energy_scale) {
         cout << "INFO: varying jet energy by " << jet_energy_scale_variation << endl;
@@ -323,13 +325,13 @@ int main(int argc, char **argv) {
     } else {
         instance -> SetJetEnergyUncertainty(0);
     }
+    // false - vary only CAL energy, true - vary total jet energy
     instance -> SetVaryTotalJetEnergy(false);
     
     // use fragmentation function reweighting
     instance -> SetFragmentationReweighting(false);
     instance -> SetCharmFragmentationReweightingSize(0);
     instance -> SetBeautyFragmentationReweightingSize(1.5);
-
     // different reweighting functions for beauty and charm
     if (flavour == TSubSet::kCHARM) {
         instance -> SetFragmentationReweighting_filename("bowler_to_peterson_zstring.root");
