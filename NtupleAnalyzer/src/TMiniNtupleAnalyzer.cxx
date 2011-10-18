@@ -74,7 +74,8 @@ fCTD(3),
 fMVD(4),
 fUseHelixTrackParameters(false),
 fStudyResolutions(true),
-fApplyQ2Reweighting(true)
+fApplyQ2Reweighting(true),
+fApplyCharmEtaReweighting(false)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);

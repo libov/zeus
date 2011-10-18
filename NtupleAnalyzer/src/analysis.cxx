@@ -311,6 +311,9 @@ int main(int argc, char **argv) {
     // Q2 reweighting
     instance -> SetApplyQ2Reweighting(true);
 
+    // eta reweighting
+    instance -> SetApplyCharmEtaReweighting(true);
+
     // a flag to say whether we want to do tracking uncertainty studies
     instance -> SetDropTracks (false);
     instance -> SetDropTrackProbability (0);
