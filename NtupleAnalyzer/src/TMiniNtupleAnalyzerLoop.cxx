@@ -989,7 +989,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 // additional ETA weighting
                 if (fIsCharm && fApplyCharmEtaReweighting) {
                     //see $ANALYSIS/other/reweighting_eta/README
-                    Double_t    eta_weight = 0.937 + fTrueJetEta * 0.109 + fTrueJetEta * fTrueJetEta * 0.0715;
+                    Double_t    eta_weight = 0.937 + fRecoJetEta * 0.109 + fRecoJetEta * fRecoJetEta * 0.0715;
                     currentTGlobalBin -> SetWeightingFactor(TOTAL_WEIGHT * eta_weight);
                 }
                 
