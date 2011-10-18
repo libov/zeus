@@ -252,6 +252,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // to get the true cross-sections
                     // loop over the true jets
                     if (fIsCharm || fIsBeauty) {
+                        // have to get a weighting factor before the loop over jets, because
+                        // for each jet the weight will be different
+                        Double_t    TOTAL_WEIGHT = currentTGlobalBin -> GetWeightingFactor ();
                         for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
     
                             // create a ROOT Lorentz vector whith - a jet 4-momentum
@@ -271,6 +274,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     
                             //Check whether jet is in current bin, true jet level
                             if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
+
+                            // additional ETA weighting
+                            if (fIsCharm && fApplyCharmEtaReweighting) {
+                                //see $ANALYSIS/other/reweighting_eta/README
+                                Double_t    eta_weight = 0.937 + fTrueJetEta * 0.109 + fTrueJetEta * fTrueJetEta * 0.0715;
+                                currentTGlobalBin -> SetWeightingFactor(TOTAL_WEIGHT * eta_weight);
+
+                            }
                             currentTGlobalBin->FillHistogram( "truejets", 0);
                             currentTGlobalBin->FillHistogram( "truejetet", fTrueJetEt);
                             currentTGlobalBin->FillHistogram( "truejeteta", fTrueJetEta);
@@ -922,6 +933,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                                                     // charm vertex is defined as a vtx with 1<M<2 and S>4 or S<4
                                                     // (exactly the same as for charm enrichment)
             unsigned    first_charm_vertex_id;      // this tells us the id of the first charm vertex in the event
+            // have to get a weighting factor before the loop over jets, because
+            // for each jet the weight will be different
+            Double_t    TOTAL_WEIGHT = currentTGlobalBin -> GetWeightingFactor ();
+
             // the loop over vertices!
             for ( int j=0; j < fVertices.size(); j++ ) {
 
@@ -970,6 +985,13 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
 
                 if ( !currentTGlobalBin -> CheckGlobalBin (kVertexVar) ) continue;
+
+                // additional ETA weighting
+                if (fIsCharm && fApplyCharmEtaReweighting) {
+                    //see $ANALYSIS/other/reweighting_eta/README
+                    Double_t    eta_weight = 0.937 + fTrueJetEta * 0.109 + fTrueJetEta * fTrueJetEta * 0.0715;
+                    currentTGlobalBin -> SetWeightingFactor(TOTAL_WEIGHT * eta_weight);
+                }
                 
                 // now weight if this is LF; done here because we weight every
                 // jet separately (according to its energy)
