@@ -1,0 +1,48 @@
+Here are some script(s) to determine eta reweighting, for charm at the moment.
+The reweighting function is derived from scaling factors, (that is a measure
+how MC underestimates data). Note, that scaling factors have to be divided
+by the global scaling factor.
+
+plots in scaling_factors_2.29.8 were obtained by plot_results as usual but
+with slight modification - that is plotting only scaling factors for 2.29.8 and nothing
+else. In order to make sure they are fine - they were compared to
+PLOTS_PATH/25_15October2011/02_scaling_factors_charm_2.29.8_vs_2.29.1 
+and were found to agree reasonably.
+
+fit.cxx - takes a histo in etajet.root (charm), and makes a fit to it
+
+RESULTS: eta_jet_charm_reweighting.png
+Minimizer is Linear
+Chi2                      =     3.66074
+NDf                       =     8
+p0                        =     1.16371         +/-     0.0223886
+p1                        =     0.135495        +/-     0.0279819
+p2                        =     0.0888558       +/-     0.0334203
+
+y = p0 + p1 * x + p2 * x*x
+
+note, that fit parameters have to be divided by a global scaling factor 
+(k_c=1.2419 from 
+results.full.forCHARM2.29.8.0405e06e07p.v02.true05e06e0607p.xml),
+which gives
+
+p0 = 0.93704002 = 0.937
+p1 = 0.10910299 = 0.109
+p2 = 0.071548273= 0.0715
+
+
+NOTE!!! realized there should be one more normalizing coefficient,
+namely to ensure that the total true cross section is not changed
+after reweighting;
+2.29.10 (before): <sigma_c_true>14015.3</sigma_c_true>
+2.29.11 (before): <sigma_c_true>14510.5</sigma_c_true>
+
+hence a weight factor has to be applied: 14015.3 / 14510.5 = 0.9659
+that means
+
+p0 = 0.93704002 * 0.9659 = 0.9051
+p1 = 0.10910299 * 0.9659 = 0.105383
+p2 = 0.071548273 * 0.9659= 0.069108
+
+
+
