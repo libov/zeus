@@ -16,6 +16,7 @@
 #include <TChain.h>
 #include <TTree.h>
 #include <TH1F.h>
+#include <TH2F.h>
 #include <TString.h>
 #include <TList.h>
 #include <TFile.h>
@@ -192,6 +193,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         TList*      fList_TGlobalBin;
 
         TH1F*       fDebugSVTX;
+
+        TH2F*       fMc_q2_et;
 
         TString     fBinningFileName;
         TString     fHistogramDeclarationFile;

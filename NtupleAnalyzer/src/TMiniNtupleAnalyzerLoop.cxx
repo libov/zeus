@@ -286,6 +286,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                             currentTGlobalBin->FillHistogram( "truejetet", fTrueJetEt);
                             currentTGlobalBin->FillHistogram( "truejeteta", fTrueJetEta);
                             if ( isHFLJet(&jet) ) currentTGlobalBin->FillHistogram( "trueHFLjets", 0 );
+
+                            if (currentTGlobalBin->BinName=="bin1") fMc_q2_et -> Fill(fTrueJetEt, TMath::Log10(Mc_q2_cr));
                         }
                     }
 

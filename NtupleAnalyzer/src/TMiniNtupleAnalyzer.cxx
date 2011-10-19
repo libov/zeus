@@ -80,6 +80,7 @@ fApplyCharmEtaReweighting(false)
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
     fDebugSVTX = new TH1F ("fDebugSVTX", "Debug histo for secondary vertex selection", 50, 0, 50);
+    fMc_q2_et = new TH2F ("fMc_q2_et", "Q^{2} - E_{T} plane", 200, 0, 35, 200, 0, 3);
 }
 
 // a public method to initialize the class
@@ -383,6 +384,7 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     fHistogramsFile->cd();
     fDebug->Write();
     fDebugSVTX->Write();
+    fMc_q2_et->Write();
     fHistogramsFile->Close();
     cout<<"INFO: Histograms written to file"<<endl;
 }
