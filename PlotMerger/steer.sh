@@ -1,19 +1,23 @@
-for i in `seq 28 42`; do
-	./merger -b full.forCHARM.ET2.v2 -v 2.28.$i -d -r .06e
+EXPECTED_ARGS=4
+
+if [ $# -ne $EXPECTED_ARGS ]
+then
+	echo "Usage: `basename $0` {binning} {version} {start} {stop}"
+	echo "Example:"
+	echo $0 full.forCHARM 2.31 1 7
+	echo will process 2.31.1 till 2.31.7
+	exit -1
+fi
+
+BINNING=$1
+VERSION=$2
+START=$3
+STOP=$4
+
+for i in `seq $START $STOP`; do
+	./merger -b $BINNING -v $VERSION.$i -d
 	cd $FITTER
-	fitter full.forCHARM.ET2.v2 2.28.$i .06e
+	./fitter -b $BINNING -v $VERSION.$i -d 
 	cd $PLOTMERGER
-	./merger -b full.forCHARM.ET2.v2 -v 2.28.$i -d -r .06e -s
-#	./plotter full.forCHARM 2.28.$i .06e.scaled
+	./merger -b $BINNING -v $VERSION.$i -d -s
 done
-
-#./merger -b full.forCHARM -v 2.28.9 -d -r .06e
-#./merger -b full.forCHARM -v 2.28.10 -d -r .06e 
-
-#./merger -b full.forCHARM.ET2 -v 2.29.2 -d -r .06e -s
-#./merger -b full.forCHARM.ET2 -v 2.29.3 -d -r .06e -s
-
-#./plotter full.forCHARM 2.28.2 .06e.scaled
-#./plotter full.forCHARM.ET2 2.28.3 .06e.scaled
-#./plotter full.forCHARM.ET2 2.28.7 .06e.scaled
-
