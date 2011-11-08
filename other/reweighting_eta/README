@@ -45,4 +45,43 @@ p1 = 0.10910299 * 0.9659 = 0.105383
 p2 = 0.071548273 * 0.9659= 0.069108
 
 
+==========================================================
+==========================================================
+
+Repeating exactly the same if adding resolved samples
+
+****************************************
+Minimizer is Linear
+Chi2                      =     3.17648
+NDf                       =     8
+p0                        =     1.01984         +/-     0.0194953
+p1                        =     0.152761        +/-     0.0240387
+p2                        =     0.0735529       +/-     0.0290497
+
+inclusive scaling factor from 
+results.full.forCHARM2.29.8.0405e06e07p.including_resolved.no_beauty_resolved.v02.true05e06e0607p.xml
+<k_c>1.08873</k_c>
+
+hence 
+p0                        =     1.01984 / 1.08873 = 9.36724440403038483e-01 = 0.9367
+p1                        =     0.152761 / 1.08873 = 1.40311188265226455e-01 = 0.1403
+p2                        =     0.0735529 / 1.08873 = 6.75584396498672829e-02 =  0.067558
+NOTE: here we try don't apply other global factors to preserve total true cross-section,
+seems this is unnecessary, but to be checked of course!
+
+starting 2.29.19 to see the effect of such a reweighing
+
+-----------------------------------------------------
+systematic variation of the reweighting
+max up:		fcn_up -> SetParameters(1.16371, 0.135495, 0.15);
+max down:	fcn_down -> SetParameters(1.16371, 0.135495, 0.05);
+change the parameter 3 with 0.02 step
+0.05, 0.07, 0.0888558, 0.11, 0.13, 0.15
+ (each coefficient to be normalized by kc=1.2419, i.e. nominally:)
+p0 = 0.93704002 = 0.937
+p1 = 0.10910299 = 0.109
+p2 = 0.071548273= 0.0715
+(i.e. not normalizing to the true cross section which is redundant! - to be checked)
+(NOTE: this is with the simultaneous reweighting of et, hence the total normalization
+factor is a bit different, but again, that should not matter)
 

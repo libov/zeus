@@ -19,12 +19,19 @@ void fit() {
     TCanvas * c = new TCanvas ();
     c -> cd();
     subpad -> Draw();
+    subpad -> cd();
 
-    TF1 * fcn = new TF1 ("fcn", "pol2(0)", -1.6, 2.2);
-    fcn -> SetParameters(0.93704002, 0.10910299, 0.071548273);
-    //fcn -> SetParameters(1.16371, 0.135495, 0.0888558);
-    fcn -> SetLineColor(kBlue);
-    fcn -> Draw("");
-    cout << fcn -> Integral(-1.6, 2.2) / (2.2+1.6)<< endl;
-    
+    TF1 * fcn_up = new TF1 ("fcn_up", "pol2(0)", -1.6, 2.2);
+    fcn_up -> SetParameters(1.16371, 0.135495, 0.15);
+    fcn_up -> SetLineColor(kRed);
+    fcn_up -> SetLineStyle(7);
+    fcn_up -> Draw("same");
+
+    TF1 * fcn_down = new TF1 ("fcn_down", "pol2(0)", -1.6, 2.2);
+    fcn_down -> SetParameters(1.16371, 0.135495, 0.05);
+    fcn_down -> SetLineColor(kRed);
+    fcn_down -> SetLineStyle(7);
+    fcn_down -> Draw("same");
+
+
 }
