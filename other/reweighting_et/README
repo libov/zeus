@@ -1,0 +1,103 @@
+Here we define et-q2 double differential reweighting;
+
+it is defined by the fit to the scaling factors as
+a function of logQ2 and ET; see the binning in ETQ2 or ETQ2.v2 (in the
+latter also single differential binnings in q2 and et were added in order
+to allow direct comparison of those cross-sections before/after reweighting)
+
+fit fcn = p0 + ( p1 + p2 * logQ2) * Et
+
+--------------------------------------------------------
+fit results (2.29.16, bin averaged values for Q2 and ET!!)
+
+ FCN=17.1771 FROM MIGRAD    STATUS=CONVERGED      59 CALLS          60 TOTAL
+                     EDM=2.25926e-19    STRATEGY= 1      ERROR MATRIX ACCURATE
+  EXT PARAMETER                                   STEP         FIRST
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE
+   1  p0           1.09161e+00   7.27785e-02   5.16643e-05   2.52713e-08
+   2  p1           3.31764e-02   1.32068e-02   5.50840e-06   2.49923e-07
+   3  p2          -4.75966e-03   5.16200e-03   3.10968e-06   4.42706e-07
+chi2: 17.1771
+ndf: 19
+chi2/ndf: 0.904055
+
+
+Inclusive scaling factor still 1.28703 ! :)
+
+Hence we have to use 
+p0 = 1.09161e+00 / 1.28703 = 8.48162047504720240e-01
+p1 = 3.31764e-02 / 1.28703 = 2.57774877042493203e-02
+p2 = -4.75966e-03 / 1.28703 = -3.69817331375337042e-03
+---------------------------------------------------------
+
+applied this to 2.29.17, et single looks much better now. comparing true xsect.
+2.29.10 <sigma_c_true>14015.3</sigma_c_true>
+2.29.16 <sigma_c_true>14008.5</sigma_c_true>
+2.29.17 <sigma_c_true>13731.1</sigma_c_true>
+
+Hence, applying further normalization of 14008.5 / 13731.1 = 1.0202
+hence the following parameters have to be used:
+p0 = 8.48162047504720240e-01 * 1.0202 = 8.65294920864315587e-01
+p1 = 2.57774877042493203e-02 * 1.0202 = 2.62981929558751548e-02
+p2 = -3.69817331375337042e-03 * 1.0202 = -3.77287641469118860e-03
+
+
+======================================================================
+======================================================================
+======================================================================
+
+the same was done for the case with charm resolved, 2.29.20
+a separate script copy was created so that the previous one (bgf only)
+is not touched
+
+
+ FCN=20.8869 FROM MIGRAD    STATUS=CONVERGED      59 CALLS          60 TOTAL
+                     EDM=3.85539e-19    STRATEGY= 1      ERROR MATRIX ACCURATE
+  EXT PARAMETER                                   STEP         FIRST
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE
+   1  p0           9.03120e-01   6.08644e-02   4.81286e-05  -3.17414e-08
+   2  p1           2.54503e-02   1.11003e-02   5.19470e-06  -3.47085e-07
+   3  p2          -1.52143e-05   4.43483e-03   2.98180e-06  -6.64241e-07
+chi2: 20.8869
+ndf: 19
+chi2/ndf: 1.09931
+
+inclusive scaling factor from 
+results.ETQ2.v22.29.20.0405e06e07p.including_resolved.no_beauty_resolved.v02.true05e06e0607p.xml
+<k_c>1.09061</k_c>
+
+hence 
+p0 = 9.03120e-01 / 1.09061 = 8.28087033861783728e-01 = 0.8281
+p1 = 2.54503e-02 / 1.09061 = 2.33358395760170888e-02 = 0.0233
+p2 = consistent with zero
+
+TRYING THIS OUT FOR 2.29.21 AND 2.29.22
+NOTE: AGAIN NO TOTAL TRUE CROSS-SECTION CONSTRAIN WAS APPLIED!
+
+=========================================================
+
+addon: for the bgf case, lets try y = p0 + p1 * Et  (determined from 2.29.16)
+ FCN=18.0272 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=2.97374e-22    STRATEGY= 1      ERROR MATRIX ACCURATE
+  EXT PARAMETER                                   STEP         FIRST
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE
+   1  p0           1.11240e+00   6.91988e-02   5.28587e-05  -1.68029e-10
+   2  p1           2.30764e-02   7.37792e-03   5.63575e-06  -4.72791e-09
+chi2: 18.0272
+ndf: 20
+chi2/ndf: 0.901362
+
+Submitting 2.29.23
+==============================================================
+
+another approach: fit just single differential cross section in ET
+f = p0 + p1 * sqrt(ET)
+
+ FCN=0.910233 FROM MIGRAD    STATUS=CONVERGED      39 CALLS          40 TOTAL
+                     EDM=5.04537e-21    STRATEGY= 1      ERROR MATRIX ACCURATE
+  EXT PARAMETER                                   STEP         FIRST
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE
+   1  p0           7.53431e-01   1.44609e-01   1.67237e-05   3.86700e-09
+   2  p1           1.89124e-01   4.75481e-02   5.49882e-06   1.09532e-08
+
+SUBMITTING 2.29.24
