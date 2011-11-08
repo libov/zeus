@@ -79,6 +79,13 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         void            SetApplyQ2Reweighting(bool apply_reweighting) {fApplyQ2Reweighting = apply_reweighting;};
         void            SetApplyCharmEtaReweighting(bool apply_reweighting) {fApplyCharmEtaReweighting = apply_reweighting;};
+        void            SetApplyCharmETReweighting(bool apply_reweighting) {fApplyCharmETReweighting = apply_reweighting;};
+
+        void            SetCharmEtaReweighting_p0(Float_t   par) {fCharmEtaReweighting_p0 = par;};
+        void            SetCharmEtaReweighting_p1(Float_t   par) {fCharmEtaReweighting_p1 = par;};
+        void            SetCharmEtaReweighting_p2(Float_t   par) {fCharmEtaReweighting_p2 = par;};
+
+        void            SetCharmETReweightingPar(Float_t par0, Float_t par1);
     
         // initialisator the class - TODO: more info here
         void            Initialize();
@@ -180,6 +187,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         // this is similar to getEtReweighting but more generic - works for each histogram/value
         Int_t       getReweightingHistoBin(TH1F * histo, Float_t   value);
 
+        Float_t     getCharmETweightingFactor(Float_t  jet_et);
+
         void        findVertices();             //!< replacement for orange sec vtx finder - to allow
                                                 //!< more flexibility like lower track pT cut
         Float_t     get_x_gamma(vector<TLorentzVector> jet_list, bool breit_jets, Int_t tagged_jet_id = -1);
@@ -204,6 +213,12 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Double_t    fRecoQ2Weight;
         bool        fApplyQ2Reweighting;
         bool        fApplyCharmEtaReweighting;
+        bool        fApplyCharmETReweighting;
+        Float_t     fCharmEtaReweighting_p0;
+        Float_t     fCharmEtaReweighting_p1;
+        Float_t     fCharmEtaReweighting_p2;
+        Float_t     fCharmETReweighting_p0;
+        Float_t     fCharmETReweighting_p1;
 
         // Random numbers generators
         TRandom3    *rnd;
