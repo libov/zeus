@@ -75,7 +75,13 @@ fMVD(4),
 fUseHelixTrackParameters(false),
 fStudyResolutions(true),
 fApplyQ2Reweighting(true),
-fApplyCharmEtaReweighting(false)
+fApplyCharmEtaReweighting(false),
+fApplyCharmETReweighting(false),
+fCharmEtaReweighting_p0(1),
+fCharmEtaReweighting_p1(0),
+fCharmEtaReweighting_p2(0),
+fCharmETReweighting_p0(1),
+fCharmETReweighting_p1(0)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
@@ -1104,4 +1110,9 @@ void TMiniNtupleAnalyzer::findVertices() {
         fVertices.push_back(cVtx); // production case
         fSecondaryVertexFound = true;   // production case
     }
+}
+
+void TMiniNtupleAnalyzer::SetCharmETReweightingPar(Float_t par0, Float_t par1) {
+    fCharmETReweighting_p0 = par0;
+    fCharmETReweighting_p1 = par1;
 }
