@@ -1,0 +1,28 @@
+fitting the straight line to the beauty scaling factor distribution in q2 for 2.31.4
+f = p0 + p1 * log(Q2)
+
+*******************************************************************************************************
+*******************************************************************************************************
+root [0]
+Processing fit.cxx...
+
+ ------------  FITTING THE Q2 DISTRIBUTION  ------------
+ FCN=5.58867 FROM MIGRAD    STATUS=CONVERGED      32 CALLS          33 TOTAL
+                     EDM=1.02876e-22    STRATEGY= 1      ERROR MATRIX ACCURATE
+  EXT PARAMETER                                   STEP         FIRST
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE
+   1  p0           1.58112e+00   1.73658e-01   6.62237e-05   2.68236e-10
+   2  p1          -2.99326e-02   4.24570e-02   1.61908e-05   1.09714e-09
+ ------------             DONE              ------------
+
+root [1] Info in <TCanvas::Print>: file 
+/data/zenith226a/libov/analysis/other/reweighting_q2/01_2.31.4_beauty_scaling_q2.png has been created
+*******************************************************************************************************
+*******************************************************************************************************
+from results.full.forCHARM2.31.4.0405e06e07p.v02.true05e06e0607p.xml :
+<k_b>1.46613</k_b>
+hence
+p0 = 1.58112 / 1.46613 = 1.07843
+p1 = -2.99326e-02 / 1.46613 = -0.02041
+
+------> submitting 2.33.1 with these parameters!
