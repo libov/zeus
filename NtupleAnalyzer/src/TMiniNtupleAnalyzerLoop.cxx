@@ -250,7 +250,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin -> SetWeightingFactor (new_factor);
                     }
 
-
                     // Calculate number of true jets in current bin; will be used at the fitter level
                     // to get the true cross-sections
                     // loop over the true jets
