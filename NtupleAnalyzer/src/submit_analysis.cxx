@@ -63,6 +63,7 @@ int main(int argc, char **argv) {
     // run over only mc samples?
     bool        run_mc_only = false;
     bool        run_resolved_only = false;
+    bool        run_direct_only = false;
 
     // for significance smearing
     Float_t    SmearingGauss1Prob = -1;
@@ -86,7 +87,7 @@ int main(int argc, char **argv) {
     // depending on an option
     int option;
     int option_index;
-    while ((option = getopt_long (argc, argv, "b:v:rhj:mlce", long_options, &option_index)) != -1) {
+    while ((option = getopt_long (argc, argv, "b:v:rhj:mlced", long_options, &option_index)) != -1) {
         switch (option) {
             case 'b':
                 BinningFileSuffix = optarg;
@@ -114,6 +115,9 @@ int main(int argc, char **argv) {
                 break;
             case 'e':
                 run_resolved_only = true;
+                break;
+            case 'd':
+                run_direct_only = true;
                 break;
             case 1:
                 SmearingGauss1Prob = atof(optarg);
@@ -149,6 +153,7 @@ int main(int argc, char **argv) {
                 cout << "\t-l\t\trun locally, don't submit to ZARAH\n";
                 cout << "\t-c\t\trun only for Monte-Carlo\n";
                 cout << "\t-e\t\trun only for resolved MC (excitation)\n";
+                cout << "\t-d\t\trun only for direct MC (don't run resolved)\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -205,7 +210,7 @@ int main(int argc, char **argv) {
         // create a filelist; this is an alternative to using stuff from cninfo - seems to be more automatized,
         // but on the other hand cninfo IS safer: in some cases there might be more files satisfying name pattern
         // criteria, of which not all should be used for analysis! in this case cninfo is THE ONLY option
-        // (e.g. cc 1.5 0607p) here it is done to test resolved sample stuff - there we had no filelist
+        // (e.g. v02 cc 1.5 0607p) here it is done to test resolved sample stuff - there we had no filelist
         TString     create_filelist_command = "sh create-NtupleList.sh " + cSubSet.getYear() + " " + cSubSet.getCNversion() + " " + cSubSet.getType() + " " + cSubSet.getNamePattern();
         system(create_filelist_command.Data());
 
@@ -251,6 +256,7 @@ int main(int argc, char **argv) {
         // if this is not MC, but it was selected to run only on MC - skip the sample
         if (run_mc_only && (cSubSet.getTypeENUM() != TSubSet::kMC)) continue;
         if (run_resolved_only && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getProcessENUM()!=TSubSet::kRESOLVED)) continue;
+        if (run_direct_only && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getProcessENUM()==TSubSet::kRESOLVED)) continue;
 
         // if selected to run locally, execute the command and skip to the next sample, don't submit
         if (run_locally) {
