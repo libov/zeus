@@ -32,6 +32,4 @@ void fit() {
     fcn_down -> SetLineColor(kRed);
     fcn_down -> SetLineStyle(7);
     fcn_down -> Draw("same");
-
-
 }
