@@ -183,7 +183,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 // calcualte weight for the true cross-sections (for charm and beauty MC)
                 if ( fIsCharm ) fTrueQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
-                if ( fIsBeauty ) fTrueQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
+                if ( fIsBeauty ) {
+                    fTrueQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
+                    fTrueQ2Weight *= (1.07843 - (0.02041 * TMath::Log(Mc_q2_cr)) );
+                }
 
                 // variable to store a weight for fragmentation fraction studies
                 fZstring_weight = 1;
@@ -879,7 +882,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         
         // determine the Q2 weight
         if ( fIsCharm ) fRecoQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
-        if ( fIsBeauty ) fRecoQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
+        if ( fIsBeauty ) {
+            fRecoQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
+            fRecoQ2Weight *= (1.07843 - (0.02041 * TMath::Log(Mc_q2_cr)));
+        }
 
         Bool_t weight_q2g4 = false;
         if ((fApplyQ2g4Weighting) && (Mc_q2_cr > 4)) weight_q2g4 = true;
@@ -1536,18 +1542,18 @@ void TMiniNtupleAnalyzer::print_fmckin_table() {
 }
 
 void TMiniNtupleAnalyzer::checkArrayBounds() {
-    if (Sincand >= 10) {cout << " ALARM! Sincand= " << Sincand << endl; abort();}
-    if (Kt_njet_b >= 30) {cout << " ALARM! Kt_njet_b= " << Kt_njet_b << endl; abort();}
-    if (Kt_njet_a >= 30) {cout << " ALARM! Kt_njet_a= " << Kt_njet_a << endl; abort();}
-    if (Nzufos >= 250){ cout << " ALARM! Nzufos= " << Nzufos << endl; abort();}
-    if (Trk_ntracks >= 400) {cout << " ALARM! Trk_ntracks= " << Trk_ntracks << endl; abort();}
-    if (Nr_secvtx >= 60) {cout << " ALARM! Nr_secvtx= " << Nr_secvtx << endl; abort();}
+    if (Sincand >= 10) {cout << "ERROR: Sincand= " << Sincand << endl; abort();}
+    if (Kt_njet_b >= 30) {cout << "ERROR: Kt_njet_b= " << Kt_njet_b << endl; abort();}
+    if (Kt_njet_a >= 30) {cout << "ERROR: Kt_njet_a= " << Kt_njet_a << endl; abort();}
+    if (Nzufos >= 250){ cout << "ERROR: Nzufos= " << Nzufos << endl; abort();}
+    if (Trk_ntracks >= 400) {cout << "ERROR: Trk_ntracks= " << Trk_ntracks << endl; abort();}
+    if (Nr_secvtx >= 60) {cout << "ERROR: Nr_secvtx= " << Nr_secvtx << endl; abort();}
     #ifdef CN_VERSION_V06
-    if (Nr_redprim >= 30) {cout << " ALARM! Nr_redprim= " << Nr_redprim << endl; abort();}
+    if (Nr_redprim >= 30) {cout << "ERROR: Nr_redprim= " << Nr_redprim << endl; abort();}
     #endif
-    if (Npart >= 2044){ cout << " ALARM! Npart= " << Npart << endl; abort();}
-    if (Fmck_nstor >= 3000) {cout << " ALARM! Fmck_nstor= " << Fmck_nstor << endl; abort();}
-    if (Nhbmjets >= 100){ cout << " ALARM! Nhbmjets= " << Nhbmjets << endl; abort();}
+    if (Npart >= 2044){ cout << "ERROR: Npart= " << Npart << endl; abort();}
+    if (Fmck_nstor >= 3000) {cout << "ERROR: Fmck_nstor= " << Fmck_nstor << endl; abort();}
+    if (Nhbmjets >= 100){ cout << "ERROR: Nhbmjets= " << Nhbmjets << endl; abort();}
 }
 
 void TMiniNtupleAnalyzer::get_gammaP_boost() {
