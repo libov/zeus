@@ -344,7 +344,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         if ( x_gamma_hadrons >= 0 ) currentTGlobalBin->FillHistogram("x_gamma_true_hadrons", x_gamma_hadrons);
                     }
 
-                    currentTGlobalBin -> ApplyWeighting (false);    // extra protection ;)
+                    currentTGlobalBin -> ApplyWeighting (false);    // switch off the weighting for this GlobalBin
 
                 }   // end loop over global bins
             }   // end if (isInFiducial)
