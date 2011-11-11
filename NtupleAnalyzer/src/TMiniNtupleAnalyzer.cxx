@@ -246,13 +246,13 @@ void TMiniNtupleAnalyzer::RecalculateLuminosity () {
     }
     cout << "INFO: True cross section of the sample: " << true_cross_section << endl;
 
-    // recalculate luminosity; as the cross section is given in nanobarns, multiply it by 1000
+    // calculate luminosity; as the cross section is given in nanobarns, multiply it by 1000
     // to get the value in picobarns, so that luminosity is in inverse picobarns
-    Float_t   lumi_recalculated = fNevents / (1000 * true_cross_section);
-    cout << "INFO: recalculated luminosity of the sample: " << lumi_recalculated << endl;
+    Float_t   lumi = fNevents / (1000 * true_cross_section);
+    cout << "INFO: Estimated luminosity of the sample: " << lumi << endl;
 
-    // set recalculated luminosity
-    fSubSet.setLuminosityRecalculated(lumi_recalculated);
+    // set luminosity
+    fSubSet.setLuminosity(lumi);
 
     // modify respective entry in TDataset structure
     fDataset.modifySubSet(fSubSet.getTypeENUM(), fSubSet.getPeriodENUM(), fSubSet.getFlavourENUM(), fSubSet.getQ2ENUM(), fSubSet.getProcessENUM(), fSubSet, fSubSet.getTriggerPeriod());
@@ -279,10 +279,10 @@ void TMiniNtupleAnalyzer::CalculateCharmQg4WeightingFactor() {
     TSubSet   cSubSet_q2g1_5 = fDataset.getSubSet(TSubSet::kMC, fSubSet.getPeriodENUM(), TSubSet::kCHARM, TSubSet::kQ2g1_5, fSubSet.getProcessENUM(), fSubSet.getTriggerPeriod());
     TSubSet   cSubSet_q2g4 = fDataset.getSubSet(TSubSet::kMC, fSubSet.getPeriodENUM(), TSubSet::kCHARM, TSubSet::kQ2g4,fSubSet.getProcessENUM(),  fSubSet.getTriggerPeriod());
 
-    // NOTE: here it is assumed that the luminosities of the samples were recalculated already;
+    // NOTE: here it is assumed that the luminosities of the samples were calculated already;
     // this won't be the case if the program is launched for the first time.
-    Float_t   lumi_1_5 = cSubSet_q2g1_5.getLuminosityRecalculated();
-    Float_t   lumi_4 = cSubSet_q2g4.getLuminosityRecalculated();
+    Float_t   lumi_1_5 = cSubSet_q2g1_5.getLuminosity();
+    Float_t   lumi_4 = cSubSet_q2g4.getLuminosity();
     fCharmQ2g4Weight = lumi_1_5 / (lumi_1_5 + lumi_4);
     cout << "INFO: A weighting factor due to 1.5/4 GeV samples:" << fCharmQ2g4Weight << endl;
 }
