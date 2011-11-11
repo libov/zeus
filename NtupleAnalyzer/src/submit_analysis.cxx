@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
                 cout<<"\nAdditional options: " << endl;
                 cout << "\t-r\t\trecalculate luminosity, don't run full analysis\n";
-                cout << "\t-j\t\tjet energy scale studies: scale hadronic jet energy by this value\n";
+                cout << "\t-j\t\tjet energy scale studies: scale calorimetric part of the jet\n\t\t\tenergy by the value given with this option\n";
                 cout << "\t--gaus1prob\tfraction of events smeared by 1st gaussian\n";
                 cout << "\t--gaus1width\twidth of the 1st gaussian\n";
                 cout << "\t--gaus2prob\tfraction of events smeared by 2nd gaussian\n";
@@ -164,10 +164,10 @@ int main(int argc, char **argv) {
 
     // TODO: add sanity check of parameters!
     if ( (!(binning_file_suffix_set && histogram_version_ending_set)) && (!create_minintuples) ) {
-        cout << "Incorrect use of " << argv[0] << endl;
-        cout << "please use " << endl;
-        cout << argv[0] << " -h" << endl;
-        cout << "to get more information." << endl;
+        cout << "\nIncorrect use of " << argv[0] << endl;
+        cout << "\nPlease use\n" << endl;
+        cout << "\t"<<argv[0] << " -h\n" << endl;
+        cout << "to get more information\n" << endl;
         exit(-1);
     }
 
