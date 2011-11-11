@@ -140,7 +140,6 @@ void TSubSet::Print(){
     cout << "name_pattern: " << getNamePattern() << endl;
     cout << "trigger period: " << getTriggerPeriod() << endl;
     cout << "luminosity: " << getLuminosity() << endl;
-    cout << "luminosity_recalculated: " << getLuminosityRecalculated() << endl;
        
     cout << "sample name: " << getSampleName() << endl;
     cout << "**********************************\n";
@@ -157,7 +156,6 @@ void    TSubSet::operator=(TSubSet      newset) {
     fName_pattern = newset.getNamePattern();
     fTriggerPeriod = newset.getTriggerPeriod();
     fLuminosity = newset.getLuminosity();
-    fLuminosity_recalculated = newset.getLuminosityRecalculated();
 
     fFlavourENUM = newset.getFlavourENUM();
     fPeriodENUM = newset.getPeriodENUM();

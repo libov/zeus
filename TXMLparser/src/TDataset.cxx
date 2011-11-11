@@ -103,7 +103,6 @@ TXMLparser(xml_file)
             if ( XMLString::equals (nodeName, "name_pattern") ) cSubSet.setNamePattern(nodeText_tstr);
             if ( XMLString::equals (nodeName, "trigger_period") ) cSubSet.setTriggerPeriod(nodeText_tstr.Atoi());
             if ( XMLString::equals (nodeName, "luminosity") ) cSubSet.setLuminosity(nodeText_tstr.Atof());
-            if ( XMLString::equals (nodeName, "luminosity_recalculated") ) cSubSet.setLuminosityRecalculated(nodeText_tstr.Atof());
         }
 
         // now "classify" this sample, i.e. define variables for random access from xml-file data
@@ -303,11 +302,6 @@ void	TDataset::modifySubSet(TSubSet::Type t, TSubSet::Period p, TSubSet::Flavour
             // this is float; convert to char first
             str1 << cSubSet.getLuminosity();
             newText = str1.str().c_str();
-        }
-        if ( XMLString::equals (nodeName, "luminosity_recalculated") ) {
-            // this is float; convert to char first
-            str2 << cSubSet.getLuminosityRecalculated();
-            newText = str2.str().c_str();
         }
         // finally, write the text to a node
         cSampleChildNode->getFirstChild()->setNodeValue(XMLString::transcode( newText ));

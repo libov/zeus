@@ -72,7 +72,6 @@ class TSubSet {
         TString       getNamePattern() {return    fName_pattern;};
         unsigned      getTriggerPeriod() {return fTriggerPeriod;};
         Float_t       getLuminosity() {return    fLuminosity;};
-        Float_t       getLuminosityRecalculated() {return    fLuminosity_recalculated;};
         // enumerated variables, defined from the above ones
         Flavour       getFlavourENUM() {return fFlavourENUM;};
         Period        getPeriodENUM() {return fPeriodENUM;};
@@ -90,7 +89,6 @@ class TSubSet {
         void          setNamePattern(TString name_pattern) {fName_pattern = name_pattern;};
         void          setTriggerPeriod(unsigned trigger_period) {fTriggerPeriod = trigger_period;};
         void          setLuminosity(Float_t luminosity) {fLuminosity = luminosity;};
-        void          setLuminosityRecalculated(Float_t luminosity_recalculated) {fLuminosity_recalculated = luminosity_recalculated;};
         void          setID(unsigned id) {fID = id;};
         void          setFlavourENUM(Flavour flav) {fFlavourENUM = flav;};
         void          setPeriodENUM(Period period) {fPeriodENUM = period;};
@@ -116,7 +114,6 @@ class TSubSet {
         TString       fName_pattern;
         unsigned      fTriggerPeriod;      // id of the trigger subperiod; 0 if all used simultaneously
         Float_t       fLuminosity;
-        Float_t       fLuminosity_recalculated;
 
         // variables to allow easy random-access;
         // are defined from above ones but can also be set with public setters
