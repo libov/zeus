@@ -155,12 +155,12 @@ int main(int argc, char **argv) {
     //---------------------------------------------------------------------------------//
 
     // set paths to minintuples
-    TString     MINI_NTUPLES_PATH = getenv("MINI_NTUPLES_PATH_v06_v2");
+    TString     MINI_NTUPLES_PATH = getenv("MINI_NTUPLES_PATH_v06");
     instance -> SetPathToMiniNtuples(MINI_NTUPLES_PATH);
     // if want to store mini ntuples to the dCache - first write them locally;
     // this specifies that path
     instance -> SetStore_dCache(true);
-    TString MINI_NTUPLES_PATH_tmp = getenv("MINI_NTUPLES_PATH");
+    TString MINI_NTUPLES_PATH_tmp = getenv("MINI_NTUPLES_PATH_tmp");
     instance -> SetPathToMiniNtuplesTEMP(MINI_NTUPLES_PATH_tmp);
 
     //---------------------------------------------------------------------------------//
