@@ -68,7 +68,7 @@
         <q2>4</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.0304p.q4.ari_</name_pattern>
-        <luminosity>0</luminosity>
+        <luminosity>98.028</luminosity>
     </sample>
     <!-- BEAUTY -->
     <sample>
@@ -78,7 +78,7 @@
         <q2>1</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.bbbar.rg30.q2g1.bgf</name_pattern>
-        <luminosity>0</luminosity>
+        <luminosity>1071.85</luminosity>
     </sample>
     <!-- CHARM -->
     <sample>
@@ -88,7 +88,7 @@
         <q2>1.5</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.ccbar.rg30.q2g1.5.bgf</name_pattern>
-        <luminosity></luminosity>
+        <luminosity>40.6244</luminosity>
     </sample>
     <sample>
         <year>04</year>
@@ -97,7 +97,7 @@
         <q2>4</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.rgap3.nc.ccdir.p.q2g4</name_pattern>
-        <luminosity></luminosity>
+        <luminosity>124.47</luminosity>
     </sample>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- - - - - - - - - - - - - - - - - - 05e - - - - - - - - - - - - - - - - - - - - - - -->
@@ -111,7 +111,7 @@
         <q2>4</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.0405e.q4.ari_</name_pattern>
-        <luminosity>0</luminosity>
+        <luminosity>273.353</luminosity>
     </sample>
     <!-- BEAUTY -->
     <sample>
@@ -121,7 +121,7 @@
         <q2>1</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.bbbar.rg30.q2g1.bgf</name_pattern>
-        <luminosity>0</luminosity>
+        <luminosity>2116.85</luminosity>
     </sample>
     <!-- CHARM -->
     <sample>
@@ -131,7 +131,7 @@
         <q2>1.5</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.rgap3.nc.c.q2g1.5</name_pattern>
-        <luminosity></luminosity>
+        <luminosity>147.327</luminosity>
     </sample>
     <sample>
         <year>05</year>
@@ -140,7 +140,7 @@
         <q2>4</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.rgap3.nc.c.q2g4</name_pattern>
-        <luminosity></luminosity>
+        <luminosity>282.917</luminosity>
     </sample>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- - - - - - - - - - - - - - - - - - 06e - - - - - - - - - - - - - - - - - - - - - - -->
@@ -164,7 +164,7 @@
         <q2>1</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.bbbar.rg30.q2g1.bgf</name_pattern>
-        <luminosity>925.64</luminosity>
+        <luminosity>925.624</luminosity>
     </sample>
     <!-- CHARM -->
     <sample>
@@ -198,7 +198,7 @@
         <q2>4</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.0607p.q4.ari_</name_pattern>
-        <luminosity>0</luminosity>
+        <luminosity>266.658</luminosity>
     </sample>
     <!-- BEAUTY -->
     <sample>
@@ -208,7 +208,7 @@
         <q2>1</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.rgap3.nc.b.q2g1.p.</name_pattern>
-        <luminosity>0</luminosity>
+        <luminosity>2579.89</luminosity>
     </sample>
     <!-- CHARM -->
     <sample>
@@ -218,7 +218,7 @@
         <q2>1.5</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.ccbar.rg30.q2g1.5.bgf</name_pattern>
-        <luminosity></luminosity>
+        <luminosity>141.934</luminosity>
     </sample>
     <sample>
         <year>07p</year>
@@ -227,7 +227,7 @@
         <q2>4</q2>
         <CN_version>v06b</CN_version>
         <name_pattern>.f15643.rgap3.nc.c.q2g4.p</name_pattern>
-        <luminosity></luminosity>
+        <luminosity>496.757</luminosity>
     </sample>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
