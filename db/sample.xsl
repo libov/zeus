@@ -15,7 +15,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <th>Flavour</th>
       <th>Q2</th>
       <th>Luminosity</th>
-      <th>Luminosity Recalculated</th>
       <th>Name pattern</th>
     </tr>
     <xsl:for-each select="dataset/sample">
@@ -26,7 +25,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <td><xsl:value-of select="flavour"/></td>
       <td><xsl:value-of select="q2"/></td>
       <td><xsl:value-of select="luminosity"/></td>
-      <td><xsl:value-of select="luminosity_recalculated"/></td>
       <td><xsl:value-of select="name_pattern"/></td>
     </tr>
     </xsl:for-each>
