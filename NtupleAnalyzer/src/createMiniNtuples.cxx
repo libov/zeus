@@ -43,6 +43,7 @@ int main(int argc, char **argv) {
     TSubSet::Flavour    flavour;
     TSubSet::Period     period;
     TSubSet::Q2         q2;
+    TSubSet::Process    process;
     unsigned            trigger_period;
 
     // helping boolean variables to make sure all the arguments were passed correctly 
@@ -51,12 +52,13 @@ int main(int argc, char **argv) {
     bool                period_set = false;
     bool                q2_set = false;
     bool                trigger_period_set = false;
+    bool                process_set = false;
 
     //----------------------------  OPTIONS HANDLING  -------------------------------//
 
     opterr = 0;
     int c;
-    while ((c = getopt (argc, argv, "t:f:p:q:g:chr:l:")) != -1) {
+    while ((c = getopt (argc, argv, "t:f:p:q:g:chr:l:o:")) != -1) {
         switch (c) {
             case 't':
                 type = (TSubSet::Type) atoi(optarg);
@@ -77,6 +79,10 @@ int main(int argc, char **argv) {
             case 'g':
                 trigger_period = (unsigned) atoi(optarg);
                 trigger_period_set = true;
+                break;
+            case 'o':
+                process = (TSubSet::Process) atoi(optarg);
+                process_set = true;
                 break;
             case 'r':
                 firstEvent=atoi(optarg);
@@ -147,6 +153,7 @@ int main(int argc, char **argv) {
     if (type == TSubSet::kMC) {
         instance -> setFlavour(flavour);
         instance -> setQ2(q2);
+        instance -> setProcess(process);
     }
     instance -> setTriggerPeriod(trigger_period);
 
