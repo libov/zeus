@@ -45,9 +45,9 @@ using namespace std;
 #include <TDataset.h>
 #include <TSubSet.h>
 
-TString   CN_VERSION="v02";
+//TString   CN_VERSION="v02";
 //TString   CN_VERSION="v04";
-//TString   CN_VERSION="v06";
+TString   CN_VERSION="v06";
 
 // this structure duplicates a bit what is done already in TSubSet
 // however it can't be eliminated at the moment: in TSubset
@@ -245,7 +245,7 @@ int main(int argc, char **argv) {
         TSubSet::Type    type = cSubSet.getTypeENUM();
         TSubSet::Period  period = cSubSet.getPeriodENUM();
         TSubSet::Q2      q2 = cSubSet.getQ2ENUM();
-        Float_t luminosity = cSubSet.getLuminosityRecalculated();
+        Float_t luminosity = cSubSet.getLuminosity();
 
         // determine the type of the sample, i.e. which of the DataType entities our sample is. See also comments there
         DataType data_type = getDataType(type, process, flavour);
@@ -310,7 +310,7 @@ int main(int argc, char **argv) {
         TSubSet::Type    type = cSubSet.getTypeENUM();
         TSubSet::Period  period = cSubSet.getPeriodENUM();
         TSubSet::Q2      q2 = cSubSet.getQ2ENUM();
-        Float_t luminosity = cSubSet.getLuminosityRecalculated();
+        Float_t luminosity = cSubSet.getLuminosity();
 
         // determine the type of the sample, i.e. which of the DataType entities our sample is. See also comments there
         DataType data_type = getDataType(type, process, flavour);
