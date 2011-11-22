@@ -33,7 +33,6 @@ bool      use_0304p_true = 0;   // this doesn't work at the moment because it's 
 bool      use_05e_true = 1;
 bool      use_06e_true = 1;
 bool      use_0607p_true = 1;
-bool      use_luminosity_recalculated = true;
 //------------------------------
 
 struct  TrueCrossSection{
@@ -217,19 +216,16 @@ int main(int argc, char **argv) {
         // and the luminosity
         Double_t    RefSampleCharmLumi;
         Double_t    RefSampleBeautyLumi;
-        if (use_luminosity_recalculated) {
-            RefSampleCharmLumi = cSubSet_charm.getLuminosityRecalculated();
-            RefSampleBeautyLumi = cSubSet_beauty.getLuminosityRecalculated();
-        } else {
-            RefSampleCharmLumi = cSubSet_charm.getLuminosity();
-            RefSampleBeautyLumi = cSubSet_beauty.getLuminosity();
-        }
+        RefSampleCharmLumi = cSubSet_charm.getLuminosity();
+        RefSampleBeautyLumi = cSubSet_beauty.getLuminosity();
+
         true_cross_sect_BGF[cPeriod].fCharmLuminosity = RefSampleCharmLumi;
         true_cross_sect_BGF[cPeriod].fBeautyLuminosity = RefSampleBeautyLumi;
         
         // RESOLVED, now fully duplicated to BGF
         // IMPORTANT: reference sample for the current period
         // note: for 0607p beauty resolved, the Q2 cut is 1.5, not 1!! also for charm, there's no Q2>4 sample
+        if (!include_resolved) continue;
         if (cPeriod == TSubSet::k0607P)  {
             cSubSet_beauty = cDataset.getSubSet(TSubSet::kMC, cPeriod, TSubSet::kBEAUTY, TSubSet::kQ2g1_5, TSubSet::kRESOLVED);
             cSubSet_charm = cDataset.getSubSet(TSubSet::kMC, cPeriod, TSubSet::kCHARM, TSubSet::kQ2g1_5, TSubSet::kRESOLVED);
@@ -239,18 +235,13 @@ int main(int argc, char **argv) {
         }
 
         // get the files
-        if (!include_resolved) continue;
         true_cross_sect_RESOLVED[cPeriod].fCharmFile = new TFile(HISTO_PATH+"/analysis."+cSubSet_charm.getSampleName()+"."+HistogramsVersionRAW+".root", "read");
         true_cross_sect_RESOLVED[cPeriod].fBeautyFile = new TFile(HISTO_PATH+"/analysis."+cSubSet_beauty.getSampleName()+"."+HistogramsVersionRAW+".root", "read");
             
         // and the luminosity
-        if (use_luminosity_recalculated) {
-            RefSampleCharmLumi = cSubSet_charm.getLuminosityRecalculated();
-            RefSampleBeautyLumi = cSubSet_beauty.getLuminosityRecalculated();
-        } else {
-            RefSampleCharmLumi = cSubSet_charm.getLuminosity();
-            RefSampleBeautyLumi = cSubSet_beauty.getLuminosity();
-        }
+        RefSampleCharmLumi = cSubSet_charm.getLuminosity();
+        RefSampleBeautyLumi = cSubSet_beauty.getLuminosity();
+
         true_cross_sect_RESOLVED[cPeriod].fCharmLuminosity = RefSampleCharmLumi;
         true_cross_sect_RESOLVED[cPeriod].fBeautyLuminosity = RefSampleBeautyLumi;
 
