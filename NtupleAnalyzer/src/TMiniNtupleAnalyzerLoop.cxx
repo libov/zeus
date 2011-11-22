@@ -1549,7 +1549,7 @@ void TMiniNtupleAnalyzer::checkArrayBounds() {
     if (Nr_redprim >= 30) {cout << "ERROR: Nr_redprim= " << Nr_redprim << endl; abort();}
     #endif
     if (Npart >= 2044){ cout << "ERROR: Npart= " << Npart << endl; abort();}
-    if (Fmck_nstor >= 3000) {cout << "ERROR: Fmck_nstor= " << Fmck_nstor << endl; abort();}
+    if (Fmck_nstor >= 3500) {cout << "ERROR: Fmck_nstor= " << Fmck_nstor << endl; abort();}
     if (Nhbmjets >= 100){ cout << "ERROR: Nhbmjets= " << Nhbmjets << endl; abort();}
 }
 
