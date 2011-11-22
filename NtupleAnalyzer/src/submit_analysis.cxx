@@ -64,6 +64,10 @@ int main(int argc, char **argv) {
     bool        run_mc_only = false;
     bool        run_resolved_only = false;
     bool        run_direct_only = false;
+    bool        run_data_only = false;
+    // a switch to select only filelist creation
+    bool        filelist_only = false;
+    
 
     // for significance smearing
     Float_t    SmearingGauss1Prob = -1;
@@ -80,7 +84,9 @@ int main(int argc, char **argv) {
         {"gaus2prob", required_argument, 0, 3},
         {"gaus2width", required_argument, 0, 4},
         {"expprob", required_argument, 0, 5},
-        {"expcoeff", required_argument, 0, 6}
+        {"expcoeff", required_argument, 0, 6},
+        {"filelist_only", no_argument, 0, 7},
+        {"run_data_only", no_argument, 0, 8}
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
@@ -113,6 +119,9 @@ int main(int argc, char **argv) {
             case 'c':
                 run_mc_only = true;
                 break;
+            case 8:
+                run_data_only = true;
+                break;
             case 'e':
                 run_resolved_only = true;
                 break;
@@ -137,6 +146,9 @@ int main(int argc, char **argv) {
             case 6:
                 SmearingExpCoeff = atof(optarg);
                 break;
+            case 7:
+                filelist_only = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
@@ -152,8 +164,10 @@ int main(int argc, char **argv) {
                 cout << "\t-m\t\tcreate mini ntuples\n";
                 cout << "\t-l\t\trun locally, don't submit to ZARAH\n";
                 cout << "\t-c\t\trun only for Monte-Carlo\n";
+                cout << "\t--run_data_only\trun only for Data\n";
                 cout << "\t-e\t\trun only for resolved MC (excitation)\n";
                 cout << "\t-d\t\trun only for direct MC (don't run resolved)\n";
+                cout << "\t--filelist_only\tCreate filelists, don't run analysis\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -213,6 +227,7 @@ int main(int argc, char **argv) {
         // (e.g. v02 cc 1.5 0607p) here it is done to test resolved sample stuff - there we had no filelist
         TString     create_filelist_command = "sh create-NtupleList.sh " + cSubSet.getYear() + " " + cSubSet.getCNversion() + " " + cSubSet.getType() + " " + cSubSet.getNamePattern();
         system(create_filelist_command.Data());
+        if (filelist_only) continue;
 
         TString     type = int_to_TString((int)cSubSet.getTypeENUM());
         TString     flavour = int_to_TString((int)cSubSet.getFlavourENUM());
@@ -257,6 +272,9 @@ int main(int argc, char **argv) {
         if (run_mc_only && (cSubSet.getTypeENUM() != TSubSet::kMC)) continue;
         if (run_resolved_only && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getProcessENUM()!=TSubSet::kRESOLVED)) continue;
         if (run_direct_only && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getProcessENUM()==TSubSet::kRESOLVED)) continue;
+
+        // if only for data
+        if (run_data_only && (cSubSet.getTypeENUM() != TSubSet::kDATA)) continue;
 
         // if selected to run locally, execute the command and skip to the next sample, don't submit
         if (run_locally) {
