@@ -51,6 +51,17 @@ Float_t TVertex::CalculateVertexProjectedDecayLength() {
     Float_t     AxisCosPhi=TMath::Cos(fAxisPhi);
     ProjectedDecayLength = deltaX*AxisCosPhi+deltaY*AxisSinPhi;
 
+    // eta-dependend shift of the whole projected decay length distribution
+    // (for the highest eta bins)
+    // note that this should be done only for MC, hence we use fApplySmearing flag,
+    // which is set to true for MC in case smearing is switched on in analysis.cxx.
+    // Hence this shift won't work if smearing is switched off.
+    if (fApplySmearing) {
+        if ( (1.6 < fAxisEta) && (fAxisEta < 2.2) ) ProjectedDecayLength -= 0.0021913;
+        if ( (1.3 < fAxisEta) && (fAxisEta < 1.6) ) ProjectedDecayLength -= 0.0015827;
+        if ( (1.0 < fAxisEta) && (fAxisEta < 1.3) ) ProjectedDecayLength -= 0.000766;
+    }
+
     fProjDecayLength = ProjectedDecayLength;
     return      ProjectedDecayLength;
 }
