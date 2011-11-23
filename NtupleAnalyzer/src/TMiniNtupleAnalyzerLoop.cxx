@@ -622,9 +622,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 #endif
     
                 // set reference axis for this vertex
-                cVtx.SetAxisVector(Kt_etajet_b[correspjetB], Kt_phijet_b[correspjetB] );
-    
-    
+                cVtx.SetAxisVector(Kt_etajet_b[correspjetB], Kt_phijet_b[correspjetB]);
+
                 TSubSet::Period period = fSubSet.getPeriodENUM();
                 if ( (period == TSubSet::k0304P) || (period == TSubSet::k03P) || (period == TSubSet::k04P) || (period == TSubSet::k0607P) || (period == TSubSet::k06P) || (period == TSubSet::k07P) ){
                     Bspt_xer=0.0088;
@@ -873,8 +872,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             }
         }*/
 
-        /** Loop over the TGlobalBins - fill the histograms
-        */
+        // Loop over the TGlobalBins - fill the histograms
         TGlobalBin      *currentTGlobalBin;
         TIter           Iter_TGlobalBin(fList_TGlobalBin);
         
