@@ -98,36 +98,26 @@ Float_t TVertex::CalculateVertexSignificance() {
         Float_t exponent = 5.;
 
         // Smear core by Gaussian
-        if( nr_rand < 0.05 )
-        {
+        if( nr_rand < 0.05 ) {
             Double_t nr_rand_gauss = rnd.Gaus();
             Float_t smearvalue = 1.8*ProjectedDecayLengthError*nr_rand_gauss;
             ProjectedDecayLength += smearvalue;
-            //cout<<"case 1 "<<smearvalue<<endl;
         }
 
         // Smear intermediate tails by Gaussian
-        if( nr_rand < 0.01 )
-        {
+        if( nr_rand < 0.01 ) {
             Double_t nr_rand_gauss = rnd.Gaus();
             Float_t smearvalue = 2.3*ProjectedDecayLengthError*nr_rand_gauss;
             ProjectedDecayLength += smearvalue;
-            //cout<<"case 2 "<<smearvalue<<endl;
         }
 
         // Smear extreme tails by exponential function
-        if( nr_rand < 0.1*ProjectedDecayLengthError )
-        {
-            //TRandom3 *rnd2 = new TRandom3();
+        if( nr_rand < 0.1*ProjectedDecayLengthError ) {
             Double_t nr_rand2 = rnd2.Rndm();
             Double_t randtemp = 2*nr_rand2-1;
             Float_t sign = randtemp/TMath::Abs(randtemp);
             ProjectedDecayLength += sign*TMath::Log(1-TMath::Abs(randtemp))/(-exponent);
-            //delete rnd2;
-            //cout<<"case 3 "<<sign*TMath::Log(1-TMath::Abs(randtemp))/(-exponent)<<endl;
-            //cout<<ProjectedDecayLengthError<<" "<<randtemp<<" "<<nr_rand2<<endl;
         }
-        //delete rnd;
     }
 
     fProjectedDecayLengthError = ProjectedDecayLengthError;
@@ -138,7 +128,7 @@ Float_t TVertex::CalculateVertexSignificance() {
     fSignificance = fSignificanceSmeared;
     fProjDecayLength = ProjectedDecayLength;
 
-    return          fSignificanceSmeared;
+    return fSignificanceSmeared;
 }
 
 void TVertex::SetVertexCoordinates(Float_t x, Float_t y, Float_t z) {
