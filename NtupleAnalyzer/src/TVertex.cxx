@@ -34,10 +34,12 @@ Float_t TVertex::CalculateVertexProjectedDecayLength() {
     // most likely disappears in the following CN versions but still keeping
     // so that can potentially be used for v02
     if ((fVertexX==666)||(fVertexY==666)||(fVertexZ==666)) return (-999);
-        
-    Float_t     deltaX=fVertexX-fPrimaryVertexX;
-    Float_t     deltaY=fVertexY-fPrimaryVertexY;
 
+    // get a primary-secondary vertex distance in the transverse plane
+    Float_t     deltaX = fVertexX - fPrimaryVertexX;
+    Float_t     deltaY = fVertexY - fPrimaryVertexY;
+
+    // get the decay length
     Float_t     DecayLength=TMath::Sqrt(deltaX*deltaX+deltaY*deltaY);
     fDecayLength = DecayLength;
     if ( DecayLength > 1. )     return (-998);
