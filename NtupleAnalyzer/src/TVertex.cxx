@@ -36,19 +36,20 @@ Float_t TVertex::CalculateVertexProjectedDecayLength() {
     if ((fVertexX==666)||(fVertexY==666)||(fVertexZ==666)) return (-999);
 
     // get a primary-secondary vertex distance in the transverse plane
-    Float_t     deltaX = fVertexX - fPrimaryVertexX;
-    Float_t     deltaY = fVertexY - fPrimaryVertexY;
+    Float_t deltaX = fVertexX - fPrimaryVertexX;
+    Float_t deltaY = fVertexY - fPrimaryVertexY;
 
     // get the decay length
-    Float_t     DecayLength=TMath::Sqrt(deltaX*deltaX+deltaY*deltaY);
+    Float_t DecayLength=TMath::Sqrt(deltaX*deltaX+deltaY*deltaY);
     fDecayLength = DecayLength;
     if ( DecayLength > 1. )     return (-998);
     if ( TMath::Abs(fVertexZ) >30. )    return (-998);
 
-    Float_t     ProjectedDecayLength=0;
+    // get projected decay length
+    Float_t ProjectedDecayLength=0;
 
-    Float_t     AxisSinPhi=TMath::Sin(fAxisPhi);
-    Float_t     AxisCosPhi=TMath::Cos(fAxisPhi);
+    Float_t AxisSinPhi=TMath::Sin(fAxisPhi);
+    Float_t AxisCosPhi=TMath::Cos(fAxisPhi);
     ProjectedDecayLength = deltaX*AxisCosPhi+deltaY*AxisSinPhi;
 
     // eta-dependend shift of the whole projected decay length distribution
