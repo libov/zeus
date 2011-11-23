@@ -28,7 +28,7 @@ TVertex::~TVertex() {
 }
 
 // calculates projected decay length
-Float_t	TVertex::CalculateVertexProjectedDecayLength() {
+Float_t TVertex::CalculateVertexProjectedDecayLength() {
 
     if ((fVertexX==666)||(fVertexY==666)||(fVertexZ==666)) return (-999);
         
@@ -50,7 +50,7 @@ Float_t	TVertex::CalculateVertexProjectedDecayLength() {
     return      ProjectedDecayLength;
 }
 
-Float_t	TVertex::CalculateVertexSignificance()
+Float_t TVertex::CalculateVertexSignificance()
 {
 	//cout << "in TVertex::CalculateVertexSignificance()" << endl;
         Float_t		ProjectedDecayLength=CalculateVertexProjectedDecayLength();
