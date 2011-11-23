@@ -144,36 +144,36 @@ Float_t TVertex::CalculateVertexSignificance() {
 }
 
 void TVertex::SetVertexCoordinates(Float_t x, Float_t y, Float_t z) {
-        fVertexX = x;
-        fVertexY = y;
-        fVertexZ = z;
+    fVertexX = x;
+    fVertexY = y;
+    fVertexZ = z;
 }
 void TVertex::SetPrimaryVertexCoordinates(Float_t x, Float_t y, Float_t z) {
-        fPrimaryVertexX = x;
-        fPrimaryVertexY = y;
-        fPrimaryVertexZ = z;
+    fPrimaryVertexX = x;
+    fPrimaryVertexY = y;
+    fPrimaryVertexZ = z;
 }
 
 void TVertex::SetPrimaryVertexCoordinatesError(Float_t xerr, Float_t yerr, Float_t zerr) {
-        fPrimaryVertexXError = xerr;
-        fPrimaryVertexYError = yerr;
-        fPrimaryVertexZError = zerr;
+    fPrimaryVertexXError = xerr;
+    fPrimaryVertexYError = yerr;
+    fPrimaryVertexZError = zerr;
 }
 
 void TVertex::SetAxisVector(Float_t eta, Float_t phi) {
-        fAxisEta = eta;
-        fAxisPhi = phi;
+    fAxisEta = eta;
+    fAxisPhi = phi;
 }
 
 void TVertex::SetVertexCovariance(Float_t * cov) {
-        for (int k = 0; k<6; k++) fVertexCovariance[k] = cov[k];
+    for (int k = 0; k<6; k++) fVertexCovariance[k] = cov[k];
 }
 
 void TVertex::SetVertexTracks(Int_t ntracks, Int_t * trackIDs){
-	fNumberOfTracks = ntracks;
-	for (int i = 0; i<fNumberOfTracks; i++) {
-		fTrackIDs[i] = trackIDs[i];
-	}
+    fNumberOfTracks = ntracks;
+    for (int i = 0; i<fNumberOfTracks; i++) {
+        fTrackIDs[i] = trackIDs[i];
+    }
 }
 
 void TVertex::GetVertexTracks(Int_t & ntracks, Int_t * trackIDs) {
@@ -224,7 +224,6 @@ void TVertex::GetTrackPt(Float_t * trackpT) {
         trackpT[i]= fTrackPT[i]; 
     }
 }
-
 
 bool    TVertex::RefitVertex() {
 
