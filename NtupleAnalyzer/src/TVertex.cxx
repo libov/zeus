@@ -67,78 +67,78 @@ Float_t TVertex::CalculateVertexProjectedDecayLength() {
     return      ProjectedDecayLength;
 }
 
-Float_t TVertex::CalculateVertexSignificance()
-{
-	//cout << "in TVertex::CalculateVertexSignificance()" << endl;
-        Float_t		ProjectedDecayLength=CalculateVertexProjectedDecayLength();
-	if (ProjectedDecayLength == -998) return -998;
-	if (ProjectedDecayLength == -999) return -999;
+Float_t TVertex::CalculateVertexSignificance() {
 
-	Float_t		d1=TMath::Cos(fAxisPhi);
-	Float_t		d2=TMath::Sin(fAxisPhi);
+    Float_t ProjectedDecayLength=CalculateVertexProjectedDecayLength();
+    if (ProjectedDecayLength == -998) return -998;
+    if (ProjectedDecayLength == -999) return -999;
 
-	Float_t	ProjectedDecayLengthError=0;
+    Float_t d1=TMath::Cos(fAxisPhi);
+    Float_t d2=TMath::Sin(fAxisPhi);
 
-	Float_t	sigma_x=TMath::Sqrt(fVertexCovariance[0]);
-	Float_t	sigma_y=TMath::Sqrt(fVertexCovariance[2]);
+    Float_t ProjectedDecayLengthError=0;
 
-	/**\todo Now values of beam spot position error (beam spot size) are written to orange variables \a Bspt_xer
-and \a Bspt_yer. Change later to avoid confusion!
-	*/
-	//ProjectedDecayLengthError=TMath::Sqrt(d1*d1*(sigma_x*sigma_x+Bspt_xer*Bspt_xer)+d2*d2*(sigma_y*sigma_y+Bspt_yer*Bspt_yer)+d1*d2*Vtxsec_cov[vertex][1]);
-ProjectedDecayLengthError=TMath::Sqrt(d1*d1*(sigma_x*sigma_x+fPrimaryVertexXError*fPrimaryVertexXError)+d2*d2*(sigma_y*sigma_y+fPrimaryVertexYError*fPrimaryVertexYError)+2*d1*d2*fVertexCovariance[1]);
+    Float_t sigma_x=TMath::Sqrt(fVertexCovariance[0]);
+    Float_t sigma_y=TMath::Sqrt(fVertexCovariance[2]);
 
-        // unsmeared significance
-        fSignificance = ProjectedDecayLength / ProjectedDecayLengthError;
+    // ProjectedDecayLengthError squared consists from three terms
+    Double_t a = d1*d1*(sigma_x*sigma_x+fPrimaryVertexXError*fPrimaryVertexXError);
+    Double_t b = d2*d2*(sigma_y*sigma_y+fPrimaryVertexYError*fPrimaryVertexYError);
+    Double_t c = 2*d1*d2*fVertexCovariance[1];
+    ProjectedDecayLengthError=TMath::Sqrt(a + b + c);
 
-	// now apply smearing, code taken from Verena
-        if (fApplySmearing) {
-		//TRandom3 *rnd = new TRandom3();
-		Double_t nr_rand = rnd.Rndm();
-		Float_t exponent = 5.;
-		//cout<<"*** "<<nr_rand<<endl;
-		// Smear core by Gaussian
-		if( nr_rand < 0.05 )
-		{
-			Double_t nr_rand_gauss = rnd.Gaus();
-			Float_t smearvalue = 1.8*ProjectedDecayLengthError*nr_rand_gauss;
-			ProjectedDecayLength += smearvalue;
-			//cout<<"case 1 "<<smearvalue<<endl;
-		}
+    // unsmeared significance
+    fSignificance = ProjectedDecayLength / ProjectedDecayLengthError;
 
-		// Smear intermediate tails by Gaussian
-		if( nr_rand < 0.01 )
-		{
-			Double_t nr_rand_gauss = rnd.Gaus();
-			Float_t smearvalue = 2.3*ProjectedDecayLengthError*nr_rand_gauss;
-			ProjectedDecayLength += smearvalue;
-			//cout<<"case 2 "<<smearvalue<<endl;
-		}
+    // now apply smearing, code taken from Verena and further tuned to give the best
+    // description in our case
+    if (fApplySmearing) {
 
-		// Smear extreme tails by exponential function
-		if( nr_rand < 0.1*ProjectedDecayLengthError )
-		{
-			//TRandom3 *rnd2 = new TRandom3();
-			Double_t nr_rand2 = rnd2.Rndm();
-			Double_t randtemp = 2*nr_rand2-1;
-			Float_t sign = randtemp/TMath::Abs(randtemp);
-			ProjectedDecayLength += sign*TMath::Log(1-TMath::Abs(randtemp))/(-exponent);
-			//delete rnd2;
-			//cout<<"case 3 "<<sign*TMath::Log(1-TMath::Abs(randtemp))/(-exponent)<<endl;
-			//cout<<ProjectedDecayLengthError<<" "<<randtemp<<" "<<nr_rand2<<endl;
-		}
-		//delete rnd;
-	}
+        Double_t nr_rand = rnd.Rndm();
+        Float_t exponent = 5.;
 
-        fProjectedDecayLengthError = ProjectedDecayLengthError;
-        fSignificanceSmeared = ProjectedDecayLength / ProjectedDecayLengthError;
-        fProjDecayLengthSmeared = ProjectedDecayLength;
+        // Smear core by Gaussian
+        if( nr_rand < 0.05 )
+        {
+            Double_t nr_rand_gauss = rnd.Gaus();
+            Float_t smearvalue = 1.8*ProjectedDecayLengthError*nr_rand_gauss;
+            ProjectedDecayLength += smearvalue;
+            //cout<<"case 1 "<<smearvalue<<endl;
+        }
 
-        // what to return better?
-        fSignificance = fSignificanceSmeared;
-        fProjDecayLength = ProjectedDecayLength;
-	//return 		fSignificance;
-        return          fSignificanceSmeared;
+        // Smear intermediate tails by Gaussian
+        if( nr_rand < 0.01 )
+        {
+            Double_t nr_rand_gauss = rnd.Gaus();
+            Float_t smearvalue = 2.3*ProjectedDecayLengthError*nr_rand_gauss;
+            ProjectedDecayLength += smearvalue;
+            //cout<<"case 2 "<<smearvalue<<endl;
+        }
+
+        // Smear extreme tails by exponential function
+        if( nr_rand < 0.1*ProjectedDecayLengthError )
+        {
+            //TRandom3 *rnd2 = new TRandom3();
+            Double_t nr_rand2 = rnd2.Rndm();
+            Double_t randtemp = 2*nr_rand2-1;
+            Float_t sign = randtemp/TMath::Abs(randtemp);
+            ProjectedDecayLength += sign*TMath::Log(1-TMath::Abs(randtemp))/(-exponent);
+            //delete rnd2;
+            //cout<<"case 3 "<<sign*TMath::Log(1-TMath::Abs(randtemp))/(-exponent)<<endl;
+            //cout<<ProjectedDecayLengthError<<" "<<randtemp<<" "<<nr_rand2<<endl;
+        }
+        //delete rnd;
+    }
+
+    fProjectedDecayLengthError = ProjectedDecayLengthError;
+    fSignificanceSmeared = ProjectedDecayLength / ProjectedDecayLengthError;
+    fProjDecayLengthSmeared = ProjectedDecayLength;
+
+    // what to return better?
+    fSignificance = fSignificanceSmeared;
+    fProjDecayLength = ProjectedDecayLength;
+
+    return          fSignificanceSmeared;
 }
 
 void TVertex::SetVertexCoordinates(Float_t x, Float_t y, Float_t z) {
