@@ -95,24 +95,36 @@ Float_t TVertex::CalculateVertexSignificance() {
     if (fApplySmearing) {
 
         Double_t nr_rand = rnd.Rndm();
-        Float_t exponent = 5.;
+
+        // default values - are set outside the class
+        Float_t SmearingGauss1Width = fSmearingGauss1Width;
+        Float_t SmearingGauss1Prob = fSmearingGauss1Prob;
+        Float_t SmearingGauss2Width = fSmearingGauss2Width;
+        Float_t SmearingGauss2Prob = fSmearingGauss2Prob;
+        Float_t exponent = fSmearingExpCoeff;
+
+        // for highest eta bin using a bit different parameters
+        if ( (1.6 < fAxisEta) && (fAxisEta < 2.2) ) {
+            SmearingGauss1Prob = 0.09;
+            SmearingGauss2Prob = 0.006;
+        }
 
         // Smear core by Gaussian
-        if( nr_rand < 0.05 ) {
+        if( nr_rand < SmearingGauss1Prob ) {
             Double_t nr_rand_gauss = rnd.Gaus();
-            Float_t smearvalue = 1.8*ProjectedDecayLengthError*nr_rand_gauss;
+            Float_t smearvalue = SmearingGauss1Width * ProjectedDecayLengthError * nr_rand_gauss;
             ProjectedDecayLength += smearvalue;
         }
 
         // Smear intermediate tails by Gaussian
-        if( nr_rand < 0.01 ) {
+        if( nr_rand < SmearingGauss2Prob ) {
             Double_t nr_rand_gauss = rnd.Gaus();
-            Float_t smearvalue = 2.3*ProjectedDecayLengthError*nr_rand_gauss;
+            Float_t smearvalue = SmearingGauss2Width * ProjectedDecayLengthError * nr_rand_gauss;
             ProjectedDecayLength += smearvalue;
         }
 
         // Smear extreme tails by exponential function
-        if( nr_rand < 0.1*ProjectedDecayLengthError ) {
+        if( nr_rand < fSmearingExpProb * ProjectedDecayLengthError ) {
             Double_t nr_rand2 = rnd2.Rndm();
             Double_t randtemp = 2*nr_rand2-1;
             Float_t sign = randtemp/TMath::Abs(randtemp);
