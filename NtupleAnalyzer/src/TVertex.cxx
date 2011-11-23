@@ -30,6 +30,9 @@ TVertex::~TVertex() {
 // calculates projected decay length
 Float_t TVertex::CalculateVertexProjectedDecayLength() {
 
+    // v02: the finder returns 666 if the vertex was not found for this jet;
+    // most likely disappears in the following CN versions but still keeping
+    // so that can potentially be used for v02
     if ((fVertexX==666)||(fVertexY==666)||(fVertexZ==666)) return (-999);
         
     Float_t     deltaX=fVertexX-fPrimaryVertexX;
