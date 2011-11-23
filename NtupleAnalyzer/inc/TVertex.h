@@ -33,6 +33,13 @@ class TVertex
 		void 		SetTrackParameters(Int_t ntracks, Float_t    helices[30][5], Float_t helixcov[30][15], Float_t * trackmom);
                 void            SetTrackPt(Int_t ntracks, Float_t   * trackpT);
 		void		SetApplySmearing(bool applysmearing);
+                void            SetSmearingGauss1Prob(Double_t value) {fSmearingGauss1Prob = value;};
+                void            SetSmearingGauss1Width(Double_t value) {fSmearingGauss1Width = value;};
+                void            SetSmearingGauss2Prob(Double_t value) {fSmearingGauss2Prob = value;};
+                void            SetSmearingGauss2Width(Double_t value) {fSmearingGauss2Width = value;};
+                void            SetSmearingExpProb(Double_t value) {fSmearingExpProb = value;};
+                void            SetSmearingExpCoeff(Double_t value) {fSmearingExpCoeff = value;};
+
                 void            SetDropTracks(bool drop_tracks) {fDropTracks = drop_tracks;};
                 void            SetDropTrackProbability(Float_t prob) {fDropProbability = prob;};
                 void            SetVertexMass(Float_t mass) {fMass = mass;};
