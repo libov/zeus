@@ -132,6 +132,12 @@ class TVertex
                 Float_t		fTrackPT[30];
 
 	        bool		fApplySmearing;
+                Double_t        fSmearingGauss1Prob;
+                Double_t        fSmearingGauss1Width;
+                Double_t        fSmearingGauss2Prob;
+                Double_t        fSmearingGauss2Width;
+                Double_t        fSmearingExpProb;
+                Double_t        fSmearingExpCoeff;
 
                 // flag that says whether drop tracks from the vertex or keep them all 
                 // (for evaluation of systematics uncertainty due to tracking inefficiency)
@@ -147,7 +153,5 @@ class TVertex
                 Float_t         fZUFO_jet_ratio;
                 Float_t         fCAL_total_ratio;
                 Int_t           fZUFO_type;
-    
 };
-
 #endif
