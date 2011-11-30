@@ -1,0 +1,3 @@
+Float_t     Trkmsa_imppar       [200]           [Trkmsa_ntracks]
+Float_t     Trkmsa_imperr       [200]           [Trkmsa_ntracks]
+Float_t     Trkmsa_pca          [200][3]        [Trkmsa_ntracks][3]

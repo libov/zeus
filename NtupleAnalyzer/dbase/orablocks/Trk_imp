@@ -1,0 +1,3 @@
+Float_t         Trk_imppar      [400]       [Trk_ntracks]
+Float_t         Trk_imperr      [400]       [Trk_ntracks]
+Float_t         Trk_pca         [400][3]    [Trk_ntracks][3]

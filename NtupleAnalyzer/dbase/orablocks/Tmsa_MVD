@@ -1,0 +1,5 @@
+Int_t       Trkmsa_nbr          [200]          [Trkmsa_ntracks]
+Int_t       Trkmsa_nbz          [200]          [Trkmsa_ntracks]
+Int_t       Trkmsa_nwu          [200]          [Trkmsa_ntracks]
+Int_t       Trkmsa_nwv          [200]          [Trkmsa_ntracks]
+Float_t     Trkmsa_dedxmvd      [200]          [Trkmsa_ntracks]

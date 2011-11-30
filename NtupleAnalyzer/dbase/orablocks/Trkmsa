@@ -1,0 +1,8 @@
+Int_t           Trkmsa_ntracks
+Int_t           Trkmsa_id       [200]       [Trkmsa_ntracks]
+Float_t         Trkmsa_px       [200]       [Trkmsa_ntracks]
+Float_t         Trkmsa_py       [200]       [Trkmsa_ntracks]
+Float_t         Trkmsa_pz       [200]       [Trkmsa_ntracks]
+Float_t         Trkmsa_charge   [200]       [Trkmsa_ntracks]
+Int_t           Trkmsa_ndof     [200]       [Trkmsa_ntracks]
+Float_t         Trkmsa_chi2     [200]       [Trkmsa_ntracks]
