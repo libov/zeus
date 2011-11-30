@@ -6,6 +6,7 @@ export DATABASE_PATH=$ANALYSIS/db
 
 export MINI_NTUPLES_PATH_v02=/acs/users/libov/analysis/data/Minintuples/v02
 export MINI_NTUPLES_PATH_v06=/acs/users/libov/analysis/data/Minintuples/v06
+export MINI_NTUPLES_PATH_v06_tracking=/acs/users/libov/analysis/data/Minintuples/v06_tracking
 export MINI_NTUPLES_PATH_tmp=/data/zenith234b/libov/data/Minintuples_tmp
 
 export HISTO_PATH=/data/zenith226a/libov/data/histo
