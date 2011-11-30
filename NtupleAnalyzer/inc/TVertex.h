@@ -33,49 +33,49 @@ class TVertex
 		void 		SetTrackParameters(Int_t ntracks, Float_t    helices[30][5], Float_t helixcov[30][15], Float_t * trackmom);
                 void            SetTrackPt(Int_t ntracks, Float_t   * trackpT);
 		void		SetApplySmearing(bool applysmearing);
-                void            SetSmearingGauss1Prob(Double_t value) {fSmearingGauss1Prob = value;};
-                void            SetSmearingGauss1Width(Double_t value) {fSmearingGauss1Width = value;};
-                void            SetSmearingGauss2Prob(Double_t value) {fSmearingGauss2Prob = value;};
-                void            SetSmearingGauss2Width(Double_t value) {fSmearingGauss2Width = value;};
-                void            SetSmearingExpProb(Double_t value) {fSmearingExpProb = value;};
-                void            SetSmearingExpCoeff(Double_t value) {fSmearingExpCoeff = value;};
+                void            SetSmearingGauss1Prob(Double_t value) {fSmearingGauss1Prob = value;}
+                void            SetSmearingGauss1Width(Double_t value) {fSmearingGauss1Width = value;}
+                void            SetSmearingGauss2Prob(Double_t value) {fSmearingGauss2Prob = value;}
+                void            SetSmearingGauss2Width(Double_t value) {fSmearingGauss2Width = value;}
+                void            SetSmearingExpProb(Double_t value) {fSmearingExpProb = value;}
+                void            SetSmearingExpCoeff(Double_t value) {fSmearingExpCoeff = value;}
 
-                void            SetDropTracks(bool drop_tracks) {fDropTracks = drop_tracks;};
-                void            SetDropTrackProbability(Float_t prob) {fDropProbability = prob;};
-                void            SetVertexMass(Float_t mass) {fMass = mass;};
-                void            SetChi2(Float_t chi2) {fChi2 = chi2;};
-                void            SetNTracks(Int_t ntracks) {fNumberOfTracks=ntracks;};
+                void            SetDropTracks(bool drop_tracks) {fDropTracks = drop_tracks;}
+                void            SetDropTrackProbability(Float_t prob) {fDropProbability = prob;}
+                void            SetVertexMass(Float_t mass) {fMass = mass;}
+                void            SetChi2(Float_t chi2) {fChi2 = chi2;}
+                void            SetNTracks(Int_t ntracks) {fNumberOfTracks=ntracks;}
 
-                void            SetZUFO_jet_ratio(Float_t  ZUFO_jet) {fZUFO_jet_ratio = ZUFO_jet;};
-                void            SetCAL_total_ratio(Float_t  CAL_total) {fCAL_total_ratio = CAL_total;};
-                void            SetZUFO_type(Int_t type) {fZUFO_type = type;};
+                void            SetZUFO_jet_ratio(Float_t  ZUFO_jet) {fZUFO_jet_ratio = ZUFO_jet;}
+                void            SetCAL_total_ratio(Float_t  CAL_total) {fCAL_total_ratio = CAL_total;}
+                void            SetZUFO_type(Int_t type) {fZUFO_type = type;}
 
                 // various getters
                 void            GetTrackParameters(Int_t & ntracks, Float_t    helices[30][5], Float_t helixcov[30][15], Float_t * trackmom);
                 void            GetTrackPt(Float_t   * trackpT);
-                void            GetVertexCoordinates (Float_t & x, Float_t & y, Float_t & z) {x = fVertexX; y = fVertexY; z = fVertexZ;};
-                Float_t*        GetVertexCovariance () { return fVertexCovariance;};
+                void            GetVertexCoordinates (Float_t & x, Float_t & y, Float_t & z) {x = fVertexX; y = fVertexY; z = fVertexZ;}
+                Float_t*        GetVertexCovariance () { return fVertexCovariance;}
                 void            GetVertexTracks(Int_t & ntracks, Int_t * trackIDs);
-                Float_t         GetVertexMass() { return fMass;};
-                Float_t         GetVertexSignificance() {return fSignificance;};
-                Float_t         GetVertexProjectedDecayLength(){ return fProjDecayLength;};
-                Float_t         GetVertexProjectedDecayLengthError() {return fProjectedDecayLengthError;};
-                Float_t         GetVertexDecayLength() {return fDecayLength;};
-                Float_t         GetAxisPhi() {return fAxisPhi;};
-                Float_t         GetAxisEta() {return fAxisEta;};
-                Float_t         GetPrimaryVertexXError() {return fPrimaryVertexXError;};
-                Float_t         GetPrimaryVertexYError() {return fPrimaryVertexYError;};
-                Float_t         GetPrimaryVertexCoordinateX() {return fPrimaryVertexX;};
-                Float_t         GetPrimaryVertexCoordinateY() {return fPrimaryVertexY;};
-                Float_t         GetPrimaryVertexCoordinateZ() {return fPrimaryVertexZ;};
-                Int_t           GetNTracks() {return fNumberOfTracks;};
-                unsigned        GetNTracksDropped(){return fTracks_dropped;};
-                Float_t         GetChi2() {return fChi2;};
+                Float_t         GetVertexMass() { return fMass;}
+                Float_t         GetVertexSignificance() {return fSignificance;}
+                Float_t         GetVertexProjectedDecayLength(){ return fProjDecayLength;}
+                Float_t         GetVertexProjectedDecayLengthError() {return fProjectedDecayLengthError;}
+                Float_t         GetVertexDecayLength() {return fDecayLength;}
+                Float_t         GetAxisPhi() {return fAxisPhi;}
+                Float_t         GetAxisEta() {return fAxisEta;}
+                Float_t         GetPrimaryVertexXError() {return fPrimaryVertexXError;}
+                Float_t         GetPrimaryVertexYError() {return fPrimaryVertexYError;}
+                Float_t         GetPrimaryVertexCoordinateX() {return fPrimaryVertexX;}
+                Float_t         GetPrimaryVertexCoordinateY() {return fPrimaryVertexY;}
+                Float_t         GetPrimaryVertexCoordinateZ() {return fPrimaryVertexZ;}
+                Int_t           GetNTracks() {return fNumberOfTracks;}
+                unsigned        GetNTracksDropped(){return fTracks_dropped;}
+                Float_t         GetChi2() {return fChi2;}
 
 
-                Float_t         GetZUFO_jet_ratio() {return fZUFO_jet_ratio;};
-                Float_t         GetCAL_total_ratio() {return fCAL_total_ratio;};
-                Int_t           GetZUFO_type() {return fZUFO_type;};
+                Float_t         GetZUFO_jet_ratio() {return fZUFO_jet_ratio;}
+                Float_t         GetCAL_total_ratio() {return fCAL_total_ratio;}
+                Int_t           GetZUFO_type() {return fZUFO_type;}
 
                 void            Print();
 
