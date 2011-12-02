@@ -95,7 +95,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             // there will be a buffer overflow - and that can lead to any consequences - namely overwriting
             // some variables with arbitrary values; in the best case, the program crashes, in the worst - 
             // gives wrong results.
-            fChain->GetEntry(i);        
+            fChain->GetEntry(i);
         } catch(exception& e){
             cout << " Failed to get entry. Exception: " << e.what() << endl;
             cout << " Terminating." << endl;
