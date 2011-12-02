@@ -181,7 +181,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             // if this MC event passes true cuts on Q2 and y:
             if (InFiducial) {
 
-                // calcualte weight for the true cross-sections (for charm and beauty MC)
+                // calculate weight for the true cross-sections (for charm and beauty MC)
                 if ( fIsCharm ) fTrueQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
                 if ( fIsBeauty ) {
                     fTrueQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
