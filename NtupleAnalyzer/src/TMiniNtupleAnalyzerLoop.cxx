@@ -255,22 +255,22 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         // for each jet the weight will be different
                         Double_t    TOTAL_WEIGHT = currentTGlobalBin -> GetWeightingFactor ();
                         for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
-    
+
                             // create a ROOT Lorentz vector whith - a jet 4-momentum
                             TLorentzVector	jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
-    
+
                             //Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
                             fTrueJetEta=jet.Eta();
                             fTrueJetEt=jet.Et();
                             fTrueJetPhi=jet.Phi();
-    
+
                             // ROOT gives values in range [-pi, pi]. We need [0, 2*pi]
                             if (fTrueJetPhi<0) fTrueJetPhi += (2*TMath::Pi());
-    
+
                             // Fiducial volume cuts, true jet level
                             if ( ( fTrueJetEta > fJetEtaUpCut ) || ( fTrueJetEta < fJetEtaLowCut ) ) continue;
                             if ( fTrueJetEt < fJetEtCut ) continue;
-    
+
                             //Check whether jet is in current bin, true jet level
                             if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
 
@@ -311,10 +311,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin->FillHistogram("q2da_reso", Siq2da[0] - TMath::Abs(f_true_q.M2()));
                         currentTGlobalBin->FillHistogram("q2el_reso", Siq2el[0] - TMath::Abs(f_true_q.M2()));
                         currentTGlobalBin->FillHistogram("q2jb_reso", Siq2jb[0] - TMath::Abs(f_true_q.M2()));
-    
+
                         currentTGlobalBin->FillHistogram("Wda_reso", fWda - fW_true);
                         currentTGlobalBin->FillHistogram("W_reso", f_gamma_p.M() - fW_true);
-    
+
                         currentTGlobalBin->FillHistogram("photon_energy_gp_reso", fq.E() - f_true_q.E());
                     }
 
@@ -423,7 +423,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 double et_jet =  Kt_etjet_b[correspjetB];
                 double theta_jet = 2 * atan( TMath::Exp( (-1) * eta_jet) );
                 double e_jet = et_jet/sin(theta_jet);
-                        
+
                 unsigned    matched = 0;
                 double      matched_et = 0;
                 double      matched_e = 0;
@@ -451,7 +451,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     double  deta = eta_jet - eta_zufo;
 
                     double R = sqrt( dphi*dphi + deta*deta );
-            
+
                     if (R<1) {
                         matched++;
                         matched_et += et_zufo;
@@ -483,9 +483,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 if (fVaryTotalJetEnergy) {
                     CAL_fraction = 1;
                 }
-                  
+
                 double  e_jet_CAL = e_jet * CAL_fraction;
-                        
+
                 double jet_energy_variation = e_jet_CAL * fJetEnergyUncertainty;
 
                 Kt_etjet_b[correspjetB] += jet_energy_variation * sin(theta_jet);
@@ -528,14 +528,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             vtx.ProjDecayLength = ProjDecayLength;
             vtx.fJetB = correspjetB;
             vtx.chi2ndf = chi2ndf;
-    
+
             // for jet energy scale studies
             if (fDoJetEnergyScaleSyst) {
                 vtx.SetZUFO_jet_ratio(ZUFO_jet_ratio);
                 vtx.SetCAL_total_ratio(CAL_total_ratio);
                 vtx.SetZUFO_type(ZUFO_type);
             }
-    
+
             // ok, a good vertex was found, store it to array and raise the good-vtx-found flag
             fVertices.push_back(vtx);
             fSecondaryVertexFound=true;
@@ -549,30 +549,30 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             // secondary vertex selection - version v04/v06
             // don't loop over jets anymore as in v02, loop over all secondaries instead
             for (int vertex=0; vertex < Nr_secvtx; vertex++) {
-                                                    
+
                 fDebugSVTX->Fill(0);
-    
+
                 // consider only vertices with jet from block B as a reference
                 // type 2 = ktJetsB as a reference
                 // (no need to match jets A to B anymore)
                 if (Vtxsec_type[vertex] != 2) continue;
                 fDebugSVTX->Fill(1);
-    
+
                 // get id of the vertex
                 int correspjetB = Vtxsec_ref[vertex] - 1;    // -1 is to correct for fortran/C++ indexing convention
-    
+
                 // JET ET CUT
                 if ( Kt_etjet_b[correspjetB] < fJetEtCut) continue;
                 fDebugSVTX->Fill(2);
-    
+
                 // JET ETA CUT
                 if ( ( Kt_etajet_b[correspjetB] > fJetEtaUpCut ) || ( Kt_etajet_b[correspjetB] < fJetEtaLowCut ) ) continue;
                 fDebugSVTX->Fill(3);
-    
+
                 // now look at the vertex; TVertex class is designed to deal with e.g. calculations of significance
                 // and revertexing in case of evaluation of tracking uncertainty due to tracking inefficiency
                 TVertex cVtx;
-    
+
                 // check whether smearing should be applied
                 if (fApplySmearing && fIsMC) { 
                     cVtx.SetApplySmearing(true);
@@ -585,10 +585,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 } else {
                     cVtx.SetApplySmearing(false);
                 }
-                            
+
                 // set coordinates of the secondary vertex as given from Orange
                 cVtx.SetVertexCoordinates(Vtxsec_x[vertex], Vtxsec_y[vertex], Vtxsec_z[vertex]);
-    
+
                 // set coordinates of the primary vertex; TODO: this might be wrong conceptually
                 // that we have to store primary vertex coordinates for the secondary vertex, but stick to this now
                 // NOTE: if reduced primary vertex to be calculated for each vertex, then this is correct
@@ -600,7 +600,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     bsptx = Bspt_x + Bspt_dxdz * (Vtxredprm_z[Nr_redprm - 1] - Bspt_z);
                     bspty = Bspt_y + Bspt_dydz * (Vtxredprm_z[Nr_redprm - 1] - Bspt_z);
                 }
-    
+
                 if (fIsMC) {
                     // v04b
                     bsptx = Bspt_x + Vtxredprm_z[Nr_redprm - 1] * (-0.00027) ;
@@ -616,7 +616,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     bsptx = Bspt_x + Bspt_dxdz * (Vtxredprim_z[Nr_redprim - 1] - Bspt_z);
                     bspty = Bspt_y + Bspt_dydz * (Vtxredprim_z[Nr_redprim - 1] - Bspt_z);
                 }
-    
+
                 if (fIsMC) {
                     // v06
                     bsptx = Bspt_x + Vtxredprim_z[Nr_redprim - 1] * (-0.00027) ;
@@ -624,7 +624,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 }
                 cVtx.SetPrimaryVertexCoordinates(bsptx, bspty, Vtxredprim_z[Nr_redprim - 1]);
                 #endif
-    
+
                 // set reference axis for this vertex
                 cVtx.SetAxisVector(Kt_etajet_b[correspjetB], Kt_phijet_b[correspjetB]);
 
@@ -636,54 +636,54 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Bspt_xer=0.0080;
                     Bspt_yer=0.0022;
                 }
-    
+
                 // set beam spot size as error on primary vertex coordinate
                 // only X, Y are relevant, NULL for Z is just dummy
                 cVtx.SetPrimaryVertexCoordinatesError(Bspt_xer, Bspt_yer, 0 );
-    
+
                 // now get secondary vertex covariance matrix from orange, and set it to the vertex
                 Float_t * Vtxsec_cov_tmp = new Float_t [6];
                 for (int k=0; k<6; k++) Vtxsec_cov_tmp[k] = Vtxsec_cov[vertex][k];
                 cVtx.SetVertexCovariance(Vtxsec_cov_tmp);
                 delete[] Vtxsec_cov_tmp;
-    
+
                 // now ready for significance calculation
                 Float_t     Significance = cVtx.CalculateVertexSignificance();
-    
+
                 // I'm not sure whether this can be removed for v04, so keep for the timebeing (the 2nd one has some effect!)
                 if (Significance==(-999)) continue;
                 fDebugSVTX->Fill(4);
                 if (Significance==(-998)) continue;
                 fDebugSVTX->Fill(5);
-    
+
                 // chi2ndf is available directly from orange
                 Float_t chi2ndf=Vtxsec_chi2[vertex]/Vtxsec_ndf[vertex];
                 cVtx.chi2ndf=chi2ndf;
                 cVtx.SetVertexMass(Vtxsec_mass[vertex]);
                 cVtx.SetChi2(Vtxsec_chi2[vertex]);
                 cVtx.SetNTracks(Vtxsec_multi[vertex]);
-    
+
                 // leftover from v02
                 cVtx.id=vertex;
                 cVtx.fJetB=correspjetB;
-    
+
                 // if selected, do a uncertainty estimation due to tracking inefficiency,
                 // that is drop tracks with a certain probability which is a measure of how well
                 // tracking efficiency is known in the Monte Carlo simulation
                 if (fIsMC && fDropTracks) {
-    
+
                     // specific for v04/v06; get track helix parameters and covariance for tracks
                     // belonging to a secondary vertex
-    
+
                     // some initializations
                     Float_t     trackhelix[60][5];
                     Float_t     trackhelixcov[60][15];
                     Float_t     trackmomentum[60];
                     Int_t       trackIDs[60];
-                    
+
                     // loop over tracks belonging to the vertex
                     for (int k=0; k<Vtxsec_multi[vertex]; k++) {
-    
+
                         // try to find this track in the Tracking block
                         int track_id = -1;
                         for (int j = 0; j<Trk_ntracks; j++){
@@ -692,34 +692,34 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                                 break;
                             }
                         }
-    
+
                         // sanity check
                         if (track_id == -1) {
                             cout << "Unable to find vertex track in the Tracking block. Terminating" << endl;
                             abort();
                         }
-    
+
                         // get helix parameters from the Tracking block
                         for (int j=0; j<5; j++){
                             trackhelix[k][j] = Trk_helpar[track_id][j]; 
                         }
-    
+
                         // get helix parameter covariance from orange
                         for (int j=0; j<15; j++){
                             trackhelixcov[k][j] = Trk_covmat[track_id][j];
                         }
-    
+
                         // get track momentum
                         trackmomentum[k] = Trk_helmom[track_id];
 
                         // now save also track ID
                         trackIDs[k] = track_id;
                     }
-    
+
                     // ok, set all track parameters
                     cVtx.SetTrackParameters(Vtxsec_multi[vertex], trackhelix, trackhelixcov, trackmomentum);
                     cVtx.SetVertexTracks(Vtxsec_multi[vertex], trackIDs);
-    
+
                     // do the fits
                     // first redo the fit without track dropping in order to check that results
                     // are the same as in ORANGE
@@ -727,7 +727,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // refit the vertex; this makes the fit, updates relevant TVertex parameters
                     // (coordinates and covariance matrix), recalculates significance, chi2ndf, mass and updates those parameters
                     cVtx.RefitVertex();
-    
+
                     // various sanity checks below (to check if results are the same as in orange)
                     const Float_t   EQUALITY_CRITERION = 1e-6;
                     // sanity check: compare to what we got in orange
@@ -739,14 +739,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t   diffX = fabs ( (Vtxsec_x[vertex] - vertexX_refitted) / Vtxsec_x[vertex] );
                     Float_t   diffY = fabs ( (Vtxsec_y[vertex] - vertexY_refitted) / Vtxsec_y[vertex] );
                     Float_t   diffZ = fabs ( (Vtxsec_z[vertex] - vertexZ_refitted) / Vtxsec_z[vertex] );
-    
+
                     if ( ( diffX > EQUALITY_CRITERION ) || ( diffY > EQUALITY_CRITERION ) || ( diffZ > EQUALITY_CRITERION )) {
                         cout << "WARNING: refitted vertex coordinates without track dropping are not the same as from orange!! Terminating!" << endl;
                         cout << "X: " << Vtxsec_x[vertex] << " " << vertexX_refitted << endl;
                         cout << "Y: " << Vtxsec_y[vertex] << " " << vertexY_refitted << endl;
                         cout << "Z: " << Vtxsec_z[vertex] << " " << vertexZ_refitted << endl;
                     }
-    
+
                     // another sanity check: covariance matrices
                     Float_t * cov_refitted = cVtx.GetVertexCovariance();
                     for (unsigned j = 0; j < 6; j++ ) {
@@ -756,21 +756,21 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                             cout << Vtxsec_cov[vertex][j] << " --> " << cov_refitted[j] << endl;
                         }
                     }
-    
+
                     // mass sanity check
                     Float_t   mass_diff = fabs ( (Vtxsec_mass[vertex] - cVtx.GetVertexMass()) / Vtxsec_mass[vertex] );
                     if (mass_diff > EQUALITY_CRITERION) {
                         cout << "WARNING: Mass of refitted vertex isn't equal to the mass from Orange!\n";
                         cout << Vtxsec_mass[vertex] <<" -> " << cVtx.GetVertexMass() << endl;
                     }
-                            
+
                     // chi2ndf sanity check
                     Float_t   diff_chi2ndf = fabs((chi2ndf - cVtx.chi2ndf) / chi2ndf);
                     if (diff_chi2ndf > EQUALITY_CRITERION) {
                         cout << "WARNING: chi2/ndf after refit isn't equal to the value from Orange:\n";
                         cout << chi2ndf << " vs " << cVtx.chi2ndf << endl;
                     }
-    
+
                     // drop tracks from the vertex and redo the fit if selected
                     if (fIsMC && fDropTracks) {
                         cVtx.SetDropTracks(true);
@@ -781,15 +781,15 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         if ( ! fit_successful ) continue; 
                     }
                 }
-    
+
                 // the chi2 cut
                 if (cVtx.chi2ndf>6.) continue;
                 fDebugSVTX->Fill(6);
-    
+
                 // and the mass cut
                  if ( (cVtx.GetVertexMass()<1.) || (cVtx.GetVertexMass()>6) ) continue;
                 fDebugSVTX->Fill(7);
-    
+
                 // ok, this is a good vertex/jet; store it to the vector and raise the flag that 
                 // there was at least one good vertex in this event
                 fVertices.push_back(cVtx);
