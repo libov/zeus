@@ -1574,18 +1574,18 @@ void TMiniNtupleAnalyzer::get_gammaP_boost() {
         f_k_prim_reco.SetPxPyPzE(s_theta*cos(Siph[0]), s_theta*sin(Siph[0]), c_theta, 1);
         f_k_prim_reco *= E_prim;
     }
-    
+
     if (q_reco) {
         fq = k - f_k_prim_reco;
     } else {
         fq.SetPxPyPzE(Pboson[0], Pboson[1], Pboson[2], Pboson[3]);
     }
-    
+
     // initial state proton
     TLorentzVector  p(0, 0, 920, sqrt(920*920+0.938*0.938));
     // gamma+p vector
     f_gamma_p = fq + p;
-    
+
     // now boost to gamma p
     // first, get a boost vector;
     // original frame: gamma p rest frame
@@ -1596,7 +1596,7 @@ void TMiniNtupleAnalyzer::get_gammaP_boost() {
     // boosting to gamma p rest frame; these will be needed in gamma-p frame
     fq.Boost(fBoost);
     p.Boost(fBoost);
-    
+
     // now need to rotate the frame, so that z axis is aligned with proton direction
     // get a rotation angle (=angle between old and new z axis, that is proton direction
     // in the old frame)
@@ -1609,7 +1609,7 @@ void TMiniNtupleAnalyzer::get_gammaP_boost() {
     fRotationAxis = z_new.Cross(z_old);
     fq.Rotate(fAngle, fRotationAxis);
     p.Rotate(fAngle, fRotationAxis);
-    
+
     // calculate W from this
     Float_t fWda = sqrt(0.938*0.938 + Siq2da[0]*(1./Sixda[0] - 1));
     // true W
@@ -1617,11 +1617,11 @@ void TMiniNtupleAnalyzer::get_gammaP_boost() {
     TLorentzVector  true_p(0, 0, 920, sqrt(920*920+0.938*0.938));
     TLorentzVector  true_gamma_p = f_true_q + true_p;
     Float_t fW_true = true_gamma_p.M();
-    
+
     // true q
     f_true_q.Boost(fBoost);
     f_true_q.Rotate(fAngle, fRotationAxis);
-    
+
     // true scattered electron
     f_k_prim_true.SetPxPyPzE(Plepton[0], Plepton[1], Plepton[2], Plepton[3]);
 }
