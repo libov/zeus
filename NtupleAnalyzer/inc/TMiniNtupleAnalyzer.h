@@ -116,6 +116,9 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         void            SetStudyResolutions(bool study) {fStudyResolutions = study;};
 
+        void            TrackingEfficiency();
+        void            FindRho(vector<TLorentzVector> &rho, bool  ZTT, Float_t total_energy_zufo);
+        bool            TrackMatch(TLorentzVector track1, TLorentzVector track2);
         // -- analysis-specific variables (not generic)
         // -- change if you want to use for your own analysis
         // NOTE: this remark is rather obsolete, as most of the stuff here is already
@@ -177,6 +180,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Float_t     CalculateSignificance(Int_t	vertex);
         Float_t     CalculateProjDecayLength(Int_t	vertex);
         Bool_t      IsDIS();
+        Bool_t      IsDIS_Rho();
         void        WriteHistograms();
 
         void        GetEtReweightingLF_histo();

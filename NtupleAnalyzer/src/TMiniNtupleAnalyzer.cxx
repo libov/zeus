@@ -240,6 +240,8 @@ void TMiniNtupleAnalyzer::RecalculateLuminosity () {
         true_cross_section = 1.08;
     } else if ( (fSubSet.getFlavourENUM() == TSubSet::kLIGHT) && (fSubSet.getQ2ENUM() == TSubSet::kQ2g4) ) {
         true_cross_section = 319.5;
+    } else if ( (fSubSet.getFlavourENUM() == TSubSet::kRHO) && (fSubSet.getQ2ENUM() == TSubSet::kQ2g1_5) ) {
+        true_cross_section = 0;
     } else {
         cout << "could not determine true cross section of this sample. please check __FILE__. Terminating" << endl;
         abort();
@@ -698,6 +700,59 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS()
         }
 
         fDebug->Fill(19);
+
+        return true;
+}
+
+Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
+    
+        // event counter
+        fDebug->Fill(0);
+
+        if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
+        fDebug->Fill(1);
+
+        if (Sincand<1)              return false;
+        fDebug->Fill(2);
+
+        if (Siprob[0]<0.9)          return false;
+        fDebug->Fill(3);
+
+        if (Siecorr[0][2]<10.)      return false;
+        fDebug->Fill(4);
+
+        if (TMath::Abs(Zvtx)>30.)   return false;
+        fDebug->Fill(5);
+
+        Float_t e_pz_zufos=V_h_e_zu-V_h_pz_zu;
+        if ( (e_pz_zufos<35) || (e_pz_zufos>70) ) return false;
+        fDebug->Fill(6);
+
+        //    to remove events with no reconstructed primary vertex
+        if  ( Ntrkvtx == 0 ) return false;
+        fDebug->Fill(7);
+
+        if (!fIsMC) {
+            #ifdef CN_VERSION_V02
+            // use evtake for v02
+            if ( Evtake <= 0 ) return false;
+            #endif
+
+            #if defined CN_VERSION_V04 || defined CN_VERSION_V06
+            // use evtake_iwant for v04; added 15 March 2011 (see mail from Philipp 23 February 2011)
+            // Q: the same for v06??
+            if ( (Evtake_iwant != 1) && (Evtake_iwant != 2) ) return false;
+            #endif
+        }
+        fDebug->Fill(8);
+
+        if (!fIsMC) {
+            if ( Mvdtake <= 0 ) return false;
+        }
+        fDebug->Fill(9);
+
+//         if (Siq2da[0]<5) return false;
+//         fDebug->Fill(10);
 
         return true;
 }

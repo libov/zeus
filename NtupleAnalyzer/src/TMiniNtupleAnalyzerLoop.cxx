@@ -1826,3 +1826,288 @@ bool TMiniNtupleAnalyzer::isHFLJet(TLorentzVector * jet) {
 Float_t TMiniNtupleAnalyzer::getCharmETweightingFactor(Float_t  jet_et) {
     return (fCharmETReweighting_p0 + fCharmETReweighting_p1 * TMath::Sqrt(jet_et));
 }
+
+void TMiniNtupleAnalyzer::TrackingEfficiency() {
+
+    // helping variable
+    Int_t  Nevents;
+    // check if user selected to run in a test mode
+    unsigned    first_event=0;
+    if (fTestMode) {
+        Nevents = fTestNumberOfEvents;
+        first_event = fTestFirstEvent;
+    } else {
+        Nevents = fNevents;
+    }
+
+    // let user know how many events will be processed
+    cout << "INFO: " << Nevents << " events will be processed" << endl;
+
+    // ********************************************************************************************
+    // ********************************************************************************************
+    // ************************************* MAIN EVENT LOOP **************************************
+    // ********************************************************************************************
+    // ********************************************************************************************
+    for (int i=first_event; i < first_event+Nevents; i++) {
+
+        // print number of processed events every n events;
+        if ( i % fPrintingFreq == 0 )   cout<< " processing event " << i << endl;
+
+        // try to get an entry from the chain
+        // (at some point I had an bad_alloc exception while calling this,
+        // that's why this try-catch block is here)
+        try {
+            // realized it's quite a dangerous function! if the array dimensions are smaller than what is in the Ntuple
+            // there will be a buffer overflow - and that can lead to any consequences - namely overwriting
+            // some variables with arbitrary values; in the best case, the program crashes, in the worst - 
+            // gives wrong results.
+            fChain->GetEntry(i);        
+        } catch(exception& e){
+            cout << " Failed to get entry. Exception: " << e.what() << endl;
+            cout << " Terminating." << endl;
+            abort();
+        }
+
+        // DIS event selection
+        if (!IsDIS_Rho()) continue;
+
+        // selection of rho mesons
+
+        // max 3 tracks are allowed
+        if (Trk_ntracks > 3) continue;
+
+        // calculate number of non-electron ZTT tracks
+        // that come from the primary vertex
+        Int_t   ZTT_tracks=0;
+        for (int j = 0; j < Trk_ntracks; j++) {
+            if (Trk_id[j] == Sitrknr[0]) continue;
+            if (Trk_prim_vtx[j] != 1) continue;
+            ZTT_tracks++;
+        }
+
+        // drop those events which have 3 good ZTT tracks (only those
+        // 3-track events should be allowed for which one of the tracks is an electron)
+        // if (ZTT_tracks>2) continue;
+
+        // loop over all zufos to calculate the total energy
+        Float_t     total_energy_zufo = 0;
+        for (int zufo=0; zufo<Nzufos; zufo++) {
+            if ((Zufo[zufo][3]>0.3) && (Zufo[zufo][3]<10.)) total_energy_zufo += Zufo[zufo][3];
+        }
+
+        Float_t     rho_mass = 0;
+        Float_t     rho_energy = 0;
+        Float_t     phi_mass = 0;
+
+        vector<TLorentzVector> cand_ZTT;
+        vector<TLorentzVector> cand_MSA;
+
+        if (ZTT_tracks==2) {
+            FindRho(cand_ZTT, true, total_energy_zufo);
+        }
+        if ( (ZTT_tracks==1) && (Trkmsa_ntracks==1) ) {
+            FindRho(cand_MSA, false, total_energy_zufo);
+        }
+
+        // sanity check: should not be more than 1 candidate (which consists of 6 entries in the array)
+        if (cand_ZTT.size()>6) abort();
+        if (cand_MSA.size()>6) abort();
+
+        // now fill the histograms
+        // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
+        TGlobalBin      *currentTGlobalBin;
+        TIter           Iter_TGlobalBin(fList_TGlobalBin);
+        while (currentTGlobalBin=(TGlobalBin*) Iter_TGlobalBin.Next()) {
+
+            // check if event satisfies bin's criteria (i.e. event level)
+            Bool_t      GlobalBinFired=currentTGlobalBin->CheckGlobalBin(kEventVar);
+            if (!GlobalBinFired) continue;
+
+            fHistogramsFile->cd(currentTGlobalBin->BinName);
+            // fill histograms for ZTT case
+            if (cand_ZTT.size()!=0) {
+                phi_mass = cand_ZTT[3].M();
+                currentTGlobalBin->FillHistogram("phi_mass_ZTT", phi_mass);
+                // skip if matches phi mass
+                if ((phi_mass<1.012) || (phi_mass>1.028)) {
+                    TLorentzVector  rho = cand_ZTT[0];
+                    TLorentzVector  pi1 = cand_ZTT[1];
+                    TLorentzVector  pi2 = cand_ZTT[2];
+                    // rho mass peak and kinematics for ZTT+ZTT
+                    currentTGlobalBin->FillHistogram("rho_mass_ZTT", rho.M());
+                    currentTGlobalBin->FillHistogram("rho_pt_ZTT", rho.Pt());
+                    currentTGlobalBin->FillHistogram("rho_phi_ZTT", rho.Phi());
+                    currentTGlobalBin->FillHistogram("rho_theta_ZTT", rho.Theta());
+                    // ZTT pions, 1st+2nd tracks
+                    // 1st track
+                    currentTGlobalBin->FillHistogram("pi_pt_ZTT", pi1.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_ZTT", pi1.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_ZTT", pi1.Theta());
+                    // 2nd track
+                    currentTGlobalBin->FillHistogram("pi_pt_ZTT", pi2.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_ZTT", pi2.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_ZTT", pi2.Theta());
+                    // ZTT+MSA pions, 1st+2nd tracks
+                    currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
+                    currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
+                }
+            }
+            // fill histograms for ZTT case
+            if (cand_MSA.size()!=0) {
+                phi_mass = cand_MSA[3].M();
+                currentTGlobalBin->FillHistogram("phi_mass_MSA", phi_mass);
+                if ((phi_mass<1.012) || (phi_mass>1.028)) {
+                    TLorentzVector  rho = cand_MSA[0];
+                    TLorentzVector  pi1 = cand_MSA[1];
+                    TLorentzVector  pi2 = cand_MSA[2];
+                    currentTGlobalBin->FillHistogram("rho_mass_MSA", rho.M());
+                    // ZTT pions, 1st track only!
+                    currentTGlobalBin->FillHistogram("pi_pt_ZTT", pi1.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_ZTT", pi1.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_ZTT", pi1.Theta());
+                    // MSA pions, 2nd track only!
+                    currentTGlobalBin->FillHistogram("pi_pt_MSA", pi2.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_MSA", pi2.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_MSA", pi2.Theta());
+                    // ZTT+MSA pions, 1st+2nd tracks
+                    currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
+                    currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
+                    currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
+                    currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
+                }
+            }
+
+        } // end loop over bins
+
+    } // end loop over events
+
+    // store the histograms to file
+    this->WriteHistograms();
+}
+
+void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  ZTT, Float_t total_energy_zufo) {
+
+    // ZTT = true: look for rho candidates with both tracks ZTT
+    // ZTT = false: look for rho candidates with ZTT and standalone track
+
+    // define constants
+    const Float_t M_PION = 0.139570;
+    const Float_t M_KAON = 0.4937;
+
+    // clear the array
+    cand.clear();
+
+    // loop over track1 candidates; 1st track is always ZTT
+    for (int t1 = 0; t1 < Trk_ntracks; t1++) {
+
+        // ZTT quality cuts for the track1
+        if (Trk_id[t1] == Sitrknr[0]) continue;
+        if (Trk_layouter[t1] < 3) continue;
+        if (Trk_prim_vtx[t1] != 1) continue;
+        if (Trk_imppar[t1]>0.2) continue;
+
+        // create a 4-vector for this track
+        TLorentzVector track1;
+        track1.SetXYZM(Trk_px[t1], Trk_py[t1], Trk_pz[t1], M_PION);
+            
+        // kinematics
+        if (track1.Pt()<0.2) continue;
+        if ((track1.Theta()<0.44) || (track1.Theta()>2.7)) continue;
+
+        if (ZTT) {
+            // loop over track2 candidates
+            for (int t2 = t1+1; t2 < Trk_ntracks; t2++) {
+
+                // ZTT quality cuts for the track2
+                if (Trk_id[t2] == Sitrknr[0]) continue;
+                if (Trk_layouter[t2] < 3) continue;
+                if (Trk_prim_vtx[t2] != 1) continue;
+                if (Trk_imppar[t2]>0.2) continue;
+
+                // tracks should be of opposite charge
+                if ((Trk_charge[t1]*Trk_charge[t2]) > 0) continue;
+
+                // create a 4-vector for this track
+                TLorentzVector track2;
+                track2.SetXYZM(Trk_px[t2], Trk_py[t2], Trk_pz[t2], M_PION);
+                // kinematics
+                if (track2.Pt()<0.2) continue;
+                if ((track2.Theta()<0.44) || (track2.Theta()>2.7)) continue;
+
+                // found a suitable track pair
+                // reconstruct rho candidate now
+                TLorentzVector rho = track1 + track2;
+                // additional requirement
+                if ((total_energy_zufo - rho.E()) > 0.3) continue;
+                // now this is an exclusive rho candidate
+                // rho_mass = rho.M();
+
+                // get phi mass: kaon hypothesis
+                TLorentzVector kaon1, kaon2, phi;
+                kaon1.SetXYZM(Trk_px[t1], Trk_py[t1], Trk_pz[t1], M_KAON);
+                kaon2.SetXYZM(Trk_px[t2], Trk_py[t2], Trk_pz[t2], M_KAON);
+                phi = kaon1 + kaon2;
+                cand.push_back(rho);
+                cand.push_back(track1);
+                cand.push_back(track2);
+                cand.push_back(phi);
+                cand.push_back(kaon1);
+                cand.push_back(kaon2);
+
+            } // end loop over track2 candidates
+        } else {
+            // loop over track2 candidates
+            for (int t2 = 0; t2 < Trkmsa_ntracks; t2++) {
+
+                // MVD SA quality cuts for the track2
+                if (Trkmsa_imppar[t2]>0.2) continue;
+                Int_t   nhits = Trkmsa_nbz[t2] + Trkmsa_nbr[t2];
+                if (nhits<5) continue;
+
+                // tracks should be of opposite charge
+                if ((Trkmsa_charge[t2]*Trk_charge[t1]) > 0) continue;
+
+                // create a 4-vector for this track
+                TLorentzVector track2;
+                track2.SetXYZM(Trkmsa_px[t2], Trkmsa_py[t2], Trkmsa_pz[t2], M_PION);
+                // kinematics
+                if (track2.Pt()<0.2) continue;
+                if ((track2.Theta()<0.44) || (track2.Theta()>2.7)) continue;
+
+                // found a suitable track pair
+                // reconstruct rho candidate now
+                TLorentzVector rho = track1 + track2;
+                // additional requirement
+                if ((total_energy_zufo - rho.E()) > 0.3) continue;
+                // now this is an exclusive rho candidate
+                // rho_mass = rho.M();
+
+                // get phi mass: kaon hypothesis
+                TLorentzVector kaon1, kaon2, phi;
+                kaon1.SetXYZM(Trk_px[t1], Trk_py[t1], Trk_pz[t1], M_KAON);
+                kaon2.SetXYZM(Trkmsa_px[t2], Trkmsa_py[t2], Trkmsa_pz[t2], M_KAON);
+                phi = kaon1 + kaon2;
+                cand.push_back(rho);
+                cand.push_back(track1);
+                cand.push_back(track2);
+                cand.push_back(phi);
+                cand.push_back(kaon1);
+                cand.push_back(kaon2);
+
+            } // end loop over track2 candidates
+        } // end of if (ZTT) statement
+    } // end loop over track1 candidates
+}
+
+bool    TMiniNtupleAnalyzer::TrackMatch(TLorentzVector track1, TLorentzVector track2) {
+    bool matched = false;
+    Float_t delta = track1.DeltaR(track2);
+    if (delta<0.5) matched = true;
+    return matched;
+}
