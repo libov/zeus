@@ -83,7 +83,8 @@ fCharmEtaReweighting_p2(0),
 fCharmETReweighting_p0(1),
 fCharmETReweighting_p1(0),
 fPionThetaReco(0),
-fPionThetaTrue(0)
+fPionThetaTrue(0),
+fPionPtReweightingHisto(NULL)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
