@@ -5,6 +5,8 @@ enum	VariablePhase
 	kEventVar,
 	kVertexVar,
 	kTrueVarEvent,
-	kTrueVarJet
+	kTrueVarJet,
+        kRhoVar,
+        kRhoTrueVar
 };
 #endif
