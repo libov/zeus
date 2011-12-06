@@ -1933,6 +1933,17 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
                 // set fPionThetaReco variable so that CheckGlobalBin can work
                 fPionThetaReco = pi1.Theta();
 
+                // now reweighting for the pt of the pions
+                if (fIsMC) {
+                    // get a bin number
+                    Int_t   bin_rew_histo = getReweightingHistoBin(fPionPtReweightingHisto, pi1.Pt());
+                    // and the value
+                    Double_t    weight = fPionPtReweightingHisto -> GetBinContent(bin_rew_histo);
+                    // set the value we obtained
+                    currentTGlobalBin -> ApplyWeighting (true);
+                    currentTGlobalBin -> SetWeightingFactor (weight);
+                }
+
                 if ( currentTGlobalBin -> CheckGlobalBin(kRhoVar)) {
                     currentTGlobalBin->FillHistogram("phi_mass_ZTT", phi.M());
                     // skip if matches phi mass
@@ -1975,6 +1986,17 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
                 // set fPionThetaReco variable so that CheckGlobalBin can work
                 fPionThetaReco = pi1.Theta();
+
+                // now reweighting for the pt of the pions
+                if (fIsMC) {
+                    // get a bin number
+                    Int_t   bin_rew_histo = getReweightingHistoBin(fPionPtReweightingHisto, pi1.Pt());
+                    // and the value
+                    Double_t    weight = fPionPtReweightingHisto -> GetBinContent(bin_rew_histo);
+                    // set the value we obtained
+                    currentTGlobalBin -> ApplyWeighting (true);
+                    currentTGlobalBin -> SetWeightingFactor (weight);
+                }
 
                 if ( currentTGlobalBin -> CheckGlobalBin(kRhoVar)) {
 
