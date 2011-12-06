@@ -927,8 +927,8 @@ void TMiniNtupleAnalyzer::InitializeRandomGenerators() {
     rnd_eff = new TRandom3(fSeed_rnd_eff);
 }
 
-// gets a weighting factor for true-ET reweighting of light flavour MC
-Int_t    TMiniNtupleAnalyzer::getReweightingHistoBin(TH1F * histo, Float_t   value) {
+// defines a bin number by a value for an arbitrary histogram
+Int_t TMiniNtupleAnalyzer::getReweightingHistoBin(TH1F * histo, Float_t   value) {
 
     // loop over the histogram bins to get the binning
     unsigned    good_bins=0;
