@@ -330,5 +330,6 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
                                                             //!< charm/beauty jets from other (e.g. gluon jets)
         Float_t         fPionThetaReco;                     //!< a variable needed to use theta of the pion for binning
         Float_t         fPionThetaTrue;                     //!< a variable needed to use theta of the pion for binning
+        TH1F*           fPionPtReweightingHisto;            //<! a reweighting histogram for pion pt reweighting
 };
 #endif
