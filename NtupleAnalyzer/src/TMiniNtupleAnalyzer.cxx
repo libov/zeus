@@ -81,12 +81,15 @@ fCharmEtaReweighting_p0(1),
 fCharmEtaReweighting_p1(0),
 fCharmEtaReweighting_p2(0),
 fCharmETReweighting_p0(1),
-fCharmETReweighting_p1(0)
+fCharmETReweighting_p1(0),
+fPionThetaReco(0),
+fPionThetaTrue(0)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
     fDebugSVTX = new TH1F ("fDebugSVTX", "Debug histo for secondary vertex selection", 50, 0, 50);
     fMc_q2_et = new TH2F ("fMc_q2_et", "Q^{2} - E_{T} plane", 200, 0, 35, 200, 0, 3);
+    fMc_pt_theta_pi = new TH2F ("fMc_pt_theta_pi", "p_{T}-#theta of the ZTT #pi", 12, 0, 5, 20, 0, 3.14);
 }
 
 // a public method to initialize the class
@@ -393,6 +396,7 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     fDebug->Write();
     fDebugSVTX->Write();
     fMc_q2_et->Write();
+    fMc_pt_theta_pi -> Write();
     fHistogramsFile->Close();
     cout<<"INFO: Histograms written to file"<<endl;
 }
@@ -709,8 +713,8 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
         // event counter
         fDebug->Fill(0);
 
-        if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
-        fDebug->Fill(1);
+        // if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
+        // fDebug->Fill(1);
 
         if (Sincand<1)              return false;
         fDebug->Fill(2);
@@ -751,8 +755,8 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
         }
         fDebug->Fill(9);
 
-//         if (Siq2da[0]<5) return false;
-//         fDebug->Fill(10);
+        // if (Siq2da[0]<5) return false;
+        // fDebug->Fill(10);
 
         return true;
 }
