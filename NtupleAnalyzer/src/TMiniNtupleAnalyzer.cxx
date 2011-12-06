@@ -193,6 +193,11 @@ void TMiniNtupleAnalyzer::Initialize() {
     // initialize random generators
     InitializeRandomGenerators();
 
+    // get a histogram for pion pt reweighting
+    TString DATABASE_PATH = getenv("DATABASE_PATH");
+    TFile * file_PionPtReweightingHisto = new TFile (DATABASE_PATH + "/" + "pion_pt_reweighting_histo.root", "read" );
+    fPionPtReweightingHisto = (TH1F*) file_PionPtReweightingHisto -> Get("ratio");
+
     cout << "INFO: Initialization of TMiniNtupleAnalyzer object done!" << endl;
 }
 
