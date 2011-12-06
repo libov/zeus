@@ -944,12 +944,12 @@ Int_t TMiniNtupleAnalyzer::getReweightingHistoBin(TH1F * histo, Float_t   value)
         }
 
         if ( good_bins > 1 ) {
-            cout << "too many matches found" << endl;
+            cout << "ERROR: too many matches found" << endl;
             abort();
         } else if (good_bins == 0 ) {
             if (value >= (histo->GetBinLowEdge(histo->GetNbinsX()+1))) bin = histo->GetNbinsX();
             else {
-                cout << "no matches found, but given value is in the histogram range!" << endl;
+                cout << "ERROR: no matches found, but given value is in the histogram range!" << endl;
                 cout << "value: " << value << endl;
                 cout << "nbins: " << histo->GetNbinsX() << endl;
                 cout << "lower edge of last bin " << histo->GetBinLowEdge(histo->GetNbinsX()) << endl;
