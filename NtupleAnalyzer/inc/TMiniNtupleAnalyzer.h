@@ -208,6 +208,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         TH1F*       fDebugSVTX;
 
         TH2F*       fMc_q2_et;
+        TH2F*       fMc_pt_theta_pi;
 
         TString     fBinningFileName;
         TString     fHistogramDeclarationFile;
@@ -327,5 +328,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         bool            isHFLJet(TLorentzVector * jet);     //!< for the true cross section calculation: is used to separate
                                                             //!< charm/beauty jets from other (e.g. gluon jets)
+        Float_t         fPionThetaReco;                     //!< a variable needed to use theta of the pion for binning
+        Float_t         fPionThetaTrue;                     //!< a variable needed to use theta of the pion for binning
 };
 #endif
