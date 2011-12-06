@@ -30,8 +30,7 @@ class Var {
 };
 /**	Sets binning for analysis. Each bin is processed in the same way.
 */
-void TMiniNtupleAnalyzer::SetBinning()
-{
+void TMiniNtupleAnalyzer::SetBinning() {
 	/** choose your binning here, use:
 		TGlobalBin::AddBin(pointer to TBin)
 		TBin::TBin(descripiton of the variable, ptr to it,lowerLimit, upperLimit)
@@ -42,17 +41,17 @@ void TMiniNtupleAnalyzer::SetBinning()
 
 	/** Define mapping: variable ID (TString) --> pointyer to the relevant variable. Found no better way than doing it like this.
 	*/
-	vector <Var>		Variables;
-	Variables.push_back( Var("Q2el", &Siq2el[0], kEventVar, &Mc_q2_cr, kTrueVarEvent) );
-	Variables.push_back( Var("Q2da", &Siq2da[0], kEventVar, &Mc_q2_cr, kTrueVarEvent) );
-	Variables.push_back(Var("xel", &Sixel[0], kEventVar, &Mc_x_cr, kTrueVarEvent  ));
-	Variables.push_back(Var("xda", &Sixda[0], kEventVar, &Mc_x_cr, kTrueVarEvent  ));
-	Variables.push_back(Var("yel", &Siyel[0], kEventVar, &fTrue_y, kTrueVarEvent  ));
-	Variables.push_back(Var("etajet", &fRecoJetEta, kVertexVar, &fTrueJetEta, kTrueVarJet ));
-	Variables.push_back(Var("etjet", &fRecoJetEt, kVertexVar , &fTrueJetEt, kTrueVarJet));
-	Variables.push_back(Var("phijet", &fRecoJetPhi, kVertexVar, &fTrueJetPhi, kTrueVarJet ));
+    vector <Var> Variables;
+    Variables.push_back( Var("Q2el", &Siq2el[0], kEventVar, &Mc_q2_cr, kTrueVarEvent) );
+    Variables.push_back( Var("Q2da", &Siq2da[0], kEventVar, &Mc_q2_cr, kTrueVarEvent) );
+    Variables.push_back(Var("xel", &Sixel[0], kEventVar, &Mc_x_cr, kTrueVarEvent  ));
+    Variables.push_back(Var("xda", &Sixda[0], kEventVar, &Mc_x_cr, kTrueVarEvent  ));
+    Variables.push_back(Var("yel", &Siyel[0], kEventVar, &fTrue_y, kTrueVarEvent  ));
+    Variables.push_back(Var("etajet", &fRecoJetEta, kVertexVar, &fTrueJetEta, kTrueVarJet ));
+    Variables.push_back(Var("etjet", &fRecoJetEt, kVertexVar , &fTrueJetEt, kTrueVarJet));
+    Variables.push_back(Var("phijet", &fRecoJetPhi, kVertexVar, &fTrueJetPhi, kTrueVarJet ));
 
-	map < TString, Var >		VarMap;
+    map < TString, Var > VarMap;
 
 	for (int k=0; k< Variables.size(); k++)
 		VarMap.insert( make_pair( (TString)Variables[k].fVarID, Variables[k]) );
