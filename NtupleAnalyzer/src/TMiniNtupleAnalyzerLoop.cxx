@@ -1846,7 +1846,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
     // ************************************* MAIN EVENT LOOP **************************************
     // ********************************************************************************************
     // ********************************************************************************************
-    for (int i=first_event; i < first_event+Nevents; i++) {
+    for (unsigned i=first_event; i < first_event+Nevents; i++) {
 
         // print number of processed events every n events;
         if ( i % fPrintingFreq == 0 )   cout<< " processing event " << i << endl;
@@ -1859,7 +1859,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             // there will be a buffer overflow - and that can lead to any consequences - namely overwriting
             // some variables with arbitrary values; in the best case, the program crashes, in the worst - 
             // gives wrong results.
-            fChain->GetEntry(i);        
+            fChain->GetEntry(i);
         } catch(exception& e){
             cout << " Failed to get entry. Exception: " << e.what() << endl;
             cout << " Terminating." << endl;
@@ -1893,10 +1893,6 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             if ((Zufo[zufo][3]>0.3) && (Zufo[zufo][3]<10.)) total_energy_zufo += Zufo[zufo][3];
         }
 
-        Float_t     rho_mass = 0;
-        Float_t     rho_energy = 0;
-        Float_t     phi_mass = 0;
-
         vector<TLorentzVector> cand_ZTT;
         vector<TLorentzVector> cand_MSA;
 
@@ -1907,127 +1903,9 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             FindRho(cand_MSA, false, total_energy_zufo);
         }
 
-        // sanity check: should not be more than 1 candidate (which consists of 6 entries in the array)
-        if (cand_ZTT.size()>6) abort();
-        if (cand_MSA.size()>6) abort();
-
         // now fill the histograms
-        // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
-        TGlobalBin      *currentTGlobalBin;
-        TIter           Iter_TGlobalBin(fList_TGlobalBin);
-        while (currentTGlobalBin=(TGlobalBin*) Iter_TGlobalBin.Next()) {
-
-            // check if event satisfies bin's criteria on the event level
-            Bool_t GlobalBinFired=currentTGlobalBin->CheckGlobalBin(kEventVar);
-            if (!GlobalBinFired) continue;
-
-            fHistogramsFile->cd(currentTGlobalBin->BinName);
-
-            // fill histograms for ZTT case
-            if (cand_ZTT.size()!=0) {
-                // pick up the relevant vectors
-                TLorentzVector  rho = cand_ZTT[0];
-                TLorentzVector  pi1 = cand_ZTT[1];
-                TLorentzVector  pi2 = cand_ZTT[2];
-                TLorentzVector  phi = cand_ZTT[3];
-                // set fPionThetaReco variable so that CheckGlobalBin can work
-                fPionThetaReco = pi1.Theta();
-
-                // now reweighting for the pt of the pions
-                if (fIsMC) {
-                    // get a bin number
-                    Int_t   bin_rew_histo = getReweightingHistoBin(fPionPtReweightingHisto, pi1.Pt());
-                    // and the value
-                    Double_t    weight = fPionPtReweightingHisto -> GetBinContent(bin_rew_histo);
-                    // set the value we obtained
-                    currentTGlobalBin -> ApplyWeighting (true);
-                    currentTGlobalBin -> SetWeightingFactor (weight);
-                }
-
-                if ( currentTGlobalBin -> CheckGlobalBin(kRhoVar)) {
-                    currentTGlobalBin->FillHistogram("phi_mass_ZTT", phi.M());
-                    // skip if matches phi mass
-                    if ((phi.M()<1.012) || (phi.M()>1.028)) {
-                        // rho mass peak and kinematics for ZTT+ZTT
-                        currentTGlobalBin->FillHistogram("rho_mass_ZTT", rho.M());
-                        if ( (rho.M()>0.6) && (rho.M()<1.1) ) {
-                            currentTGlobalBin->FillHistogram("rho_pt_ZTT", rho.Pt());
-                            currentTGlobalBin->FillHistogram("rho_phi_ZTT", rho.Phi());
-                            currentTGlobalBin->FillHistogram("rho_theta_ZTT", rho.Theta());
-                            // ZTT pions, 1st+2nd tracks
-                            // 1st track
-                            currentTGlobalBin->FillHistogram("pi_pt_ZTT", pi1.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_ZTT", pi1.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_ZTT", pi1.Theta());
-                            // 2nd track
-                            currentTGlobalBin->FillHistogram("pi_pt_ZTT", pi2.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_ZTT", pi2.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_ZTT", pi2.Theta());
-                            fMc_pt_theta_pi -> Fill(pi1.Pt(), pi1.Theta());
-                            fMc_pt_theta_pi -> Fill(pi2.Pt(), pi2.Theta());
-                            // ZTT+MSA pions, 1st+2nd tracks
-                            currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
-                            currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
-                        }
-                    }
-                }
-            }
-            // fill histograms for ZTT case
-            if (cand_MSA.size()!=0) {
-                // pick up the relevant vectors
-                TLorentzVector  rho = cand_MSA[0];
-                TLorentzVector  pi1 = cand_MSA[1];
-                TLorentzVector  pi2 = cand_MSA[2];
-                TLorentzVector  phi = cand_MSA[3];
-
-                // set fPionThetaReco variable so that CheckGlobalBin can work
-                fPionThetaReco = pi1.Theta();
-
-                // now reweighting for the pt of the pions
-                if (fIsMC) {
-                    // get a bin number
-                    Int_t   bin_rew_histo = getReweightingHistoBin(fPionPtReweightingHisto, pi1.Pt());
-                    // and the value
-                    Double_t    weight = fPionPtReweightingHisto -> GetBinContent(bin_rew_histo);
-                    // set the value we obtained
-                    currentTGlobalBin -> ApplyWeighting (true);
-                    currentTGlobalBin -> SetWeightingFactor (weight);
-                }
-
-                if ( currentTGlobalBin -> CheckGlobalBin(kRhoVar)) {
-
-                    currentTGlobalBin->FillHistogram("phi_mass_MSA", phi_mass);
-                    if ((phi.M()<1.012) || (phi.M()>1.028)) {
-
-                        currentTGlobalBin->FillHistogram("rho_mass_MSA", rho.M());
-
-                        if ( (rho.M()>0.6) && (rho.M()<1.1) ) {
-                            // ZTT pions, 1st track only!
-                            currentTGlobalBin->FillHistogram("pi_pt_ZTT", pi1.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_ZTT", pi1.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_ZTT", pi1.Theta());
-                            fMc_pt_theta_pi -> Fill(pi1.Pt(), pi1.Theta());
-                            // MSA pions, 2nd track only!
-                            currentTGlobalBin->FillHistogram("pi_pt_MSA", pi2.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_MSA", pi2.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_MSA", pi2.Theta());
-                            // ZTT+MSA pions, 1st+2nd tracks
-                            currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
-                            currentTGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
-                            currentTGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
-                            currentTGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
-                        }
-                    }
-                }
-            }
-
-        } // end loop over bins
+        FillRhoHistograms (cand_ZTT, true);
+        FillRhoHistograms (cand_MSA, false);
 
     } // end loop over events
 
@@ -2059,7 +1937,7 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  ZTT, Float
         // create a 4-vector for this track
         TLorentzVector track1;
         track1.SetXYZM(Trk_px[t1], Trk_py[t1], Trk_pz[t1], M_PION);
-            
+
         // kinematics
         if (track1.Pt()<0.2) continue;
         if ((track1.Theta()<0.44) || (track1.Theta()>2.7)) continue;
@@ -2147,6 +2025,130 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  ZTT, Float
             } // end loop over track2 candidates
         } // end of if (ZTT) statement
     } // end loop over track1 candidates
+}
+
+void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT) {
+
+        // sanity check: should not be more than 1 candidate (which consists of 6 entries in the array)
+        if (cand.size()>6) {
+            cout << "ERROR: more than one rho candidate found, shouldn't happen. Terminating..." << endl;
+            abort();
+        }
+
+        // check whether a candidate was found
+        if (cand.size() == 0) return;
+
+        // another sanity check: should be exactly 6 entries at this point
+        if (cand.size() != 6) {
+            cout << "ERROR: wrong number of entries in the array (should be 6)! Terminating..." << endl;
+            abort();
+        }
+
+        // pick up the relevant vectors
+        TLorentzVector  rho = cand[0];
+        TLorentzVector  pi1 = cand[1];
+        TLorentzVector  pi2 = cand[2];
+        TLorentzVector  phi = cand[3];
+
+        // determine pt-reweighting factors for both pions
+        Double_t    weight1;
+        Double_t    weight2;
+        if (fIsMC) {
+            weight1 = getPionPtReweighting(pi1.Pt());
+            weight2 = getPionPtReweighting(pi2.Pt());
+        }
+
+        // now fill the histograms
+        // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
+        TGlobalBin      *cGlobalBin;
+        TIter           Iter_TGlobalBin(fList_TGlobalBin);
+        while ((cGlobalBin=(TGlobalBin*) Iter_TGlobalBin.Next())) {
+
+            // check if event satisfies bin's criteria on the event level
+            Bool_t GlobalBinFired=cGlobalBin->CheckGlobalBin(kEventVar);
+            if (!GlobalBinFired) continue;
+
+            fHistogramsFile->cd(cGlobalBin->BinName);
+
+            // switch on reweighting if mc
+            if (fIsMC) cGlobalBin -> ApplyWeighting(true);
+
+            // the order of histogram filling
+            // 1. rho/phi histograms; for binning, we use the information of the 1st pion
+            // one could alternatively use pi2, the 2nd pion, or choose some particular charge
+            // sign. here we just do the simplest thing, i.e. picking up randomly one of the two
+            // pions for binning
+            // 2. pion histograms; there's no ambiguity here; for each pion its information is
+            // used for binning
+
+            // phi, rho histograms
+
+            // set fPionThetaReco variable so that CheckGlobalBin can work (as discussed above)
+            fPionThetaReco = pi1.Theta();
+
+            // fill the phi mass
+            if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) cGlobalBin->FillHistogram("phi_mass_ZTT", phi.M());
+            // skip if kaon-kaon hypothesis is consistent with phi
+            if ( (phi.M()>1.012) && (phi.M()<1.028) ) continue;
+
+            // fill the rho mass
+            if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) cGlobalBin->FillHistogram("rho_mass_ZTT", rho.M());
+            // skip if not in the peak region
+            if ( (rho.M()<0.6) || (rho.M()>1.1) ) continue;
+
+            // fill the rho histograms
+            if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
+                cGlobalBin->FillHistogram("rho_pt_ZTT", rho.Pt());
+                cGlobalBin->FillHistogram("rho_phi_ZTT", rho.Phi());
+                cGlobalBin->FillHistogram("rho_theta_ZTT", rho.Theta());
+            }
+
+            // pion histograms, 1st pion
+
+            // set fPionThetaReco variable so that CheckGlobalBin can work
+            fPionThetaReco = pi1.Theta();
+            // fill the 1st pion to the histos if it passes the pion cuts
+            if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
+                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight1);
+                cGlobalBin->FillHistogram("pi_pt_ZTT", pi1.Pt());
+                cGlobalBin->FillHistogram("pi_phi_ZTT", pi1.Phi());
+                cGlobalBin->FillHistogram("pi_theta_ZTT", pi1.Theta());
+                cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
+                cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
+                cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
+            }
+
+            // pion histograms, 2nd pion
+            // set fPionThetaReco variable so that CheckGlobalBin can work
+            fPionThetaReco = pi2.Theta();
+            // fill the 1st pion to the histos if it passes the pion cuts
+            if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
+                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight2);
+                // ZTT+ZTT (ZTT=true) or ZTT+MSA (ZTT=false)
+                if (ZTT) {
+                    cGlobalBin->FillHistogram("pi_pt_ZTT", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_phi_ZTT", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_theta_ZTT", pi2.Theta());
+                } else {
+                    cGlobalBin->FillHistogram("pi_pt_MSA", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_phi_MSA", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_theta_MSA", pi2.Theta());
+                }
+                cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
+                cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
+                cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
+            }
+
+        } // end loop over bins
+}
+
+Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
+    // get the bin number corresponding to the given pt
+    Int_t   bin_rew_histo = getReweightingHistoBin(fPionPtReweightingHisto, pt);
+    // get the value
+    Double_t weight = fPionPtReweightingHisto -> GetBinContent(bin_rew_histo);
+    return weight;
+
 }
 
 bool    TMiniNtupleAnalyzer::TrackMatch(TLorentzVector track1, TLorentzVector track2) {
