@@ -32,6 +32,7 @@ class TSubSet {
             kLIGHT=1,
             kCHARM=2,
             kBEAUTY=3,
+            kRHO=4,
             kUNKNOWNFLAVOUR=99
         };
 

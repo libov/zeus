@@ -86,6 +86,8 @@ void TSubSet::Classify() {
         fFlavourENUM = kCHARM;
     } else if (fFlavour.Contains("beauty")) {
         fFlavourENUM = kBEAUTY;
+    } else if (fFlavour.Contains("rho_zeusvm")) {
+        fFlavourENUM = kRHO;
     }
 
     // check if flavour was set and terminate an execution otherwise
