@@ -48,7 +48,7 @@ void TMiniNtupleAnalyzer::SetBinning() {
     Variables.push_back(Var("etajet", &fRecoJetEta, kVertexVar, &fTrueJetEta, kTrueVarJet ));
     Variables.push_back(Var("etjet", &fRecoJetEt, kVertexVar , &fTrueJetEt, kTrueVarJet));
     Variables.push_back(Var("phijet", &fRecoJetPhi, kVertexVar, &fTrueJetPhi, kTrueVarJet ));
-    Variables.push_back(Var("pitheta", &fPionThetaReco, kRhoVar, &fPionThetaTrue, kRhoTrueVar ));
+    Variables.push_back(Var("pitheta", &fPionThetaReco, kPionVar, &fPionThetaTrue, kPionTrueVar ));
 
     map < TString, Var > VarMap;
 

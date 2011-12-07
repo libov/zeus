@@ -118,6 +118,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         void            TrackingEfficiency();
         void            FindRho(vector<TLorentzVector> &rho, bool  ZTT, Float_t total_energy_zufo);
+        void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT);
+        Double_t        getPionPtReweighting (Double_t pt);
         bool            TrackMatch(TLorentzVector track1, TLorentzVector track2);
         // -- analysis-specific variables (not generic)
         // -- change if you want to use for your own analysis

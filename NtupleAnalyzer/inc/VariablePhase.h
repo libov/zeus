@@ -5,7 +5,7 @@ enum VariablePhase {
     kVertexVar,
     kTrueVarEvent,
     kTrueVarJet,
-    kRhoVar,
-    kRhoTrueVar
+    kPionVar,
+    kPionTrueVar
 };
 #endif
