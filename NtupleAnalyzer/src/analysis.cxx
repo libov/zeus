@@ -68,6 +68,7 @@ int main(int argc, char **argv) {
     bool                trigger_period_set = false;
     bool                binning_file_suffix_set = false;
     bool                histogram_version_ending_set = false;
+    bool                run_tracking_efficiency = false;
 
     // flag to distinguish luminosity-only mode
     bool                recalulate_luminosity_only = false;
@@ -95,7 +96,8 @@ int main(int argc, char **argv) {
         {"gaus2prob", required_argument, 0, 3},
         {"gaus2width", required_argument, 0, 4},
         {"expprob", required_argument, 0, 5},
-        {"expcoeff", required_argument, 0, 6}
+        {"expcoeff", required_argument, 0, 6},
+        {"tracking", no_argument, 0, 7}
     };
     // loop over program arguments (i.e. argv array) and store info to above variables depending on an option
     int option;
@@ -163,6 +165,9 @@ int main(int argc, char **argv) {
             case 6:
                 SmearingExpCoeff = atof(optarg);
                 break;
+            case 7:
+                run_tracking_efficiency = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t analysis  -t <Type> -p <Period> [-f <Flavour> -q <Q2> -o <Process> -g <trigger period>] -b <Binning File Suffix> -v <Histograms Version Ending> [-r] [-j <size of the variation of the jet energy scale>] [-l <filename> run on specific filelist; all the sample properties set from the command line will be just dummies]"<<endl;
@@ -173,7 +178,8 @@ int main(int argc, char **argv) {
                 cout << "<Process>:\nkBGF=1,\nkRESOLVED=2\n\n";
                 cout << "<trigger period>:\n0 if none selected; positive integer number denotes subtrigger period as given in the XML file\n\n";
                 cout << "-r : if selected, only recalculation of the luminosity will take place\n\n";
-                cout << "Consult also TSubSet.h for encoding, this might be outdated" << endl;
+                cout << "--tracking\t\trun tracking efficiency code, don't run the analysis\n\n";
+                cout << "Consult also TSubSet.h for encoding, this might be outdated\n" << endl;
                 exit(-1);
             default:
                 cout << "Unknown opiton or missing option argument. The program will terminate, sorry." << endl;
@@ -226,6 +232,7 @@ int main(int argc, char **argv) {
 
     // default name of the file containing histograms declaration
     TString     DeclareHistogramsFileName = "declarehist.cfg";
+    if (run_tracking_efficiency) DeclareHistogramsFileName = "declarehist.tracking.cfg";
     cout<<"INFO: File with histograms declaration: "<< DeclareHistogramsFileName << endl;
 
     // a leftover from times when I didn't drop heavy quarks from inclusive ARIADNE MC
@@ -311,8 +318,15 @@ int main(int argc, char **argv) {
     // Q2 reweighting
     instance -> SetApplyQ2Reweighting(true);
 
-    // eta reweighting
+    // eta reweighting - switch on/off and set the parameters
     instance -> SetApplyCharmEtaReweighting(true);
+    instance -> SetCharmEtaReweighting_p0(0.937);
+    instance -> SetCharmEtaReweighting_p1(0.109);
+    instance -> SetCharmEtaReweighting_p2(0.0715);    // i.e. 0.0888558 / 1.2419
+
+    // Et reweighting
+    instance -> SetApplyCharmETReweighting(true);
+    instance -> SetCharmETReweightingPar(0.753431, 0.189124);
 
     // a flag to say whether we want to do tracking uncertainty studies
     instance -> SetDropTracks (false);
@@ -345,7 +359,7 @@ int main(int argc, char **argv) {
     // use BR and fragm. fraction reweighting routine by S. Viazlo
     instance -> SetSashasReweighting (false);
 
-    // set Et cut for jets
+    // set Et and eta cut for jets
     instance -> SetJetEtCut (4.2);
     instance -> SetUpEtaCut (2.2);
     instance -> SetLowEtaCut (-1.6);
@@ -370,7 +384,7 @@ int main(int argc, char **argv) {
     TString     MINI_NTUPLES_PATH = getenv("MINI_NTUPLES_PATH_v02");
     instance -> SetPathToMiniNtuples(MINI_NTUPLES_PATH);
     instance -> SetMiniNtuplesOn_dCache (true);
-    
+
     // -----------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------
@@ -391,6 +405,15 @@ int main(int argc, char **argv) {
         } else if (type == TSubSet::kDATA) {
             instance -> SetOnlyCalculateEventsPerRun (true);
         }
+    }
+
+    // if selected to run only tracking efficiency part
+    if (run_tracking_efficiency) {
+        instance -> TrackingEfficiency();
+        instance -> setApplyPtReweighting(true);
+        instance -> setApplyPhiReweighting(true);
+        instance -> setDebugPrintout(true);
+        return 0;
     }
 
     // loop over events!
