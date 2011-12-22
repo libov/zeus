@@ -58,6 +58,7 @@ class    TMiniNtupleCreator : public TNtupleAnalyzer
         void        CreateTree();
         void        WriteFile();
         Bool_t      IsGoodEvent();
+        Bool_t      IsGoodRhoEvent();
         void        End();
 };
 #endif
