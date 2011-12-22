@@ -118,9 +118,29 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         void            TrackingEfficiency();
         void            FindRho(vector<TLorentzVector> &rho, bool  ZTT, Float_t total_energy_zufo);
-        void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT);
+        void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT, int candidate_number);
         Double_t        getPionPtReweighting (Double_t pt);
+        Double_t        getPionPtReweighting_v2 (Double_t pt);
+        Double_t        getPionPhiReweighting (Double_t phi);
         bool            TrackMatch(TLorentzVector track1, TLorentzVector track2);
+        int             RhoTrueLevelAnalysis();
+        TVector3        get_pi_plus();
+        TVector3        get_pi_minus();
+        int             get_pi_plus_id();
+        int             get_pi_minus_id();
+        int             get_pi_id(bool is_plus);
+        void            setApplyPtReweighting(bool apply) {fApplyPtReweighting = apply;};
+        void            setApplyPhiReweighting(bool apply) {fApplyPhiReweighting = apply;};
+        void            setDebugPrintout(bool debug) {fDebugPrintout = debug;};
+
+        bool            fTrackNr_histos_filled;
+        unsigned        fPrimary_ZTT_tracks;
+        unsigned        fLong_primary_ZTT_tracks;
+        unsigned        fLong_ZTT_tracks;
+        bool            fApplyPtReweighting;
+        bool            fApplyPhiReweighting;
+        bool            fDebugPrintout;
+
         // -- analysis-specific variables (not generic)
         // -- change if you want to use for your own analysis
         // NOTE: this remark is rather obsolete, as most of the stuff here is already
