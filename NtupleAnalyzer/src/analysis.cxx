@@ -69,6 +69,7 @@ int main(int argc, char **argv) {
     bool                binning_file_suffix_set = false;
     bool                histogram_version_ending_set = false;
     bool                run_tracking_efficiency = false;
+    bool                test_mode = false;
 
     // flag to distinguish luminosity-only mode
     bool                recalulate_luminosity_only = false;
@@ -97,7 +98,8 @@ int main(int argc, char **argv) {
         {"gaus2width", required_argument, 0, 4},
         {"expprob", required_argument, 0, 5},
         {"expcoeff", required_argument, 0, 6},
-        {"tracking", no_argument, 0, 7}
+        {"tracking", no_argument, 0, 7},
+        {"test", no_argument, 0, 8}
     };
     // loop over program arguments (i.e. argv array) and store info to above variables depending on an option
     int option;
@@ -168,6 +170,9 @@ int main(int argc, char **argv) {
             case 7:
                 run_tracking_efficiency = true;
                 break;
+            case 8:
+                test_mode = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t analysis  -t <Type> -p <Period> [-f <Flavour> -q <Q2> -o <Process> -g <trigger period>] -b <Binning File Suffix> -v <Histograms Version Ending> [-r] [-j <size of the variation of the jet energy scale>] [-l <filename> run on specific filelist; all the sample properties set from the command line will be just dummies]"<<endl;
@@ -179,6 +184,7 @@ int main(int argc, char **argv) {
                 cout << "<trigger period>:\n0 if none selected; positive integer number denotes subtrigger period as given in the XML file\n\n";
                 cout << "-r : if selected, only recalculation of the luminosity will take place\n\n";
                 cout << "--tracking\t\trun tracking efficiency code, don't run the analysis\n\n";
+                cout << "--test\t\trun in test mode\n\n";
                 cout << "Consult also TSubSet.h for encoding, this might be outdated\n" << endl;
                 exit(-1);
             default:
@@ -344,7 +350,7 @@ int main(int argc, char **argv) {
     }
     // false - vary only CAL energy, true - vary total jet energy
     instance -> SetVaryTotalJetEnergy(false);
-    
+
     // use fragmentation function reweighting
     instance -> SetFragmentationReweighting(false);
     instance -> SetCharmFragmentationReweightingSize(0);
