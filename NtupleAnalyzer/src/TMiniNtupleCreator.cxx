@@ -217,6 +217,26 @@ Bool_t TMiniNtupleCreator::IsGoodEvent()
     return true;
 }
 
+Bool_t TMiniNtupleCreator::IsGoodRhoEvent()
+{
+    fDebug->Fill(0);
+
+    Bool_t not_recoDIS = ( (Sincand < 1) || (Siprob[0] < 0.9) );
+    if ( not_recoDIS ) return false;
+    fDebug->Fill(1);
+
+    int good_tracks=0;
+    for (int i = 0; i<Trk_ntracks; i++) {
+        if (Trk_id[i] == Sitrknr[0]) continue;
+        if (Trk_prim_vtx[i] != 1) continue;
+        good_tracks++;
+    }
+    if (good_tracks > 2) return false;
+    fDebug->Fill(2);
+
+    return true;
+}
+
 void    TMiniNtupleCreator::End() {
     //! Here should come steps necessary to properly finish the program
     //! 1. create a file for debug histo, write and close
