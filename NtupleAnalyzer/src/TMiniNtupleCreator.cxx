@@ -120,7 +120,7 @@ void    TMiniNtupleCreator::CreateFile(Int_t    currentEvent)
         } else {
             file_name=fPathToMiniNtuples+"/"+fSampleName+"_"+Suffix+"_.root";
         }
-        
+
         sprintf(name, file_name, fCurrentFileNumber);
         fCurrentTreeFile = new TFile(name,"recreate");
         fCurrentTreeFile->cd();
@@ -131,9 +131,9 @@ void    TMiniNtupleCreator::CreateFile(Int_t    currentEvent)
 }
 
 void    TMiniNtupleCreator::CreateTree() {
-        
+
         fCurrentTree = new TTree("orange","reduced ntuple");
-        
+
         if (fCurrentTree != NULL) {
             cout << "INFO: created a TTree obejct\n" << endl;
             AddTreeBranches();
