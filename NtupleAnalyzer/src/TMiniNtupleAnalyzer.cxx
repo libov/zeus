@@ -84,10 +84,12 @@ fCharmETReweighting_p0(1),
 fCharmETReweighting_p1(0),
 fPionThetaReco(0),
 fPionThetaTrue(0),
-fPionPtReweightingHisto(NULL),
 fApplyPtReweighting(false),
 fApplyPhiReweighting(false),
-fDebugPrintout(true)
+fApplyThetaStarReweighting(false),
+fDebugPrintout(true),
+fTrack1Id(-1),
+fTrack2Id(-1)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
@@ -195,11 +197,6 @@ void TMiniNtupleAnalyzer::Initialize() {
 
     // initialize random generators
     InitializeRandomGenerators();
-
-    // get a histogram for pion pt reweighting
-    TString DATABASE_PATH = getenv("DATABASE_PATH");
-    TFile * file_PionPtReweightingHisto = new TFile (DATABASE_PATH + "/" + "pion_pt_reweighting_histo.root", "read" );
-    fPionPtReweightingHisto = (TH1F*) file_PionPtReweightingHisto -> Get("ratio");
 
     cout << "INFO: Initialization of TMiniNtupleAnalyzer object done!" << endl;
 }
@@ -766,6 +763,10 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
 
         // if (Siq2da[0]<5) return false;
         // fDebug->Fill(10);
+
+        // Float_t        x_el_abs=TMath::Abs(Sipos[0][0]);
+        // Float_t        y_el_abs=TMath::Abs(Sipos[0][1]);
+        // if ( (x_el_abs<13.) && (y_el_abs<13.) )        return false;
 
         return true;
 }
