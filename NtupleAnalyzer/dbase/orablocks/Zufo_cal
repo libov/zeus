@@ -1,0 +1,3 @@
+Float_t     Zufoecal    [250]       [Nzufos]
+Float_t     Zufoeemc    [250]       [Nzufos]
+Float_t     Zufopos     [250][3]    [Nzufos][3]

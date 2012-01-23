@@ -1,0 +1,10 @@
+Int_t   Lpssta
+Float_t Lpsxl
+Float_t Lpspx
+Float_t Lpspy
+Float_t Lpsdist
+Float_t Lpschindf
+Float_t Lpstag
+Float_t Lpsxlerr
+Float_t Lpspxerr
+Float_t Lpspyerr
