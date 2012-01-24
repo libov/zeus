@@ -2034,7 +2034,6 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  classI) {
                 // found a suitable track pair
                 // reconstruct rho candidate now
                 TLorentzVector rho = track1 + track2;
-                // now this is an exclusive rho candidate
 
                 // get phi mass: kaon hypothesis
                 TLorentzVector kaon1, kaon2, phi;
