@@ -2375,7 +2375,21 @@ Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
     Double_t p4 = 0.319297; // +/- 0.0309977
     Double_t p5 = -0.018484;// +/- 0.00283858
 
+    if (pt>5) return getPionPtReweighting(5);
+
     Double_t weight = p0  + p1 * pt + p2 * pow(pt, 2) + p3 * pow(pt, 3) + p4 * pow(pt, 4) + p5 * pow(pt, 5);
+    return weight;
+}
+
+Double_t TMiniNtupleAnalyzer::getThetaStarReweighting(Double_t theta_star) {
+
+    Double_t p0 = 0.87888; // +/- 0.275649
+    Double_t p1 = -0.222714; // +/- 1.32672
+    Double_t p2 = 4.1348; // +/- 2.2526
+    Double_t p3 = -5.58308; // +/- 1.60626
+    Double_t p4 = 1.85314; // +/- 0.408931
+
+    Double_t weight = p0 + p1 * theta_star + p2 * pow(theta_star, 2) + p3 * pow(theta_star, 3)  + p4 * pow(theta_star, 4);
     return weight;
 }
 
@@ -2466,4 +2480,43 @@ int TMiniNtupleAnalyzer::get_pi_id(bool is_plus) {
 
     if (is_plus) return pi_plus_id;
     if (!is_plus) return pi_minus_id;
+}
+
+Double_t TMiniNtupleAnalyzer::getIslandDCA(int isl, int trk) {
+    // define relevant vectors
+    TVector3 island(Xisl[isl], Yisl[isl], Zisl[isl]);
+    TVector3 trk_endOfSwim(Vcatcal_x[trk][0], Vcatcal_x[trk][1], Vcatcal_x[trk][2]);
+    TVector3 trk_mom_endOfSwim(Vcatcal_p[trk][0], Vcatcal_p[trk][1], Vcatcal_p[trk][2]);
+    
+    // get an angle between the relative (to the end of swim point) position vector of the island
+    // to the flight direction of a track at the end of swim point
+    TVector3 island_relative = island - trk_endOfSwim;
+    Double_t cos_alpha = (island_relative.Dot(trk_mom_endOfSwim))/(island_relative.Mag() * trk_mom_endOfSwim.Mag());
+    
+    // calculate DCA
+    Double_t    DCA = sqrt(1-cos_alpha*cos_alpha) * island_relative.Mag();
+    return  DCA;
+}
+
+Double_t TMiniNtupleAnalyzer::getThetaStar(TLorentzVector pi1, TLorentzVector pi2) {
+
+    const Float_t M_PION = 0.139570;
+
+    TLorentzVector rho = pi1 + pi2;
+    Double_t    mass = rho.M();
+
+    TVector3 pi1_p = pi1.Vect();
+    TVector3 pi2_p = pi2.Vect();
+    TVector3 rho_p = rho.Vect();
+
+//     TVector3 pi1_p = get_pi_plus();
+//     TVector3 pi2_p = get_pi_minus();
+//     TVector3 rho_p = pi1_p + pi2_p;
+
+    Double_t cos_theta_lab = pi1_p.Dot(rho_p)/(pi1_p.Mag() * rho_p.Mag());
+    Double_t pT_rel = sqrt(1-cos_theta_lab*cos_theta_lab) * pi1_p.Mag();
+    // pT is invariant
+    Double_t P_star = sqrt(mass*mass/4 - M_PION * M_PION);
+    Double_t sin_theta_star = pT_rel / P_star;
+    return TMath::ASin(sin_theta_star);
 }
