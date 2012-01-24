@@ -1827,6 +1827,15 @@ Float_t TMiniNtupleAnalyzer::getCharmETweightingFactor(Float_t  jet_et) {
 
 void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
+    // get a pointer to inclusive bin
+    TGlobalBin      *inclusiveBin = NULL;
+    TIter           Iter_TGlobalBin_event(fList_TGlobalBin);
+    inclusiveBin = (TGlobalBin*) Iter_TGlobalBin_event.Next();
+    if ( (inclusiveBin == NULL) || (inclusiveBin -> BinName != "bin1")) {
+        cout << "ERROR: not able to get the global bin" << endl;
+        abort();
+    }
+
     // helping variable
     Int_t  Nevents;
     // check if user selected to run in a test mode
