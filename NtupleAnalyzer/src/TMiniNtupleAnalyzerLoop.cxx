@@ -2091,18 +2091,21 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  classI) {
                 kaon2.SetXYZM(Trkmsa_px[t2], Trkmsa_py[t2], Trkmsa_pz[t2], M_KAON);
                 phi = kaon1 + kaon2;
                 cand.push_back(rho);
+                // write first ZTT and then MSA  - class II
                 cand.push_back(track1);
                 cand.push_back(track2);
                 cand.push_back(phi);
                 cand.push_back(kaon1);
                 cand.push_back(kaon2);
-
+                fTrack1Id = t1;
+                fTrack2Id = t2;
+                if (fTrack2Id != 0 ) abort();
             } // end loop over track2 candidates
-        } // end of if (ZTT) statement
+        } // end of if (classI) statement
     } // end loop over track1 candidates
 }
 
-void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT, int candidate_number) {
+void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  classI, int candidate_number) {
 
         // check whether a candidate was found
         if (cand.size() == 0) return;
