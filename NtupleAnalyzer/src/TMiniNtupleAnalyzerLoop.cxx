@@ -2667,16 +2667,16 @@ Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
 
 Double_t TMiniNtupleAnalyzer::getThetaStarReweighting(Double_t theta_star) {
 
-    Double_t p0 = 0.87888; // +/- 0.275649
-    Double_t p1 = -0.222714; // +/- 1.32672
-    Double_t p2 = 4.1348; // +/- 2.2526
-    Double_t p3 = -5.58308; // +/- 1.60626
-    Double_t p4 = 1.85314; // +/- 0.408931
+    Double_t p0 = 4.55375;  // +/- 0.650318
+    Double_t p1 = -12.0416; // +/- 3.83131
+    Double_t p2 = 28.3297;  // +/- 8.5852
+    Double_t p3 = -36.0429; // +/- 9.18135
+    Double_t p4 = 20.5197;  // +/- 4.71102
+    Double_t p5 = -4.2362;  // +/- 0.932609
 
-    Double_t weight = p0 + p1 * theta_star + p2 * pow(theta_star, 2) + p3 * pow(theta_star, 3)  + p4 * pow(theta_star, 4);
+    Double_t weight = p0 + p1*theta_star + p2*pow(theta_star,2) + p3*pow(theta_star,3) + p4*pow(theta_star,4) + p5*pow(theta_star,5);
     return weight;
 }
-
 
 bool TMiniNtupleAnalyzer::TrackMatch(TLorentzVector track1, TLorentzVector track2) {
     bool matched = false;
