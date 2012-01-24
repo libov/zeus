@@ -1982,10 +1982,10 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
     this->WriteHistograms();
 }
 
-void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  ZTT, Float_t total_energy_zufo) {
+void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  classI) {
 
-    // ZTT = true: look for rho candidates with both tracks ZTT
-    // ZTT = false: look for rho candidates with ZTT and standalone track
+    // classI = true: look for rho candidates with both tracks ZTT (classI)
+    // classI = false: look for rho candidates with ZTT and standalone track (classII)
 
     // define constants
     const Float_t M_PION = 0.139570;
@@ -2011,7 +2011,7 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  ZTT, Float
         if (track1.Pt()<0.2) continue;
         if ((track1.Theta()<0.44) || (track1.Theta()>2.7)) continue;
 
-        if (ZTT) {
+        if (classI) {
             // loop over track2 candidates
             for (int t2 = t1+1; t2 < Trk_ntracks; t2++) {
 
@@ -2034,10 +2034,7 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  ZTT, Float
                 // found a suitable track pair
                 // reconstruct rho candidate now
                 TLorentzVector rho = track1 + track2;
-                // additional requirement
-                if ((total_energy_zufo - rho.E()) > 0.3) continue;
                 // now this is an exclusive rho candidate
-                // rho_mass = rho.M();
 
                 // get phi mass: kaon hypothesis
                 TLorentzVector kaon1, kaon2, phi;
@@ -2074,10 +2071,6 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  ZTT, Float
                 // found a suitable track pair
                 // reconstruct rho candidate now
                 TLorentzVector rho = track1 + track2;
-                // additional requirement
-                if ((total_energy_zufo - rho.E()) > 0.3) continue;
-                // now this is an exclusive rho candidate
-                // rho_mass = rho.M();
 
                 // get phi mass: kaon hypothesis
                 TLorentzVector kaon1, kaon2, phi;
