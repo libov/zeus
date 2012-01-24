@@ -2131,6 +2131,13 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             weight_pi2_phi = getPionPhiReweighting(pi2.Phi());
         }
 
+        // determine theta star weighting
+        Double_t    weight_theta_star = 1;
+        if (fIsMC && fApplyThetaStarReweighting) {
+            weight_theta_star = getThetaStarReweighting(getThetaStar(pi1, pi2));
+            if (getThetaStar(pi1, pi2) < 0) abort();
+        }
+
         // now fill the histograms
         // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
         TGlobalBin  *cGlobalBin;
