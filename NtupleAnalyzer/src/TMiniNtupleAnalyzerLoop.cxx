@@ -2041,11 +2041,25 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  classI) {
                 kaon2.SetXYZM(Trk_px[t2], Trk_py[t2], Trk_pz[t2], M_KAON);
                 phi = kaon1 + kaon2;
                 cand.push_back(rho);
-                cand.push_back(track1);
-                cand.push_back(track2);
+                // write first pi+ and then pi- (class I)
+                if ( (Trk_charge[t1]>0) && (Trk_charge[t2]<0) ) {
+                    cand.push_back(track1);
+                    cand.push_back(track2);
+                    fTrack1Id = t1;
+                    fTrack2Id = t2;
+                } else if ( (Trk_charge[t1]<0) && (Trk_charge[t2]>0) ) {
+                    cand.push_back(track2);
+                    cand.push_back(track1);
+                    fTrack1Id = t2;
+                    fTrack2Id = t1;
+                } else {
+                    cout << "ERROR: wrong charge selection" << endl;
+                    abort();
+                }
                 cand.push_back(phi);
                 cand.push_back(kaon1);
                 cand.push_back(kaon2);
+
 
             } // end loop over track2 candidates
         } else {
