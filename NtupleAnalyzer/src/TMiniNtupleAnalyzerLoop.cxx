@@ -1925,55 +1925,207 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             DeltaR = pi_plus.DeltaR(pi_minus);
         }
 
+        // fill true-level histograms
+        inclusiveBin->ApplyWeighting(false);
+        inclusiveBin->FillHistogram("dR_all", Rmin);
+        inclusiveBin->FillHistogram("truedR", DeltaR);
+
         // perform also "true level analysis", in this case means filling fate-points histograms
         if (fIsMC) RhoTrueLevelAnalysis();
 
-        // fill true-level histograms and few other histograms
-        TGlobalBin      *cGlobalBin;
-        TIter           Iter_TGlobalBin(fList_TGlobalBin);
-        while ((cGlobalBin=(TGlobalBin*) Iter_TGlobalBin.Next())) {
-            if (cGlobalBin -> BinName != "bin1") continue;
-            cGlobalBin -> ApplyWeighting(false);
-            cGlobalBin->FillHistogram("dR_all", Rmin);
-            if (fIsMC) cGlobalBin->FillHistogram("truedR", DeltaR);
-        }
-
         // loop over all zufos to calculate the total energy
-        Float_t     total_energy_zufo = 0;
+        fNonElectronEnergyZufo = 0;
+        fElectronEnergyZufo = 0;
+        fNonTrackEnergyZufo = 0;
+        Float_t total_energy_zufo = 0;
+        // look for energetic island not matched to any track(based on the classification in ZUFO block)
+        Int_t   zufo_id_electron = -1;
         for (int zufo=0; zufo<Nzufos; zufo++) {
+
+            // define the type of the zufo
+            Int_t   type = Tufo[zufo][0];
+
+            // sanity check
+            if (type < 0) {
+                cout << "ERROR: zufo type < 0" << endl;
+                abort();
+            }
+
+            // noise threshold
+            bool not_noise = (Zufo[zufo][3]>0.5);
+
+            // count energy coming not from the electron
+            if ( not_noise && (type < 3000) ) fNonElectronEnergyZufo += Zufo[zufo][3];
+
+            // count energy from electron
+            if ( not_noise && (type >= 3000) ) fElectronEnergyZufo += Zufo[zufo][3];
+
+            // get an id of the electron zufo
+            if ((type >= 3000) && (zufo_id_electron != -1)) {
+                cout << "ERROR: more than 1 electron found within ZUFOs" << endl;
+                abort();
+            }
+            if ((type >= 3000) && (zufo_id_electron == -1)) zufo_id_electron = zufo;
+
+            // define whether this zufo has a track matched to it
+            bool zufo_no_track = ((type==31) || (type==32) || (type==1031) || (type==1032) || (type==1131) || (type==1132));
+
+            // if the energy of the zufo is above the noise threshold and has no track matched - add it to the sum
+            if (not_noise && zufo_no_track) fNonTrackEnergyZufo += Zufo[zufo][3];
+
+            // old way to sum the energy of zufos (after V.Trusov)
             if ((Zufo[zufo][3]>0.3) && (Zufo[zufo][3]<10.)) total_energy_zufo += Zufo[zufo][3];
         }
 
-        // create vectors to store rho and daughters 4vectors
-        vector<TLorentzVector> cand_ZTT;
-        vector<TLorentzVector> cand_MSA;
-
-        // search for ZTT-ZTT candidates (class I)
-        // criterion: exactly 2 primary tracks in event
-        if (fPrimary_ZTT_tracks==2) {
-            FindRho(cand_ZTT, true, total_energy_zufo);
+        // event printout for events with extra energy in the calorimeter
+        if ( (fNonTrackEnergyZufo > 0.5) && (fDebugPrintout) ) {
+            cout << Eventnr << endl;
+            cout << "Nzufos= " << Nzufos << endl;
+            for (int j=0; j<Nzufos; j++) {
+                cout << "INFO: type: " << Tufo[j][0] << " energy: " << Zufo[j][3] << endl;
+            }
         }
 
-        // search for ZTT-MSA candidates (class II)
-        // criteria: exactly 1 primary track, exactly 1 SA track,
+        // create vectors to store rho and daughters 4vectors
+        vector<TLorentzVector> cand_classI;
+        vector<TLorentzVector> cand_classII;
+        cand_classI.clear();
+        cand_classII.clear();
+
+        // reset track ids
+        fTrack1Id = -1;
+        fTrack2Id = -1;
+
+        // define class I and class II criteria
+
+        // class I: exactly 2 primary tracks in event
+        bool    classI = ( (fPrimary_ZTT_tracks==2) && (fLong_ZTT_tracks==2) && ((Trk_ntracks-electron_tracks) == 2) );
+
+        // classII: exactly 1 primary track, exactly 1 SA track,
         // opt.1: no events with exactly 2 long tracks (contain lots of background from the classI)
         // opt.2: no events, which for 2-long-tracks events give Rmin > [some value]
         // note: opt2 preserves more good candidates (i.e. class II that were reconstructed as classII)
         // but there's more background from class I compared to opt1
+        bool opt1 = true;
         bool r_cut = true;
         if ((fLong_ZTT_tracks == 2) && (Rmin<0.5)) r_cut = false;
-        //if ( (fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1) && r_cut ) {
-        if ( (fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1) && (fLong_ZTT_tracks!=2) ) {
-            FindRho(cand_MSA, false, total_energy_zufo);
+        bool    classII;
+        //if (opt1) classII = ((fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1) && (fLong_ZTT_tracks!=2));
+        if (opt1) classII = ((fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1));
+        else classII = ( (fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1) && r_cut );
+
+        // skip if event doesn't satisfy criteria for classI or classII
+        if ( !(classI || classII) ) continue;
+
+        // search for ZTT-ZTT candidates (class I) and ZTT-MSA candidates (class II)
+        if ( classI ) FindRho(cand_classI, true);
+        if ( classII ) FindRho(cand_classII, false);
+
+        // skip if no suitable rho candidate was found
+        if (classI && (cand_classI.size()==0) ) continue;
+        if (classII && (cand_classII.size()==0) ) continue;
+
+        // now that we know the ids of the rho decay products, can apply the elasticity cut
+        fUnmatchedIslandsEnergy = 0;
+        for (int isl = 0; isl<Nisl; isl++) {
+            // skip if the island is below the noise threshold
+            if (Eisl[isl]<0.5) continue;
+            // skip if this island is due to the scattered electron
+            if ( (zufo_id_electron != -1) && (((Tufo[zufo_id_electron][2]-1) == isl) || ((Tufo[zufo_id_electron][3]-1) == isl))) continue;
+            // get DCA of this island to the track (classI: one of the two which is closer; classII: to the only long ZTT)
+            Float_t min_dca = 9999;
+            // relevant for class II only
+            Double_t dR = 9999;
+            if (classI) {
+                Double_t    DCA1 = getIslandDCA(isl, fTrack1Id);
+                if (min_dca > DCA1) min_dca = DCA1;
+                Double_t    DCA2 = getIslandDCA(isl, fTrack2Id);
+                if (min_dca > DCA2) min_dca = DCA2;
+            } else if (classII) {
+                Double_t    DCA1 = getIslandDCA(isl, fTrack1Id);
+                if (min_dca > DCA1) min_dca = DCA1;
+                // get a distance in eta-phi between an island and MVDSA track
+                TVector3 island(Xisl[isl] - Xvtx, Yisl[isl] - Yvtx, Zisl[isl] - Zvtx);
+                TVector3 msa_track(Trkmsa_px[0], Trkmsa_py[0], Trkmsa_pz[0]);
+                dR = island.DeltaR(msa_track);
+            }
+            inclusiveBin -> FillHistogram("min_dca", min_dca);
+            if (classI) if (min_dca > 30) fUnmatchedIslandsEnergy += Eisl[isl];
+            if (classII) if ( (min_dca > 30) && (dR>0.5) ) fUnmatchedIslandsEnergy += Eisl[isl];
+        }
+
+        // other ways to define the elasticity criterion
+        Float_t unmatched_islands_energy_classII_relaxed = 0;
+        Float_t unmatched_islands_energy_classII_msa_track_account = 0;
+        Float_t energy_in_MSA_cone = 0;
+        if (classII) {
+            for (int isl = 0; isl<Nisl; isl++) {
+                // skip if the island is below the noise threshold
+                if (Eisl[isl]<0.5) continue;
+                // skip if this island is due to the scattered electron
+                if ( (zufo_id_electron != -1) && (((Tufo[zufo_id_electron][2]-1) == isl) || ((Tufo[zufo_id_electron][3]-1) == isl))) continue;
+                // get DCA of this island to the track (classI: one of the two which is closer; classII: to the only long ZTT)
+                Float_t min_dca = 9999;
+                for (int j=0; j<Trk_ntracks; j++) {
+                    if (Trk_id[j] == Sitrknr[0]) {
+                        electron_tracks++;
+                        continue;
+                    }
+                    if ( (Trk_layinner[j]>1) || (Trk_layouter[j]<3) ) continue;
+                    Double_t    DCA = getIslandDCA(isl, j);
+                    if (min_dca > DCA) min_dca = DCA;
+                }
+                if (min_dca > 30) unmatched_islands_energy_classII_relaxed += Eisl[isl];
+            }
+        }
+
+        // same requirement for both classI and classII,
+        // however the definition of fUnmatchedIslandsEnergy is different for both cases
+        if (classI || classII) if (fUnmatchedIslandsEnergy > 0.5) continue;
+
+        // loop over long, non-primary tracks and calculate the sum of track momenta:
+        // this is what we call momentum excess
+        Float_t     scalar_pt_sum=0;
+        TVector3    vector_p_sum(0,0,0);
+
+        for (int j=0; j<Trk_ntracks; j++) {
+            // skip if electron track
+            if (Trk_id[j] == Sitrknr[0]) {
+                electron_tracks++;
+                continue;
+            }
+            // skip if not long track starting in the 1st CTD layer or MVD
+            if ( (Trk_layinner[j]>1) || (Trk_layouter[j]<3) ) continue;
+            // skip if primary
+            if (Trk_prim_vtx[j] == 1) continue;
+            TVector3    track(Trk_px[j], Trk_py[j], Trk_pz[j]);
+            TVector2    track_2d = track.XYvector();
+            scalar_pt_sum += track.Perp();
+            vector_p_sum += track;
+        }
+
+        fPtExcess = 0;
+        fPExcess = 0;
+        fScalarPtExcess = 0;
+        if (classII) {
+            TVector3 track(Trkmsa_px[0], Trkmsa_py[0], Trkmsa_pz[0]);
+            fScalarPtExcess = scalar_pt_sum - track.Perp();
+            fPtExcess = vector_p_sum.Perp() - track.Perp();
+            fPExcess = vector_p_sum.Mag() - track.Mag();
+        } else if (classI) {
+            fScalarPtExcess = scalar_pt_sum;
+            fPtExcess = vector_p_sum.Perp();
+            fPExcess = vector_p_sum.Mag();
         }
 
         // now fill the histograms
-        fTrackNr_histos_filled = false;
-        FillRhoHistograms (cand_ZTT, true, 0);
-        Float_t n_cand_msa = cand_MSA.size()/6;
-        fTrackNr_histos_filled = false;
+        fEvent_histos_filled = false;
+        FillRhoHistograms (cand_classI, true, 0);
+        // a possibility to have more candidates for class II is supported
+        Float_t n_cand_msa = cand_classII.size()/6;
+        fEvent_histos_filled = false;
         for (int i = 0; i<n_cand_msa; i++) {
-            FillRhoHistograms (cand_MSA, false, i);
+            FillRhoHistograms (cand_classII, false, i);
         }
 
     } // end loop over events
