@@ -2345,7 +2345,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
             if (!classI) {
                 if (fPExcess>0) cGlobalBin->FillHistogram("rho_mass_background_classII", rho.M());
-//            } else if (classI && (Trk_ntracks>2)) {
             } else if (classI && (fLong_ZTT_tracks>2)) {
                 if (fPExcess>0.5) cGlobalBin->FillHistogram("rho_mass_background_classI", rho.M());
             }
