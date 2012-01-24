@@ -2162,7 +2162,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             if (fIsMC) cGlobalBin -> ApplyWeighting(true);
 
             // the order of histogram filling
-            // 1. rho/phi histograms; for binning, we use the information of the 1st pion
+            // 1. rho/phi/event histograms; for binning, we use the information of the 1st pion
             // one could alternatively use pi2, the 2nd pion, or choose some particular charge
             // sign. here we just do the simplest thing, i.e. picking up randomly one of the two
             // pions for binning
