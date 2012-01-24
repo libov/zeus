@@ -2325,51 +2325,118 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
             // set fPionThetaReco variable so that CheckGlobalBin can work (as discussed above)
             fPionThetaReco = pi1.Theta();
+            fPionPhiReco = pi1.Phi();
             // for rho/phi histograms, we weight according to the pt of the 1st pion (could do also for the 2nd)
-            if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi);
+            if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi * weight_theta_star);
 
             // fill the phi mass
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
-                if (ZTT) cGlobalBin->FillHistogram("phi_mass_ZTT", phi.M());
-                if (!ZTT) cGlobalBin->FillHistogram("phi_mass_MSA", phi.M());
+                if (classI) cGlobalBin->FillHistogram("phi_mass_classI", phi.M());
+                if (!classI) cGlobalBin->FillHistogram("phi_mass_classII", phi.M());
             }
             // skip if kaon-kaon hypothesis is consistent with phi
             if ( (phi.M()>1.012) && (phi.M()<1.028) ) continue;
 
             // fill the rho mass
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
-                if (ZTT) cGlobalBin->FillHistogram("rho_mass_ZTT", rho.M());
-                if (!ZTT) cGlobalBin->FillHistogram("rho_mass_MSA", rho.M());
+                if (classI) cGlobalBin->FillHistogram("rho_mass_classI", rho.M());
+                if (!classI) cGlobalBin->FillHistogram("rho_mass_classII", rho.M());
             }
+
+            if (!classI) {
+                if (fPExcess>0) cGlobalBin->FillHistogram("rho_mass_background_classII", rho.M());
+//            } else if (classI && (Trk_ntracks>2)) {
+            } else if (classI && (fLong_ZTT_tracks>2)) {
+                if (fPExcess>0.5) cGlobalBin->FillHistogram("rho_mass_background_classI", rho.M());
+            }
+
             // skip if not in the peak region
             if ( (rho.M()<0.6) || (rho.M()>1.1) ) continue;
 
             // debug printouts
-            if ( (!ZTT) &&  (cGlobalBin -> BinName == "bin1")  && fDebugPrintout) {
-                cout << "INFO: found a candidate " <<ZTT<<" Run/Event: " << Runnr << "/" << Eventnr << " mass: " << rho.M() << endl;
+            if ( (!classI) &&  (cGlobalBin -> BinName == "bin1")  && fDebugPrintout) {
+                cout << "INFO: found a candidate " << classI << " Run/Event: ";
+                cout << Runnr << "/" << Eventnr << " mass: " << rho.M() << endl;
                 cout << "INFO: Trk_ntracks = " << Trk_ntracks << endl;
                 cout << "INFO: Trkmsa_ntracks = " << Trkmsa_ntracks << endl;
             }
+            if ((!classI) &&  (cGlobalBin -> BinName == "bin1")) {
+                cout << "Runnr= "<<Runnr<<" Eventnr= "<<Eventnr<<" Trk_ntracks= "<<Trk_ntracks;
+                cout << " fLong_ZTT_tracks= "<<fLong_ZTT_tracks<<" fPrimary_ZTT_tracks= "<<fPrimary_ZTT_tracks<<endl;
+                cout << "MVDSA track momentum: " << Trkmsa_px[0] << ", " << Trkmsa_py[0] << ", " << Trkmsa_pz[0];
+                TVector3 msa(Trkmsa_px[0], Trkmsa_py[0], Trkmsa_pz[0]);
+                cout << " (p= " <<msa.Mag() << ", pt= "<<msa.Perp()<<")"<<endl;
+            }
 
-            // fill various event histograms
+            if (!classI) {
+                for (int j=0; j<Trk_ntracks; j++) {
+                    // skip if electron track
+                    if (Trk_id[j] == Sitrknr[0]) continue;
+                    // skip if not long track starting in the 1st CTD layer or MVD
+                    if ( (Trk_layinner[j]>1) || (Trk_layouter[j]<3) ) continue;
+                    // skip if primary
+                    if (Trk_prim_vtx[j] == 1) continue;
+                    cGlobalBin->FillHistogram("long_tracks_imppar_classII", Trk_imppar[j]);
+                    cGlobalBin->FillHistogram("long_tracks_imppar_fine_classII", Trk_imppar[j]);
+                }
+            }
+
+            // fill various event histograms (at the moment without binning)
+
+            // electron histograms
+            cGlobalBin->FillHistogram("q2da", Siq2da[0]);
+            cGlobalBin->FillHistogram("yda", Siyda[0]);
+            cGlobalBin->FillHistogram("Sith", Sith[0]);
+            cGlobalBin->FillHistogram("Siecorr", Siecorr[0][2]);
+            cGlobalBin->FillHistogram("Sipos_x", Sipos[0][0]);
+            cGlobalBin->FillHistogram("Sipos_y", Sipos[0][1]);
+
+            cGlobalBin->FillHistogram("NonElectronEnergyZufo", fNonElectronEnergyZufo);
+            cGlobalBin->FillHistogram("ElectronEnergyZufo", fElectronEnergyZufo);
+            cGlobalBin->FillHistogram("NonTrackEnergyZufo", fNonTrackEnergyZufo);
+            cGlobalBin->FillHistogram("fUnmatchedIslandsEnergy", fUnmatchedIslandsEnergy);
+
+            if (!classI) {
+                cGlobalBin->FillHistogram("PtExcess_classII", fPtExcess);
+                cGlobalBin->FillHistogram("PExcess_classII", fPExcess);
+                cGlobalBin->FillHistogram("ScalarPtExcess_classII", fScalarPtExcess);
+            } else if (classI && (Trk_ntracks>2)) {
+                cGlobalBin->FillHistogram("PtExcess_classI", fPtExcess);
+                cGlobalBin->FillHistogram("PExcess_classI", fPExcess);
+                cGlobalBin->FillHistogram("ScalarPtExcess_classI", fScalarPtExcess);
+            }
+
+            // zufos
+            cGlobalBin->FillHistogram("Nzufos", Nzufos);
+            for (int j=0; j<Nzufos; j++) {
+                cGlobalBin->FillHistogram("Tufo", Tufo[j][0]);
+            }
+
             // for MC: get event class,see the definition in RhoTrueLevelAnalysis()
             int event_class;
             if (fIsMC) event_class = RhoTrueLevelAnalysis();
-            if ( ZTT &&  (!fTrackNr_histos_filled) ) {
-                cGlobalBin->FillHistogram("Trk_ntracks_ZTTZTT", Trk_ntracks);
-                cGlobalBin->FillHistogram("Trkmsa_ntracks_ZTTZTT", Trkmsa_ntracks);
-                cGlobalBin->FillHistogram("primary_ZTT_tracks_ZTTZTT", fPrimary_ZTT_tracks);
-                cGlobalBin->FillHistogram("long_primary_ZTT_tracks_ZTTZTT", fLong_primary_ZTT_tracks);
-                cGlobalBin->FillHistogram("long_ZTT_tracks_ZTTZTT", fLong_ZTT_tracks);
-                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_ZTTZTT", event_class);
-                fTrackNr_histos_filled = true;
-            } else if ( (!ZTT) && (!fTrackNr_histos_filled) ) {
-                cGlobalBin->FillHistogram("Trk_ntracks_ZTTMSA", Trk_ntracks);
-                cGlobalBin->FillHistogram("Trkmsa_ntracks_ZTTMSA", Trkmsa_ntracks);
-                cGlobalBin->FillHistogram("primary_ZTT_tracks_ZTTMSA", fPrimary_ZTT_tracks);
-                cGlobalBin->FillHistogram("long_primary_ZTT_tracks_ZTTMSA", fLong_primary_ZTT_tracks);
-                cGlobalBin->FillHistogram("long_ZTT_tracks_ZTTMSA", fLong_ZTT_tracks);
-                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_ZTTMSA", event_class);
+            if ( classI &&  (!fEvent_histos_filled) ) {
+                cGlobalBin->FillHistogram("Trk_ntracks_classI", Trk_ntracks);
+                cGlobalBin->FillHistogram("Trkmsa_ntracks_classI", Trkmsa_ntracks);
+                cGlobalBin->FillHistogram("primary_ZTT_tracks_classI", fPrimary_ZTT_tracks);
+                cGlobalBin->FillHistogram("long_primary_ZTT_tracks_classI", fLong_primary_ZTT_tracks);
+                cGlobalBin->FillHistogram("long_ZTT_tracks_classI", fLong_ZTT_tracks);
+                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classI", event_class);
+                cGlobalBin->FillHistogram("Xvtx_classI", Xvtx);
+                cGlobalBin->FillHistogram("Yvtx_classI", Yvtx);
+                cGlobalBin->FillHistogram("Zvtx_classI", Zvtx);
+
+                fEvent_histos_filled = true;
+            } else if ( (!classI) && (!fEvent_histos_filled) ) {
+                cGlobalBin->FillHistogram("Trk_ntracks_classII", Trk_ntracks);
+                cGlobalBin->FillHistogram("Trkmsa_ntracks_classII", Trkmsa_ntracks);
+                cGlobalBin->FillHistogram("primary_ZTT_tracks_classII", fPrimary_ZTT_tracks);
+                cGlobalBin->FillHistogram("long_primary_ZTT_tracks_classII", fLong_primary_ZTT_tracks);
+                cGlobalBin->FillHistogram("long_ZTT_tracks_classII", fLong_ZTT_tracks);
+                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classII", event_class);
+                cGlobalBin->FillHistogram("Xvtx_classII", Xvtx);
+                cGlobalBin->FillHistogram("Yvtx_classII", Yvtx);
+                cGlobalBin->FillHistogram("Zvtx_classII", Zvtx);
 
                 // true class II reconstructed as class II
                 if ( fIsMC && ( event_class == 2 ) ) {
@@ -2377,7 +2444,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("long_ZTT_tracks_classII_as_classII", fLong_ZTT_tracks);
                     cGlobalBin->FillHistogram("primary_ZTT_tracks_classII_as_classII", fPrimary_ZTT_tracks);
                     // subset of those events, which have exactly two long tracks
-                    if (fLong_ZTT_tracks==2) {
+/*                    if (fLong_ZTT_tracks==2) {
                         if (fDebugPrintout) cout << "INFO: class 2 as class2, fLong_ZTT_tracks=2! " << Runnr << " " << Eventnr << endl;
                         int long_tracks_found = 0;
                         int primary_tracks_found = 0;
@@ -2405,7 +2472,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                         TLorentzVector  MSA_track(Trkmsa_px[0], Trkmsa_py[0], Trkmsa_pz[0], 0.139570);
                         Double_t dR = long_track.DeltaR(MSA_track);
                         cGlobalBin->FillHistogram("dR_classII_as_classII", dR);
-                    }
+                    }*/
                 }
                 // true class I reconstructed as class II 
                 if ( fIsMC && ( event_class == 1 ) ) {
@@ -2419,7 +2486,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     if (fDebugPrintout) cout << pi1.Mag() << " " << pi1.Pt() << " " << pi2.Mag() << " " << pi2.Pt() << endl;
 
                     // subset of those events, which have exactly two long tracks
-                    if (fLong_ZTT_tracks==2) {
+/*                    if (fLong_ZTT_tracks==2) {
                         int long_tracks_found = 0;
                         int primary_tracks_found = 0;
                         int track1 = 0;     // long primary
@@ -2447,47 +2514,82 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                         Double_t dR = long_track.DeltaR(MSA_track);
                         cGlobalBin->FillHistogram("dR_classI_as_classII", dR);
 
-                    }
+                    }*/
                 }
-                fTrackNr_histos_filled = true;
+                fEvent_histos_filled = true;
             }
 
             // fill the rho histograms
+            Double_t    dPhi = TMath::Abs(pi1.DeltaPhi(pi2));
+            Double_t    dTheta = TMath::Abs(pi1.Theta() - pi2.Theta());
+            Double_t    dPt = TMath::Abs(pi1.Pt() - pi2.Pt());
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
-                if (ZTT) {
-                    cGlobalBin->FillHistogram("rho_pt_ZTT", rho.Pt());
-                    cGlobalBin->FillHistogram("rho_phi_ZTT", rho.Phi());
-                    cGlobalBin->FillHistogram("rho_theta_ZTT", rho.Theta());
+                if (classI) {
+                    cGlobalBin->FillHistogram("rho_pt_classI", rho.Pt());
+                    cGlobalBin->FillHistogram("rho_phi_classI", rho.Phi());
+                    cGlobalBin->FillHistogram("rho_theta_classI", rho.Theta());
+                    cGlobalBin->FillHistogram("dPhi_classI", dPhi);
+                    cGlobalBin->FillHistogram("dTheta_classI", dTheta);
+                    cGlobalBin->FillHistogram("dPt_classI", dPt);
+                    cGlobalBin->FillHistogram("theta_star_classI", getThetaStar(pi1, pi2));
                 } else {
-                    cGlobalBin->FillHistogram("rho_pt_MSA", rho.Pt());
-                    cGlobalBin->FillHistogram("rho_phi_MSA", rho.Phi());
-                    cGlobalBin->FillHistogram("rho_theta_MSA", rho.Theta());
+                    cGlobalBin->FillHistogram("rho_pt_classII", rho.Pt());
+                    cGlobalBin->FillHistogram("rho_phi_classII", rho.Phi());
+                    cGlobalBin->FillHistogram("rho_theta_classII", rho.Theta());
+                    cGlobalBin->FillHistogram("dPhi_classII", dPhi);
+                    cGlobalBin->FillHistogram("dTheta_classII", dTheta);
+                    cGlobalBin->FillHistogram("dPt_classII", dPt);
+                    cGlobalBin->FillHistogram("theta_star_classII", getThetaStar(pi1, pi2));
                 }
+                
             }
 
             // pion histograms, 1st pion
 
             // set fPionThetaReco variable so that CheckGlobalBin can work
             fPionThetaReco = pi1.Theta();
+            fPionPhiReco = pi1.Phi();
             // fill the 1st pion to the histos if it passes the pion cuts
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
-                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi);
+                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi * weight_theta_star);
                 cGlobalBin->FillHistogram("pi_pt_ZTT", pi1.Pt());
+                cGlobalBin->FillHistogram("pi_pt_classI", pi1.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTT", pi1.Phi());
                 cGlobalBin->FillHistogram("pi_theta_ZTT", pi1.Theta());
                 cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
                 cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
+                // for classI, 1st pion is positive
+                // for classII, 1st pion is ZTT track (positive or negative)
+                if (classI) {
+                    cGlobalBin->FillHistogram("pi_plus_pt_classI", pi1.Pt());
+                    cGlobalBin->FillHistogram("pi_plus_phi_classI", pi1.Phi());
+                    cGlobalBin->FillHistogram("pi_plus_theta_classI", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_plus_layinner_classI", Trk_layinner[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_plus_layouter_classI", Trk_layouter[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_plus_laynr_classI", layout_nr_1);
+                    cGlobalBin->FillHistogram("pi_plus_chi2_classI", Trk_chi2[fTrack1Id]);
+                    
+                } else {
+                    cGlobalBin->FillHistogram("pi_ZTT_pt_classII", pi1.Pt());
+                    cGlobalBin->FillHistogram("pi_ZTT_phi_classII", pi1.Phi());
+                    cGlobalBin->FillHistogram("pi_ZTT_theta_classII", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_ZTT_layinner_classII", Trk_layinner[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_ZTT_layouter_classII", Trk_layouter[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_ZTT_laynr_classII", layout_nr_1);
+                    cGlobalBin->FillHistogram("pi_ZTT_chi2_classII", Trk_chi2[fTrack1Id]);
+                }
             }
 
             // pion histograms, 2nd pion
             // set fPionThetaReco variable so that CheckGlobalBin can work
             fPionThetaReco = pi2.Theta();
+            fPionPhiReco = pi2.Phi();
             // fill the 1st pion to the histos if it passes the pion cuts
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
-                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi2_pt * weight_pi2_phi);
-                // ZTT+ZTT (ZTT=true) or ZTT+MSA (ZTT=false)
-                if (ZTT) {
+                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi2_pt * weight_pi2_phi * weight_theta_star);
+                // ZTT+ZTT (classI=true) or ZTT+MSA (classI=false)
+                if (classI) {
                     cGlobalBin->FillHistogram("pi_pt_ZTT", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_phi_ZTT", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_theta_ZTT", pi2.Theta());
@@ -2499,18 +2601,36 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
                 cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
+                // for classI, 2nd pion is negative
+                // for classII, 2nd pion is MSA track (positive or negative)
+                if (classI) {
+                    cGlobalBin->FillHistogram("pi_minus_pt_classI", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_minus_phi_classI", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_minus_theta_classI", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_minus_layinner_classI", Trk_layinner[fTrack2Id]);
+                    cGlobalBin->FillHistogram("pi_minus_layouter_classI", Trk_layouter[fTrack2Id]);
+                    cGlobalBin->FillHistogram("pi_minus_laynr_classI", layout_nr_2);
+                    cGlobalBin->FillHistogram("pi_minus_chi2_classI", Trk_chi2[fTrack2Id]);
+                } else {
+                    cGlobalBin->FillHistogram("pi_MSA_pt_classII", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_MSA_phi_classII", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_MSA_theta_classII", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_MSA_chi2_classII", Trkmsa_chi2[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_chi2ndof_classII", Trkmsa_chi2[0]/Trkmsa_ndof[0]);
+                    if (pi2.Pt() > 1) cGlobalBin->FillHistogram("pi_MSA_highpT_chi2_classII", Trkmsa_chi2[0]);
+                    if (pi2.Pt() < 1) cGlobalBin->FillHistogram("pi_MSA_lowpT_chi2_classII", Trkmsa_chi2[0]);
+                    
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbr_classII", Trkmsa_nbr[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbz_classII", Trkmsa_nbz[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nwu_classII", Trkmsa_nwu[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nwv_classII", Trkmsa_nwv[0]);
+
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_imppar_classII", Trkmsa_imppar[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_z_imppar_classII", Trkmsa_pca[0][2] - Zvtx);
+                }
             }
 
         } // end loop over bins
-}
-
-Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
-    // get the bin number corresponding to the given pt
-    Int_t   bin_rew_histo = getReweightingHistoBin(fPionPtReweightingHisto, pt);
-    // get the value
-    Double_t weight = fPionPtReweightingHisto -> GetBinContent(bin_rew_histo);
-    return weight;
-
 }
 
 Double_t TMiniNtupleAnalyzer::getPionPhiReweighting (Double_t phi) {
