@@ -2366,7 +2366,7 @@ Double_t TMiniNtupleAnalyzer::getPionPhiReweighting (Double_t phi) {
     return weight;
 }
 
-Double_t TMiniNtupleAnalyzer::getPionPtReweighting_v2 (Double_t pt) {
+Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
 
     Double_t p0 = 3.40286;  // +/- 0.0459327
     Double_t p1 = -7.26273; // +/- 0.167761
