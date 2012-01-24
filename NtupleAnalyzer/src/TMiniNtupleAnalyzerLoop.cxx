@@ -2116,12 +2116,20 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
         TLorentzVector  pi2 = cand[2 + candidate_number * 6];
         TLorentzVector  phi = cand[3 + candidate_number * 6];
 
+        // needed later: number of superlayers for ZTT tracks
+        unsigned layout_nr_1= 0;
+        if (Trk_layinner[fTrack1Id] == 0) layout_nr_1 = Trk_layouter[fTrack1Id];
+        else layout_nr_1 = Trk_layouter[fTrack1Id] - Trk_layinner[fTrack1Id] + 1;
+        unsigned layout_nr_2= 0;
+        if (Trk_layinner[fTrack2Id] == 0) layout_nr_2 = Trk_layouter[fTrack2Id];
+        else layout_nr_2 = Trk_layouter[fTrack2Id] - Trk_layinner[fTrack2Id] + 1;
+
         // determine pt-reweighting factors for both pions
         Double_t    weight_pi1_pt = 1;
         Double_t    weight_pi2_pt = 1;
         if (fIsMC && fApplyPtReweighting) {
-            weight_pi1_pt = getPionPtReweighting_v2(pi1.Pt());
-            weight_pi2_pt = getPionPtReweighting_v2(pi2.Pt());
+            weight_pi1_pt = getPionPtReweighting(pi1.Pt());
+            weight_pi2_pt = getPionPtReweighting(pi2.Pt());
         }
         // determine phi-reweighting for both pions
         Double_t    weight_pi1_phi = 1;
