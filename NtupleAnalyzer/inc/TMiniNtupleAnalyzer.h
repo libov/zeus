@@ -117,11 +117,11 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         void            SetStudyResolutions(bool study) {fStudyResolutions = study;};
 
         void            TrackingEfficiency();
-        void            FindRho(vector<TLorentzVector> &rho, bool  ZTT, Float_t total_energy_zufo);
+        void            FindRho(vector<TLorentzVector> &rho, bool  ZTT);
         void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT, int candidate_number);
         Double_t        getPionPtReweighting (Double_t pt);
-        Double_t        getPionPtReweighting_v2 (Double_t pt);
         Double_t        getPionPhiReweighting (Double_t phi);
+        Double_t        getThetaStarReweighting(Double_t theta_star);
         bool            TrackMatch(TLorentzVector track1, TLorentzVector track2);
         int             RhoTrueLevelAnalysis();
         TVector3        get_pi_plus();
@@ -131,15 +131,29 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         int             get_pi_id(bool is_plus);
         void            setApplyPtReweighting(bool apply) {fApplyPtReweighting = apply;};
         void            setApplyPhiReweighting(bool apply) {fApplyPhiReweighting = apply;};
+        void            setApplyThetaStarReweighting(bool apply) {fApplyThetaStarReweighting = apply;};
         void            setDebugPrintout(bool debug) {fDebugPrintout = debug;};
+        Double_t        getIslandDCA(int isl, int trk);
+        Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2);
 
-        bool            fTrackNr_histos_filled;
+        bool            fEvent_histos_filled;
         unsigned        fPrimary_ZTT_tracks;
         unsigned        fLong_primary_ZTT_tracks;
         unsigned        fLong_ZTT_tracks;
         bool            fApplyPtReweighting;
         bool            fApplyPhiReweighting;
+        bool            fApplyThetaStarReweighting;
         bool            fDebugPrintout;
+        Double_t        fNonElectronEnergyZufo;
+        Double_t        fElectronEnergyZufo;
+        Double_t        fNonTrackEnergyZufo;
+        Double_t        fUnmatchedIslandsEnergy;
+        Double_t        fPtExcessClassII;
+        Double_t        fPExcessClassII;
+        Double_t        fScalarPtExcessClassII;
+
+        Int_t           fTrack1Id;
+        Int_t           fTrack2Id;
 
         // -- analysis-specific variables (not generic)
         // -- change if you want to use for your own analysis
@@ -174,6 +188,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Double_t        fSmearingExpCoeff;
         
         Bool_t          fTrueLevelStudies;
+
+        void            PsiPrime();
 
     private:
 
@@ -352,6 +368,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
                                                             //!< charm/beauty jets from other (e.g. gluon jets)
         Float_t         fPionThetaReco;                     //!< a variable needed to use theta of the pion for binning
         Float_t         fPionThetaTrue;                     //!< a variable needed to use theta of the pion for binning
-        TH1F*           fPionPtReweightingHisto;            //<! a reweighting histogram for pion pt reweighting
+        Float_t         fPionPhiReco;                       //!< a variable needed to use phi of the pion for binning
+        Float_t         fPionPhiTrue;                       //!< a variable needed to use phi of the pion for binning
+
 };
 #endif
