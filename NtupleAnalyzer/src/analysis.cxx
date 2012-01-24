@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     TSubSet::Q2         q2;
     TSubSet::Process    process;
     unsigned            trigger_period;
-        
+
     // a suffix of a file with binning
     TString             BinningFileSuffix;
 
@@ -70,6 +70,7 @@ int main(int argc, char **argv) {
     bool                histogram_version_ending_set = false;
     bool                run_tracking_efficiency = false;
     bool                test_mode = false;
+    int                 nevents_test = 500000;
 
     // flag to distinguish luminosity-only mode
     bool                recalulate_luminosity_only = false;
@@ -99,7 +100,8 @@ int main(int argc, char **argv) {
         {"expprob", required_argument, 0, 5},
         {"expcoeff", required_argument, 0, 6},
         {"tracking", no_argument, 0, 7},
-        {"test", no_argument, 0, 8}
+        {"test", no_argument, 0, 8},
+        {"nevents_test", required_argument, 0, 9}
     };
     // loop over program arguments (i.e. argv array) and store info to above variables depending on an option
     int option;
@@ -173,6 +175,9 @@ int main(int argc, char **argv) {
             case 8:
                 test_mode = true;
                 break;
+            case 9:
+                nevents_test = (int)atof(optarg);
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t analysis  -t <Type> -p <Period> [-f <Flavour> -q <Q2> -o <Process> -g <trigger period>] -b <Binning File Suffix> -v <Histograms Version Ending> [-r] [-j <size of the variation of the jet energy scale>] [-l <filename> run on specific filelist; all the sample properties set from the command line will be just dummies]"<<endl;
@@ -185,6 +190,7 @@ int main(int argc, char **argv) {
                 cout << "-r : if selected, only recalculation of the luminosity will take place\n\n";
                 cout << "--tracking\t\trun tracking efficiency code, don't run the analysis\n\n";
                 cout << "--test\t\trun in test mode\n\n";
+                cout << "--nevents_test\t\tnumber of events to be processed in test mode\n\n";
                 cout << "Consult also TSubSet.h for encoding, this might be outdated\n" << endl;
                 exit(-1);
             default:
@@ -276,8 +282,9 @@ int main(int argc, char **argv) {
     // select whether should run in the test mode:
     // only reduced number of events (set byTMiniNtupleAnalyzer::SetTestNumberOfEvents) 
     // starting from what is set by SetTestFirstEvent will be processed;
-    instance -> SetTestMode(false);
-    instance -> SetTestNumberOfEvents(10000);
+    if (test_mode) instance -> SetTestMode(true);
+    else  instance -> SetTestMode(false);
+    instance -> SetTestNumberOfEvents(nevents_test);
     instance -> SetTestFirstEvent(0);
 
     // print every nth event
