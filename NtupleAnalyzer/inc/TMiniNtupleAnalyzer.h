@@ -148,9 +148,9 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Double_t        fElectronEnergyZufo;
         Double_t        fNonTrackEnergyZufo;
         Double_t        fUnmatchedIslandsEnergy;
-        Double_t        fPtExcessClassII;
-        Double_t        fPExcessClassII;
-        Double_t        fScalarPtExcessClassII;
+        Double_t        fPtExcess;
+        Double_t        fPExcess;
+        Double_t        fScalarPtExcess;
 
         Int_t           fTrack1Id;
         Int_t           fTrack2Id;
@@ -188,8 +188,6 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Double_t        fSmearingExpCoeff;
         
         Bool_t          fTrueLevelStudies;
-
-        void            PsiPrime();
 
     private:
 
