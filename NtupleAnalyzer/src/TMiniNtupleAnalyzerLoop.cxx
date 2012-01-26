@@ -2365,6 +2365,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cout << "MVDSA track momentum: " << Trkmsa_px[0] << ", " << Trkmsa_py[0] << ", " << Trkmsa_pz[0];
                 TVector3 msa(Trkmsa_px[0], Trkmsa_py[0], Trkmsa_pz[0]);
                 cout << " (p= " <<msa.Mag() << ", pt= "<<msa.Perp()<<")"<<endl;
+                cout << " (phi= " <<msa.Phi() << ", theta= "<<msa.Theta()<<")"<<endl;
             }
 
             if (!classI) {
@@ -2386,6 +2387,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             cGlobalBin->FillHistogram("q2da", Siq2da[0]);
             cGlobalBin->FillHistogram("yda", Siyda[0]);
             cGlobalBin->FillHistogram("Sith", Sith[0]);
+            cGlobalBin->FillHistogram("Siph", Siph[0]);
             cGlobalBin->FillHistogram("Siecorr", Siecorr[0][2]);
             cGlobalBin->FillHistogram("Sipos_x", Sipos[0][0]);
             cGlobalBin->FillHistogram("Sipos_y", Sipos[0][1]);
@@ -2527,6 +2529,9 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("rho_pt_classI", rho.Pt());
                     cGlobalBin->FillHistogram("rho_phi_classI", rho.Phi());
                     cGlobalBin->FillHistogram("rho_theta_classI", rho.Theta());
+                    cGlobalBin->FillHistogram("rho_pt_fine_classI", rho.Pt());
+                    cGlobalBin->FillHistogram("rho_phi_fine_classI", rho.Phi());
+                    cGlobalBin->FillHistogram("rho_theta_fine_classI", rho.Theta());
                     cGlobalBin->FillHistogram("dPhi_classI", dPhi);
                     cGlobalBin->FillHistogram("dTheta_classI", dTheta);
                     cGlobalBin->FillHistogram("dPt_classI", dPt);
@@ -2571,6 +2576,8 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("pi_plus_chi2_classI", Trk_chi2[fTrack1Id]);
                     cGlobalBin->FillHistogram("pi_plus_minus_pt_fine_classI", pi1.Pt());
                     cGlobalBin->FillHistogram("pi_plus_minus_phi_fine_classI", pi1.Phi());
+                    cGlobalBin->FillHistogram("pi_plus_minus_theta_fine_classI", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_plus_minus_p_fine_classI", pi1.P());
                 } else {
                     cGlobalBin->FillHistogram("pi_ZTT_pt_classII", pi1.Pt());
                     cGlobalBin->FillHistogram("pi_ZTT_phi_classII", pi1.Phi());
@@ -2596,6 +2603,8 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("pi_theta_ZTT", pi2.Theta());
                     cGlobalBin->FillHistogram("pi_plus_minus_pt_fine_classI", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_plus_minus_phi_fine_classI", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_plus_minus_theta_fine_classI", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_plus_minus_p_fine_classI", pi2.P());
                 } else {
                     cGlobalBin->FillHistogram("pi_pt_MSA", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_phi_MSA", pi2.Phi());
@@ -2639,12 +2648,19 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
 Double_t TMiniNtupleAnalyzer::getPionPhiReweighting (Double_t phi) {
 
-    Double_t p0 = 1.23939;      // +/-     0.0114037
-    Double_t p1 = -0.0549178;   // +/-     0.0126261
-    Double_t p2 = -0.119674;    // +/-     0.0055402
-    Double_t p3 = 0.022167;     // +/-     0.00449931
-    Double_t p4 = 0.0103398;    // +/-     0.000570118
-    Double_t p5 = -0.00175276;  // +/-     0.000375304
+//     Double_t p0 = 1.23939;      // +/-     0.0114037
+//     Double_t p1 = -0.0549178;   // +/-     0.0126261
+//     Double_t p2 = -0.119674;    // +/-     0.0055402
+//     Double_t p3 = 0.022167;     // +/-     0.00449931
+//     Double_t p4 = 0.0103398;    // +/-     0.000570118
+//     Double_t p5 = -0.00175276;  // +/-     0.000375304
+
+    Double_t p0 =     1.33098;   //         +/-     0.00762926
+    Double_t p1 =     -0.0334553;   //      +/-     0.00810863
+    Double_t p2 =     -0.139294;   //       +/-     0.00349777
+    Double_t p3 =     0.0132893;   //       +/-     0.0027489
+    Double_t p4 =     0.0102305;   //       +/-     0.000348818
+    Double_t p5 =     -0.0010197;   //      +/-     0.000221275
 
     Double_t weight = p0  + p1 * phi + p2 * pow(phi, 2) + p3 * pow(phi, 3) + p4 * pow(phi, 4) + p5 * pow(phi, 5);
     return weight;
@@ -2652,12 +2668,20 @@ Double_t TMiniNtupleAnalyzer::getPionPhiReweighting (Double_t phi) {
 
 Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
 
-    Double_t p0 = 3.40286;  // +/- 0.0459327
-    Double_t p1 = -7.26273; // +/- 0.167761
-    Double_t p2 = 5.96992;  // +/- 0.215883
-    Double_t p3 = -2.04569; // +/- 0.122476
-    Double_t p4 = 0.319297; // +/- 0.0309977
-    Double_t p5 = -0.018484;// +/- 0.00283858
+//     Double_t p0 = 3.40286;  // +/- 0.0459327
+//     Double_t p1 = -7.26273; // +/- 0.167761
+//     Double_t p2 = 5.96992;  // +/- 0.215883
+//     Double_t p3 = -2.04569; // +/- 0.122476
+//     Double_t p4 = 0.319297; // +/- 0.0309977
+//     Double_t p5 = -0.018484;// +/- 0.00283858
+
+    Double_t p0                        =     1.09509;  //         +/-     0.0329055
+    Double_t p1                        =     0.17879;  //         +/-     0.13525
+    Double_t p2                        =     -0.746055;  //       +/-     0.178135
+    Double_t p3                        =     0.534439;  //        +/-     0.0999949
+    Double_t p4                        =     -0.136556;  //       +/-     0.0247568
+    Double_t p5                        =     0.0116791;  //       +/-     0.00221369
+
 
     if (pt>5) return getPionPtReweighting(5);
 
