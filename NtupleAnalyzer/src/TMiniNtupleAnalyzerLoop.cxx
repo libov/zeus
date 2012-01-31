@@ -2268,6 +2268,9 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
         TLorentzVector  pi2 = cand[2 + candidate_number * 6];
         TLorentzVector  phi = cand[3 + candidate_number * 6];
 
+        TLorentzVector  proton_rest;
+        proton_rest.SetXYZM(0, 0, 0, 0.9383);
+
         // needed later: number of superlayers for ZTT tracks
         unsigned layout_nr_1= 0;
         if (Trk_layinner[fTrack1Id] == 0) layout_nr_1 = Trk_layouter[fTrack1Id];
@@ -2378,6 +2381,10 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     if (Trk_prim_vtx[j] == 1) continue;
                     cGlobalBin->FillHistogram("long_tracks_imppar_classII", Trk_imppar[j]);
                     cGlobalBin->FillHistogram("long_tracks_imppar_fine_classII", Trk_imppar[j]);
+                    if (fLong_ZTT_tracks==2) {
+                        cGlobalBin->FillHistogram("long_tracks_imppar_2longTracks_classII", Trk_imppar[j]);
+                        cGlobalBin->FillHistogram("long_tracks_imppar_fine_2longTracks_classII", Trk_imppar[j]);
+                    }
                 }
             }
 
@@ -2563,6 +2570,12 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
                 cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
+                TLorentzVector  proton_pion = proton_rest+pi1;
+                Float_t Ecm = sqrt(proton_pion.Dot(proton_pion));
+                cGlobalBin->FillHistogram("pi_Ecm_ZTT", Ecm);
+                cGlobalBin->FillHistogram("pi_Ecm_ZTTMSA",Ecm);
+                cGlobalBin->FillHistogram("pi_Ecm_fine_ZTT", Ecm);
+                cGlobalBin->FillHistogram("pi_Ecm_fine_ZTTMSA",Ecm);
 
                 // for classI, 1st pion is positive
                 // for classII, 1st pion is ZTT track (positive or negative)
@@ -2597,10 +2610,14 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
                 if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi2_pt * weight_pi2_phi * weight_theta_star);
                 // ZTT+ZTT (classI=true) or ZTT+MSA (classI=false)
+                TLorentzVector  proton_pion = proton_rest+pi2;
+                Float_t Ecm = sqrt(proton_pion.Dot(proton_pion));
                 if (classI) {
                     cGlobalBin->FillHistogram("pi_pt_ZTT", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_phi_ZTT", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_theta_ZTT", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_Ecm_ZTT", Ecm);
+                    cGlobalBin->FillHistogram("pi_Ecm_fine_ZTT", Ecm);
                     cGlobalBin->FillHistogram("pi_plus_minus_pt_fine_classI", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_plus_minus_phi_fine_classI", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_plus_minus_theta_fine_classI", pi2.Theta());
@@ -2609,10 +2626,15 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("pi_pt_MSA", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_phi_MSA", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_theta_MSA", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_Ecm_MSA", Ecm);
+                    cGlobalBin->FillHistogram("pi_Ecm_fine_MSA", Ecm);
                 }
                 cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
                 cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
+                cGlobalBin->FillHistogram("pi_Ecm_ZTTMSA",Ecm);
+                cGlobalBin->FillHistogram("pi_Ecm_fine_ZTTMSA",Ecm);
+
 
                 // for classI, 2nd pion is negative
                 // for classII, 2nd pion is MSA track (positive or negative)
