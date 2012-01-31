@@ -2559,7 +2559,9 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 
             }
 
-            // pion histograms, 1st pion
+            // *****************************************
+            // ******* pion histograms, 1st pion *******
+            // *****************************************
 
             // set fPionThetaReco variable so that CheckGlobalBin can work
             fPionThetaReco = pi1.Theta();
@@ -2606,7 +2608,10 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 }
             }
 
-            // pion histograms, 2nd pion
+            // *****************************************
+            // ******* pion histograms, 2nd pion *******
+            // *****************************************
+
             // set fPionThetaReco variable so that CheckGlobalBin can work
             fPionThetaReco = pi2.Theta();
             fPionPhiReco = pi2.Phi();
