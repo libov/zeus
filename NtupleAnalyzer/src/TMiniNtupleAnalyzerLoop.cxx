@@ -2385,6 +2385,10 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                         cGlobalBin->FillHistogram("long_tracks_imppar_2longTracks_classII", Trk_imppar[j]);
                         cGlobalBin->FillHistogram("long_tracks_imppar_fine_2longTracks_classII", Trk_imppar[j]);
                     }
+                    if (fLong_ZTT_tracks==3) {
+                        cGlobalBin->FillHistogram("long_tracks_imppar_3longTracks_classII", Trk_imppar[j]);
+                        cGlobalBin->FillHistogram("long_tracks_imppar_fine_3longTracks_classII", Trk_imppar[j]);
+                    }
                 }
             }
 
