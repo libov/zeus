@@ -8,8 +8,7 @@ TRew::TRew(Int_t* nstor, Int_t *id, Int_t *prt, Int_t *daug){
   Fmck_daug = daug;
   
   string prefix = "";
-  //string prefix = "reweightingFunction/weightTables/";
-  
+
   string path_Dplus = prefix + "finalDplusWithErrors_v1.01";
   string path_D0 = prefix + "finalD0WithErrors_v1.01";
   string path_Ds = prefix + "finalDsWithErrors_v1.01";
