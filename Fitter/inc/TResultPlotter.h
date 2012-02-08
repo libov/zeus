@@ -41,6 +41,8 @@ class TResultPlotter {
 
                 void    SetPlotScalingFactors(bool  plot_scaling) {fPlotScalingFactors = plot_scaling;};
 
+                void    SetAutoLog(bool auto_log) {fAutoLog = auto_log;};
+
         private:
 
                 struct BinGroup{
@@ -74,6 +76,7 @@ class TResultPlotter {
 
                 bool    isCharm;                    //!< true: plot charm results; false: plot beauty results
                 bool    fPlotScalingFactors;        //!< true: plot scaling factors; false: plot cross-section
+                bool    fAutoLog;
           
 };
 
