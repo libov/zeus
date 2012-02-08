@@ -81,12 +81,12 @@ int main(int argc, char **argv) {
 
     // do the histogramming
     // 1st subpad, linear scale
-    cResultPlotter.DrawPlots(binningXMLfileName1, true, 1, false, 1);
-    cResultPlotter.DrawPlots(binningXMLfileName2, false, 1, true, 2);
+    cResultPlotter.DrawPlots(binningXMLfileName1, true, 1, false, 2);
+    cResultPlotter.DrawPlots(binningXMLfileName2, false, 1, true, 1);
 
     // 2nd subpad, log scale
-    cResultPlotter.DrawPlots(binningXMLfileName1, false, 2, false, 1);
-    cResultPlotter.DrawPlots(binningXMLfileName2, false, 2, true, 2);
+    cResultPlotter.DrawPlots(binningXMLfileName1, false, 2, false, 2);
+    cResultPlotter.DrawPlots(binningXMLfileName2, false, 2, true, 1);
 
     // 3rd subpad, ratio plots
     cResultPlotter.DrawPlots(binningXMLfileName2, binningXMLfileName1, false, 3, false);
