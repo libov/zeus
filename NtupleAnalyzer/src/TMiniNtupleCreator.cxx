@@ -229,6 +229,8 @@ Bool_t TMiniNtupleCreator::IsGoodRhoEvent()
     for (int i = 0; i<Trk_ntracks; i++) {
         if (Trk_id[i] == Sitrknr[0]) continue;
         if (Trk_prim_vtx[i] != 1) continue;
+        if (Trk_layinner[i] > 1) continue;
+        if (Trk_layouter[i] < 3) continue;
         good_tracks++;
     }
     if (good_tracks > 2) return false;
