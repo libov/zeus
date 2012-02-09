@@ -23,3 +23,6 @@ allvarDATA.txt
 allvarMC.txt
 reweight_et
 result_plotter
+# other files that might be changed
+# with no need to track this
+plot.cxx
