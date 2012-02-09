@@ -10,7 +10,7 @@ vpath %.h $(INC)
 
 
 .PHONY: all
-all:	fitter plot_results xsect_philipp_XMLconverter result_plotter
+all:	fitter plot_results xsect_philipp_XMLconverter result_plotter result_printer
 
 OBJECTS=  TMyFitter.o TDistribution.o TResultPlotter.o
 OBJECTS_XML= TXMLparser.o TCrossSection.o TCrossSectionBin.o TDataset.o TSubSet.o
@@ -24,6 +24,9 @@ plot_results: $(OBJECTS) plot_results.o
 
 result_plotter: $(OBJECTS) result_plotter.o
 	g++ -o result_plotter $(OBJ)/result_plotter.o $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -lMinuit -lxerces-c
+
+result_printer: $(OBJECTS) result_printer.o
+	g++ -o result_printer $(OBJ)/result_printer.o $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -lMinuit -lxerces-c
 
 xsect_philipp_XMLconverter: $(OBJECTS) xsect_philipp_XMLconverter.o
 	g++ -o xsect_philipp_XMLconverter $(OBJ)/xsect_philipp_XMLconverter.o $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -lMinuit -lxerces-c
@@ -43,6 +46,9 @@ plot_results.o: plot_results.cxx
 	g++ -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc -I$(FITTER)/inc
 
 result_plotter.o: result_plotter.cxx
+	g++ -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc -I$(FITTER)/inc
+
+result_printer.o: result_printer.cxx
 	g++ -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc -I$(FITTER)/inc
 
 fitter.o: fitter.cxx
