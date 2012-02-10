@@ -157,7 +157,6 @@ void TControlPlot::Draw() {
                     }
                     leg->AddEntry(cHist, LegEntry, option);
                     leg->SetFillColor(0);
-                    //delete cHist;
                 }
 
                 //if (cPad==1) leg->Draw("same");
