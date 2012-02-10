@@ -111,16 +111,19 @@ void TControlPlot::Draw() {
 
                     // get a histogram
                     TH1F*    cHist=(TH1F*)fInputFile->Get(SubDirName+"/"+cVar+"/"+cDataType)->Clone(NewHistName);
+
+                    // --------------------------------- //
+                    // ----------- cosmetics ----------- //
+                    // --------------------------------- //
                     cHist->SetMarkerStyle(cType->GetMarkerStyle());
                     cHist->SetMarkerSize(cType->GetMarkerSize());
                     cHist->SetFillColor(cType->GetFillColor());
                     cHist->SetLineColor(cType->GetLineColor());
                     cHist->SetLineWidth(cType->GetLineWidth());
+
+                    cHist->SetTitle("");
                     cHist->SetStats(0);
-                    //cHist -> Rebin(2);
-                    //cHist->SetAxisRange(0, 14, "X"); 
                     cHist -> SetFillStyle(3003);
-                    //cHist->SetAxisRange(0, 14, "X"); 
 
                     TString Xtitle = GetTitle(cVar);
                     cHist->SetXTitle(Xtitle);
@@ -134,8 +137,6 @@ void TControlPlot::Draw() {
 
                     cHist->SetTitleSize(0.06, "Y");
                     cHist->SetTitleOffset(0.82, "Y");
-
-                    cHist->SetTitle("");
 
                     TString opt="";
                     if    (cType->IsDrawHisto()) opt.Append("HIST");
