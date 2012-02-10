@@ -36,6 +36,6 @@ class TControlPlot : public TObject {
         TString                 fHistogramsVersion;
         vector <TPlotType*>     fPlotTypes;
         TList*                  fList_AdvCanvas;
-        TString                 getTitle(TString variable);
+        TString                 GetTitle(TString variable);
 };
 #endif
