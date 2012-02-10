@@ -37,5 +37,6 @@ class TControlPlot : public TObject {
         vector <TPlotType*>     fPlotTypes;
         TList*                  fList_AdvCanvas;
         TString                 GetTitle(TString variable);
+        void                    SetAxisRange(TString, TH1F * );
 };
 #endif
