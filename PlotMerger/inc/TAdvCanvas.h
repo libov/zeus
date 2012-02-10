@@ -14,18 +14,17 @@
 #include <TCanvas.h>
 #include <TFile.h>
 
-class	TAdvCanvas : public TObject
-{
-	public:
-		TAdvCanvas();
-		TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, Int_t LogPads[6]);
-		~TAdvCanvas();
-		Int_t			GetNPads();
-		Int_t			GetNumberOfVariables();
-		TString		GetVariable(Int_t		VarNum);
-		Bool_t		LogPad(Int_t	Pad);
-		TCanvas*		CreateCanvas(/*TString BinName*/);
-		TString		GetName();
+class	TAdvCanvas : public TObject {
+    public:
+        TAdvCanvas();
+        TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, Int_t LogPads[6]);
+        ~TAdvCanvas();
+        Int_t			GetNPads();
+        Int_t			GetNumberOfVariables();
+        TString		GetVariable(Int_t		VarNum);
+        Bool_t		LogPad(Int_t	Pad);
+        TCanvas*		CreateCanvas(/*TString BinName*/);
+        TString		GetName();
 
 	private:
 		TString 		fCanvName;
