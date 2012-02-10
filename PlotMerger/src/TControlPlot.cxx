@@ -66,21 +66,23 @@ void TControlPlot::Draw() {
         TAdvCanvas   *cAdvCanvas;
         while((cAdvCanvas=(TAdvCanvas*)Iter_AdvCanvas.Next())) {
 
+            // get number of variables and pads for this canvas
             Int_t        NumberOfVariables = cAdvCanvas->GetNumberOfVariables();
             Int_t        NPads=cAdvCanvas->GetNPads();
+
             // sanity check
             if (NumberOfVariables > NPads) {
                 cout<<"ERROR: Number of Variables exceed number of Pads"<<endl;
                 abort();
             }
 
-            // loop over variables in current canvas
+            // create a canvas, loop over variables,
             // and draw variable from each sample
             Int_t        cPad=1;
             TCanvas *cCanvas=cAdvCanvas->CreateCanvas();
-            //TList        *    CurrentHistos;
-
             for (int cVariableNumber=0; cVariableNumber<NumberOfVariables; cVariableNumber++) {
+                
+                // sanity check
                 if (cPad > NPads) {
                     cout<<"ERROR. Filling stopped."<<endl;
                     abort();
@@ -202,6 +204,8 @@ void TControlPlot::Draw() {
                 //if (cPad==1) leg->Draw("same");
                 cPad++;
             }
+
+            // print the canvas to file
             if (SubDirName=="bin1") {
               cCanvas->Print((TString)getenv("PLOTS_PATH")+"/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+"."+SubDirName+".png");
             }
