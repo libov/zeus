@@ -2,7 +2,7 @@
 //                                              //
 //  Inclusive  secondary vertex analysis        //
 //  Libov Vladyslav                             //
-//  DESY			                                 //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
 //  September 2009                              //
 //                                              //
@@ -13,7 +13,6 @@
 #include <TString.h>
 #include <TCanvas.h>
 #include <TFile.h>
-
 
 class	TAdvCanvas : public TObject
 {
