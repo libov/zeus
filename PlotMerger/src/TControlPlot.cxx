@@ -109,6 +109,7 @@ void TControlPlot::Draw() {
                         abort();
                     }
 
+                    // get a histogram
                     TH1F*    cHist=(TH1F*)fInputFile->Get(SubDirName+"/"+cVar+"/"+cDataType)->Clone(NewHistName);
                     cHist->SetMarkerStyle(cType->GetMarkerStyle());
                     cHist->SetMarkerSize(cType->GetMarkerSize());
@@ -121,55 +122,12 @@ void TControlPlot::Draw() {
                     cHist -> SetFillStyle(3003);
                     //cHist->SetAxisRange(0, 14, "X"); 
 
-                    TString Xtitle = "";
-                    if (cVar.Contains( "zvtx")) Xtitle = "Z_{PRM VTX}, cm";
-                    if (cVar.Contains(  "empz")) Xtitle = "E-p_{Z}, GeV";
-                    if (cVar.Contains(  "yel")) Xtitle = "Y_{el}";
-                    if (cVar.Contains(  "yjb"))  {
-                        Xtitle = "Y_{jb}";
-                        //cHist->SetAxisRange(0, 500000, "Y");
-                    }
-                    
-                    if (cVar.Contains("xel")) Xtitle = "X_{el}";
-                    if (cVar.Contains("xjb")) Xtitle = "X_{jb}";
-                    if (cVar.Contains("xda")) Xtitle = "X_{da}";
- 
-                    if (cVar.Contains("q2da")) {
-                        Xtitle = "Q^{2}_{da}, GeV^2";
-                        cHist->SetAxisRange(0, 3, "X");
-                        //cHist->SetAxisRange(0, 520000, "Y");
-                    }
-                    if (cVar == "siecorr") Xtitle = "E'_{e}, GeV";
-                    if (cVar == "thetael") {
-                        Xtitle = "#theta_{e}, rad";
-                        cHist->SetAxisRange(1.5, 3.14, "X");
-                        cHist->SetAxisRange(0, 2300000, "Y");
-                    }
-                    if (cVar == "phiel") {
-                        Xtitle = "#phi_{e}, rad";
-                        cHist->SetAxisRange(0, 275000, "Y");
-                    }
-                    if (cVar.Contains("kt_etjet_b")) {
-                            Xtitle = "E_{T}^{jet}, GeV";
-                            //cHist->SetAxisRange(1, 2000000, "Y");
-                    }
-                    if (cVar.Contains("kt_etajet_b")) Xtitle = "#eta^{jet}";
-                    if (cVar == "kt_phijet_b"){
-                         Xtitle = "#phi^{jet}";
-                        cHist->SetAxisRange(0, 150000, "Y");
-                    }
-                    if (cVar.Contains("vtxsec_mass")) {
-                        Xtitle = "MASS (Sec. Vtx.), GeV";
-                        cHist->SetAxisRange(0, 6, "X");
-                    }
-                    if (cVar.Contains("vtxsec_multi")) {
-                        Xtitle = "MULTIPLICITY (Sec. Vtx.)";
-                        cHist->SetAxisRange(0, 14, "X");
-                    }
-                    if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
-
+                    TString Xtitle = GetTitle(cVar);
                     cHist->SetXTitle(Xtitle);
+
                     cHist->SetYTitle("Entries");
+
+                    SetAxisRange(cVar, cHist);
 
                     cHist->SetTitleSize(0.05, "X");
                     cHist->SetTitleOffset(0.85, "X");
@@ -219,6 +177,42 @@ void TControlPlot::Draw() {
     fOutputFile->Close();
 }
 
+TString TControlPlot::GetTitle(TString cVar) {
+
+    TString Xtitle = "";
+
+    if (cVar.Contains("zvtx"))  Xtitle = "Z_{PRM VTX}, cm";
+    if (cVar.Contains("empz"))  Xtitle = "E-p_{Z}, GeV";
+    if (cVar.Contains("yel"))   Xtitle = "y_{el}";
+    if (cVar.Contains("yjb"))   Xtitle = "y_{jb}";
+    if (cVar.Contains("xel"))   Xtitle = "x_{el}";
+    if (cVar.Contains("xjb"))   Xtitle = "x_{jb}";
+    if (cVar.Contains("xda"))   Xtitle = "x_{da}";
+    if (cVar.Contains("q2da"))  Xtitle = "Q^{2}_{da}, GeV^2";
+    if (cVar == "siecorr")      Xtitle = "E'_{e}, GeV";
+    if (cVar == "thetael")      Xtitle = "#theta_{e}, rad";
+    if (cVar == "phiel")        Xtitle = "#phi_{e}, rad";
+    if (cVar.Contains("kt_etjet_b"))    Xtitle = "E_{T}^{jet}, GeV";
+    if (cVar.Contains("kt_etajet_b"))   Xtitle = "#eta^{jet}";
+    if (cVar == "kt_phijet_b")          Xtitle = "#phi^{jet}";
+    if (cVar.Contains("vtxsec_mass"))   Xtitle = "MASS (Sec. Vtx.), GeV";
+    if (cVar.Contains("vtxsec_multi"))  Xtitle = "MULTIPLICITY (Sec. Vtx.)";
+    if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
+    if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "L_{XY}/#sigma(L_{XY})";
+
+    return Xtitle;
+}
+
+void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
+    if (cVar == "thetael") {
+        cHist->SetAxisRange(1.5, 3.14, "X");
+        cHist->SetAxisRange(0, 2300000, "Y");
+    }
+    if (cVar == "phiel") cHist->SetAxisRange(0, 275000, "Y");
+    if (cVar == "kt_phijet_b") cHist->SetAxisRange(0, 150000, "Y");
+    if (cVar.Contains("vtxsec_mass")) cHist->SetAxisRange(0, 6, "X");
+    if (cVar.Contains("vtxsec_multi")) cHist->SetAxisRange(0, 14, "X");
+}
 
 /*
                     if ((SubDirName=="bin13")&&cVar.Contains("significance_massbin3") && cVar.Contains("_mirrored")) {
