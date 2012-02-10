@@ -22,15 +22,13 @@ fNPads_Y(NPads_Y),
 fCanvName(CanvName),
 fcolonVariables(colonVariables)
 {
-	this->SeparateVariables();
-	for (int k=0; k<fNPads_X*fNPads_Y; k++)
-	{
-		fLogPads[k+1]=LogPads[k];
-	}
+    this->SeparateVariables();
+    for (int k=0; k<fNPads_X*fNPads_Y; k++) {
+        fLogPads[k+1]=LogPads[k];
+    }
 }
 
-TAdvCanvas::~TAdvCanvas()
-{
+TAdvCanvas::~TAdvCanvas() {
 }
 
 Int_t		TAdvCanvas::GetNPads()
