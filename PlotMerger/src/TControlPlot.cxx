@@ -29,10 +29,13 @@ TControlPlot::TControlPlot(TString    HistogramsVersion):
 fList_AdvCanvas(new TList()),
 fHistogramsVersion(HistogramsVersion)
 {
-    TString Histo_path=getenv("HISTO_PATH");
-    fInputFile=new TFile(Histo_path+"/merged."+HistogramsVersion+".root");
+    // get a path to histograms folder
+    TString HISTO_PATH = getenv("HISTO_PATH");
+    // get a root file after merger
+    fInputFile=new TFile(HISTO_PATH+"/merged."+HistogramsVersion+".root");
     cout << "INFO: Opened " << fInputFile -> GetName() << endl;
-    fOutputFile=new TFile(Histo_path+"/plotter."+fHistogramsVersion+".root","recreate");
+    // create a root file to store the plots
+    fOutputFile=new TFile(HISTO_PATH+"/plotter."+fHistogramsVersion+".root","recreate");
     cout << "INFO: Plots go to " << fOutputFile -> GetName() << endl;
 }
 
