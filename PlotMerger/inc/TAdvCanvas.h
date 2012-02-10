@@ -26,14 +26,14 @@ class	TAdvCanvas : public TObject {
         TCanvas*		CreateCanvas(/*TString BinName*/);
         TString		GetName();
 
-	private:
-		TString 		fCanvName;
-		TString 		fcolonVariables;
-		TString		fArrayOfVariables[25];
-		Int_t			fNumberOfVariables;
-		Int_t			fNPads_X;
-		Int_t			fNPads_Y;
-		Int_t			fLogPads[20];
-		void			SeparateVariables();
+    private:
+        TString 		fCanvName;
+        TString 		fcolonVariables;
+        TString		fArrayOfVariables[25];
+        Int_t			fNumberOfVariables;
+        Int_t			fNPads_X;
+        Int_t			fNPads_Y;
+        Int_t			fLogPads[20];
+        void			SeparateVariables();
 };
 #endif
