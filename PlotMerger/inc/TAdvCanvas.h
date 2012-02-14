@@ -27,6 +27,8 @@ class TAdvCanvas : public TObject {
         Bool_t          LogPad(Int_t Pad);
         TCanvas*        CreateCanvas(/*TString BinName*/);
         TString         GetName();
+        Int_t           GetWidth() {return fWidth;};
+        Int_t           GetHeight() {return fHeight;};
 
     private:
         TString         fCanvName;
