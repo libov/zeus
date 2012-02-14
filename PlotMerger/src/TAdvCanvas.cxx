@@ -20,7 +20,9 @@ TAdvCanvas::TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString col
 fNPads_X(NPads_X),
 fNPads_Y(NPads_Y),
 fCanvName(CanvName),
-fcolonVariables(colonVariables)
+fcolonVariables(colonVariables),
+fWidth(1200),
+fHeight(800)
 {
     this->SeparateVariables();
     for (int k=0; k<fNPads_X*fNPads_Y; k++) {
