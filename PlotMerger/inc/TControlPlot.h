@@ -27,6 +27,7 @@ class TControlPlot : public TObject {
 
         void AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth);
         void AddAdvCanvas(Int_t initNPads_X,Int_t initNPads_Y,TString initSetName, TString initVariables,Int_t initLogs[6]);
+        void AddAdvCanvas(Int_t initNPads_X,Int_t initNPads_Y,TString initSetName, TString initVariables,Int_t initLogs[6], Int_t, Int_t);
         void Draw();
 
     private:
