@@ -19,6 +19,7 @@ class TAdvCanvas : public TObject {
     public:
         TAdvCanvas();
         TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, Int_t LogPads[6]);
+        TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, Int_t LogPads[6], Int_t width, Int_t height);
         ~TAdvCanvas();
         Int_t           GetNPads();
         Int_t           GetNumberOfVariables();
