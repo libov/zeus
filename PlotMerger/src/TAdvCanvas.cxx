@@ -81,6 +81,7 @@ TCanvas* TAdvCanvas::CreateCanvas() {
     fCanvas->ToggleEventStatus();
     fCanvas->ToggleEditor();
     fCanvas->Divide(fNPads_X,fNPads_Y);
+
     return fCanvas;
 }
 TString TAdvCanvas::GetName()
