@@ -34,6 +34,8 @@ class TAdvCanvas : public TObject {
         Int_t           fNumberOfVariables;
         Int_t           fNPads_X;
         Int_t           fNPads_Y;
+        Int_t           fWidth;
+        Int_T           fHeight;
         Int_t           fLogPads[20];
         void            SeparateVariables();
 };
