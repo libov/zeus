@@ -16,7 +16,7 @@ TAdvCanvas::TAdvCanvas()
 {
 }
 
-TAdvCanvas::TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, Int_t	LogPads[6]):
+TAdvCanvas::TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, Int_t LogPads[6]):
 fNPads_X(NPads_X),
 fNPads_Y(NPads_Y),
 fCanvName(CanvName),
