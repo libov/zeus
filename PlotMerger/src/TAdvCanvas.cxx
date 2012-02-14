@@ -77,11 +77,11 @@ TCanvas* TAdvCanvas::CreateCanvas() {
     fCanvas->SetBorderSize(2);
     fCanvas->SetFrameFillColor(0);
     fCanvas->SetFillColor(0);
-   fCanvas->ToggleToolBar();
-	fCanvas->ToggleEventStatus();
-	fCanvas->ToggleEditor();
-	fCanvas->Divide(fNPads_X,fNPads_Y);
-	return fCanvas;
+    fCanvas->ToggleToolBar();
+    fCanvas->ToggleEventStatus();
+    fCanvas->ToggleEditor();
+    fCanvas->Divide(fNPads_X,fNPads_Y);
+    return fCanvas;
 }
 TString TAdvCanvas::GetName()
 {
