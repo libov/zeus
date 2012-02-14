@@ -39,5 +39,9 @@ class TControlPlot : public TObject {
         TList*                  fList_AdvCanvas;
         TString                 GetTitle(TString variable);
         void                    SetAxisRange(TString, TH1F * );
+        bool                    fPrintPNG;
+        bool                    fPrintEPS;
+        bool                    fPrintGIF;
+        bool                    fPrintROOT;
 };
 #endif
