@@ -71,7 +71,7 @@ Bool_t		TAdvCanvas::LogPad(Int_t	Pad)
 }
 TCanvas*	TAdvCanvas::CreateCanvas(/*TString BinName*/)
 {
-        TCanvas *fCanvas = new TCanvas(fCanvName, "Control Plots",1200,800);
+        TCanvas *fCanvas = new TCanvas(fCanvName, "Control Plots", fWidth, fHeight);
 
    //gStyle->SetOptFit(1111);
    fCanvas->Range(0.275,-234.806,5.525,2113.26);
