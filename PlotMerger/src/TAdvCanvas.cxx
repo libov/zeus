@@ -69,8 +69,8 @@ Bool_t		TAdvCanvas::LogPad(Int_t	Pad)
 		if (fLogPads[Pad]==1) return true;
 		if (fLogPads[Pad]==0) return false;
 }
-TCanvas*	TAdvCanvas::CreateCanvas(/*TString BinName*/)
-{
+TCanvas* TAdvCanvas::CreateCanvas() {
+
         TCanvas *fCanvas = new TCanvas(fCanvName, "Control Plots", fWidth, fHeight);
 
    //gStyle->SetOptFit(1111);
