@@ -84,7 +84,7 @@ TCanvas* TAdvCanvas::CreateCanvas() {
 
     return fCanvas;
 }
-TString TAdvCanvas::GetName()
-{
-		return fCanvName;
+
+TString TAdvCanvas::GetName() {
+    return fCanvName;
 }
