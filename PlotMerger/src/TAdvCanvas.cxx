@@ -78,11 +78,12 @@ TString	TAdvCanvas::GetVariable(Int_t	VarNum)
 {
 	return fArrayOfVariables[VarNum];
 }
-Bool_t		TAdvCanvas::LogPad(Int_t	Pad)
-{
-		if (fLogPads[Pad]==1) return true;
-		if (fLogPads[Pad]==0) return false;
+
+Bool_t TAdvCanvas::LogPad(Int_t Pad) {
+    if (fLogPads[Pad]==1) return true;
+    if (fLogPads[Pad]==0) return false;
 }
+
 TCanvas* TAdvCanvas::CreateCanvas() {
 
     TCanvas *fCanvas = new TCanvas(fCanvName, "Control Plots", fWidth, fHeight);
