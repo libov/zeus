@@ -879,7 +879,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         // Loop over the TGlobalBins - fill the histograms
         TGlobalBin      *currentTGlobalBin;
         TIter           Iter_TGlobalBin(fList_TGlobalBin);
-        
+
         // determine the Q2 weight
         if ( fIsCharm ) fRecoQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
         if ( fIsBeauty ) {
@@ -1017,7 +1017,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // apply weighting factors
                     currentTGlobalBin -> SetWeightingFactor(TOTAL_WEIGHT * eta_weight * et_weight);
                 }
-                
+
                 // now weight if this is LF; done here because we weight every
                 // jet separately (according to its energy)
                 // for the timebeing, don't jet matching to true level and use
@@ -1026,7 +1026,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 // but the fact that ET reweighting is done only for LF, while those mentioned above -  
                 // just for charm or for beauty - there's no contradiction;
                 // still this is very obscure and should be done better
-            
+
                 if (fIsMC && (fSubSet.getFlavourENUM()==TSubSet::kLIGHT) && fEtReweightingLF) {
                     currentTGlobalBin -> ApplyWeighting(true);
                     Double_t    et_weighting_factor = getEtReweighting(fRecoJetEt);
@@ -1120,7 +1120,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 currentTGlobalBin->FillHistogram("ZUFO_jet_ratio", fVertices[j].GetZUFO_jet_ratio());
                 currentTGlobalBin->FillHistogram("CAL_total_ratio", fVertices[j].GetCAL_total_ratio());
                 currentTGlobalBin->FillHistogram("ZUFO_type", fVertices[j].GetZUFO_type());
-                
+
                 currentTGlobalBin->FillHistogram("average_angle", average_angle);
 
                 // fill some histos related to track density effects
@@ -1187,7 +1187,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 }
                 // for the mass plot it is desired to see it in the full mass range, and not just from 1 to 2 GeV
                 if (TMath::Abs(fSignificance) > 4) currentTGlobalBin->FillHistogram("vtxsec_mass_charm", mass);
-                
+
                 // beauty enriched plots
                 if ( ( TMath::Abs(fSignificance) > 8 ) && (mass>2) && (mass<6) ) {
 
@@ -1251,7 +1251,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Double_t    et_weighting_factor = getEtReweighting(fRecoJetEt);
                         currentTGlobalBin -> SetWeightingFactor(et_weighting_factor);
                     }
-    
+
                     // fill the significance of the "other" vertex - that is an additional vertex
                     // to the charm ones
                     fFillMirrored=true;
@@ -1267,7 +1267,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     }
                     fFillMirrored=false;
                 }
-                
+
             }
         }   // end loop over bins
     }   // *** end main event loop ***
@@ -1638,10 +1638,10 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
     // look for charm/beauty hadrons,
     // loop over all true particles
     for (int k = 0; k < Fmck_nstor; k++) {
-    
+
         // get a particle type
         Int_t   t = Fmck_prt[k];
-                        
+
         // proceed only for some charm and beauty hadrons (for charm and beauty sample respectively)
         if ( fIsCharm ) {
             if (!( ( (t>=64) && (t<=71) ) || ( (t>=186) && (t<=189) ) || (t==208) || (t==209) )) continue;
@@ -1651,10 +1651,10 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
             cout << "ERROR from Loop(): shouldn't get here" << endl;
             abort();
         }
-        
+
         // get 4-momentum of the charm/beauty hadron
         TLorentzVector hadron(Fmck_px[k], Fmck_py[k], Fmck_pz[k], Fmck_e[k]);
-        
+
         // loop over the table again to find index of the mother particle of our charm hadron
         Int_t       string_ind = -1;
         for (int ii = 0; ii < Fmck_nstor; ii++) {
@@ -1663,15 +1663,15 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
                 break;
             }
         }
-        
+
         // we are interested only in hadrons created directly in string fragmentation (not in the decays 
         // of other hadrons);
         // string code is 2092
         if (Fmck_prt[string_ind] != 2092) continue;
-    
+
         // get 4-momentum of the string
         TLorentzVector  string(Fmck_px[string_ind], Fmck_py[string_ind], Fmck_pz[string_ind], Fmck_e[string_ind]);
-    
+
         // get also c/cbar quark - parent of the string
         Int_t       quark_ind = -1;
         for (int ii = 0; ii < Fmck_nstor; ii++) {
@@ -1680,7 +1680,7 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
                 break;
             }
         }
-    
+
         // check whether this is c/cbar
         Int_t   quark_id = Fmck_prt[quark_ind];
         if ( (fIsCharm&&(quark_id != 7)&&(quark_id != 8)) || (fIsBeauty&&(quark_id != 9)&&(quark_id != 10)) ) {
@@ -1688,14 +1688,14 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
             cout << quark_id << endl;
             continue;
         }
-    
+
         TLorentzVector  quark(Fmck_px[quark_ind], Fmck_py[quark_ind], Fmck_pz[quark_ind], Fmck_e[quark_ind]);
-    
+
         // charm hadron variables
         Double_t    qphi = hadron.Phi();
         if (qphi<0) qphi += (2*TMath::Pi());
         Double_t    qeta = hadron.Eta();
-    
+
         // find a jet to which charm hadron is associated;
         // first, find closest jet to the hadron
         Double_t    Rmin = 99999;
@@ -1704,7 +1704,7 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
             TLorentzVector jet(Pxhbmjet[m], Pyhbmjet[m], Pzhbmjet[m], Ehbmjet[m]);
             Double_t    jphi = jet.Phi();
             if (jphi<0) jphi += (2*TMath::Pi());
-        
+
             Double_t    deta = qeta - jet.Eta();
             Double_t    dphi = qphi - jphi;
             Double_t    R = sqrt(deta*deta + dphi*dphi);
@@ -1713,14 +1713,14 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
                 jet_ind = m;
             }
         }
-    
+
         currentTGlobalBin->FillHistogram( "R_hadron_jet", Rmin);
         // closest jet should be close enough
         if (Rmin>1) continue;
-    
+
         // ok, found a jet which contains our charm hadron
         TLorentzVector jet(Pxhbmjet[jet_ind], Pyhbmjet[jet_ind], Pzhbmjet[jet_ind], Ehbmjet[jet_ind]);
-    
+
         // now boost to string rest frame, where we want to work;
         // first, get a boost vector;
         // original frame: string rest frame
@@ -1728,24 +1728,24 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
         // boost vector: speed of laboratory frame wrt string rest frame,
         // obviously (-1)x(string velocity,lab)=(-1)x(string momentum,lab)/(string energy, lab)
         TVector3     boost((-1)*string.Px()/string.E(), (-1)*string.Py()/string.E(), (-1)*string.Pz()/string.E());
-    
+
         // boosting to string rest frame
         hadron.Boost(boost);
         jet.Boost(boost);
         quark.Boost(boost);
         string.Boost(boost);
-        
+
         // now can calculate z, taking different variables
         Double_t    p_hadr_parallel = (quark.Vect().Dot(hadron.Vect()))/quark.Vect().Mag();
         Double_t    z_quark = (hadron.E() + p_hadr_parallel) / (quark.E() + quark.P());
         Double_t    z_string = (hadron.E() + p_hadr_parallel) / (string.E() + string.P());
         currentTGlobalBin->FillHistogram( "z_true_quark", z_quark);
         currentTGlobalBin->FillHistogram( "z_true_string", z_string);
-    
+
         Double_t    p_charm_hadr_parallel_jet = (jet.Vect().Dot(hadron.Vect()))/jet.Vect().Mag();
         Double_t    z_jet = (hadron.E() + p_hadr_parallel) / (jet.E() + jet.P());
         currentTGlobalBin->FillHistogram( "z_true_jet", z_jet);
-    
+
         // now define weight from this hadron
         // first get a bin number
         Int_t   bin_rew_histo = getReweightingHistoBin(fFragmentationReweighting_histo, z_string);
@@ -1786,7 +1786,7 @@ Float_t TMiniNtupleAnalyzer::getAverageAngle(Int_t  vertex_id) {
         for (int t2 = t1+1; t2<ntracks; t2++) {
             // get an id of the 2nd track
             Int_t   id2 = Vtxsec_zttid[vertex_id][t2];
-            
+
             // search for it in the Tracking block
             Int_t   idtrk2 = -1;
             for (int i=0; i < Trk_ntracks; i++) {
@@ -1803,7 +1803,7 @@ Float_t TMiniNtupleAnalyzer::getAverageAngle(Int_t  vertex_id) {
 
             // create a 3-vector corresponding to this track
             TVector3 track2(Trk_px[idtrk2], Trk_py[idtrk2], Trk_pz[idtrk2]);
-            
+
             // now get angle between this pair
             Double_t angle = track1.Angle(track2);
             total_angle += angle;
