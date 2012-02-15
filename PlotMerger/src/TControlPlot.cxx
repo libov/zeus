@@ -58,6 +58,10 @@ void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TS
     fList_AdvCanvas->Add(new TAdvCanvas(NPads_X,NPads_Y, SetName,Variables,Logs));
 }
 
+void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TString Variables, Int_t Logs[6], Int_t width, Int_t height){
+    fList_AdvCanvas->Add(new TAdvCanvas(NPads_X, NPads_Y, SetName, Variables, Logs, width, height));
+}
+
 void TControlPlot::Draw() {
 
     // loop over bins
