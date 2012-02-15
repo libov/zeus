@@ -95,7 +95,7 @@ void TControlPlot::Draw() {
             Int_t        cPad=1;
             TCanvas *cCanvas=cAdvCanvas->CreateCanvas();
             for (int cVariableNumber=0; cVariableNumber<NumberOfVariables; cVariableNumber++) {
-                
+
                 // sanity check
                 if (cPad > NPads) {
                     cout<<"ERROR. Filling stopped."<<endl;
