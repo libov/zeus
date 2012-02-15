@@ -397,10 +397,13 @@ int main(int argc, char **argv) {
     instance -> SetStudyResolutions (false);
 
     // select whether to run on Minintuples or on dCache
-    instance -> SetRundCache (false);
+    if (dCache) instance -> SetRundCache (true);
+    else instance -> SetRundCache (false);
+    // if selected to run on a specific filelist, this must be the dCache run
+    if (specific_filelist) instance -> SetRundCache (false);
 
     // in case of Minintuples, specify the path
-    TString     MINI_NTUPLES_PATH = getenv("MINI_NTUPLES_PATH_v02");
+    TString     MINI_NTUPLES_PATH = getenv("MINI_NTUPLES_PATH");
     instance -> SetPathToMiniNtuples(MINI_NTUPLES_PATH);
     instance -> SetMiniNtuplesOn_dCache (true);
 
@@ -428,10 +431,13 @@ int main(int argc, char **argv) {
 
     // if selected to run only tracking efficiency part
     if (run_tracking_efficiency) {
-        instance -> TrackingEfficiency();
+        // some settings
         instance -> setApplyPtReweighting(true);
         instance -> setApplyPhiReweighting(true);
-        instance -> setDebugPrintout(true);
+        instance -> setApplyThetaStarReweighting(true);
+        instance -> setDebugPrintout(false);
+        // start event loop
+        instance -> TrackingEfficiency();
         return 0;
     }
 
