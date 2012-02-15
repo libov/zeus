@@ -1353,7 +1353,12 @@ Float_t TMiniNtupleAnalyzer::get_x_gamma(vector<TLorentzVector> jet_list, bool b
             
             // get et of the jet
             Float_t  jet_et = jet_list_boosted[j].Et();
-            Float_t  jet_eta = jet_list_boosted[j].Eta();
+            Float_t  jet_eta;
+            // check whether this jet has non-zero Et, otherwise
+            // Eta() method will complain
+            if (jet_et!=0) jet_eta = jet_list_boosted[j].Eta();
+            else jet_eta = 999;
+
             // phase space cuts
             if (jet_et < breit_et_cut) continue;
             // if the jet energy is above the max energy found so far, call it highest energy jet (1st jet)
@@ -1372,7 +1377,11 @@ Float_t TMiniNtupleAnalyzer::get_x_gamma(vector<TLorentzVector> jet_list, bool b
     for (int j = 0; j < njets; j++) {
         // get et of the jet
         Float_t  jet_et = jet_list_boosted[j].Et();
-        Float_t  jet_eta = jet_list_boosted[j].Eta();
+        Float_t  jet_eta;
+        // check whether this jet has non-zero Et, otherwise
+        // Eta() method will complain
+        if (jet_et!=0) jet_eta = jet_list_boosted[j].Eta();
+        else jet_eta = 999;
         // phase space cuts
         if (jet_et < breit_et_cut) continue;
         // if the jet energy is above the max energy found so far
