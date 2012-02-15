@@ -44,6 +44,9 @@ fRasterCorrection(1)
     // create a root file to store the plots
     fOutputFile=new TFile(HISTO_PATH+"/plotter."+fHistogramsVersion+".root","recreate");
     cout << "INFO: Plots go to " << fOutputFile -> GetName() << endl;
+    gStyle->SetPadTickY(1);
+    gStyle->SetPadTickX(1);
+    gStyle->SetErrorX(0);
 }
 
 
