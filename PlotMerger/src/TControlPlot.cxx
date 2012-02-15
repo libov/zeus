@@ -29,7 +29,12 @@ using namespace std;
 
 TControlPlot::TControlPlot(TString    HistogramsVersion):
 fList_AdvCanvas(new TList()),
-fHistogramsVersion(HistogramsVersion)
+fHistogramsVersion(HistogramsVersion),
+fPrintPNG(false),
+fPrintEPS(false),
+fPrintGIF(false),
+fPrintROOT(false),
+fRasterCorrection(1)
 {
     // get a path to histograms folder
     TString HISTO_PATH = getenv("HISTO_PATH");
