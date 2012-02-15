@@ -2127,6 +2127,23 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             fPExcess = vector_p_sum.Mag();
         }
 
+        // fill trigger histograms
+        // loop over all FLT slots, 0-63
+        for (int slot=0; slot<64; slot++) {
+            int id = -1;
+            // 0-31: 1st element of array (i.e. [0])
+            // 32-63: 2nd element of array (i.e. [1])
+            if ( (slot>=0) && (slot<=31) ) id = 0;
+            if ( (slot>=32) && (slot<=63) ) id = 1;
+            // sanity check
+            if (id == -1) abort();
+            // check whether this trigger slot fired
+            bool flt_slot_fired = (bool) ( (Fltpsw[id] >> slot) & 1 );
+            // fill the histogram if yes
+            if (flt_slot_fired) if (classI) inclusiveBin -> FillHistogram("FLT_classI", slot);
+            if (flt_slot_fired) if (classII) inclusiveBin -> FillHistogram("FLT_classII", slot);
+        }
+
         // now fill the histograms
         fEvent_histos_filled = false;
         FillRhoHistograms (cand_classI, true, 0);
