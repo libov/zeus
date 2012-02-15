@@ -14,6 +14,8 @@
 #include <TH1F.h>
 #include <TLegend.h>
 #include <TMath.h>
+#include <TPaveText.h>
+#include <TStyle.h>
 
 // system headers
 #include<iostream>
