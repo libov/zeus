@@ -112,7 +112,10 @@ void TControlPlot::Draw() {
                                                     // of current Pad
                 sprintf(buffer,"%i",cPad);
                 Bool_t    first_histo=true;        // with or without "same"
-                TLegend * leg = new TLegend (0.65,0.65,0.88, 0.85, "", "brNDC");
+                TLegend * leg;
+                if (NPads==3) leg = new TLegend (0.33,0.55,0.87, 0.75, "", "brNDC");
+                else leg = new TLegend (0.6,0.65,0.87, 0.85, "", "brNDC");
+                TH1F * data_hist;
 
                 for (int type=0;type<fPlotTypes.size();type++) {
                     TPlotType     *cType=fPlotTypes[type];
