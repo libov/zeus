@@ -2602,6 +2602,55 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi1.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi1.Phi());
                 cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi1.Theta());
+                cGlobalBin->FillHistogram("pi_rho_mass_ZTT", rho.M());
+                cGlobalBin->FillHistogram("pi_rho_mass_ZTTMSA", rho.M());
+                // loop over all FLT slots, 0-63
+                for (int slot=0; slot<64; slot++) {
+                    int id = -1;
+                    // 0-31: 1st element of array (i.e. [0])
+                    // 32-63: 2nd element of array (i.e. [1])
+                    if ( (slot>=0) && (slot<=31) ) id = 0;
+                    if ( (slot>=32) && (slot<=63) ) id = 1;
+                    // sanity check
+                    if (id == -1) abort();
+                    // check whether this trigger slot fired
+                    bool flt_slot_fired = (bool) ( (Fltpsw[id] >> slot) & 1 );
+                    // fill the histogram if yes
+                    if (flt_slot_fired) cGlobalBin -> FillHistogram("pi_FLT_ZTT", slot);
+                    if (flt_slot_fired) cGlobalBin -> FillHistogram("pi_FLT_ZTTMSA", slot);
+                }
+
+                // now separately for charge
+                // classI: this is positive pion (1st)
+                if (classI) {
+                    cGlobalBin->FillHistogram("pi_plus_pt_ZTT", pi1.Pt());
+                    cGlobalBin->FillHistogram("pi_plus_phi_ZTT", pi1.Phi());
+                    cGlobalBin->FillHistogram("pi_plus_theta_ZTT", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_plus_pt_ZTTMSA", pi1.Pt());
+                    cGlobalBin->FillHistogram("pi_plus_phi_ZTTMSA", pi1.Phi());
+                    cGlobalBin->FillHistogram("pi_plus_theta_ZTTMSA", pi1.Theta());
+                // class II: this is ZTT track, can be either positive or negative
+                } else if (!classI) {
+                    if (Trk_charge[fTrack1Id]>0) {
+                        cGlobalBin->FillHistogram("pi_plus_pt_ZTT", pi1.Pt());
+                        cGlobalBin->FillHistogram("pi_plus_phi_ZTT", pi1.Phi());
+                        cGlobalBin->FillHistogram("pi_plus_theta_ZTT", pi1.Theta());
+                        cGlobalBin->FillHistogram("pi_plus_pt_ZTTMSA", pi1.Pt());
+                        cGlobalBin->FillHistogram("pi_plus_phi_ZTTMSA", pi1.Phi());
+                        cGlobalBin->FillHistogram("pi_plus_theta_ZTTMSA", pi1.Theta());
+                    } else if (Trk_charge[fTrack1Id]<0) {
+                        cGlobalBin->FillHistogram("pi_minus_pt_ZTT", pi1.Pt());
+                        cGlobalBin->FillHistogram("pi_minus_phi_ZTT", pi1.Phi());
+                        cGlobalBin->FillHistogram("pi_minus_theta_ZTT", pi1.Theta());
+                        cGlobalBin->FillHistogram("pi_minus_pt_ZTTMSA", pi1.Pt());
+                        cGlobalBin->FillHistogram("pi_minus_phi_ZTTMSA", pi1.Phi());
+                        cGlobalBin->FillHistogram("pi_minus_theta_ZTTMSA", pi1.Theta());
+                    } else {
+                        cout << "ERROR: charge = 0" << endl;
+                        abort();
+                    }
+                }
+
                 TLorentzVector  proton_pion = proton_rest+pi1;
                 Float_t Ecm = sqrt(proton_pion.Dot(proton_pion));
                 cGlobalBin->FillHistogram("pi_Ecm_ZTT", Ecm);
@@ -2653,23 +2702,67 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("pi_theta_ZTT", pi2.Theta());
                     cGlobalBin->FillHistogram("pi_Ecm_ZTT", Ecm);
                     cGlobalBin->FillHistogram("pi_Ecm_fine_ZTT", Ecm);
+                    cGlobalBin->FillHistogram("pi_rho_mass_ZTT", rho.M());
                     cGlobalBin->FillHistogram("pi_plus_minus_pt_fine_classI", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_plus_minus_phi_fine_classI", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_plus_minus_theta_fine_classI", pi2.Theta());
                     cGlobalBin->FillHistogram("pi_plus_minus_p_fine_classI", pi2.P());
+                    // classI: this is a negative pion (2nd)
+                    cGlobalBin->FillHistogram("pi_minus_pt_ZTT", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_minus_phi_ZTT", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_minus_theta_ZTT", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_minus_pt_ZTTMSA", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_minus_phi_ZTTMSA", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_minus_theta_ZTTMSA", pi2.Theta());
+
                 } else {
                     cGlobalBin->FillHistogram("pi_pt_MSA", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_phi_MSA", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_theta_MSA", pi2.Theta());
                     cGlobalBin->FillHistogram("pi_Ecm_MSA", Ecm);
                     cGlobalBin->FillHistogram("pi_Ecm_fine_MSA", Ecm);
+                    cGlobalBin->FillHistogram("pi_rho_mass_MSA", rho.M());
+                    if (Trkmsa_charge[0] > 0) {
+                        cGlobalBin->FillHistogram("pi_plus_pt_MSA", pi2.Pt());
+                        cGlobalBin->FillHistogram("pi_plus_phi_MSA", pi2.Phi());
+                        cGlobalBin->FillHistogram("pi_plus_theta_MSA", pi2.Theta());
+                        cGlobalBin->FillHistogram("pi_plus_pt_ZTTMSA", pi2.Pt());
+                        cGlobalBin->FillHistogram("pi_plus_phi_ZTTMSA", pi2.Phi());
+                        cGlobalBin->FillHistogram("pi_plus_theta_ZTTMSA", pi2.Theta());
+                    } else if (Trkmsa_charge[0] < 0) {
+                        cGlobalBin->FillHistogram("pi_minus_pt_MSA", pi2.Pt());
+                        cGlobalBin->FillHistogram("pi_minus_phi_MSA", pi2.Phi());
+                        cGlobalBin->FillHistogram("pi_minus_theta_MSA", pi2.Theta());
+                        cGlobalBin->FillHistogram("pi_minus_pt_ZTTMSA", pi2.Pt());
+                        cGlobalBin->FillHistogram("pi_minus_phi_ZTTMSA", pi2.Phi());
+                        cGlobalBin->FillHistogram("pi_minus_theta_ZTTMSA", pi2.Theta());
+                    } else {
+                        cout << "ERROR: MVDSA track charge = 0" << endl;
+                        abort();
+                    }
                 }
                 cGlobalBin->FillHistogram("pi_pt_ZTTMSA", pi2.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTTMSA", pi2.Phi());
                 cGlobalBin->FillHistogram("pi_theta_ZTTMSA", pi2.Theta());
                 cGlobalBin->FillHistogram("pi_Ecm_ZTTMSA",Ecm);
                 cGlobalBin->FillHistogram("pi_Ecm_fine_ZTTMSA",Ecm);
-
+                cGlobalBin->FillHistogram("pi_rho_mass_ZTTMSA", rho.M());
+                // loop over all FLT slots, 0-63
+                for (int slot=0; slot<64; slot++) {
+                    int id = -1;
+                    // 0-31: 1st element of array (i.e. [0])
+                    // 32-63: 2nd element of array (i.e. [1])
+                    if ( (slot>=0) && (slot<=31) ) id = 0;
+                    if ( (slot>=32) && (slot<=63) ) id = 1;
+                    // sanity check
+                    if (id == -1) abort();
+                    // check whether this trigger slot fired
+                    bool flt_slot_fired = (bool) ( (Fltpsw[id] >> slot) & 1 );
+                    // fill the histogram if yes
+                    if (flt_slot_fired) if (classI) cGlobalBin -> FillHistogram("pi_FLT_ZTT", slot);
+                    if (flt_slot_fired) if (!classI) cGlobalBin -> FillHistogram("pi_FLT_MSA", slot);
+                    if (flt_slot_fired) cGlobalBin -> FillHistogram("pi_FLT_ZTTMSA", slot);
+                }
 
                 // for classI, 2nd pion is negative
                 // for classII, 2nd pion is MSA track (positive or negative)
