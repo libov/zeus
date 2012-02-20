@@ -400,7 +400,7 @@ int main(int argc, char **argv) {
     if (dCache) instance -> SetRundCache (true);
     else instance -> SetRundCache (false);
     // if selected to run on a specific filelist, this must be the dCache run
-    if (specific_filelist) instance -> SetRundCache (false);
+    if (specific_filelist) instance -> SetRundCache (true);
 
     // in case of Minintuples, specify the path
     TString     MINI_NTUPLES_PATH = getenv("MINI_NTUPLES_PATH");
