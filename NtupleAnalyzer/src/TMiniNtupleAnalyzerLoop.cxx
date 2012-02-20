@@ -680,6 +680,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t     trackhelixcov[60][15];
                     Float_t     trackmomentum[60];
                     Int_t       trackIDs[60];
+                    Float_t     track_theta[60];
 
                     // loop over tracks belonging to the vertex
                     for (int k=0; k<Vtxsec_multi[vertex]; k++) {
@@ -695,7 +696,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                         // sanity check
                         if (track_id == -1) {
-                            cout << "Unable to find vertex track in the Tracking block. Terminating" << endl;
+                            cout << "WARNING: Unable to find vertex track in the Tracking block. Terminating" << endl;
                             abort();
                         }
 
@@ -714,11 +715,15 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                         // now save also track ID
                         trackIDs[k] = track_id;
+
+                        TVector3 track(Trk_px[track_id], Trk_py[track_id], Trk_pz[track_id]);
+                        track_theta[k] = track.Theta();
                     }
 
                     // ok, set all track parameters
                     cVtx.SetTrackParameters(Vtxsec_multi[vertex], trackhelix, trackhelixcov, trackmomentum);
                     cVtx.SetVertexTracks(Vtxsec_multi[vertex], trackIDs);
+                    cVtx.SetTrackTheta(Vtxsec_multi[vertex], track_theta);
 
                     // do the fits
                     // first redo the fit without track dropping in order to check that results
