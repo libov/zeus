@@ -27,3 +27,4 @@ result_printer
 # other files that might be changed
 # with no need to track this
 plot.cxx
+env.sh
