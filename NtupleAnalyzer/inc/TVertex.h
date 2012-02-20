@@ -32,6 +32,7 @@ class TVertex
 		void		SetVertexTracks(Int_t ntracks, Int_t * trackIDs);
 		void 		SetTrackParameters(Int_t ntracks, Float_t    helices[30][5], Float_t helixcov[30][15], Float_t * trackmom);
                 void            SetTrackPt(Int_t ntracks, Float_t   * trackpT);
+                void            SetTrackTheta(Int_t ntracks, Float_t   * theta);
 		void		SetApplySmearing(bool applysmearing);
                 void            SetSmearingGauss1Prob(Double_t value) {fSmearingGauss1Prob = value;}
                 void            SetSmearingGauss1Width(Double_t value) {fSmearingGauss1Width = value;}
@@ -137,6 +138,7 @@ class TVertex
 		Float_t		fTrackHelixCovariance[30][15];
 		Float_t		fTrackMomentum[30];
                 Float_t		fTrackPT[30];
+                Float_t		fTrackTheta[30];
 
 	        bool		fApplySmearing;
                 Double_t        fSmearingGauss1Prob;
