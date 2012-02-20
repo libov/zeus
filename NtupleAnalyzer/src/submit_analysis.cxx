@@ -272,7 +272,7 @@ int main(int argc, char **argv) {
         if (recalulate_luminosity_only) command += " -r";
 
         // if that's tracking efficiency studies
-        if (run_tracking_efficiency) command += " --tracking";
+        if (run_tracking_efficiency && (!create_minintuples) ) command += " --tracking";
 
         cout << "INFO: command to be executed: " << command << endl;
 
