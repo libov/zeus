@@ -376,7 +376,7 @@ int main(int argc, char **argv) {
     }
 
     // use BR and fragm. fraction reweighting routine by S. Viazlo
-    instance -> SetSashasReweighting (false);
+    instance -> SetSashasReweighting (true);
 
     // set Et and eta cut for jets
     instance -> SetJetEtCut (4.2);
