@@ -219,6 +219,17 @@ void TVertex::SetTrackPt(Int_t ntracks, Float_t * trackpT) {
     }
 }
 
+void TVertex::SetTrackTheta(Int_t ntracks, Float_t * theta) {
+    // sanity check: number of tracks
+    if (fNumberOfTracks != ntracks) {
+        cout << "ERROR: number of tracks given != number of tracks assigned to the vertex" << endl;
+        abort();
+    }
+    for (int i = 0; i < fNumberOfTracks; i++ ) {
+        fTrackTheta[i] = theta[i];
+    }
+}
+
 void TVertex::GetTrackPt(Float_t * trackpT) {
     for (int i = 0; i < fNumberOfTracks; i++ ) {
         trackpT[i]= fTrackPT[i]; 
