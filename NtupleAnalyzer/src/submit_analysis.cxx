@@ -284,8 +284,8 @@ int main(int argc, char **argv) {
         // if only for data
         if (run_data_only && (cSubSet.getTypeENUM() != TSubSet::kDATA)) continue;
 
-	// if tracking efficiency - look only into rho samples
-	if (run_tracking_efficiency && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getProcessENUM()!=TSubSet::kRHO) ) continue;
+        // if tracking efficiency - look only into rho samples
+        if (run_tracking_efficiency && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getFlavourENUM()!=TSubSet::kRHO) ) continue;
 
         // if selected to run locally, execute the command and skip to the next sample, don't submit
         if (run_locally) {
