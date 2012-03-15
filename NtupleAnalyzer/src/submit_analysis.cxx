@@ -67,7 +67,8 @@ int main(int argc, char **argv) {
     bool        run_data_only = false;
     // a switch to select only filelist creation
     bool        filelist_only = false;
-    bool                run_tracking_efficiency = false;
+    bool        run_tracking_efficiency = false;
+    bool        run_dCache = false;
 
     // for significance smearing
     Float_t    SmearingGauss1Prob = -1;
@@ -87,7 +88,8 @@ int main(int argc, char **argv) {
         {"expcoeff", required_argument, 0, 6},
         {"filelist_only", no_argument, 0, 7},
         {"run_data_only", no_argument, 0, 8},
-        {"tracking", no_argument, 0, 9}
+        {"tracking", no_argument, 0, 9},
+        {"dCache", no_argument, 0, 10}
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
@@ -153,6 +155,9 @@ int main(int argc, char **argv) {
             case 9:
                 run_tracking_efficiency = true;
                 break;
+            case 10:
+                run_dCache = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
@@ -173,6 +178,7 @@ int main(int argc, char **argv) {
                 cout << "\t-d\t\trun only for direct MC (don't run resolved)\n";
                 cout << "\t--filelist_only\tCreate filelists, don't run the analysis\n";
                 cout << "\t--tracking\trun tracking efficiency code, don't run the analysis\n";
+                cout << "\t--dCache\trun directly on dCache, not on mini ntuples\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -273,6 +279,8 @@ int main(int argc, char **argv) {
 
         // if that's tracking efficiency studies
         if (run_tracking_efficiency && (!create_minintuples) ) command += " --tracking";
+
+        if (run_dCache) command += " --dCache";
 
         cout << "INFO: command to be executed: " << command << endl;
 
