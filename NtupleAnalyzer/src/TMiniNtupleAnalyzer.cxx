@@ -977,10 +977,9 @@ void TMiniNtupleAnalyzer::findVertices() {
 
     // this function looks for secondary vertices following a method in SECVTX block in orange
 
-    // clear array of vertices, redundant, just to be safe
-//   fVerticesRefitted.clear(); // debug case
-     fVertices.clear();          // production case
-     fSecondaryVertexFound = false; // production case
+    // clear array of vertices
+    fVertices.clear();
+    fSecondaryVertexFound = false;
 
     // some helping variables
     Float_t     dR=0;
@@ -1181,9 +1180,8 @@ void TMiniNtupleAnalyzer::findVertices() {
 
         // ok, this is a good vertex/jet; store it to the vector and raise the flag that 
         // there was at least one good vertex in this event
-//      fVerticesRefitted.push_back(cVtx); // debug case
-        fVertices.push_back(cVtx); // production case
-        fSecondaryVertexFound = true;   // production case
+        fVertices.push_back(cVtx);
+        fSecondaryVertexFound = true;
     }
 }
 
