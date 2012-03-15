@@ -386,11 +386,11 @@ int main(int argc, char **argv) {
     // redo vertex track selection and revertexing
     instance -> SetRedoVertexing(false);
     instance -> SetRcut(1);
-    instance -> SetpT(0.3);
+    instance -> SetpT(0.5);
     instance -> SetSTT(0);
     instance -> SetCTD(3);
     instance -> SetMVD(4);
-    instance -> SetUseHelixTrackParameters(false);
+    instance -> SetUseHelixTrackParameters(true);
 
     // some histograms to study resolutions (MC only); quite cpu expensive, so do this
     // on part of the sample
