@@ -172,8 +172,8 @@ Bool_t TMiniNtupleCreator::IsGoodEvent()
 {
     fDebug->Fill(0);
 
-        Bool_t        not_recoDIS = ( (Sincand < 1) || (Siprob[0] < 0.9) || ((Siq2da[0] < 4.)&& (Siq2el[0] < 4.)) );
-    Bool_t        not_trueDIS = ( ( Mc_q2 < 4. ) && ( Mc_q2_cr < 4. ) );
+    Bool_t not_recoDIS = ( (Sincand < 1) || (Siprob[0] < 0.9) || ((Siq2da[0] < 4.) && (Siq2el[0] < 4.)) );
+    Bool_t not_trueDIS = ( (Mc_q2 < 4.) && (Mc_q2_cr < 4.) );
 
     if (fIsMC) {
         if ( not_recoDIS && not_trueDIS ) return false;
