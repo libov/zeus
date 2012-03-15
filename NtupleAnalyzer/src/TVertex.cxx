@@ -267,7 +267,9 @@ bool    TVertex::RefitVertex() {
 
                     // if the random number is smaller or equal to chosen probability to loose tracks - drop the track
                     // otherwise - proceed normally and add the track to the vertex
-                    if (rand_number <= fDropProbability) {
+                    //Float_t probability = fDropProbability / TMath::Sin(fTrackTheta[i]);
+                    Float_t probability = fDropProbability;
+                    if (rand_number <= probability) {
                         fTracks_dropped++;
                         continue;
                     }
@@ -352,15 +354,19 @@ void TVertex::SetApplySmearing(bool applysmearing) {
 void TVertex::Print() {
     cout << "fNumberOfTracks= " << fNumberOfTracks << endl;
     cout << "fSignificance= " << fSignificance << endl;
-    cout << "fPrimaryVertexX= " << fPrimaryVertexX << endl;
-    cout << "fPrimaryVertexY= " << fPrimaryVertexY << endl;
-    cout << "fPrimaryVertexZ= " << fPrimaryVertexZ << endl;
+    cout << "fPrimaryVertexX= " << fPrimaryVertexX << " +- " << fPrimaryVertexXError << endl;
+    cout << "fPrimaryVertexY= " << fPrimaryVertexY << " +- " << fPrimaryVertexYError << endl;
+    cout << "fPrimaryVertexZ= " << fPrimaryVertexZ << " +- " << fPrimaryVertexZError << endl;
     cout << "fVertexZ= " << fVertexZ << endl;
     cout << "fVertexX= " << fVertexX << endl;
     cout << "fVertexY= " << fVertexY << endl;
+    cout << "fVertexCovariance[0]= " << fVertexCovariance[0] << endl;
+    cout << "fVertexCovariance[1]= " << fVertexCovariance[1] << endl;
+    cout << "fVertexCovariance[2]= " << fVertexCovariance[2] << endl;
     cout << "fMass= " << fMass << endl;
     cout << "fChi2= " << fChi2 << endl;
     cout << "fDecayLength= " << fDecayLength << endl;
+    cout << "fProjDecayLength= " << fProjDecayLength << endl;
     cout << "fAxisEta= " << fAxisEta << endl;
     cout << "fAxisPhi= " << fAxisPhi << endl;
 }
