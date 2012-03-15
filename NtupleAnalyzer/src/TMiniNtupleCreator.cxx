@@ -177,8 +177,7 @@ Bool_t TMiniNtupleCreator::IsGoodEvent()
 
     if (fIsMC) {
         if ( not_recoDIS && not_trueDIS ) return false;
-    }
-    else {
+    } else {
         if ( not_recoDIS ) return false;
     }
 
@@ -186,8 +185,7 @@ Bool_t TMiniNtupleCreator::IsGoodEvent()
 
     if (fIsMC) {
         if ( ( Kt_njet_b == 0  ) && ( Nhbmjets == 0  ) ) return false;
-    }
-    else {
+    } else {
         if ( Kt_njet_b == 0 ) return false;
 /*                // 15/02/2011. more cn-level cuts so that minintuples are smaller
                 if (Nr_secvtx == 0) return false;
