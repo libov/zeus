@@ -1123,6 +1123,12 @@ void TMiniNtupleAnalyzer::findVertices() {
         // check whether smearing should be applied
         if (fApplySmearing && fIsMC) { 
             cVtx.SetApplySmearing(true);
+            cVtx.SetSmearingGauss1Prob(fSmearingGauss1Prob);
+            cVtx.SetSmearingGauss1Width(fSmearingGauss1Width);
+            cVtx.SetSmearingGauss2Prob(fSmearingGauss2Prob);
+            cVtx.SetSmearingGauss2Width(fSmearingGauss2Width);
+            cVtx.SetSmearingExpProb(fSmearingExpProb);
+            cVtx.SetSmearingExpCoeff(fSmearingExpCoeff);
         } else { 
             cVtx.SetApplySmearing(false);
         }
