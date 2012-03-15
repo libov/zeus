@@ -170,20 +170,8 @@ void    TMiniNtupleCreator::WriteFile()
 
 Bool_t TMiniNtupleCreator::IsGoodEvent()
 {
-    // here only soft cuts are applied; maybe in the future make a common routine that can be used by TMiniNtupleAnalyzer
-    // as well and do not hardcode cuts anymore; for the timebeing stick to this...
-    /*fDebug->Fill(1);
-
-    if  return false;
-    fDebug->Fill(2);
-
-    if ( Siprob[0] < 0.9 ) return false;
-    fDebug->Fill(3);*/
-
     fDebug->Fill(0);
 
-    //Bool_t        not_recoDIS = ( (Sincand < 1) && (Siprob[0] < 0.9) && (Siq2el[0] < 4.) && (Siq2da[0] < 4.) );
-        // changed 15 February 2011
         Bool_t        not_recoDIS = ( (Sincand < 1) || (Siprob[0] < 0.9) || ((Siq2da[0] < 4.)&& (Siq2el[0] < 4.)) );
     Bool_t        not_trueDIS = ( ( Mc_q2 < 4. ) && ( Mc_q2_cr < 4. ) );
 
