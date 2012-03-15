@@ -84,7 +84,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     // ********************************************************************************************
     for (int i=first_event; i < first_event+Nevents; i++) {
 
-        // print number of processed events every n events;
+        // print number of processed events every n events;        
         if ( i % fPrintingFreq == 0 )   cout<< " processing event " << i << endl;
 
         // try to get an entry from the chain
@@ -811,84 +811,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         } // end if statement: else 
         #endif
 
-//         for (int vtx=0; vtx < fVertices.size(); vtx++ ) {
-//             cout << "significance: " <<fVertices[vtx].GetVertexSignificance() << endl;
-//         }
-
-
-//         findVertices(); // debug case
-//         if (fVertices.size() > fVerticesRefitted.size()) nevents_more_vetices_ora++;
-//         if (fVertices.size() < fVerticesRefitted.size()) nevents_more_vetices_cn++;
-//         nvertices_ora += fVertices.size();
-//         nvertices_cn += fVerticesRefitted.size();
-//         for (int vtx=0; vtx < fVertices.size(); vtx++ ) {
-//             cout << "sign: " <<fVertices[vtx].GetVertexSignificance() << " -- vs -- " << fVerticesRefitted[vtx].GetVertexSignificance()<< "= ";
-//             Double_t    diff = fVertices[vtx].GetVertexSignificance() - fVerticesRefitted[vtx].GetVertexSignificance();
-//             cout << diff << endl;
-// //             cout << "mass: " <<fVertices[0].GetVertexMass() << " -- vs -- " << fVerticesRefitted[0].GetVertexMass()<< "= ";
-// //             diff = fVertices[0].GetVertexMass() - fVerticesRefitted[0].GetVertexMass();
-// //             cout << diff << endl;
-// 
-//         }
-
-/*        if (fVerticesRefitted.size() != fVertices.size()) {
-            //cout << " *******      ora more   ***********: " << Eventnr << endl;
-            cout << "ORANGE FINDER" << endl;
-            for (unsigned i=0; i < fVertices.size(); i++) {
-                Int_t       ntracks;
-                Float_t     trackhelix[60][5];
-                Float_t     trackhelixcov[60][15];
-                Float_t     trackmomentum[60];
-                Int_t       trackIDs[60];
-                fVertices[i].GetTrackParameters(ntracks, trackhelix, trackhelixcov, trackmomentum);
-                fVertices[i].GetVertexTracks(ntracks, trackIDs);
-                fVertices[i].Print();
-
-                for (unsigned trk=0; trk < ntracks; trk++) {
-                    cout << "track " << trk << ": " << trackmomentum[trk] << " " << trackIDs[trk] << endl;
-                    Int_t   extra_trackID = trackIDs[trk];
-                    //Int_t   extra_trackID = 0;
-                    cout << Trk_layinner[extra_trackID] << " " << Trk_layouter[extra_trackID] << "; ";
-                    cout << Trk_nbr[extra_trackID] + Trk_nbz[extra_trackID] + Trk_nwu[extra_trackID] + Trk_nwv[extra_trackID] << "; ";
-                    cout << Trk_nstt[extra_trackID] << "; ";
-                    cout << sqrt(Trk_px[extra_trackID]*Trk_px[extra_trackID] + Trk_py[extra_trackID]*Trk_py[extra_trackID] + Trk_pz[extra_trackID]*Trk_pz[extra_trackID])<<"; ";
-                    cout << sqrt(Trk_px[extra_trackID]*Trk_px[extra_trackID] + Trk_py[extra_trackID]*Trk_py[extra_trackID])<<";";
-                    TVector3 track(Trk_px[extra_trackID], Trk_py[extra_trackID], Trk_pz[extra_trackID]);
-                    cout << "(cross: "<< track.Mag() << ", "<< track.Pt()<< "); ";
-                    Float_t phi = track.Phi(); if (phi < 0) phi += 2*TMath::Pi();
-                    cout << phi << " - " << fVertices[i].GetAxisPhi() << "; " << track.Eta() << " - " << fVertices[i].GetAxisEta() << "; " << endl;
-                }
-
-
-            }
-            cout << "CN FINDER" << endl;
-            for (int i=0; i < fVerticesRefitted.size(); i++) {
-                Int_t       ntracks;
-                Float_t     trackhelix[60][5];
-                Float_t     trackhelixcov[60][15];
-                Float_t     trackmomentum[60];
-                Int_t       trackIDs[60];
-                fVerticesRefitted[i].GetTrackParameters(ntracks, trackhelix, trackhelixcov, trackmomentum);
-                fVerticesRefitted[i].GetVertexTracks(ntracks, trackIDs);
-                fVerticesRefitted[i].Print();
-
-                for (int trk=0; trk < ntracks; trk++) {
-                    cout << "track " << trk << ": " << trackmomentum[trk] << " " << trackIDs[trk] << endl;
-                    Int_t   extra_trackID = trackIDs[trk];
-                    //Int_t   extra_trackID = 0;
-                    cout << Trk_layinner[extra_trackID] << " " << Trk_layouter[extra_trackID] << "; ";
-                    cout << Trk_nbr[extra_trackID] + Trk_nbz[extra_trackID] + Trk_nwu[extra_trackID] + Trk_nwv[extra_trackID] << "; ";
-                    cout << Trk_nstt[extra_trackID] << "; ";
-                    cout << sqrt(Trk_px[extra_trackID]*Trk_px[extra_trackID] + Trk_py[extra_trackID]*Trk_py[extra_trackID] + Trk_pz[extra_trackID]*Trk_pz[extra_trackID])<<"; ";
-                    cout << sqrt(Trk_px[extra_trackID]*Trk_px[extra_trackID] + Trk_py[extra_trackID]*Trk_py[extra_trackID])<<";";
-                    TVector3 track(Trk_px[extra_trackID], Trk_py[extra_trackID], Trk_pz[extra_trackID]);
-                    cout << "(cross: "<< track.Mag() << ", "<< track.Pt()<< "); ";
-                    Float_t phi = track.Phi(); if (phi < 0) phi += 2*TMath::Pi();
-                    cout << phi << " - " << fVerticesRefitted[i].GetAxisPhi() << "; " << track.Eta() << " - " << fVerticesRefitted[i].GetAxisEta() << "; " << endl;
-                }
-            }
-        }*/
-
         // Loop over the TGlobalBins - fill the histograms
         TGlobalBin      *currentTGlobalBin;
         TIter           Iter_TGlobalBin(fList_TGlobalBin);
@@ -1319,7 +1241,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     cout << "total nr of vertices by cn finder " << nvertices_cn << endl;
     cout << "nr of events where there are more vertices in orange " << nevents_more_vetices_ora << endl;
     cout << "nr of events where there are more vertices in cn " << nevents_more_vetices_cn << endl;
-
 }
 
 Float_t TMiniNtupleAnalyzer::get_x_gamma(vector<TLorentzVector> jet_list, bool breit_jets, Int_t tagged_jet_id) {
