@@ -187,17 +187,7 @@ Bool_t TMiniNtupleCreator::IsGoodEvent()
         if ( ( Kt_njet_b == 0  ) && ( Nhbmjets == 0  ) ) return false;
     } else {
         if ( Kt_njet_b == 0 ) return false;
-/*                // 15/02/2011. more cn-level cuts so that minintuples are smaller
-                if (Nr_secvtx == 0) return false;
-
-                bool HighEtJetPresent = false;
-                for (int k=0; k < Kt_njet_b; k++) {
-                        if (Kt_etjet_b[k] >= 4.2) { 
-                                HighEtJetPresent = true;
-                                break;
-                        }
-                }
-                if (!HighEtJetPresent) return false;*/
+        if (Nr_secvtx == 0) return false;
     }
 
     fDebug->Fill(2);
