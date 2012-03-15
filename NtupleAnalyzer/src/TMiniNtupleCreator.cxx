@@ -186,7 +186,7 @@ Bool_t TMiniNtupleCreator::IsGoodEvent()
     if (fIsMC) {
         if ( ( Kt_njet_b == 0  ) && ( Nhbmjets == 0  ) ) return false;
     } else {
-        if ( Kt_njet_b == 0 ) return false;
+        if (Kt_njet_b == 0) return false;
         if (Nr_secvtx == 0) return false;
     }
 
