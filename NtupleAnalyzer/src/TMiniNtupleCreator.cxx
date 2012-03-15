@@ -168,8 +168,12 @@ void    TMiniNtupleCreator::WriteFile()
         fCreateFile=true;
 }
 
-Bool_t TMiniNtupleCreator::IsGoodEvent()
-{
+Bool_t TMiniNtupleCreator::IsGoodEvent() {
+
+    // preselection for mini ntuples
+    // should be a compromise between small size and flexibility
+    // (tight and loose selection respectively)
+
     fDebug->Fill(0);
 
     Bool_t not_recoDIS = ( (Sincand < 1) || (Siprob[0] < 0.9) || ((Siq2da[0] < 4.) && (Siq2el[0] < 4.)) );
@@ -185,7 +189,7 @@ Bool_t TMiniNtupleCreator::IsGoodEvent()
 
     if (fIsMC) {
         if ( ( Kt_njet_b == 0  ) && ( Nhbmjets == 0  ) ) return false;
-    } else {
+    } else if ((!fIsMC) || (fSubSet.getFlavourENUM() == TSubSet::kLIGHT)) {
         if (Kt_njet_b == 0) return false;
         if (Nr_secvtx == 0) return false;
     }
