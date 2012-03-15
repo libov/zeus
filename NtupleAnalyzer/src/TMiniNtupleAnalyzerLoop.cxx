@@ -1236,11 +1236,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
     // store the histograms to file
     this->WriteHistograms();
-
-    cout << "total nr of vertices by orange finder " << nvertices_ora << endl;
-    cout << "total nr of vertices by cn finder " << nvertices_cn << endl;
-    cout << "nr of events where there are more vertices in orange " << nevents_more_vetices_ora << endl;
-    cout << "nr of events where there are more vertices in cn " << nevents_more_vetices_cn << endl;
 }
 
 Float_t TMiniNtupleAnalyzer::get_x_gamma(vector<TLorentzVector> jet_list, bool breit_jets, Int_t tagged_jet_id) {
