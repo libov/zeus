@@ -148,19 +148,21 @@ void    TMiniNtupleCreator::WriteFile()
         fCurrentTree->Write();
         delete fCurrentTree;
         fCurrentTreeFile->Close();
-        cout << "INFO: copying mini ntuple file to the dCache" << endl;
-        TString     filename(fCurrentTreeFile -> GetName());
-        TString     command = "dccp -d4 " + filename + " " + fPathToMiniNtuples;
-        int result = system (command);
-        if (result != 0) {
-            cout << "ERROR: copying failed! Terminating! " << endl;
-            abort();
-        }
-        cout << "INFO: removing mini ntuple file from local space" << endl;
-        result = system ("rm -rf " + filename);
-        if (result != 0) {
-            cout << "ERROR: removing failed! Terminating! " << endl;
-            abort();
+        if (fStore_dCache) {
+            cout << "INFO: copying mini ntuple file to the dCache" << endl;
+            TString     filename(fCurrentTreeFile -> GetName());
+            TString     command = "dccp -d4 " + filename + " " + fPathToMiniNtuples;
+            int result = system (command);
+            if (result != 0) {
+                cout << "ERROR: copying failed! Terminating! " << endl;
+                abort();
+            }
+            cout << "INFO: removing mini ntuple file from local space" << endl;
+            result = system ("rm -rf " + filename);
+            if (result != 0) {
+                cout << "ERROR: removing failed! Terminating! " << endl;
+                abort();
+            }
         }
         fCurrentNumberEventsInFile=0;
         fCreateFile=true;
