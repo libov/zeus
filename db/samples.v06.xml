@@ -35,7 +35,7 @@
         <CN_version>v06a</CN_version>
         <name_pattern/>
         <luminosity>54.685</luminosity>
-    </sample>
+    </sample>   
     <sample>
         <year>06p</year>
         <type>data</type>
@@ -231,4 +231,44 @@
     </sample>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - -  - - - Rho zeusvm Monte Carlo  - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--    <sample>
+        <year>04</year>
+        <type>mc</type>
+        <flavour>rho_zeusvm</flavour>
+        <q2>1.5</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.f8196.rho_</name_pattern>
+        <luminosity>216.3</luminosity>
+    </sample>
+    <sample>
+        <year>05</year>
+        <type>mc</type>
+        <flavour>rho_zeusvm</flavour>
+        <q2>1.5</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.f8196.rho_</name_pattern>
+        <luminosity>100</luminosity>
+    </sample>
+    <sample>
+        <year>06e</year>
+        <type>mc</type>
+        <flavour>rho_zeusvm</flavour>
+        <q2>1.5</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.f8196.rho_</name_pattern>
+        <luminosity>100</luminosity>
+    </sample>
+    <sample>
+        <year>07p</year>
+        <type>mc</type>
+        <flavour>rho_zeusvm</flavour>
+        <q2>1.5</q2>
+        <CN_version>v06b</CN_version>
+        <name_pattern>.f8196.rho_</name_pattern>
+        <luminosity>650</luminosity>
+    </sample>-->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
 </dataset>
