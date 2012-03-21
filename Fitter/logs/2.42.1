@@ -1,0 +1,283 @@
+******************************************************
+* Welcome to ZEUS Common Ntuple analysis framework   *
+* Step 4: Fitting of the Histograms                  *
+* Input: root files with histograms                  *
+******************************************************
+INFO: remark .0405e06e07p
+INFO: Histograms Version: lowET2.42.1.0405e06e07p
+INFO: Opened /data/zenith226a/libov/data/histo/merged.lowET2.42.1.0405e06e07p.root for reading
+INFO: Initializing TMyFitter for bin1
+INFO: fChi2init= 1192.04
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 p1           1.00000e+00  1.00000e-02    0.00000e+00  1.00000e+04
+     2 p2           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+     3 p3           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+INFO: Initializing TMyFitter for bin1
+INFO: fChi2init= 1192.04
+     1 p1           1.00000e+00  1.00000e-02    0.00000e+00  1.00000e+04
+     2 p2           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+     3 p3           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+INFO: Fitting distributions in bin1 subdirectory
+ **********
+ **    1 **MIGRAD
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-04
+ FCN=1192.04 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p1           1.00000e+00   1.00000e-02   1.00006e-04   2.78609e+04
+   2  p2           1.00000e+00   1.00000e-03   1.00005e-05   1.28261e+06
+   3  p3           1.00000e+00   1.00000e-03   1.00005e-05   3.52318e+06
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=27.2067 FROM MIGRAD    STATUS=CONVERGED     229 CALLS         230 TOTAL
+                     EDM=1.08479e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p1           1.84376e-07   1.03879e+00   5.33249e-05** at limit **
+   2  p2           1.21783e+00   8.93252e-02   7.38490e-07   7.84415e+01
+   3  p3           8.62513e-01   3.26631e-02   7.40157e-07   1.72724e+02
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  7.661e-07 -2.984e-07  8.386e-08 
+ -2.984e-07  7.979e-03 -2.913e-03 
+  8.386e-08 -2.913e-03  1.067e-03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.01528   1.000 -0.004  0.003
+        2  0.99824  -0.004  1.000 -0.998
+        3  0.99824   0.003 -0.998  1.000
+INFO: The Migrad() command finished successfully! 
+INFO: invoking HESSE! 
+ **********
+ **    2 **HESSE        2000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=27.2067 FROM HESSE     STATUS=OK             16 CALLS         246 TOTAL
+                     EDM=1.08401e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  p1           1.84376e-07   1.03871e+00   1.06650e-05  -1.57079e+00
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   2  p2           1.21783e+00   8.88637e-02   3.69245e-07  -1.54872e+00
+   3  p3           8.62513e-01   3.24944e-02   3.70079e-07  -1.55222e+00
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  7.661e-07 -1.168e-07  3.272e-08 
+ -1.168e-07  7.897e-03 -2.882e-03 
+  3.272e-08 -2.882e-03  1.056e-03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.00603   1.000 -0.002  0.001
+        2  0.99823  -0.002  1.000 -0.998
+        3  0.99823   0.001 -0.998  1.000
+INFO: HESSE finished successfully! 
+INFO: Performing MINOS error analysis! 
+    THE NEGATIVE MINOS ERROR OF PARAMETER   1, p1 EXCEEDS ITS LIMIT.
+ MINUIT WARNING IN MIGRAD  
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.
+ MINUIT WARNING IN MIGRAD  
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.
+ MINUIT WARNING IN MIGRAD  
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.
+ FCN=27.2067 FROM MINOS     STATUS=SUCCESSFUL    166 CALLS         412 TOTAL
+                     EDM=1.08401e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS        
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE   
+   1  p1           1.84376e-07   1.03871e+00   at limit      1.02721e+00
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   2  p2           1.21783e+00   8.88637e-02  -8.72419e-02   8.98871e-02
+   3  p3           8.62513e-01   3.24944e-02  -3.28686e-02   3.19010e-02
+INFO: MINOS error analysis finished! 
+***************************************
+Fit results for bin1
+k_b=1.84376e-07 +- 1.03871 (5.63368e+08%)
+k_c=1.21783 +- 0.0888637 (7.29686%)
+k_uds=0.862513 +- 0.0324944 (3.76741%)
+Chi2 of the fit: 1.43193
+***************************************
+/data/zenith226a/libov/data/histo/fitted.lowET2.42.1.0405e06e07p.bin1.root
+INFO: Fitted bin1
+INFO: Initializing TMyFitter for bin2
+INFO: fChi2init= 415.308
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 p1           1.00000e+00  1.00000e-02    0.00000e+00  1.00000e+04
+     2 p2           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+     3 p3           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+INFO: Initializing TMyFitter for bin2
+INFO: fChi2init= 415.308
+     1 p1           1.00000e+00  1.00000e-02    0.00000e+00  1.00000e+04
+     2 p2           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+     3 p3           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+INFO: Fitting distributions in bin2 subdirectory
+ **********
+ **    1 **MIGRAD
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-04
+ FCN=415.308 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p1           1.00000e+00   1.00000e-02   1.00006e-04   1.76349e+04
+   2  p2           1.00000e+00   1.00000e-03   1.00005e-05   7.34261e+05
+   3  p3           1.00000e+00   1.00000e-03   1.00005e-05   2.05725e+06
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=13.5183 FROM MIGRAD    STATUS=CONVERGED     174 CALLS         175 TOTAL
+                     EDM=1.96285e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p1           2.28051e-01   6.81680e+00   8.31672e-06  -5.01160e-03
+   2  p2           1.02327e+00   2.04637e-01   7.39367e-07  -3.20098e+00
+   3  p3           9.59252e-01   5.26603e-02   7.39673e-07  -1.12226e+01
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  6.220e+00 -4.940e-01  1.231e-01 
+ -4.940e-01  4.188e-02 -1.071e-02 
+  1.231e-01 -1.071e-02  2.773e-03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.99623   1.000 -0.968  0.937
+        2  0.99965  -0.968  1.000 -0.994
+        3  0.99932   0.937 -0.994  1.000
+INFO: The Migrad() command finished successfully! 
+INFO: invoking HESSE! 
+ **********
+ **    2 **HESSE        2000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=13.5183 FROM HESSE     STATUS=OK             16 CALLS         191 TOTAL
+                     EDM=1.89535e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  p1           2.28051e-01   5.95062e+00   3.32669e-07  -1.56125e+00
+   2  p2           1.02327e+00   1.91483e-01   3.69683e-07  -1.55056e+00
+   3  p3           9.59252e-01   4.94376e-02   3.69837e-07  -1.55121e+00
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  5.429e+00 -4.298e-01  1.070e-01 
+ -4.298e-01  3.667e-02 -9.405e-03 
+  1.070e-01 -9.405e-03  2.444e-03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.99569   1.000 -0.963  0.928
+        2  0.99960  -0.963  1.000 -0.994
+        3  0.99922   0.928 -0.994  1.000
+INFO: HESSE finished successfully! 
+INFO: Performing MINOS error analysis! 
+    THE NEGATIVE MINOS ERROR OF PARAMETER   1, p1 EXCEEDS ITS LIMIT.
+ MINUIT WARNING IN MIGRAD  
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.
+ MINUIT WARNING IN MIGRAD  
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.
+ FCN=13.5183 FROM MINOS     STATUS=SUCCESSFUL    560 CALLS         751 TOTAL
+                     EDM=1.89535e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS        
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE   
+   1  p1           2.28051e-01   5.95062e+00   at limit      2.27042e+00
+   2  p2           1.02327e+00   1.91483e-01  -1.85979e-01   6.98039e-02
+   3  p3           9.59252e-01   4.94376e-02  -2.29899e-02   4.79541e-02
+INFO: MINOS error analysis finished! 
+***************************************
+Fit results for bin2
+k_b=0.228051 +- 5.95062 (2609.33%)
+k_c=1.02327 +- 0.191483 (18.7128%)
+k_uds=0.959252 +- 0.0494376 (5.15377%)
+Chi2 of the fit: 0.711491
+***************************************
+/data/zenith226a/libov/data/histo/fitted.lowET2.42.1.0405e06e07p.bin2.root
+INFO: Fitted bin2
+INFO: Initializing TMyFitter for bin3
+INFO: fChi2init= 1485.05
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 p1           1.00000e+00  1.00000e-02    0.00000e+00  1.00000e+04
+     2 p2           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+     3 p3           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+INFO: Initializing TMyFitter for bin3
+INFO: fChi2init= 1485.05
+     1 p1           1.00000e+00  1.00000e-02    0.00000e+00  1.00000e+04
+     2 p2           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+     3 p3           1.00000e+00  1.00000e-03    0.00000e+00  1.00000e+04
+INFO: Fitting distributions in bin3 subdirectory
+ **********
+ **    1 **MIGRAD
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-04
+ FCN=1485.05 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p1           1.00000e+00   1.00000e-02   1.00006e-04   4.56231e+04
+   2  p2           1.00000e+00   1.00000e-03   1.00005e-05   2.00436e+06
+   3  p3           1.00000e+00   1.00000e-03   1.00005e-05   5.56658e+06
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=25.5011 FROM MIGRAD    STATUS=CONVERGED     282 CALLS         283 TOTAL
+                     EDM=8.99306e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p1           1.04705e-01   3.40080e+01   1.21133e-05   1.11502e-01
+   2  p2           1.08810e+00   3.26873e-01   7.39066e-07   2.12920e+01
+   3  p3           9.23181e-01   8.71792e-02   7.39851e-07   6.38363e+01
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  1.426e+01 -1.222e+00  3.231e-01 
+ -1.222e+00  1.068e-01 -2.846e-02 
+  3.231e-01 -2.846e-02  7.600e-03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.99911   1.000 -0.990  0.981
+        2  0.99993  -0.990  1.000 -0.999
+        3  0.99988   0.981 -0.999  1.000
+INFO: The Migrad() command finished successfully! 
+INFO: invoking HESSE! 
+ **********
+ **    2 **HESSE        2000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=25.5011 FROM HESSE     STATUS=OK             16 CALLS         299 TOTAL
+                     EDM=5.20297e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  p1           1.04705e-01   1.67120e+01   2.42266e-06  -1.56432e+00
+   2  p2           1.08810e+00   2.30219e-01   3.69533e-07  -1.54993e+00
+   3  p3           9.23181e-01   6.18288e-02   3.69925e-07  -1.55158e+00
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  7.003e+00 -5.969e-01  1.575e-01 
+ -5.969e-01  5.300e-02 -1.420e-02 
+  1.575e-01 -1.420e-02  3.823e-03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.99818   1.000 -0.980  0.963
+        2  0.99986  -0.980  1.000 -0.997
+        3  0.99975   0.963 -0.997  1.000
+INFO: HESSE finished successfully! 
+INFO: Performing MINOS error analysis! 
+    THE NEGATIVE MINOS ERROR OF PARAMETER   1, p1 EXCEEDS ITS LIMIT.
+ MINUIT WARNING IN MIGRAD  
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.
+ MINUIT WARNING IN MIGRAD  
+ ============== VARIABLE1 IS AT ITS LOWER ALLOWED LIMIT.
+ FCN=25.5011 FROM MINOS     STATUS=SUCCESSFUL   1069 CALLS        1368 TOTAL
+                     EDM=5.20297e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS        
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE   
+   1  p1           1.04705e-01   1.67120e+01   at limit      2.41082e+00
+   2  p2           1.08810e+00   2.30219e-01  -2.08956e-01   5.54570e-02
+   3  p3           9.23181e-01   6.18288e-02  -1.91750e-02   5.61359e-02
+INFO: MINOS error analysis finished! 
+***************************************
+Fit results for bin3
+k_b=0.104705 +- 16.712 (15961%)
+k_c=1.0881 +- 0.230219 (21.1579%)
+k_uds=0.923181 +- 0.0618288 (6.69736%)
+Chi2 of the fit: 1.34216
+***************************************
+/data/zenith226a/libov/data/histo/fitted.lowET2.42.1.0405e06e07p.bin3.root
+INFO: Fitted bin3
+Writing data to /data/zenith226a/libov/analysis/db/results.lowET2.42.1.0405e06e07p.v06.true05e06e0607p.xml
