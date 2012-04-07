@@ -1,6 +1,0 @@
-if [ -z $1 ]; then
-echo "useage: $0 folder_to_submit"
-else
- folder=$1
- jobsub -h zenithsub -q M $folder/run_farm.sh -f $folder/hvqben.x $folder/run_hvqdis.sh $folder/cteq5f4.tbl  $folder/cteq5f3.tbl 
-fi
