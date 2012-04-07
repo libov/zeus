@@ -28,3 +28,5 @@ result_printer
 # with no need to track this
 plot.cxx
 env.sh
+lhapdf-5.8.7
+lhapdf
