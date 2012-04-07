@@ -1,0 +1,272 @@
+  
+ ============================
+ | HVQDIS  V1.4  APRIL 2000 |
+ ============================
+  
+ NORDER    =        2
+ ISCALER   =        5
+ ISCALEF   =        5
+ IPDF      =        5
+ PTS0      =   500000
+ ITS0      =        2
+ PTS1      =    80000
+ ITS1      =        4
+ IQUARK    =        2
+ MASS      =      4.75
+ EPRO      =    920.00
+ EIEL      =     27.50
+ Q2MIN     =     11.99
+ Q2MAX     =     12.01
+ XBJMIN    =      0.00
+ XBJMAX    =      0.00
+ YMIN      =      0.05
+ YMAX      =      0.70
+ ETAMAX    =      2.50
+ PTMIN     =      0.00
+ PTMAX     =   *******
+ IFRAG     =        0
+ ISL       =        1
+ EPS       =      0.0035
+ HFRAC     =      0.2205
+ XMD       =      5.2780
+ TCFRAG    =        0
+ TCSL    =        1
+ PREF      =   f2b_12_20.histos                        
+  
+ BOTTOM PRODUCTION
+ RM48 INITIALIZED:        40           0         0
+ **hist: start histos 
+ HPATH.  ERROR IN PATHNAME,
+
+
+ ===> Directory : 
+  create directory HISB
+ hfrac:  0.2205
+ **hzb: Version kula1  
+ FULL LO+NLO ME
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  3  NCALL=   476656.
+                              IT=    0  ITMX=    2
+                              MDS= -1   ND=  31
+ **MScale: SCALFA=   1. ISCALE=  5
+ **MScale: scale: Pt2+4 M2 
+ wtx  2.51640403E-10hfrac  0.392379761
+ **frag: Peterson frag function 
+ **frag: Vincenzo semi-leptonic routine dir+indir 
+
+ ******************************************************
+ KTCLUS: written by Mike Seymour, July 1992.
+ Last modified October 1997.
+ Please send comments or suggestions to Mike.Seymour@rl.ac.uk
+
+       Collision type = 3 = pe        
+     Angular variable = 2 = DeltaR    
+ Monotonic definition = 1 = no        
+ Recombination scheme = 1 = E         
+ Ecut=  1.00
+ ******************************************************
+
+ wtx  6.75894007E-10hfrac  0.392379761
+ wtx  4.13272583E-10hfrac  0.392379761
+ wtx  8.79025464E-11hfrac  0.392379761
+ **bmatch: create BMAT   
+ BMAT    histos booked ! 
+ wtx  6.03409545E-10hfrac  0.392379761
+ wtx  2.83891577E-10hfrac  0.392379761
+ wtx  6.79482443E-11hfrac  0.392379761
+ wtx  7.44001194E-10hfrac  0.392379761
+ wtx  3.56655205E-10hfrac  0.392379761
+ wtx  3.87044508E-10hfrac  0.392379761
+ wtx  7.84720844E-10hfrac  0.392379761
+ wtx  7.69681319E-10hfrac  0.392379761
+ wtx  6.07571826E-10hfrac  0.392379761
+ wtx  1.12353543E-10hfrac  0.392379761
+ wtx  6.74533485E-10hfrac  0.392379761
+ wtx  7.12374937E-10hfrac  0.392379761
+ wtx  5.75430203E-10hfrac  0.392379761
+ wtx  3.28807065E-10hfrac  0.392379761
+ wtx  7.45442652E-10hfrac  0.392379761
+ wtx  2.70264672E-10hfrac  0.392379761
+ wtx  4.10871892E-11hfrac  0.392379761
+ wtx  3.78463733E-10hfrac  0.392379761
+ wtx  7.35987604E-10hfrac  0.392379761
+ wtx  7.7800083E-10hfrac  0.392379761
+ wtx  4.56288257E-10hfrac  0.392379761
+ wtx  7.87640231E-10hfrac  0.392379761
+ wtx  1.91627533E-10hfrac  0.392379761
+ wtx  3.30491495E-10hfrac  0.392379761
+ wtx  2.25789561E-11hfrac  0.392379761
+ wtx  7.33277397E-11hfrac  0.392379761
+ wtx  7.79000253E-10hfrac  0.392379761
+ wtx  7.20436599E-10hfrac  0.392379761
+ wtx  7.77404752E-10hfrac  0.392379761
+ wtx  1.16735385E-10hfrac  0.392379761
+ wtx  7.73379971E-10hfrac  0.392379761
+ wtx  7.95106814E-10hfrac  0.392379761
+ wtx  3.90683708E-10hfrac  0.392379761
+ wtx  7.13562598E-10hfrac  0.392379761
+ wtx  4.07022971E-10hfrac  0.392379761
+ wtx  2.79659657E-10hfrac  0.392379761
+ wtx  1.7061496E-13hfrac  0.392379761
+ wtx  6.54676591E-10hfrac  0.392379761
+ wtx  4.71770401E-10hfrac  0.392379761
+ wtx  1.14410655E-10hfrac  0.392379761
+ wtx  6.5645861E-10hfrac  0.392379761
+ wtx  5.82381365E-10hfrac  0.392379761
+ wtx  6.05372252E-10hfrac  0.392379761
+ wtx  4.13403652E-11hfrac  0.392379761
+ wtx  6.26942886E-10hfrac  0.392379761
+ wtx  6.73520573E-10hfrac  0.392379761
+ wtx  7.25199067E-10hfrac  0.392379761
+ wtx  8.29327232E-11hfrac  0.392379761
+ wtx  4.63007799E-10hfrac  0.392379761
+ wtx  7.67225727E-10hfrac  0.392379761
+ wtx  7.81391563E-10hfrac  0.392379761
+ wtx  5.59048141E-10hfrac  0.392379761
+ wtx  6.75948297E-10hfrac  0.392379761
+ wtx  6.1505373E-10hfrac  0.392379761
+ wtx  3.77676362E-10hfrac  0.392379761
+ wtx  9.52630405E-11hfrac  0.392379761
+ wtx  2.49512966E-10hfrac  0.392379761
+ wtx  4.36337466E-10hfrac  0.392379761
+ wtx  3.40040329E-10hfrac  0.392379761
+ wtx  1.53559485E-10hfrac  0.392379761
+ wtx  6.66920519E-10hfrac  0.392379761
+ wtx  5.55778923E-10hfrac  0.392379761
+ wtx  7.45684792E-10hfrac  0.392379761
+ wtx  7.75792708E-10hfrac  0.392379761
+ wtx  1.54909183E-10hfrac  0.392379761
+ wtx  4.49416532E-10hfrac  0.392379761
+ wtx  7.81578524E-10hfrac  0.392379761
+ wtx  7.33389016E-10hfrac  0.392379761
+ wtx  4.42115788E-11hfrac  0.392379761
+ wtx  7.87347187E-10hfrac  0.392379761
+ wtx  4.64350086E-10hfrac  0.392379761
+ wtx  7.66226249E-10hfrac  0.392379761
+ wtx  1.54034147E-10hfrac  0.392379761
+ wtx  1.2409232E-10hfrac  0.392379761
+ wtx  3.44094142E-10hfrac  0.392379761
+ wtx  3.82049781E-10hfrac  0.392379761
+ wtx  5.8952776E-10hfrac  0.392379761
+ wtx  2.38360581E-10hfrac  0.392379761
+ wtx  2.59165023E-10hfrac  0.392379761
+ wtx  7.11141201E-10hfrac  0.392379761
+ wtx  2.91843161E-10hfrac  0.392379761
+ wtx  2.90072771E-10hfrac  0.392379761
+ wtx  6.14618745E-10hfrac  0.392379761
+ wtx  7.46676609E-10hfrac  0.392379761
+ wtx  1.18287144E-10hfrac  0.392379761
+ wtx  6.56563748E-10hfrac  0.392379761
+ wtx  5.64265246E-10hfrac  0.392379761
+ wtx  7.11323986E-11hfrac  0.392379761
+ wtx  5.11152197E-11hfrac  0.392379761
+ wtx  6.88175739E-10hfrac  0.392379761
+ wtx  2.84138491E-10hfrac  0.392379761
+ wtx  6.27960739E-10hfrac  0.392379761
+ wtx  3.65013048E-10hfrac  0.392379761
+ wtx  3.23776589E-10hfrac  0.392379761
+ wtx  6.05601846E-10hfrac  0.392379761
+ wtx  1.1329248E-10hfrac  0.392379761
+   1      0.4062695E-05 0.1415E-05  0.4062695E-05 0.1415E-05  0.000    
+   2      0.2979968E-05 0.5971E-06  0.3249252E-05 0.6188E-06 0.5720    
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  3  NCALL=  4920750.
+                              IT=    0  ITMX=    4
+                              MDS= -1   ND=  45
+   1      0.2830759E-05 0.3950E-07  0.2830759E-05 0.3950E-07  0.000    
+   2      0.2812901E-05 0.3748E-07  0.2821418E-05 0.2719E-07 0.1076    
+   3      0.2777382E-05 0.3793E-07  0.2806780E-05 0.2210E-07 0.4948    
+   4      0.2903266E-05 0.4101E-07  0.2829656E-05 0.1947E-07  1.805    
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  6  NCALL=    78125.
+                              IT=    0  ITMX=    4
+                              MDS=  1   ND=  50
+ ALFAS  =   0.165899905
+ MUR2   =   135.014801
+ LOGMUR =   1.78909517
+ MUF2   =   135.014801
+ LOGMUF =   1.78909517
+  
+ INTEGRATING NLO GLUON ...
+  
+   1      0.4103403E-05 0.3988E-05  0.4103403E-05 0.3988E-05  0.000    
+   2     -0.7985495E-10 0.2019E-09  0.3575196E-05 0.2632E-05 0.2726    
+   3      0.9221324E-08 0.4660E-07  0.3463869E-05 0.2115E-05 0.2474    
+   4      0.1860667E-06 0.1903E-06  0.2046691E-05 0.1382E-05 0.6800    
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  6  NCALL=   786432.
+                              IT=    0  ITMX=    8
+                              MDS=  1   ND=  50
+   1      0.2766228E-05 0.8320E-06  0.2766228E-05 0.8320E-06  0.000    
+   2      0.1678532E-05 0.3866E-06  0.2080606E-05 0.4184E-06  1.575    
+   3      0.1227159E-06 0.7338E-06  0.2078777E-05 0.3417E-06  1.195    
+   4      0.1606748E-05 0.6769E-06  0.2004004E-05 0.3031E-06 0.9599    
+   5      0.1069574E-05 0.4137E-06  0.1856155E-05 0.2594E-06  1.260    
+   6      0.1413819E-05 0.5221E-06  0.1790741E-05 0.2334E-06  1.151    
+   7      0.1280542E-05 0.2983E-06  0.1652521E-05 0.1936E-06  1.244    
+   8      0.1112315E-05 0.3018E-06  0.1562582E-05 0.1710E-06  1.338    
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  6  NCALL=    78125.
+                              IT=    0  ITMX=    4
+                              MDS=  1   ND=  50
+ ALFAS  =   0.174050835
+ MUR2   =   91.6684394
+ LOGMUR =   1.40188891
+ MUF2   =   91.6684394
+ LOGMUF =   1.40188891
+  
+ INTEGRATING QUARK INITIATED ...
+  
+   1      0.3121943E-07 0.3122E-07  0.3121943E-07 0.3122E-07  0.000    
+   2      0.5920823E-11 0.3305E-11  0.7421587E-08 0.1076E-07  1.524    
+   3      0.1052925E-09 0.6032E-10  0.4349142E-08 0.6691E-08  1.289    
+   4      0.9834075E-07 0.7113E-07  0.2394697E-07 0.1704E-07  1.779    
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  6  NCALL=   786432.
+                              IT=    0  ITMX=    8
+                              MDS=  1   ND=  50
+   1      0.2385344E-06 0.2592E-06  0.2385344E-06 0.2592E-06  0.000    
+   2     -0.1572234E-07 0.1163E-06  0.2331664E-06 0.1817E-06 0.4046E-01
+   3     -0.8476213E-08 0.1205E-06  0.2317935E-06 0.1480E-06 0.3784E-01
+   4      0.1070404E-06 0.9647E-07  0.1587033E-06 0.9039E-07 0.1821    
+   5      0.1788989E-06 0.2376E-06  0.1629935E-06 0.8687E-07 0.1187    
+   6     -0.2086351E-07 0.5451E-07  0.1534268E-06 0.7737E-07 0.1692    
+   7      0.3248888E-06 0.1567E-06  0.2570482E-06 0.6442E-07 0.3628    
+   8      0.4882481E-06 0.8709E-06  0.2668297E-06 0.8654E-07 0.2063    
+  
+ CROSS SECTION =   4.65906729E-06 +/-   1.92636312E-07
+  
+  # of events with muons:  0 out of:  30463048
+  All:           1. muons:   0.000101736827 2. muon   9.18869591E-06
+ In acc: 1. muons:      0.000:      0.316 % 2. muon      0.000:      0.508 %
+  Norm Histos here: lum=   1.lumbreit lum1  1.
+  ZEUS scenario in Lab frame Q2>4
+  Total      sig (pb):   0.00058345095
+  b tot  sig (pb):   0.000183161916
+  >=1jets sig (pb):   0.000315218844
+  muon +no cuts on jet sig (pb):   6.63164028E-05
+  muon+jet    sig (pb):   3.81542013E-05
+  muon+jet+cone sig (pb):   1.76924932E-05
+  ZEUS scenario in Breit frame Q2>2 
+  tot        sig (pb):   0.00058345095
+  b.cross    sig (pb):   0.000275009108
+  >=1jet sig (pb):   0.000217788227
+  muon nojet cut sig (pb):   1.35385508E-05
+  muon+jet   sig (pb):   4.37395738E-06
+ incl jet   sig (pb):  1.48764866E-05
+ incl muon  sig (pb):  4.59697776E-06
+ incl b     sig (pb):  0.000298240862
+ generator:HVQ     hfrac  0.2205
+  Output Histos here 

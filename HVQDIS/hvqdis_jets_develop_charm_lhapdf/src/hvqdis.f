@@ -1,0 +1,243 @@
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C                                                                      C
+C                    ============================                      C
+C                    | HVQDIS  V1.4  APRIL 2000 |                      C
+C                    ============================                      C
+C                                                                      C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C                                                                      C
+C RELEASE HISTORY                                                      C
+C ===============                                                      C
+C                                                                      C
+C INITIAL RELEASE: HVQDIS V1.0  JULY 1996                              C
+C SECOND  RELEASE: HVQDIS V1.1  FEB  1997                              C
+C                -ADDED AZIMUTHAL RANDOMIZATION IN GAMMA-PROTON CMS    C
+C                -REMOVED UNDERFLOW CUTOFF IN PSEUDO-RAPIDITY ROUTINE  C
+C                -IMPROVED KINEMATIC LIMITS ON Y AND Q2 INTEGRATION    C
+C THIRD   RELEASE: HVQDIS V1.1(sl) JULY 1997                           C
+C                -IMPROVED INTEGRATION PACKAGE                         C
+C                -OVERALL CODE CLEAN UP                                C
+C                -SEMI-LEPTONIC DECAYS                                 C
+C FOURTH  RELEASE: HVQDIS  V1.2  JAN 1999                              C
+C                -UPDATED REFERENCES                                   C
+C                -ADDITION OF VARIOUS USER COMMENTS                    C
+C                -ADDED SAMPLE OUTPUT FILES                            C
+C FIFTH   RELEASE: HVQDIS  V1.3  MAY 1999                              C
+C                -NF NOW FIXED TO 3 (REQUIRED BY CWZ SCHEME)           C
+C SIXTH   RELEASE: HVQDIS  V1.4  APRIL 2000                            C
+C                -ADDED RUNNING ALPHA ELECTROMAGNETIC                  C
+C                -ADDED CTEQ5F3 AND GRV98 PDF SETS                     C
+C                                                                      C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C                                                                      C
+C RESULTS FROM THIS CODE FIRST APPEARED IN                             C
+C "ELECTROPRODUCTION OF HEAVY QUARKS AT NLO" BY B.W.HARRIS             C
+C PROCEEDINGS OF AMERICAN PHYSICAL SOCIETY, DIVISION OF PARTICLES      C
+C AND FIELDS, MINNEAPOLIS, 1996, EDITED BY J. NELSON AND K. HELLER     C
+C (WORLD SCIENTIFIC SINGAPORE, 1996) 1019                              C
+C                                                                      C
+C THE CODE IS BASED ON THE NEXT-TO-LEADING ORDER FULLY DIFFERENTIAL    C
+C HEAVY QUARK STRUCTURE FUNCTIONS PUBLISHED IN                         C
+C B.W.HARRIS AND J.SMITH NUCL. PHYS. B452 (1995) 109                   C
+C B.W.HARRIS AND J.SMITH PHYS. LETT. B353 (1995) 535                   C
+C                                                                      C
+C PHYSICS RESULTS CAN BE FOUND IN                                      C
+C B.W.HARRIS AND J.SMITH PHYS. REV. D57 (1998) 2806                    C
+C                                                                      C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C                                                                      C
+C QUESTIONS, COMMENTS, BUGS?                                           C
+C CONTACT: HARRIS@HEP.ANL.GOV                                          C
+C                                                                      C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+      PROGRAM HVQDIS
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      CHARACTER * 40 PREF
+
+      EXTERNAL SIG0,SIG1,SIG1Q
+
+      COMMON/BEAM/EPRO,EIEL
+      COMMON/INVAR/XBJ,XIMIN,XM2,Q2
+      COMMON/FACTORS/EH2,CA,CF,XKGP,XKQP,N
+      COMMON/CHARGE/EH,EU,ED,ES,EC,EB,ET
+      COMMON/LAMBDA/XLQCD3,XLQCD4,XLQCD5
+      COMMON/FRACTION/X0,Y0
+      COMMON/FLAGS/ISCALER,ISCALEF,IALPHAS,IFRAG
+      COMMON/QUARKF/IQUARK
+      COMMON/LIMITS/Q2MIN,Q2MAX,XMIN,XMAX,YMIN,YMAX
+      COMMON/FRAGP/EPS,HFRAC,XMD,ISL
+      COMMON/CUTS/ETAMAX,PTMIN,PTMAX
+      COMMON/PDFF/IPDF
+      Real SCALFA
+      Integer TCFRAG,TCSL
+      COMMON/TCNEW/SCALFA,TCFRAG,TCSL      
+C Adopted from Massimo
+      INTEGER IRUNEM
+      COMMON /EMRUN/ IRUNEM
+      INTEGER IFL
+      COMMON /DOFL/ IFL
+
+      READ (*,*) NORDER  !0:BORN  1:NLO  2:SUM
+      READ (*,*) ISCALER !SEE SUBROUTINE MSCALE FOR DEFINITIONS
+      READ (*,*) ISCALEF !SEE SUBROUTINE MSCALE FOR DEFINITIONS
+      READ (*,*) IPDF    !1,2
+      READ (*,*) NPTS0   !NUMBER OF VEGAS POINTS FOR LO
+      READ (*,*) ITS0    !NUMBER OF VEGAS ITERATIONS FOR LO
+      READ (*,*) NPTS1   !NUMBER OF VEGAS POINTS FOR NLO
+      READ (*,*) ITS1    !NUMBER OF VEGAS ITERATIONS FOR NLO
+      READ (*,*) IQUARK  !1:CHARM  2:BOTTOM
+      READ (*,*) XM      !QUARK MASS
+      READ (*,*) EPRO    !LAB FRAME PROTON ENERGY
+      READ (*,*) EIEL    !LAB FRAME ELECTRON ENERGY
+      READ (*,*) Q2MIN   !Q2 MIN
+      READ (*,*) Q2MAX   !Q2 MAX
+      READ (*,*) XMIN    !XBJ MIN
+      READ (*,*) XMAX    !XBJ MAX
+      READ (*,*) YMIN    !Y MIN
+      READ (*,*) YMAX    !Y MAX
+      READ (*,*) ETAMAX  !ETAMAX
+      READ (*,*) PTMIN   !PTMIN
+      READ (*,*) PTMAX   !PTMAX
+      READ (*,*) IFRAG   !0: NO FRAG  1: FRAG
+      READ (*,*) ISL     !0: NO SL DECAY  1: SL DECAY
+      READ (*,*) EPS     !EPSILON FOR PETERSON
+      READ (*,*) HFRAC   !HADRONIZATION FRACTION
+      READ (*,*) XMD     !MASS OF HADRON
+      READ (*,*) SCALFA  ! ren scale factor
+      READ (*,*) TCFRAG  ! TC's fragmentation functions
+      READ (*,*) TCSL  ! TC's semi-leptonic functions
+      READ (*,*) PREF    !OUTPUT FILE PREFIX STRING
+C Adopted from Massimo
+      READ (*,*) IRUNEM  !1: ALPHAEM RUNNING 0: NOT
+      READ (*,*) IFL     !1: COMPUTE ALL 0: FL=0 2: ONLY FL
+      WRITE (*,*) ' '
+      WRITE (*,*) '============================'
+      WRITE (*,*) '| HVQDIS  V1.4  APRIL 2000 |'
+      WRITE (*,*) '============================'
+      WRITE (*,*) ' '
+      WRITE (*,11) 'NORDER    = ',NORDER
+      WRITE (*,11) 'ISCALER   = ',ISCALER
+      WRITE (*,11) 'ISCALEF   = ',ISCALEF
+      WRITE (*,11) 'IPDF      = ',IPDF
+      WRITE (*,11) 'PTS0      = ',NPTS0
+      WRITE (*,11) 'ITS0      = ',ITS0
+      WRITE (*,11) 'PTS1      = ',NPTS1
+      WRITE (*,11) 'ITS1      = ',ITS1
+      WRITE (*,11) 'IQUARK    = ',IQUARK
+      WRITE (*,10) 'MASS      = ',XM
+      WRITE (*,10) 'EPRO      = ',EPRO
+      WRITE (*,10) 'EIEL      = ',EIEL
+      WRITE (*,10) 'Q2MIN     = ',Q2MIN
+      WRITE (*,10) 'Q2MAX     = ',Q2MAX
+      WRITE (*,10) 'XBJMIN    = ',XMIN
+      WRITE (*,10) 'XBJMAX    = ',XMAX
+      WRITE (*,10) 'YMIN      = ',YMIN
+      WRITE (*,10) 'YMAX      = ',YMAX
+      WRITE (*,10) 'ETAMAX    = ',ETAMAX
+      WRITE (*,10) 'PTMIN     = ',PTMIN
+      WRITE (*,10) 'PTMAX     = ',PTMAX
+      WRITE (*,11) 'IFRAG     = ',IFRAG
+      WRITE (*,11) 'ISL       = ',ISL
+      WRITE (*,13) 'EPS       = ',EPS
+      WRITE (*,13) 'HFRAC     = ',HFRAC
+      WRITE (*,13) 'XMD       = ',XMD
+      WRITE (*,11) 'TCFRAG    = ',TCFRAG
+      WRITE (*,11) 'TCSL    = ',TCSL
+      WRITE (*,12) 'PREF      = ',PREF
+C Adopted from Massimo
+      WRITE (*,11) 'IRUNEM    = ',IRUNEM
+      WRITE (*,11) 'IFL       = ',IFL
+
+ 10   FORMAT(1X,A,2X,F7.2)
+ 11   FORMAT(1X,A,2X,I6)
+ 12   FORMAT(1X,A,2X,A)
+ 13   FORMAT(1X,A,2X,F9.4)
+
+C RHO-TILDE AND OMEGA OF PAPER ARE MAPPED INTO X0 AND Y0 (DO NOT CHANGE)
+      X0=0.8D0
+      Y0=0.5D0
+
+C QUARK CHARGES IN UNITS OF E
+      EU=+2.D0/3.D0
+      ED=-1.D0/3.D0
+      EC=+2.D0/3.D0
+      ES=-1.D0/3.D0
+      ET=+2.D0/3.D0
+      EB=-1.D0/3.D0
+
+C COLOR FACTORS
+      N=3
+      CA=N
+      CF=0.5D0*(N-1D0/N)
+      XKGP=1D0/(N*N-1D0)
+      XKQP=1D0/N
+
+C SETUP PDF
+
+      XLQCD3=0.395D0
+
+C      XLQCD3=0.363D0
+C      XLQCD4=0.309D0 ! <- to be checked
+C      XLQCD5=0.D0 ! <- to be checked
+
+      WRITE(*,*) ' '
+      IF      ( IQUARK.EQ.1 ) THEN
+         IF(IFRAG.EQ.0)WRITE(*,*)'CHARM PRODUCTION'
+         IF(IFRAG.EQ.1)WRITE(*,*)'CHARM PRODUCTION WITH FRAGMENTATION'
+         EH=EC
+      ELSE IF ( IQUARK.EQ.2 ) THEN
+         IF(IFRAG.EQ.0)WRITE(*,*)'BOTTOM PRODUCTION'
+         IF(IFRAG.EQ.1)WRITE(*,*)'BOTTOM PRODUCTION WITH FRAGMENTATION'
+         EH=EB
+      ELSE
+        WRITE(*,*) 'UNKNOWN HEAVY QUARK: ',IQUARK
+        STOP
+      END IF
+
+      EH2=EH*EH
+      XM2=XM*XM
+
+C. INITIALIZE RANDOM NUMBER GENERATOR
+      CALL BRM48I(40,0,0)
+
+C SET UP HISTOGRAM FILES
+      CALL SHIST(PREF)
+
+      IF      ( NORDER.EQ.0 ) THEN
+         WRITE(*,*) 'LO ME ONLY'
+         if (ipdf.eq.6.) then
+          IALPHAS=1
+         else
+          IALPHAS=2
+         endif
+         CALL VSUP(3,NPTS0,ITS0,SIG0,AISIG0,SDSIG0,CHI2SIG0)
+         WRITE(*,*) ' '
+	 WRITE(*,*) ' CROSS SECTION= ',AISIG0,'+/-',SDSIG0
+         WRITE(*,*) ' '
+      ELSE IF ( NORDER.EQ.1 ) THEN
+         WRITE(*,*) 'NLO ME ONLY'
+         IALPHAS=2
+         CALL VSUP(6,NPTS1,ITS1,SIG1 ,AISIG1 ,SDSIG1 ,CHI2SIG1 )
+         CALL VSUP(6,NPTS1,ITS1,SIG1Q,AISIG1Q,SDSIG1Q,CHI2SIG1Q)
+      ELSE IF ( NORDER.EQ.2 ) THEN
+         WRITE(*,*) 'FULL LO+NLO ME'
+         IALPHAS=2
+         CALL VSUP(3,NPTS0,ITS0,SIG0 ,AISIG0 ,SDSIG0 ,CHI2SIG0 )
+         write(6,*) 'NLO starting:'
+         CALL VSUP(6,NPTS1,ITS1,SIG1 ,AISIG1 ,SDSIG1 ,CHI2SIG1 )
+         CALL VSUP(6,NPTS1,ITS1,SIG1Q,AISIG1Q,SDSIG1Q,CHI2SIG1Q)
+         TOT=AISIG0+AISIG1+AISIG1Q
+         DTOT=DSQRT(SDSIG0**2+SDSIG1**2+SDSIG1Q**2)
+         WRITE(*,*) ' '
+         WRITE(*,*) 'CROSS SECTION = ',TOT,' +/- ',DTOT
+         WRITE(*,*) ' '
+      ELSE
+         WRITE(*,*) 'UNKNOWN NORDER: ',NORDER
+         STOP
+      END IF
+
+C WRITE OUT HISTOGRAM FILES
+      CALL WHIST
+
+      STOP
+      END

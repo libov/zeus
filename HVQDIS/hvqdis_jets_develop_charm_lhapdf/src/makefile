@@ -1,0 +1,34 @@
+F77=g77
+#FFLAGS= -g -Wall
+FFLAGS=  -O -pipe -c -fno-backslash -fno-automatic 
+
+#F77=pgf77
+#FFLAGS= -O2 -Munroll -tp p6 -pc 64
+
+LINK=$(F77)
+LFLAGS=
+
+# LIB_DIR = /cern/2003/lib
+LIB_DIR = /cern/2005/lib
+LIB_CERN = -L$(LIB_DIR) -ljetset74 -lpdflib804 -lpacklib -lmathlib \
+           -lkernlib 
+
+LHAPDF=yes
+ifdef LHAPDF
+PDFLIB=/data/zenith234d/roloff/lhapdf/lib -lLHAPDF
+PACKAGEDEFINES += -DLHAPDF
+endif
+
+#
+all:	hvq.x
+
+OBJS = zeuspdf.o alphas.o alphaem.o cteq4.o cteq5.o grv94.o grv98.o hist.o histlib.o hvqdis.o sig0.o sig1.o sig1q.o misc.o vsup.o pdf.o me.o hzlihep.o xslp.o hzbrtola2.o hzhijet.o hzhijet2.o hzb.o funfrag.o hztool.o
+
+%.o: %.f
+	$(F77) -c $(FFLAGS) $< -o $@
+
+hvq.x: $(OBJS)
+	$(LINK) -o ../exe/hvq.x $(LFLAGS) $(OBJS) -L$(PDFLIB) $(LIB_CERN)
+
+clean:
+	rm -f *.o core *~ *.x

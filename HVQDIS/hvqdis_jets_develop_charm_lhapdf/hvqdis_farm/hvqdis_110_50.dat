@@ -1,0 +1,30 @@
+2               ! 0:LO  1:NLO CORRECTIONS ONLY (NO LO)  2:FULL NLO RESULT
+5               ! RENORMALIZATION SCALE
+5               ! FACTORIZATION   SCALE 1: 4m2  2: Q2 3: Q2+4M2 4:Q2+4M2+pt2  5: pt2+4m2 6: pt2+m2
+5               ! 1: CTEQ4F3  2: CTEQ5F3  3: GRV94  4: GRV98 5: CTEQ5F4   6: CTEQ5L 7: ZEUS-PDf 8: ZEUS-PDF up 9: ZEUS-PDfdown
+500000          ! NUMBER OF VEGAS POINTS FOR LO     500000
+2               ! NUMBER OF VEGAS ITERATIONS FOR LO
+80000           ! NUMBER OF VEGAS POINTS FOR NLO    800000
+4               ! NUMBER OF VEGAS ITERATIONS FOR NLO
+2               ! 1: CHARM 2: BOTTOM
+4.75D0          ! QUARK MASS mb=4.75
+920D0           ! ENERGY OF PROTON
+27.5D0          ! ENERGY OF INCIDENT ELECTRON
+109.99D0         ! Q2 MIN
+110.01D0         ! Q2 MAX
+0.00499D0      ! XBJ MIN
+0.00501D0      ! XBJ MAX
+0.05D0          ! Y MIN
+0.70D0          ! Y MAX
+2.5D0           ! |ETA| MAX
+0.0D0           ! PT MIN
+1500000D0       ! PT MAX
+0               ! 0: NO FRAGMENTATION  1: PETERSON FRAGMENTATION <-- should be off
+1               ! 0: NO SL DECAY  1: SL DECAY (ONLY WITH IFRAG=1)
+0.0035D0        ! EPSION FOR PETERSON FRAGMENTATION
+0.2205D0        ! HADRONIZATION FRACTION (ONLY USED WHEN FRAGMENTING) 0.235D0
+5.278D0         ! MASS OF HEAVY HADRON 5.01
+1               ! ren scale factor
+0               ! 0: Peterson 1:Pet (2:Bowler) 3:Kart (4:Lund) 5:SLD 6:F1 7:P8
+1               ! SL routine 1: Vincenzo 2: Felix  3: Felix dir only 4: charm
+'f2b_110_50.histos'   ! PREF FOR OUTPUT FILES

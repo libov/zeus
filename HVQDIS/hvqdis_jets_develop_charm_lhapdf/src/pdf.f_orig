@@ -1,0 +1,192 @@
+C.--------------------------------------------------------------
+C. INTERFACE TO PDFS
+C. INPUT:
+C.              X = MOMENTUM FRACTION ( 0 < X < 1 )
+C.              SCALE2 = SCALE SQUARED IN GEV^2
+C.              LANGUAGE
+C. OUTPUT:
+C.              FILLS COMMON BLOCKS
+C.              "COMMON/PDFG/GLUE"
+C.              "COMMON/PDFQ /FU ,FD ,FS ,FC ,FB"
+C.              "COMMON/PDFAQ/FUB,FDB,FSB,FCB,FBB"
+C.              WITH MOMENTUM DENSITIES = X*PROBABILITY DENSITIES
+C.
+C.---------------------------------------------------------------
+      SUBROUTINE PDF(X,SCALE2)
+      IMPLICIT DOUBLE PRECISION (A-Z)
+      INTEGER IQUARK,IPDF
+      COMMON/PDFF/IPDF
+      COMMON/QUARKF/IQUARK
+      COMMON/PDFG/GLUE
+      COMMON/PDFQ /FU ,FD ,FS ,FC ,FB
+      COMMON/PDFAQ/FUB,FDB,FSB,FCB,FBB
+
+      SCALE = DSQRT(SCALE2)
+
+C. FOR CHARM PRODUCTION IT'S JUST U,D,S AND GLUE
+
+c. cteq4f3
+      IF(IPDF.EQ.1)THEN
+         FBB  = 0D0
+         FCB  = 0D0
+         FSB  = CTQ4PDF(-3, X, SCALE)*X
+         FUB  = CTQ4PDF(-1, X, SCALE)*X
+         FDB  = CTQ4PDF(-2, X, SCALE)*X
+         GLUE = CTQ4PDF( 0, X, SCALE)*X
+         FD   = CTQ4PDF( 2, X, SCALE)*X
+         FU   = CTQ4PDF( 1, X, SCALE)*X
+         FS   = CTQ4PDF( 3, X, SCALE)*X
+         FC   = 0D0
+         FB   = 0D0
+c. cteq5f3
+      ELSEIF(IPDF.EQ.2)THEN
+         FBB  = 0D0
+         FCB  = 0D0
+         FSB  = CTQ5PDF(-3, X, SCALE)*X
+         FUB  = CTQ5PDF(-1, X, SCALE)*X
+         FDB  = CTQ5PDF(-2, X, SCALE)*X
+         GLUE = CTQ5PDF( 0, X, SCALE)*X
+         FD   = CTQ5PDF( 2, X, SCALE)*X
+         FU   = CTQ5PDF( 1, X, SCALE)*X
+         FS   = CTQ5PDF( 3, X, SCALE)*X
+         FC   = 0D0
+         FB   = 0D0
+c. grv94
+      ELSEIF(IPDF.EQ.3)THEN
+         CALL GRV94HO (X, SCALE*SCALE, UV, DV, DEL, UDB, SB, GL)
+         FBB  = 0D0
+         FCB  = 0D0
+         FSB  = SB
+         FUB  = 0.5*(UDB-DEL)
+         FDB  = 0.5*(UDB+DEL)
+         GLUE = GL
+         FD   = (DV+0.5*(UDB+DEL))
+         FU   = (UV+0.5*(UDB-DEL))
+         FS   = SB
+         FC   = 0D0
+         FB   = 0D0
+c. grv98
+      ELSEIF(IPDF.EQ.4)THEN
+         CALL GRV98PA (2, X, SCALE*SCALE, UV, DV, DEL, UDB, SB, GL)
+         FBB  = 0D0
+         FCB  = 0D0
+         FSB  = SB
+         FUB  = 0.5*(UDB-DEL)
+         FDB  = 0.5*(UDB+DEL)
+         GLUE = GL
+         FD   = (DV+0.5*(UDB+DEL))
+         FU   = (UV+0.5*(UDB-DEL))
+         FS   = SB
+         FC   = 0D0
+         FB   = 0D0
+C. cteq5f4: includes charm density
+      ELSEIF(IPDF.EQ.5)THEN
+         FBB  = 0D0
+         FCB  = CTQ5PDF(-4, X, SCALE)*X
+         FSB  = CTQ5PDF(-3, X, SCALE)*X
+         FUB  = CTQ5PDF(-1, X, SCALE)*X
+         FDB  = CTQ5PDF(-2, X, SCALE)*X
+         GLUE = CTQ5PDF( 0, X, SCALE)*X
+         FD   = CTQ5PDF( 2, X, SCALE)*X
+         FU   = CTQ5PDF( 1, X, SCALE)*X
+         FS   = CTQ5PDF( 3, X, SCALE)*X
+         FC   = CTQ5PDF( 4, X, SCALE)*X
+         FB   = 0D0
+      ELSEIF(IPDF.EQ.6)THEN
+         FBB  = 0D0
+         FCB  = CTQ5PDF(-4, X, SCALE)*X
+         FSB  = CTQ5PDF(-3, X, SCALE)*X
+         FUB  = CTQ5PDF(-1, X, SCALE)*X
+         FDB  = CTQ5PDF(-2, X, SCALE)*X
+         GLUE = CTQ5PDF( 0, X, SCALE)*X
+         FD   = CTQ5PDF( 2, X, SCALE)*X
+         FU   = CTQ5PDF( 1, X, SCALE)*X
+         FS   = CTQ5PDF( 3, X, SCALE)*X
+         FC   = CTQ5PDF( 4, X, SCALE)*X
+         FB   = 0D0
+      ELSEIF(IPDF.EQ.7)THEN
+
+         FBB  = 0D0
+         IF (IQUARK.EQ.2) THEN
+           FCB = ZEUSPDF(-4, X, SCALE)
+         ELSE
+           FCB = 0D0
+         ENDIF
+         FSB  = ZEUSPDF(-3, X, SCALE)
+         FDB  = ZEUSPDF(-2, X, SCALE)
+         FUB  = ZEUSPDF(-1, X, SCALE)
+         GLUE = ZEUSPDF( 0, X, SCALE)
+         FU   = ZEUSPDF( 1, X, SCALE)
+         FD   = ZEUSPDF( 2, X, SCALE)
+         FU   = ZEUSPDF( 1, X, SCALE)
+         FS   = ZEUSPDF( 3, X, SCALE)
+         IF (IQUARK.EQ.2) THEN
+           FC = ZEUSPDF( 4, X, SCALE)
+         ELSE
+           FC = 0D0
+         ENDIF
+         FB   = 0D0
+*
+      ELSEIF(IPDF.EQ.8)THEN
+*
+         FBB  = 0D0
+         IF (IQUARK.EQ.2) THEN
+           FCB = ZEUSPDF(-14, X, SCALE)
+         ELSE
+           FCB = 0D0
+         ENDIF
+         FSB  = ZEUSPDF(-13, X, SCALE)
+         FDB  = ZEUSPDF(-12, X, SCALE)
+         FUB  = ZEUSPDF(-11, X, SCALE)
+         GLUE = ZEUSPDF( 10, X, SCALE)
+         FU   = ZEUSPDF( 11, X, SCALE)
+         FD   = ZEUSPDF( 12, X, SCALE)
+         FU   = ZEUSPDF( 11, X, SCALE)
+         FS   = ZEUSPDF( 13, X, SCALE)
+         IF (IQUARK.EQ.2) THEN
+           FC = ZEUSPDF( 14, X, SCALE)
+         ELSE
+           FC = 0D0
+         ENDIF
+         FB   = 0D0
+*
+      ELSEIF(IPDF.EQ.9)THEN
+*
+         FBB  = 0D0
+         IF (IQUARK.EQ.2) THEN
+           FCB = ZEUSPDF(-104, X, SCALE)
+         ELSE
+           FCB = 0D0
+         ENDIF
+         FSB  = ZEUSPDF(-103, X, SCALE)
+         FDB  = ZEUSPDF(-102, X, SCALE)
+         FUB  = ZEUSPDF(-101, X, SCALE)
+         GLUE = ZEUSPDF( 100, X, SCALE)
+         FU   = ZEUSPDF( 101, X, SCALE)
+         FD   = ZEUSPDF( 102, X, SCALE)
+         FU   = ZEUSPDF( 101, X, SCALE)
+         FS   = ZEUSPDF( 103, X, SCALE)
+         IF (IQUARK.EQ.2) THEN
+           FC = ZEUSPDF( 104, X, SCALE)
+         ELSE
+           FC = 0D0
+         ENDIF
+         FB   = 0D0
+*
+      ENDIF
+*
+C         FCB  = 0.
+C         FSB  = 0.
+C         FDB  = 0.
+C         FUB  = 0.
+C         FU   = 0.
+C         FD   = 0.
+C         FU   = 0.
+C         FS   = 0.
+C         FC   = 0.
+* 
+
+c      ENDIF
+
+      RETURN
+      END
