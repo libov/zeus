@@ -15,7 +15,7 @@ LIB_CERN = -L$(LIB_DIR) -ljetset74 -lpdflib804 -lpacklib -lmathlib \
 
 LHAPDF=yes
 ifdef LHAPDF
-PDFLIB=/data/zenith234d/roloff/lhapdf/lib -lLHAPDF
+PDFLIB=/data/zenith226a/libov/analysis/lhapdf/lib -lLHAPDF
 PACKAGEDEFINES += -DLHAPDF
 endif
 
