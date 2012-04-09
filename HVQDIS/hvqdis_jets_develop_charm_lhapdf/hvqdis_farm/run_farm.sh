@@ -39,7 +39,7 @@ do
     bmassa=5
     bmassb=0
   fi
-  for i in 2 3 4 5 6 7 8 
+  for i in 101
   do
     q2min=100.
     q2max=250.
@@ -274,67 +274,17 @@ do
     fi
 # standard bins
     if [ $i = 101 ]; then
-      q2min="4."
-      q2max="25."
-      xmin="0.0000316"
-      xmax="0.000316"
-    fi
-    if [ $i = 102 ]; then
-      q2min="4."
-      q2max="25."
-      xmin="0.000316"
-      xmax="0.001"
-    fi
-    if [ $i = 103 ]; then
-      q2min="4."
-      q2max="25."
-      xmin="0.001"
-      xmax="0.00316"
-    fi
-#
-    if [ $i = 201 ]; then
-      q2min="25."
-      q2max="100."
-      xmin="0.000316"
-      xmax="0.001"
-    fi
-    if [ $i = 202 ]; then
-      q2min="25."
-      q2max="100."
-      xmin="0.001"
-      xmax="0.00316"
-    fi
-    if [ $i = 203 ]; then
-      q2min="25."
-      q2max="100."
-      xmin="0.00316"
-      xmax="0.01"
-    fi
-#
-    if [ $i = 301 ]; then
-      q2min="100."
-      q2max="3162."
-      xmin="0.001"
-      xmax="0.00316"
-    fi
-    if [ $i = 302 ]; then
-      q2min="100."
-      q2max="3162."
-      xmin="0.00316"
-      xmax="0.01"
-    fi
-    if [ $i = 303 ]; then
-      q2min="100."
-      q2max="3162."
-      xmin="0.01"
-      xmax="0.0316"
+      q2min="5."
+      q2max="20."
+      xmin="0.00026"
+      xmax="0.0003"
     fi
     nametag=${q2min}-${q2max}_${xmin}-${xmax}_r${renscale}_f${facscale}_m${bmassa}.${bmassb}
     outfile=hvqdis_$nametag.dat
     echo "2               ! 0:LO  1:NLO CORRECTIONS ONLY (NO LO)  2:FULL NLO RESULT" > $outfile
     echo $renscale"       ! RENORMALIZATION SCALE" >> $outfile
     echo $facscale"       ! FACTORIZATION   SCALE 1: 4m2  2: Q2 3: Q2+4M2 4:Q2+4M2+pt2  5: pt2+4m2 6: pt2+m2 7: (Q2+M2+pt2)/4" >> $outfile
-    echo "5              ! 1: CTEQ4F3  2: CTEQ5F3  3: GRV94  4: GRV98 5: CTEQ5F4   6: CTEQ5L 7: ZEUS-PDf 8: ZEUS-PDF up 9: ZEUS-PDfdown" >> $outfile
+    echo "40650           ! 1: CTEQ4F3  2: CTEQ5F3  3: GRV94  4: GRV98 5: CTEQ5F4   6: CTEQ5L 7: ZEUS-PDf 8: ZEUS-PDF up 9: ZEUS-PDfdown" >> $outfile
     echo "50000          ! NUMBER OF VEGAS POINTS FOR LO     500000" >> $outfile
     echo "2               ! NUMBER OF VEGAS ITERATIONS FOR LO" >> $outfile
     echo "80000          ! NUMBER OF VEGAS POINTS FOR NLO    800000" >> $outfile
@@ -367,10 +317,16 @@ do
     echo "0               ! 0: Peterson 1:Pet (2:Bowler) 3:Kart (4:Lund) 5:SLD 6:F1 7:P8" >> $outfile
     echo "1               ! SL routine 1: Vincenzo 2: Felix  3: Felix dir only 4: charm" >> $outfile
     echo "'f2b_"$nametag".histos'   ! PREF FOR OUTPUT FILES" >> $outfile
-  
+    echo "1               !1: ALPHAEM RUNNING 0: NOT" >> $outfile    
+    echo "1               !1: COMPUTE ALL 0: FL=0 2: ONLY FL" >> $outfile    
+
     run_hvqdis.sh $nametag
-    grep "Total      sig (pb):" output/ben_$nametag.out >> $mailfile
-    grep "muon+jet+cone sig (pb):" output/ben_$nametag.out >> $mailfile
+    grep "Total      sig (pb):" output/$nametag.out >> $mailfile
+    grep "muon+jet+cone sig (pb):" output/$nametag.out >> $mailfile
     mail -s "HVQDIS: $nametag completed" ${USER}@mail.desy.de < $mailfile
+    tar -zcvf Histograms.tar.gz Histograms
+    rm -rf Histograms
+    tar -zcvf output.tar.gz output
+    rm -rf output
   done
 done
