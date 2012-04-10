@@ -1,29 +1,18 @@
 #!/bin/bash
 
-if [ -d output ]; then
-  :
-else
-  mkdir output
-fi
-if [ -d Histograms ]; then
-  :
-else
-  mkdir Histograms
-fi
-
 mailfile="mail.temp"
 #defaults:
-q2min=1.
-q2max=3000000.
+q2min=5.
+q2max=1000.
 xmin=0.
 xmax=1.
 bmassa=4
 bmassb=75
-ymin=0.0
-ymax=1.
+ymin=0.02
+ymax=0.7
 ptjet=0.0
-renscale=7
-facscale=7
+renscale=3
+facscale=3
 frag=0.0035
 for m in 2
 do
