@@ -302,6 +302,48 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         }
                     }
 
+                    // calculate number of parton jets - together with hadron level true jets will be used for
+                    // hadronization corrections evaluation
+                    if (fIsCharm || fIsBeauty) {
+                        for (int trueJet = 0; trueJet < Npmjets; trueJet++) {
+
+                            // create a ROOT Lorentz vector whith - a jet 4-momentum
+                            TLorentzVector	jet(Pxpmjet[trueJet], Pypmjet[trueJet], Pzpmjet[trueJet], Epmjet[trueJet]);
+
+                            //Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
+                            fTrueJetEta=jet.Eta();
+                            fTrueJetEt=jet.Et();
+                            fTrueJetPhi=jet.Phi();
+
+                            // ROOT gives values in range [-pi, pi]. We need [0, 2*pi]
+                            if (fTrueJetPhi<0) fTrueJetPhi += (2*TMath::Pi());
+
+                            // Fiducial volume cuts, true jet level
+                            if ( ( fTrueJetEta > fJetEtaUpCut ) || ( fTrueJetEta < fJetEtaLowCut ) ) continue;
+                            if ( fTrueJetEt < fJetEtCut ) continue;
+
+                            // Check whether jet is in current bin, true jet level
+                            if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
+
+                            // additional ETA reweighting and Et reweighting in bins of Q2
+                            if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) ) {
+                                //see $ANALYSIS/other/reweighting_eta/README
+                                Double_t    eta_weight = 1;
+                                if (fApplyCharmEtaReweighting) {
+                                    eta_weight = fCharmEtaReweighting_p0 + fTrueJetEta * fCharmEtaReweighting_p1 + fTrueJetEta * fTrueJetEta * fCharmEtaReweighting_p2;
+                                }
+                                // see $ANALYSIS/other/reweighting_et/README
+                                Double_t     et_weight = 1;
+                                if (fApplyCharmETReweighting) et_weight = getCharmETweightingFactor(fTrueJetEt);
+
+                                // apply weighting factors
+                                currentTGlobalBin -> SetWeightingFactor(TOTAL_WEIGHT * eta_weight * et_weight);
+                            }
+
+                            currentTGlobalBin->FillHistogram("truePARTONjets", 0);
+                        }
+                    }
+
                     // resolution histograms - fill on request only [SetStudyResolutions(true)] since
                     // this is quite CPU expensive here in this loop.
                     if (fStudyResolutions) {
