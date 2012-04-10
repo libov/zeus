@@ -279,7 +279,7 @@ do
     echo "80000          ! NUMBER OF VEGAS POINTS FOR NLO    800000" >> $outfile
     echo "NUMBER OF VEGAS POINTS FOR NLO: 80000 " >> $mailfile
     echo "4               ! NUMBER OF VEGAS ITERATIONS FOR NLO" >> $outfile
-    echo "2               ! 1: CHARM 2: BOTTOM" >> $outfile
+    echo "1               ! 1: CHARM 2: BOTTOM" >> $outfile
     echo $bmassa"."$bmassb"D0          ! QUARK MASS mb=4.75" >> $outfile
     echo "920D0           ! ENERGY OF PROTON" >> $outfile
     echo "27.5D0          ! ENERGY OF INCIDENT ELECTRON" >> $outfile
