@@ -17,21 +17,19 @@ frag=0.0035
 for m in 2
 do
   if [ $m = 1 ]; then
-    bmassa=4
-    bmassb=5
+    bmassa=1
+    bmassb=3
   fi
   if [ $m = 2 ]; then
-    bmassa=4
-    bmassb=75
+    bmassa=1
+    bmassb=5
   fi
   if [ $m = 3 ]; then
-    bmassa=5
-    bmassb=0
+    bmassa=1
+    bmassb=7
   fi
-  for i in 101
+  for i in 1
   do
-    q2min=100.
-    q2max=250.
     if [ -e $mailfile ]; then
       rm $mailfile
     fi
