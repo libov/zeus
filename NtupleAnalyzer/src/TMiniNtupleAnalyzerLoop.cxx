@@ -250,10 +250,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // Calculate number of true jets in current bin; will be used at the fitter level
                     // to get the true cross-sections
                     // loop over the true jets
+
+                    // first, get a weighting factor before the loop over jets, because
+                    // for each jet the weight will be different
+                    Double_t    TOTAL_WEIGHT = currentTGlobalBin -> GetWeightingFactor ();
+
                     if (fIsCharm || fIsBeauty) {
-                        // have to get a weighting factor before the loop over jets, because
-                        // for each jet the weight will be different
-                        Double_t    TOTAL_WEIGHT = currentTGlobalBin -> GetWeightingFactor ();
                         for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
 
                             // create a ROOT Lorentz vector whith - a jet 4-momentum
