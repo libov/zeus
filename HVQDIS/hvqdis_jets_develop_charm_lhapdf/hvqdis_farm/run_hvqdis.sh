@@ -13,9 +13,6 @@ else
 fi
 output=${tag}.out
 time ./hvq.x < hvqdis_${tag}.dat > ${output}
-mv ${output} ./output/
-histoname=`grep histos hvqdis_${tag}.dat | awk -F \' '{print $2}'`
-mv $histoname ./Histograms/
 #echo '*** Bye ***'
 #
 #
