@@ -305,17 +305,13 @@ do
     echo "1               ! ren scale factor" >> $outfile
     echo "0               ! 0: Peterson 1:Pet (2:Bowler) 3:Kart (4:Lund) 5:SLD 6:F1 7:P8" >> $outfile
     echo "1               ! SL routine 1: Vincenzo 2: Felix  3: Felix dir only 4: charm" >> $outfile
-    echo "'f2b_"$nametag".histos'   ! PREF FOR OUTPUT FILES" >> $outfile
+    echo "'histograms.histos'   ! PREF FOR OUTPUT FILES" >> $outfile
     echo "1               !1: ALPHAEM RUNNING 0: NOT" >> $outfile    
     echo "1               !1: COMPUTE ALL 0: FL=0 2: ONLY FL" >> $outfile    
 
     run_hvqdis.sh $nametag
-    grep "Total      sig (pb):" output/$nametag.out >> $mailfile
-    grep "muon+jet+cone sig (pb):" output/$nametag.out >> $mailfile
+    grep "Total      sig (pb):" $nametag.out >> $mailfile
+    grep "muon+jet+cone sig (pb):" $nametag.out >> $mailfile
     mail -s "HVQDIS: $nametag completed" ${USER}@mail.desy.de < $mailfile
-    tar -zcvf Histograms.tar.gz Histograms
-    rm -rf Histograms
-    tar -zcvf output.tar.gz output
-    rm -rf output
   done
 done
