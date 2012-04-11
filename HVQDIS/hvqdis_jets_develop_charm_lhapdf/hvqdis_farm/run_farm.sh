@@ -47,10 +47,12 @@ do
       rm $mailfile
     fi
     touch $mailfile
-    # default
+    # default (to be used for evaluation of single and double differential 
+    # cross-sections and their uncertainty)
     if [ $i = 1 ]; then
     :
     fi
+    # different Q2-x points
     if [ $i = 10 ]; then
         q2min="6.49"
         q2max="6.51"
