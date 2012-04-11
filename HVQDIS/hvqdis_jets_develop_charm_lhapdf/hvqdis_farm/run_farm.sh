@@ -79,7 +79,7 @@ do
         xmin="0.000649"
         xmax="0.000651"
     fi
-    nametag=${q2min}-${q2max}_${xmin}-${xmax}_r${renscale}_f${facscale}_m${bmassa}.${bmassb}.${counter}
+    nametag=${q2min}-${q2max}_${xmin}-${xmax}_r${renscale}_f${facscale}_m${bmassa}.${bmassb}__${counter}
     outfile=hvqdis_$nametag.dat
     echo "2               ! 0:LO  1:NLO CORRECTIONS ONLY (NO LO)  2:FULL NLO RESULT" > $outfile
     echo $renscale"       ! RENORMALIZATION SCALE" >> $outfile
@@ -116,7 +116,7 @@ do
     echo "1               ! ren scale factor" >> $outfile
     echo "0               ! 0: Peterson 1:Pet (2:Bowler) 3:Kart (4:Lund) 5:SLD 6:F1 7:P8" >> $outfile
     echo "1               ! SL routine 1: Vincenzo 2: Felix  3: Felix dir only 4: charm" >> $outfile
-    echo "'histograms.${counter}.histos'   ! PREF FOR OUTPUT FILES" >> $outfile
+    echo "'histograms__${counter}.histos'   ! PREF FOR OUTPUT FILES" >> $outfile
     echo "1               !1: ALPHAEM RUNNING 0: NOT" >> $outfile    
     echo "1               !1: COMPUTE ALL 0: FL=0 2: ONLY FL" >> $outfile    
 
