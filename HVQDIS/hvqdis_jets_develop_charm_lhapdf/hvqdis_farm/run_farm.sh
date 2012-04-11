@@ -124,6 +124,7 @@ do
     grep "Total      sig (pb):" $nametag.out >> $mailfile
     grep "muon+jet+cone sig (pb):" $nametag.out >> $mailfile
     mail -s "HVQDIS: $nametag completed" ${USER}@mail.desy.de < $mailfile
-    counter=$(($counter+1))
   done
+  #increment a counter
+  counter=$(($counter+1))
 done
