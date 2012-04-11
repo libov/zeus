@@ -51,49 +51,6 @@ do
     if [ $i = 1 ]; then
     :
     fi
-    if [ $i = 2 ]; then
-      bmassa=4
-      bmassb=75
-      renscale=7
-      facscale=7
-    fi
-    if [ $i = 3 ]; then
-      bmassa=5
-      bmassb=0
-      renscale=7
-      facscale=7
-    fi
-    if [ $i = 4 ]; then
-      bmassa=4
-      bmassb=5
-      renscale=7
-      facscale=7
-    fi
-    if [ $i = 5 ]; then
-      renscale=7
-      facscale=17
-      bmassa=4
-      bmassb=75
-    fi
-    if [ $i = 6 ]; then
-      renscale=17
-      facscale=7
-      bmassa=4
-      bmassb=75
-    fi
-    if [ $i = 7 ]; then
-      bmassa=4
-      bmassb=75
-      renscale=27
-      facscale=7
-    fi
-    if [ $i = 8 ]; then
-      bmassa=4
-      bmassb=75
-      renscale=7
-      facscale=27
-    fi
-# end error calc
     if [ $i = 10 ]; then
         q2min="6.49"
         q2max="6.51"
