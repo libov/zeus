@@ -81,6 +81,30 @@ do
       facscale=27
     fi
 # end error calc
+    if [ $i = 10 ]; then
+        q2min="6.49"
+        q2max="6.51"
+        xmin="0.000149"
+        xmax="0.000151"
+    fi
+    if [ $i = 11 ]; then
+        q2min="6.49"
+        q2max="6.51"
+        xmin="0.000279"
+        xmax="0.000281"
+    fi
+    if [ $i = 12 ]; then
+        q2min="11.9"
+        q2max="12.1"
+        xmin="0.000429"
+        xmax="0.000431"
+    fi
+    if [ $i = 13 ]; then
+        q2min="11.9"
+        q2max="12.1"
+        xmin="0.000649"
+        xmax="0.000651"
+    fi
     nametag=${q2min}-${q2max}_${xmin}-${xmax}_r${renscale}_f${facscale}_m${bmassa}.${bmassb}
     outfile=hvqdis_$nametag.dat
     echo "2               ! 0:LO  1:NLO CORRECTIONS ONLY (NO LO)  2:FULL NLO RESULT" > $outfile
