@@ -14,28 +14,41 @@ ptjet=0.0
 renscale=3
 facscale=3
 frag=0.0035
+# first loop is for uncertainty evaluation
 for m in 2
 do
+  # mass variation
   if [ $m = 1 ]; then
-    bmassa=1
     bmassb=3
   fi
   if [ $m = 2 ]; then
-    bmassa=1
     bmassb=5
   fi
   if [ $m = 3 ]; then
-    bmassa=1
     bmassb=7
   fi
-  for i in 1
+  # scales variation
+  if [ $m = 4 ]; then
+    renscale=13
+  fi
+  if [ $m = 5 ]; then
+    renscale=23
+  fi
+  if [ $m = 6 ]; then
+    facscale=13
+  fi
+  if [ $m = 7 ]; then
+    facscale=23
+  fi
+  # second loop is for F2 evaluation in small volumes around (Q2,x) points
+  for i in 10
   do
     if [ -e $mailfile ]; then
       rm $mailfile
     fi
     touch $mailfile
+    # default
     if [ $i = 1 ]; then
-# use the defaults
     :
     fi
     if [ $i = 2 ]; then
