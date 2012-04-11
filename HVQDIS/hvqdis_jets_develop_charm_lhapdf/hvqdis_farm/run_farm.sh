@@ -15,29 +15,30 @@ renscale=3
 facscale=3
 frag=0.0035
 # first loop is for uncertainty evaluation
-for m in 2
+for m in 0 1 2 3 4 5 6
 do
+  #default;
+  if [ $m = 0]; then
+  :
+  fi
   # mass variation
   if [ $m = 1 ]; then
     bmassb=3
   fi
   if [ $m = 2 ]; then
-    bmassb=5
-  fi
-  if [ $m = 3 ]; then
     bmassb=7
   fi
   # scales variation
-  if [ $m = 4 ]; then
+  if [ $m = 3 ]; then
     renscale=13
   fi
-  if [ $m = 5 ]; then
+  if [ $m = 4 ]; then
     renscale=23
   fi
-  if [ $m = 6 ]; then
+  if [ $m = 5 ]; then
     facscale=13
   fi
-  if [ $m = 7 ]; then
+  if [ $m = 6 ]; then
     facscale=23
   fi
   # second loop is for F2 evaluation in small volumes around (Q2,x) points
