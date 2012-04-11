@@ -50,7 +50,7 @@ do
     touch $mailfile
     # default (to be used for evaluation of single and double differential 
     # cross-sections and their uncertainty)
-    if [ $i = 1 ]; then
+    if [ $i = 0 ]; then
     :
     fi
     # different Q2-x points
