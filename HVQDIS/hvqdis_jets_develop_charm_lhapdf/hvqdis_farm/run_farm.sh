@@ -16,7 +16,7 @@ facscale=3
 frag=0.0035
 counter=1
 # first loop is for uncertainty evaluation
-for m in 1 2 3 4 5 6
+for m in 0 1 2 3 4 5 6
 do
   #default;
   if [ $m = 0]; then
