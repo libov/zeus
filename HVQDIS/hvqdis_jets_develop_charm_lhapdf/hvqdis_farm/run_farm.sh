@@ -1,23 +1,23 @@
 #!/bin/bash
 
 mailfile="mail.temp"
-#defaults:
-q2min=5.
-q2max=1000.
-xmin=0.
-xmax=1.
-bmassa=1
-bmassb=5
-ymin=0.02
-ymax=0.7
-ptjet=0.0
-renscale=3
-facscale=3
-frag=0.0035
 counter=1
 # first loop is for uncertainty evaluation
 for m in 0 1 2 3 4 5 6
 do
+  #defaults:
+  q2min=5.
+  q2max=1000.
+  xmin=0.
+  xmax=1.
+  bmassa=1
+  bmassb=5
+  ymin=0.02
+  ymax=0.7
+  ptjet=0.0
+  renscale=3
+  facscale=3
+  frag=0.0035
   #default;
   if [ $m = 0]; then
   :
@@ -79,7 +79,7 @@ do
         xmin="0.000649"
         xmax="0.000651"
     fi
-    nametag=${q2min}-${q2max}_${xmin}-${xmax}_r${renscale}_f${facscale}_m${bmassa}.${bmassb}__${counter}
+    nametag=0${counter}_${q2min}-${q2max}_${xmin}-${xmax}_r${renscale}_f${facscale}_m${bmassa}.${bmassb}
     outfile=hvqdis_$nametag.dat
     echo "2               ! 0:LO  1:NLO CORRECTIONS ONLY (NO LO)  2:FULL NLO RESULT" > $outfile
     echo $renscale"       ! RENORMALIZATION SCALE" >> $outfile
@@ -116,7 +116,7 @@ do
     echo "1               ! ren scale factor" >> $outfile
     echo "0               ! 0: Peterson 1:Pet (2:Bowler) 3:Kart (4:Lund) 5:SLD 6:F1 7:P8" >> $outfile
     echo "1               ! SL routine 1: Vincenzo 2: Felix  3: Felix dir only 4: charm" >> $outfile
-    echo "'histograms__${counter}.histos'   ! PREF FOR OUTPUT FILES" >> $outfile
+    echo "'0${counter}_histograms.histos'   ! PREF FOR OUTPUT FILES" >> $outfile
     echo "1               !1: ALPHAEM RUNNING 0: NOT" >> $outfile    
     echo "1               !1: COMPUTE ALL 0: FL=0 2: ONLY FL" >> $outfile    
 
