@@ -186,7 +186,7 @@
     <!-- ********************************** -->
     <!-- ******** BEAUTY RESOLVED ********* -->
     <!-- ********************************** -->
-    <sample>
+<!--    <sample>
         <year>04</year>
         <type>mc</type>
         <flavour>beauty_rapgap_resolved</flavour>
@@ -252,7 +252,7 @@
         <CN_version>v02e</CN_version>
         <name_pattern>f15643.bbbar.rg30.resc.bg</name_pattern>
         <luminosity>2573.87</luminosity>
-    </sample>
+    </sample>-->
     <!-- ********************************** -->
     <!-- *********** CHARM BGF ************ -->
     <!-- ********************************** -->
@@ -393,7 +393,7 @@
     <!-- ********************************** -->
     <!-- ********* CHARM RESOLVED ********* -->
     <!-- ********************************** -->
-    <sample>
+<!--    <sample>
         <year>04</year>
         <type>mc</type>
         <flavour>charm_rapgap_resolved</flavour>
@@ -517,5 +517,5 @@
         <CN_version>v02e</CN_version>
         <name_pattern>f15643.ccbar.rg30.resc.cg</name_pattern>
         <luminosity>501.512</luminosity>
-    </sample>
+    </sample>-->
 </dataset>
