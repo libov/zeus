@@ -22,7 +22,7 @@ do
   frag=0.0035
 
   # use the defaults
-  if [ $m = 0]; then
+  if [ $m = 0 ]; then
   :
   fi
 
@@ -126,7 +126,7 @@ do
     echo "1               ! SL routine 1: Vincenzo 2: Felix  3: Felix dir only 4: charm" >> $outfile
     echo "'0${counter}_histograms.histos'   ! PREF FOR OUTPUT FILES" >> $outfile
     echo "1               !1: ALPHAEM RUNNING 0: NOT" >> $outfile    
-    echo "1               !1: COMPUTE ALL 0: FL=0 2: ONLY FL" >> $outfile    
+    echo "0               !1: COMPUTE ALL 0: FL=0 2: ONLY FL" >> $outfile    
 
     run_hvqdis.sh $nametag
     grep "Total      sig (pb):" $nametag.out >> $mailfile
