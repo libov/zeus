@@ -1,11 +1,6 @@
 #!/bin/bash
 # get the iterator(s) value for the second loop
-# default: 0
-if [ -z $1 ]; then
-    iterator=0
-else
-    iterator=$1
-fi
+iterator=`cat iterator`
 mailfile="mail.temp"
 counter=1
 # first loop is for uncertainty evaluation
