@@ -1,11 +1,14 @@
 if [ -z $1 ]; then
-echo "useage: $0 folder_to_submit"
+echo "usage: $0 folder_to_submit iterator_for_2nd_loop"
 else
  if [ -z $2 ]; then
-  queue="M"
+  iterator=0
  else
-  queue=$2
+  iterator=$2
  fi
  folder=$1
- zarah-jobsub -q $queue -s $folder/run_farm.sh exe/hvq.x $folder/run_hvqdis.sh $ANALYSIS/env.sh
+ rm -f $folder/iterator
+ echo $iterator > $folder/iterator
+ zarah-jobsub -q M -s $folder/run_farm.sh $folder/iterator exe/hvq.x $folder/run_hvqdis.sh $ANALYSIS/env.sh
+ rm $folder/iterator
 fi
