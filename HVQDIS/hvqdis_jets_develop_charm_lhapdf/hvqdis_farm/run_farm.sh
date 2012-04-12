@@ -51,7 +51,7 @@ do
   # second loop is for F2 evaluation in small volumes around (Q2,x) points;
   # in order to evaluate the differential cross-sections and uncertainties,
   # please select 0 here (now from the command line)
-  for i in iterator
+  for i in $iterator
   do
     if [ -e $mailfile ]; then
       rm $mailfile
