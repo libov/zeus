@@ -5,7 +5,8 @@ counter=1
 # first loop is for uncertainty evaluation
 for m in 0 1 2 3 4 5 6
 do
-  #defaults:
+
+  # defaults settings:
   q2min=5.
   q2max=1000.
   xmin=0.
@@ -18,10 +19,12 @@ do
   renscale=3
   facscale=3
   frag=0.0035
-  #default;
+
+  # use the defaults
   if [ $m = 0]; then
   :
   fi
+
   # mass variation
   if [ $m = 1 ]; then
     bmassb=3
@@ -29,6 +32,7 @@ do
   if [ $m = 2 ]; then
     bmassb=7
   fi
+
   # scales variation
   if [ $m = 3 ]; then
     renscale=13
@@ -42,7 +46,10 @@ do
   if [ $m = 6 ]; then
     facscale=23
   fi
-  # second loop is for F2 evaluation in small volumes around (Q2,x) points
+
+  # second loop is for F2 evaluation in small volumes around (Q2,x) points;
+  # in order to evaluate the differential cross-sections and uncertainties,
+  # please select 0 here
   for i in 10
   do
     if [ -e $mailfile ]; then
