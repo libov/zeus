@@ -95,9 +95,9 @@ do
     echo "40650           ! 1: CTEQ4F3  2: CTEQ5F3  3: GRV94  4: GRV98 5: CTEQ5F4   6: CTEQ5L 7: ZEUS-PDf 8: ZEUS-PDF up 9: ZEUS-PDfdown" >> $outfile
     echo "50000          ! NUMBER OF VEGAS POINTS FOR LO     500000" >> $outfile
     echo "2               ! NUMBER OF VEGAS ITERATIONS FOR LO" >> $outfile
-    echo "80000          ! NUMBER OF VEGAS POINTS FOR NLO    800000" >> $outfile
+    echo "1000000          ! NUMBER OF VEGAS POINTS FOR NLO    800000" >> $outfile
     echo "NUMBER OF VEGAS POINTS FOR NLO: 80000 " >> $mailfile
-    echo "4               ! NUMBER OF VEGAS ITERATIONS FOR NLO" >> $outfile
+    echo "10               ! NUMBER OF VEGAS ITERATIONS FOR NLO" >> $outfile
     echo "1               ! 1: CHARM 2: BOTTOM" >> $outfile
     echo $bmassa"."$bmassb"D0          ! QUARK MASS mb=4.75" >> $outfile
     echo "920D0           ! ENERGY OF PROTON" >> $outfile
