@@ -69,6 +69,7 @@ int main(int argc, char **argv) {
     bool        filelist_only = false;
     bool        run_tracking_efficiency = false;
     bool        run_dCache = false;
+    bool        noQED_only = false;
 
     // for significance smearing
     Float_t    SmearingGauss1Prob = -1;
@@ -89,7 +90,8 @@ int main(int argc, char **argv) {
         {"filelist_only", no_argument, 0, 7},
         {"run_data_only", no_argument, 0, 8},
         {"tracking", no_argument, 0, 9},
-        {"dCache", no_argument, 0, 10}
+        {"dCache", no_argument, 0, 10},
+        {"noQED_only", no_argument, 0, 11}
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
@@ -158,6 +160,9 @@ int main(int argc, char **argv) {
             case 10:
                 run_dCache = true;
                 break;
+            case 11:
+                noQED_only = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
@@ -179,6 +184,7 @@ int main(int argc, char **argv) {
                 cout << "\t--filelist_only\tCreate filelists, don't run the analysis\n";
                 cout << "\t--tracking\trun tracking efficiency code, don't run the analysis\n";
                 cout << "\t--dCache\trun directly on dCache, not on mini ntuples\n";
+                cout << "\t--noQED_only\trun only no QED samples\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -288,6 +294,7 @@ int main(int argc, char **argv) {
         if (run_mc_only && (cSubSet.getTypeENUM() != TSubSet::kMC)) continue;
         if (run_resolved_only && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getProcessENUM()!=TSubSet::kRESOLVED)) continue;
         if (run_direct_only && (cSubSet.getTypeENUM()==TSubSet::kMC) && (cSubSet.getProcessENUM()==TSubSet::kRESOLVED)) continue;
+        if (noQED_only && (cSubSet.getProcessENUM()!=TSubSet::kBGFNOQED) ) continue;
 
         // if only for data
         if (run_data_only && (cSubSet.getTypeENUM() != TSubSet::kDATA)) continue;
