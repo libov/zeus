@@ -39,6 +39,7 @@ class TSubSet {
         enum Process {
             kBGF=1,
             kRESOLVED=2,
+            kBGFNOQED=3,
             kUNKNOWNPROCESS=99
         };
 
