@@ -101,10 +101,13 @@ void TSubSet::Classify() {
     // note: if fProcessENUM is not defined, the program won't terminate, because for
     // light flavour we don't specify it; in contrast to the variables above, where
     // it terminates if e.g. flavour could not be defined
-    bool    bgf = fFlavour.Contains("bgf");
+    bool    bgf = ( fFlavour.Contains("bgf") && (!fFlavour.Contains("noQED")) ) ;
+    bool    bgf_noQED = ( fFlavour.Contains("bgf") && fFlavour.Contains("noQED") ) ;
     bool    resolved = fFlavour.Contains("resolved");
     if (bgf) {
         fProcessENUM = kBGF;
+    } else if (bgf_noQED) {
+        fProcessENUM = kBGFNOQED;
     } else if (resolved) {
         fProcessENUM = kRESOLVED;
     } else if (bgf && resolved) {
