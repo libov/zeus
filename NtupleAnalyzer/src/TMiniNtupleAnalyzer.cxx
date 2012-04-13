@@ -239,6 +239,8 @@ void TMiniNtupleAnalyzer::RecalculateLuminosity () {
         true_cross_section = 35.346;
     } else if ( isBeauty && (fSubSet.getQ2ENUM() == TSubSet::kQ2g1) && (fSubSet.getProcessENUM() == TSubSet::kBGF)) {
         true_cross_section = 0.907;
+    } else if ( isCharm && (fSubSet.getQ2ENUM() == TSubSet::kQ2g4) && (fSubSet.getProcessENUM() == TSubSet::kBGFNOQED) ) {
+        true_cross_section = 34.986;
     } else if ( isCharm && (fSubSet.getQ2ENUM() == TSubSet::kQ2g1_5) && (fSubSet.getProcessENUM() == TSubSet::kRESOLVED) ) {
         true_cross_section = 26.4;
     } else if ( isCharm && (fSubSet.getQ2ENUM() == TSubSet::kQ2g4) && (fSubSet.getProcessENUM() == TSubSet::kRESOLVED) ) {
@@ -282,6 +284,9 @@ void TMiniNtupleAnalyzer::CalculateCharmQg4WeightingFactor() {
     // IMPORTANT: for 0607p RESOLVED CHARM there's only Q2>1.5 generated, so there's no need for 
     // additional weighting
     if ((fSubSet.getProcessENUM() == TSubSet::kRESOLVED) && (fSubSet.getPeriodENUM() == TSubSet::k0607P))  return;
+
+    // if this is a no QED sample, no need to do this as well
+    if (fSubSet.getProcessENUM() == TSubSet::kBGFNOQED)  return;
 
     // set the relevant flag
     fApplyQ2g4Weighting = true;
