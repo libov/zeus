@@ -101,6 +101,7 @@ do
     echo $nlo_points"          ! NUMBER OF VEGAS POINTS FOR NLO    800000" >> $outfile
     echo "NUMBER OF VEGAS POINTS FOR NLO: "$nlo_points >> $mailfile
     echo $nlo_iter"            ! NUMBER OF VEGAS ITERATIONS FOR NLO" >> $outfile
+    echo "NUMBER OF VEGAS ITERATIONS FOR NLO: "$nlo_iter >> $mailfile
     echo "1               ! 1: CHARM 2: BOTTOM" >> $outfile
     echo $bmassa"."$bmassb"D0          ! QUARK MASS mb=4.75" >> $outfile
     echo "920D0           ! ENERGY OF PROTON" >> $outfile
