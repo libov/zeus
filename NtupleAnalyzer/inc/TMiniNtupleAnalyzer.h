@@ -53,9 +53,11 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         // various setters
         void            SetBinningFileName (TString filename) {fBinningFileName=filename;};
         void            SetDropTracks (bool drop_tracks) { fDropTracks = drop_tracks; };
+        void            SetUseHadronicInteractionMap(bool use_map) {fUseHadronicInteractionMap = use_map;}
         void            SetOnlyCalculateEventsPerRun (bool calc_events) { fOnlyCalculateEventsPerRun = calc_events; };
         void            SetSecondaryVertexSmearing (bool smear) { fApplySmearing = smear; };
         void            SetDropTrackProbability(Float_t prob) {fDropProbability = prob;};
+        void            SetHadronicInteractionCorrection(Float_t corr) {fHadronicInteractionCorrection = corr;};
         void            SetEtReweightingLF_filename(TString name) {fEtReweightingLF_filename = name;};
         void            SetEtReweightingLF(bool do_reweighting) {fEtReweightingLF = do_reweighting;};
         void            SetTestFirstEvent(unsigned first_event) {fTestFirstEvent = first_event;};
@@ -272,9 +274,11 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         // a flag to specify whether we want to do vertex refit with droping tracks or not
         bool        fDropTracks;
+        bool        fUseHadronicInteractionMap;
 
         // a probability to loose track when the fDropTracks flag is enabled
         Float_t     fDropProbability;
+        Float_t     fHadronicInteractionCorrection;
         
         // a structure(s) to calculate number of events per run
         // 1st argument: runnumber
