@@ -34,6 +34,7 @@ class TVertex
                 void            SetTrackPt(Int_t ntracks, Float_t   * trackpT);
                 void            SetTrackTheta(Int_t ntracks, Float_t   * theta);
                 void            SetTrackPhi(Int_t ntracks, Float_t   * phi);
+                void            SetTrackCharge(Int_t ntracks, Float_t   * charge);
 		void		SetApplySmearing(bool applysmearing);
                 void            SetSmearingGauss1Prob(Double_t value) {fSmearingGauss1Prob = value;}
                 void            SetSmearingGauss1Width(Double_t value) {fSmearingGauss1Width = value;}
@@ -43,7 +44,9 @@ class TVertex
                 void            SetSmearingExpCoeff(Double_t value) {fSmearingExpCoeff = value;}
 
                 void            SetDropTracks(bool drop_tracks) {fDropTracks = drop_tracks;}
+                void            SetUseHadronicInteractionMap(bool use_map) {fUseHadronicInteractionMap = use_map;}
                 void            SetDropTrackProbability(Float_t prob) {fDropProbability = prob;}
+                void            SetHadronicInteractionCorrection(Float_t corr) {fHadronicInteractionCorrection = corr;};
                 void            SetVertexMass(Float_t mass) {fMass = mass;}
                 void            SetChi2(Float_t chi2) {fChi2 = chi2;}
                 void            SetNTracks(Int_t ntracks) {fNumberOfTracks=ntracks;}
@@ -141,6 +144,7 @@ class TVertex
                 Float_t		fTrackPT[30];
                 Float_t		fTrackTheta[30];
                 Float_t		fTrackPhi[30];
+                Float_t		fTrackCharge[30];
 
 	        bool		fApplySmearing;
                 Double_t        fSmearingGauss1Prob;
@@ -156,6 +160,8 @@ class TVertex
                 // if above is true, this varible specifies probability to drop the track
                 Float_t         fDropProbability;
                 unsigned        fTracks_dropped;        //!< number of tracks dropped from the fit
+                Float_t         fHadronicInteractionCorrection;
+                bool            fUseHadronicInteractionMap;
             
                 Float_t         fProjectedDecayLengthError;
                 Float_t         fDecayLength;
