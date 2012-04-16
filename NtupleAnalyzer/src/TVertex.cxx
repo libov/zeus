@@ -15,12 +15,23 @@ using CLHEP::HepLorentzVector;
 
 using namespace VxLite;
 
+// declarations of Sasha's routine
+void TrackAllEfficiency
+   (int& ntrack, int& ntrMax, float* Phi, float* cotTheta, float* Zh, float* Mom
+    , int& Charge, int& IDpart, float& TrEff, float& TrInt);
+
+void TrackAllEfficiency
+       (float& Phi, float& cotTheta, float& Mom,
+       int& Charge, int& IDpart, float& TrEff, float& TrInt);
+
 TVertex::TVertex():
 fApplySmearing(false),
 fDropTracks(false),
 fDropProbability(0.02),
 fTracks_dropped(0),
-fChi2(0)
+fChi2(0),
+fHadronicInteractionCorrection(0.4),
+fUseHadronicInteractionMap(true)
 {
 }
 
@@ -230,6 +241,28 @@ void TVertex::SetTrackTheta(Int_t ntracks, Float_t * theta) {
     }
 }
 
+void TVertex::SetTrackPhi(Int_t ntracks, Float_t * phi) {
+    // sanity check: number of tracks
+    if (fNumberOfTracks != ntracks) {
+        cout << "ERROR: number of tracks given != number of tracks assigned to the vertex" << endl;
+        abort();
+    }
+    for (int i = 0; i < fNumberOfTracks; i++ ) {
+        fTrackPhi[i] = phi[i];
+    }
+}
+
+void TVertex::SetTrackCharge(Int_t ntracks, Float_t * charge) {
+    // sanity check: number of tracks
+    if (fNumberOfTracks != ntracks) {
+        cout << "ERROR: number of tracks given != number of tracks assigned to the vertex" << endl;
+        abort();
+    }
+    for (int i = 0; i < fNumberOfTracks; i++ ) {
+        fTrackCharge[i] = charge[i];
+    }
+}
+
 void TVertex::GetTrackPt(Float_t * trackpT) {
     for (int i = 0; i < fNumberOfTracks; i++ ) {
         trackpT[i]= fTrackPT[i]; 
@@ -263,12 +296,30 @@ bool    TVertex::RefitVertex() {
                     // TRandom object from ROOT. However I don't know whether it's safe to use one object for 
                     // for different purposes (different types of smearing, track dropping, etc.)
                     Double_t  rand_number = fRndDropTracks.Rndm();
-                    //cout << "random number: " << rand_number << "; prob: " << fDropProbability << endl;
+
+                    // get the probability of loosing a track
+                    Float_t probability = -1;
+                    // Sasha Spiridonov's map
+                    if (fUseHadronicInteractionMap) {
+                        Float_t TrEff = -1;
+                        Float_t TrInt = -1;
+                        Int_t   charge = fTrackCharge[i];
+                        Int_t   id = 3;
+                        Float_t cot = 1./(TMath::Tan(fTrackTheta[i]));
+                        TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
+                        // sanity check
+                        if ( (TrEff<0) || (TrInt<0) ) {
+                            cout << "ERROR: efficiency map failure" << endl;
+                            abort();
+                        }
+                        probability = fHadronicInteractionCorrection * TrInt / (1 - TrInt);
+                    // constant probability
+                    } else {
+                        probability = fDropProbability;
+                    }
 
                     // if the random number is smaller or equal to chosen probability to loose tracks - drop the track
                     // otherwise - proceed normally and add the track to the vertex
-                    //Float_t probability = fDropProbability / TMath::Sin(fTrackTheta[i]);
-                    Float_t probability = fDropProbability;
                     if (rand_number <= probability) {
                         fTracks_dropped++;
                         continue;
