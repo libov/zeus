@@ -1,11 +1,12 @@
 #!/bin/bash
 # get the iterator(s) value for the second loop
-iterator=`cat iterator`
+iterator1=`cat iterator1`
+iterator2=`cat iterator2`
 mailfile="mail.temp"
 counter=1
 # first loop is for uncertainty evaluation
 echo 'entered $0'
-for m in 0 1 2 3 4 5 6
+for m in $iterator1
 do
 
   # defaults settings:
@@ -54,7 +55,7 @@ do
   # second loop is for F2 evaluation in small volumes around (Q2,x) points;
   # in order to evaluate the differential cross-sections and uncertainties,
   # please select 0 here (now from the command line)
-  for i in $iterator
+  for i in $iterator2
   do
     if [ -e $mailfile ]; then
       rm $mailfile
