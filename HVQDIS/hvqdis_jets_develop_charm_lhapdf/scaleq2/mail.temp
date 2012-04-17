@@ -1,7 +1,0 @@
-NUMBER OF VEGAS POINTS FOR NLO: 80000 
-4.D0         ! Q2 MIN
-100000.D0         ! Q2 MAX
-0.D0      ! XBJ MIN
-1.D0      ! XBJ MAX
-  Total      sig (pb):   477.520233
-  muon+jet+cone sig (pb):   33.9495735
