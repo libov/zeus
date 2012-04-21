@@ -152,7 +152,6 @@ do
 
             # skip if the line is commented
             first_token=`echo "$line" | awk '{print $1}'`
-            echo $first_token
             if [[ "$first_token" == '#'* ]]
             then
                 continue
