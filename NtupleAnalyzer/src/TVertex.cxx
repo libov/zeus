@@ -304,8 +304,9 @@ bool    TVertex::RefitVertex() {
                         Float_t TrEff = -1;
                         Float_t TrInt = -1;
                         Int_t   charge = fTrackCharge[i];
-                        Int_t   id = 3;
                         Float_t cot = 1./(TMath::Tan(fTrackTheta[i]));
+                        // 2=kaon, 3=proton, else=pion
+                        Int_t   id = 1;
                         TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
                         // sanity check
                         if ( (TrEff<0) || (TrInt<0) ) {
