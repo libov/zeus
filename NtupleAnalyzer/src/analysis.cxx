@@ -353,7 +353,7 @@ int main(int argc, char **argv) {
     // determined on a track-by-track basis
     instance -> SetUseHadronicInteractionMap (true);
     // defines probability to loose a track in case of constant probability (i.e. when SetUseHadronicInteractionMap(false))
-    instance -> SetDropTrackProbability (0);
+    instance -> SetDropTrackProbability (0.02);
     // defines a hadronic interaction correction factor on MC in case of Sasha's map is used (i.e. when SetUseHadronicInteractionMap(true))
     instance -> SetHadronicInteractionCorrection(0.4);
 
