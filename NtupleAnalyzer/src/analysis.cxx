@@ -390,7 +390,7 @@ int main(int argc, char **argv) {
     instance -> SetLowEtaCut (-1.6);
 
     // redo vertex track selection and revertexing
-    instance -> SetRedoVertexing(false);
+    instance -> SetRedoVertexing(true);
     instance -> SetRcut(1);
     instance -> SetpT(0.5);
     instance -> SetSTT(0);
