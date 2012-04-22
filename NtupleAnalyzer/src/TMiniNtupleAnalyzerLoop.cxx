@@ -725,6 +725,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t     trackmomentum[60];
                     Int_t       trackIDs[60];
                     Float_t     track_theta[60];
+                    Float_t     track_phi[60];
+                    Float_t     track_charge[60];
 
                     // loop over tracks belonging to the vertex
                     for (int k=0; k<Vtxsec_multi[vertex]; k++) {
@@ -762,12 +764,17 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                         TVector3 track(Trk_px[track_id], Trk_py[track_id], Trk_pz[track_id]);
                         track_theta[k] = track.Theta();
+                        track_phi[k] = track.Phi();
+                        if (track_phi[k]<0) track_phi[k] += (2*TMath::Pi());
+                        track_charge[k] = Trk_charge[track_id];
                     }
 
                     // ok, set all track parameters
                     cVtx.SetTrackParameters(Vtxsec_multi[vertex], trackhelix, trackhelixcov, trackmomentum);
                     cVtx.SetVertexTracks(Vtxsec_multi[vertex], trackIDs);
                     cVtx.SetTrackTheta(Vtxsec_multi[vertex], track_theta);
+                    cVtx.SetTrackPhi(Vtxsec_multi[vertex], track_phi);
+                    cVtx.SetTrackCharge(Vtxsec_multi[vertex], track_charge);
 
                     // do the fits
                     // first redo the fit without track dropping in order to check that results
@@ -830,7 +837,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // drop tracks from the vertex and redo the fit if selected
                     if (fIsMC && fDropTracks) {
                         cVtx.SetDropTracks(true);
+                        cVtx.SetUseHadronicInteractionMap(fUseHadronicInteractionMap);
                         cVtx.SetDropTrackProbability(fDropProbability);
+                        cVtx.SetHadronicInteractionCorrection(fHadronicInteractionCorrection);
                         //NOTE: all the relevant vertex parameters are updated automatically when calling to RefitVertex();
                         bool  fit_successful = cVtx.RefitVertex();
                         //skip this vertex in case of not successfull fit (2 track vertex with dropped track)
