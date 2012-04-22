@@ -349,7 +349,13 @@ int main(int argc, char **argv) {
 
     // a flag to say whether we want to do tracking uncertainty studies
     instance -> SetDropTracks (false);
+    // if true, Sasha Spiridonov's map will be used, meaning that track drop probability is
+    // determined on a track-by-track basis
+    instance -> SetUseHadronicInteractionMap (true);
+    // defines probability to loose a track in case of constant probability (i.e. when SetUseHadronicInteractionMap(false))
     instance -> SetDropTrackProbability (0);
+    // defines a hadronic interaction correction factor on MC in case of Sasha's map is used (i.e. when SetUseHadronicInteractionMap(true))
+    instance -> SetHadronicInteractionCorrection(0.4);
 
     // for the jet energy scale uncertainty
     // 0 = no change, default
