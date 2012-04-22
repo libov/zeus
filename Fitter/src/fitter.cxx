@@ -26,9 +26,6 @@ using namespace std;
 #include <TCrossSectionBin.h>
 
 //---------- TEMPORARY ---------
-TString   CN_VERSION="v02";
-//TString   CN_VERSION="v04";
-//TString   CN_VERSION="v06";
 bool      use_0304p_true = 0;   // this doesn't work at the moment because it's not in the v02 xml file TODO: fix!!
 bool      use_05e_true = 1;
 bool      use_06e_true = 1;
@@ -183,6 +180,9 @@ int main(int argc, char **argv) {
     TString binningXMLfileName = "binning."+BinningFileSuffix+".xml";
     // everything should be ok if this does not crash:
     TCrossSection   cCrossSection(binningXMLfileName);
+
+    // get current version of common ntuples
+    TString   CN_VERSION=getenv("CN_VERSION");
 
     // read samples information
     TString datasetXMLfileName = "samples."+CN_VERSION+".xml";
