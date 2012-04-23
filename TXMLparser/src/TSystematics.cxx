@@ -96,8 +96,10 @@ void TSystematics::Draw() {
 
     // axes titles and ranges
     TAxis   *ax_charm_y = fCharmGraph -> GetYaxis();
-    ax_charm_y -> SetRangeUser(fYaxisLowLimit, fYaxisUpLimit);
-    ax_charm_y -> SetTitle ("Scaling factor");
+    // change axis range  only if requested
+    if (fYaxisUpLimit!=-1) ax_charm_y -> SetRangeUser(fYaxisLowLimit, fYaxisUpLimit);
+    if (fPlotxSect) ax_charm_y -> SetTitle ("Cross Section");
+    else ax_charm_y -> SetTitle ("Scaling factor");
     TAxis   *ax_charm_x = fCharmGraph -> GetXaxis();
     ax_charm_x -> SetTitle(fXAxisTitle);
 
