@@ -89,7 +89,8 @@ fApplyPhiReweighting(false),
 fApplyThetaStarReweighting(false),
 fDebugPrintout(true),
 fTrack1Id(-1),
-fTrack2Id(-1)
+fTrack2Id(-1),
+fHadronicInteractionCorrection(0.4)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
@@ -996,6 +997,9 @@ void TMiniNtupleAnalyzer::findVertices() {
     Float_t     trackhelixcov[60][15];
     Float_t     trackmomentum[60];
     Float_t     trackpT[60];
+    Float_t     track_theta[60];
+    Float_t     track_phi[60];
+    Float_t     track_charge[60];
     Int_t       trackIDs[60];
     unsigned    ntracks=0;
     // map: jet index -> list of tracks matched to it
@@ -1117,12 +1121,19 @@ void TMiniNtupleAnalyzer::findVertices() {
             trackpT[i] = track.Pt();
             // track ID
             trackIDs[i] = trk;
+            track_theta[i] = track.Theta();
+            track_phi[i] = track.Phi();
+            if (track_phi[i]<0) track_phi[i] += (2*TMath::Pi());
+            track_charge[i] = Trk_charge[trk];
         }
 
         // set track parameters
         cVtx.SetTrackParameters(ntracks, trackhelix, trackhelixcov, trackmomentum);
         cVtx.SetTrackPt(ntracks, trackpT);
         cVtx.SetVertexTracks(ntracks, trackIDs);
+        cVtx.SetTrackTheta(ntracks, track_theta);
+        cVtx.SetTrackPhi(ntracks, track_phi);
+        cVtx.SetTrackCharge(ntracks, track_charge);
 
         // check whether smearing should be applied
         if (fApplySmearing && fIsMC) { 
@@ -1170,6 +1181,13 @@ void TMiniNtupleAnalyzer::findVertices() {
         // set beam spot size as error on primary vertex coordinate
         // only X, Y are relevant, NULL for Z is just dummy
         cVtx.SetPrimaryVertexCoordinatesError(Bspt_xer, Bspt_yer, 0 );
+
+        if (fDropTracks && fIsMC) {
+            cVtx.SetDropTracks(fDropTracks);
+            cVtx.SetUseHadronicInteractionMap(fUseHadronicInteractionMap);
+            cVtx.SetDropTrackProbability(fDropProbability);
+            cVtx.SetHadronicInteractionCorrection(fHadronicInteractionCorrection);
+        }
 
         // perform vertexing!
         bool fit_successful = cVtx.RefitVertex();
