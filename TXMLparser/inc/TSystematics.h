@@ -16,7 +16,9 @@ class TSystematics {
 
         void        Initialize();               //!< is called after all the settings were done
 
-        void        Draw();                     //!< main function; draws the results as a function of scan variable
+        void        Draw();                     //!< main function; draws the scan result as a function of a scan variable for a single bin
+        void        DrawAll();                  //!< draws the scan result as a function of a scan variable for all bins
+        void        DrawVector(map<unsigned, Float_t>, map<unsigned, Float_t>, TString); //!< draws the systematic uncertainty for all bins
         void        GetResult(unsigned point, Float_t & result, Float_t & result_err);
 
         // setters
@@ -28,7 +30,9 @@ class TSystematics {
         void        SetYaxisLowLimit (Float_t   limit) {fYaxisLowLimit = limit;};
         void        SetYaxisUpLimit (Float_t   limit) {fYaxisUpLimit = limit;};
         void        SetDefault(Float_t  def) {fDefault = def;};
-        void        SetVariation(Float_t  var) {fVariation = var;};
+        void        SetVariation(Float_t  var) {fUpVariation = var; fDownVariation = var;};
+        void        SetUpVariation(Float_t  var) {fUpVariation = var;};
+        void        SetDownVariation(Float_t  var) {fDownVariation = var;};
         void        SetOutputPath(TString   path) {fOutputPath = path;};
         void        SetOutputFileName(TString   name) {fOutputFileName = name;};
         void        SetBin (unsigned bin) {fBin = bin;};
@@ -37,7 +41,7 @@ class TSystematics {
         void        SetCNVersion(TString    cn_version) {fCNVersion = cn_version;};
         void        SetTrueYears(TString    true_years) {fTrueYears = true_years;};
         void        SetDrawOnlyErrors(Bool_t    draw_errors) {fDrawOnlyErrors = draw_errors;};
-
+        void        SetDrawCrossSections(Bool_t draw_xsect) {fPlotxSect = draw_xsect;};
 
         // getters
         int         GetNpoints() {return fNpoints;};
@@ -67,8 +71,14 @@ class TSystematics {
         bool        fPlotxSect;                 //!<
 
         unsigned    fBin;
-        map<unsigned, Float_t>  fCharmSyst;
-        map<unsigned, Float_t>  fBeautySyst;
+        map<unsigned, Float_t>  fCharmUpSyst;
+        map<unsigned, Float_t>  fCharmDownSyst;
+        map<unsigned, Float_t>  fBeautyUpSyst;
+        map<unsigned, Float_t>  fBeautyDownSyst;
+        map<unsigned, Float_t>  fCharmUpSyst_err;
+        map<unsigned, Float_t>  fCharmDownSyst_err;
+        map<unsigned, Float_t>  fBeautyUpSyst_err;
+        map<unsigned, Float_t>  fBeautyDownSyst_err;
 
         TString     fOutputPath;
         TString     fOutputFileName;
@@ -81,7 +91,8 @@ class TSystematics {
         Float_t     fYaxisUpLimit;
 
         Float_t     fDefault;                   //!< default value of the scan variable - i.e. one at which central values are determined
-        Float_t     fVariation;                 //!< variation of the scan variable to be taken as a systematic error
+        Float_t     fUpVariation;               //!< up-variation of the scan variable to be taken as a systematic error
+        Float_t     fDownVariation;             //!< down-variation of the scan variable to be taken as a systematic error
         TString     fBinningFile;
         TString     fTrueYears;
 
