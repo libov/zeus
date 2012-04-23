@@ -18,12 +18,16 @@ fYears(".0405e06e07p"),
 fIsCharm(true),
 fPlotxSect(false),
 fBin(1),
-fOutputPath("/data/zenith226a/libov/analysis/other/quick_plot/smearing_syst/systematics"),
 fOutputFileName("test"),
 fBinningFile("full.forCHARM"),
 fTrueYears(".true05e06e0607p"),
-fDrawOnlyErrors(false)
+fDrawOnlyErrors(false),
+fYaxisLowLimit(-1),
+fYaxisUpLimit(-1)
 {
+    TString PLOTS_PATH = getenv("PLOTS_PATH");
+    fOutputPath = PLOTS_PATH;
+    fCNVersion = getenv("CN_VERSION");
 }
 
 void TSystematics::Initialize () {
