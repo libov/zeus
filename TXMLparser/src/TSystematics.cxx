@@ -149,11 +149,11 @@ void TSystematics::Draw() {
     line_central->SetLineStyle(2);
     line_central->SetLineWidth(2);
 
-    TLine   * line_u = new TLine (fDefault+fVariation, fYaxisLowLimit, fDefault+fVariation, fYaxisUpLimit);
+    TLine   * line_u = new TLine (fDefault+fUpVariation, fYaxisLowLimit, fDefault+fUpVariation, fYaxisUpLimit);
     line_u->SetLineStyle(3);
     line_u->SetLineWidth(1);
 
-    TLine   * line_d = new TLine (fDefault-fVariation, fYaxisLowLimit, fDefault-fVariation, fYaxisUpLimit);
+    TLine   * line_d = new TLine (fDefault-fDownVariation, fYaxisLowLimit, fDefault-fDownVariation, fYaxisUpLimit);
     line_d->SetLineStyle(3);
     line_d->SetLineWidth(1);
 
