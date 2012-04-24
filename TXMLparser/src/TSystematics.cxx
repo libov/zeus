@@ -127,21 +127,45 @@ void TSystematics::Draw() {
     Float_t     central_value_charm = intercept_charm + slope_charm * fDefault;
     Float_t     central_value_beauty = intercept_beauty + slope_beauty * fDefault;
 
-    Float_t     systematic_error_charm = fVariation * slope_charm / central_value_charm;
-    Float_t     systematic_error_beauty = fVariation * slope_beauty / central_value_beauty;
-    
-    fCharmSyst[fBin] = systematic_error_charm;
-    fBeautySyst[fBin] = systematic_error_beauty;
+    Float_t     systematic_error_charm_up = TMath::Abs(fUpVariation * slope_charm / central_value_charm);
+    Float_t     systematic_error_charm_down = TMath::Abs(fDownVariation * slope_charm / central_value_charm);
+    Float_t     systematic_error_beauty_up = TMath::Abs(fUpVariation * slope_beauty / central_value_beauty);
+    Float_t     systematic_error_beauty_down = TMath::Abs(fDownVariation * slope_beauty / central_value_beauty);
 
-    TPaveText   *  syst = new TPaveText(0.44, 0.65, 0.8, 0.73 ,"NDC");
+    TPaveText   *  syst = new TPaveText(0.44, 0.55, 0.8, 0.73 ,"NDC");
     syst -> SetShadowColor(0);
     syst -> SetTextAlign(12);
 
     char tmp[256];
-    sprintf (tmp, "Rel. syst. unc. charm: %.3f ", systematic_error_charm);
+    if (slope_charm>0) {
+        sprintf (tmp, "Rel. syst. unc. charm: ^{+%.3f}_{-%.3f}", systematic_error_charm_up, systematic_error_charm_down);
+        fCharmUpSyst[fBin] = systematic_error_charm_up;
+        fCharmDownSyst[fBin] = systematic_error_charm_down;
+        fCharmUpSyst_err[fBin] = systematic_error_charm_up * TMath::Abs(slope_err_charm/slope_charm);
+        fCharmDownSyst_err[fBin] = systematic_error_charm_down * TMath::Abs(slope_err_charm/slope_charm);
+
+    } else {
+        sprintf (tmp, "Rel. syst. unc. charm: ^{+%.3f}_{-%.3f}", systematic_error_charm_down, systematic_error_charm_up);
+        fCharmDownSyst[fBin] = systematic_error_charm_up;
+        fCharmUpSyst[fBin] = systematic_error_charm_down;
+        fCharmDownSyst_err[fBin] = systematic_error_charm_up * TMath::Abs(slope_err_charm/slope_charm);
+        fCharmUpSyst_err[fBin] = systematic_error_charm_down * TMath::Abs(slope_err_charm/slope_charm);
+    }
     syst -> AddText(tmp);
 
-    sprintf (tmp, "Rel. syst. unc. beauty: %.3f ", systematic_error_beauty);
+    if (slope_beauty>0) {
+        sprintf (tmp, "Rel. syst. unc. beauty: ^{+%.3f}_{-%.3f}", systematic_error_beauty_up, systematic_error_beauty_down);
+        fBeautyUpSyst[fBin] = systematic_error_beauty_up;
+        fBeautyDownSyst[fBin] = systematic_error_beauty_down;
+        fBeautyUpSyst_err[fBin] = systematic_error_beauty_up * TMath::Abs(slope_err_beauty/slope_beauty);
+        fBeautyDownSyst_err[fBin] = systematic_error_beauty_down * TMath::Abs(slope_err_beauty/slope_beauty);
+    } else {
+        sprintf (tmp, "Rel. syst. unc. beauty: ^{+%.3f}_{-%.3f}", systematic_error_beauty_down, systematic_error_beauty_up);
+        fBeautyDownSyst[fBin] = systematic_error_beauty_up;
+        fBeautyUpSyst[fBin] = systematic_error_beauty_down;
+        fBeautyDownSyst_err[fBin] = systematic_error_beauty_up * TMath::Abs(slope_err_beauty/slope_beauty);
+        fBeautyUpSyst_err[fBin] = systematic_error_beauty_down * TMath::Abs(slope_err_beauty/slope_beauty);
+    }
     syst -> AddText(tmp);
     
     syst -> Draw();
