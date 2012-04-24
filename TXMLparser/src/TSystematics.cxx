@@ -69,9 +69,9 @@ void TSystematics::Draw() {
         }
     }
 
+    // create a canvas
     TCanvas def("","", 1200, 1000);
     def.cd();
-    // nice look (no grey background)
     def.SetFillColor(0);
     
     // move upper right corner of statistics box inside a pad
@@ -136,6 +136,8 @@ void TSystematics::Draw() {
     syst -> SetShadowColor(0);
     syst -> SetTextAlign(12);
 
+    // depending on the sign of the slope, up-variation of the scan variable can enter +systematics or -systematics;
+    // similarly for down-variation
     char tmp[256];
     if (slope_charm>0) {
         sprintf (tmp, "Rel. syst. unc. charm: ^{+%.3f}_{-%.3f}", systematic_error_charm_up, systematic_error_charm_down);
@@ -170,6 +172,7 @@ void TSystematics::Draw() {
     
     syst -> Draw();
 
+    // draw the vertical lines representing default value of the scan variable and variations
     TLine   * line_central = new TLine (fDefault, fYaxisLowLimit, fDefault, fYaxisUpLimit);
     line_central->SetLineStyle(2);
     line_central->SetLineWidth(2);
