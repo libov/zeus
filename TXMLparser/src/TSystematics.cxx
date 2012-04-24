@@ -212,3 +212,69 @@ void TSystematics::SetVersionArray (TString * version_arr) {
         fVersionArray[i] = version_arr[i];
     }
 }
+
+// loops over all bins and determines systematic uncertainty for each of them;
+// plots the systematics as a function of a bin number
+void TSystematics::DrawAll() {
+
+    // loop over all bins in xml file (hardcoded at the moment)
+    for (int bin=1; bin<=63; bin++) {
+        cout << "INFO: setting bin to " << bin << endl;
+        SetBin(bin);
+        // determine the systematics and print the plot with the scan
+        Draw();
+    }
+
+    // draw the systematic uncertainty as a function of a bin number
+    DrawVector(fCharmUpSyst, fCharmUpSyst_err, "charm_up");
+    DrawVector(fCharmDownSyst, fCharmDownSyst_err, "charm_down");
+    DrawVector(fBeautyUpSyst, fBeautyUpSyst_err, "beauty_up");
+    DrawVector(fBeautyDownSyst, fBeautyDownSyst_err, "beauty_down");
+}
+
+// draws the syst. unc. as a function of a bin number
+void TSystematics::DrawVector(map<unsigned, Float_t> syst_map, map<unsigned, Float_t> syst_err_map, TString suffix) {
+
+    // get the number of bins stored to a map
+    unsigned nbins = syst_map.size();
+    map<unsigned, Float_t>::iterator it;
+
+    // helping arrays
+    double  x[100];
+    double  x_err[100];
+    double  y[100];
+    double  y_err[100];
+    unsigned counter = 0;
+
+    // loop over the map
+    for ( it=syst_map.begin() ; it != syst_map.end(); it++ ) {
+        // get the bin number as stored in the map
+        x[counter] = (*it).first;
+        x_err[counter] = 0;
+        // get the systematic uncertainty
+        y[counter] = (*it).second;
+        // get "uncertainty on uncertainty", i.e. an uncertainty of the slope fit
+        y_err[counter] = syst_err_map[(*it).first];
+        counter++;
+    }
+
+    // create a graph and a canvas
+    TGraphErrors * gr = new TGraphErrors(counter, x, y, x_err, y_err);
+    TCanvas def("","", 2000, 800);
+    def.cd();
+    // nice look (no grey background)
+    def.SetFillColor(0);
+    // dummy histo
+    TH1F * h  = new TH1F ("dummy","",65,0,65);
+    h->SetStats(0);
+    h->Draw();
+    h->SetAxisRange(-0.05, 0.25, "Y");
+
+    gr -> SetMarkerStyle(20);
+    gr -> SetMarkerSize(1);
+    gr -> Draw("p");
+
+    // print the result into a file
+    def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.png");
+    def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.root");
+}
