@@ -11,6 +11,7 @@ using namespace std;
 #include <TStyle.h>
 #include <TGraphErrors.h>
 #include <TLine.h>
+#include <TH1F.h>
 
 TSystematics::TSystematics():
 fCNVersion("v02"),
