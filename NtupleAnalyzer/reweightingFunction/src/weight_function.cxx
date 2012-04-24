@@ -8,13 +8,12 @@ TRew::TRew(Int_t* nstor, Int_t *id, Int_t *prt, Int_t *daug){
   Fmck_daug = daug;
   
   string prefix = "";
-
+  
   string path_Dplus = prefix + "finalDplusWithErrors_v1.01";
   string path_D0 = prefix + "finalD0WithErrors_v1.01";
   string path_Ds = prefix + "finalDsWithErrors_v1.01";
   string path_Lambc = prefix + "finalLambcWithErrors_v1.01";
-  //string filePathFragFrac = prefix + "cardFragmFrac";
-  string filePathFragFrac = prefix + "cardFragmFrac_Erich";
+  string filePathFragFrac = prefix + "cardFragmFrac";
   
   sChannelDplus = GetDecayListFromFile(path_Dplus);
   sChannelD0 = GetDecayListFromFile(path_D0);

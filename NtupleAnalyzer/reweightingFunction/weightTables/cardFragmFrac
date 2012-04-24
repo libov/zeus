@@ -1,11 +1,12 @@
 # Fragmentation fraction control cards
-# 
+# New values from Erich's Lohrmann note (August 28, 2011), table 5
+#
 # Particle    AntiParticle    oldValue          newValue    errorValue
 
-D+            D-              0.193268774       0.232       0.0180 
-D0            Dbar0           0.599217388       0.549       0.0264
-Ds+           Ds-             0.118489461       0.101       0.0266
+D+            D-              0.193268774       0.2256      0.0077
+D0            Dbar0           0.599217388       0.5643      0.0151
+Ds+           Ds-             0.118489461       0.0797      0.0045
 #D*+           D*-             1.0         1.0        0.0
 #D*0           D*bar0          1.0         1.0        0.0
 #Ds*+          Ds*-            1.0         1.0        0.0
-Lambc+        Lambc-          0.07821852045       0.076       0.0212
+Lambc+        Lambc-          0.078218520       0.1080      0.0091
