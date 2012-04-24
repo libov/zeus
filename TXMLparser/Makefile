@@ -13,7 +13,7 @@ OBJECTS=TDataset.o TXMLparser.o TSubSet.o TCrossSection.o TCrossSectionBin.o TSy
 
 default: all
 
-all: test compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics
+all: compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics
 
 TXMLparser.o: TXMLparser.cxx TXMLparser.h
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
@@ -36,9 +36,6 @@ THistogram.o: THistogram.cxx THistogram.h
 TSystematics.o: TSystematics.cxx TSystematics.h
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
-test.o: test.cxx TDataset.o
-	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
-
 compare_CN_versions.o: compare_CN_versions.cxx TDataset.o
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
@@ -53,9 +50,6 @@ systematics.o: systematics.cxx
 
 systematics: $(OBJECTS) systematics.o
 	g++ -o systematics $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/systematics.o -I$(INC) $(FLAGS) -lxerces-c
-
-test: $(OBJECTS) test.o
-	g++ -o test $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/test.o -I$(INC) $(FLAGS) -lxerces-c
 
 compare_CN_versions: $(OBJECTS) compare_CN_versions.o
 	g++ -o compare_CN_versions $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/compare_CN_versions.o -I$(INC) $(FLAGS) -lxerces-c
