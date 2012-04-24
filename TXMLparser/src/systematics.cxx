@@ -1,81 +1,165 @@
+//////////////////////////////////////////////////
+//                                              //
+//  Inclusive  secondary vertex analysis        //
+//  Libov Vladyslav,                            //
+//  DESY,                                       //
+//  libov@mail.desy.de                          //
+//                                              //
+//////////////////////////////////////////////////
+
+// system headers
 #include <iostream>
+#include <fstream>
+#include <getopt.h>
 using namespace std;
 
-// my headers
+// custom headers
 #include <TSystematics.h>
 
 // main function
 int main(int argc, char **argv) {
 
+    // handle command line options
+
+    // declare long options
+    static struct option long_options[] = {
+        {"file", required_argument, 0, 1},
+        {"scaling_factors", no_argument, 0, 2},
+    };
+
+    // results of the command line option processing will be stored here
+    TString file;
+    bool scaling_factors = false;
+
+    // loop over program arguments (i.e. argv array) and store info to above variables
+    // depending on an option
+    int option;
+    int option_index;
+    while ((option = getopt_long (argc, argv, "h", long_options, &option_index)) != -1) {
+        switch (option) {
+            case 1:
+                file = optarg;
+                break;
+            case 2:
+                scaling_factors = true;
+                break;
+            case 'h':
+                cout << "\nUsage:\n\n";
+                cout << "./systematics --file <config file> [Options] [-h]\n\n";
+                cout << " AVAILABLE CONFIGURATION FILES:\n";
+                system("ls config | grep -v README");
+                cout << "\nOptions:\n";
+                cout << "--scaling_factors - determine the systematics based on the scaling factor (default: based on the xsect)\n\n";
+                cout << "-h - Show this help\n\n";
+                exit(-1);
+                break;
+            default:
+                abort ();
+        }
+    }
+
+    // open the config file with settings
+    TString path = "config/"+file;
+    ifstream f(path);
+    if (!f.is_open()) {
+        cout << "ERROR: could not open configuration file " << path << endl;    
+        abort();
+    }
+    cout << "INFO: opened " << path << " for reading" << endl;
+
+    // a string to store a line we read from the configuration file
+    string line;
+
+    // read the  number of points
+    getline(f, line);
+    const unsigned NPOINTS = atoi(line.c_str());
+    cout << "\nINFO: number of scan points:\t\t\t" << NPOINTS << endl;
+
+    // get the values of a scan variable
+    getline(f, line);
+    double  x[NPOINTS];
+    unsigned array_counter = 0;
+    // split the line into tokens
+    char * pch;
+    char * str=(char*)line.c_str();
+    pch = strtok (str ," ");
+    while (pch != NULL) {
+        x[array_counter] = atof(pch);
+        array_counter++;
+        pch = strtok (NULL," ");
+    }
+
+    // sanity check
+    if ( array_counter != NPOINTS ) {
+        cout << "ERROR: the number of scan points does not match the length of the array" << endl;
+        abort();
+    }
+
+    cout << "INFO: values of scan variables:\t\t\t";
+    for (int i=0; i<NPOINTS; i++) cout << x[i] << ", ";
+    cout << endl;
+
+    // get the corresponding analysis version
+    getline(f, line);
+    TString version[NPOINTS];
+    array_counter = 0;
+    // split the line into tokens
+    str=(char*)line.c_str();
+    pch = strtok (str ," ");
+    while (pch != NULL) {
+        version[array_counter] = pch;
+        array_counter++;
+        pch = strtok (NULL," ");
+    }
+
+    // sanity check
+    if ( array_counter != NPOINTS ) {
+        cout << "ERROR: the number of scan points does not match the length of the array" << endl;
+        abort();
+    }
+
+    cout << "INFO: values of analysis versions:\t\t";
+    for (int i=0; i<NPOINTS; i++) cout << version[i] << ", ";
+    cout << endl;
+
+    // get the default value of the scan variable
+    getline(f, line);
+    Double_t scan_default_value = atof(line.c_str());
+    cout << "INFO: Default value of the scan variable:\t" << scan_default_value << endl;
+
+    // get the variations
+    getline(f, line);
+    // split the line into tokens
+    str=(char*)line.c_str();
+    pch = strtok (str ," ");
+    Double_t up_variation = atof(pch);
+
+    // by default, down variation is equal to up variation, i.e. symmetric uncertainty
+    Double_t down_variation = up_variation;
+    // try to get the second token which corresponds to down_variation
+    pch = strtok (NULL ," ");
+    if (pch != NULL) down_variation = atof(pch);
+    
+    cout << "INFO: Up-variation of the scan variable:\t" << up_variation << endl;
+    cout << "INFO: Down-variation of the scan variable:\t" << down_variation << endl;
+
+    // get the default value of the scan variable
+    getline(f, line);
+    TString x_axis_title = line;
+    cout << "INFO: Scan variable description:\t\t" << x_axis_title << endl;
+
+    // get the binning
+    getline(f, line);
+    TString binning = line;
+    cout << "INFO: binning:\t\t\t\t\t" << binning << endl;
+
+    // get the years
+    getline(f, line);
+    TString years = line;
+    cout << "INFO: periods:\t\t\t\t\t" << years << endl << endl;
+
     // create an instance of TSystematics object
     TSystematics instance;
-
-
-    // --------------------------------------------------------------//
-    // -------------------------  settings  -------------------------//
-    // --------------------------------------------------------------//
-
-    // settings for the core gaussian
-/*    const unsigned NPOINTS = 7;
-    double  x[NPOINTS] = {3, 5, 6, 7, 8, 9, 11};
-    instance.SetXAxisTitle("probability of core gaussian, %");
-    instance.SetDefault(7);
-    instance.SetVariation(2);
-//     // charm (ET>4.2)
-//     TString version[NPOINTS] = {"2.22.2", "2.22.3", "2.22.4", "2.22.5", "2.22.6", "2.22.7", "2.22.8"};
-//     // beauty (ET>5)
-    instance.SetBinningFile("full");
-    TString version[NPOINTS] = {"2.23.2", "2.23.3", "2.23.4", "2.23.5", "2.23.6", "2.23.7", "2.23.8"};*/
-    
-    //instance.SetOutputFileName("smearing_syst_gaus1_ET5_bin1");
-
-/*    // settings for the tail gaussian
-    const unsigned NPOINTS = 9;
-    double  x[NPOINTS] = {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5};
-    instance.SetXAxisTitle("probability of tail gaussian, %");
-     instance.SetDefault(0.2);
-     instance.SetVariation(0.2);
-    // charm
-    //TString version[NPOINTS] = {"2.22.9", "2.22.10", "2.22.11", "2.22.12", "2.22.13", "2.22.14", "2.22.15", "2.22.16", "2.22.17"};
-    // beauty
-    TString version[NPOINTS] = {"2.23.9", "2.23.10", "2.23.11", "2.23.12", "2.23.13", "2.23.14", "2.23.15", "2.23.16", "2.23.17"};
-    instance.SetBinningFile("full");
-    instance.SetOutputFileName("smearing_syst_gaus2_ET5_bin1");*/
-/*
-    // pt scan - 4.2 GeV
-    const unsigned NPOINTS = 15;
-    double  x[NPOINTS] = {0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0};
-    instance.SetXAxisTitle("track(p_{T}) cut, [GeV]");
-    instance.SetDefault(0.5);
-    instance.SetVariation(0.1);
-    TString version[NPOINTS] = {"2.28.18", "2.28.17", "2.28.16", "2.28.15", "2.28.14", "2.28.13", "2.28.12", "2.28.19",  "2.28.20",  "2.28.21",  "2.28.22",  "2.28.23",  "2.28.24",  "2.28.25", "2.28.26"};
-    instance.SetBinningFile("full.forCHARM");
-    instance.SetOutputFileName("pt_scan_2.28.12-2.28.26_errors");
-    instance.SetYears(".06e");
-    instance.SetCNVersion("v06");
-    instance.SetTrueYears(".true06e");
-    instance.SetDrawOnlyErrors(true);
-    instance.SetOutputPath("/data/zenith226a/libov/analysis/data/plots/10_30August2011/01_pt_scan_2.28");
-*/
-
-    // pt scan - 2 GeV
-    const unsigned NPOINTS = 15;
-    double  x[NPOINTS] = {0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0};
-    instance.SetXAxisTitle("track(p_{T}) cut, [GeV]");
-    instance.SetDefault(0.5);
-    instance.SetVariation(0.1);
-    TString version[NPOINTS] = {"2.28.28", "2.28.29", "2.28.30", "2.28.31", "2.28.32", "2.28.33", "2.28.34", "2.28.35", "2.28.36", "2.28.37", "2.28.38", "2.28.39", "2.28.40", "2.28.41", "2.28.42"};
-    instance.SetBinningFile("full.forCHARM.ET2.v2");
-    instance.SetOutputFileName("pt_scan_2.28.28-2.28.42_errors");
-    instance.SetYears(".06e");
-    instance.SetCNVersion("v06");
-    instance.SetTrueYears(".true06e");
-    instance.SetDrawOnlyErrors(true);
-    instance.SetOutputPath("/data/zenith226a/libov/analysis/data/plots/10_30August2011/02_pt_scan_2.28_2GeV");
-
-    // --------------------------------------------------------------//
-    // --------------------------------------------------------------//
-    // --------------------------------------------------------------//
 
     // set number of points in the scan
     instance.SetNpoints(NPOINTS);
@@ -83,19 +167,29 @@ int main(int argc, char **argv) {
     // set necessary information
     instance.SetXArray(x);
     instance.SetVersionArray(version);
+
+    instance.SetDefault(scan_default_value);
+    instance.SetUpVariation(up_variation);
+    instance.SetDownVariation(down_variation);
     
     instance.SetYaxisLowLimit(0);
-    instance.SetYaxisUpLimit(0.2);
+    if (scaling_factors) {
+        instance.SetDrawCrossSections(false);
+        instance.SetYaxisUpLimit(2);
+    } else {
+        instance.SetDrawCrossSections(true);
+    }
 
-    //instance.SetOutputPath("/data/zenith226a/libov/analysis/other/quick_plot/smearing_syst/systematics/differential");
-    //instance.SetOutputPath("/data/zenith226a/libov/analysis/other/quick_plot/smearing_syst/systematics");
-    
+    instance.SetXAxisTitle(x_axis_title);
+    instance.SetBinningFile(binning);
+    instance.SetYears(years);
+    instance.SetOutputFileName(file);
 
     // initialize the object
     instance.Initialize();
 
-    // do the drawing   
-    instance.Draw();
-    
+    // draw for all bins
+    instance.DrawAll();
+ 
     return  0;
 }
