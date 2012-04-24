@@ -1,0 +1,12 @@
+-------
+Format:
+-------
+
+Number of points
+Values of scan variable
+Analysis versions
+Default value of a scan variable
+Up-variation, down-variation of a scan variable (symmetric if only one is given)
+Description of a scan variable (appears in the x-title)
+Binning
+Run periods used for analysis preceeded by a dot (suffix in the XML cross-section file)
