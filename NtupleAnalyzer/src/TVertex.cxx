@@ -271,132 +271,132 @@ void TVertex::GetTrackPt(Float_t * trackpT) {
 
 bool    TVertex::RefitVertex() {
 
-        // set the chi2_cut (taken from where??) and create an instance of DAFVertexF
-	float	chi2_cut = 20;
-	DAFVertexFinder finder(chi2_cut);
+    // set the chi2_cut (taken from where??) and create an instance of DAFVertexF
+    float chi2_cut = 20;
+    DAFVertexFinder finder(chi2_cut);
 
-        // for debugging purposes: calculate total number of two-track vertices
-        if (fDropTracks && (fNumberOfTracks == 2) ) two_track_vertices_total++;
+    // for debugging purposes: calculate total number of two-track vertices
+    if (fDropTracks && (fNumberOfTracks == 2) ) two_track_vertices_total++;
 
-        // loop over all tracks assigned to this vertex
-        // initialize counter of how many tracks were dropped from the vertex
-        fTracks_dropped = 0;
-        for(int i = 0 ; i < fNumberOfTracks; ++i) {
-                // check whether dropping tracks for systematic studies was selected
-                if (fDropTracks) {
-                    // if yes, generate a random number
-                    // it turned out that the way I used TRandom3 (declaring as a private member of TVertex) is completely wrong,
-                    // because an instance of it was created for every TVertex object, hence the seed was
-                    // always the same (the default one), thus the random sequence was the same as well;
-                    // now declared TRandom3 object as static;
-                    // the problem with this approach is that it can't be private anymore and
-                    // has to be set up outside the scope of the class; this is done in analysis.cxx in the global scope.
-                    // TODO: check that random numbers are actually uniformly distributed
-                    // NOTE: one could also do: Double_t  rand_number = gRandom -> Rndm(); that is using global
-                    // TRandom object from ROOT. However I don't know whether it's safe to use one object for 
-                    // for different purposes (different types of smearing, track dropping, etc.)
-                    Double_t  rand_number = fRndDropTracks.Rndm();
+    // loop over all tracks assigned to this vertex
+    // initialize counter of how many tracks were dropped from the vertex
+    fTracks_dropped = 0;
+    for(int i = 0 ; i < fNumberOfTracks; ++i) {
+        // check whether dropping tracks for systematic studies was selected
+        if (fDropTracks) {
+            // if yes, generate a random number
+            // it turned out that the way I used TRandom3 (declaring as a private member of TVertex) is completely wrong,
+            // because an instance of it was created for every TVertex object, hence the seed was
+            // always the same (the default one), thus the random sequence was the same as well;
+            // now declared TRandom3 object as static;
+            // the problem with this approach is that it can't be private anymore and
+            // has to be set up outside the scope of the class; this is done in analysis.cxx in the global scope.
+            // TODO: check that random numbers are actually uniformly distributed
+            // NOTE: one could also do: Double_t  rand_number = gRandom -> Rndm(); that is using global
+            // TRandom object from ROOT. However I don't know whether it's safe to use one object for 
+            // for different purposes (different types of smearing, track dropping, etc.)
+            Double_t  rand_number = fRndDropTracks.Rndm();
 
-                    // get the probability of loosing a track
-                    Float_t probability = -1;
-                    // Sasha Spiridonov's map
-                    if (fUseHadronicInteractionMap) {
-                        Float_t TrEff = -1;
-                        Float_t TrInt = -1;
-                        Int_t   charge = fTrackCharge[i];
-                        Float_t cot = 1./(TMath::Tan(fTrackTheta[i]));
-                        // 2=kaon, 3=proton, else=pion
-                        Int_t   id = 1;
-                        TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
-                        // sanity check
-                        if ( (TrEff<0) || (TrInt<0) ) {
-                            cout << "ERROR: efficiency map failure" << endl;
-                            abort();
-                        }
-                        probability = fHadronicInteractionCorrection * TrInt / (1 - TrInt);
-                    // constant probability
-                    } else {
-                        probability = fDropProbability;
-                    }
-
-                    // if the random number is smaller or equal to chosen probability to loose tracks - drop the track
-                    // otherwise - proceed normally and add the track to the vertex
-                    if (rand_number <= probability) {
-                        fTracks_dropped++;
-                        continue;
-                    }
+            // get the probability of loosing a track
+            Float_t probability = -1;
+            // Sasha Spiridonov's map
+            if (fUseHadronicInteractionMap) {
+                Float_t TrEff = -1;
+                Float_t TrInt = -1;
+                Int_t   charge = fTrackCharge[i];
+                Float_t cot = 1./(TMath::Tan(fTrackTheta[i]));
+                // 2=kaon, 3=proton, else=pion
+                Int_t   id = 1;
+                TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
+                // sanity check
+                if ( (TrEff<0) || (TrInt<0) ) {
+                    cout << "ERROR: efficiency map failure" << endl;
+                    abort();
                 }
-                // add track to the vertex
-                //cout << "adding track" << endl;
-		finder.addTrack(new LinearizedTrack(i+1, fTrackHelices[i], fTrackHelixCovariance[i]));
-	}
-        // if this number of tracks after dropping is less than 2 - don't do a fit and return a flag saying that the fit wasn't done  
-        // NOTE: condition (fTracks_dropped > 0) could be removed, but  here we are exploiting the fact that all vertices from Orange
-        // must have at least two tracks, hence having less than two tracks can only happen if some tracks were dropped here
-        // thus fTracks_dropped > 0
-        if ( (fTracks_dropped > 0) && ( (fNumberOfTracks - fTracks_dropped) < 2)  ) {
-          if (fNumberOfTracks==2) two_track_vertices_dropped++;
-          return false;
-        }
-        double  sumofweights = 0;
-        // after all tracks were added to a vertex, fit it
-	sumofweights = finder.findVertex();
-        if (sumofweights==0) {
-            cout << "****** WARNING: Sum of weights are zero!! Skipping this vertex!" << endl;
-            fChi2=999999;
-            chi2ndf=99999;
-            return false;
-        }
+                probability = fHadronicInteractionCorrection * TrInt / (1 - TrInt);
+            // constant probability
+            } else {
+                probability = fDropProbability;
+            }
 
-        // now get the vertex object and results of the fit
-	const VertexFitter* fitter = finder.fitter();
-	
-        // set refitted vertex coordinates
-        fVertexX = fitter->vertex()[0];
-        fVertexY = fitter->vertex()[1];
-        fVertexZ = fitter->vertex()[2];
+            // if the random number is smaller or equal to chosen probability to loose tracks - drop the track
+            // otherwise - proceed normally and add the track to the vertex
+            if (rand_number <= probability) {
+                fTracks_dropped++;
+                continue;
+            }
+        }
+        // add track to the vertex
+        //cout << "adding track" << endl;
+        finder.addTrack(new LinearizedTrack(i+1, fTrackHelices[i], fTrackHelixCovariance[i]));
+    }
+    // if this number of tracks after dropping is less than 2 - don't do a fit and return a flag saying that the fit wasn't done  
+    // NOTE: condition (fTracks_dropped > 0) could be removed, but  here we are exploiting the fact that all vertices from Orange
+    // must have at least two tracks, hence having less than two tracks can only happen if some tracks were dropped here
+    // thus fTracks_dropped > 0
+    if ( (fTracks_dropped > 0) && ( (fNumberOfTracks - fTracks_dropped) < 2)  ) {
+        if (fNumberOfTracks==2) two_track_vertices_dropped++;
+        return false;
+    }
+    double  sumofweights = 0;
+    // after all tracks were added to a vertex, fit it
+    sumofweights = finder.findVertex();
+    if (sumofweights==0) {
+        cout << "****** WARNING: Sum of weights are zero!! Skipping this vertex!" << endl;
+        fChi2=999999;
+        chi2ndf=99999;
+        return false;
+    }
+
+    // now get the vertex object and results of the fit
+    const VertexFitter* fitter = finder.fitter();
+
+    // set refitted vertex coordinates
+    fVertexX = fitter->vertex()[0];
+    fVertexY = fitter->vertex()[1];
+    fVertexZ = fitter->vertex()[2];
   
-        // set covariance matrix of the refitted vertex
-        // NOTE: the index convention of elements can be found here:
-        // https://www-zeus-data.desy.de/tracking/ZEUS_ONLY/tools/tLite/vxlite.html
-        CLHEP::HepSymMatrix cov_mat = fitter->covariance();
-        fVertexCovariance[0] = cov_mat[0][0];
-        fVertexCovariance[1] = cov_mat[0][1];
-        fVertexCovariance[2] = cov_mat[1][1];
-        fVertexCovariance[3] = cov_mat[0][2];
-        fVertexCovariance[4] = cov_mat[1][2];
-        fVertexCovariance[5] = cov_mat[2][2];
+    // set covariance matrix of the refitted vertex
+    // NOTE: the index convention of elements can be found here:
+    // https://www-zeus-data.desy.de/tracking/ZEUS_ONLY/tools/tLite/vxlite.html
+    CLHEP::HepSymMatrix cov_mat = fitter->covariance();
+    fVertexCovariance[0] = cov_mat[0][0];
+    fVertexCovariance[1] = cov_mat[0][1];
+    fVertexCovariance[2] = cov_mat[1][1];
+    fVertexCovariance[3] = cov_mat[0][2];
+    fVertexCovariance[4] = cov_mat[1][2];
+    fVertexCovariance[5] = cov_mat[2][2];
 
-        // recalculate significance
-        Float_t     Significance = CalculateVertexSignificance();
-        // I'm not sure whether this can be removed for v04, so keep for the timebeing (the 2nd one has some effect!)
-        if (Significance==(-999)) return false;
-        if (Significance==(-998)) return false;
+    // recalculate significance
+    Float_t     Significance = CalculateVertexSignificance();
+    // I'm not sure whether this can be removed for v04, so keep for the timebeing (the 2nd one has some effect!)
+    if (Significance==(-999)) return false;
+    if (Significance==(-998)) return false;
 
-        // update also chi2/ndf
-        fChi2 = fitter->chi2();
-        chi2ndf = fitter->chi2() / fitter->ndof();
+    // update also chi2/ndf
+    fChi2 = fitter->chi2();
+    chi2ndf = fitter->chi2() / fitter->ndof();
 
-        // mass calculation after refittng,
-        // it has be different from just fitter->mass() because in orange vxlitedaffitp is called in fact,
-        // and in this function the mass calculation is somewhat different,
-        // in particular there's momentum constraint
-        // below is a copy of relevant part from this function (see VxLite::DAFVertexFinder class)
-        HepLorentzVector p(0,0,0,0);
-        for(int i = 0 ; i < (fNumberOfTracks - fTracks_dropped); ++i) {
-          const LinearizedTrack* t = finder.track(i);
-          if(! t->expanded()) {
-              assert(t->weight() == 0);
-              continue;
-          }
-          HepLorentzVector tp = t->momentum( fTrackMomentum[i] );    // Q: what is this??
-          p +=  t->weight() * tp;
+    // mass calculation after refittng,
+    // it has be different from just fitter->mass() because in orange vxlitedaffitp is called in fact,
+    // and in this function the mass calculation is somewhat different,
+    // in particular there's momentum constraint
+    // below is a copy of relevant part from this function (see VxLite::DAFVertexFinder class)
+    HepLorentzVector p(0,0,0,0);
+    for(int i = 0 ; i < (fNumberOfTracks - fTracks_dropped); ++i) {
+        const LinearizedTrack* t = finder.track(i);
+        if(! t->expanded()) {
+            assert(t->weight() == 0);
+            continue;
         }
-        fMass = p.m();
+        HepLorentzVector tp = t->momentum( fTrackMomentum[i] );    // Q: what is this??
+        p +=  t->weight() * tp;
+    }
+    fMass = p.m();
 
-        finder.reset(); // to have the same what is used in orange; should no make any difference though!
+    finder.reset(); // to have the same what is used in orange; should no make any difference though!
 
-        return true;
+    return true;
 }
 
 void TVertex::SetApplySmearing(bool applysmearing) {
