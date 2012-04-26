@@ -45,9 +45,6 @@ using namespace std;
 #include <TDataset.h>
 #include <TSubSet.h>
 
-//TString   CN_VERSION="v02";
-//TString   CN_VERSION="v04";
-TString   CN_VERSION="v06";
 
 // this structure duplicates a bit what is done already in TSubSet
 // however it can't be eliminated at the moment: in TSubset
@@ -173,6 +170,10 @@ int main(int argc, char **argv) {
         if (no_beauty_resolved) remark += ".no_beauty_resolved";
         if (no_charm_resolved) remark += ".no_charm_resolved";
     }
+
+    // get the CN version from the environment
+    TString CN_VERSION=getenv("CN_VERSION");
+
     // in case k-factors scaling was requested, determine these factors
     // depending on the version of the factors
     TString XMLfilename;
