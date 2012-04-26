@@ -13,7 +13,7 @@ OBJECTS=TDataset.o TXMLparser.o TSubSet.o TCrossSection.o TCrossSectionBin.o TSy
 
 default: all
 
-all: compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics
+all: compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics f2bc
 
 TXMLparser.o: TXMLparser.cxx TXMLparser.h
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
@@ -72,4 +72,4 @@ f2bc: $(OBJECTS) f2bc.o
 .PHONY: clean
 clean:
 	-rm -rf $(OBJ)/*.o
-	-rm -rf compare_CN_versions compare_fit_results systematics jet_energy_scale
+	-rm -rf compare_CN_versions compare_fit_results systematics jet_energy_scale f2bc
