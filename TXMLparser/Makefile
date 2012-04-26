@@ -9,7 +9,7 @@ vpath %.cxx $(SRC)
 vpath %.C $(SRC)
 vpath %.h $(INC)
 
-OBJECTS=TDataset.o TXMLparser.o TSubSet.o TCrossSection.o TCrossSectionBin.o TSystematics.o
+OBJECTS=TDataset.o TXMLparser.o TSubSet.o TCrossSection.o TCrossSectionBin.o TSystematics.o TPointF2theo.o
 
 default: all
 
@@ -36,6 +36,9 @@ THistogram.o: THistogram.cxx THistogram.h
 TSystematics.o: TSystematics.cxx TSystematics.h
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
+TPointF2theo.o: TPointF2theo.cxx TPointF2theo.h
+	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
+
 compare_CN_versions.o: compare_CN_versions.cxx TDataset.o
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
@@ -46,6 +49,9 @@ jet_energy_scale.o: jet_energy_scale.cxx
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
 systematics.o: systematics.cxx
+	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
+
+f2bc.o: f2bc.cxx
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
 systematics: $(OBJECTS) systematics.o
@@ -60,6 +66,8 @@ compare_fit_results: $(OBJECTS) compare_fit_results.o
 jet_energy_scale: $(OBJECTS) jet_energy_scale.o
 	g++ -o jet_energy_scale $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/jet_energy_scale.o -I$(INC) $(FLAGS) -lxerces-c
 
+f2bc: $(OBJECTS) f2bc.o
+	g++ -o f2bc $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/f2bc.o -I$(INC) $(FLAGS) -lxerces-c
 
 .PHONY: clean
 clean:
