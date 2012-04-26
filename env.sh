@@ -1,5 +1,7 @@
 #! /bin/bash
 
+export CN_VERSION=v02
+
 export ANALYSIS=/data/zenith226a/libov/analysis
 
 export DATABASE_PATH=$ANALYSIS/db
