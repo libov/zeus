@@ -518,7 +518,7 @@
         <name_pattern>f15643.ccbar.rg30.resc.cg</name_pattern>
         <luminosity>501.512</luminosity>
     </sample>-->
-    <sample>
+<!--<sample>
         <year>07p</year>
         <type>mc</type>
         <flavour>charm_rapgap_bgf_noQED</flavour>
@@ -526,5 +526,5 @@
         <CN_version>v02e</CN_version>
         <name_pattern>.f15643.ccbar.rg30.q2g4.bgfnoqed.</name_pattern>
         <luminosity>60.0008</luminosity>
-    </sample>
+    </sample>-->
 </dataset>
