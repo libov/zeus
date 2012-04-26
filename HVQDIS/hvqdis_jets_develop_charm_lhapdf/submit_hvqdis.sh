@@ -170,6 +170,10 @@ do
             # set also FL to 0 as needed for F2 evaluation
             IFL=0
 
+            # and remove Y cuts
+            YMIN=0
+            YMAX=1
+
             # create a configuration file with current settings
             createConfigFile
             
