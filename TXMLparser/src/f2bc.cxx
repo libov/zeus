@@ -366,8 +366,10 @@ int main(int argc, char **argv) {
             c -> cd (canvas_counter);
             canvas_counter++;
             g_f2_meas -> Draw("samep");
+            for (int k=0; k<point_counter; k++) {
+                cout << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +" << f2_err_up[k] << " -" << f2_err_down[k] << endl;
+            }
             point_counter = 0;
-            
         }
 
         // add to current graph
