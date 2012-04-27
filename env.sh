@@ -24,6 +24,8 @@ export NTUPLEANALYZER=$ANALYSIS/NtupleAnalyzer
 export FITTER=$ANALYSIS/Fitter
 export PLOTMERGER=$ANALYSIS/PlotMerger
 
+export HVQDIS=$ANALYSIS/HVQDIS/hvqdis_jets_develop_charm_lhapdf
+
 export JOBS=/data/zenith234b/libov/data/zarahJobs
 export JOBS_HVQDIS=$JOBS/HVQDIS
 
