@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
     }
 
     // array to store theoretical xsections
-    Float_t diff_xsect_theo[N_F2_POINTS];
+    Float_t diff_xsect_theo[N_F2_POINTS][10];
 
     // maps to store q2-x F2 points
     map<unsigned, TPointF2theo> vtx;
@@ -195,7 +195,7 @@ int main(int argc, char **argv) {
 
         // if q2=0 and x=0, this is an inclusive run for the full q2-x space
         if ( (q2==0) && (x==0) ) {
-            if (uncertainty_counter==1) {
+
                     TString JOBS_HVQDIS = getenv("JOBS_HVQDIS");
                     TString filename = JOBS_HVQDIS + "/" + job_directory + "/000";
                     filename +=  job_id;
@@ -208,29 +208,29 @@ int main(int argc, char **argv) {
                     TH1F * q2x_4 = (TH1F*) file -> Get ("HISB/h31104");
                     TH1F * q2x_5 = (TH1F*) file -> Get ("HISB/h31105");
 
-                    diff_xsect_theo[0]=(q2x_1 -> GetBinContent(1)) * 1.19 * 0.96;
-                    diff_xsect_theo[1]=(q2x_1 -> GetBinContent(2)) * 1.21 * 0.98;
-                    diff_xsect_theo[2]=(q2x_1 -> GetBinContent(3)) * 1.23 * 0.98;
-                    diff_xsect_theo[3]=(q2x_1 -> GetBinContent(4)) * 1.07 * 1.00;
+                    diff_xsect_theo[0][uncertainty_counter] = (q2x_1 -> GetBinContent(1)) * 1.19 * 0.96;
+                    diff_xsect_theo[1][uncertainty_counter] = (q2x_1 -> GetBinContent(2)) * 1.21 * 0.98;
+                    diff_xsect_theo[2][uncertainty_counter] = (q2x_1 -> GetBinContent(3)) * 1.23 * 0.98;
+                    diff_xsect_theo[3][uncertainty_counter] = (q2x_1 -> GetBinContent(4)) * 1.07 * 1.00;
 
-                    diff_xsect_theo[4]=q2x_2 -> GetBinContent(1) * 1.13 * 0.97;
-                    diff_xsect_theo[5]=q2x_2 -> GetBinContent(2) * 1.09 * 0.97;
-                    diff_xsect_theo[6]=q2x_2 -> GetBinContent(3) * 1.05 * 0.98;
-                    diff_xsect_theo[7]=q2x_2 -> GetBinContent(4) * 1.01 * 0.99;
-                    diff_xsect_theo[8]=q2x_2 -> GetBinContent(5) * 0.91 * 0.99;
+                    diff_xsect_theo[4][uncertainty_counter] = q2x_2 -> GetBinContent(1) * 1.13 * 0.97;
+                    diff_xsect_theo[5][uncertainty_counter] = q2x_2 -> GetBinContent(2) * 1.09 * 0.97;
+                    diff_xsect_theo[6][uncertainty_counter] = q2x_2 -> GetBinContent(3) * 1.05 * 0.98;
+                    diff_xsect_theo[7][uncertainty_counter] = q2x_2 -> GetBinContent(4) * 1.01 * 0.99;
+                    diff_xsect_theo[8][uncertainty_counter] = q2x_2 -> GetBinContent(5) * 0.91 * 0.99;
 
-                    diff_xsect_theo[9]=q2x_3 -> GetBinContent(1) * 1.07 * 0.97;
-                    diff_xsect_theo[10]=q2x_3 -> GetBinContent(2) * 1.03 * 0.99;
-                    diff_xsect_theo[11]=q2x_3 -> GetBinContent(3) * 1.01 * 0.98;
-                    diff_xsect_theo[12]=q2x_3 -> GetBinContent(4) * 0.93 * 0.93;
+                    diff_xsect_theo[9][uncertainty_counter] = q2x_3 -> GetBinContent(1) * 1.07 * 0.97;
+                    diff_xsect_theo[10][uncertainty_counter] = q2x_3 -> GetBinContent(2) * 1.03 * 0.99;
+                    diff_xsect_theo[11][uncertainty_counter] = q2x_3 -> GetBinContent(3) * 1.01 * 0.98;
+                    diff_xsect_theo[12][uncertainty_counter] = q2x_3 -> GetBinContent(4) * 0.93 * 0.93;
 
-                    diff_xsect_theo[13]=q2x_4 -> GetBinContent(1) * 1.05 * 0.97;
-                    diff_xsect_theo[14]=q2x_4 -> GetBinContent(2) * 1.01 * 1.00;
-                    diff_xsect_theo[15]=q2x_4 -> GetBinContent(3) * 0.96 * 0.80;
+                    diff_xsect_theo[13][uncertainty_counter] = q2x_4 -> GetBinContent(1) * 1.05 * 0.97;
+                    diff_xsect_theo[14][uncertainty_counter] = q2x_4 -> GetBinContent(2) * 1.01 * 1.00;
+                    diff_xsect_theo[15][uncertainty_counter] = q2x_4 -> GetBinContent(3) * 0.96 * 0.80;
 
-                    diff_xsect_theo[16]=q2x_5 -> GetBinContent(1) * 1.02 * 0.88;
-                    diff_xsect_theo[17]=q2x_5 -> GetBinContent(2) * 1.01 * 0.84;
-            }
+                    diff_xsect_theo[16][uncertainty_counter] = q2x_5 -> GetBinContent(1) * 1.02 * 0.88;
+                    diff_xsect_theo[17][uncertainty_counter] = q2x_5 -> GetBinContent(2) * 1.01 * 0.84;
+
             continue;
         }
 
@@ -355,7 +355,7 @@ int main(int argc, char **argv) {
         if ( (point.getQ2() != previous_Q2) || (i==(N_F2_POINTS-1)) ) {
             if (i==(N_F2_POINTS-1)) {
                 x[point_counter] = point.getX();
-                f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i]) * point.getF2();
+                f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
                 f2_err_up[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
                 f2_err_down[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
                 // increment counter
@@ -375,7 +375,7 @@ int main(int argc, char **argv) {
 
         // add to current graph
         x[point_counter] = point.getX();
-        f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i]) * point.getF2();
+        f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
         f2_err_up[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
         f2_err_down[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
         // increment counter
