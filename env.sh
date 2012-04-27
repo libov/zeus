@@ -15,7 +15,7 @@ export MINI_NTUPLES_PATH_tmp=/data/zenith234b/libov/data/Minintuples_tmp
 # this will be a variable that stores actual path, i.e. actual version (one of given above)
 # of the minintuples to be used; won't change the variable in the source code
 # as it was done before!
-export MINI_NTUPLES_PATH=$MINI_NTUPLES_PATH_v02
+export MINI_NTUPLES_PATH=MINI_NTUPLES_PATH_$CN_VERSION
 
 export HISTO_PATH=/data/zenith226a/libov/data/histo
 export PLOTS_PATH=/data/zenith226a/libov/data/plots
