@@ -363,6 +363,7 @@ int main(int argc, char **argv) {
             }
             TGraphAsymmErrors * g_f2_meas = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
             g_f2_meas -> SetMarkerStyle(20);
+            g_f2_meas -> SetMarkerSize(0.5);
             c -> cd (canvas_counter);
             canvas_counter++;
             g_f2_meas -> Draw("samep");
