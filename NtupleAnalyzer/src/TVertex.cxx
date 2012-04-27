@@ -314,6 +314,8 @@ bool    TVertex::RefitVertex() {
                     abort();
                 }
                 probability = fHadronicInteractionCorrection * TrInt / (1 - TrInt);
+                // no correction for high-pt tracks
+                if (fTrackPT[i]>1.5) probability = 0;
             // constant probability
             } else {
                 probability = fDropProbability;
