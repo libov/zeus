@@ -23,7 +23,9 @@ export PLOTS_PATH=/data/zenith226a/libov/data/plots
 export NTUPLEANALYZER=$ANALYSIS/NtupleAnalyzer
 export FITTER=$ANALYSIS/Fitter
 export PLOTMERGER=$ANALYSIS/PlotMerger
-export JOBS=/data/zenith226a/libov/data/zarahJobs
+
+export JOBS=/data/zenith234b/libov/data/zarahJobs
+export JOBS_HVQDIS=$JOBS/HVQDIS
 
 export TLITE=$ANALYSIS/tlite
 export CLHEPINCDIR=/opt/products/CLHEP/2.0.3.1/include
