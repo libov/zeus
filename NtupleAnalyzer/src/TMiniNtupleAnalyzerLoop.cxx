@@ -259,7 +259,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
 
                             // create a ROOT Lorentz vector whith - a jet 4-momentum
-                            TLorentzVector	jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
+                            TLorentzVector jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
 
                             //Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
                             fTrueJetEta=jet.Eta();
@@ -308,7 +308,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         for (int trueJet = 0; trueJet < Npmjets; trueJet++) {
 
                             // create a ROOT Lorentz vector whith - a jet 4-momentum
-                            TLorentzVector	jet(Pxpmjet[trueJet], Pypmjet[trueJet], Pzpmjet[trueJet], Epmjet[trueJet]);
+                            TLorentzVector jet(Pxpmjet[trueJet], Pypmjet[trueJet], Pzpmjet[trueJet], Epmjet[trueJet]);
 
                             //Set values for members fTrueJetEta, fTrueJetPhi and fTrueJetEt - will be used in CheckGlobalBin()
                             fTrueJetEta=jet.Eta();
