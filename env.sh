@@ -38,3 +38,5 @@ export LD_LIBRARY_PATH=$ANALYSIS/TXMLparser:$LD_LIBRARY_PATH
 
 export TRACKING_MAP=$ANALYSIS/other/trk
 export LD_LIBRARY_PATH=$TRACKING_MAP:$LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH=/data/zenith226a/libov/analysis/lhapdf/lib:$LD_LIBRARY_PATH
