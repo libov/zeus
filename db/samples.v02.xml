@@ -264,7 +264,7 @@
         <CN_version>v02e</CN_version>
         <name_pattern>cpz424.f15643.ccbar.rg30.q2g1.5.bgf</name_pattern>
         <trigger_period>1</trigger_period>
-        <luminosity>4.83069</luminosity>
+        <luminosity>4.82761</luminosity>
     </sample>
     <sample>
         <year>04</year>
@@ -284,7 +284,7 @@
         <CN_version>v02e</CN_version>
         <name_pattern>cpr424.f15643.ccbar.rg30.q2g1.5.bgf</name_pattern>
         <trigger_period>3</trigger_period>
-        <luminosity>7.45234</luminosity>
+        <luminosity>7.45048</luminosity>
     </sample>
     <sample>
         <year>04</year>
@@ -294,7 +294,7 @@
         <CN_version>v02e</CN_version>
         <name_pattern>cpx424.f15643.ccbar.rg30.q2g1.5.bgf</name_pattern>
         <trigger_period>4</trigger_period>
-        <luminosity>5.28082</luminosity>
+        <luminosity>5.27921</luminosity>
     </sample>
     <sample>
         <year>04</year>
@@ -379,7 +379,7 @@
         <q2>1.5</q2>
         <CN_version>v02e</CN_version>
         <name_pattern>ccbar.rg30.q2g1.5.bgf</name_pattern>
-        <luminosity>141.929</luminosity>
+        <luminosity>141.953</luminosity>
     </sample>
     <sample>
         <year>07p</year>
