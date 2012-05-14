@@ -1,0 +1,7 @@
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.10.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.11.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.12.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.13.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.14.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.15.root
+zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.9.root
