@@ -1,0 +1,575 @@
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpz424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 1
+luminosity: 130.417
+sample name: mc04v02ecpz424.f15643.bbbar.rg30.q2g1.bgf.
+Creating ntuple filelist
+common ntuples are taken from /acs/z/ntup/04/v02e/mc/root
+filelists/mc04v02ecpz424.f15643.bbbar.rg30.q2g1.bgf..txt exists. Skipping this sample
+**********************************
+INFO: command to be executed: analysis  -t2 -f3 -p3 -q1 -o1 -g1 -bfull.forCHARM -vtest -r --dCache
+
+
+******************************************************
+* Welcome to ZEUS Common Ntuple analysis framework   *
+* Step 2: analyis of ntuples and filling histograms  *
+* Input: root ntuples                                *
+* Output: root files with histograms                 *
+******************************************************
+
+INFO: File with binning: binning.full.forCHARM.cfg
+INFO: Histograms Version: full.forCHARMtest
+INFO: File with histograms declaration: declarehist.cfg
+INFO: Selected to remove c & b from ARIADNE MC
+INFO: the following smearing parameters are used:
+   Gaus1 Probability(%): 0.07
+   Gaus1 Width: 1.6
+   Gaus2 Probability(%): 0.002
+   Gaus2 Width: 7
+   Exponent probability: 0
+   Exponent coefficient: 5
+INFO: Initialization of TNtupleAnalyzer object...
+INFO: Sample name: mc04v02ecpz424.f15643.bbbar.rg30.q2g1.bgf.
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpz424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 1
+luminosity: 130.417
+sample name: mc04v02ecpz424.f15643.bbbar.rg30.q2g1.bgf.
+**********************************
+INFO: Initialization of TNtupleAnalyzer object done!
+INFO: Initialization of TMiniNtupleAnalyzer object...
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.acpz424.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpz424.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpz424.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpz424.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpz424.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpz424.f15643.bbbar.rg30.q2g1.bgf.5.root
+6 files added to chain
+
+Calculating number of Events
+118288  events in this chain
+INFO: Histograms will be written to /data/zenith226a/libov/data/histo/analysis.mc04v02ecpz424.f15643.bbbar.rg30.q2g1.bgf..full.forCHARMtest.root
+INFO: Binning is taken from /data/zenith226a/libov/analysis/NtupleAnalyzer/config/binning.full.forCHARM.cfg
+INFO: Histograms file is subdivided into 63 bins
+INFO: Initialization of TMiniNtupleAnalyzer object done!
+INFO: Luminosity of the sample before the recalculation: 130.417
+INFO: True cross section of the sample: 0.907
+INFO: Estimated luminosity of the sample: 130.417
+Writing data to /data/zenith226a/libov/analysis/db/samples.v02.xml
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpu424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 2
+luminosity: 390.696
+sample name: mc04v02ecpu424.f15643.bbbar.rg30.q2g1.bgf.
+Creating ntuple filelist
+common ntuples are taken from /acs/z/ntup/04/v02e/mc/root
+filelists/mc04v02ecpu424.f15643.bbbar.rg30.q2g1.bgf..txt exists. Skipping this sample
+**********************************
+INFO: command to be executed: analysis  -t2 -f3 -p3 -q1 -o1 -g2 -bfull.forCHARM -vtest -r --dCache
+
+
+******************************************************
+* Welcome to ZEUS Common Ntuple analysis framework   *
+* Step 2: analyis of ntuples and filling histograms  *
+* Input: root ntuples                                *
+* Output: root files with histograms                 *
+******************************************************
+
+INFO: File with binning: binning.full.forCHARM.cfg
+INFO: Histograms Version: full.forCHARMtest
+INFO: File with histograms declaration: declarehist.cfg
+INFO: Selected to remove c & b from ARIADNE MC
+INFO: the following smearing parameters are used:
+   Gaus1 Probability(%): 0.07
+   Gaus1 Width: 1.6
+   Gaus2 Probability(%): 0.002
+   Gaus2 Width: 7
+   Exponent probability: 0
+   Exponent coefficient: 5
+INFO: Initialization of TNtupleAnalyzer object...
+INFO: Sample name: mc04v02ecpu424.f15643.bbbar.rg30.q2g1.bgf.
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpu424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 2
+luminosity: 390.696
+sample name: mc04v02ecpu424.f15643.bbbar.rg30.q2g1.bgf.
+**********************************
+INFO: Initialization of TNtupleAnalyzer object done!
+INFO: Initialization of TMiniNtupleAnalyzer object...
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.10.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.11.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.12.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.13.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.14.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.16.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.17.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.5.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.6.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.7.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.8.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpu424.f15643.bbbar.rg30.q2g1.bgf.9.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.xcpu424.f15643.bbbar.rg30.q2g1.bgf.15.root
+18 files added to chain
+
+Calculating number of Events
+354361  events in this chain
+INFO: Histograms will be written to /data/zenith226a/libov/data/histo/analysis.mc04v02ecpu424.f15643.bbbar.rg30.q2g1.bgf..full.forCHARMtest.root
+INFO: Binning is taken from /data/zenith226a/libov/analysis/NtupleAnalyzer/config/binning.full.forCHARM.cfg
+INFO: Histograms file is subdivided into 63 bins
+INFO: Initialization of TMiniNtupleAnalyzer object done!
+INFO: Luminosity of the sample before the recalculation: 390.696
+INFO: True cross section of the sample: 0.907
+INFO: Estimated luminosity of the sample: 390.696
+Writing data to /data/zenith226a/libov/analysis/db/samples.v02.xml
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpr424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 3
+luminosity: 242.558
+sample name: mc04v02ecpr424.f15643.bbbar.rg30.q2g1.bgf.
+Creating ntuple filelist
+common ntuples are taken from /acs/z/ntup/04/v02e/mc/root
+filelists/mc04v02ecpr424.f15643.bbbar.rg30.q2g1.bgf..txt exists. Skipping this sample
+**********************************
+INFO: command to be executed: analysis  -t2 -f3 -p3 -q1 -o1 -g3 -bfull.forCHARM -vtest -r --dCache
+
+
+******************************************************
+* Welcome to ZEUS Common Ntuple analysis framework   *
+* Step 2: analyis of ntuples and filling histograms  *
+* Input: root ntuples                                *
+* Output: root files with histograms                 *
+******************************************************
+
+INFO: File with binning: binning.full.forCHARM.cfg
+INFO: Histograms Version: full.forCHARMtest
+INFO: File with histograms declaration: declarehist.cfg
+INFO: Selected to remove c & b from ARIADNE MC
+INFO: the following smearing parameters are used:
+   Gaus1 Probability(%): 0.07
+   Gaus1 Width: 1.6
+   Gaus2 Probability(%): 0.002
+   Gaus2 Width: 7
+   Exponent probability: 0
+   Exponent coefficient: 5
+INFO: Initialization of TNtupleAnalyzer object...
+INFO: Sample name: mc04v02ecpr424.f15643.bbbar.rg30.q2g1.bgf.
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpr424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 3
+luminosity: 242.558
+sample name: mc04v02ecpr424.f15643.bbbar.rg30.q2g1.bgf.
+**********************************
+INFO: Initialization of TNtupleAnalyzer object done!
+INFO: Initialization of TMiniNtupleAnalyzer object...
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.5.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.6.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.7.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpr424.f15643.bbbar.rg30.q2g1.bgf.8.root
+9 files added to chain
+
+Calculating number of Events
+180000  events in this chain
+INFO: Histograms will be written to /data/zenith226a/libov/data/histo/analysis.mc04v02ecpr424.f15643.bbbar.rg30.q2g1.bgf..full.forCHARMtest.root
+INFO: Binning is taken from /data/zenith226a/libov/analysis/NtupleAnalyzer/config/binning.full.forCHARM.cfg
+INFO: Histograms file is subdivided into 63 bins
+INFO: Initialization of TMiniNtupleAnalyzer object done!
+INFO: Luminosity of the sample before the recalculation: 242.558
+INFO: True cross section of the sample: 0.907
+INFO: Estimated luminosity of the sample: 198.456
+Writing data to /data/zenith226a/libov/analysis/db/samples.v02.xml
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpx424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 4
+luminosity: 154.355
+sample name: mc04v02ecpx424.f15643.bbbar.rg30.q2g1.bgf.
+Creating ntuple filelist
+common ntuples are taken from /acs/z/ntup/04/v02e/mc/root
+filelists/mc04v02ecpx424.f15643.bbbar.rg30.q2g1.bgf..txt exists. Skipping this sample
+**********************************
+INFO: command to be executed: analysis  -t2 -f3 -p3 -q1 -o1 -g4 -bfull.forCHARM -vtest -r --dCache
+
+
+******************************************************
+* Welcome to ZEUS Common Ntuple analysis framework   *
+* Step 2: analyis of ntuples and filling histograms  *
+* Input: root ntuples                                *
+* Output: root files with histograms                 *
+******************************************************
+
+INFO: File with binning: binning.full.forCHARM.cfg
+INFO: Histograms Version: full.forCHARMtest
+INFO: File with histograms declaration: declarehist.cfg
+INFO: Selected to remove c & b from ARIADNE MC
+INFO: the following smearing parameters are used:
+   Gaus1 Probability(%): 0.07
+   Gaus1 Width: 1.6
+   Gaus2 Probability(%): 0.002
+   Gaus2 Width: 7
+   Exponent probability: 0
+   Exponent coefficient: 5
+INFO: Initialization of TNtupleAnalyzer object...
+INFO: Sample name: mc04v02ecpx424.f15643.bbbar.rg30.q2g1.bgf.
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 04
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: cpx424.f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 4
+luminosity: 154.355
+sample name: mc04v02ecpx424.f15643.bbbar.rg30.q2g1.bgf.
+**********************************
+INFO: Initialization of TNtupleAnalyzer object done!
+INFO: Initialization of TMiniNtupleAnalyzer object...
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.10.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.11.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.12.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.13.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.14.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.15.root
+INFO: added zeus://acs/z/ntup/04/v02e/mc/root/zeusmc.hcpx424.f15643.bbbar.rg30.q2g1.bgf.9.root
+7 files added to chain
+
+Calculating number of Events
+113169  events in this chain
+INFO: Histograms will be written to /data/zenith226a/libov/data/histo/analysis.mc04v02ecpx424.f15643.bbbar.rg30.q2g1.bgf..full.forCHARMtest.root
+INFO: Binning is taken from /data/zenith226a/libov/analysis/NtupleAnalyzer/config/binning.full.forCHARM.cfg
+INFO: Histograms file is subdivided into 63 bins
+INFO: Initialization of TMiniNtupleAnalyzer object done!
+INFO: Luminosity of the sample before the recalculation: 154.355
+INFO: True cross section of the sample: 0.907
+INFO: Estimated luminosity of the sample: 124.773
+Writing data to /data/zenith226a/libov/analysis/db/samples.v02.xml
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 05
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 0
+luminosity: 2116.81
+sample name: mc05v02ef15643.bbbar.rg30.q2g1.bgf.
+Creating ntuple filelist
+common ntuples are taken from /acs/z/ntup/05/v02e/mc/root
+filelists/mc05v02ef15643.bbbar.rg30.q2g1.bgf..txt exists. Skipping this sample
+**********************************
+INFO: command to be executed: analysis  -t2 -f3 -p4 -q1 -o1 -g0 -bfull.forCHARM -vtest -r --dCache
+
+
+******************************************************
+* Welcome to ZEUS Common Ntuple analysis framework   *
+* Step 2: analyis of ntuples and filling histograms  *
+* Input: root ntuples                                *
+* Output: root files with histograms                 *
+******************************************************
+
+INFO: File with binning: binning.full.forCHARM.cfg
+INFO: Histograms Version: full.forCHARMtest
+INFO: File with histograms declaration: declarehist.cfg
+INFO: Selected to remove c & b from ARIADNE MC
+INFO: the following smearing parameters are used:
+   Gaus1 Probability(%): 0.07
+   Gaus1 Width: 1.6
+   Gaus2 Probability(%): 0.002
+   Gaus2 Width: 7
+   Exponent probability: 0
+   Exponent coefficient: 5
+INFO: Initialization of TNtupleAnalyzer object...
+INFO: Sample name: mc05v02ef15643.bbbar.rg30.q2g1.bgf.
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 05
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 0
+luminosity: 2116.81
+sample name: mc05v02ef15643.bbbar.rg30.q2g1.bgf.
+**********************************
+INFO: Initialization of TNtupleAnalyzer object done!
+INFO: Initialization of TMiniNtupleAnalyzer object...
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.aduye25.f15643.bbbar.rg30.q2g1.bgf.48.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.aduye25.f15643.bbbar.rg30.q2g1.bgf.49.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.aduye25.f15643.bbbar.rg30.q2g1.bgf.5.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.fduwe25.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.fduye25.f15643.bbbar.rg30.q2g1.bgf.52.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.fduye25.f15643.bbbar.rg30.q2g1.bgf.6.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.fduye25.f15643.bbbar.rg30.q2g1.bgf.8.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.11.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.12_1.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.13.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.14.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.15.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.16.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.17.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.18.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.19.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.5.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.6.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.7.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.8.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduwe25.f15643.bbbar.rg30.q2g1.bgf.9.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduxe25.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduxe25.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduxe25.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduxe25.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduxe25.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduxe25.f15643.bbbar.rg30.q2g1.bgf.5.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.10.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.11.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.12.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.13.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.14.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.15.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.16.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.17.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.18.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.19.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.20.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.21.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.22.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.23.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.24.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.25.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.26.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.27.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.28.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.29.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.30.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.31.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.32.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.33.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.34.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.35.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.36.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.37.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.38.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.39.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.40.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.41.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.42.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.43.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.44.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduye25.f15643.bbbar.rg30.q2g1.bgf.7_1.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.10.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.11.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.12.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.13.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.14.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.15.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.16.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.17.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.18.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.19.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.5.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.6.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.7.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.8.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.hduze25.f15643.bbbar.rg30.q2g1.bgf.9.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.oduye25.f15643.bbbar.rg30.q2g1.bgf.50.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.oduye25.f15643.bbbar.rg30.q2g1.bgf.51.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.xduye25.f15643.bbbar.rg30.q2g1.bgf.45.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.xduye25.f15643.bbbar.rg30.q2g1.bgf.46.root
+INFO: added zeus://acs/z/ntup/05/v02e/mc/root/zeusmc.xduye25.f15643.bbbar.rg30.q2g1.bgf.47.root
+97 files added to chain
+
+Calculating number of Events
+1881079  events in this chain
+INFO: Histograms will be written to /data/zenith226a/libov/data/histo/analysis.mc05v02ef15643.bbbar.rg30.q2g1.bgf..full.forCHARMtest.root
+INFO: Binning is taken from /data/zenith226a/libov/analysis/NtupleAnalyzer/config/binning.full.forCHARM.cfg
+INFO: Histograms file is subdivided into 63 bins
+INFO: Initialization of TMiniNtupleAnalyzer object done!
+INFO: Luminosity of the sample before the recalculation: 2116.81
+INFO: True cross section of the sample: 0.907
+INFO: Estimated luminosity of the sample: 2073.96
+Writing data to /data/zenith226a/libov/analysis/db/samples.v02.xml
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 06e
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 0
+luminosity: 913.203
+sample name: mc06ev02ef15643.bbbar.rg30.q2g1.bgf.
+Creating ntuple filelist
+common ntuples are taken from /acs/z/ntup/06e/v02e/mc/root
+filelists/mc06ev02ef15643.bbbar.rg30.q2g1.bgf..txt exists. Skipping this sample
+**********************************
+INFO: command to be executed: analysis  -t2 -f3 -p5 -q1 -o1 -g0 -bfull.forCHARM -vtest -r --dCache
+
+
+******************************************************
+* Welcome to ZEUS Common Ntuple analysis framework   *
+* Step 2: analyis of ntuples and filling histograms  *
+* Input: root ntuples                                *
+* Output: root files with histograms                 *
+******************************************************
+
+INFO: File with binning: binning.full.forCHARM.cfg
+INFO: Histograms Version: full.forCHARMtest
+INFO: File with histograms declaration: declarehist.cfg
+INFO: Selected to remove c & b from ARIADNE MC
+INFO: the following smearing parameters are used:
+   Gaus1 Probability(%): 0.07
+   Gaus1 Width: 1.6
+   Gaus2 Probability(%): 0.002
+   Gaus2 Width: 7
+   Exponent probability: 0
+   Exponent coefficient: 5
+INFO: Initialization of TNtupleAnalyzer object...
+INFO: Sample name: mc06ev02ef15643.bbbar.rg30.q2g1.bgf.
+
+
+** PROPERTIES OF TSUBSET OBJECT **
+year: 06e
+type: mc
+flavour: beauty_rapgap_bgf
+Q2: 1
+CN_version: v02e
+name_pattern: f15643.bbbar.rg30.q2g1.bgf.
+trigger period: 0
+luminosity: 913.203
+sample name: mc06ev02ef15643.bbbar.rg30.q2g1.bgf.
+**********************************
+INFO: Initialization of TNtupleAnalyzer object done!
+INFO: Initialization of TMiniNtupleAnalyzer object...
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevse26.f15643.bbbar.rg30.q2g1.bgf.25.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevse26.f15643.bbbar.rg30.q2g1.bgf.26.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevse26.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevse26.f15643.bbbar.rg30.q2g1.bgf.30.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevse26.f15643.bbbar.rg30.q2g1.bgf.31.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevse26.f15643.bbbar.rg30.q2g1.bgf.6.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevse26.f15643.bbbar.rg30.q2g1.bgf.8.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevue26.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevue26.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevue26.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevue26.f15643.bbbar.rg30.q2g1.bgf.3.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevue26.f15643.bbbar.rg30.q2g1.bgf.6.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.aevue26.f15643.bbbar.rg30.q2g1.bgf.8.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.0.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.1.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.10.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.11.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.12.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.13.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.14.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.15.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.16.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.17.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.18.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.19.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.2.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.20.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.21.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.22.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.23.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.27_1.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.28_1.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.4_1.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevse26.f15643.bbbar.rg30.q2g1.bgf.5_1.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.hevue26.f15643.bbbar.rg30.q2g1.bgf.5.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.xevse26.f15643.bbbar.rg30.q2g1.bgf.24.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.xevse26.f15643.bbbar.rg30.q2g1.bgf.29.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.xevse26.f15643.bbbar.rg30.q2g1.bgf.32.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.xevse26.f15643.bbbar.rg30.q2g1.bgf.7.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.xevse26.f15643.bbbar.rg30.q2g1.bgf.9.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.xevue26.f15643.bbbar.rg30.q2g1.bgf.4.root
+INFO: added zeus://acs/z/ntup/06e/v02e/mc/root/zeusmc.xevue26.f15643.bbbar.rg30.q2g1.bgf.7.root
+42 files added to chain
+
+Calculating number of Events
+839521  events in this chain
+INFO: Histograms will be written to /data/zenith226a/libov/data/histo/analysis.mc06ev02ef15643.bbbar.rg30.q2g1.bgf..full.forCHARMtest.root
+INFO: Binning is taken from /data/zenith226a/libov/analysis/NtupleAnalyzer/config/binning.full.forCHARM.cfg
+INFO: Histograms file is subdivided into 63 bins
+INFO: Initialization of TMiniNtupleAnalyzer object done!
+INFO: Luminosity of the sample before the recalculation: 913.203
+INFO: True cross section of the sample: 0.907
+INFO: Estimated luminosity of the sample: 925.602
+Writing data to /data/zenith226a/libov/analysis/db/samples.v02.xml
