@@ -122,9 +122,9 @@
         <flavour>beauty_rapgap_bgf</flavour>
         <q2>1</q2>
         <CN_version>v02e</CN_version>
-        <name_pattern>cpz424.f13695.rgap3.nc.b.q2g1.</name_pattern>
+        <name_pattern>cpz424.f15643.bbbar.rg30.q2g1.bgf.</name_pattern>
         <trigger_period>1</trigger_period>
-        <luminosity>132.304</luminosity>
+        <luminosity>130.417</luminosity>
     </sample>
     <sample>
         <year>04</year>
@@ -132,9 +132,9 @@
         <flavour>beauty_rapgap_bgf</flavour>
         <q2>1</q2>
         <CN_version>v02e</CN_version>
-        <name_pattern>cpu424.f13695.rgap3.nc.b.q2g1.</name_pattern>
+        <name_pattern>cpu424.f15643.bbbar.rg30.q2g1.bgf.</name_pattern>
         <trigger_period>2</trigger_period>
-        <luminosity>396.913</luminosity>
+        <luminosity>390.696</luminosity>
     </sample>
     <sample>
         <year>04</year>
@@ -142,9 +142,9 @@
         <flavour>beauty_rapgap_bgf</flavour>
         <q2>1</q2>
         <CN_version>v02e</CN_version>
-        <name_pattern>cpr424.f13695.rgap3.nc.b.q2g1.</name_pattern>
+        <name_pattern>cpr424.f15643.bbbar.rg30.q2g1.bgf.</name_pattern>
         <trigger_period>3</trigger_period>
-        <luminosity>242.558</luminosity>
+        <luminosity>198.456</luminosity>
     </sample>
     <sample>
         <year>04</year>
@@ -152,9 +152,9 @@
         <flavour>beauty_rapgap_bgf</flavour>
         <q2>1</q2>
         <CN_version>v02e</CN_version>
-        <name_pattern>cpx424.f13695.rgap3.nc.b.q2g1.</name_pattern>
+        <name_pattern>cpx424.f15643.bbbar.rg30.q2g1.bgf.</name_pattern>
         <trigger_period>4</trigger_period>
-        <luminosity>154.355</luminosity>
+        <luminosity>124.773</luminosity>
     </sample>
     <sample>
         <year>05</year>
@@ -162,8 +162,8 @@
         <flavour>beauty_rapgap_bgf</flavour>
         <q2>1</q2>
         <CN_version>v02e</CN_version>
-        <name_pattern>.rgap3.nc.b.q2g1.e.</name_pattern>
-        <luminosity>2116.81</luminosity>
+        <name_pattern>f15643.bbbar.rg30.q2g1.bgf.</name_pattern>
+        <luminosity>2073.96</luminosity>
     </sample>
     <sample>
         <year>06e</year>
@@ -171,8 +171,8 @@
         <flavour>beauty_rapgap_bgf</flavour>
         <q2>1</q2>
         <CN_version>v02e</CN_version>
-        <name_pattern>.rgap3.nc.bbdir.e.q2g1.</name_pattern>
-        <luminosity>913.203</luminosity>
+        <name_pattern>f15643.bbbar.rg30.q2g1.bgf.</name_pattern>
+        <luminosity>925.602</luminosity>
     </sample>
     <sample>
         <year>07p</year>
