@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 #include <TSystematics.h>
@@ -12,6 +13,8 @@ using namespace std;
 #include <TGraphErrors.h>
 #include <TLine.h>
 #include <TH1F.h>
+
+ofstream output;
 
 TSystematics::TSystematics():
 fCNVersion("v02"),
@@ -257,6 +260,9 @@ void TSystematics::DrawAll() {
     DrawVector(fCharmDownSyst, fCharmDownSyst_err, "charm_down");
     DrawVector(fBeautyUpSyst, fBeautyUpSyst_err, "beauty_up");
     DrawVector(fBeautyDownSyst, fBeautyDownSyst_err, "beauty_down");
+
+    // print the results into a text file
+    PrintAll();
 }
 
 // draws the syst. unc. as a function of a bin number
@@ -304,4 +310,61 @@ void TSystematics::DrawVector(map<unsigned, Float_t> syst_map, map<unsigned, Flo
     // print the result into a file
     def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.png");
     def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.root");
+}
+
+// print systematics for all differential bins
+void TSystematics::PrintAll() {
+
+    // open the text file to store the results
+    TString PLOTS_PATH=getenv("PLOTS_PATH");
+    output.open(PLOTS_PATH + "/" + fOutputFileName);
+    cout << PLOTS_PATH + "/" + fOutputFileName << endl;
+
+    if ( fBinningFile.Contains("full.forCHARM") ) {
+
+        PrintDifferential(2, 12, kCharm, "Eta");
+        PrintDifferential(14, 20, kCharm, "Et");
+        PrintDifferential(31, 36, kCharm, "xda");
+        PrintDifferential(38, 45, kCharm, "q2da");
+        PrintDifferential(46, 49, kCharm, "x_q2bin1");
+        PrintDifferential(50, 54, kCharm, "x_q2bin2");
+        PrintDifferential(55, 58, kCharm, "x_q2bin3");
+        PrintDifferential(59, 61, kCharm, "x_q2bin4");
+        PrintDifferential(62, 63, kCharm, "x_q2bin5");
+
+    } else {
+
+        PrintDifferential(2, 11, kBeauty, "Eta");
+        PrintDifferential(13, 19, kBeauty, "Et");
+        PrintDifferential(30, 35, kBeauty, "xda");
+        PrintDifferential(37, 44, kBeauty, "q2da");
+        PrintDifferential(45, 48, kBeauty, "x_q2bin1");
+        PrintDifferential(49, 53, kBeauty, "x_q2bin2");
+        PrintDifferential(54, 57, kBeauty, "x_q2bin3");
+        PrintDifferential(58, 60, kBeauty, "x_q2bin4");
+        PrintDifferential(61, 62, kBeauty, "x_q2bin5");
+
+    }
+
+}
+
+// print systematics for differential distribution
+void TSystematics::PrintDifferential(unsigned bin1, unsigned bin2, flavour f, TString variable) {
+
+    TString flavour;
+    if (f==kCharm) flavour = "Charm";
+    if (f==kBeauty) flavour = "Beauty";
+
+    output << "\n" << flavour << " systematics in differential cross sections d sigma / dY in bins of " << variable << endl;
+
+    unsigned counter = 1;
+
+    for (int i=bin1; i<=bin2; i++) {
+        if (f==kCharm) {
+            output << "Bin " << counter << ": +" << fCharmUpSyst[i] << " -" << fCharmDownSyst[i] << endl;
+        } else if (f==kBeauty) {
+            output << "Bin " << counter << ": +" << fBeautyUpSyst[i] << " -" << fBeautyDownSyst[i] << endl;
+        }
+        counter++;
+    }
 }
