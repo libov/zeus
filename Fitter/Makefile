@@ -10,7 +10,7 @@ vpath %.h $(INC)
 
 
 .PHONY: all
-all:	fitter plot_results xsect_philipp_XMLconverter result_plotter result_printer hvqdis_predictions_into_XML
+all:	fitter plot_results xsect_philipp_XMLconverter result_plotter result_printer hvqdis_predictions_into_XML correction_printer
 
 OBJECTS=  TMyFitter.o TDistribution.o TResultPlotter.o
 OBJECTS_XML= TXMLparser.o TCrossSection.o TCrossSectionBin.o TDataset.o TSubSet.o
@@ -33,6 +33,9 @@ xsect_philipp_XMLconverter: $(OBJECTS) xsect_philipp_XMLconverter.o
 
 hvqdis_predictions_into_XML: $(OBJECTS) hvqdis_predictions_into_XML.o
 	g++ -o hvqdis_predictions_into_XML $(OBJ)/hvqdis_predictions_into_XML.o $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -lMinuit -lxerces-c
+
+correction_printer: $(OBJECTS) correction_printer.o
+	g++ -o correction_printer $(OBJ)/correction_printer.o $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -lMinuit -lxerces-c
 
 
 TMyFitter.o: TMyFitter.cxx TMyFitter.h
@@ -61,6 +64,9 @@ xsect_philipp_XMLconverter.o: xsect_philipp_XMLconverter.cxx
 
 hvqdis_predictions_into_XML.o: hvqdis_predictions_into_XML.cxx
 	g++ -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc
+
+correction_printer.o: correction_printer.cxx
+	g++ -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc -I$(FITTER)/inc
 
 .PHONY: clean
 clean:
