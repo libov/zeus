@@ -8,6 +8,11 @@
 
 #include <map>
 
+enum flavour {
+  kCharm,
+  kBeauty
+};
+
 class TSystematics {
 
     public:
@@ -20,6 +25,8 @@ class TSystematics {
         void        DrawAll();                  //!< draws the scan result as a function of a scan variable for all bins
         void        DrawVector(map<unsigned, Float_t>, map<unsigned, Float_t>, TString); //!< draws the systematic uncertainty for all bins
         void        GetResult(unsigned point, Float_t & result, Float_t & result_err);
+        void        PrintAll();
+        void        PrintDifferential(unsigned, unsigned, flavour, TString);
 
         // setters
         void        SetNpoints(int  npoints) {fNpoints = npoints;};
