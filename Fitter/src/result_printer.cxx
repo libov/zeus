@@ -9,6 +9,7 @@
 
 // system headers
 #include <iostream>
+#include <fstream>
 #include <getopt.h>
 using namespace std;
 
@@ -16,6 +17,15 @@ using namespace std;
 #include <TResultPlotter.h>
 #include <TCrossSection.h>
 #include <TCrossSectionBin.h>
+
+enum flavour {
+  kCharm,
+  kBeauty
+};
+
+ofstream output;
+
+void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TString variable);
 
 // my includes
 int main(int argc, char **argv) {
@@ -55,6 +65,64 @@ int main(int argc, char **argv) {
     // create a TCrossSection object that keeps the fit results (cross sections)
     TCrossSection instance(binningXMLfileName);
 
+    // open the text file to store the results
+    TString PLOTS_PATH=getenv("PLOTS_PATH");
+    output.open(PLOTS_PATH+"/"+binningXMLfileName+".RESULTS");
+
+    if (binningXMLfileName.Contains("full.forCHARM")) {
+
+        print(&instance, 2, 12, kCharm, "Eta");
+        print(&instance, 14, 20, kCharm, "Et");
+        print(&instance, 31, 36, kCharm, "xda");
+        print(&instance, 38, 45, kCharm, "q2da");
+        print(&instance, 46, 49, kCharm, "x_q2bin1");
+        print(&instance, 50, 54, kCharm, "x_q2bin2");
+        print(&instance, 55, 58, kCharm, "x_q2bin3");
+        print(&instance, 59, 61, kCharm, "x_q2bin4");
+        print(&instance, 62, 63, kCharm, "x_q2bin5");
+
+    } else {
+
+        print(&instance, 2, 11, kBeauty, "Eta");
+        print(&instance, 13, 19, kBeauty, "Et");
+        print(&instance, 30, 35, kBeauty, "xda");
+        print(&instance, 37, 44, kBeauty, "q2da");
+        print(&instance, 45, 48, kBeauty, "x_q2bin1");
+        print(&instance, 49, 53, kBeauty, "x_q2bin2");
+        print(&instance, 54, 57, kBeauty, "x_q2bin3");
+        print(&instance, 58, 60, kBeauty, "x_q2bin4");
+        print(&instance, 61, 62, kBeauty, "x_q2bin5");
+    }
+
     // finished successfully
     return 0;
 }
+
+// prints cross-section results
+void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TString variable) {
+
+    TString flavour;
+    if (f==kCharm) flavour = "Charm";
+    if (f==kBeauty) flavour = "Beauty";
+
+    output << "\n" << flavour << " differential cross sections d sigma / dY in bins of " << variable << endl;
+
+    unsigned counter = 1;
+
+    for (int i=bin1; i<=bin2; i++) {
+        TCrossSectionBin bin = instance -> getCrossSectionBin(i);
+        Float_t sigma, sigma_err, sigma_rel_err;
+        if (f==kCharm) {
+            sigma = bin.get_sigma_c();
+            sigma_err = bin.get_sigma_c_err();
+            sigma_rel_err = 100 * sigma_err / sigma;
+        } else if (f==kBeauty) {
+            sigma = bin.get_sigma_b();
+            sigma_err = bin.get_sigma_b_err();
+            sigma_rel_err = 100 * sigma_err / sigma;
+        }
+        output << "Bin " << counter << ": " << sigma << " +/- " << sigma_err << " ("<<sigma_rel_err<<"%)" << endl;
+        counter++;
+    }
+}
+
