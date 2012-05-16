@@ -319,6 +319,8 @@ void TSystematics::PrintAll() {
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     output.open(PLOTS_PATH + "/" + fOutputFileName);
 
+    output << " Systematic uncertainties for " << fOutputFileName << endl;
+
     if ( fBinningFile.Contains("full.forCHARM") ) {
 
         PrintDifferential(2, 12, kCharm, "Eta");
