@@ -323,15 +323,31 @@ void TSystematics::PrintAll() {
 
     if ( fBinningFile.Contains("full.forCHARM") ) {
 
-        PrintDifferential(2, 12, kCharm, "Eta");
-        PrintDifferential(14, 20, kCharm, "Et");
-        PrintDifferential(31, 36, kCharm, "xda");
-        PrintDifferential(38, 45, kCharm, "q2da");
-        PrintDifferential(46, 49, kCharm, "x_q2bin1");
-        PrintDifferential(50, 54, kCharm, "x_q2bin2");
-        PrintDifferential(55, 58, kCharm, "x_q2bin3");
-        PrintDifferential(59, 61, kCharm, "x_q2bin4");
-        PrintDifferential(62, 63, kCharm, "x_q2bin5");
+        if ( fBinningFile.Contains("ET5") ) {
+
+            PrintDifferential(2, 12, kBeauty, "Eta");
+            PrintDifferential(14, 20, kBeauty, "Et");
+            PrintDifferential(31, 36, kBeauty, "xda");
+            PrintDifferential(38, 45, kBeauty, "q2da");
+            PrintDifferential(46, 49, kBeauty, "x_q2bin1");
+            PrintDifferential(50, 54, kBeauty, "x_q2bin2");
+            PrintDifferential(55, 58, kBeauty, "x_q2bin3");
+            PrintDifferential(59, 61, kBeauty, "x_q2bin4");
+            PrintDifferential(62, 63, kBeauty, "x_q2bin5");
+
+        } else {
+
+            PrintDifferential(2, 12, kCharm, "Eta");
+            PrintDifferential(14, 20, kCharm, "Et");
+            PrintDifferential(31, 36, kCharm, "xda");
+            PrintDifferential(38, 45, kCharm, "q2da");
+            PrintDifferential(46, 49, kCharm, "x_q2bin1");
+            PrintDifferential(50, 54, kCharm, "x_q2bin2");
+            PrintDifferential(55, 58, kCharm, "x_q2bin3");
+            PrintDifferential(59, 61, kCharm, "x_q2bin4");
+            PrintDifferential(62, 63, kCharm, "x_q2bin5");
+
+        }
 
     } else {
 
