@@ -318,7 +318,6 @@ void TSystematics::PrintAll() {
     // open the text file to store the results
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     output.open(PLOTS_PATH + "/" + fOutputFileName);
-    cout << PLOTS_PATH + "/" + fOutputFileName << endl;
 
     if ( fBinningFile.Contains("full.forCHARM") ) {
 
