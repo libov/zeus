@@ -169,7 +169,6 @@ int main(int argc, char **argv) {
 
     // get environmental variables
     TString        HISTO_PATH=getenv("HISTO_PATH");
-    TString        NTUPLE_ANALYZER=getenv("NTUPLEANALYZER");
 
     // open file with histograms (after merger step)
     TFile    * fInputHistogramsFile = new TFile (HISTO_PATH+"/merged."+HistogramsVersion+".root", "read");;
