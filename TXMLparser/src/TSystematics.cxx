@@ -248,7 +248,9 @@ void TSystematics::SetVersionArray (TString * version_arr) {
 void TSystematics::DrawAll() {
 
     // loop over all bins in xml file (hardcoded at the moment)
-    for (int bin=1; bin<=63; bin++) {
+    unsigned nbins = 63;
+    if (fBinningFile == "full") nbins = 62;
+    for (int bin=1; bin<=nbins; bin++) {
         cout << "INFO: setting bin to " << bin << endl;
         SetBin(bin);
         // determine the systematics and print the plot with the scan
