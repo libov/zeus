@@ -65,13 +65,18 @@ int main(int argc, char **argv) {
     Bool_t      include_direct = false;
     Bool_t      no_beauty_resolved = false;
     Bool_t      no_charm_resolved = false;
+    bool        scale_lf = false;   // for LF assymetry studies: scale LF component with a given factor (lf_scaling_factor)
+                                    // in the mirrored distributions and then do the fit
+    Float_t     lf_scaling_factor = 1.0;
+
 
     // declare long options
     static struct option long_options[] = {
         {"no_beauty_resolved", no_argument, 0, 1},
         {"no_charm_resolved", no_argument, 0, 2},
+        {"scale_lf", no_argument, 0, 3},
+        {"lf_scaling_factor", required_argument, 0, 4}
     };
-
 
     // handle command line options
     opterr = 0;
@@ -103,6 +108,12 @@ int main(int argc, char **argv) {
             case 2:
                 no_charm_resolved = true;
                 break;
+            case 3:
+                scale_lf = true;
+                break;
+            case 4:
+                lf_scaling_factor = atof(optarg);
+                break;
             case  'h':
                 cout<<"usage:\n\t fitter  -b <Binning File Suffix> -v <Histograms Version Ending> [options]\n"<<endl;
                 cout << "List of options\n" << endl;
@@ -111,6 +122,8 @@ int main(int argc, char **argv) {
                 cout << "-r\t\tremark; default: .0405e06e07p"<<endl;
                 cout << "--no_beauty_resolved\tdon't add beauty resolved samples, if -e options is selected"<<endl;
                 cout << "--no_charm_resolved\tdon't add charm resolved samples, if -e options is selected"<<endl;
+                cout << "--scale_lf\tscale light flavour component - for lf assymetry systematic studies"<<endl;
+                cout << "--lf_scaling_factor\tscaling factor for light flavour component - valid only with --scale_lf"<<endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -153,14 +166,9 @@ int main(int argc, char **argv) {
         cout << "ERROR: not enough parameters - see \n\tfitter -h\n for help\n";
     }
 
-    bool      scale_lf = false;      // for LF assymetry studies: scale LF component with a given factor (scale_lf_size)
-                                        // in the mirrored distributions and then do the fit
-    Float_t   scale_lf_size = 1.0;
-
-    if (argc == 5) {
-        scale_lf = true;
-        scale_lf_size = atof(argv[4]);
-        cout<<"INFO: applying light flavour scaling before the fit by a factor of "<<scale_lf_size<<endl;
+    // tell that LF will be scaled
+    if (scale_lf) {
+        cout << "INFO: applying light flavour scaling before the fit by a factor of " << lf_scaling_factor << endl;
     }
 
     // get environmental variables
@@ -269,7 +277,7 @@ int main(int argc, char **argv) {
     
         if (scale_lf) {
             instance -> SetScaleLF (true);
-            instance -> SetScaleLFSize (scale_lf_size);
+            instance -> SetScaleLFSize (lf_scaling_factor);
         }
         instance -> Initialize();
 
