@@ -96,9 +96,6 @@ int main(int argc, char **argv) {
             case 'e':
                 include_resolved = true;
                 break;
-            case 's':
-                use_scaling_factors = true;
-                break;
             case 'r':
                 remark = (TString)optarg;
                 break;
