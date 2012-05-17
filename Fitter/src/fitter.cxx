@@ -153,8 +153,7 @@ int main(int argc, char **argv) {
 
     // construct files suffix as binning file suffix concatenated with version of histograms
     TString     HistogramsVersion = BinningFileSuffix + HistogramsVersionEnding;
-    TString     HistogramsVersionRAW=BinningFileSuffix + HistogramsVersionEnding; // used for true stuff
-
+    TString     HistogramsVersionRAW=BinningFileSuffix + HistogramsVersionEnding; // used for true cross-section calculation
     HistogramsVersion+=remark;
     cout << "INFO: Histograms Version: " << HistogramsVersion << endl;
 
