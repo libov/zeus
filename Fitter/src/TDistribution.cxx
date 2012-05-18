@@ -182,7 +182,10 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
         MC_error_squared = Power(p1*b_err,2) + Power(p2*c_err,2) + Power(p3*uds_err,2);
 
         error_squared=data_error_squared+MC_error_squared;
-        if (error_squared==0) cout<<"ERROR: error_squared=0"<<endl;
+        if (error_squared==0) {
+            cout<<"ERROR: error_squared=0"<<endl;
+            abort();
+        }
         if (error_squared!=0) chi2=chi2+(Power(deviation,2))/(error_squared);
     }
     return chi2;
