@@ -226,12 +226,18 @@ void	TDistribution::Draw(Double_t p1, Double_t p2, Double_t p3, TString TotMCDra
 {
     this->Scale(p1,p2,p3);
     TString	opt = "";
-    Float_t    chi2BEFORE=this->CalculateChi2(1,1,1);
-    Float_t    chi2AFTER=this->CalculateChi2(p1,p2,p3);
-    if (fVariableName.Contains("chi2")) {
+    Float_t    chi2BEFORE;
+    Float_t    chi2AFTER;
+    if ( fVariableName.Contains("mirrored") ) {
+        chi2BEFORE=this->CalculateChi2(1,1,1);
+        chi2AFTER=this->CalculateChi2(p1,p2,p3);
+    } else if ( fVariableName == "significance" ) {
         chi2BEFORE=this->CalculateChi2Norm(1,1,1);
         chi2AFTER=this->CalculateChi2Norm(p1,p2,p3);
         opt="hist";
+    } else {
+        cout << "ERROR from TDistribution::Draw(): not supported variable name" << endl;
+        abort();
     }
 
     fCanvas->cd(1);
