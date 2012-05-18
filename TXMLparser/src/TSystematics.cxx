@@ -327,6 +327,9 @@ void TSystematics::PrintAll() {
 
         if ( fBinningFile.Contains("ET5") ) {
 
+            output << "\nBeauty systematics, total cross-section:" << endl;
+            output << "+" << fBeautyUpSyst[1] << " -" << fBeautyDownSyst[1] << endl;
+
             PrintDifferential(2, 12, kBeauty, "Eta");
             PrintDifferential(14, 20, kBeauty, "Et");
             PrintDifferential(31, 36, kBeauty, "xda");
@@ -338,6 +341,9 @@ void TSystematics::PrintAll() {
             PrintDifferential(62, 63, kBeauty, "x_q2bin5");
 
         } else {
+
+            output << "\nCharm systematics, total cross-section:" << endl;
+            output << "+" << fCharmUpSyst[1] << " -" << fCharmDownSyst[1] << endl;
 
             PrintDifferential(2, 12, kCharm, "Eta");
             PrintDifferential(14, 20, kCharm, "Et");
@@ -352,6 +358,9 @@ void TSystematics::PrintAll() {
         }
 
     } else {
+
+        output << "\nBeauty systematics, total cross-section:" << endl;
+        output << "+" << fBeautyUpSyst[1] << " -" << fBeautyDownSyst[1] << endl;
 
         PrintDifferential(2, 11, kBeauty, "Eta");
         PrintDifferential(13, 19, kBeauty, "Et");
