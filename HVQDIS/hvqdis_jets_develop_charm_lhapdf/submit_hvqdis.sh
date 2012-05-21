@@ -123,7 +123,7 @@ function submitJob()
 #---------------------------------------------------------------------------------------#
 
 # create a list of strings; each string corresponds to a separate setting for uncertainty evaluation
-uncertainty_evaluation=("XM=1.5" "XM=1.3" "XM=1.7" "ISCALER=13" "ISCALER=23" "ISCALEF=13" "ISCALEF=23")
+uncertainty_evaluation=("XM=1.5" "XM=1.35" "XM=1.65" "ISCALER=13" "ISCALER=23" "ISCALEF=13" "ISCALEF=23")
 
 # this counter corresponds to a command (setting) in the array
 counter=1
