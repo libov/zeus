@@ -27,7 +27,7 @@ function setDefaults()
     NORDER=2                    #!0:BORN  1:NLO  2:SUM
     ISCALER=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
     ISCALEF=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
-    IPDF=40650                  #!1,2
+    IPDF=300000                 #!1,2
     NPTS0=1000000               #!NUMBER OF VEGAS POINTS FOR LO
     ITS0=5                      #!NUMBER OF VEGAS ITERATIONS FOR LO
     NPTS1=1000000               #!NUMBER OF VEGAS POINTS FOR NLO
@@ -123,7 +123,7 @@ function submitJob()
 #---------------------------------------------------------------------------------------#
 
 # create a list of strings; each string corresponds to a separate setting for uncertainty evaluation
-uncertainty_evaluation=("XM=1.5" "XM=1.35" "XM=1.65" "ISCALER=13" "ISCALER=23" "ISCALEF=13" "ISCALEF=23")
+uncertainty_evaluation=("XM=1.5" "XM=1.35 && IPDF=300029" "XM=1.65 && IPDF=300030" "ISCALER=13 && ISCALEF=13 && IPDF=300031" "ISCALER=23 && ISCALEF=23 && IPDF=300032" "IPDF=300001" "IPDF=300002")
 
 # this counter corresponds to a command (setting) in the array
 counter=1
@@ -169,6 +169,9 @@ do
             
             # set also FL to 0 as needed for F2 evaluation
             IFL=0
+
+            # switch off alpha_em running for F2 evaluation
+            IRUNEM=0
 
             # and remove Y cuts
             YMIN=0
