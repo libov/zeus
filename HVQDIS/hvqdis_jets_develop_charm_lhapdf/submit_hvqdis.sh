@@ -17,6 +17,15 @@ touch $METAFILE
 QUEUE_F2=M
 QUEUE_XSECT=L
 
+FLAVOR=charm
+while getopts "b" opt; do
+  if [ $opt == b ] ; then 
+        FLAVOR=beauty
+  fi
+done
+
+echo 'INFO: FLAVOR = '$FLAVOR
+
 #---------------------------------------------------------------------------------------#
 #-------------------------------  Function definitions  --------------------------------#
 #---------------------------------------------------------------------------------------#
