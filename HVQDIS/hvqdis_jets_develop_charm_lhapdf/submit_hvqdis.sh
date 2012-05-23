@@ -3,8 +3,24 @@
 # Vladyslav Libov, April 2012, libov@mail.desy.de
 # Modified:
 
+FLAVOR=charm
+while getopts "b" opt; do
+  if [ $opt == b ] ; then 
+        FLAVOR=beauty
+  fi
+done
+echo 'INFO: FLAVOR = '$FLAVOR
+
 # selects a file with q2-x grid definition
-Q2X_GRID_FILE=./q2_x_grid.txt
+
+if [ $FLAVOR == charm ] ; then 
+    Q2X_GRID_FILE=./q2_x_grid.txt
+elif [ $FLAVOR == beauty ] ; then 
+    Q2X_GRID_FILE=./q2_x_grid_beauty.txt
+else
+    echo 'unknown flavor'
+    exit -1
+fi
 
 # creates a file which is unique for this submission and can be used later
 METAFILE=meta_`date | awk '{print $2 $3 "_" $6 "_" $4}' `.txt
@@ -16,15 +32,6 @@ touch $METAFILE
 # queues
 QUEUE_F2=M
 QUEUE_XSECT=L
-
-FLAVOR=charm
-while getopts "b" opt; do
-  if [ $opt == b ] ; then 
-        FLAVOR=beauty
-  fi
-done
-
-echo 'INFO: FLAVOR = '$FLAVOR
 
 #---------------------------------------------------------------------------------------#
 #-------------------------------  Function definitions  --------------------------------#
