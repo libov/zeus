@@ -41,8 +41,16 @@ function setDefaults()
     ITS0=5                      #!NUMBER OF VEGAS ITERATIONS FOR LO
     NPTS1=1000000               #!NUMBER OF VEGAS POINTS FOR NLO
     ITS1=10                     #!NUMBER OF VEGAS ITERATIONS FOR NLO
-    IQUARK=1                    #!1:CHARM  2:BOTTOM
-    XM=1.5                      #!QUARK MASS
+    if [ $FLAVOR == charm ] ; then 
+        IQUARK=1                    #!1:CHARM  2:BOTTOM
+        XM=1.5                      #!QUARK MASS
+    elif [ $FLAVOR == beauty ] ; then 
+        IQUARK=2                    #!1:CHARM  2:BOTTOM
+        XM=4.5                      #!QUARK MASS
+    else
+        echo 'unknown flavor'
+        exit -1
+    fi
     EPRO=920                    #!LAB FRAME PROTON ENERGY
     EIEL=27.5                   #!LAB FRAME ELECTRON ENERGY
     Q2MIN=5.                    #!Q2 MIN
@@ -132,7 +140,14 @@ function submitJob()
 #---------------------------------------------------------------------------------------#
 
 # create a list of strings; each string corresponds to a separate setting for uncertainty evaluation
-uncertainty_evaluation=("XM=1.5" "XM=1.35 && IPDF=300029" "XM=1.65 && IPDF=300030" "ISCALER=13 && ISCALEF=13 && IPDF=300031" "ISCALER=23 && ISCALEF=23 && IPDF=300032" "IPDF=300001" "IPDF=300002")
+if [ $FLAVOR == charm ] ; then 
+    uncertainty_evaluation=("XM=1.5" "XM=1.35 && IPDF=300029" "XM=1.65 && IPDF=300030" "ISCALER=13 && ISCALEF=13 && IPDF=300031" "ISCALER=23 && ISCALEF=23 && IPDF=300032" "IPDF=300001" "IPDF=300002")
+elif [ $FLAVOR == beauty ] ; then 
+    uncertainty_evaluation=("XM=4.5" "XM=4.25" "XM=4.75" "ISCALER=13 && ISCALEF=13 && IPDF=300031" "ISCALER=23 && ISCALEF=23 && IPDF=300032" "IPDF=300001" "IPDF=300002")
+else
+    echo 'unknown flavor'
+    exit -1
+fi
 
 # this counter corresponds to a command (setting) in the array
 counter=1
