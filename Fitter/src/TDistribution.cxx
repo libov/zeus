@@ -117,8 +117,8 @@ void TDistribution::FillArrays() {
 }
 
 Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) {
-    Bool_t    merge_fine_binning = 1;   // this to move from 'fine' to 'coarse'  (1 unit/bin --> 2 units/bin)
-    Bool_t    merge_last_bins = 1;      // this also to use [14, 17] [17, 20] instead of [14, 16] [16, 18] [18, 20]
+    Bool_t    merge_fine_binning = true;   // this to move from 'fine' to 'coarse'  (1 unit/bin --> 2 units/bin)
+    Bool_t    merge_last_bins = true;      // this also to use [14, 17] [17, 20] instead of [14, 16] [16, 18] [18, 20]
                                         // has effect only if merge_fine_binning = true.
     // return variable
     Double_t  chi2=0;
