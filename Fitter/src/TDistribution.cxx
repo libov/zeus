@@ -130,6 +130,8 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
 
     // loop over the bins, calculate the contribution to chi2 and add it
     int start_bin=5;
+    if (start_from_3) start_bin=4;
+    if (start_from_5) start_bin=6;
     for (int bin=start_bin; bin<=fNbins; bin++) {
 
         Float_t data = fN_data[bin];
@@ -154,8 +156,8 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
             c_err=Sqrt( Power(fSigma_c[bin], 2) + Power(fSigma_c[bin+1], 2) );
             uds_err=Sqrt( Power(fSigma_uds[bin], 2) + Power(fSigma_uds[bin+1], 2) );
 
-            // this to make last bins wider ( [14, 17], [17, 20] )
-            if ((bin == 15) && (merge_last_bins)) {
+            bool add_another_bin = (start_from_3 && (bin==4)) || (start_from_5 && (bin==6)) || (merge_last_bins && ((bin == 15) || (bin == 18)));
+            if (add_another_bin) {
                 data+= fN_data[bin+2];
                 b+=fN_b[bin+2];
                 c+=fN_c[bin+2];
@@ -166,17 +168,7 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
                 uds_err=Sqrt( Power(fSigma_uds[bin], 2) + Power(fSigma_uds[bin+1], 2) + Power(fSigma_uds[bin+2], 2));
                 bin++;
             }
-            if ((bin == 18) && (merge_last_bins)) {
-                data+= fN_data[bin+2];
-                b+=fN_b[bin+2];
-                c+=fN_c[bin+2];
-                uds+=fN_uds[bin+2];
-                data_err=Sqrt ( Power(fSigma_data[bin],2) + Power(fSigma_data[bin+1],2)+ Power(fSigma_data[bin+2],2) );
-                b_err=Sqrt( Power(fSigma_b[bin], 2) + Power(fSigma_b[bin+1], 2) + Power(fSigma_b[bin+2], 2) );
-                c_err=Sqrt( Power(fSigma_c[bin], 2) + Power(fSigma_c[bin+1], 2) + Power(fSigma_c[bin+2], 2) );
-                uds_err=Sqrt( Power(fSigma_uds[bin], 2) + Power(fSigma_uds[bin+1], 2) + Power(fSigma_uds[bin+2], 2));
-                bin++;
-            }
+
             bin++;
         }
 
