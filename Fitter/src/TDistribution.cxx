@@ -191,6 +191,7 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
         }
         if (error_squared!=0) chi2=chi2+(Power(deviation,2))/(error_squared);
     }
+
     return chi2;
 }
 
