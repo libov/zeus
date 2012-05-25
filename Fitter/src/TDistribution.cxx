@@ -123,11 +123,9 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
     // return variable
     Double_t  chi2=0;
 
-    // some leftovers
-    //for (int bin=1;bin<fNbins+1;bin++)
-    //for (int bin=3;bin<fNbins+1;bin++)    // -- exclude [0,4] region from the fit
-    //for (int bin=25;bin<fNbins+1;bin++)   // -- now 2x finer binning
-    for (int bin=5;bin<fNbins+1;bin++) {
+    // loop over the bins, calculate the contribution to chi2 and add it
+    int start_bin=5;
+    for (int bin=start_bin; bin<=fNbins; bin++) {
 
         Float_t data = fN_data[bin];
         Float_t b = fN_b[bin];
