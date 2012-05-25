@@ -147,25 +147,25 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
         // if selected a coarser binning, add also the next bin
         if (merge_fine_binning) {
 
-            data+= fN_data[bin+1];
-            b+=fN_b[bin+1];
-            c+=fN_c[bin+1];
-            uds+=fN_uds[bin+1];
-            data_err=Sqrt ( Power(fSigma_data[bin],2) + Power(fSigma_data[bin+1],2) );
-            b_err=Sqrt( Power(fSigma_b[bin], 2) + Power(fSigma_b[bin+1], 2) );
-            c_err=Sqrt( Power(fSigma_c[bin], 2) + Power(fSigma_c[bin+1], 2) );
-            uds_err=Sqrt( Power(fSigma_uds[bin], 2) + Power(fSigma_uds[bin+1], 2) );
+            data += fN_data[bin+1];
+            b += fN_b[bin+1];
+            c += fN_c[bin+1];
+            uds += fN_uds[bin+1];
+            data_err = Sqrt ( Power(fSigma_data[bin],2) + Power(fSigma_data[bin+1],2) );
+            b_err = Sqrt( Power(fSigma_b[bin], 2) + Power(fSigma_b[bin+1], 2) );
+            c_err = Sqrt( Power(fSigma_c[bin], 2) + Power(fSigma_c[bin+1], 2) );
+            uds_err = Sqrt( Power(fSigma_uds[bin], 2) + Power(fSigma_uds[bin+1], 2) );
 
             bool add_another_bin = (start_from_3 && (bin==4)) || (start_from_5 && (bin==6)) || (merge_last_bins && ((bin == 15) || (bin == 18)));
             if (add_another_bin) {
-                data+= fN_data[bin+2];
-                b+=fN_b[bin+2];
-                c+=fN_c[bin+2];
-                uds+=fN_uds[bin+2];
-                data_err=Sqrt ( Power(fSigma_data[bin],2) + Power(fSigma_data[bin+1],2)+ Power(fSigma_data[bin+2],2) );
-                b_err=Sqrt( Power(fSigma_b[bin], 2) + Power(fSigma_b[bin+1], 2) + Power(fSigma_b[bin+2], 2) );
-                c_err=Sqrt( Power(fSigma_c[bin], 2) + Power(fSigma_c[bin+1], 2) + Power(fSigma_c[bin+2], 2) );
-                uds_err=Sqrt( Power(fSigma_uds[bin], 2) + Power(fSigma_uds[bin+1], 2) + Power(fSigma_uds[bin+2], 2));
+                data += fN_data[bin+2];
+                b += fN_b[bin+2];
+                c += fN_c[bin+2];
+                uds += fN_uds[bin+2];
+                data_err = Sqrt ( Power(fSigma_data[bin],2) + Power(fSigma_data[bin+1],2)+ Power(fSigma_data[bin+2],2) );
+                b_err = Sqrt( Power(fSigma_b[bin], 2) + Power(fSigma_b[bin+1], 2) + Power(fSigma_b[bin+2], 2) );
+                c_err = Sqrt( Power(fSigma_c[bin], 2) + Power(fSigma_c[bin+1], 2) + Power(fSigma_c[bin+2], 2) );
+                uds_err = Sqrt( Power(fSigma_uds[bin], 2) + Power(fSigma_uds[bin+1], 2) + Power(fSigma_uds[bin+2], 2));
                 bin++;
             }
 
