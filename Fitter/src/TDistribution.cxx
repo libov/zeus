@@ -142,7 +142,9 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
         Float_t c_err = fSigma_c[bin];
         Float_t uds_err = fSigma_uds[bin];
 
+        // if selected a coarser binning, add also the next bin
         if (merge_fine_binning) {
+
             data+= fN_data[bin+1];
             b+=fN_b[bin+1];
             c+=fN_c[bin+1];
