@@ -111,9 +111,12 @@ def printme( file, nbins, variable ):
         file.write(string)
     return
 
+if BEAUTY:
+    printme(file, 10, 'Eta')
+else:
+    printme(file, 11, 'Eta')
 
-printme(file, 11, 'Eta')
-printme(file, 4, 'Et')
+printme(file, 7, 'Et')
 printme(file, 6, 'xda')
 printme(file, 8, 'q2da')
 printme(file, 4, 'x_q2bin1')
