@@ -30,7 +30,7 @@ rm -f $METAFILE
 touch $METAFILE
 
 # queues
-QUEUE_F2=M
+QUEUE_F2=L
 QUEUE_XSECT=L
 
 #---------------------------------------------------------------------------------------#
