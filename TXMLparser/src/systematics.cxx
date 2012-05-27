@@ -25,11 +25,15 @@ int main(int argc, char **argv) {
     static struct option long_options[] = {
         {"file", required_argument, 0, 1},
         {"scaling_factors", no_argument, 0, 2},
+        {"correct_cross_sections", no_argument, 0, 3},
+        {"cross_sections_XMLfile", required_argument, 0, 4}
     };
 
     // results of the command line option processing will be stored here
     TString file;
     bool scaling_factors = false;
+    bool correct_cross_sections = false;
+    TString cross_sections_XMLfile;
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -43,6 +47,12 @@ int main(int argc, char **argv) {
             case 2:
                 scaling_factors = true;
                 break;
+            case 3:
+                correct_cross_sections = true;
+                break;
+            case 4:
+                cross_sections_XMLfile = optarg;
+                break;
             case 'h':
                 cout << "\nUsage:\n\n";
                 cout << "./systematics --file <config file> [Options] [-h]\n\n";
@@ -50,6 +60,8 @@ int main(int argc, char **argv) {
                 system("ls config | grep -v README");
                 cout << "\nOptions:\n";
                 cout << "--scaling_factors - determine the systematics based on the scaling factor (default: based on the xsect)\n\n";
+                cout << "--correct_cross_sections - correct cross-sections by \"systematic uncertainty\"\n\n";
+                cout << "--cross_sections_XMLfile - XML filename to be corrected\n\n";
                 cout << "-h - Show this help\n\n";
                 exit(-1);
                 break;
@@ -190,6 +202,11 @@ int main(int argc, char **argv) {
 
     // draw for all bins
     instance.DrawAll();
+
+    // correct cross-sections if selected
+    if (correct_cross_sections) {
+        instance.CorrectCrossSections(cross_sections_XMLfile);
+    }
  
     return  0;
 }
