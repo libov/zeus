@@ -49,6 +49,7 @@ class TSystematics {
         void        SetTrueYears(TString    true_years) {fTrueYears = true_years;};
         void        SetDrawOnlyErrors(Bool_t    draw_errors) {fDrawOnlyErrors = draw_errors;};
         void        SetDrawCrossSections(Bool_t draw_xsect) {fPlotxSect = draw_xsect;};
+        void        CorrectCrossSections(TString XMLfile);
 
         // getters
         int         GetNpoints() {return fNpoints;};
@@ -104,6 +105,8 @@ class TSystematics {
         TString     fTrueYears;
 
         Bool_t      fDrawOnlyErrors;            //!< sometimes it's desirable to plot only errors, not the scaling factors
+
+        TString     fXMLfile_xsect;             //!< XML filename to be corrected
 };
 
 #endif
