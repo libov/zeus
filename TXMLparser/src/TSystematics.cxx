@@ -396,3 +396,58 @@ void TSystematics::PrintDifferential(unsigned bin1, unsigned bin2, flavour f, TS
         counter++;
     }
 }
+
+// if an uncertainty is one-sided, it can be used to correct central values of the cross-sections!
+void TSystematics::CorrectCrossSections(TString XMLfile) {
+
+    // open the cross-section file
+    TCrossSection cCrossSection(XMLfile);
+    unsigned nbins = cCrossSection.getNBins();
+    for (unsigned i = 1; i<=nbins; i++) {
+        // get a bin
+        TCrossSectionBin cBin = cCrossSection.getCrossSectionBin(i);
+
+        // get values of cross-sections
+        Float_t sigma_c = cBin.get_sigma_c();
+        Float_t sigma_c_err = cBin.get_sigma_c_err();
+
+        Float_t sigma_b = cBin.get_sigma_b();
+        Float_t sigma_b_err = cBin.get_sigma_b_err();
+
+        // get value of the correction; supposed to be one-sided! hence determine if it is indeed one-sided first!
+        Float_t correction_charm;
+        if (fCharmUpSyst[i]==0) {
+            correction_charm = 1 - fCharmDownSyst[i];
+        } else if (fCharmDownSyst[i]==0) {
+            correction_charm = 1 + fCharmUpSyst[i];
+        } else {
+            cout << "ERROR: not one-sided uncertainty! Cannot determine a correction!!" << endl;
+            abort();
+        }
+
+        Float_t correction_beauty;
+        if (fBeautyUpSyst[i]==0) {
+            correction_beauty = 1 - fBeautyDownSyst[i];
+        } else if (fBeautyDownSyst[i]==0) {
+            correction_beauty = 1 + fBeautyUpSyst[i];
+        } else {
+            cout << "ERROR: not one-sided uncertainty! Cannot determine a correction!!" << endl;
+            abort();
+        }
+
+        sigma_c *= correction_charm;
+        sigma_c_err *= correction_charm;
+        sigma_b *= correction_beauty;
+        sigma_b_err *= correction_beauty;
+
+        cBin.set_sigma_c(sigma_c);
+        cBin.set_sigma_c_err(sigma_c_err);
+        cBin.set_sigma_b(sigma_b);
+        cBin.set_sigma_b_err(sigma_b_err);
+
+        cCrossSection.modifyCrossSectionBin(i, cBin);
+    }
+
+    XMLfile += "corrected."+fOutputFileName;
+    cCrossSection.WriteXMLfile(XMLfile);
+}
