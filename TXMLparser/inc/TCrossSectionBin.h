@@ -95,6 +95,9 @@ class TCrossSectionBin{
                 Float_t         fsigma_c_err;
                 Float_t         fsigma_b_err;
 
+                Float_t         fsigma_c_err_syst;
+                Float_t         fsigma_b_err_syst;
+
                 struct SubBin {
                                 TString         fVariableName;
                                 Float_t         flow_edge;
