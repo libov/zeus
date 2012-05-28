@@ -38,6 +38,8 @@ class TCrossSectionBin{
                 void            set_sigma_uds_err (Float_t sigma_uds_err) { fsigma_uds_err = sigma_uds_err; };
                 void            set_sigma_c_err (Float_t sigma_c_err) { fsigma_c_err = sigma_c_err; };
                 void            set_sigma_b_err (Float_t sigma_b_err) { fsigma_b_err = sigma_b_err; };
+                void            set_sigma_c_err_syst (Float_t sigma_c_err_syst) { fsigma_c_err_syst = sigma_c_err_syst; };
+                void            set_sigma_b_err_syst (Float_t sigma_b_err_syst) { fsigma_b_err_syst = sigma_b_err_syst; };
                 void            setID (unsigned id) {fID = id;};
                 void            setBinWidth (Float_t    bin_width) { fBinWidth = bin_width; };
                 void            addSubBin(TString variable_name, Float_t low_edge, Float_t up_edge);
@@ -58,6 +60,8 @@ class TCrossSectionBin{
                 Float_t         get_sigma_uds_err () { return fsigma_uds_err; };
                 Float_t         get_sigma_c_err () { return fsigma_c_err; };
                 Float_t         get_sigma_b_err () { return fsigma_b_err; };
+                Float_t         get_sigma_c_err_syst () { return fsigma_c_err_syst; };
+                Float_t         get_sigma_b_err_syst () { return fsigma_b_err_syst; };
                 unsigned        getID () { return  fID; };
                 Float_t         getBinWidth () { return  fBinWidth; };
                 unsigned        getNSubBins() { return fSubBinList.size(); };
