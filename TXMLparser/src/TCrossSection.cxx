@@ -116,8 +116,10 @@ TXMLparser(xml_file)
                         if ( XMLString::equals (nodeName, "sigma_uds_err") ) cCrossSectionBin.set_sigma_uds_err(nodeText_tstr.Atof());
                         if ( XMLString::equals (nodeName, "sigma_c_err") ) cCrossSectionBin.set_sigma_c_err(nodeText_tstr.Atof());
                         if ( XMLString::equals (nodeName, "sigma_b_err") ) cCrossSectionBin.set_sigma_b_err(nodeText_tstr.Atof());
-                        if ( XMLString::equals (nodeName, "sigma_c_err_syst") ) cCrossSectionBin.set_sigma_c_err_syst(nodeText_tstr.Atof());
-                        if ( XMLString::equals (nodeName, "sigma_b_err_syst") ) cCrossSectionBin.set_sigma_b_err_syst(nodeText_tstr.Atof());
+                        if ( XMLString::equals (nodeName, "sigma_c_err_syst_up") ) cCrossSectionBin.set_sigma_c_err_syst_up(nodeText_tstr.Atof());
+                        if ( XMLString::equals (nodeName, "sigma_c_err_syst_down") ) cCrossSectionBin.set_sigma_c_err_syst_down(nodeText_tstr.Atof());
+                        if ( XMLString::equals (nodeName, "sigma_b_err_syst_up") ) cCrossSectionBin.set_sigma_b_err_syst_up(nodeText_tstr.Atof());
+                        if ( XMLString::equals (nodeName, "sigma_b_err_syst_down") ) cCrossSectionBin.set_sigma_b_err_syst_down(nodeText_tstr.Atof());
                         
 		}
 
@@ -348,8 +350,10 @@ void        TCrossSection::modifyCrossSectionBin(unsigned id, TCrossSectionBin b
                 else if ( XMLString::equals (nodeName, "sigma_uds_err") ) newText_fl =cBin.get_sigma_uds_err();
                 else if ( XMLString::equals (nodeName, "sigma_c_err") ) newText_fl =cBin.get_sigma_c_err();
                 else if ( XMLString::equals (nodeName, "sigma_b_err") ) newText_fl =cBin.get_sigma_b_err();
-                else if ( XMLString::equals (nodeName, "sigma_c_err_syst") ) newText_fl =cBin.get_sigma_c_err_syst();
-                else if ( XMLString::equals (nodeName, "sigma_b_err_syst") ) newText_fl =cBin.get_sigma_b_err_syst();
+                else if ( XMLString::equals (nodeName, "sigma_c_err_syst_up") ) newText_fl =cBin.get_sigma_c_err_syst_up();
+                else if ( XMLString::equals (nodeName, "sigma_c_err_syst_down") ) newText_fl =cBin.get_sigma_c_err_syst_down();
+                else if ( XMLString::equals (nodeName, "sigma_b_err_syst_up") ) newText_fl =cBin.get_sigma_b_err_syst_up();
+                else if ( XMLString::equals (nodeName, "sigma_b_err_syst_down") ) newText_fl =cBin.get_sigma_b_err_syst_down();
                 else continue;
 
                 stringstream    str;
