@@ -13,7 +13,7 @@ OBJECTS=TDataset.o TXMLparser.o TSubSet.o TCrossSection.o TCrossSectionBin.o TSy
 
 default: all
 
-all: compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics f2bc
+all: compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics f2bc txt2XML
 
 TXMLparser.o: TXMLparser.cxx TXMLparser.h
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
@@ -54,6 +54,9 @@ systematics.o: systematics.cxx
 f2bc.o: f2bc.cxx
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
+txt2XML.o: txt2XML.cxx
+	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
+
 systematics: $(OBJECTS) systematics.o
 	g++ -o systematics $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/systematics.o -I$(INC) $(FLAGS) -lxerces-c
 
@@ -68,6 +71,9 @@ jet_energy_scale: $(OBJECTS) jet_energy_scale.o
 
 f2bc: $(OBJECTS) f2bc.o
 	g++ -o f2bc $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/f2bc.o -I$(INC) $(FLAGS) -lxerces-c
+
+txt2XML: $(OBJECTS) txt2XML.o
+	g++ -o txt2XML $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/txt2XML.o -I$(INC) $(FLAGS) -lxerces-c
 
 .PHONY: clean
 clean:
