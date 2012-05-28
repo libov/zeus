@@ -30,6 +30,8 @@ fsigma_b(0),
 fsigma_uds_err(0),
 fsigma_c_err(0),
 fsigma_b_err(0),
+fsigma_c_err_syst(0),
+fsigma_b_err_syst(0),
 fBinWidth(0)
 {
 }
