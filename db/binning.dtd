@@ -1,6 +1,6 @@
 <!ELEMENT binning (bin, bin_group)>
 <!ELEMENT bin_group (bin)>
-<!ELEMENT bin (subbin, k_uds, k_c, k_b, k_uds_err, k_c_err, k_b_err, sigma_uds_true, sigma_c_true, sigma_b_true, sigma_uds, sigma_c, sigma_b, sigma_uds_err, sigma_c_err, sigma_b_err)>
+<!ELEMENT bin (subbin, k_uds, k_c, k_b, k_uds_err, k_c_err, k_b_err, sigma_uds_true, sigma_c_true, sigma_b_true, sigma_uds, sigma_c, sigma_b, sigma_uds_err, sigma_c_err, sigma_b_err, sigma_c_err_syst, sigma_b_err_syst)>
 <!ELEMENT subbin (variable, low_edge, up_edge)>
 <!ELEMENT variable (#PCDATA)>
 <!ELEMENT low_edge (#PCDATA)>
@@ -20,3 +20,5 @@
 <!ELEMENT sigma_uds_err (#PCDATA)>
 <!ELEMENT sigma_c_err (#PCDATA)>
 <!ELEMENT sigma_b_err (#PCDATA)>
+<!ELEMENT sigma_c_err_syst (#PCDATA)>
+<!ELEMENT sigma_b_err_syst (#PCDATA)>
