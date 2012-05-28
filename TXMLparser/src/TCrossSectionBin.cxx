@@ -59,6 +59,9 @@ void    TCrossSectionBin::operator=(TCrossSectionBin      newbin){
         fsigma_uds_err = newbin.get_sigma_uds_err(); 
         fsigma_c_err = newbin.get_sigma_c_err(); 
         fsigma_b_err = newbin.get_sigma_b_err(); 
+
+        fsigma_c_err_syst = newbin.get_sigma_c_err_syst(); 
+        fsigma_b_err_syst = newbin.get_sigma_b_err_syst(); 
 }
 
 void    TCrossSectionBin::Print(){
