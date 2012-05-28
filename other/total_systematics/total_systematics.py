@@ -99,7 +99,7 @@ print '\nINFO: printing results to ', filename
 file.write('Total systematic uncertainty')
 
 def printme( file, nbins, variable ):
-    string='\n\n'+new_xsect_prefix+variable
+    string='\n\n'+new_xsect_prefix+' '+variable
     file.write(string)
     for i in range(1,nbins+1):
         string='\nBin '
