@@ -30,8 +30,10 @@ fsigma_b(0),
 fsigma_uds_err(0),
 fsigma_c_err(0),
 fsigma_b_err(0),
-fsigma_c_err_syst(0),
-fsigma_b_err_syst(0),
+fsigma_c_err_syst_up(0),
+fsigma_c_err_syst_down(0),
+fsigma_b_err_syst_up(0),
+fsigma_b_err_syst_down(0),
 fBinWidth(0)
 {
 }
@@ -60,8 +62,10 @@ void    TCrossSectionBin::operator=(TCrossSectionBin      newbin){
         fsigma_c_err = newbin.get_sigma_c_err(); 
         fsigma_b_err = newbin.get_sigma_b_err(); 
 
-        fsigma_c_err_syst = newbin.get_sigma_c_err_syst(); 
-        fsigma_b_err_syst = newbin.get_sigma_b_err_syst(); 
+        fsigma_c_err_syst_up = newbin.get_sigma_c_err_syst_up(); 
+        fsigma_c_err_syst_down = newbin.get_sigma_c_err_syst_down(); 
+        fsigma_b_err_syst_up = newbin.get_sigma_b_err_syst_up(); 
+        fsigma_b_err_syst_down = newbin.get_sigma_b_err_syst_down(); 
 }
 
 void    TCrossSectionBin::Print(){
@@ -81,8 +85,10 @@ void    TCrossSectionBin::Print(){
         cout << "sigma_c_err= " << fsigma_c_err << endl;
         cout << "sigma_b_err= " << fsigma_b_err << endl;
 
-        cout << "sigma_c_err_syst= " << fsigma_c_err_syst << endl;
-        cout << "sigma_b_err_syst= " << fsigma_b_err_syst << endl;
+        cout << "sigma_c_err_syst_up= " << fsigma_c_err_syst_up << endl;
+        cout << "sigma_c_err_syst_down= " << fsigma_c_err_syst_down << endl;
+        cout << "sigma_b_err_syst_up= " << fsigma_b_err_syst_up << endl;
+        cout << "sigma_b_err_syst_down= " << fsigma_b_err_syst_down << endl;
 }
 
 void    TCrossSectionBin::addSubBin(TString variable_name, Float_t low_edge, Float_t up_edge){
