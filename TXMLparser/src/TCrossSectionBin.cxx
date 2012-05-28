@@ -80,6 +80,9 @@ void    TCrossSectionBin::Print(){
         cout << "sigma_uds_err= " << fsigma_uds_err << endl;
         cout << "sigma_c_err= " << fsigma_c_err << endl;
         cout << "sigma_b_err= " << fsigma_b_err << endl;
+
+        cout << "sigma_c_err_syst= " << fsigma_c_err_syst << endl;
+        cout << "sigma_b_err_syst= " << fsigma_b_err_syst << endl;
 }
 
 void    TCrossSectionBin::addSubBin(TString variable_name, Float_t low_edge, Float_t up_edge){
