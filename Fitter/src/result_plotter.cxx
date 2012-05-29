@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
 
     // do the histogramming
     // 1st subpad, linear scale
-    cResultPlotter.DrawPlots(binningXMLfileName, true, 1, false, 1);
+    cResultPlotter.DrawPlots(binningXMLfileName, 1, false, 1);
 
     // save results
     cResultPlotter.PrintCanvases();
