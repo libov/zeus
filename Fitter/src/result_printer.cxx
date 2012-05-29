@@ -111,17 +111,26 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
 
     for (int i=bin1; i<=bin2; i++) {
         TCrossSectionBin bin = instance -> getCrossSectionBin(i);
-        Float_t sigma, sigma_err, sigma_rel_err;
+        Float_t sigma, sigma_err, sigma_rel_err, sigma_err_syst_up, sigma_err_syst_down, sigma_err_syst_up_rel, sigma_err_syst_down_rel;
         if (f==kCharm) {
             sigma = bin.get_sigma_c();
             sigma_err = bin.get_sigma_c_err();
-            sigma_rel_err = 100 * sigma_err / sigma;
+            sigma_err_syst_up = bin.get_sigma_c_err_syst_up();
+            sigma_err_syst_down = bin.get_sigma_c_err_syst_down();
+
         } else if (f==kBeauty) {
             sigma = bin.get_sigma_b();
             sigma_err = bin.get_sigma_b_err();
-            sigma_rel_err = 100 * sigma_err / sigma;
+            sigma_err_syst_up = bin.get_sigma_b_err_syst_up();
+            sigma_err_syst_down = bin.get_sigma_b_err_syst_down();
         }
-        output << "Bin " << counter << ": " << sigma << " +/- " << sigma_err << " ("<<sigma_rel_err<<"%)" << endl;
+
+        sigma_rel_err = 100 * sigma_err / sigma;
+        sigma_err_syst_up_rel = 100 * sigma_err_syst_up / sigma;
+        sigma_err_syst_down_rel = 100 * sigma_err_syst_down / sigma;
+
+        output << "Bin " << counter << ": " << sigma << " +/- " << sigma_err << " ("<<sigma_rel_err<<"%) [STAT] +"<<sigma_err_syst_up << " ("<<sigma_err_syst_up_rel<<"%)";
+        output << " -" << sigma_err_syst_down << " (" << sigma_err_syst_down_rel <<"%) [SYST]"  << endl;
         counter++;
     }
 }
