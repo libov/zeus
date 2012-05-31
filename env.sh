@@ -23,6 +23,7 @@ export PLOTS_PATH=/data/zenith226a/libov/data/plots
 export NTUPLEANALYZER=$ANALYSIS/NtupleAnalyzer
 export FITTER=$ANALYSIS/Fitter
 export PLOTMERGER=$ANALYSIS/PlotMerger
+export TXMLPARSER=$ANALYSIS/TXMLparser
 
 export HVQDIS=$ANALYSIS/HVQDIS/hvqdis_jets_develop_charm_lhapdf
 
