@@ -13,7 +13,7 @@
 const Double_t   alpha_em = (1./137);
 const Double_t   pi = TMath::Pi();
 const Double_t   s = 318*318;
-const Double_t   pb_natural_conversion = 2.568e-9;
+const Double_t   pb_natural_conversion = 2.56819e-9;
 
 const unsigned  n_variations = 6;
 
