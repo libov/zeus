@@ -21,6 +21,9 @@ TPointF2theo::TPointF2theo(Float_t q2, Float_t x, Float_t xsect, Float_t low_q2,
     fup_q2 = up_q2;
     flow_x = low_x;
     fup_x = up_x;
+    
+    frel_unc_up = 0;
+    frel_unc_down = 0;
 
     GetDiffXsect();
     EvaluateF2();
