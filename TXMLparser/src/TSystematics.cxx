@@ -32,6 +32,13 @@ fYaxisUpLimit(-1)
     TString PLOTS_PATH = getenv("PLOTS_PATH");
     fOutputPath = PLOTS_PATH;
     fCNVersion = getenv("CN_VERSION");
+
+    // guess which flavour
+    if ( fBinningFile.Contains("full.forCHARM") && !fBinningFile.Contains("ET5") ) {
+        fFlavour = kCharm;
+    } else {
+        fFlavour = kBeauty;
+    }
 }
 
 void TSystematics::Initialize () {
