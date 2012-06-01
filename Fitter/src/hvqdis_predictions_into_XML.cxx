@@ -32,7 +32,10 @@ int main(int argc, char **argv) {
 
     // declare long options
     static struct option long_options[] = {
+        {"meta_file", required_argument, 0, 1}
     };
+
+    TString meta_file = "";
 
     // handle command line options
     opterr = 0;
@@ -40,11 +43,14 @@ int main(int argc, char **argv) {
     int option_index;
     while ((option = getopt_long (argc, argv, "b:h", long_options, &option_index)) != -1) {
         switch (option) {
+            case 1:
+                meta_file = optarg;
+                break;
             case 'b':
                 BinningFileSuffix = optarg;
                 break;
             case  'h':
-                cout<<"usage:\n\t hvqdis_predictions_into_XML  -b <Binning File Suffix> [options]\n"<<endl;
+                cout<<"usage:\n\t hvqdis_predictions_into_XML  -b <Binning File Suffix> --meta_file <filename prefix (without extension)> [options]\n"<<endl;
                 cout << "List of options\n" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
