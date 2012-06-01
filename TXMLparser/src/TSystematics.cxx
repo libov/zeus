@@ -330,6 +330,7 @@ void TSystematics::PrintAll() {
 
     output << " Systematic uncertainties for " << fOutputFileName << endl;
 
+    // not using fFlavour variable since for beauty one has to distinguish between full and full.forCHARM.ET5 due to different binning
     if ( fBinningFile.Contains("full.forCHARM") ) {
 
         if ( fBinningFile.Contains("ET5") ) {
