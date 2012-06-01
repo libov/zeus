@@ -25,6 +25,8 @@ using namespace std;
 // my includes
 #include <TCrossSection.h>
 
+void getCrossSection (TH1F * h, unsigned bin1, unsigned bin2, Float_t * diff_xsect_theo );
+
 int main(int argc, char **argv) {
 
     // some declarations
@@ -76,4 +78,12 @@ int main(int argc, char **argv) {
 
     // finished successfully
     return 0;
+}
+
+void getCrossSection (TH1F * h, unsigned bin1, unsigned bin2, Float_t * diff_xsect_theo ) {
+    unsigned j=1;
+    for (int i=bin1; i<=bin2; i++) {
+        diff_xsect_theo[i] = h -> GetBinContent(j);
+        j++;
+    }
 }
