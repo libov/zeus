@@ -10,8 +10,14 @@
 
 // ROOT includes
 #include <TString.h>
+#include <TObjString.h>
+#include <TH1F.h>
+#include <TFile.h>
+#include <TObjArray.h>
+#include <TMath.h>
 
 // system  includes
+#include <fstream>
 #include <iostream>
 #include <getopt.h>
 using namespace std;
