@@ -107,6 +107,8 @@ class TSystematics {
         Bool_t      fDrawOnlyErrors;            //!< sometimes it's desirable to plot only errors, not the scaling factors
 
         TString     fXMLfile_xsect;             //!< XML filename to be corrected
+
+        flavour     fFlavour;                   //!< charm or beauty
 };
 
 #endif
