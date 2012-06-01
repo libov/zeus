@@ -115,8 +115,13 @@ void TSystematics::Draw() {
     ax_charm_x -> SetTitle(fXAxisTitle);
 
     // Draw the graph
-    fCharmGraph -> Draw("ap");
-    fBeautyGraph -> Draw("psame");
+    if (fFlavour == kCharm) {
+        fCharmGraph -> Draw("ap");
+        fBeautyGraph -> Draw("psame");
+    } else {
+        fBeautyGraph -> Draw("ap");
+        fCharmGraph -> Draw("psame");
+    }
 
     // fit the graph
     fCharmGraph -> Fit("pol1", "q", "", x[0], x[fNpoints-1]);
