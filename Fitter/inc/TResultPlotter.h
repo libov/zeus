@@ -2,7 +2,7 @@
 //                                              //
 //  Inclusive  secondary vertex analysis        //
 //  Libov Vladyslav                             //
-//  DESY			                //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
 //  February 2011                               //
 //                                              //
@@ -11,13 +11,15 @@
 #ifndef __TRESULTPLOTTER_H__
 #define __TRESULTPLOTTER_H__
 
-// my includes
+// custom headers
 #include<TCrossSection.h>
 #include<TCrossSectionBin.h>
 
-// ROOT includes
+// ROOT headers
 #include<TH1F.h>
 #include<TCanvas.h>
+#include<TGraphErrors.h>
+#include<TGraphAsymmErrors.h>
 
 class TResultPlotter {
         
@@ -25,59 +27,45 @@ class TResultPlotter {
 
                 TResultPlotter();
                 ~TResultPlotter(){};
-        
-                void    DrawPlots(TString file_name, bool recreate, unsigned pad_number, bool same, unsigned color) ;
-                void    DrawPlots(TString file_name1, TString file_name2, bool recreate, unsigned pad_number, bool same ) ;
 
+                void    Initialize();
                 void    AddXMLFile(TString file_name);
-
+                void    DrawPlots(TString file_name, unsigned pad_number, bool same, unsigned color) ;
+                void    DrawRatio(TString file_name1, TString file_name2, unsigned pad_number, bool same ) ;
                 void    PrintCanvases();
 
                 void    Divide(unsigned npads_x, unsigned npads_y);
-
-                void    SetLogY(unsigned pad_id);
-
                 void    SetPlotCharm(bool plot_charm) {isCharm = plot_charm;};
-
                 void    SetPlotScalingFactors(bool  plot_scaling) {fPlotScalingFactors = plot_scaling;};
-
-                void    SetAutoLog(bool auto_log) {fAutoLog = auto_log;};
+                void    SetConfigFile(TString file) {fConfig = file;}
 
         private:
 
+                // this structure corresponds to a differential distribution (e.g. dsigma/dQ2) from a certain XML file;
+                // it can represent both data and theory; in the latter case only graph_tot is meaningful, since there are no stat. uncertainties
                 struct BinGroup{
-                        TH1F    *histo;
-                        std::vector<Float_t> binning;   // the binning here follows the ROOT convention, see TH1F documentation
-                        TString binGroupID;
-                        std::vector<Float_t> y_value;
-                        std::vector<Float_t> y_error;
+                        TH1F * histo_dummy;                             //!< dummy histogram to store the axes settings
+                        TGraphErrors * graph_stat;                      //!< represents statistical uncertainties
+                        TGraphAsymmErrors * graph_tot;                  //!< represents statistical and systematic uncertainties
+                        TString ID;                                     //!< unique identifier of a differential distribution, matches "id" parameter of <bin_group> tag in an XML file
                 };
 
-                std::vector<BinGroup>   BinGroupList;
+                std::map<TString, std::vector<BinGroup> > fBinGroupMap; //!< maps a vector of BinGroup objects to every XML file
+                std::map<TString, TCanvas *> fCanvasMap;                //!< maps a canvas to every BinGroup object ID, i.e. to every differential distribution type (e.g. Q2, x, etc.)
 
-                std::vector<TCrossSection>                    fCrossSectionList;
-                std::map<TString, std::vector<BinGroup> >     fBinGroupMap;
+                unsigned    fNpads_x;                                   //!< number of pads horizontally
+                unsigned    fNpads_y;                                   //!< number of pads vertically
 
-                std::map<TString, TCanvas *>                    fCanvasMap;
+                bool    isCharm;                                        //!< true: plot charm results; false: plot beauty results
+                bool    fPlotScalingFactors;                            //!< true: plot scaling factors; false: plot cross-section
 
+                TString fConfig;                                        //!< name of the configuration file with the plot settings
 
-                // some drawing options
-
-                // layout of a canvas - divisiion into subpads
-                unsigned    fNpads_x;
-                unsigned    fNpads_y;
-
-                // a structure containing options for a subpad
-                struct  DrawOption {
-                      unsigned  padID;  // pad number ( to be used as an argument in TCanvas::cd(padID) ) NOT NEEDED IN PRINCIPLE AS WE ARE USING MAP
-                      bool      isLog;  // true - log scale; false - linear scale
-                };
-                std::map <unsigned, DrawOption>   fMap_padID_Option;
-
-                bool    isCharm;                    //!< true: plot charm results; false: plot beauty results
-                bool    fPlotScalingFactors;        //!< true: plot scaling factors; false: plot cross-section
-                bool    fAutoLog;
-          
+                // these options are read from the config file fConfig
+                std::map <TString, TString> fXtitle;                    //!< maps X axis title to every BinGroup object ID, i.e. to every differential distribution type (e.g. Q2, x, etc.)
+                std::map <TString, TString> fYtitle;                    //!< maps Y axis title -/-
+                std::map <TString, Float_t> fYaxis_low_limit;           //!< maps lower limit of an Y axis -/-
+                std::map <TString, Float_t> fYaxis_up_limit;            //!< maps upper limit of an Y axis -/-
 };
 
 #endif
