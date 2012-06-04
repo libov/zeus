@@ -53,7 +53,7 @@ function setDefaults()
         XM=1.5                      #!QUARK MASS
     elif [ $FLAVOR == beauty ] ; then 
         IQUARK=2                    #!1:CHARM  2:BOTTOM
-        XM=4.5                      #!QUARK MASS
+        XM=4.75                      #!QUARK MASS
     else
         echo 'unknown flavor'
         exit -1
