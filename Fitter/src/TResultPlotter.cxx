@@ -302,8 +302,9 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
 
                 cBinGroup.graph_stat -> Draw("epsame");
                 cBinGroup.graph_tot -> Draw("epzsame");
-                cBinGroup.graph_tot -> SetMarkerColor(color);
-                cBinGroup.graph_tot -> SetMarkerStyle(20);
+                cBinGroup.graph_tot -> SetMarkerColor(fStyleMap[file_name].marker_color);
+                cBinGroup.graph_tot -> SetMarkerStyle(fStyleMap[file_name].marker_style);
+                cBinGroup.graph_tot -> SetMarkerSize(fStyleMap[file_name].marker_size);
             }
 
             // redraw axes so that no ticks are hidden by anything
@@ -365,14 +366,6 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
             graph_ratio_stat -> SetPointError(j, x1_err, y1_err_stat/y2);
             graph_ratio_tot -> SetPointError(j, x1_err, x1_err, y1_err_tot_down/y2, y1_err_tot_up/y2);
         }
-
-        // further settings
-        graph_ratio_stat -> SetMarkerStyle(26);
-        graph_ratio_stat -> SetMarkerSize(1);
-        graph_ratio_stat -> SetMarkerColor(kBlue);
-        graph_ratio_tot -> SetMarkerStyle(26);
-        graph_ratio_tot -> SetMarkerSize(1);
-        graph_ratio_tot -> SetMarkerColor(kBlue);
 
         // create a canvas or get a pointer to it
         TCanvas   * cCanvas;
@@ -439,6 +432,9 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
         if (fStyleMap[file_name1].draw_marker) {
             graph_ratio_stat -> Draw("p");
             graph_ratio_tot -> Draw("zp");
+            graph_ratio_tot -> SetMarkerColor(fStyleMap[file_name1].marker_color);
+            graph_ratio_tot -> SetMarkerStyle(fStyleMap[file_name1].marker_style);
+            graph_ratio_tot -> SetMarkerSize(fStyleMap[file_name1].marker_size);
         }
 
         // draw the unity line
