@@ -37,12 +37,16 @@ fPrintROOT(false)
 {
     // get a path to histograms folder
     TString HISTO_PATH = getenv("HISTO_PATH");
+
     // get a root file after merger
     fInputFile=new TFile(HISTO_PATH+"/merged."+HistogramsVersion+".root");
     cout << "INFO: Opened " << fInputFile -> GetName() << endl;
+
     // create a root file to store the plots
     fOutputFile=new TFile(HISTO_PATH+"/plotter."+fHistogramsVersion+".root","recreate");
     cout << "INFO: Plots go to " << fOutputFile -> GetName() << endl;
+
+    // style settings
     gStyle->SetPadTickY(1);
     gStyle->SetPadTickX(1);
     gStyle->SetErrorX(0);
