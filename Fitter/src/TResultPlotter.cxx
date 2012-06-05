@@ -410,9 +410,36 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
         if ( !same ) histo_dummy -> Draw();
 
         // draw the ratio
-        if ( file_name2.Contains("predictions") ) graph_th_tot -> Draw("2");
-        graph_ratio_stat -> Draw("p");
-        graph_ratio_tot -> Draw("zp");
+        if (fStyleMap[file_name1].draw_band) {
+            graph_ratio_tot -> SetFillColor(fStyleMap[file_name1].band_color);
+            graph_ratio_tot -> Draw("2");
+        }
+
+        if (fStyleMap[file_name1].draw_line) {
+
+            TH1F * h = (TH1F *) cBinGroup1.histo_dummy -> Clone();
+            unsigned nbins = h -> GetNbinsX();
+
+            for (int j=1; j<=nbins; j++) {
+                Double_t    x,y;
+                // get the central value from the graph and set to histo
+                graph_ratio_tot -> GetPoint(j-1, x, y);
+                h -> SetBinContent(j, y);
+
+            }
+            // otherwise, if the initial histo values were large, this can cause problems in plotting (the histo doesn'n appear for xda)
+            h->SetAxisRange(0,2,"Y");
+
+            h -> SetLineColor(fStyleMap[file_name1].line_color);
+            h -> SetLineWidth(fStyleMap[file_name1].line_width);
+            h -> SetLineStyle(fStyleMap[file_name1].line_style);
+            h -> Draw("same");
+        }
+
+        if (fStyleMap[file_name1].draw_marker) {
+            graph_ratio_stat -> Draw("p");
+            graph_ratio_tot -> Draw("zp");
+        }
 
         // draw the unity line
         Float_t lowx = histo_dummy -> GetBinLowEdge(1);
