@@ -2,7 +2,7 @@
 //                                              //
 //  Inclusive  secondary vertex analysis        //
 //  Libov Vladyslav                             //
-//  DESY                                             //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
 //  July 2009                                   //
 //                                              //
@@ -10,11 +10,14 @@
 #ifndef __TControlPlot_H__
 #define __TControlPlot_H__
 
+// ROOT headers
 #include <TROOT.h>
 #include <TFile.h>
 
+// custom headers
 #include <inc/TPlotType.h>
 
+// system headers
 #include <vector>
 using namespace std;
 
