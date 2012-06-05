@@ -36,7 +36,6 @@ class TControlPlot : public TObject {
         void SetPrintEPS(bool print) {fPrintEPS = print;};
         void SetPrintGIF(bool print) {fPrintGIF = print;};
         void SetPrintROOT(bool print) {fPrintROOT = print;};
-        void SetRasterCorrection(unsigned corr) {fRasterCorrection = corr;};
 
     private:
 
@@ -51,6 +50,6 @@ class TControlPlot : public TObject {
         bool                    fPrintEPS;
         bool                    fPrintGIF;
         bool                    fPrintROOT;
-        Int_t                   fRasterCorrection;
+
 };
 #endif

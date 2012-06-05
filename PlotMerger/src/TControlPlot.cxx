@@ -33,8 +33,7 @@ fHistogramsVersion(HistogramsVersion),
 fPrintPNG(false),
 fPrintEPS(false),
 fPrintGIF(false),
-fPrintROOT(false),
-fRasterCorrection(1)
+fPrintROOT(false)
 {
     // get a path to histograms folder
     TString HISTO_PATH = getenv("HISTO_PATH");
@@ -138,7 +137,7 @@ void TControlPlot::Draw() {
                     cHist->SetMarkerSize((Float_t)cType->GetMarkerSize()/many_pad_corr);
                     cHist->SetFillColor(cType->GetFillColor());
                     cHist->SetLineColor(cType->GetLineColor());
-                    cHist->SetLineWidth((Float_t)fRasterCorrection * cType->GetLineWidth()/many_pad_corr);
+                    cHist->SetLineWidth(cType->GetLineWidth()/many_pad_corr);
 
                     cHist->SetTitle("");
                     cHist->SetStats(0);
