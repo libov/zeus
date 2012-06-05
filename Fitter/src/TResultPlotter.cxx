@@ -206,7 +206,7 @@ void    TResultPlotter::AddXMLFile(TString file_name){
 }
 
 // main drawing routine
-void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same, unsigned color) {
+void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same) {
 
         // get a vector of BinGroup objects belonging to this XML file
         vector<BinGroup> cBinGroupList = fBinGroupMap[file_name];

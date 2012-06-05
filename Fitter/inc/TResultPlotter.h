@@ -30,7 +30,7 @@ class TResultPlotter {
 
                 void    Initialize();
                 void    AddXMLFile(TString file_name);
-                void    DrawPlots(TString file_name, unsigned pad_number, bool same, unsigned color) ;
+                void    DrawPlots(TString file_name, unsigned pad_number, bool same);
                 void    DrawRatio(TString file_name1, TString file_name2, unsigned pad_number, bool same ) ;
                 void    PrintCanvases();
 

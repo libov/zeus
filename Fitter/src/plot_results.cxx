@@ -152,9 +152,9 @@ int main(int argc, char **argv) {
     if (third_file_given) cResultPlotter.AddXMLFile(binningXMLfileName3);
 
     // draw plots; file1 should be on top of the file2, hence draw file2 first
-    if (second_file_given) cResultPlotter.DrawPlots(binningXMLfileName2, 1, false, 2);
-    if (third_file_given) cResultPlotter.DrawPlots(binningXMLfileName3, 1, true, 2);
-    if (first_file_given) cResultPlotter.DrawPlots(binningXMLfileName1, 1, true, 1);
+    if (second_file_given) cResultPlotter.DrawPlots(binningXMLfileName2, 1, false);
+    if (third_file_given) cResultPlotter.DrawPlots(binningXMLfileName3, 1, true);
+    if (first_file_given) cResultPlotter.DrawPlots(binningXMLfileName1, 1, true);
 
     // the ratio plot
     if (first_file_given && second_file_given) {
