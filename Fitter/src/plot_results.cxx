@@ -138,8 +138,11 @@ int main(int argc, char **argv) {
     // assumed to be always data
     cResultPlotter.SetFileStyleSettings(binningXMLfileName1, true, 1, 20, 1, false, 0, 0, 0, false, 0);
     // can be data or theory
-    if (binningXMLfileName2.Contains("predictions")) cResultPlotter.SetFileStyleSettings(binningXMLfileName2, false, 0, 0, 0, true, 1, 1, 2, true, 7);
-    else cResultPlotter.SetFileStyleSettings(binningXMLfileName2, true, 2, 20, 1, false, 0, 0, 0, false, 0);
+    if (binningXMLfileName2.Contains("predictions")) {
+        cResultPlotter.SetFileStyleSettings(binningXMLfileName2, false, 0, 0, 0, true, 1, 1, 2, true, 7);
+    } else {
+        cResultPlotter.SetFileStyleSettings(binningXMLfileName2, true, 2, 20, 1, false, 0, 0, 0, false, 0);
+    }
     // assumed to be always theory
     cResultPlotter.SetFileStyleSettings(binningXMLfileName3, false, 0, 0, 0, true, 2, 2, 2, false, 0);
 
