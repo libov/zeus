@@ -194,12 +194,8 @@ void    TResultPlotter::AddXMLFile(TString file_name){
         cBinGroup.histo_dummy = new TH1F (cBinGroup.ID.Data(), "", nbins, bin_edge);
 
         // create graphs
-        if (file_name.Contains("predictions")) {
-            cBinGroup.graph_tot = new TGraphAsymmErrors(nbins, bin_center, y, x_err, x_err, y_err_tot_down, y_err_tot_up);
-        } else {
-            cBinGroup.graph_stat = new TGraphErrors(nbins, bin_center, y, 0, y_err_stat);
-            cBinGroup.graph_tot = new TGraphAsymmErrors(nbins, bin_center, y, 0, 0, y_err_tot_down, y_err_tot_up);
-        }
+        cBinGroup.graph_stat = new TGraphErrors(nbins, bin_center, y, x_err, y_err_stat);   // note that there is no use for this if it's predictions
+        cBinGroup.graph_tot = new TGraphAsymmErrors(nbins, bin_center, y, x_err, x_err, y_err_tot_down, y_err_tot_up);
 
         // put the BinGroup into the map
         fBinGroupMap[file_name].push_back(cBinGroup);
