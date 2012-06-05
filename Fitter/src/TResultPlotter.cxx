@@ -327,7 +327,7 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
         // set values and uncertainties of the ratio graphs
         for (int j=0; j < graph_ratio_stat->GetN(); j++) {
 
-            Double_t x1, y1, y1_err_stat, y1_err_tot_up, y1_err_tot_down;   // uncertainties are taken only from the 1st graph
+            Double_t x1, y1, y1_err_stat, y1_err_tot_up, y1_err_tot_down, x1_err;   // uncertainties are taken only from the 1st graph
             Double_t x2, y2;
 
             // get central values from the both graphs; since .graph_tot is used, it's valid both for theory and data
