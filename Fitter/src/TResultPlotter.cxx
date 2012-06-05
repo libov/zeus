@@ -275,21 +275,31 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
             // predictions and data are treated separately;
             // predictions: a band + a histogram as for central values,
             // points with stat. and tot. unceratainties
-            if (file_name.Contains("predictions") ) {
-                    cBinGroup.graph_tot -> Draw("2");
-                    cBinGroup.graph_tot -> SetFillColor(7);
-                    // need also a central value for the predictions, create an extra histogram for this
-                    TH1F * h = (TH1F *) cBinGroup.histo_dummy -> Clone();
-                    unsigned nbins = h -> GetNbinsX();
-                    for (int j=1; j<=nbins; j++) {
-                        Double_t    x,y;
-                        // get the central value from the graph and set to histo
-                        cBinGroup.graph_tot -> GetPoint(j-1, x, y);
-                        h -> SetBinContent(j, y);
-                    }
-                    h -> Draw("same");
 
-            } else {
+            if (fStyleMap[file_name].draw_band) {
+
+                cBinGroup.graph_tot -> Draw("2");
+                cBinGroup.graph_tot -> SetFillColor(fStyleMap[file_name].band_color);
+            }
+
+            if (fStyleMap[file_name].draw_line) {
+
+                TH1F * h = (TH1F *) cBinGroup.histo_dummy -> Clone();
+                unsigned nbins = h -> GetNbinsX();
+                for (int j=1; j<=nbins; j++) {
+                    Double_t    x,y;
+                    // get the central value from the graph and set to histo
+                    cBinGroup.graph_tot -> GetPoint(j-1, x, y);
+                    h -> SetBinContent(j, y);
+                }
+                h -> SetLineColor(fStyleMap[file_name].line_color);
+                h -> SetLineWidth(fStyleMap[file_name].line_width);
+                h -> SetLineStyle(fStyleMap[file_name].line_style);
+                h -> Draw("same");
+            }
+
+            if ( fStyleMap[file_name].draw_marker ) {
+
                 cBinGroup.graph_stat -> Draw("epsame");
                 cBinGroup.graph_tot -> Draw("epzsame");
                 cBinGroup.graph_tot -> SetMarkerColor(color);
