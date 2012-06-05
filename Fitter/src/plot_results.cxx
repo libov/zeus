@@ -165,7 +165,7 @@ int main(int argc, char **argv) {
             cResultPlotter.DrawRatio(binningXMLfileName1, binningXMLfileName2, 2, false);   // data/data
         }
     }
-    if (second_file_given && third_file_given) cResultPlotter.DrawRatio(binningXMLfileName3, binningXMLfileName2, 3, false);
+    if (second_file_given && third_file_given) cResultPlotter.DrawRatio(binningXMLfileName3, binningXMLfileName2, 2, true);
 
     // save results
     cResultPlotter.PrintCanvases();
