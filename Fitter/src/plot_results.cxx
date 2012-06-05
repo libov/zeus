@@ -72,6 +72,7 @@ int main(int argc, char **argv) {
                 cout << "\t-> data-to-theory comparisons: 1st file is data, 2nd file is theory\n";
                 cout << "\t-> ratio plot always shows 1st divided by 2nd, which makes sense for both of the two conventions above\n";
                 cout << "\t-> 1st-file-plot will appear on top of the 2nd, which makes sense for the data-to-theory convention\n";
+                cout << "\t-> ratio plots: uncertainties are only of the 1st object, normalized by the 2nd object\n";
                 cout << "\t*** EDIT: A THIRD FILE IS NOW POSSIBLE, ASSUMED TO BE OTHER PREDICTION ***\n";
                 cout << "\n\tOptions:\n";
                 cout << "\t-b\tPlot beauty results; otherwise - charm\n";
@@ -121,6 +122,27 @@ int main(int argc, char **argv) {
         cResultPlotter.SetConfigFile("F2bc_paper_charm");
     }
 
+    // set style settings; the order and the meaning of arguments follow the Style structure:
+    // struct Style{
+    //     bool    draw_marker;
+    //     int     marker_color;
+    //     int     marker_style;
+    //     int     marker_size;
+    //     bool    draw_line;
+    //     int     line_color;
+    //     int     line_style;
+    //     int     line_width;
+    //     bool    draw_band;
+    //     int     band_color;
+    // };
+    // assumed to be always data
+    cResultPlotter.SetFileStyleSettings(binningXMLfileName1, true, 1, 20, 1, false, 0, 0, 0, false, 0);
+    // can be data or theory
+    if (binningXMLfileName2.Contains("predictions")) cResultPlotter.SetFileStyleSettings(binningXMLfileName2, false, 0, 0, 0, true, 1, 1, 2, true, 7);
+    else cResultPlotter.SetFileStyleSettings(binningXMLfileName2, true, 2, 20, 1, false, 0, 0, 0, false, 0);
+    // assumed to be always theory
+    cResultPlotter.SetFileStyleSettings(binningXMLfileName3, false, 0, 0, 0, true, 2, 2, 2, false, 0);
+
     // initialize
     cResultPlotter.Initialize();
 
@@ -135,7 +157,14 @@ int main(int argc, char **argv) {
     if (first_file_given) cResultPlotter.DrawPlots(binningXMLfileName1, 1, true, 1);
 
     // the ratio plot
-    if (first_file_given && second_file_given) cResultPlotter.DrawRatio(binningXMLfileName1, binningXMLfileName2, 2, false);
+    if (first_file_given && second_file_given) {
+        if (binningXMLfileName2.Contains("predictions")) {
+            cResultPlotter.DrawRatio(binningXMLfileName2, binningXMLfileName2, 2, false);   // theory/theory - to show uncertainties; drawn 1st so that band is behind the points
+            cResultPlotter.DrawRatio(binningXMLfileName1, binningXMLfileName2, 2, true);   // data/theory
+        } else {
+            cResultPlotter.DrawRatio(binningXMLfileName1, binningXMLfileName2, 2, false);   // data/data
+        }
+    }
     if (second_file_given && third_file_given) cResultPlotter.DrawRatio(binningXMLfileName3, binningXMLfileName2, 3, false);
 
     // save results
