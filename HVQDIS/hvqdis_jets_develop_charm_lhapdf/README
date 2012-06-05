@@ -1,3 +1,6 @@
+meta_Apr21_2012_14:35:32.txt - test charm run; some jobs crashed, were resubmitted on May2
+meta_May2_2012_14:35:52.txt  - resubmission of crashed jobs of meta_Apr21_2012_14:35:32.txt
+meta_Apr21_2012_14:35:32_xsectMay2.txt - compilation of meta_Apr21_2012_14:35:32.txt and meta_May2_2012_14:35:52.txt
 meta_May22_2012_11:47:32.txt - *** charm run, HERAPDF 1.0 ***
 meta_May23_2012_16:48:22.txt - beauty run, HERAPDF 1.0 -> mb=4.5, to be rerun!
 meta_May30_2012_16:32:45.txt - test run on Massimo q2-x selected points, in order to compare with him
