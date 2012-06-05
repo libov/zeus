@@ -153,7 +153,11 @@ void    TResultPlotter::AddXMLFile(TString file_name){
             bin_edge[i+1] = bin_up_edge;
             // calculate center and half-width
             bin_center[i] = (bin_low_edge + bin_up_edge)/2;
-            x_err[i] = (bin_up_edge - bin_low_edge)/2;
+            if (fStyleMap[file_name].draw_marker) {
+                x_err[i] = 0;
+            } else {
+                x_err[i] = (bin_up_edge - bin_low_edge)/2;
+            }
 
             // assign values and errors
             if (isCharm && fPlotScalingFactors) {
