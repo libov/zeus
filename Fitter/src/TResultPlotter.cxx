@@ -355,41 +355,15 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
 
             // get uncertainty; note that it is taken from the 1st graph, which is data in data-to-theory comparisons;
             // for data-to-data comparisons this uncertainty in the ratio doesn't make much sense (correlations)
-            y1_err_stat = cBinGroup1.graph_stat -> GetErrorY(j);
+            y1_err_stat = cBinGroup1.graph_stat -> GetErrorYhigh(j);
             y1_err_tot_up = cBinGroup1.graph_tot -> GetErrorYhigh(j);
             y1_err_tot_down = cBinGroup1.graph_tot -> GetErrorYlow(j);
+            if (fStyleMap[file_name1].draw_marker) x1_err = 0;
+            else x1_err = cBinGroup1.graph_tot -> GetErrorXhigh(j);
 
             // set the uncertainties to ratio graphs
-            graph_ratio_stat -> SetPointError(j, 0, y1_err_stat/y2);
-            graph_ratio_tot -> SetPointError(j, 0, 0, y1_err_tot_up/y2, y1_err_tot_down/y2);
-
-        }
-
-        // if this is data-to-theory comparison, create a graph for representing a theory uncertainty
-        TGraphAsymmErrors * graph_th_tot;
-        if ( file_name2.Contains("predictions") ) {
-
-            // clone from actual theory graph
-            graph_th_tot = (TGraphAsymmErrors*) cBinGroup2.graph_tot -> Clone();
-
-            // loop over all points
-            for (int j=0; j<graph_th_tot->GetN(); j++) {
-
-                // get values/errors
-                Double_t x, y, x_err_up, x_err_down, y_err_up, y_err_down;
-                cBinGroup2.graph_tot -> GetPoint(j, x, y);
-                x_err_up = cBinGroup2.graph_tot -> GetErrorXhigh(j);
-                x_err_down = cBinGroup2.graph_tot -> GetErrorXlow(j);
-                y_err_up = cBinGroup2.graph_tot -> GetErrorYhigh(j);
-                y_err_down = cBinGroup2.graph_tot -> GetErrorYlow(j);
-                // scale
-                y_err_up /= y;
-                y_err_down /= y;
-                y = 1;
-
-                graph_th_tot -> SetPoint(j, x, y);
-                graph_th_tot -> SetPointError(j, x_err_down, x_err_up, y_err_down, y_err_up);
-            }
+            graph_ratio_stat -> SetPointError(j, x1_err, y1_err_stat/y2);
+            graph_ratio_tot -> SetPointError(j, x1_err, x1_err, y1_err_tot_down/y2, y1_err_tot_up/y2);
         }
 
         // further settings
