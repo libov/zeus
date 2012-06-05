@@ -38,6 +38,7 @@ class TResultPlotter {
                 void    SetPlotCharm(bool plot_charm) {isCharm = plot_charm;};
                 void    SetPlotScalingFactors(bool  plot_scaling) {fPlotScalingFactors = plot_scaling;};
                 void    SetConfigFile(TString file) {fConfig = file;}
+                void    SetFileStyleSettings(TString, bool, int, int, int, bool, int, int, int, bool, int);
 
         private:
 
@@ -66,6 +67,21 @@ class TResultPlotter {
                 std::map <TString, TString> fYtitle;                    //!< maps Y axis title -/-
                 std::map <TString, Float_t> fYaxis_low_limit;           //!< maps lower limit of an Y axis -/-
                 std::map <TString, Float_t> fYaxis_up_limit;            //!< maps upper limit of an Y axis -/-
+
+                // a structure to hold style settings for each filename
+                struct Style{
+                    bool    draw_marker;
+                    int     marker_color;
+                    int     marker_style;
+                    int     marker_size;
+                    bool    draw_line;
+                    int     line_color;
+                    int     line_style;
+                    int     line_width;
+                    bool    draw_band;
+                    int     band_color;
+                };
+                std::map<TString, Style>    fStyleMap;
 };
 
 #endif
