@@ -70,6 +70,7 @@ int main(int argc, char **argv) {
     TString binningXMLfileName = "binning."+BinningFileSuffix+".xml";
     // everything should be ok if this does not crash:
     TCrossSection   cCrossSection(binningXMLfileName);
+    cout << "INFO: opened " << binningXMLfileName << endl;
 
     // construct name of the output file
     TString out_file_name = "hvqdis_predictions." + meta_file + ".xml";
@@ -103,6 +104,8 @@ int main(int argc, char **argv) {
         cout << "ERROR: Unable to open file " << filename; 
         abort();
     }
+    cout << "INFO: opened " << filename << endl;
+
     // an array to store corrections
     Float_t hadr_qed_corr[N_BINS+1];
     // initialize with zeros
@@ -135,6 +138,7 @@ int main(int argc, char **argv) {
         cout << "ERROR: Unable to open file " << metafile_path; 
         abort();
     }
+    cout << "INFO: opened " << metafile_path << endl;
 
     // loop over its lines
     while ( f.good() ) {
