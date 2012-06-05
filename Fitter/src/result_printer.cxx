@@ -34,7 +34,8 @@ int main(int argc, char **argv) {
 
     // declare long options
     static struct option long_options[] = {
-        {"file", required_argument, 0, 1}
+        {"file", required_argument, 0, 1},
+        {"beauty", no_argument, 0, 2}
     };
 
     // results of the command line option processing will be stored here
@@ -50,10 +51,14 @@ int main(int argc, char **argv) {
             case 1:
                 binningXMLfileName = optarg;
                 break;
+            case 2:
+                plot_beauty = true;
+                break;
             case 'h':
                 cout << "\nUsage:\n\n";
-                cout << "\tresult_printer --file <xmlfile> [-h]\n\n";
+                cout << "\tresult_printer --file <xmlfile> [--beauty] [-h]\n\n";
                 cout << "\tOptions:\n";
+                cout << "\t--beauty:\tPrint beauty results\n\n";
                 cout << "\t-h\tPrint this help and exit\n\n";
                 exit(-1);
                 break;
@@ -69,7 +74,7 @@ int main(int argc, char **argv) {
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     output.open(PLOTS_PATH+"/"+binningXMLfileName+".RESULTS");
 
-    if (binningXMLfileName.Contains("full.forCHARM")) {
+    if (!plot_beauty) {
 
         print(&instance, 2, 12, kCharm, "Eta");
         print(&instance, 14, 20, kCharm, "Et");
