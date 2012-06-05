@@ -459,3 +459,22 @@ void    TResultPlotter::Divide(unsigned npads_x, unsigned npads_y) {
         fNpads_x = npads_x;
         fNpads_y = npads_y;
 }
+
+void    TResultPlotter::SetFileStyleSettings(TString file, bool draw_marker, int marker_color, int marker_style, int marker_size, bool draw_line, int line_color, int line_style, int line_width, bool draw_band, int band_color) {
+
+    //  create a Style structure and save to map
+    Style style;
+
+    style.draw_marker = draw_marker;
+    style.marker_color = marker_color;
+    style.marker_style = marker_style;
+    style.marker_size = marker_size;
+    style.draw_line = draw_line;
+    style.line_color = line_color;
+    style.line_style = line_style;
+    style.line_width = line_width;
+    style.draw_band = draw_band;
+    style.band_color = band_color;
+
+    fStyleMap[file] = style;
+}
