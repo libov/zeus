@@ -107,6 +107,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         void            SetRundCache (bool run_dcache) {fRun_dCache = run_dcache;};
         void            SetDoJetEnergyScaleSyst (bool do_syst) {fDoJetEnergyScaleSyst = do_syst;};
+        void            set_do_EM_scale_syst (bool do_syst) {f_do_EM_scale_syst = do_syst;}
 
         // vertexing on the CN level
         void            SetRedoVertexing(bool redo_vertexing) {fRedoVertexing = redo_vertexing;};
@@ -315,6 +316,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         // default: false (more correct approach)
         bool        fVaryTotalJetEnergy;
         bool        fDoJetEnergyScaleSyst;
+        bool        f_do_EM_scale_syst;
 
         // this is event-by-event weitght to be applied to charm MC
         Double_t    fZstring_weight;
