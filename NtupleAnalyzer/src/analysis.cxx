@@ -370,6 +370,12 @@ int main(int argc, char **argv) {
     // false - vary only CAL energy, true - vary total jet energy
     instance -> SetVaryTotalJetEnergy(false);
 
+    // for EM scale systematic uncertainty
+    // 0 - no change, default
+    // +-0.01  - variations (+-1%)
+    instance -> set_do_EM_scale_syst (false);
+    instance -> SetEMScaleUncertainty (0);  // has effect only if set_do_EM_scale_syst(true) was set
+
     // use fragmentation function reweighting
     instance -> SetFragmentationReweighting(false);
     instance -> SetCharmFragmentationReweightingSize(0);
