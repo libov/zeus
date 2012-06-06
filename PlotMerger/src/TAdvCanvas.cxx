@@ -37,9 +37,8 @@ TAdvCanvas::~TAdvCanvas() {
     delete [] fLogPads;
 }
 
-Int_t		TAdvCanvas::GetNPads()
-{
-		return fNPads_X*fNPads_Y;
+Int_t TAdvCanvas::GetNPads() {
+    return fNPads_X*fNPads_Y;
 }
 
 void		TAdvCanvas::SeparateVariables()
