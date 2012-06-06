@@ -90,7 +90,8 @@ fApplyThetaStarReweighting(false),
 fDebugPrintout(true),
 fTrack1Id(-1),
 fTrack2Id(-1),
-fHadronicInteractionCorrection(0.4)
+fHadronicInteractionCorrection(0.4),
+f_EM_scale(0)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
@@ -602,7 +603,9 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS()
 
         fDebug->Fill(9);
 
-        if (Siecorr[0][2]<10.)                     return false;
+        // electron energy cut
+        Double_t electron_energy = Siecorr[0][2];
+        if (electron_energy < 10.) return false;
         fDebug->Fill(10);
         if (TMath::Abs(Zvtx)>30.)                return false;
         fDebug->Fill(11);
