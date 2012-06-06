@@ -55,16 +55,75 @@ fPrintROOT(false)
     gStyle->SetErrorX(0);
 }
 
+void TControlPlot::Initialize() {
+
+    // read settings from the config file
+    if (fConfigFile=="") {
+        cout << "ERROR: config file not set!" << endl;
+        abort();
+    }
+
+    // open config file
+    TString config_path = "config/"+fConfigFile;
+    ifstream f(config_path);
+    if (!f.is_open()) {
+        cout << "ERROR: Unable to open file " << config_path << endl;
+        abort();
+    }
+    cout << "INFO: opened " << config_path << endl;
+
+    // read settings and store to maps
+    string line;
+    while ( f.good() ) {
+
+        // read each line
+        getline (f,line);
+
+        // skip if an empty line
+        if (line=="") continue;
+
+        // tokenize
+        TString line_str = line;
+        TObjArray * tokens = line_str.Tokenize(" ");
+        unsigned n_pads_x = (((TObjString*)tokens->At(0)) -> GetString()).Atoi();
+        unsigned n_pads_y = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
+        TString canvas_name = ((TObjString*)tokens->At(2)) -> GetString();
+        TString variables_set = ((TObjString*)tokens->At(3)) -> GetString();
+
+        // get total number of elements in the line
+        unsigned n_elements = tokens -> GetEntries();
+
+        // subtract the number of elements already read from the total number of elements to get number of elements specifying log-settings
+        const unsigned number_of_elements_read = 4;
+        unsigned n_logs_given = n_elements - number_of_elements_read;
+
+        // sanity check
+        if (n_logs_given != n_pads_x*n_pads_y) {
+            cout << "ERROR: number of logs given does not match number of pads" << endl;
+            abort();
+        }
+
+        // an array to store log settings
+        unsigned * logs = new unsigned [n_logs_given];
+
+        // loop over those elements and store elements to array
+        for (int i=0; i<n_logs_given; i++) {
+            logs[i] = (((TObjString*)tokens->At(4+i)) -> GetString()).Atoi();
+        }
+
+        // add a canvas
+        AddAdvCanvas(n_pads_x, n_pads_y, canvas_name, variables_set, logs, 1200, 800);
+
+        // clean up
+        delete [] logs;
+    }
+}//
 
 void TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth) {
     fPlotTypes.push_back(new TPlotType(Name, DrawHisto, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth));
 }
 
-void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TString Variables, Int_t Logs[6]) {
-    fList_AdvCanvas->Add(new TAdvCanvas(NPads_X,NPads_Y, SetName,Variables,Logs));
-}
-
-void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TString Variables, Int_t Logs[6], Int_t width, Int_t height){
+void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TString Variables, unsigned * Logs, Int_t width, Int_t height){
     fList_AdvCanvas->Add(new TAdvCanvas(NPads_X, NPads_Y, SetName, Variables, Logs, width, height));
 }
 
