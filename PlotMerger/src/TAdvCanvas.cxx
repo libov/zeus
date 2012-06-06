@@ -33,6 +33,8 @@ fHeight(height)
 }
 
 TAdvCanvas::~TAdvCanvas() {
+    // clean up
+    delete [] fLogPads;
 }
 
 Int_t		TAdvCanvas::GetNPads()
