@@ -16,9 +16,12 @@
 #include <TMath.h>
 #include <TPaveText.h>
 #include <TStyle.h>
+#include <TObjString.h>
+#include <TObjArray.h>
 
 // system headers
 #include<iostream>
+#include<fstream>
 #include <vector>
 using namespace std;
 
