@@ -606,6 +606,12 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS()
 
         // electron energy cut
         Double_t electron_energy = Siecorr[0][2];
+
+        // for the EM scale systematic uncertainty studies
+        if ( fIsMC && f_do_EM_scale_syst) {
+            electron_energy *= (1 + f_EM_scale);
+        }
+
         if (electron_energy < 10.) return false;
         fDebug->Fill(10);
         if (TMath::Abs(Zvtx)>30.)                return false;
