@@ -65,6 +65,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         void            SetSeedCrudeTrackingEfficiency(unsigned seed) {fSeed_rnd_eff = seed;};
 
         void            SetJetEnergyUncertainty(Double_t    jet_unc) {fJetEnergyUncertainty = jet_unc;}
+        void            SetEMScaleUncertainty(Double_t em_scale) {f_EM_scale = em_scale;}
         void            SetVaryTotalJetEnergy(bool vary_total) {fVaryTotalJetEnergy = vary_total;};
         void            SetTrueLevelStudies(bool true_studies) {fTrueLevelStudies = true_studies;};
 
@@ -373,5 +374,6 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Float_t         fPionPhiReco;                       //!< a variable needed to use phi of the pion for binning
         Float_t         fPionPhiTrue;                       //!< a variable needed to use phi of the pion for binning
 
+        Float_t         f_EM_scale;                         //!< for EM scale systematic studies
 };
 #endif
