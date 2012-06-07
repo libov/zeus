@@ -70,6 +70,7 @@ int main(int argc, char **argv) {
     bool        run_tracking_efficiency = false;
     bool        run_dCache = false;
     bool        noQED_only = false;
+    bool        dry_run = false;
 
     // for significance smearing
     Float_t    SmearingGauss1Prob = -1;
@@ -97,7 +98,8 @@ int main(int argc, char **argv) {
         {"dCache", no_argument, 0, 10},
         {"noQED_only", no_argument, 0, 11},
         {"do_EM_scale_syst", no_argument, 0, 12},
-        {"EMScaleUncertainty", required_argument, 0, 13}
+        {"EMScaleUncertainty", required_argument, 0, 13},
+        {"dry_run", no_argument, 0, 14}
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
@@ -175,6 +177,9 @@ int main(int argc, char **argv) {
             case 13:
                 EMScaleUncertainty = optarg;
                 break;
+            case 14:
+                dry_run = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
@@ -199,6 +204,7 @@ int main(int argc, char **argv) {
                 cout << "\t--noQED_only\trun only no QED samples\n";
                 cout << "\t--do_EM_scale_syst\tswitch on variation of the electron energy in the MC in order to study EM scale systematics\n";
                 cout << "\t--EMScaleUncertainty\tsize of the variation, has effect only if --do_EM_scale_syst is selected\n";
+                cout << "\t--dry_run - don't run, just print command which would be executed with the given options\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -308,6 +314,8 @@ int main(int argc, char **argv) {
         }
 
         cout << "INFO: command to be executed: " << command << endl;
+
+        if (dry_run) continue;
 
         // if this is not MC, but it was selected to run only on MC - skip the sample
         if (run_mc_only && (cSubSet.getTypeENUM() != TSubSet::kMC)) continue;
