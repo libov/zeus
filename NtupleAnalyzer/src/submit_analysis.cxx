@@ -79,6 +79,10 @@ int main(int argc, char **argv) {
     Float_t    SmearingExpProb = -1;
     Float_t    SmearingExpCoeff = -1;
 
+    // EM scale systematics
+    bool                do_EM_scale_syst = false;
+    TString             EMScaleUncertainty;
+
     // declare long options
     static struct option long_options[] = {
         {"gaus1prob", required_argument, 0, 1},
@@ -91,7 +95,9 @@ int main(int argc, char **argv) {
         {"run_data_only", no_argument, 0, 8},
         {"tracking", no_argument, 0, 9},
         {"dCache", no_argument, 0, 10},
-        {"noQED_only", no_argument, 0, 11}
+        {"noQED_only", no_argument, 0, 11},
+        {"do_EM_scale_syst", no_argument, 0, 12},
+        {"EMScaleUncertainty", required_argument, 0, 13}
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
@@ -163,6 +169,12 @@ int main(int argc, char **argv) {
             case 11:
                 noQED_only = true;
                 break;
+            case 12:
+                do_EM_scale_syst = true;
+                break;
+            case 13:
+                EMScaleUncertainty = optarg;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
@@ -185,6 +197,8 @@ int main(int argc, char **argv) {
                 cout << "\t--tracking\trun tracking efficiency code, don't run the analysis\n";
                 cout << "\t--dCache\trun directly on dCache, not on mini ntuples\n";
                 cout << "\t--noQED_only\trun only no QED samples\n";
+                cout << "\t--do_EM_scale_syst\tswitch on variation of the electron energy in the MC in order to study EM scale systematics\n";
+                cout << "\t--EMScaleUncertainty\tsize of the variation, has effect only if --do_EM_scale_syst is selected\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -287,6 +301,11 @@ int main(int argc, char **argv) {
         if (run_tracking_efficiency && (!create_minintuples) ) command += " --tracking";
 
         if (run_dCache) command += " --dCache";
+
+        if (do_EM_scale_syst)  {
+            command += " --do_EM_scale_syst";
+            command += " --EMScaleUncertainty " + EMScaleUncertainty;
+        }
 
         cout << "INFO: command to be executed: " << command << endl;
 
