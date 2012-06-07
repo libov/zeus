@@ -92,6 +92,10 @@ int main(int argc, char **argv) {
     Float_t             SmearingExpProb = -1;
     Float_t             SmearingExpCoeff = -1;
 
+    // EM scale systematics
+    bool                do_EM_scale_syst = false;
+    Float_t             EMScaleUncertainty = 0;
+
     // declare long options
     static struct option long_options[] = {
         {"gaus1prob", required_argument, 0, 1},
@@ -103,7 +107,9 @@ int main(int argc, char **argv) {
         {"tracking", no_argument, 0, 7},
         {"test", no_argument, 0, 8},
         {"nevents_test", required_argument, 0, 9},
-        {"dCache", no_argument, 0, 10}
+        {"dCache", no_argument, 0, 10},
+        {"do_EM_scale_syst", no_argument, 0, 11},
+        {"EMScaleUncertainty", required_argument, 0, 12}
     };
     // loop over program arguments (i.e. argv array) and store info to above variables depending on an option
     int option;
@@ -183,9 +189,15 @@ int main(int argc, char **argv) {
             case 10:
                 dCache = true;
                 break;
+            case 11:
+                do_EM_scale_syst = true;
+                break;
+            case 12:
+                EMScaleUncertainty = atof(optarg);
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
-                cout<<"\t analysis  -t <Type> -p <Period> [-f <Flavour> -q <Q2> -o <Process> -g <trigger period>] -b <Binning File Suffix> -v <Histograms Version Ending> [-r] [-j <size of the variation of the jet energy scale>] [-l <filename> run on specific filelist; all the sample properties set from the command line will be just dummies]"<<endl;
+                cout<<"\t analysis  -t <Type> -p <Period> [-f <Flavour> -q <Q2> -o <Process> -g <trigger period>] -b <Binning File Suffix> -v <Histograms Version Ending> [-r] [-j <size of the variation of the jet energy scale>] [-l <filename> run on specific filelist; all the sample properties set from the command line will be just dummies] [--do_EM_scale_syst --EMScaleUncertainty <scale variation>]"<<endl;
                 cout << "\n<Type>:\nkDATA = 1,\nkMC = 2,\n\n";
                 cout << "<Flavour>:\nkLIGHT = 1,\nkCHARM=2,\nkBEAUTY=3\n\n";
                 cout << "<Period>:\nk03P=1, (only DATA!)\nk04P=2, (only DATA!)\nk0304P=3, (only MC!)\nk05E=4,\nk06E=5,\nk06P=6, (only DATA!)\nk07P=7, (only DATA!)\nk0607P=8, (only MC!)\n\n";
@@ -373,8 +385,8 @@ int main(int argc, char **argv) {
     // for EM scale systematic uncertainty
     // 0 - no change, default
     // +-0.01  - variations (+-1%)
-    instance -> set_do_EM_scale_syst (false);
-    instance -> SetEMScaleUncertainty (0);  // has effect only if set_do_EM_scale_syst(true) was set
+    instance -> set_do_EM_scale_syst (do_EM_scale_syst);
+    instance -> SetEMScaleUncertainty (EMScaleUncertainty);  // has effect only if set_do_EM_scale_syst(true) was set
 
     // use fragmentation function reweighting
     instance -> SetFragmentationReweighting(false);
