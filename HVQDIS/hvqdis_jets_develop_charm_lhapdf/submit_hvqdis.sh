@@ -181,6 +181,11 @@ do
     queue=$QUEUE_XSECT
     submitJob
 
+    # if only differential cross-sections have to be calculated (i.e. -d option was given), don't submit a job for every line of the q2-x grid file
+    if [ $TYPE == ONLY_DIFFERENTIAL ]; then
+        continue
+    fi
+
     # read q2-x grid file
     while read line; do
         # continue only if the line is not empty
