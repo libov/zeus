@@ -5,12 +5,15 @@
 
 FLAVOR=charm
 TYPE=ALL
-while getopts "bd" opt; do
+while getopts "bdc" opt; do
   if [ $opt == b ] ; then 
         FLAVOR=beauty
   fi
   if [ $opt == d ] ; then 
         TYPE=ONLY_DIFFERENTIAL
+  fi
+  if [ $opt == c ] ; then 
+        TYPE=ONLY_CENTRAL
   fi
 done
 echo 'INFO: FLAVOR = '$FLAVOR
@@ -159,6 +162,11 @@ elif [ $FLAVOR == beauty ] ; then
 else
     echo 'unknown flavor'
     exit -1
+fi
+
+# if only central values have to be calculated, then remove all the variations from the array and leave only no-op, i.e. all defaults!
+if [ $TYPE == ONLY_CENTRAL ]; then
+    uncertainty_evaluation=("")
 fi
 
 # this counter corresponds to a command (setting) in the array
