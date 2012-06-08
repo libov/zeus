@@ -170,7 +170,7 @@ else
 fi
 
 # if only central values have to be calculated, then remove all the variations from the array and leave only no-op, i.e. all defaults!
-if [ $TYPE == ONLY_CENTRAL ]; then
+if [ $UNC_TYPE == ONLY_CENTRAL ]; then
     uncertainty_evaluation=("")
 fi
 
@@ -195,7 +195,7 @@ do
     submitJob
 
     # if only differential cross-sections have to be calculated (i.e. -d option was given), don't submit a job for every line of the q2-x grid file
-    if [ $TYPE == ONLY_DIFFERENTIAL ]; then
+    if [ $XSECT_TYPE == ONLY_DIFFERENTIAL ]; then
         continue
     fi
 
