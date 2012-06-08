@@ -4,20 +4,25 @@
 # Modified:
 
 FLAVOR=charm
-TYPE=ALL
-while getopts "bdc" opt; do
+XSECT_TYPE=ALL
+UNC_TYPE=DEFAULT
+while getopts "bdcs" opt; do
   if [ $opt == b ] ; then 
         FLAVOR=beauty
   fi
   if [ $opt == d ] ; then 
-        TYPE=ONLY_DIFFERENTIAL
+        XSECT_TYPE=ONLY_DIFFERENTIAL
   fi
   if [ $opt == c ] ; then 
-        TYPE=ONLY_CENTRAL
+        UNC_TYPE=ONLY_CENTRAL
+  fi
+  if [ $opt == s ] ; then 
+        UNC_TYPE=SEPARATE_SCALE_VARIATION
   fi
 done
 echo 'INFO: FLAVOR = '$FLAVOR
-echo 'INFO: TYPE = '$TYPE
+echo 'INFO: XSECT_TYPE = '$XSECT_TYPE
+echo 'INFO: UNC_TYPE = '$UNC_TYPE
 
 # selects a file with q2-x grid definition
 
