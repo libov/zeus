@@ -6,3 +6,9 @@ meta_May23_2012_16:48:22.txt - beauty run, HERAPDF 1.0 -> mb=4.5, to be rerun!
 meta_May30_2012_16:32:45.txt - test run on Massimo q2-x selected points, in order to compare with him
 meta_May31_2012_14:34:35.txt - beauty run, HERAPDF 1.0, still had 4.5 GeV for some jobs
 meta_Jun4_2012_14:05:04.txt  - *** beauty run, HERAPDF 1.0 *** 
+meta_Jun8_2012_13:47:20.txt - CHARM WITH ABKM - to check whether differential cross-sections match Philipp's and to 
+			      see whether extracted F2c is the same as with HERAPDF 1.0
+		 	      Only central values calculation was done (no uncertainties);
+		 	      F2c was calculated for only those points at which we extract
+			      sig0.f_Philipp was used for sig0.f
+
