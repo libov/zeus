@@ -4,12 +4,17 @@
 # Modified:
 
 FLAVOR=charm
-while getopts "b" opt; do
+TYPE=ALL
+while getopts "bd" opt; do
   if [ $opt == b ] ; then 
         FLAVOR=beauty
   fi
+  if [ $opt == d ] ; then 
+        TYPE=ONLY_DIFFERENTIAL
+  fi
 done
 echo 'INFO: FLAVOR = '$FLAVOR
+echo 'INFO: TYPE = '$TYPE
 
 # selects a file with q2-x grid definition
 
