@@ -152,7 +152,7 @@ function submitJob()
 #---------------------------------------------------------------------------------------#
 
 # create a list of strings; each string corresponds to a separate setting for uncertainty evaluation
-if [ $FLAVOR == charm ] ; then 
+if [ $FLAVOR == charm ] ; then
     uncertainty_evaluation=("XM=1.5" "XM=1.35 && IPDF=300029" "XM=1.65 && IPDF=300030" "ISCALER=13 && ISCALEF=13 && IPDF=300031" "ISCALER=23 && ISCALEF=23 && IPDF=300032" "IPDF=300001" "IPDF=300002")
 elif [ $FLAVOR == beauty ] ; then 
     uncertainty_evaluation=("XM=4.75" "XM=4.5" "XM=5.0" "ISCALER=13 && ISCALEF=13 && IPDF=300031" "ISCALER=23 && ISCALEF=23 && IPDF=300032" "IPDF=300001" "IPDF=300002")
