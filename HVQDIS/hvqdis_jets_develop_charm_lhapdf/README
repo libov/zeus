@@ -1,11 +1,13 @@
 meta_Apr21_2012_14:35:32.txt - test charm run; some jobs crashed, were resubmitted on May2
 meta_May2_2012_14:35:52.txt  - resubmission of crashed jobs of meta_Apr21_2012_14:35:32.txt
 meta_Apr21_2012_14:35:32_xsectMay2.txt - compilation of meta_Apr21_2012_14:35:32.txt and meta_May2_2012_14:35:52.txt
+
 meta_May22_2012_11:47:32.txt - *** charm run, HERAPDF 1.0 ***
 meta_May23_2012_16:48:22.txt - beauty run, HERAPDF 1.0 -> mb=4.5, to be rerun!
 meta_May30_2012_16:32:45.txt - test run on Massimo q2-x selected points, in order to compare with him
 meta_May31_2012_14:34:35.txt - beauty run, HERAPDF 1.0, still had 4.5 GeV for some jobs
 meta_Jun4_2012_14:05:04.txt  - *** beauty run, HERAPDF 1.0 *** 
+
 meta_Jun8_2012_13:47:20.txt - CHARM WITH ABKM - to check whether differential cross-sections match Philipp's and to 
 			      see whether extracted F2c is the same as with HERAPDF 1.0
 		 	      Only central values calculation was done (no uncertainties);
@@ -14,6 +16,14 @@ meta_Jun8_2012_13:47:20.txt - CHARM WITH ABKM - to check whether differential cr
 
 meta_Jun8_2012_14:07:47.txt - a control run for only central values for only differential cross-sections HERAPDF 1.0 --- CHARM
 				***** CENTRAL VALUES IDENTICAL TO hvqdis_predictions.meta_May22_2012_11:47:32.xml !!! ********
+
 meta_Jun8_2012_14:35:52.txt - BEAUTY WITH ABKM; ALL SIMILAR TO meta_Jun8_2012_13:47:20.txt; BEAUTY MASS SET TO 4.5!!!
 meta_Jun8_2012_14:43:44.txt - a control run for only central values for only differential cross-sections HERAPDF 1.0 --- BEAUTY
 				***** CENTRAL VALUES IDENTICAL TO meta_Jun4_2012_14:05:04 !!! ********
+
+meta_Jun11_2012_15:56:12.txt - *** charm for visible cross-sections, HERAPDF 1.0 *** 
+				separate scale variation, increased number of iterations, results to be compared to 
+				meta_May22_2012_11:47:32.txt in order to see whether it is statistically stable
+
+meta_Jun11_2012_15:57:55.txt - *** beauty for visible cross-sections, HERAPDF 1.0 ***
+				similar to meta_Jun11_2012_15:56:12.txt, to be compared to meta_Jun4_2012_14:05:04.txt
