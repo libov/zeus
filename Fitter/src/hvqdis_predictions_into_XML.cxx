@@ -78,18 +78,19 @@ int main(int argc, char **argv) {
     TString job_directory = meta_file;
     // this is total number of cross-sections sets including the central value, i.e. 
     // the number of variations is in fact (N_VARIATIONS-1)
-    const unsigned N_VARIATIONS = 7;
+    const unsigned N_VARIATIONS_MAX= 20;
+    unsigned N_VARIATIONS = 0;
     // number  of bins in the XML cross-section file
     const unsigned  N_BINS = cCrossSection.getNBins();
     // array to store theoretical xsections; "+1" is to account the here we count from 1, not from 0
-    Float_t diff_xsect_theo[N_VARIATIONS+1][N_BINS+1];
+    Float_t diff_xsect_theo[N_VARIATIONS_MAX+1][N_BINS+1];
     Float_t diff_xsect_theo_err_up[N_BINS+1];
     Float_t diff_xsect_theo_err_down[N_BINS+1];
     // initialize arrays to zero (so that for inclusive bins zeros are written)
     for (int j=0; j<(N_BINS+1); j++) {
         diff_xsect_theo_err_up[j] = 0;
         diff_xsect_theo_err_down[j] = 0;
-        for (int i=0; i<(N_VARIATIONS+1); i++) diff_xsect_theo[i][j] = 0;
+        for (int i=0; i<(N_VARIATIONS_MAX+1); i++) diff_xsect_theo[i][j] = 0;
     }
 
     // get full path to the metafile
@@ -201,9 +202,20 @@ int main(int argc, char **argv) {
 
         // correct for qed and hadronization effects
         for (int i=1;i<=N_BINS; i++) diff_xsect_theo[uncertainty_counter][i] *= hadr_qed_corr[i];
+
+        // number of variations matches maximum uncertainty counter in a metafile
+        if (uncertainty_counter>N_VARIATIONS) N_VARIATIONS = uncertainty_counter;
     }
     f.close();
 
+    // sanity check
+    if (N_VARIATIONS == 0) {
+        cout << "ERROR: could not read uncertainty counter" << endl;
+        abort();
+    }
+    cout << "INFO: N_VARIATIONS = " << N_VARIATIONS << endl;
+
+    if (N_VARIATIONS >=2 ) {
     // evaluate uncertainty for every differential bin
     // loop over bins
     for (int i=1; i<=N_BINS; i++) {
@@ -221,6 +233,7 @@ int main(int argc, char **argv) {
         // take a square root, since that was added in quadrature
         diff_xsect_theo_err_up[i] = TMath::Sqrt(uncertainty_up);
         diff_xsect_theo_err_down[i] = TMath::Sqrt(uncertainty_down);
+    }
     }
 
     // finally, store the obtained cross-section value and uncertainty to an XML file!
