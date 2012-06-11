@@ -57,9 +57,9 @@ function setDefaults()
     ISCALER=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
     ISCALEF=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
     IPDF=300000                 #!1,2
-    NPTS0=1000000               #!NUMBER OF VEGAS POINTS FOR LO
+    NPTS0=1500000               #!NUMBER OF VEGAS POINTS FOR LO
     ITS0=5                      #!NUMBER OF VEGAS ITERATIONS FOR LO
-    NPTS1=1000000               #!NUMBER OF VEGAS POINTS FOR NLO
+    NPTS1=2000000               #!NUMBER OF VEGAS POINTS FOR NLO
     ITS1=10                     #!NUMBER OF VEGAS ITERATIONS FOR NLO
     if [ $FLAVOR == charm ] ; then 
         IQUARK=1                    #!1:CHARM  2:BOTTOM
