@@ -83,8 +83,14 @@ for source in SYST_SOURCES:
             syst_pos=syst_pos/100
             syst_neg=syst_neg/100
         # add systematics in quadrature
-        uncertainty_pos[variable][index]+=syst_pos**2
-        uncertainty_neg[variable][index]+=syst_neg**2
+        if (syst_pos>0):
+            uncertainty_pos[variable][index]+=syst_pos**2
+        else:
+            uncertainty_neg[variable][index]+=syst_pos**2
+        if (syst_neg>0):
+            uncertainty_pos[variable][index]+=syst_neg**2
+        else:
+            uncertainty_neg[variable][index]+=syst_neg**2
     first_file = False
 
 # print the results to a file
