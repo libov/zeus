@@ -85,6 +85,11 @@ void TControlPlot::Initialize() {
         // tokenize
         TString line_str = line;
         TObjArray * tokens = line_str.Tokenize(" ");
+        // check if this line is a comment
+        TString first_word = ((TObjString*)tokens->At(0)) -> GetString();
+        char first_char = first_word[0];
+        if (first_char=='#') continue;
+
         unsigned n_pads_x = (((TObjString*)tokens->At(0)) -> GetString()).Atoi();
         unsigned n_pads_y = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
         TString canvas_name = ((TObjString*)tokens->At(2)) -> GetString();
