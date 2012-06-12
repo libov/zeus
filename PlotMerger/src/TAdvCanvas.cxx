@@ -26,7 +26,7 @@ fHeight(height)
 {
     SeparateVariables();
     unsigned npads = fNPads_X*fNPads_Y;
-    fLogPads = new unsigned [npads];
+    fLogPads = new unsigned [npads+1];
     for (int k=0; k<npads; k++) {
         fLogPads[k+1]=LogPads[k];
     }
