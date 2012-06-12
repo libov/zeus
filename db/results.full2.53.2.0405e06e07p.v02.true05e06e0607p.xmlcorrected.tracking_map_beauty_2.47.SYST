@@ -50,8 +50,8 @@
                 <sigma_b_err>29.3148</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>22.3687</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>37.4269</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>22.4934</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>37.495</sigma_b_err_syst_down>
         </bin>
         <bin id="3">
                 <subbin>
@@ -76,8 +76,8 @@
                 <sigma_b_err>28.6551</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>16.5367</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>24.7969</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>18.1781</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>25.5886</sigma_b_err_syst_down>
         </bin>
         <bin id="4">
                 <subbin>
@@ -102,8 +102,8 @@
                 <sigma_b_err>23.5862</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>12.4885</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>18.2191</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>14.4031</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>19.2143</sigma_b_err_syst_down>
         </bin>
         <bin id="5">
                 <subbin>
@@ -128,8 +128,8 @@
                 <sigma_b_err>22.1049</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>16.5256</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>21.1594</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>19.2305</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>22.9026</sigma_b_err_syst_down>
         </bin>
         <bin id="6">
                 <subbin>
@@ -154,8 +154,8 @@
                 <sigma_b_err>21.7818</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>12.8008</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>14.4024</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>15.6355</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>16.5889</sigma_b_err_syst_down>
         </bin>
         <bin id="7">
                 <subbin>
@@ -180,8 +180,8 @@
                 <sigma_b_err>23.305</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>17.0794</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>18.3035</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>21.4557</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>22.0486</sigma_b_err_syst_down>
         </bin>
         <bin id="8">
                 <subbin>
@@ -206,8 +206,8 @@
                 <sigma_b_err>25.5607</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>15.6467</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>16.282</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>17.8339</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>18.1908</sigma_b_err_syst_down>
         </bin>
         <bin id="9">
                 <subbin>
@@ -232,8 +232,8 @@
                 <sigma_b_err>29.8899</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>24.3878</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>26.4564</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>25.7972</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>27.6411</sigma_b_err_syst_down>
         </bin>
         <bin id="10">
                 <subbin>
@@ -258,8 +258,8 @@
                 <sigma_b_err>41.8918</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>17.4745</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>18.5331</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>18.6173</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>19.5613</sigma_b_err_syst_down>
         </bin>
         <bin id="11">
                 <subbin>
@@ -284,8 +284,8 @@
                 <sigma_b_err>71.3696</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>43.3134</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>43.6292</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>43.6186</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>43.928</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <!-- et jet -->
@@ -339,8 +339,8 @@
                 <sigma_b_err>25.0938</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>21.1339</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>22.6934</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>21.4314</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>22.9471</sigma_b_err_syst_down>
         </bin>
         <bin id="14">
                 <subbin>
@@ -365,8 +365,8 @@
                 <sigma_b_err>5.73111</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>4.95891</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>6.79375</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>5.10507</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>6.85112</sigma_b_err_syst_down>
         </bin>
         <bin id="15">
                 <subbin>
@@ -391,8 +391,8 @@
                 <sigma_b_err>1.85358</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>1.2107</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>1.81936</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>1.2783</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>1.82722</sigma_b_err_syst_down>
         </bin>
         <bin id="16">
                 <subbin>
@@ -417,8 +417,8 @@
                 <sigma_b_err>0.835011</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.530077</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.610215</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.545584</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.610604</sigma_b_err_syst_down>
         </bin>
         <bin id="17">
                 <subbin>
@@ -443,8 +443,8 @@
                 <sigma_b_err>0.455343</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.32376</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.320268</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.331486</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.320641</sigma_b_err_syst_down>
         </bin>
         <bin id="18">
                 <subbin>
@@ -469,8 +469,8 @@
                 <sigma_b_err>0.260856</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.228085</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.231342</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.231975</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.232476</sigma_b_err_syst_down>
         </bin>
         <bin id="19">
                 <subbin>
@@ -495,8 +495,8 @@
                 <sigma_b_err>0.0887525</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.0722851</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.0712486</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.072938</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.0713527</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <!-- phi jet -->
@@ -787,8 +787,8 @@
                 <sigma_b_err>112738</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>67830.2</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>70346.6</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>74170</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>70547.4</sigma_b_err_syst_down>
         </bin>
         <bin id="31">
                 <subbin>
@@ -813,8 +813,8 @@
                 <sigma_b_err>46841.2</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>32268.9</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>36413.1</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>38730.5</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>36683.4</sigma_b_err_syst_down>
         </bin>
         <bin id="32">
                 <subbin>
@@ -839,8 +839,8 @@
                 <sigma_b_err>14885.3</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>10014.6</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>11360.4</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>10535.5</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>11503.2</sigma_b_err_syst_down>
         </bin>
         <bin id="33">
                 <subbin>
@@ -865,8 +865,8 @@
                 <sigma_b_err>3462.53</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>2636.19</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>2979.12</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>2684.86</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>3023.62</sigma_b_err_syst_down>
         </bin>
         <bin id="34">
                 <subbin>
@@ -891,8 +891,8 @@
                 <sigma_b_err>1302.73</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>849.706</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>880.278</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>916.943</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>929.888</sigma_b_err_syst_down>
         </bin>
         <bin id="35">
                 <subbin>
@@ -917,8 +917,8 @@
                 <sigma_b_err>73.2762</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>35.8913</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>37.4744</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>40.74</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>40.0541</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <bin id="36">
@@ -971,8 +971,8 @@
                 <sigma_b_err>4.18016</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>2.41552</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>2.59474</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>3.01041</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>2.60404</sigma_b_err_syst_down>
         </bin>
         <bin id="38">
                 <subbin>
@@ -997,8 +997,8 @@
                 <sigma_b_err>1.78927</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>1.22261</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>1.3169</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>1.36288</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>1.32241</sigma_b_err_syst_down>
         </bin>
         <bin id="39">
                 <subbin>
@@ -1023,8 +1023,8 @@
                 <sigma_b_err>0.802309</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.611284</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.644218</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.621323</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.649771</sigma_b_err_syst_down>
         </bin>
         <bin id="40">
                 <subbin>
@@ -1049,8 +1049,8 @@
                 <sigma_b_err>0.378664</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.169266</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.214209</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.187468</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.228869</sigma_b_err_syst_down>
         </bin>
         <bin id="41">
                 <subbin>
@@ -1075,8 +1075,8 @@
                 <sigma_b_err>0.156666</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.128383</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.137486</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.129085</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.138143</sigma_b_err_syst_down>
         </bin>
         <bin id="42">
                 <subbin>
@@ -1101,8 +1101,8 @@
                 <sigma_b_err>0.0650268</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.038299</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.0448843</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.0385041</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.0450559</sigma_b_err_syst_down>
         </bin>
         <bin id="43">
                 <subbin>
@@ -1127,8 +1127,8 @@
                 <sigma_b_err>0.0171981</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.00929799</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.00971662</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.00949628</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.0098651</sigma_b_err_syst_down>
         </bin>
         <bin id="44">
                 <subbin>
@@ -1153,8 +1153,8 @@
                 <sigma_b_err>0.0031989</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>0.00164524</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>0.00169139</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>0.00180793</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>0.00170687</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <bin_group id="q2da_xda_bin1">
@@ -1186,8 +1186,8 @@
                 <sigma_b_err>112738</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>67877.8</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>69707.3</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>74213.5</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>69910</sigma_b_err_syst_down>
         </bin>
         <bin id="46">
                 <subbin>
@@ -1217,8 +1217,8 @@
                 <sigma_b_err>121871</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>59460.5</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>67750.2</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>70438.1</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>68128.4</sigma_b_err_syst_down>
         </bin>
         <bin id="47">
                 <subbin>
@@ -1248,8 +1248,8 @@
                 <sigma_b_err>56108</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>32539.9</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>34374</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>38285.9</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>34544.7</sigma_b_err_syst_down>
         </bin>
         <bin id="48">
                 <subbin>
@@ -1279,8 +1279,8 @@
                 <sigma_b_err>5845.75</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>3718.98</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>3867.16</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>3984.11</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>3908.8</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <bin_group id="q2da_xda_bin2">
@@ -1312,8 +1312,8 @@
                 <sigma_b_err>23445.2</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>9299.63</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>9880.01</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>9451.68</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>10015.2</sigma_b_err_syst_down>
         </bin>
         <bin id="50">
                 <subbin>
@@ -1343,8 +1343,8 @@
                 <sigma_b_err>13148.4</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>6629.87</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>7424.29</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>7061.46</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>7743.53</sigma_b_err_syst_down>
         </bin>
         <bin id="51">
                 <subbin>
@@ -1374,8 +1374,8 @@
                 <sigma_b_err>8772.47</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>5713.55</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>6045.79</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>5743.26</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>6050.85</sigma_b_err_syst_down>
         </bin>
         <bin id="52">
                 <subbin>
@@ -1405,8 +1405,8 @@
                 <sigma_b_err>4721.21</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>2656.17</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>2691.11</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>2834.27</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>2866.85</sigma_b_err_syst_down>
         </bin>
         <bin id="53">
                 <subbin>
@@ -1436,8 +1436,8 @@
                 <sigma_b_err>1819.89</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>990.255</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>1029.94</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>990.605</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>1030.24</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <bin_group id="q2da_xda_bin3">
@@ -1469,8 +1469,8 @@
                 <sigma_b_err>4323.99</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>2689.4</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>2795.53</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>2713.7</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>2818.91</sigma_b_err_syst_down>
         </bin>
         <bin id="55">
                 <subbin>
@@ -1500,8 +1500,8 @@
                 <sigma_b_err>2773.46</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>1598.56</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>1778.62</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>1655.27</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>1829.76</sigma_b_err_syst_down>
         </bin>
         <bin id="56">
                 <subbin>
@@ -1531,8 +1531,8 @@
                 <sigma_b_err>1301.91</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>490.621</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>565.794</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>555.292</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>622.727</sigma_b_err_syst_down>
         </bin>
         <bin id="57">
                 <subbin>
@@ -1562,8 +1562,8 @@
                 <sigma_b_err>296.636</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>161.481</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>162.069</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>164.267</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>164.845</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <bin_group id="q2da_xda_bin4">
@@ -1595,8 +1595,8 @@
                 <sigma_b_err>908.97</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>390.066</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>460.203</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>391.359</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>460.623</sigma_b_err_syst_down>
         </bin>
         <bin id="59">
                 <subbin>
@@ -1626,8 +1626,8 @@
                 <sigma_b_err>336.594</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>203.259</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>232.969</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>205.427</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>234.014</sigma_b_err_syst_down>
         </bin>
         <bin id="60">
                 <subbin>
@@ -1657,8 +1657,8 @@
                 <sigma_b_err>110.56</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>61.4385</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>63.4013</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>62.3283</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>64.187</sigma_b_err_syst_down>
         </bin>
         </bin_group>
         <bin_group id="q2da_xda_bin5">
@@ -1690,8 +1690,8 @@
                 <sigma_b_err>85.2736</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>47.6241</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>47.1527</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>52.1502</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>48.5877</sigma_b_err_syst_down>
         </bin>
         <bin id="62">
                 <subbin>
@@ -1721,8 +1721,8 @@
                 <sigma_b_err>19.2272</sigma_b_err>
                 <sigma_c_err_syst_up>0</sigma_c_err_syst_up>
                 <sigma_c_err_syst_down>0</sigma_c_err_syst_down>
-                <sigma_b_err_syst_up>12.0705</sigma_b_err_syst_up>
-                <sigma_b_err_syst_down>13.0614</sigma_b_err_syst_down>
+                <sigma_b_err_syst_up>12.2459</sigma_b_err_syst_up>
+                <sigma_b_err_syst_down>13.1336</sigma_b_err_syst_down>
         </bin>
         </bin_group>
 </binning>
