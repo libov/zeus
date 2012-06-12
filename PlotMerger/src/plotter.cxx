@@ -137,10 +137,9 @@ int main (int argc, char **argv) {
         myPlots->AddPlotType("beauty", true, 0, 0, 0, kBlue, 2);
         myPlots->AddPlotType("charm", true, 0, 0, 0, kGreen, 2);
     }
-    if  (include_resolved) {
+    if (include_resolved) {
         if (!no_beauty_resolved) myPlots->AddPlotType("beauty_resolved", true, 0, 0, 0, kBlue, 5);
         if (!no_charm_resolved) myPlots->AddPlotType("charm_resolved", true, 0, 0, 0, kGreen, 5);
-
     }
     myPlots->AddPlotType("data", false, 20, 0.5, 0, 1, 0);
 
