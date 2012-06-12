@@ -8,6 +8,7 @@
 # significance
 1 1 05_significance significance: 1
 3 1 06_significance significance_massbin1:significance_massbin2:significance_massbin3: 1 1 1
+3 1 06a_significance significance_massbin1_mirrored:significance_massbin2_mirrored:significance_massbin3_mirrored: 1 1 1
 
 # charm enriched plots
 3 2 07_event_charm q2da_charm_diff:xda_charm_diff:yel_charm_diff:yjb_charm_diff:empz_charm_diff:zvtx_charm_diff: 0 0 0 0 0 0 
