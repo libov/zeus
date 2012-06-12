@@ -78,8 +78,8 @@ for source in SYST_SOURCES:
         if first_file:
             uncertainty_pos[variable][index]=0
             uncertainty_neg[variable][index]=0
-        # divide by 100 for Sasha's files
-        if source=="BRSystematics_charm" or source=="BRSystematics_beauty" or source=="BRSystematics_charm" or source=="FragmFractionSystematics_charm" or source=="FragmFractionSystematics_beauty":
+        # divide by 100 for Sasha's and Philipp's files
+        if source=="BRSystematics_charm" or source=="BRSystematics_beauty" or source=="BRSystematics_charm" or source=="FragmFractionSystematics_charm" or source=="FragmFractionSystematics_beauty" or source=="q2_reweighting_beauty" or source=="q2_reweighting_charm" or source=="flt_efficiency_beauty" or source=="flt_efficiency_charm":
             syst_pos=syst_pos/100
             syst_neg=syst_neg/100
         # add systematics in quadrature
