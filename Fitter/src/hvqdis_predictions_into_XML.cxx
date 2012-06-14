@@ -188,28 +188,64 @@ int main(int argc, char **argv) {
         TFile * file  = new TFile (filename, "read");
 
         // get the histograms with the visible cross-sections
-        TH1F * et =  (TH1F*) file -> Get ("HISB/h30101");
-        TH1F * eta =  (TH1F*) file -> Get ("HISB/h30102");
-        TH1F * hq2 =  (TH1F*) file -> Get ("HISB/h30103");
-        TH1F * x =  (TH1F*) file -> Get ("HISB/h30104");
+        TH1F *et, *eta, *hq2, *x, *q2x_1, *q2x_2, *q2x_3, *q2x_4, *q2x_5;
+        if (beauty) {
 
-        TH1F * q2x_1 = (TH1F*) file -> Get ("HISB/h31101");
-        TH1F * q2x_2 = (TH1F*) file -> Get ("HISB/h31102");
-        TH1F * q2x_3 = (TH1F*) file -> Get ("HISB/h31103");
-        TH1F * q2x_4 = (TH1F*) file -> Get ("HISB/h31104");
-        TH1F * q2x_5 = (TH1F*) file -> Get ("HISB/h31105");
+            et =  (TH1F*) file -> Get ("HISB/h30001");
+            eta =  (TH1F*) file -> Get ("HISB/h30002");
+            hq2 =  (TH1F*) file -> Get ("HISB/h30003");
+            x =  (TH1F*) file -> Get ("HISB/h30004");
+    
+            q2x_1 = (TH1F*) file -> Get ("HISB/h31001");
+            q2x_2 = (TH1F*) file -> Get ("HISB/h31002");
+            q2x_3 = (TH1F*) file -> Get ("HISB/h31003");
+            q2x_4 = (TH1F*) file -> Get ("HISB/h31004");
+            q2x_5 = (TH1F*) file -> Get ("HISB/h31005");
+
+        } else {
+
+            et =  (TH1F*) file -> Get ("HISB/h30101");
+            eta =  (TH1F*) file -> Get ("HISB/h30102");
+            hq2 =  (TH1F*) file -> Get ("HISB/h30103");
+            x =  (TH1F*) file -> Get ("HISB/h30104");
+    
+            q2x_1 = (TH1F*) file -> Get ("HISB/h31101");
+            q2x_2 = (TH1F*) file -> Get ("HISB/h31102");
+            q2x_3 = (TH1F*) file -> Get ("HISB/h31103");
+            q2x_4 = (TH1F*) file -> Get ("HISB/h31104");
+            q2x_5 = (TH1F*) file -> Get ("HISB/h31105");
+        }
 
         // for every histogram, get all the cross-sections and store to an array
-        getCrossSection(eta, 2, 12, diff_xsect_theo[uncertainty_counter]);
-        getCrossSection(et, 14, 20, diff_xsect_theo[uncertainty_counter]);
-        getCrossSection(x, 31, 36, diff_xsect_theo[uncertainty_counter]);
-        getCrossSection(hq2, 38, 45, diff_xsect_theo[uncertainty_counter]);
+        if (beauty && (BinningFileSuffix=="full") ) {
 
-        getCrossSection(q2x_1, 46, 49, diff_xsect_theo[uncertainty_counter]);
-        getCrossSection(q2x_2, 50, 54, diff_xsect_theo[uncertainty_counter]);
-        getCrossSection(q2x_3, 55, 58, diff_xsect_theo[uncertainty_counter]);
-        getCrossSection(q2x_4, 59, 61, diff_xsect_theo[uncertainty_counter]);
-        getCrossSection(q2x_5, 62, 63, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(eta, 2, 11, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(et, 13, 19, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(x, 30, 35, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(hq2, 37, 44, diff_xsect_theo[uncertainty_counter]);
+    
+            getCrossSection(q2x_1, 45, 48, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_2, 49, 53, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_3, 54, 57, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_4, 58, 60, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_5, 61, 62, diff_xsect_theo[uncertainty_counter]);
+
+        } else if (!beauty && (BinningFileSuffix=="full.forCHARM") ) {
+
+            getCrossSection(eta, 2, 12, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(et, 14, 20, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(x, 31, 36, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(hq2, 38, 45, diff_xsect_theo[uncertainty_counter]);
+    
+            getCrossSection(q2x_1, 46, 49, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_2, 50, 54, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_3, 55, 58, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_4, 59, 61, diff_xsect_theo[uncertainty_counter]);
+            getCrossSection(q2x_5, 62, 63, diff_xsect_theo[uncertainty_counter]);
+        } else {
+            cout << "ERROR: binning file is not supported at the moment" << endl;
+            abort();
+        }
 
         // correct for qed and hadronization effects
         for (int i=1;i<=N_BINS; i++) diff_xsect_theo[uncertainty_counter][i] *= hadr_qed_corr[i];
@@ -250,9 +286,17 @@ int main(int argc, char **argv) {
     // finally, store the obtained cross-section value and uncertainty to an XML file!
     for (int i=1; i<=N_BINS; i++) {
         TCrossSectionBin cBin = cCrossSection.getCrossSectionBin(i);
-        cBin.set_sigma_c(diff_xsect_theo[1][i]);
-        cBin.set_sigma_c_err_syst_up(diff_xsect_theo_err_up[i]);
-        cBin.set_sigma_c_err_syst_down(diff_xsect_theo_err_down[i]);
+        if (beauty) {
+
+            cBin.set_sigma_b(diff_xsect_theo[1][i]);
+            cBin.set_sigma_b_err_syst_up(diff_xsect_theo_err_up[i]);
+            cBin.set_sigma_b_err_syst_down(diff_xsect_theo_err_down[i]);
+
+        } else {
+            cBin.set_sigma_c(diff_xsect_theo[1][i]);
+            cBin.set_sigma_c_err_syst_up(diff_xsect_theo_err_up[i]);
+            cBin.set_sigma_c_err_syst_down(diff_xsect_theo_err_down[i]);
+        }
         cCrossSection.modifyCrossSectionBin(i, cBin);
     }
 
