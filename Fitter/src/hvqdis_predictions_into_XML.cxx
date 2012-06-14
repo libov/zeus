@@ -53,9 +53,13 @@ int main(int argc, char **argv) {
             case 'b':
                 BinningFileSuffix = optarg;
                 break;
+            case 2:
+                beauty = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t hvqdis_predictions_into_XML  -b <Binning File Suffix> --meta_file <filename prefix (without extension)> [options]\n"<<endl;
                 cout << "List of options\n" << endl;
+                cout << "--beauty\t\tbeauty cross-sections"<<endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
