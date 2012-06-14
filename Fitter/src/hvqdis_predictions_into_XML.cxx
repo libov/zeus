@@ -31,10 +31,12 @@ int main(int argc, char **argv) {
 
     // some declarations
     TString     BinningFileSuffix;
+    bool        beauty = false;
 
     // declare long options
     static struct option long_options[] = {
-        {"meta_file", required_argument, 0, 1}
+        {"meta_file", required_argument, 0, 1},
+        {"beauty", no_argument, 0, 2}
     };
 
     TString meta_file = "";
