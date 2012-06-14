@@ -105,7 +105,12 @@ int main(int argc, char **argv) {
 
     // read values of hadronization and QED corrections
     TString DATABASE_PATH=getenv("DATABASE_PATH");
-    TString filename=DATABASE_PATH+"/hadr_qed_corr_charm.txt";
+    TString filename;
+    if (beauty) {
+        filename = DATABASE_PATH+"/hadr_qed_corr_beauty.txt";
+    } else {
+        filename = DATABASE_PATH+"/hadr_qed_corr_charm.txt";
+    }
     ifstream hadr(filename);
     if (!hadr.is_open()) {
         cout << "ERROR: Unable to open file " << filename; 
