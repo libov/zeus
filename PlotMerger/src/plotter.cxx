@@ -146,6 +146,9 @@ int main (int argc, char **argv) {
     // set config file to select plots
     myPlots -> SetConfigFile(config_file);
 
+    // select which figure type
+    myPlots -> SetPrintEPS(true);
+
     // initialize
     myPlots -> Initialize();
 
