@@ -540,10 +540,12 @@ and \a Bspt_yer. Change later to avoid confusion!
 
 Bool_t    TMiniNtupleAnalyzer::IsDIS() {
 
-        fDebug->Fill(0);
+    // debug histogram
+    fDebug->Fill(0);
 
-        if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
-        fDebug->Fill(1);
+    // not using first part of the 0304p period - triggers are not understood there (?)
+    if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
+    fDebug->Fill(1);
 
         /*! \todo Trigger definitions to be checked again!
         */
