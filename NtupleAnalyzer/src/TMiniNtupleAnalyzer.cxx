@@ -553,18 +553,20 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
     Bool_t HFL17 = (Bool_t) ( (Tltw[13]>>(0+16)) & 1 );
     Bool_t HPP31 = (Bool_t) ( (Tltw[11]>>(14+16)) & 1 );
 
-        // period dependend trigger requirements
-        TSubSet::Period period = fSubSet.getPeriodENUM();
-        if (period == TSubSet::k0304P || (period == TSubSet::k03P) || (period == TSubSet::k04P)) {
-            if ( !(SPP02) ) return false;
-            // Using only Runnr > 48600 => Can use the same triggers as for 05e
-        } else if (period == TSubSet::k05E) {
-            if ( !(SPP02) ) return false;
-        } else if (period ==TSubSet::k06E) {
-            if ( !(SPP09 || HFL17 || HPP31) ) return false;
-        } else if ( (period == TSubSet::k0607P) || (period == TSubSet::k06P) || (period == TSubSet::k07P)) {
-            if (!(SPP09 || HFL17 || HPP31)) return false;
-        }
+    // get current run period
+    TSubSet::Period period = fSubSet.getPeriodENUM();
+
+    // period dependend trigger selection
+
+    if ( (period == TSubSet::k0304P) || (period == TSubSet::k03P) || (period == TSubSet::k04P) || (period == TSubSet::k05E)) {
+
+        // Using only Runnr > 48600 => use the same triggers for 0405p as for 05e
+        if ( !(SPP02) ) return false;
+
+    } else if ( (period ==TSubSet::k06E) || (period == TSubSet::k0607P) || (period == TSubSet::k06P) || (period == TSubSet::k07P) ) {
+
+        if ( !(SPP09 || HFL17 || HPP31) ) return false;
+    }
 
         fDebug->Fill(2);
         if (Sincand<1)                             return false;
