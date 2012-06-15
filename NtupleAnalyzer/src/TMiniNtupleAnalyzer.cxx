@@ -583,17 +583,10 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
 
         Float_t        x_el=Sipos[0][0];
         Float_t        y_el=Sipos[0][1];
-//     Float_t        z_el=Sipos[0][2];
 
         Float_t        x_el_abs=TMath::Abs(x_el);
         Float_t        y_el_abs=TMath::Abs(y_el);
 
-        /*if (z_el<-147)
-        {
-            if ((x_el_abs<13.)&&(y_el_abs<13.))        return false;
-        }*/
-        /** changed 02.03.2010
-        */
         if ( (x_el_abs<13.) && (y_el_abs<13.) )        return false;
 
         fDebug->Fill(9);
@@ -618,76 +611,11 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
         fDebug->Fill(14);
         fDebug->Fill(15);
 
-        // this part taken from Ramoona's code --> for the timebeing we don't use them (have to be understood)
-        // rcal radius cut
-        //if ((z_el<-147)&&((TMath::Sqrt(x_el*x_el+y_el*y_el))>175)) return false;
-        // Supercrack 1
-        //if ((z_el<-98.5)&&(z_el>-104)) return false;
-        // Supercrack 2
-        //if ((z_el<174)&&(z_el>164)) return false;
-        //Chimney
-        //if ((z_el<-147)&&(x_el_abs< 12.)&&(y_el>80.))  return false;
-        //fDebug->Fill(14);
-        // module gap cut
-        /*if (z_el<-147)
-        {
-            if ((y_el>0&&(x_el>6.5&&x_el< 12))||(y_el<0&&(x_el>-14&&x_el<-8.5))) return false;
-        }*/
-        // bad cell cut (1) ---> see below
-        /*if ( z_el < -147)
-        {
-        if (x_el>=7.515&&x_el<=31.845&&y_el>=7.90&&y_el<=31.90) return false;
-        }*/
-        // bad cell cut (2)
-        /*if ( z_el < -147)
-        {
-            if (x_el>=-13.315&&x_el<=11.515&&y_el>=0.0&&y_el<=43.80) return false; // cut on y at 0 avoids narrow stave between effective rCTD>20 and bad cell
-        }*/
-
-    // module edge cut
-        /*Double_t ModuleGap[24] = {-234.78,
-                    -214.45,
-                    -194.12,
-                    -173.79,
-                    -153.46,
-                    -133.13,
-                    -112.80,
-                    -92.47,
-                    -72.14,
-                    -51.81,
-                    -31.48,
-                    -11.15,
-                    9.35,
-                    29.68,
-                    50.01,
-                    70.34,
-                    90.67,
-                    111.00,
-                    131.33,
-                    151.66,
-                    171.99,
-                    192.32,
-                    212.65,
-                    232.98};
-        if (z_el < -147 )
-        {
-            for (Int_t n=0;n<24;n++)
-            {
-                if (TMath::Abs(x_el - ModuleGap[n]) < 2) return false;
-            }
-        }
-        fDebug->Fill(15);*/
-
-
-        // Pt(had)
-        //if ()
-        //float Empz_had = Sizuhmom[0][3] - Sizuhmom[0][2];
-       //float Empz_e = Siecorr[0][2]*(1-TMath::Cos( Sith[0] ));
 
         //    to remove events with no reconstructed primary vertex
         if  ( Ntrkvtx == 0 ) return false;
         fDebug->Fill(16);
-        //cout << "Evtake= " << Evtake << endl;
+
         if (!fIsMC) {
 
             #ifdef CN_VERSION_V02
@@ -710,7 +638,7 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
 
         // bad cell cut: x,y position cuts are the same as Ramoona's but no zel requirement as well as certain
         // run range. Taken from Philipp
-        //if (fIsMC)    Runnr = Simrun;
+
         Int_t        cRunnr = Runnr;
         if (fIsMC) cRunnr = Simrun;
 
