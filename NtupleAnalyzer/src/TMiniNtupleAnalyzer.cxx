@@ -557,7 +557,6 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
     TSubSet::Period period = fSubSet.getPeriodENUM();
 
     // period dependend trigger selection
-
     if ( (period == TSubSet::k0304P) || (period == TSubSet::k03P) || (period == TSubSet::k04P) || (period == TSubSet::k05E)) {
 
         // Using only Runnr > 48600 => use the same triggers for 0405p as for 05e
@@ -567,32 +566,35 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
 
         if ( !(SPP09 || HFL17 || HPP31) ) return false;
     }
+    fDebug->Fill(2);
 
-        fDebug->Fill(2);
-        if (Sincand<1)                             return false;
-        fDebug->Fill(3);
-        if (Siprob[0]<0.9)                        return false;
-        fDebug->Fill(4);
-        if (Siq2da[0]<5)                             return false;
-        fDebug->Fill(5);
+    // electron, q2, and y cuts
+    if (Sincand<1) return false;
+    fDebug->Fill(3);
 
-        if (Siq2da[0]>1000)                        return false;
-        fDebug->Fill(6);
+    if (Siprob[0]<0.9) return false;
+    fDebug->Fill(4);
 
-        if (Siyel[0]>0.7)                         return false;
-        fDebug->Fill(7);
-         if (Siyjb[0]<0.02)                         return false;
-        fDebug->Fill(8);
+    if (Siq2da[0]<5) return false;
+    fDebug->Fill(5);
 
-        Float_t        x_el=Sipos[0][0];
-        Float_t        y_el=Sipos[0][1];
+    if (Siq2da[0]>1000) return false;
+    fDebug->Fill(6);
 
-        Float_t        x_el_abs=TMath::Abs(x_el);
-        Float_t        y_el_abs=TMath::Abs(y_el);
+    if (Siyel[0]>0.7) return false;
+    fDebug->Fill(7);
 
-        if ( (x_el_abs<13.) && (y_el_abs<13.) )        return false;
+    if (Siyjb[0]<0.02) return false;
+    fDebug->Fill(8);
 
-        fDebug->Fill(9);
+    Float_t        x_el=Sipos[0][0];
+    Float_t        y_el=Sipos[0][1];
+
+    Float_t        x_el_abs=TMath::Abs(x_el);
+    Float_t        y_el_abs=TMath::Abs(y_el);
+
+    if ( (x_el_abs<13.) && (y_el_abs<13.) ) return false;
+    fDebug->Fill(9);
 
         // electron energy cut
         Double_t electron_energy = Siecorr[0][2];
