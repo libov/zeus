@@ -542,15 +542,15 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS()
 {
         fDebug->Fill(0);
 
+        if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
+        fDebug->Fill(1);
+
         /*! \todo Trigger definitions to be checked again!
         */
         Bool_t        SPP02=(Bool_t)( (Tltw[2]>>(1+16)) & 1);
         Bool_t        SPP09=(Bool_t)( (Tltw[2]>>(8+16)) & 1);
         Bool_t        HFL17=(Bool_t)( (Tltw[13]>>(0+16)) & 1);
         Bool_t        HPP31=(Bool_t)( (Tltw[11]>>(14+16)) & 1);
-
-        if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
-        fDebug->Fill(1);
 
         // period dependend trigger requirements
         TSubSet::Period period = fSubSet.getPeriodENUM();
