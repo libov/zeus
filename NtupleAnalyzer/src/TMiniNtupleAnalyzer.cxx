@@ -596,22 +596,24 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
     if ( (x_el_abs<13.) && (y_el_abs<13.) ) return false;
     fDebug->Fill(9);
 
-        // electron energy cut
-        Double_t electron_energy = Siecorr[0][2];
+    // electron energy cut
+    Double_t electron_energy = Siecorr[0][2];
 
-        // for the EM scale systematic uncertainty studies
-        if ( fIsMC && f_do_EM_scale_syst) {
-            electron_energy *= (1 + f_EM_scale);
-        }
+    // for the EM scale systematic uncertainty studies
+    if ( fIsMC && f_do_EM_scale_syst) {
+        electron_energy *= (1 + f_EM_scale);
+    }
 
-        if (electron_energy < 10.) return false;
-        fDebug->Fill(10);
-        if (TMath::Abs(Zvtx)>30.)                return false;
-        fDebug->Fill(11);
+    if (electron_energy < 10.) return false;
+    fDebug->Fill(10);
 
-        Float_t        e_pz_zufos=V_h_e_zu-V_h_pz_zu;
-        if ( (e_pz_zufos<44) || (e_pz_zufos>65) ) return false;
-        fDebug->Fill(12);
+    // z vertex cut
+    if (TMath::Abs(Zvtx)>30.)                return false;
+    fDebug->Fill(11);
+
+    Float_t e_pz_zufos = V_h_e_zu - V_h_pz_zu;
+    if ( (e_pz_zufos<44) || (e_pz_zufos>65) ) return false;
+    fDebug->Fill(12);
 
         fDebug->Fill(14);
         fDebug->Fill(15);
