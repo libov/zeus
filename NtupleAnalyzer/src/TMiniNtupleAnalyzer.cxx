@@ -544,16 +544,10 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS()
 
         /*! \todo Trigger definitions to be checked again!
         */
-//         Bool_t        SPP01=(Bool_t)( (Tltw[2]>>(0+16)) & 1);
         Bool_t        SPP02=(Bool_t)( (Tltw[2]>>(1+16)) & 1);
         Bool_t        SPP09=(Bool_t)( (Tltw[2]>>(8+16)) & 1);
-//         Bool_t        DIS03=(Bool_t)( (Tltw[3]>>(2+16)) & 1);
-//         Bool_t        DIS04=(Bool_t)( (Tltw[3]>>(3+16)) & 1);
         Bool_t        HFL17=(Bool_t)( (Tltw[13]>>(0+16)) & 1);
-//         Bool_t        EXO07=(Bool_t)( (Tltw[5]>>(6+16)) & 1);
         Bool_t        HPP31=(Bool_t)( (Tltw[11]>>(14+16)) & 1);
-
-        //if ( !(SPP01||SPP09||DIS03||DIS04||HFL17||EXO07) ) return false;
 
         if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
         fDebug->Fill(1);
