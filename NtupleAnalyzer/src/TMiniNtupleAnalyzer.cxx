@@ -615,48 +615,43 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
     if ( (e_pz_zufos<44) || (e_pz_zufos>65) ) return false;
     fDebug->Fill(12);
 
-        fDebug->Fill(14);
-        fDebug->Fill(15);
+    //    to remove events with no reconstructed primary vertex
+    if  ( Ntrkvtx == 0 ) return false;
+    fDebug->Fill(13);
 
+    // evtake cut
+    if (!fIsMC) {
 
-        //    to remove events with no reconstructed primary vertex
-        if  ( Ntrkvtx == 0 ) return false;
-        fDebug->Fill(16);
+        #ifdef CN_VERSION_V02
+        // use evtake for v02
+        if ( Evtake <= 0 ) return false;
+        #endif
 
-        if (!fIsMC) {
+        #if defined CN_VERSION_V04 || defined CN_VERSION_V06
+        // use evtake_iwant for v04; added 15 March 2011 (see mail from Philipp 23 February 2011)
+        // Q: the same for v06??
+        if ( (Evtake_iwant != 1) && (Evtake_iwant != 2) ) return false;
+        #endif
+    }
+    fDebug->Fill(14);
 
-            #ifdef CN_VERSION_V02
-            // use evtake for v02
-            if ( Evtake <= 0 ) return false;
-            #endif
+    // mvdtake cut
+    if (!fIsMC) {
+        if ( Mvdtake <= 0 ) return false;
+    }
+    fDebug->Fill(15);
 
-            #if defined CN_VERSION_V04 || defined CN_VERSION_V06
-            // use evtake_iwant for v04; added 15 March 2011 (see mail from Philipp 23 February 2011)
-            // Q: the same for v06??
-            if ( (Evtake_iwant != 1) && (Evtake_iwant != 2) ) return false;
-            #endif
-        }
-        fDebug->Fill(17);
+    // bad cell cut
+    Int_t cRunnr = Runnr;
+    if (fIsMC) cRunnr = Simrun;
 
-        if (!fIsMC) {
-            if ( Mvdtake <= 0 ) return false;
-        }
-        fDebug->Fill(18);
+    if ((cRunnr > 59600 && cRunnr < 60780) || (    cRunnr > 61350 && cRunnr < 61580) ||    (cRunnr > 61800 && cRunnr < 63000)) {
+        if (x_el>=7.515 && x_el<=31.845 && y_el>=7.90 && y_el<=31.90)  return false;
+    }
+    fDebug->Fill(19);
 
-        // bad cell cut: x,y position cuts are the same as Ramoona's but no zel requirement as well as certain
-        // run range. Taken from Philipp
-
-        Int_t        cRunnr = Runnr;
-        if (fIsMC) cRunnr = Simrun;
-
-        if ((cRunnr > 59600 && cRunnr < 60780) || (    cRunnr > 61350 && cRunnr < 61580) ||    (cRunnr > 61800 && cRunnr < 63000))
-        {
-            if (x_el>=7.515 && x_el<=31.845 && y_el>=7.90 && y_el<=31.90)  return false;
-        }
-
-        fDebug->Fill(19);
-
-        return true;
+    // all cuts passed, this is a good event
+    return true;
 }
 
 Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
