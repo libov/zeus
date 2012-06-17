@@ -206,6 +206,8 @@ do
 
     # if only differential cross-sections have to be calculated (i.e. -d option was given), don't submit a job for every line of the q2-x grid file
     if [ $XSECT_TYPE == ONLY_DIFFERENTIAL ]; then
+        #increment the counter (counts uncertainty evaluation settings)
+        counter=$(($counter+1))
         continue
     fi
 
