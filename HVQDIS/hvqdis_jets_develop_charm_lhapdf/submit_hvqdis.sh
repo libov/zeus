@@ -57,10 +57,10 @@ function setDefaults()
     ISCALER=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
     ISCALEF=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
     IPDF=300000                 #!1,2
-    NPTS0=1500000               #!NUMBER OF VEGAS POINTS FOR LO
-    ITS0=5                      #!NUMBER OF VEGAS ITERATIONS FOR LO
-    NPTS1=2000000               #!NUMBER OF VEGAS POINTS FOR NLO
-    ITS1=10                     #!NUMBER OF VEGAS ITERATIONS FOR NLO
+    NPTS0=500000                #!NUMBER OF VEGAS POINTS FOR LO
+    ITS0=2                      #!NUMBER OF VEGAS ITERATIONS FOR LO
+    NPTS1=500000                #!NUMBER OF VEGAS POINTS FOR NLO
+    ITS1=4                      #!NUMBER OF VEGAS ITERATIONS FOR NLO
     if [ $FLAVOR == charm ] ; then 
         IQUARK=1                    #!1:CHARM  2:BOTTOM
         XM=1.5                      #!QUARK MASS
@@ -242,6 +242,12 @@ do
             # and remove Y cuts
             YMIN=0
             YMAX=1
+
+            # increase number of iterations for F2
+            NPTS0=1000000
+            ITS0=5
+            NPTS1=1000000
+            ITS1=10
 
             # create a configuration file with current settings
             createConfigFile
