@@ -1,7 +1,11 @@
+===========================================  TESTS ===============================================
+
 meta_Apr21_2012_14:35:32.txt - test charm run; some jobs crashed, were resubmitted on May2
 meta_May2_2012_14:35:52.txt  - resubmission of crashed jobs of meta_Apr21_2012_14:35:32.txt
 meta_Apr21_2012_14:35:32_xsectMay2.txt - compilation of meta_Apr21_2012_14:35:32.txt and meta_May2_2012_14:35:52.txt
 
+
+=============================== GOOD RUNS ========================================================================
 meta_May22_2012_11:47:32.txt - *** charm run, HERAPDF 1.0 ***
 meta_May23_2012_16:48:22.txt - beauty run, HERAPDF 1.0 -> mb=4.5, to be rerun!
 meta_May30_2012_16:32:45.txt - test run on Massimo q2-x selected points, in order to compare with him
@@ -22,7 +26,6 @@ meta_Jun8_2012_14:43:44.txt - a control run for only central values for only dif
 				***** CENTRAL VALUES IDENTICAL TO meta_Jun4_2012_14:05:04 !!! ********
 
 ================================================ TOO MANY ITERATIONS ===================================================
-
 meta_Jun11_2012_15:56:12.txt - *** charm for visible cross-sections, HERAPDF 1.0 *** 
 				separate scale variation, increased number of iterations, results to be compared to 
 				meta_May22_2012_11:47:32.txt in order to see whether it is statistically stable
@@ -34,5 +37,9 @@ meta_Jun11_2012_15:57:55.txt - *** beauty for visible cross-sections, HERAPDF 1.
 ============== REDUCED NUMBER OF ITERATIONS, CHARM/BEAUTY DIFFERENTIAL, SEPARATE SCALE VARIATION  ======================
 meta_Jun18_2012_11:27:08.txt - ** charm differential herapdf 1.0 **
 meta_Jun18_2012_11:32:22.txt - ** beauty differential herapdf 1.0 **
-=======================================================================================================================
+
+
+================== ABKM, CENTRAL DIFFERENTIAL, WITH SIG0 FROM PHILIPP =================================================
+meta_Jun18_2012_19:48:36.txt - charm, ABKM, only central differential
+meta_Jun18_2012_19:48:56.txt - beauty, ABKM, only central differential (mb=4.5)
 
