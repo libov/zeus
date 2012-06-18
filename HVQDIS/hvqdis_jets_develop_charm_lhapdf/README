@@ -1,4 +1,4 @@
-meta_Apr21_2012_14:35:32.txt - test charm run; some jobs crashed, were resubmitted on May2
+eta_Apr21_2012_14:35:32.txt - test charm run; some jobs crashed, were resubmitted on May2
 meta_May2_2012_14:35:52.txt  - resubmission of crashed jobs of meta_Apr21_2012_14:35:32.txt
 meta_Apr21_2012_14:35:32_xsectMay2.txt - compilation of meta_Apr21_2012_14:35:32.txt and meta_May2_2012_14:35:52.txt
 
@@ -21,9 +21,18 @@ meta_Jun8_2012_14:35:52.txt - BEAUTY WITH ABKM; ALL SIMILAR TO meta_Jun8_2012_13
 meta_Jun8_2012_14:43:44.txt - a control run for only central values for only differential cross-sections HERAPDF 1.0 --- BEAUTY
 				***** CENTRAL VALUES IDENTICAL TO meta_Jun4_2012_14:05:04 !!! ********
 
+================================================ TOO MANY ITERATIONS ===================================================
+
 meta_Jun11_2012_15:56:12.txt - *** charm for visible cross-sections, HERAPDF 1.0 *** 
 				separate scale variation, increased number of iterations, results to be compared to 
 				meta_May22_2012_11:47:32.txt in order to see whether it is statistically stable
 
 meta_Jun11_2012_15:57:55.txt - *** beauty for visible cross-sections, HERAPDF 1.0 ***
 				similar to meta_Jun11_2012_15:56:12.txt, to be compared to meta_Jun4_2012_14:05:04.txt
+
+
+============== REDUCED NUMBER OF ITERATIONS, CHARM/BEAUTY DIFFERENTIAL, SEPARATE SCALE VARIATION  ======================
+meta_Jun18_2012_11:27:08.txt - ** charm differential herapdf 1.0 **
+meta_Jun18_2012_11:32:22.txt - ** beauty differential herapdf 1.0 **
+=======================================================================================================================
+
