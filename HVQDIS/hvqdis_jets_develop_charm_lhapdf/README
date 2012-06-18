@@ -1,4 +1,4 @@
-eta_Apr21_2012_14:35:32.txt - test charm run; some jobs crashed, were resubmitted on May2
+meta_Apr21_2012_14:35:32.txt - test charm run; some jobs crashed, were resubmitted on May2
 meta_May2_2012_14:35:52.txt  - resubmission of crashed jobs of meta_Apr21_2012_14:35:32.txt
 meta_Apr21_2012_14:35:32_xsectMay2.txt - compilation of meta_Apr21_2012_14:35:32.txt and meta_May2_2012_14:35:52.txt
 
