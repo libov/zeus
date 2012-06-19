@@ -59,7 +59,7 @@ function setDefaults()
     IPDF=300000                 #!1,2
     NPTS0=500000                #!NUMBER OF VEGAS POINTS FOR LO
     ITS0=2                      #!NUMBER OF VEGAS ITERATIONS FOR LO
-    NPTS1=500000                #!NUMBER OF VEGAS POINTS FOR NLO
+    NPTS1=800000                #!NUMBER OF VEGAS POINTS FOR NLO
     ITS1=4                      #!NUMBER OF VEGAS ITERATIONS FOR NLO
     if [ $FLAVOR == charm ] ; then 
         IQUARK=1                    #!1:CHARM  2:BOTTOM
