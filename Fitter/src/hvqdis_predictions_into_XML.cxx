@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
 
     // get full path to the metafile
     TString HVQDIS = getenv("HVQDIS");
-    TString metafile_path = HVQDIS + "/" + meta_file+".txt";
+    TString metafile_path = HVQDIS + "/metafiles/" + meta_file+".txt";
 
     // read values of hadronization and QED corrections
     TString DATABASE_PATH=getenv("DATABASE_PATH");
