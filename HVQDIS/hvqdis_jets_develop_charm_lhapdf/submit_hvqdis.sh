@@ -25,15 +25,15 @@ echo 'INFO: XSECT_TYPE = '$XSECT_TYPE
 echo 'INFO: UNC_TYPE = '$UNC_TYPE
 
 # selects a file with q2-x grid definition
-
 if [ $FLAVOR == charm ] ; then 
-    Q2X_GRID_FILE=./q2_x_grid.txt
+    Q2X_GRID_FILE=q2_x_grid.txt
 elif [ $FLAVOR == beauty ] ; then 
-    Q2X_GRID_FILE=./q2_x_grid_beauty.txt
+    Q2X_GRID_FILE=q2_x_grid_beauty.txt
 else
     echo 'unknown flavor'
     exit -1
 fi
+Q2X_GRID_FILE=q2_x_grids/$Q2X_GRID_FILE
 
 # creates a file which is unique for this submission and can be used later
 METAFILE=meta_`date | awk '{print $2 $3 "_" $6 "_" $4}' `.txt
