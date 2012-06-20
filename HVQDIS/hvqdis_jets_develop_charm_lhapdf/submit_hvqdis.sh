@@ -101,7 +101,7 @@ function createConfigFile()
     config_file='hvqdis.dat'
     rm -f $config_file
     touch $config_file
-    
+
     echo -e $NORDER"\t\t\t!0:BORN  1:NLO  2:SUM" >> $config_file
     echo -e $ISCALER"\t\t\t!SEE SUBROUTINE MSCALE FOR DEFINITIONS" >> $config_file
     echo -e $ISCALEF"\t\t\t!SEE SUBROUTINE MSCALE FOR DEFINITIONS" >> $config_file
@@ -143,7 +143,7 @@ function submitJob()
     rm -f $wrapper
     touch $wrapper
     chmod 777 $wrapper
-    
+
     echo 'source env.sh' >> $wrapper
     echo 'time ./hvq.x < hvqdis.dat > hvqdis.out' >> $wrapper
     echo 'grep "Total      sig (pb):" hvqdis.out > total_cross_section.txt' >> $wrapper
@@ -232,7 +232,7 @@ do
             Q2MAX=`echo "scale=10; $q2*1.01" | bc`
             XMIN=`echo "scale=10; $x*0.99" | bc`
             XMAX=`echo "scale=10; $x*1.01" | bc`
-            
+
             # set also FL to 0 as needed for F2 evaluation
             IFL=0
 
@@ -251,7 +251,7 @@ do
 
             # create a configuration file with current settings
             createConfigFile
-            
+
             # set ZARAH queue
             queue=$QUEUE_F2
             # submit a job
