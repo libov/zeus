@@ -36,7 +36,7 @@ fi
 Q2X_GRID_FILE=q2_x_grids/$Q2X_GRID_FILE
 
 # creates a file which is unique for this submission and can be used later
-METAFILE=meta_`date | awk '{print $2 $3 "_" $6 "_" $4}' `.txt
+METAFILE=metafiles/meta_`date | awk '{print $2 $3 "_" $6 "_" $4}' `.txt
 echo writing metadata to $METAFILE
 
 rm -f $METAFILE
