@@ -168,21 +168,21 @@ void    TResultPlotter::AddXMLFile(TString file_name){
                 y_err_tot_down[i] = cBin.get_k_c_err();
 
             } else if (isCharm && !fPlotScalingFactors) {
-                
+
                 y[i] = cBin.get_sigma_c();
                 y_err_stat[i] = cBin.get_sigma_c_err();
                 y_err_tot_up[i] = sqrt(pow(cBin.get_sigma_c_err(), 2) + pow(cBin.get_sigma_c_err_syst_up(), 2));
                 y_err_tot_down[i] = sqrt(pow(cBin.get_sigma_c_err(), 2) + pow(cBin.get_sigma_c_err_syst_down(), 2));
 
             } else if (!isCharm && fPlotScalingFactors) {
-                
+
                 y[i] = cBin.get_k_b();
                 y_err_stat[i] = cBin.get_k_b_err();
                 y_err_tot_up[i] = cBin.get_k_b_err();
                 y_err_tot_down[i] = cBin.get_k_b_err();
 
             } else if (!isCharm && !fPlotScalingFactors) {
-                
+
                 y[i] = cBin.get_sigma_b();
                 y_err_stat[i] = cBin.get_sigma_b_err();
                 y_err_tot_up[i] = sqrt(pow(cBin.get_sigma_b_err(), 2) + pow(cBin.get_sigma_b_err_syst_up(), 2));
