@@ -226,9 +226,9 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
             cBinGroup.histo_dummy -> SetAxisRange(fYaxis_low_limit[id], fYaxis_up_limit[id], "Y");
 
             // settings for labels, TODO: add sth controllable from above
-            cBinGroup.histo_dummy -> SetTitleSize(0.06, "Y");;
-            cBinGroup.histo_dummy -> SetTitleOffset(1.25, "Y");
-            cBinGroup.histo_dummy -> SetTitleSize(0.07, "X");;
+            cBinGroup.histo_dummy -> SetTitleSize(0.05, "Y");;
+            cBinGroup.histo_dummy -> SetTitleOffset(1.5, "Y");
+            cBinGroup.histo_dummy -> SetTitleSize(0.06, "X");;
             cBinGroup.histo_dummy -> SetTitleOffset(0.85, "X");
 
             // remove statistics box
@@ -247,9 +247,9 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 // special case of two pads one below the other: make the lower one smaller for the ratio plot
                 if ( (fNpads_x==1) && (fNpads_y==2) ) {
                     cCanvas -> cd (1);
-                    gPad -> SetPad (0, 0.25, 1, 1);
+                    gPad -> SetPad (0, 0.2, 1, 1);
                     cCanvas -> cd (2);
-                    gPad -> SetPad (0, 0, 1, 0.25);
+                    gPad -> SetPad (0, 0, 1, 0.2);
                 }
 
                 // add to the map
