@@ -1,7 +1,6 @@
 # This is a wrapper script to run the HVQDIS program for NLO QCD predictions
 # of heavy flavour jet production at HERA and heavy flavour contributions to F2 structure function
 # Vladyslav Libov, April 2012, libov@mail.desy.de
-# Modified:
 
 FLAVOR=charm
 XSECT_TYPE=ALL
