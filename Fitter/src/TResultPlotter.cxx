@@ -393,7 +393,7 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
         //histo_dummy -> SetAxisRange(0.3, 1.7, "Y");
         histo_dummy -> SetNdivisions(504, "Y");
         histo_dummy -> SetLabelSize(0.15,"Y");
-        histo_dummy -> SetYTitle("ratio");
+        histo_dummy -> SetYTitle("data / HVQDIS");
         histo_dummy -> SetTitleSize(0.15, "Y");
         histo_dummy -> SetTitleOffset(0.35, "Y");
         histo_dummy -> SetLabelSize(0.15,"X");
