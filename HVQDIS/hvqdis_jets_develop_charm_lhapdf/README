@@ -3,7 +3,8 @@
 *****************************************************
 
 -------------------------------------------------------------------------------
-NB. for HERAPDF runs, a clean git repository version is used
+NB. for HERAPDF runs, a clean git repository version is used 
+(most importantly, sig0.f=sig0.f_orig)
 -------------------------------------------------------------------------------
 
 1a. Charm visible cross-sections (with separate scale variation), HERAPDF 1.0
