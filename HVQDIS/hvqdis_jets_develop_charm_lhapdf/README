@@ -9,14 +9,33 @@ NB. for HERAPDF runs, a clean git repository version is used
 
 1a. Charm visible cross-sections (with separate scale variation), HERAPDF 1.0
     ./submit_hvqdis.sh -d -s
+        INFO: FLAVOR = charm
+        INFO: XSECT_TYPE = ONLY_DIFFERENTIAL
+        INFO: UNC_TYPE = SEPARATE_SCALE_VARIATION
+        INFO: PDF = DEFAULT
+        writing metadata to metafiles/meta_Jun21_2012_09:44:53.txt
 1b. Beauty visible cross-sections (with separate scale variation), HERAPDF 1.0
     ./submit_hvqdis.sh -d -s -b
+        INFO: FLAVOR = beauty
+        INFO: XSECT_TYPE = ONLY_DIFFERENTIAL
+        INFO: UNC_TYPE = SEPARATE_SCALE_VARIATION
+        INFO: PDF = DEFAULT
+        writing metadata to metafiles/meta_Jun21_2012_09:45:22.txt
 
 2a. Charm F2 evaluation, (q2x file; simultaneous scale variation) HERAPDF 1.0
     ./submit_hvqdis.sh
+        INFO: FLAVOR = charm
+        INFO: XSECT_TYPE = ALL
+        INFO: UNC_TYPE = DEFAULT
+        INFO: PDF = DEFAULT
+        writing metadata to metafiles/meta_Jun21_2012_09:45:50.txt
 2b. Beauty F2 evaluation, (q2x file; simultaneous scale variation) HERAPDF 1.0
     ./submit_hvqdis.sh -b
-
+        INFO: FLAVOR = beauty
+        INFO: XSECT_TYPE = ALL
+        INFO: UNC_TYPE = DEFAULT
+        INFO: PDF = DEFAULT
+        writing metadata to metafiles/meta_Jun21_2012_09:54:42.txt
 
 -------------------------------------------------------------------------------
 NB. for ABKM runs the following modifications take place:
@@ -27,5 +46,16 @@ NB. for ABKM runs the following modifications take place:
 
 3a. Charm visible cross-sections (only central), ABKM
     ./submit_hvqdis.sh -d -c -a
+        INFO: FLAVOR = charm
+        INFO: XSECT_TYPE = ONLY_DIFFERENTIAL
+        INFO: UNC_TYPE = ONLY_CENTRAL
+        INFO: PDF = ABKM
+        writing metadata to metafiles/meta_Jun21_2012_10:09:19.txt
 3b. Beauty visible cross-sections (only central), ABKM
     ./submit_hvqdis.sh -d -c -a -b
+        INFO: FLAVOR = beauty
+        INFO: XSECT_TYPE = ONLY_DIFFERENTIAL
+        INFO: UNC_TYPE = ONLY_CENTRAL
+        INFO: PDF = ABKM
+        writing metadata to metafiles/meta_Jun21_2012_10:09:34.txt
+
