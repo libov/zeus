@@ -28,6 +28,12 @@ echo 'INFO: XSECT_TYPE = '$XSECT_TYPE
 echo 'INFO: UNC_TYPE = '$UNC_TYPE
 echo 'INFO: PDF = '$PDF
 
+# sanity check for ABKM case: only central values run implemented
+if [ $PDF == ABKM ] && [ $UNC_TYPE != ONLY_CENTRAL ] ; then
+    echo 'ERROR: not ONLY_CENTRAL run for ABKM! Not implemented so far!'
+    exit -1
+fi
+
 # selects a file with q2-x grid definition
 if [ $FLAVOR == charm ] ; then
     Q2X_GRID_FILE=q2_x_grid.txt
