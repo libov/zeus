@@ -60,10 +60,10 @@ function setDefaults()
     ITS0=2                      #!NUMBER OF VEGAS ITERATIONS FOR LO
     NPTS1=800000                #!NUMBER OF VEGAS POINTS FOR NLO
     ITS1=4                      #!NUMBER OF VEGAS ITERATIONS FOR NLO
-    if [ $FLAVOR == charm ] ; then 
+    if [ $FLAVOR == charm ] ; then
         IQUARK=1                    #!1:CHARM  2:BOTTOM
         XM=1.5                      #!QUARK MASS
-    elif [ $FLAVOR == beauty ] ; then 
+    elif [ $FLAVOR == beauty ] ; then
         IQUARK=2                    #!1:CHARM  2:BOTTOM
         XM=4.75                      #!QUARK MASS
     else
