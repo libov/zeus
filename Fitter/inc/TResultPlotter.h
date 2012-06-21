@@ -82,6 +82,9 @@ class TResultPlotter {
                     int     band_color;
                 };
                 std::map<TString, Style>    fStyleMap;
+
+                // the legend
+                TLegend * fLegend;
 };
 
 #endif
