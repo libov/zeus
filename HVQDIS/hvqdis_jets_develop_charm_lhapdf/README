@@ -1,0 +1,30 @@
+*****************************************************
+*** These predictions enter the F2bc vertex paper ***
+*****************************************************
+
+-------------------------------------------------------------------------------
+NB. for HERAPDF runs, a clean git repository version is used
+-------------------------------------------------------------------------------
+
+1a. Charm visible cross-sections (with separate scale variation), HERAPDF 1.0
+    ./submit_hvqdis.sh -d -s
+1b. Beauty visible cross-sections (with separate scale variation), HERAPDF 1.0
+    ./submit_hvqdis.sh -d -s -b
+
+2a. Charm F2 evaluation, (q2x file; simultaneous scale variation) HERAPDF 1.0
+    ./submit_hvqdis.sh
+2b. Beauty F2 evaluation, (q2x file; simultaneous scale variation) HERAPDF 1.0
+    ./submit_hvqdis.sh -b
+
+
+-------------------------------------------------------------------------------
+NB. for ABKM runs the following modifications take place:
+ -> cp sig0.f_Philipp sig0.f && make clean && make
+    (manually, i.e. leads to unclean copy!!)
+ -> mb=4.75 -> mb=4.5 (now automatically in submit_hvqdis.sh!)
+-------------------------------------------------------------------------------
+
+3a. Charm visible cross-sections (only central), ABKM
+    ./submit_hvqdis.sh -d -c -a
+3b. Beauty visible cross-sections (only central), ABKM
+    ./submit_hvqdis.sh -d -c -a -b
