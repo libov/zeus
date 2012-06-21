@@ -22,7 +22,7 @@
 #include<TGraphAsymmErrors.h>
 
 class TResultPlotter {
-        
+
         public:
 
                 TResultPlotter();
