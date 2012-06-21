@@ -247,9 +247,9 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 // special case of two pads one below the other: make the lower one smaller for the ratio plot
                 if ( (fNpads_x==1) && (fNpads_y==2) ) {
                     cCanvas -> cd (1);
-                    gPad -> SetPad (0, 0.2, 1, 1);
+                    gPad -> SetPad (0, 0.25, 1, 1);
                     cCanvas -> cd (2);
-                    gPad -> SetPad (0, 0, 1, 0.2);
+                    gPad -> SetPad (0, 0, 1, 0.25);
                 }
 
                 // add to the map
@@ -385,7 +385,7 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
         // pad settings
         if ( cBinGroup1.ID.Contains("q2") || cBinGroup1.ID.Contains("x") ) gPad -> SetLogx();
         gPad->SetLeftMargin(0.15);
-        gPad->SetBottomMargin(0.13);
+        gPad->SetBottomMargin(0.4);
 
         // clone the dummy histogram so that no interference with other pads
         TH1F * histo_dummy = (TH1F*)cBinGroup1.histo_dummy -> Clone();
@@ -396,8 +396,9 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
         histo_dummy -> SetYTitle("data / HVQDIS");
         histo_dummy -> SetTitleSize(0.13, "Y");
         histo_dummy -> SetTitleOffset(0.45, "Y");
-        histo_dummy -> SetLabelSize(0.15,"X");
-        histo_dummy -> SetXTitle("");
+        histo_dummy -> SetLabelSize(0.12,"X");
+        histo_dummy -> SetXTitle(fXtitle[cBinGroup1.ID]);
+        histo_dummy -> SetTitleSize(0.18, "X");
 
         // draw the dummy histogram to set axes
         if ( !same ) histo_dummy -> Draw();
