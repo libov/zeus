@@ -29,7 +29,7 @@ echo 'INFO: UNC_TYPE = '$UNC_TYPE
 echo 'INFO: PDF = '$PDF
 
 # selects a file with q2-x grid definition
-if [ $FLAVOR == charm ] ; then 
+if [ $FLAVOR == charm ] ; then
     Q2X_GRID_FILE=q2_x_grid.txt
 elif [ $FLAVOR == beauty ] ; then 
     Q2X_GRID_FILE=q2_x_grid_beauty.txt
