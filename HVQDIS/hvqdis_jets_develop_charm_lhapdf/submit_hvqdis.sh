@@ -60,7 +60,14 @@ function setDefaults()
     NORDER=2                    #!0:BORN  1:NLO  2:SUM
     ISCALER=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
     ISCALEF=3                   #!SEE SUBROUTINE MSCALE FOR DEFINITIONS
-    IPDF=300000                 #!1,2
+    if [ $PDF == DEFAULT ] ; then
+        IPDF=300000             #!1,2
+    elif [ $PDF == ABKM ] ; then
+        IPDF=40650              #!1,2
+    else
+        echo 'unknown PDF'
+        exit -1
+    fi
     NPTS0=500000                #!NUMBER OF VEGAS POINTS FOR LO
     ITS0=2                      #!NUMBER OF VEGAS ITERATIONS FOR LO
     NPTS1=800000                #!NUMBER OF VEGAS POINTS FOR NLO
