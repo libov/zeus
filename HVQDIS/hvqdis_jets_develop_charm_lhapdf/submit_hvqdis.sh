@@ -77,7 +77,14 @@ function setDefaults()
         XM=1.5                  #!QUARK MASS
     elif [ $FLAVOR == beauty ] ; then
         IQUARK=2                    #!1:CHARM  2:BOTTOM
-        XM=4.75                      #!QUARK MASS
+        if [ $PDF == DEFAULT ] ; then
+            XM=4.75             #!QUARK MASS
+        elif [ $PDF == ABKM ] ; then
+            XM=4.5              #!QUARK MASS
+        else
+            echo 'unknown PDF'
+            exit -1
+        fi
     else
         echo 'unknown flavor'
         exit -1
