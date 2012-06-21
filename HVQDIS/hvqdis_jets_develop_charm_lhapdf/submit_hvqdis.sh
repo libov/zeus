@@ -5,7 +5,8 @@
 FLAVOR=charm
 XSECT_TYPE=ALL
 UNC_TYPE=DEFAULT
-while getopts "bdcs" opt; do
+PDF=DEFAULT
+while getopts "bdcsa" opt; do
   if [ $opt == b ] ; then 
         FLAVOR=beauty
   fi
@@ -18,10 +19,14 @@ while getopts "bdcs" opt; do
   if [ $opt == s ] ; then 
         UNC_TYPE=SEPARATE_SCALE_VARIATION
   fi
+  if [ $opt == a ] ; then 
+        PDF=ABKM
+  fi
 done
 echo 'INFO: FLAVOR = '$FLAVOR
 echo 'INFO: XSECT_TYPE = '$XSECT_TYPE
 echo 'INFO: UNC_TYPE = '$UNC_TYPE
+echo 'INFO: PDF = '$PDF
 
 # selects a file with q2-x grid definition
 if [ $FLAVOR == charm ] ; then 
