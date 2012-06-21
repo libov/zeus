@@ -17,6 +17,7 @@
 #include <TObjArray.h>
 #include <TObjString.h>
 #include <TStyle.h>
+#include <TPaveText.h>
 
 // my includes
 #include <TResultPlotter.h>
@@ -270,7 +271,16 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
             gPad->SetBottomMargin(0.13);
 
             // draw the histogram
-            if ( !same ) cBinGroup.histo_dummy -> Draw();
+            if ( !same ) {
+                cBinGroup.histo_dummy -> Draw();
+
+                // create a ZEUS label on top of the plot
+                TPaveText * pt = new TPaveText (0.42, 0.91, 0.62, 1.0, "ndc");
+                pt -> AddText("ZEUS");
+                pt -> SetFillColor(0);
+                pt -> SetBorderSize(0);
+                pt -> Draw();
+            }
 
             // predictions and data are treated separately;
             // predictions: a band + a histogram as for central values,
