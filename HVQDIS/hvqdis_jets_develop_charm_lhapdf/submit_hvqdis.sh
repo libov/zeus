@@ -76,7 +76,7 @@ function setDefaults()
         IQUARK=1                #!1:CHARM  2:BOTTOM
         XM=1.5                  #!QUARK MASS
     elif [ $FLAVOR == beauty ] ; then
-        IQUARK=2                    #!1:CHARM  2:BOTTOM
+        IQUARK=2                #!1:CHARM  2:BOTTOM
         if [ $PDF == DEFAULT ] ; then
             XM=4.75             #!QUARK MASS
         elif [ $PDF == ABKM ] ; then
