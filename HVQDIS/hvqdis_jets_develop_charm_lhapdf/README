@@ -59,3 +59,12 @@ NB. for ABKM runs the following modifications take place:
         INFO: PDF = ABKM
         writing metadata to metafiles/meta_Jun21_2012_10:09:34.txt
 
+
+
+---------------
+-------------
+ABKM 3 vs 4 flavours check, beauty; proper sig0.f: cp sig0.f_Philipp sig0.f
+
+metafiles/meta_Jul18_2012_13:10:17.txt -> ipdf = 40650 (3 flv)
+metafiles/meta_Jul18_2012_13:10:47.txt -> ipdf = 40780 (4 flv)
+
