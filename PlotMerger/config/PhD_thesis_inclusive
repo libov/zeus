@@ -1,0 +1,4 @@
+
+# inclusive plots
+3 2 01_event_inclusive q2da:xda:yel:yjb:empz:zvtx: 0 0 0 0 0 0 
+3 2 02_electron_jet_inclusive siecorr:thetael:phiel:kt_etjet_b:kt_etajet_b:kt_phijet_b: 0 0 0 1 0 0
