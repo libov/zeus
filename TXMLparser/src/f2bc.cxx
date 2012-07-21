@@ -37,66 +37,6 @@ void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
 
 Float_t get_xsect(unsigned job_id, TString job_directory);
 
-void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, unsigned & point_counter, TPointF2theo point) {
-    x[point_counter] = point.getX();
-    f2[point_counter] = point.getF2();
-    f2_err_up[point_counter] = point.getRelativeUncertaintyUp() * point.getF2();
-    f2_err_down[point_counter] = point.getRelativeUncertaintyDown() * point.getF2();
-    point_counter++;
-}
-
-void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, Float_t * x_err_up, Float_t * x_err_down, TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter) {
-    
-    c -> cd(canvas_counter);
-    h -> Draw();
-            
-    gPad -> SetLogx();
-    gPad -> SetTicks(1,1);
-    gPad -> SetBottomMargin(0);
-    gPad -> SetTopMargin(0);
-        
-    TGraphAsymmErrors * g_band = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
-    g_band -> Draw("3C");
-    g_band -> SetFillColor(7);
-
-    TGraph * g_central = new TGraph(point_counter, x, f2);
-    g_central -> Draw("C");
-    g_central -> SetLineColor(kBlack);
-    g_central -> SetLineWidth(2);
-
-    // and make all arrays zero
-    for (unsigned j=0; j<max_f2c_points; j++) {
-        x[j] = 0;
-        f2[j] = 0;
-        f2_err_up[j] = 0;
-        f2_err_down[j] = 0;
-    }
-
-    canvas_counter++;
-    point_counter = 0;
-}
-
-Float_t get_xsect(unsigned job_id, TString job_directory) {
-
-    TString JOBS_HVQDIS = getenv("JOBS_HVQDIS");
-    TString job = JOBS_HVQDIS + "/" + job_directory + "/000";
-    job += job_id;
-    TString logfile_name = job+"/hvqdis.out";
-    ifstream logfile(logfile_name);
-    if (!logfile.is_open()) return -1;
-    TString phrase = " 'Total      sig (pb):' ";
-    system("rm -f tmp.txt");
-    system("grep " + phrase + logfile_name + " | awk '{print $4}' > tmp.txt");
-    ifstream tmp("tmp.txt");
-    if (!tmp.is_open()) return -1;
-    string line;
-    getline(tmp, line);
-    tmp.close();
-    system("rm -f tmp.txt");
-    Float_t xsect = atof(line.c_str());
-    return xsect;
-}
-
 // main function
 int main(int argc, char **argv) {
 
@@ -519,4 +459,64 @@ int main(int argc, char **argv) {
     c->Print(PLOTS_PATH+"/f2c.root");
 
     return 0;
+}
+
+void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, unsigned & point_counter, TPointF2theo point) {
+    x[point_counter] = point.getX();
+    f2[point_counter] = point.getF2();
+    f2_err_up[point_counter] = point.getRelativeUncertaintyUp() * point.getF2();
+    f2_err_down[point_counter] = point.getRelativeUncertaintyDown() * point.getF2();
+    point_counter++;
+}
+
+void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, Float_t * x_err_up, Float_t * x_err_down, TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter) {
+    
+    c -> cd(canvas_counter);
+    h -> Draw();
+            
+    gPad -> SetLogx();
+    gPad -> SetTicks(1,1);
+    gPad -> SetBottomMargin(0);
+    gPad -> SetTopMargin(0);
+        
+    TGraphAsymmErrors * g_band = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
+    g_band -> Draw("3C");
+    g_band -> SetFillColor(7);
+
+    TGraph * g_central = new TGraph(point_counter, x, f2);
+    g_central -> Draw("C");
+    g_central -> SetLineColor(kBlack);
+    g_central -> SetLineWidth(2);
+
+    // and make all arrays zero
+    for (unsigned j=0; j<max_f2c_points; j++) {
+        x[j] = 0;
+        f2[j] = 0;
+        f2_err_up[j] = 0;
+        f2_err_down[j] = 0;
+    }
+
+    canvas_counter++;
+    point_counter = 0;
+}
+
+Float_t get_xsect(unsigned job_id, TString job_directory) {
+
+    TString JOBS_HVQDIS = getenv("JOBS_HVQDIS");
+    TString job = JOBS_HVQDIS + "/" + job_directory + "/000";
+    job += job_id;
+    TString logfile_name = job+"/hvqdis.out";
+    ifstream logfile(logfile_name);
+    if (!logfile.is_open()) return -1;
+    TString phrase = " 'Total      sig (pb):' ";
+    system("rm -f tmp.txt");
+    system("grep " + phrase + logfile_name + " | awk '{print $4}' > tmp.txt");
+    ifstream tmp("tmp.txt");
+    if (!tmp.is_open()) return -1;
+    string line;
+    getline(tmp, line);
+    tmp.close();
+    system("rm -f tmp.txt");
+    Float_t xsect = atof(line.c_str());
+    return xsect;
 }
