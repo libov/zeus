@@ -260,8 +260,10 @@ int main(int argc, char **argv) {
             TString JOBS_HVQDIS = getenv("JOBS_HVQDIS");
             TString filename = JOBS_HVQDIS + "/" + job_directory + "/000";
             filename +=  job_id;
-            filename += "/histograms.root";
-            TFile * file  = new TFile (filename, "read");
+            TString root_filename = filename + "/histograms.root";
+            TString paw_filename = filename + "/histograms.histos";
+            system ("h2root " + paw_filename);
+            TFile * file  = new TFile (root_filename, "read");
 
             // get the histograms with the visible cross-sections
             TH1F *q2x_1, *q2x_2, *q2x_3, *q2x_4, *q2x_5;
