@@ -477,12 +477,10 @@ int main(int argc, char **argv) {
                 f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down*f2_err_syst_down+ extrap_unc_down);
                 // increment counter
                 point_counter++;
-
             }
 
             c -> cd (canvas_counter);
             canvas_counter++;
-
 
             TGraphAsymmErrors * g_f2_meas = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_stat, f2_err_stat);
             g_f2_meas -> SetMarkerStyle(20);
@@ -501,24 +499,24 @@ int main(int argc, char **argv) {
         }
 
         // add to current graph
-                x[point_counter] = point.getX();
-                f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
-                Float_t extrap_unc_up = 0;
-                Float_t extrap_unc_down = 0;
+        x[point_counter] = point.getX();
+        f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
+        Float_t extrap_unc_up = 0;
+        Float_t extrap_unc_down = 0;
 
-                for (int k=2; k<=7; k++) {
-                    Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
-                    if (delta<0) extrap_unc_up += delta*delta;
-                    if (delta>0) extrap_unc_down += delta*delta;
-                }
+        for (int k=2; k<=7; k++) {
+            Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
+            if (delta<0) extrap_unc_up += delta*delta;
+            if (delta>0) extrap_unc_down += delta*delta;
+        }
 
-                f2_err_stat[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
-                Float_t f2_err_syst_up = f2[point_counter] * (diff_xsect_meas_err_syst_up[i]/diff_xsect_meas[i]);
-                Float_t f2_err_syst_down = f2[point_counter] * (diff_xsect_meas_err_syst_down[i]/diff_xsect_meas[i]);
-                f2_err_tot_up[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_up*f2_err_syst_up + extrap_unc_up);
-                f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down*f2_err_syst_down+ extrap_unc_down);
-                // increment counter
-                point_counter++;
+        f2_err_stat[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
+        Float_t f2_err_syst_up = f2[point_counter] * (diff_xsect_meas_err_syst_up[i]/diff_xsect_meas[i]);
+        Float_t f2_err_syst_down = f2[point_counter] * (diff_xsect_meas_err_syst_down[i]/diff_xsect_meas[i]);
+        f2_err_tot_up[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_up*f2_err_syst_up + extrap_unc_up);
+        f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down*f2_err_syst_down+ extrap_unc_down);
+        // increment counter
+        point_counter++;
 
         previous_Q2 = point.getQ2();
     }
