@@ -316,47 +316,56 @@ int main(int argc, char **argv) {
         }
 
         Float_t xsect = get_xsect(job_id, job_directory);
-        //if (xsect<0) continue;
+        if (xsect<=0) {
+            cout << "ERROR: could not read out the cross-section from " << job_id << endl;
+            abort();
+        }
 
-        // in this case this is a central value
-        if (uncertainty_counter==1) {
-            if (xsect>0) {
-                TPointF2theo point(q2, x, xsect, q2min, q2max, xmin, xmax);
-                vtx[point_counter]=point;
-            }
-            point_counter++;
-        } else { // otherwise
+        // create an object
+        TPointF2theo point(q2, x, xsect, q2min, q2max, xmin, xmax);
 
+        // for the central value
+        if (uncertainty_counter==1) vtx[point_counter][uncertainty_counter]=point;
+        // for variations - some additional sanity checks
+        if (uncertainty_counter>1) {
+
+            // check that this q2-x point is already present
             bool this_counter_found = false;
-                
-            for ( iter=vtx.begin() ; iter != vtx.end(); iter++ ) {
-                if ((*iter).first == point_counter) { 
+            for ( iter1=vtx.begin() ; iter1 != vtx.end(); iter1++ ) {
+                if ((*iter1).first == point_counter) { 
                     this_counter_found = true;
                     break;
                 }
             }
-
-            if (this_counter_found) {
-                // sanity check
-                if ( (q2 != vtx[point_counter].getQ2()) || (x != vtx[point_counter].getX()) ) {
-                    cout << "ERROR: q2,x for the central value does not match those for variation for the point " << point_counter << endl;
-                    cout << q2 << " != " << vtx[point_counter].getQ2() << ", " << x << " != " << vtx[point_counter].getX() << endl;
-                }
-                if (xsect>0) vtx[point_counter].addVariation(xsect);
+            
+            if (!this_counter_found) {
+                cout << "ERROR: could not find central value with q2-x point number " << point_counter << endl;
+                abort();
             }
 
-            point_counter++;
+            // check that q2 and x of this point match that of central value point
+            if ( (q2 != vtx[point_counter][1].getQ2()) || (x != vtx[point_counter][1].getX()) ) {
+                cout << "ERROR: q2,x for the central value does not match those for variation for the point " << point_counter << endl;
+                cout << q2 << " != " << vtx[point_counter][1].getQ2() << ", " << x << " != " << vtx[point_counter][1].getX() << endl;
+                abort();
+            }
+
+            // add the point to the map and to the variation list of the central point
+            vtx[point_counter][1].addVariation(xsect);
+            vtx[point_counter][uncertainty_counter] = point;
         }
+
+        point_counter++;
     }
     metafile.close();
 
-    // printout the number of F2 points found, stop execution of none
+    // printout the number of F2 points found, stop execution if none
     cout << "Total number of F2 points: " << vtx.size() << endl;
     if (vtx.size()==0) return 0;
 
     // printout the F2 values with errors for every point
     cout << endl;
-    for ( iter=vtx.begin() ; iter != vtx.end(); iter++ ) (*iter).second.Print();
+    for ( iter1=vtx.begin() ; iter1 != vtx.end(); iter1++ ) (*iter1).second[1].Print();
     cout << endl;
 
     // ---------------------------------------- //
