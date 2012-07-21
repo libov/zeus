@@ -138,12 +138,16 @@ int main(int argc, char **argv) {
 
     // meta file name and full path
     TString HVQDIS = getenv("HVQDIS");
-    TString metafile_path = HVQDIS + "/" + metafile_name;
+    TString metafile_path = HVQDIS + "/metafiles/" + metafile_name;
 
     // count the number of lines in the metafile, i.e. get the total number of jobs submitted
     unsigned n_jobs=0;
     ifstream metafile(metafile_path);
-    if (!metafile.is_open()) abort();
+    if (!metafile.is_open()) {
+        cout << "ERROR: could not open " << metafile_path << endl;
+        abort();
+    }
+    cout << "INFO: opened " << metafile_path << endl;
     // loop over lines and count them
     while ( getline (metafile,line) ) n_jobs++;
     cout << "INFO: " << n_jobs << " jobs in total" << endl;
