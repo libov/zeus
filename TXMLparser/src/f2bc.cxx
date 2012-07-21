@@ -375,9 +375,9 @@ int main(int argc, char **argv) {
     // arrays to store f2 values and uncertainties - for plotting!
     Float_t x[max_f2c_points];
     Float_t f2[max_f2c_points];
-    //Float_t f2_meas[max_f2c_points];
-    Float_t f2_err_up[max_f2c_points];
-    Float_t f2_err_down[max_f2c_points];
+    Float_t f2_err_stat[max_f2c_points];
+    Float_t f2_err_tot_up[max_f2c_points];
+    Float_t f2_err_tot_down[max_f2c_points];
     Float_t x_err_up[max_f2c_points];
     Float_t x_err_down[max_f2c_points];
 
