@@ -394,71 +394,115 @@ int main(int argc, char **argv) {
     // dummy histo
     TH1F * h = new TH1F ("", "", 100, 6e-5, 2.5e-1);
     h -> SetStats(kFALSE);
-    h -> SetAxisRange(0, 0.7, "Y");
+    if (beauty) h -> SetAxisRange(0, 0.05, "Y");
+    else h -> SetAxisRange(0, 0.7, "Y");
     h -> SetNdivisions(504, "Y");
 
+    TH1F * h2 = (TH1F *) h -> Clone();
+    h2 -> SetAxisRange(0, 0.02, "Y"); 
+
+    TH1F * dummy;
+
     unsigned canvas_counter = 1;
-    Float_t previous_Q2 = vtx[1].getQ2();
+    Float_t previous_Q2 = vtx[1][1].getQ2();
     point_counter = 0;
     // loop over all points
-    for ( iter=vtx.begin() ; iter != vtx.end(); iter++ ) {
-        TPointF2theo point = (*iter).second;
+    for ( iter1=vtx.begin() ; iter1 != vtx.end(); iter1++ ) {
+        if (canvas_counter<=3 && beauty) dummy = h2;
+        else dummy = h;
+ 
+        TPointF2theo point = (*iter1).second[1];
         // if Q2 is the same as for previous point (holds by definition for the 1st point),
         // add this point to the current graph
         if (point.getQ2() == previous_Q2) {
             // add to current graph
-            addToGraph(x, f2, f2_err_up, f2_err_down, point_counter, point);
+            addToGraph(x, f2, f2_err_tot_up, f2_err_tot_down, point_counter, point);
         } else {
             // create a graph
-            drawGraph(x, f2, f2_err_up, f2_err_down, x_err_up, x_err_down, c, h, canvas_counter, point_counter);
+            drawGraph(x, f2, f2_err_tot_up, f2_err_tot_down, x_err_up, x_err_down, c, dummy, canvas_counter, point_counter);
             previous_Q2 = point.getQ2();
             // add to current graph
-            addToGraph(x, f2, f2_err_up, f2_err_down, point_counter, point);
+            addToGraph(x, f2, f2_err_tot_up, f2_err_tot_down, point_counter, point);
         }
     }
 
     // create a graph
-    drawGraph(x, f2, f2_err_up, f2_err_down, x_err_up, x_err_down, c, h, canvas_counter, point_counter);
+    drawGraph(x, f2, f2_err_tot_up, f2_err_tot_down, x_err_up, x_err_down, c, dummy, canvas_counter, point_counter);
 
     // ---------------------------------------- //
     // ---------- plot the F2c_meas ----------- //
     // ---------------------------------------- //
+
     point_counter = 0;
     canvas_counter = 1;
-    previous_Q2 = vtx[f2_points[0]].getQ2();
+    previous_Q2 = vtx[f2_points[0]][1].getQ2();
     // loop over all q2-x points at which we measure
     for (int i=0; i<N_F2_POINTS; i++) {
         unsigned q2x_point_id = f2_points[i];
-        TPointF2theo point = vtx[q2x_point_id];
+        TPointF2theo point = vtx[q2x_point_id][1];
 
         if ( (point.getQ2() != previous_Q2) || (i==(N_F2_POINTS-1)) ) {
             if (i==(N_F2_POINTS-1)) {
                 x[point_counter] = point.getX();
                 f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
-                f2_err_up[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
-                f2_err_down[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
+                Float_t extrap_unc_up = 0;
+                Float_t extrap_unc_down = 0;
+
+                for (int k=2; k<=7; k++) {
+                    Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
+                    if (delta<0) extrap_unc_up += delta*delta;
+                    if (delta>0) extrap_unc_down += delta*delta;
+                }
+
+                f2_err_stat[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
+                Float_t f2_err_syst_up = f2[point_counter] * (diff_xsect_meas_err_syst_up[i]/diff_xsect_meas[i]);
+                Float_t f2_err_syst_down = f2[point_counter] * (diff_xsect_meas_err_syst_down[i]/diff_xsect_meas[i]);
+                f2_err_tot_up[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_up*f2_err_syst_up + extrap_unc_up);
+                f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down*f2_err_syst_down+ extrap_unc_down);
                 // increment counter
                 point_counter++;
+
             }
-            TGraphAsymmErrors * g_f2_meas = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
-            g_f2_meas -> SetMarkerStyle(20);
-            g_f2_meas -> SetMarkerSize(0.5);
+
             c -> cd (canvas_counter);
             canvas_counter++;
+
+
+            TGraphAsymmErrors * g_f2_meas = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_stat, f2_err_stat);
+            g_f2_meas -> SetMarkerStyle(20);
+            g_f2_meas -> SetMarkerSize(0.5);
             g_f2_meas -> Draw("samep");
+
+            TGraphAsymmErrors * g_f2_meast = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_tot_down, f2_err_tot_up);
+            g_f2_meast -> SetMarkerStyle(20);
+            g_f2_meast -> SetMarkerSize(0.5);
+            g_f2_meast -> Draw("samepz");
+
             for (int k=0; k<point_counter; k++) {
-                cout << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +" << f2_err_up[k] << " -" << f2_err_down[k] << endl;
+                cout << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +" << f2_err_tot_up[k] << " -" << f2_err_tot_down[k] << endl;
             }
             point_counter = 0;
         }
 
         // add to current graph
-        x[point_counter] = point.getX();
-        f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
-        f2_err_up[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
-        f2_err_down[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
-        // increment counter
-        point_counter++;
+                x[point_counter] = point.getX();
+                f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
+                Float_t extrap_unc_up = 0;
+                Float_t extrap_unc_down = 0;
+
+                for (int k=2; k<=7; k++) {
+                    Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
+                    if (delta<0) extrap_unc_up += delta*delta;
+                    if (delta>0) extrap_unc_down += delta*delta;
+                }
+
+                f2_err_stat[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
+                Float_t f2_err_syst_up = f2[point_counter] * (diff_xsect_meas_err_syst_up[i]/diff_xsect_meas[i]);
+                Float_t f2_err_syst_down = f2[point_counter] * (diff_xsect_meas_err_syst_down[i]/diff_xsect_meas[i]);
+                f2_err_tot_up[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_up*f2_err_syst_up + extrap_unc_up);
+                f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down*f2_err_syst_down+ extrap_unc_down);
+                // increment counter
+                point_counter++;
 
         previous_Q2 = point.getQ2();
     }
