@@ -28,6 +28,8 @@ using namespace std;
 #include <TGraph.h>
 #include <TH1F.h>
 #include <TFile.h>
+#include <TObjString.h>
+#include <TObjArray.h>
 
 const unsigned  max_f2c_points = 20;
 
@@ -160,6 +162,26 @@ int main(int argc, char **argv) {
         hadr_qed_corr[i] = 0;
     }
 
+    // a string for file operations
+    string line;
+    while ( hadr.good() ) {
+        // read each line
+        getline (hadr,line);
+        TString line_str = line;
+
+        // tokenize it, skip if empty
+        TObjArray * tokens = line_str.Tokenize("\t");
+        if (tokens -> IsEmpty()) continue;
+
+        // get the id of the bin (is assumed to match those of the XML binning file)
+        TString bin_id = ((TObjString*) tokens->At(0)) -> GetString();
+        TString hadr_corr =  ((TObjString*) tokens->At(1)) -> GetString();
+        TString qed_corr =  ((TObjString*) tokens->At(2)) -> GetString();
+
+        // store to the array
+        hadr_qed_corr[bin_id.Atoi()] = hadr_corr.Atof() * qed_corr.Atof();
+    }
+
     // array to store theoretical xsections [q2-x point][uncertainty counter]
     Float_t diff_xsect_theo[N_F2_POINTS][10];
 
@@ -169,9 +191,6 @@ int main(int argc, char **argv) {
     map<unsigned, TPointF2theo>::iterator iter2;
     // map identifier: integer number, uniquely specifies a q2-x point
     unsigned point_counter=1;
-
-    // a string for file operations
-    string line;
 
     // meta file name and full path
     TString HVQDIS = getenv("HVQDIS");
