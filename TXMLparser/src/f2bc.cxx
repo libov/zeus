@@ -353,7 +353,7 @@ int main(int argc, char **argv) {
                     break;
                 }
             }
-            
+
             if (!this_counter_found) {
                 cout << "ERROR: could not find central value with q2-x point number " << point_counter << endl;
                 abort();
@@ -426,7 +426,7 @@ int main(int argc, char **argv) {
     for ( iter1=vtx.begin() ; iter1 != vtx.end(); iter1++ ) {
         if (canvas_counter<=3 && beauty) dummy = h2;
         else dummy = h;
- 
+
         TPointF2theo point = (*iter1).second[1];
         // if Q2 is the same as for previous point (holds by definition for the 1st point),
         // add this point to the current graph
