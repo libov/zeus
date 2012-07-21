@@ -263,11 +263,26 @@ int main(int argc, char **argv) {
                     filename += "/histograms.root";
                     TFile * file  = new TFile (filename, "read");
 
-                    TH1F * q2x_1 = (TH1F*) file -> Get ("HISB/h31101");
-                    TH1F * q2x_2 = (TH1F*) file -> Get ("HISB/h31102");
-                    TH1F * q2x_3 = (TH1F*) file -> Get ("HISB/h31103");
-                    TH1F * q2x_4 = (TH1F*) file -> Get ("HISB/h31104");
-                    TH1F * q2x_5 = (TH1F*) file -> Get ("HISB/h31105");
+                    // get the histograms with the visible cross-sections
+                    TH1F *q2x_1, *q2x_2, *q2x_3, *q2x_4, *q2x_5;
+
+
+            if (beauty) {
+
+                q2x_1 = (TH1F*) file -> Get ("HISB/h31001");
+                q2x_2 = (TH1F*) file -> Get ("HISB/h31002");
+                q2x_3 = (TH1F*) file -> Get ("HISB/h31003");
+                q2x_4 = (TH1F*) file -> Get ("HISB/h31004");
+                q2x_5 = (TH1F*) file -> Get ("HISB/h31005");
+
+            } else {
+
+                q2x_1 = (TH1F*) file -> Get ("HISB/h31101");
+                q2x_2 = (TH1F*) file -> Get ("HISB/h31102");
+                q2x_3 = (TH1F*) file -> Get ("HISB/h31103");
+                q2x_4 = (TH1F*) file -> Get ("HISB/h31104");
+                q2x_5 = (TH1F*) file -> Get ("HISB/h31105");
+            }
 
                     diff_xsect_theo[0][uncertainty_counter] = (q2x_1 -> GetBinContent(1)) * 1.19 * 0.96;
                     diff_xsect_theo[1][uncertainty_counter] = (q2x_1 -> GetBinContent(2)) * 1.21 * 0.98;
