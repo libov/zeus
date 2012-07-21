@@ -50,11 +50,11 @@ void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
     gPad -> SetTopMargin(0);
         
     TGraphAsymmErrors * g_band = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
-    g_band -> Draw("3L");
-    g_band -> SetFillColor(kOrange);
+    g_band -> Draw("3C");
+    g_band -> SetFillColor(7);
 
     TGraph * g_central = new TGraph(point_counter, x, f2);
-    g_central -> Draw("L");
+    g_central -> Draw("C");
     g_central -> SetLineColor(kBlack);
     g_central -> SetLineWidth(2);
 
