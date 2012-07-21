@@ -294,10 +294,10 @@ int main(int argc, char **argv) {
                 first_bin = 46;
             }
 
-            diff_xsect_theo[0][uncertainty_counter] = (q2x_1 -> GetBinContent(1)) * hadr_qed_corr[first_bin + 0];
-            diff_xsect_theo[1][uncertainty_counter] = (q2x_1 -> GetBinContent(2)) * hadr_qed_corr[first_bin + 1];
-            diff_xsect_theo[2][uncertainty_counter] = (q2x_1 -> GetBinContent(3)) * hadr_qed_corr[first_bin + 2];
-            diff_xsect_theo[3][uncertainty_counter] = (q2x_1 -> GetBinContent(4)) * hadr_qed_corr[first_bin + 3];
+            diff_xsect_theo[0][uncertainty_counter] = q2x_1 -> GetBinContent(1) * hadr_qed_corr[first_bin + 0];
+            diff_xsect_theo[1][uncertainty_counter] = q2x_1 -> GetBinContent(2) * hadr_qed_corr[first_bin + 1];
+            diff_xsect_theo[2][uncertainty_counter] = q2x_1 -> GetBinContent(3) * hadr_qed_corr[first_bin + 2];
+            diff_xsect_theo[3][uncertainty_counter] = q2x_1 -> GetBinContent(4) * hadr_qed_corr[first_bin + 3];
 
             diff_xsect_theo[4][uncertainty_counter] = q2x_2 -> GetBinContent(1) * hadr_qed_corr[first_bin + 4];
             diff_xsect_theo[5][uncertainty_counter] = q2x_2 -> GetBinContent(2) * hadr_qed_corr[first_bin + 5];
