@@ -287,28 +287,35 @@ int main(int argc, char **argv) {
                 q2x_5 = (TH1F*) file -> Get ("HISB/h31105");
             }
 
-            diff_xsect_theo[0][uncertainty_counter] = (q2x_1 -> GetBinContent(1)) * 1.19 * 0.96;
-            diff_xsect_theo[1][uncertainty_counter] = (q2x_1 -> GetBinContent(2)) * 1.21 * 0.98;
-            diff_xsect_theo[2][uncertainty_counter] = (q2x_1 -> GetBinContent(3)) * 1.23 * 0.98;
-            diff_xsect_theo[3][uncertainty_counter] = (q2x_1 -> GetBinContent(4)) * 1.07 * 1.00;
+            unsigned first_bin;
+            if (beauty) {
+                first_bin = 45;
+            } else {
+                first_bin = 46;
+            }
 
-            diff_xsect_theo[4][uncertainty_counter] = q2x_2 -> GetBinContent(1) * 1.13 * 0.97;
-            diff_xsect_theo[5][uncertainty_counter] = q2x_2 -> GetBinContent(2) * 1.09 * 0.97;
-            diff_xsect_theo[6][uncertainty_counter] = q2x_2 -> GetBinContent(3) * 1.05 * 0.98;
-            diff_xsect_theo[7][uncertainty_counter] = q2x_2 -> GetBinContent(4) * 1.01 * 0.99;
-            diff_xsect_theo[8][uncertainty_counter] = q2x_2 -> GetBinContent(5) * 0.91 * 0.99;
+            diff_xsect_theo[0][uncertainty_counter] = (q2x_1 -> GetBinContent(1)) * hadr_qed_corr[first_bin + 0];
+            diff_xsect_theo[1][uncertainty_counter] = (q2x_1 -> GetBinContent(2)) * hadr_qed_corr[first_bin + 1];
+            diff_xsect_theo[2][uncertainty_counter] = (q2x_1 -> GetBinContent(3)) * hadr_qed_corr[first_bin + 2];
+            diff_xsect_theo[3][uncertainty_counter] = (q2x_1 -> GetBinContent(4)) * hadr_qed_corr[first_bin + 3];
 
-            diff_xsect_theo[9][uncertainty_counter] = q2x_3 -> GetBinContent(1) * 1.07 * 0.97;
-            diff_xsect_theo[10][uncertainty_counter] = q2x_3 -> GetBinContent(2) * 1.03 * 0.99;
-            diff_xsect_theo[11][uncertainty_counter] = q2x_3 -> GetBinContent(3) * 1.01 * 0.98;
-            diff_xsect_theo[12][uncertainty_counter] = q2x_3 -> GetBinContent(4) * 0.93 * 0.93;
+            diff_xsect_theo[4][uncertainty_counter] = q2x_2 -> GetBinContent(1) * hadr_qed_corr[first_bin + 4];
+            diff_xsect_theo[5][uncertainty_counter] = q2x_2 -> GetBinContent(2) * hadr_qed_corr[first_bin + 5];
+            diff_xsect_theo[6][uncertainty_counter] = q2x_2 -> GetBinContent(3) * hadr_qed_corr[first_bin + 6];
+            diff_xsect_theo[7][uncertainty_counter] = q2x_2 -> GetBinContent(4) * hadr_qed_corr[first_bin + 7];
+            diff_xsect_theo[8][uncertainty_counter] = q2x_2 -> GetBinContent(5) * hadr_qed_corr[first_bin + 8];
 
-            diff_xsect_theo[13][uncertainty_counter] = q2x_4 -> GetBinContent(1) * 1.05 * 0.97;
-            diff_xsect_theo[14][uncertainty_counter] = q2x_4 -> GetBinContent(2) * 1.01 * 1.00;
-            diff_xsect_theo[15][uncertainty_counter] = q2x_4 -> GetBinContent(3) * 0.96 * 0.80;
+            diff_xsect_theo[9][uncertainty_counter] = q2x_3 -> GetBinContent(1) * hadr_qed_corr[first_bin + 9];
+            diff_xsect_theo[10][uncertainty_counter] = q2x_3 -> GetBinContent(2) * hadr_qed_corr[first_bin + 10];
+            diff_xsect_theo[11][uncertainty_counter] = q2x_3 -> GetBinContent(3) * hadr_qed_corr[first_bin + 11];
+            diff_xsect_theo[12][uncertainty_counter] = q2x_3 -> GetBinContent(4) * hadr_qed_corr[first_bin + 12];
 
-            diff_xsect_theo[16][uncertainty_counter] = q2x_5 -> GetBinContent(1) * 1.02 * 0.88;
-            diff_xsect_theo[17][uncertainty_counter] = q2x_5 -> GetBinContent(2) * 1.01 * 0.84;
+            diff_xsect_theo[13][uncertainty_counter] = q2x_4 -> GetBinContent(1) * hadr_qed_corr[first_bin + 13];
+            diff_xsect_theo[14][uncertainty_counter] = q2x_4 -> GetBinContent(2) * hadr_qed_corr[first_bin + 14];
+            diff_xsect_theo[15][uncertainty_counter] = q2x_4 -> GetBinContent(3) * hadr_qed_corr[first_bin + 15];
+
+            diff_xsect_theo[16][uncertainty_counter] = q2x_5 -> GetBinContent(1) * hadr_qed_corr[first_bin + 16];
+            diff_xsect_theo[17][uncertainty_counter] = q2x_5 -> GetBinContent(2) * hadr_qed_corr[first_bin + 17];
 
             continue;
         }
