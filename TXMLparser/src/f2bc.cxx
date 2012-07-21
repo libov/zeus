@@ -13,6 +13,7 @@
 #include <map>
 #include <string.h>
 #include <getopt.h>
+#include <sys/stat.h>
 using namespace std;
 
 // custom headers
@@ -262,7 +263,8 @@ int main(int argc, char **argv) {
             filename +=  job_id;
             TString root_filename = filename + "/histograms.root";
             TString paw_filename = filename + "/histograms.histos";
-            system ("h2root " + paw_filename);
+            struct stat buffer ;
+            if ( stat( root_filename.Data(), &buffer ) ) system ("h2root " + paw_filename); 
             TFile * file  = new TFile (root_filename, "read");
 
             // get the histograms with the visible cross-sections
