@@ -31,6 +31,12 @@ using namespace std;
 
 const unsigned  max_f2c_points = 20;
 
+void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, unsigned & point_counter, TPointF2theo point);
+
+void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, Float_t * x_err_up, Float_t * x_err_down, TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter);
+
+Float_t get_xsect(unsigned job_id, TString job_directory);
+
 void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, unsigned & point_counter, TPointF2theo point) {
     x[point_counter] = point.getX();
     f2[point_counter] = point.getF2();
