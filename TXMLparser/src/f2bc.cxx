@@ -470,15 +470,15 @@ void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
 }
 
 void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, Float_t * x_err_up, Float_t * x_err_down, TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter) {
-    
+
     c -> cd(canvas_counter);
     h -> Draw();
-            
+
     gPad -> SetLogx();
     gPad -> SetTicks(1,1);
     gPad -> SetBottomMargin(0);
     gPad -> SetTopMargin(0);
-        
+
     TGraphAsymmErrors * g_band = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
     g_band -> Draw("3C");
     g_band -> SetFillColor(7);
