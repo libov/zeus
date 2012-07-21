@@ -162,7 +162,7 @@ int main(int argc, char **argv) {
     // open the metafile
     metafile.open(metafile_path, ifstream::in);
     if (!metafile.is_open()) {
-        cout << "ERROR: Unable to open file " << metafile_path; 
+        cout << "ERROR: Unable to open file " << metafile_path;
         abort();
     }
     // loop over its lines
