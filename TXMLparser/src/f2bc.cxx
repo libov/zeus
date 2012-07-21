@@ -12,6 +12,7 @@
 #include <fstream>
 #include <map>
 #include <string.h>
+#include <getopt.h>
 using namespace std;
 
 // custom headers
