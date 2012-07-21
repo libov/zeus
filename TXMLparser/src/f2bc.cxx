@@ -94,42 +94,107 @@ Float_t get_xsect(unsigned job_id, TString job_directory) {
 // main function
 int main(int argc, char **argv) {
 
-    // ----------------------------- // 
-    // ------- USER SETTINGS ------- //
-    // ----------------------------- // 
+    // handle command line options
 
-    TString metafile_name = "meta_Apr21_2012_14:35:32.txt";
-    TString job_directory = "01_tests/05a_1M_5_1M_10_charm";
-    const unsigned  N_F2_POINTS = 18;
-    unsigned f2_points[N_F2_POINTS] = {1, 2, 8, 9, 12, 13, 17, 18, 19, 21, 22, 23, 24, 28, 29, 30, 33, 34};
-    TString results_filename = "results.full.forCHARM2.34.3.0405e06e07p.v02.true05e06e0607p.xml";
+    // declare long options
+    static struct option long_options[] = {
+        {"meta_file", required_argument, 0, 1},
+        {"XMLfile", required_argument, 0, 2},
+        {"beauty", no_argument, 0, 3}
+    };
+
+    TString meta_file = "";
+    TString XMLfile="";
+    bool    beauty = false;
+
+    // handle command line options
+    opterr = 0;
+    int option;
+    int option_index;
+    while ((option = getopt_long (argc, argv, "h", long_options, &option_index)) != -1) {
+        switch (option) {
+            case 1:
+                meta_file = optarg;
+                break;
+            case 2:
+                XMLfile = optarg;
+                break;
+            case 3:
+                beauty = true;
+                break;
+            case  'h':
+                cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
+                cout << "List of options\n" << endl;
+                cout << "-h\t\tprint this help"<<endl;
+                exit(0);
+                break;
+            default:
+                abort ();
+        }
+    }
+
+    for (int index = optind; index < argc; index++) {
+        printf ("WARNING: Non-option argument %s\n", argv[index]);
+    }
+
+    // ----------------------------- //
+    // ------- USER SETTINGS ------- //
+    // ----------------------------- //
+
+     const unsigned  N_F2_POINTS = 18;
+     unsigned f2_points[N_F2_POINTS] = {1, 2, 8, 9, 12, 13, 17, 18, 19, 21, 22, 23, 24, 28, 29, 30, 33, 34};
+
+//    const unsigned  N_F2_POINTS = 18;
+    //unsigned f2_points[N_F2_POINTS] = {1, 2, 7, 8, 11, 12, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 30, 31};
+    //unsigned f2_points[N_F2_POINTS] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
 
     // ---------------------------- //
     // ------- PREPARATIONS ------- //
     // ---------------------------- //
 
-    // get measured double-differential cross-sections and statistical uncertainties
-    TCrossSection cCrossSection(results_filename);
+    // get constants
+    TString metafile_name = meta_file+".txt";
+    TString job_directory = meta_file;
+
+    // get measured double-differential cross-sections and uncertainties
+    TCrossSection cCrossSection(XMLfile);
     Float_t diff_xsect_meas[N_F2_POINTS];
     Float_t diff_xsect_meas_err[N_F2_POINTS];
+    Float_t diff_xsect_meas_err_syst_up[N_F2_POINTS];
+    Float_t diff_xsect_meas_err_syst_down[N_F2_POINTS];
     unsigned counter=0;
-    for (int bin=46; bin<=63; bin++) {
-        diff_xsect_meas[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_c();
-        diff_xsect_meas_err[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_c_err();
-        counter++;
+    if (!beauty) {
+        for (int bin=46; bin<=63; bin++) {
+            diff_xsect_meas[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_c();
+            diff_xsect_meas_err[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_c_err();
+            diff_xsect_meas_err_syst_up[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_c_err_syst_up();
+            diff_xsect_meas_err_syst_down[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_c_err_syst_down();
+            counter++;
+        }
+    } else {
+
+        for (int bin=45; bin<=62; bin++) {
+            diff_xsect_meas[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_b();
+            diff_xsect_meas_err[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_b_err();
+            diff_xsect_meas_err_syst_up[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_b_err_syst_up();
+            diff_xsect_meas_err_syst_down[counter] = cCrossSection.getCrossSectionBin(bin).get_sigma_b_err_syst_down();
+            counter++;
+        }
     }
+
     // sanity check
     if (counter != N_F2_POINTS) {
         cout << "ERROR" << endl;
         abort();
     }
 
-    // array to store theoretical xsections
+    // array to store theoretical xsections [q2-x point][uncertainty counter]
     Float_t diff_xsect_theo[N_F2_POINTS][10];
 
-    // maps to store q2-x F2 points
-    map<unsigned, TPointF2theo> vtx;
-    map<unsigned, TPointF2theo>::iterator iter;
+    // maps to store q2-x F2 points: vtx[q2-x point counter][uncertainty counter]
+    map<unsigned, map<unsigned, TPointF2theo> > vtx;
+    map<unsigned, map<unsigned, TPointF2theo> >::iterator iter1;
+    map<unsigned, TPointF2theo>::iterator iter2;
     // map identifier: integer number, uniquely specifies a q2-x point
     unsigned point_counter=1;
 
