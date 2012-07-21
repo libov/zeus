@@ -104,6 +104,10 @@ int main(int argc, char **argv) {
 
     // get measured double-differential cross-sections and uncertainties
     TCrossSection cCrossSection(XMLfile);
+
+    // number  of bins in the XML cross-section file
+    const unsigned  N_BINS = cCrossSection.getNBins();
+
     Float_t diff_xsect_meas[N_F2_POINTS];
     Float_t diff_xsect_meas_err[N_F2_POINTS];
     Float_t diff_xsect_meas_err_syst_up[N_F2_POINTS];
@@ -132,6 +136,28 @@ int main(int argc, char **argv) {
     if (counter != N_F2_POINTS) {
         cout << "ERROR" << endl;
         abort();
+    }
+
+    // read values of hadronization and QED corrections
+    TString DATABASE_PATH=getenv("DATABASE_PATH");
+    TString filename;
+    if (beauty) {
+        filename = DATABASE_PATH+"/hadr_qed_corr_beauty.txt";
+    } else {
+        filename = DATABASE_PATH+"/hadr_qed_corr_charm.txt";
+    }
+    ifstream hadr(filename);
+    if (!hadr.is_open()) {
+        cout << "ERROR: Unable to open file " << filename; 
+        abort();
+    }
+    cout << "INFO: opened " << filename << endl;
+
+    // an array to store corrections
+    Float_t hadr_qed_corr[N_BINS+1];
+    // initialize with zeros
+    for (int i=0; i<(N_BINS+1); i++) {
+        hadr_qed_corr[i] = 0;
     }
 
     // array to store theoretical xsections [q2-x point][uncertainty counter]
