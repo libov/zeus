@@ -525,8 +525,13 @@ int main(int argc, char **argv) {
 
     // print the results
     TString PLOTS_PATH=getenv("PLOTS_PATH");
-    c->Print(PLOTS_PATH+"/f2c.eps");
-    c->Print(PLOTS_PATH+"/f2c.root");
+    if (beauty) {
+        c->Print(PLOTS_PATH+"/f2b.eps");
+        c->Print(PLOTS_PATH+"/f2b.root");
+    } else {
+        c->Print(PLOTS_PATH+"/f2c.eps");
+        c->Print(PLOTS_PATH+"/f2c.root");
+    }
 
     return 0;
 }
