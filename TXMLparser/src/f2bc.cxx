@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
      unsigned f2_points[N_F2_POINTS] = {1, 2, 8, 9, 12, 13, 17, 18, 19, 21, 22, 23, 24, 28, 29, 30, 33, 34};
 
 //    const unsigned  N_F2_POINTS = 18;
-    //unsigned f2_points[N_F2_POINTS] = {1, 2, 7, 8, 11, 12, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 30, 31};
+    // unsigned f2_points[N_F2_POINTS] = {1, 2, 7, 8, 12, 13, 20, 21, 22, 23, 24, 25, 26, 29, 30, 32, 35, 37};
     //unsigned f2_points[N_F2_POINTS] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
 
     // ---------------------------- //
