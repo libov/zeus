@@ -84,6 +84,11 @@ void TResultPlotter::Initialize() {
         fYaxis_low_limit[id] = yaxis_low_limit;
         fYaxis_up_limit[id] = yaxis_up_limit;
     }
+
+    // create a legend
+    fLegend = new TLegend(0.5, 0.7, 0.85, 0.87);
+    fLegend -> SetFillColor(0);
+    fLegend -> SetBorderSize(0);
 }
 
 void    TResultPlotter::AddXMLFile(TString file_name){
