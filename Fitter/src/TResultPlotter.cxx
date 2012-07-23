@@ -301,6 +301,10 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
 
                 cBinGroup.graph_tot -> Draw("2");
                 cBinGroup.graph_tot -> SetFillColor(fStyleMap[file_name].band_color);
+                if (first_plot) {
+                    fLegend -> AddEntry(cBinGroup.graph_tot, "HVQDIS #otimes HERAPDF 1.0");
+                    first_plot = false;
+                }
             }
 
             if (fStyleMap[file_name].draw_line) {
@@ -317,6 +321,10 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 h -> SetLineWidth(fStyleMap[file_name].line_width);
                 h -> SetLineStyle(fStyleMap[file_name].line_style);
                 h -> Draw("same");
+                if (first_plot) {
+                    fLegend -> AddEntry(h, "HVQDIS #otimes ABKM", "l");
+                    first_plot = false;
+                }
             }
 
             if ( fStyleMap[file_name].draw_marker ) {
@@ -326,6 +334,10 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 cBinGroup.graph_tot -> SetMarkerColor(fStyleMap[file_name].marker_color);
                 cBinGroup.graph_tot -> SetMarkerStyle(fStyleMap[file_name].marker_style);
                 cBinGroup.graph_tot -> SetMarkerSize(fStyleMap[file_name].marker_size);
+                if (first_plot) {
+                    fLegend -> AddEntry(cBinGroup.graph_tot, "ZEUS 354 pb^{-1}", "p");
+                    first_plot = false;
+                }
             }
 
             // redraw axes so that no ticks are hidden by anything
