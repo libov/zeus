@@ -18,6 +18,7 @@
 #include <TObjString.h>
 #include <TStyle.h>
 #include <TPaveText.h>
+#include <TLegend.h>
 
 // my includes
 #include <TResultPlotter.h>
