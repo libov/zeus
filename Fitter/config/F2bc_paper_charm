@@ -7,4 +7,4 @@ q2da_xda_bin1	x_{da}			d#sigma/dx_{da}, pb		100000	50000000
 q2da_xda_bin2	x_{da}			d#sigma/dx_{da}, pb		100000	5000000
 q2da_xda_bin3	x_{da}			d#sigma/dx_{da}, pb		1000	1000000
 q2da_xda_bin4	x_{da}			d#sigma/dx_{da}, pb		1000	200000
-q2da_xda_bin5	x_{da}			d#sigma/dx_{da}, pb		10	10000
+q2da_xda_bin5	x_{da}			d#sigma/dx_{da}, pb		100	20000
