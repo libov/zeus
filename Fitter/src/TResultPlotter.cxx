@@ -218,6 +218,9 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
         // get a vector of BinGroup objects belonging to this XML file
         vector<BinGroup> cBinGroupList = fBinGroupMap[file_name];
 
+        // helping variable for legend plotting
+        bool first_plot = true;
+
         // loop over all BinGroup objects belonging to this XML file
         for (int i=0; i<cBinGroupList.size(); i++) {
 
