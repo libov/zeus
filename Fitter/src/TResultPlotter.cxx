@@ -289,6 +289,8 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 pt -> SetFillColor(0);
                 pt -> SetBorderSize(0);
                 pt -> Draw();
+
+                fLegend -> Draw();
             }
 
             // predictions and data are treated separately;
