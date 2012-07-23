@@ -492,6 +492,7 @@ void    TResultPlotter::PrintCanvases() {
         // loop over canvases
         for ( iter=fCanvasMap.begin(); iter != fCanvasMap.end(); iter++ ) {
                 (*iter).second -> Print((TString)getenv("PLOTS_PATH")+"/"+(*iter).first+".png");
+                (*iter).second -> Print((TString)getenv("PLOTS_PATH")+"/"+(*iter).first+".eps");
                 (*iter).second -> Print((TString)getenv("PLOTS_PATH")+"/"+(*iter).first+".root");
         }
 }
