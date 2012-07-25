@@ -24,6 +24,7 @@ enum flavour {
 };
 
 ofstream output;
+ofstream output_tex;
 
 void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TString variable);
 
@@ -73,6 +74,7 @@ int main(int argc, char **argv) {
     // open the text file to store the results
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     output.open(PLOTS_PATH+"/"+binningXMLfileName+".RESULTS");
+    output_tex.open(PLOTS_PATH+"/"+binningXMLfileName+".tex");
 
     if (!plot_beauty) {
 
