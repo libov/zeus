@@ -143,6 +143,7 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
         output << " -" << sigma_err_syst_down << " (" << sigma_err_syst_down_rel <<"%) [SYST]"  << endl;
 
         // TEX table output
+        output_tex << "$\\unit["<< sigma << " \\pm " << sigma_err << "^{+" << sigma_err_syst_up << "}_{-" << sigma_err_syst_down << "}]{}$" << endl;
 
         counter++;
     }
