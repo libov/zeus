@@ -112,7 +112,9 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
     if (f==kCharm) flavour = "Charm";
     if (f==kBeauty) flavour = "Beauty";
 
-    output << "\n" << flavour << " differential cross sections d sigma / dY in bins of " << variable << endl;
+    TString line = "\n" + flavour + " differential cross sections d sigma / dY in bins of " + variable + "\n";
+    output << line;
+    output_tex << line;
 
     unsigned counter = 1;
 
