@@ -1,10 +1,10 @@
-phijet		#phi^{jet}, rad		d#sigma/d#phi^{jet}, pb/rad	0.1	500
-etajet		#eta^{jet}		d#sigma/d#eta^{jet}, pb		0.1	600
-etjet		E_{T}^{jet}, GeV	d#sigma/dE_{T}^{jet}, pb/GeV	0.1	600
-q2da		Q^{2}_{da}, GeV^{2}	d#sigma/dQ^{2}_{da}, pb/GeV^{2}	0.01	100
-xda		x_{da}			d#sigma/dx_{da}, pb		100	3000000
-q2da_xda_bin1	x_{da}			d#sigma/dx_{da}, pb		10000	2000000
-q2da_xda_bin2	x_{da}			d#sigma/dx_{da}, pb		1000	500000
-q2da_xda_bin3	x_{da}			d#sigma/dx_{da}, pb		50	100000
-q2da_xda_bin4	x_{da}			d#sigma/dx_{da}, pb		30	50000
-q2da_xda_bin5	x_{da}			d#sigma/dx_{da}, pb		10	10000
+phijet		#phi^{jet} (rad)	d#sigma/d#phi^{jet} (pb/rad)	0.1	500
+etajet		#eta^{jet}		d#sigma/d#eta^{jet} (pb)	0.1	600
+etjet		E_{T}^{jet} (GeV)	d#sigma/dE_{T}^{jet} (pb/GeV)	0.1	600
+q2da		Q^{2} (GeV^{2})		d#sigma/dQ^{2} (pb/GeV^{2})	0.01	100
+xda		x			d#sigma/dx (pb)			100	3000000
+q2da_xda_bin1	x			d#sigma/dx (pb)			10000	2000000
+q2da_xda_bin2	x			d#sigma/dx (pb)			1000	500000
+q2da_xda_bin3	x			d#sigma/dx (pb)			50	100000
+q2da_xda_bin4	x			d#sigma/dx (pb)			30	50000
+q2da_xda_bin5	x			d#sigma/dx (pb)			10	10000
