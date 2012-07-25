@@ -136,8 +136,12 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
         sigma_err_syst_up_rel = 100 * sigma_err_syst_up / sigma;
         sigma_err_syst_down_rel = 100 * sigma_err_syst_down / sigma;
 
+        // text file output
         output << "Bin " << counter << ": " << sigma << " +/- " << sigma_err << " ("<<sigma_rel_err<<"%) [STAT] +"<<sigma_err_syst_up << " ("<<sigma_err_syst_up_rel<<"%)";
         output << " -" << sigma_err_syst_down << " (" << sigma_err_syst_down_rel <<"%) [SYST]"  << endl;
+
+        // TEX table output
+
         counter++;
     }
 }
