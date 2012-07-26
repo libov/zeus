@@ -420,6 +420,12 @@ int main(int argc, char **argv) {
     // create a canvas
     TCanvas * c = new TCanvas();
     c->Divide(3,3,0,0);
+    // cosmetics
+    c -> SetFillColor(0);
+    for (int i=1; i<=9; i++) {
+        c -> cd(i);
+        gPad -> SetFillColor(0);
+    }
 
     // dummy histo
     TH1F * h = new TH1F ("", "", 100, 6e-5, 2.5e-1);
