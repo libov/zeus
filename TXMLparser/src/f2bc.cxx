@@ -433,6 +433,7 @@ int main(int argc, char **argv) {
     if (beauty) h -> SetAxisRange(0, 0.05, "Y");
     else h -> SetAxisRange(0, 0.7, "Y");
     h -> SetNdivisions(504, "Y");
+    h -> SetLabelSize(0.08, "X");
 
     TH1F * h2 = (TH1F *) h -> Clone();
     h2 -> SetAxisRange(0, 0.02, "Y"); 
@@ -569,8 +570,6 @@ void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
 
     gPad -> SetLogx();
     gPad -> SetTicks(1,1);
-    gPad -> SetBottomMargin(0);
-    gPad -> SetTopMargin(0);
 
     TGraphAsymmErrors * g_band = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
     g_band -> Draw("3C");
