@@ -435,6 +435,7 @@ int main(int argc, char **argv) {
     else h -> SetAxisRange(0, 0.7, "Y");
     h -> SetNdivisions(504, "Y");
     h -> SetLabelSize(0.08, "X");
+    h -> SetLabelSize(0.08, "Y");
 
     TH1F * h2 = (TH1F *) h -> Clone();
     h2 -> SetAxisRange(0, 0.02, "Y"); 
