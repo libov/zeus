@@ -419,6 +419,7 @@ int main(int argc, char **argv) {
 
     // create a canvas
     TCanvas * c = new TCanvas();
+    gStyle -> SetFrameBorderMode(0);
     c->Divide(3,3,0,0);
     // cosmetics
     c -> SetFillColor(0);
