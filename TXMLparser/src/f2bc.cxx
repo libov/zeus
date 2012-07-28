@@ -507,7 +507,7 @@ int main(int argc, char **argv) {
                 point_counter++;
             }
 
-            c -> cd (canvas_counter);
+            pads[canvas_counter] -> cd ();
             canvas_counter++;
 
             TGraphAsymmErrors * g_f2_meas = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_stat, f2_err_stat);
@@ -572,7 +572,7 @@ void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
 
 void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, Float_t * x_err_up, Float_t * x_err_down, TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter) {
 
-    c -> cd(canvas_counter);
+    pads[canvas_counter] -> cd();
     h -> Draw();
 
     gPad -> SetLogx();
