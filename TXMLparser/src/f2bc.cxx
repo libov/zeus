@@ -454,7 +454,10 @@ int main(int argc, char **argv) {
         pads[i] -> SetLeftMargin(0);
     }
     Float_t top_margin = 0.015; // will be also used below
+    Float_t right_margin = 0.015; // will be also used below
     for (int i=1; i<=3; i++) pads[i] -> SetTopMargin(top_margin);
+    pads[3] -> SetRightMargin(right_margin);
+    pads[6] -> SetRightMargin(right_margin);
 
     // dummy histo
     Float_t xmin = 4e-5;
@@ -516,7 +519,7 @@ int main(int argc, char **argv) {
     axis2 -> SetTitle("x");
     axis2 -> Draw();
 
-    TGaxis *axis3 = new TGaxis(margin+2 * pad_size, margin+pad_size, margin+3*pad_size, margin+pad_size, xmin, xmax, 510, "G");
+    TGaxis *axis3 = new TGaxis(margin+2 * pad_size, margin+pad_size, margin+3*pad_size-right_margin*pad_size, margin+pad_size, xmin, xmax, 510, "G");
     axis3 -> SetLabelSize(0.035);
     axis3 -> SetLabelOffset(0.002);
     axis3 -> SetTitleOffset(1);
