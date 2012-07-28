@@ -553,7 +553,7 @@ int main(int argc, char **argv) {
     // ---------------------------------------- //
 
     // set size of the tick marks at the end of error bars
-    gStyle -> SetEndErrorSize(4);
+    gStyle -> SetEndErrorSize(5);
 
     point_counter = 0;
     canvas_counter = 1;
