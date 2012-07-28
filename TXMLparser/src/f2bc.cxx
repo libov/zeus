@@ -36,7 +36,7 @@ using namespace std;
 #include <TGaxis.h>
 #include <TText.h>
 #include <TLegend.h>
-#include <TLegendEntry.h>
+#include <TLatex.h>
 
 const unsigned  max_f2c_points = 20;
 
@@ -672,6 +672,21 @@ int main(int argc, char **argv) {
     zeus -> SetTextFont(22);
     zeus -> SetTextSize (0.07);
     zeus -> Draw();
+
+    // create Q2 labels
+    TLatex * q2_values[10];
+    q2_values[0] = new TLatex(0.24 + 0 * pad_size_x, 0.87, "Q^{2} = 6.5 GeV^{2}");
+    q2_values[1] = new TLatex(0.24 + 1 * pad_size_x, 0.87, "Q^{2} = 12 GeV^{2}");
+    q2_values[2] = new TLatex(0.24 + 2 * pad_size_x, 0.87, "Q^{2} = 25 GeV^{2}");
+    q2_values[3] = new TLatex(0.24 + 0 * pad_size_x, 0.87 - 1 * pad_size_y, "Q^{2} = 30 GeV^{2}");
+    q2_values[4] = new TLatex(0.24 + 1 * pad_size_x, 0.87 - 1 * pad_size_y, "Q^{2} = 80 GeV^{2}");
+    q2_values[5] = new TLatex(0.24 + 2 * pad_size_x, 0.87 - 1 * pad_size_y, "Q^{2} = 160 GeV^{2}");
+    q2_values[6] = new TLatex(0.24 + 0 * pad_size_x, 0.87 - 2 * pad_size_y, "Q^{2} = 600 GeV^{2}");
+
+    for (int i=0; i<7; i++) {
+        q2_values[i] -> Draw();
+        q2_values[i] -> SetTextSize(0.025);
+    }
 
     // print the results
     TString PLOTS_PATH=getenv("PLOTS_PATH");
