@@ -454,9 +454,8 @@ int main(int argc, char **argv) {
         pads[i] -> SetBottomMargin(0);
         pads[i] -> SetLeftMargin(0);
     }
-    Float_t top_margin = 0.015; // will be also used below
+
     Float_t right_margin = 0.015; // will be also used below
-    for (int i=1; i<=3; i++) pads[i] -> SetTopMargin(top_margin);
     pads[3] -> SetRightMargin(right_margin);
     pads[6] -> SetRightMargin(right_margin);
 
