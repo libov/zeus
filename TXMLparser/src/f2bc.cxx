@@ -43,6 +43,8 @@ void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
 
 Float_t get_xsect(unsigned job_id, TString job_directory);
 
+TPad * pads[10];
+
 // main function
 int main(int argc, char **argv) {
 
