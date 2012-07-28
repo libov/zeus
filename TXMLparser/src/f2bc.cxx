@@ -424,26 +424,52 @@ int main(int argc, char **argv) {
 
     // create a canvas
     TCanvas * c = new TCanvas();
+    c -> cd();
     gStyle -> SetFrameBorderMode(0);
-    c->Divide(3,3,0,0);
+    // divide the canvas manually
+    Float_t margin = 0.10;
+    Float_t pad_size = (1.0 - margin)/3;
+    pads[1] = new TPad ("p1", "", 0*pad_size + margin, 2*pad_size + margin, 1*pad_size + margin, 1);
+    pads[2] = new TPad ("p2", "", 1*pad_size + margin, 2*pad_size + margin, 2*pad_size + margin, 1);
+    pads[3] = new TPad ("p3", "", 2*pad_size + margin, 2*pad_size + margin, 1, 1);
+
+    pads[4] = new TPad ("p4", "", 0*pad_size + margin, 1*pad_size + margin, 1*pad_size + margin, 2*pad_size + margin);
+    pads[5] = new TPad ("p5", "", 1*pad_size + margin, 1*pad_size + margin, 2*pad_size + margin, 2*pad_size + margin);
+    pads[6] = new TPad ("p6", "", 2*pad_size + margin, 1*pad_size + margin, 1,                   2*pad_size + margin);
+
+    pads[7] = new TPad ("p7", "", 0*pad_size + margin, 0*pad_size + margin, 1*pad_size + margin, 1*pad_size + margin);
+
     // cosmetics
     c -> SetFillColor(0);
-    for (int i=1; i<=9; i++) {
-        c -> cd(i);
-        gPad -> SetFillColor(0);
+    for (int i=1; i<=7; i++) {
+        pads[i] -> Draw();
+        pads[i] -> SetFrameFillColor(0);
+        pads[i] -> SetFillColor(0);
     }
 
-    // dummy histo
-    TH1F * h = new TH1F ("", "", 100, 6e-5, 2.5e-1);
-    h -> SetStats(kFALSE);
-    if (beauty) h -> SetAxisRange(0, 0.05, "Y");
-    else h -> SetAxisRange(0, 0.7, "Y");
-    h -> SetNdivisions(504, "Y");
-    h -> SetLabelSize(0.08, "X");
-    h -> SetLabelSize(0.08, "Y");
+    for (int i=1; i<=7; i++) {
+        pads[i] -> SetTopMargin(0);
+        pads[i] -> SetRightMargin(0);
+        pads[i] -> SetBottomMargin(0);
+        pads[i] -> SetLeftMargin(0);
+    }
+    Float_t top_margin = 0.015; // will be also used below
+    for (int i=1; i<=3; i++) pads[i] -> SetTopMargin(top_margin);
 
+    // dummy histo
+    Float_t xmin = 4e-5;
+    Float_t xmax = 2.5e-1;
+    TH1F * h = new TH1F ("", "", 100, xmin, xmax);
+    h -> SetStats(kFALSE);
+    Float_t ymin = 0;
+    Float_t ymax_beauty = 0.05;
+    Float_t ymax_beauty_upper_row = 0.02;
+    Float_t ymax_charm = 0.7;
+    if (beauty) h -> SetAxisRange(ymin, ymax_beauty, "Y");
+    else h -> SetAxisRange(ymin, ymax_charm, "Y");
+    h -> SetNdivisions(504, "Y");
     TH1F * h2 = (TH1F *) h -> Clone();
-    h2 -> SetAxisRange(0, 0.02, "Y"); 
+    h2 -> SetAxisRange(0, ymax_beauty_upper_row, "Y"); 
 
     TH1F * dummy;
 
