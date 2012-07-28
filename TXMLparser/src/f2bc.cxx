@@ -603,7 +603,7 @@ int main(int argc, char **argv) {
             }
 
             // one of the points have to be removed for beauty
-            if (canvas_counter == 5) point_counter--;
+            if (canvas_counter == 5 && beauty) point_counter--;
 
             pads[canvas_counter] -> cd ();
             canvas_counter++;
@@ -666,7 +666,6 @@ int main(int argc, char **argv) {
     TLine * line_hvqdis = new TLine (0.51, 0.145, 0.57, 0.145);
     line_hvqdis -> SetLineWidth(2);
     line_hvqdis -> Draw();
-
 
     // finally, print the ZEUS on top
     TText * zeus = new TText (0.49, 0.94, "ZEUS");
