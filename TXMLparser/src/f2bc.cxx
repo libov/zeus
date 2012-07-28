@@ -31,6 +31,9 @@ using namespace std;
 #include <TFile.h>
 #include <TObjString.h>
 #include <TObjArray.h>
+#include <TPad.h>
+#include <TAxis.h>
+#include <TGaxis.h>
 
 const unsigned  max_f2c_points = 20;
 
