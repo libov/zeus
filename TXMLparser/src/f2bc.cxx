@@ -585,6 +585,9 @@ int main(int argc, char **argv) {
                 point_counter++;
             }
 
+            // one of the points have to be removed for beauty
+            if (canvas_counter == 5) point_counter--;
+
             pads[canvas_counter] -> cd ();
             canvas_counter++;
 
