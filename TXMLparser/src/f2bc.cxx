@@ -34,6 +34,7 @@ using namespace std;
 #include <TPad.h>
 #include <TAxis.h>
 #include <TGaxis.h>
+#include <TText.h>
 
 const unsigned  max_f2c_points = 20;
 
