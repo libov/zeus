@@ -35,6 +35,8 @@ using namespace std;
 #include <TAxis.h>
 #include <TGaxis.h>
 #include <TText.h>
+#include <TLegend.h>
+#include <TLegendEntry.h>
 
 const unsigned  max_f2c_points = 20;
 
