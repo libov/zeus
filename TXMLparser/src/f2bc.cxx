@@ -552,6 +552,9 @@ int main(int argc, char **argv) {
     // ---------- plot the F2c_meas ----------- //
     // ---------------------------------------- //
 
+    // set size of the tick marks at the end of error bars
+    gStyle -> SetEndErrorSize(4);
+
     point_counter = 0;
     canvas_counter = 1;
     previous_Q2 = vtx[f2_points[0]][1].getQ2();
@@ -586,13 +589,11 @@ int main(int argc, char **argv) {
             canvas_counter++;
 
             TGraphAsymmErrors * g_f2_meas = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_stat, f2_err_stat);
-            g_f2_meas -> SetMarkerStyle(20);
-            g_f2_meas -> SetMarkerSize(0.5);
-            g_f2_meas -> Draw("samep");
+            g_f2_meas -> Draw("||");
 
             TGraphAsymmErrors * g_f2_meast = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_tot_down, f2_err_tot_up);
             g_f2_meast -> SetMarkerStyle(20);
-            g_f2_meast -> SetMarkerSize(0.5);
+            g_f2_meast -> SetMarkerSize(0.7);
             g_f2_meast -> Draw("samepz");
 
             for (int k=0; k<point_counter; k++) {
