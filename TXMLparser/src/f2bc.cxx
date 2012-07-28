@@ -616,6 +616,8 @@ int main(int argc, char **argv) {
             g_f2_meast -> SetMarkerSize(0.7);
             g_f2_meast -> Draw("samepz");
 
+            data = g_f2_meast;
+
             for (int k=0; k<point_counter; k++) {
                 cout << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +" << f2_err_tot_up[k] << " -" << f2_err_tot_down[k] << endl;
             }
@@ -689,6 +691,8 @@ void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
     g_central -> Draw("C");
     g_central -> SetLineColor(kBlack);
     g_central -> SetLineWidth(2);
+
+    theory = g_central;
 
     // and make all arrays zero
     for (unsigned j=0; j<max_f2c_points; j++) {
