@@ -424,21 +424,23 @@ int main(int argc, char **argv) {
     }
 
     // create a canvas
-    TCanvas * c = new TCanvas();
+    TCanvas * c = new TCanvas("c", "F_{2}", 800, 800);
     c -> cd();
     gStyle -> SetFrameBorderMode(0);
     // divide the canvas manually
-    Float_t margin = 0.10;
-    Float_t pad_size = (1.0 - margin)/3;
-    pads[1] = new TPad ("p1", "", 0*pad_size + margin, 2*pad_size + margin, 1*pad_size + margin, 1);
-    pads[2] = new TPad ("p2", "", 1*pad_size + margin, 2*pad_size + margin, 2*pad_size + margin, 1);
-    pads[3] = new TPad ("p3", "", 2*pad_size + margin, 2*pad_size + margin, 1, 1);
+    Float_t margin_x = 0.13;
+    Float_t margin_y = 0.08;
+    Float_t pad_size_y = (1.0 - 2 * margin_y)/3;
+    Float_t pad_size_x = (1.0 - margin_x)/3;
+    pads[1] = new TPad ("p1", "", 0*pad_size_x + margin_x, 2*pad_size_y + margin_y, 1*pad_size_x + margin_x, 3*pad_size_y + margin_y);
+    pads[2] = new TPad ("p2", "", 1*pad_size_x + margin_x, 2*pad_size_y + margin_y, 2*pad_size_x + margin_x, 3*pad_size_y + margin_y);
+    pads[3] = new TPad ("p3", "", 2*pad_size_x + margin_x, 2*pad_size_y + margin_y, 1, 3*pad_size_y + margin_y);
 
-    pads[4] = new TPad ("p4", "", 0*pad_size + margin, 1*pad_size + margin, 1*pad_size + margin, 2*pad_size + margin);
-    pads[5] = new TPad ("p5", "", 1*pad_size + margin, 1*pad_size + margin, 2*pad_size + margin, 2*pad_size + margin);
-    pads[6] = new TPad ("p6", "", 2*pad_size + margin, 1*pad_size + margin, 1,                   2*pad_size + margin);
+    pads[4] = new TPad ("p4", "", 0*pad_size_x + margin_x, 1*pad_size_y + margin_y, 1*pad_size_x + margin_x, 2*pad_size_y + margin_y);
+    pads[5] = new TPad ("p5", "", 1*pad_size_x + margin_x, 1*pad_size_y + margin_y, 2*pad_size_x + margin_x, 2*pad_size_y + margin_y);
+    pads[6] = new TPad ("p6", "", 2*pad_size_x + margin_x, 1*pad_size_y + margin_y, 1, 2*pad_size_y + margin_y);
 
-    pads[7] = new TPad ("p7", "", 0*pad_size + margin, 0*pad_size + margin, 1*pad_size + margin, 1*pad_size + margin);
+    pads[7] = new TPad ("p7", "", 0*pad_size_x + margin_x, 0*pad_size_y + margin_y, 1*pad_size_x + margin_x, 1*pad_size_y + margin_y);
 
     // cosmetics
     c -> SetFillColor(0);
