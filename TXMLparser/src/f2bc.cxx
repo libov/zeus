@@ -499,6 +499,52 @@ int main(int argc, char **argv) {
     // create a graph
     drawGraph(x, f2, f2_err_tot_up, f2_err_tot_down, x_err_up, x_err_down, c, dummy, canvas_counter, point_counter);
 
+    c -> cd();
+
+    // horizontal axes (for labels and title)
+    TGaxis *axis1 = new TGaxis(margin, margin, margin+pad_size, margin, xmin, xmax, 510,"G");
+    axis1 -> SetLabelSize(0.035);
+    axis1 -> SetLabelOffset(0.002);
+    axis1 -> SetTitleOffset(1);
+    axis1 -> SetTitle("x");
+    axis1 -> Draw();
+
+    TGaxis *axis2 = new TGaxis(margin+pad_size, margin+pad_size, margin+2*pad_size, margin+pad_size, xmin, xmax, 510, "G");
+    axis2 -> SetLabelSize(0.035);
+    axis2 -> SetLabelOffset(0.002);
+    axis2 -> SetTitleOffset(1);
+    axis2 -> SetTitle("x");
+    axis2 -> Draw();
+
+    TGaxis *axis3 = new TGaxis(margin+2 * pad_size, margin+pad_size, margin+3*pad_size, margin+pad_size, xmin, xmax, 510, "G");
+    axis3 -> SetLabelSize(0.035);
+    axis3 -> SetLabelOffset(0.002);
+    axis3 -> SetTitleOffset(1);
+    axis3 -> SetTitle("x");
+    axis3 -> Draw();
+
+    // vertical ones
+
+    TGaxis *axis4;
+    if (!beauty) axis4 = new TGaxis(margin, margin+2*pad_size, margin, 1-top_margin*pad_size, ymin, ymax_charm, 504);
+    if (beauty) axis4 = new TGaxis(margin, margin+2*pad_size, margin, 1-top_margin*pad_size, ymin, ymax_beauty_upper_row, 504);
+    axis4 -> SetLabelSize(0.035);
+    axis4 -> SetTitleOffset(1.2);
+    axis4 -> SetTitle("F_{2}^{c#bar{c}}");
+    axis4 -> Draw();
+
+    TGaxis *axis5;
+    if (!beauty) axis5 = new TGaxis(margin, margin+1*pad_size, margin, margin+2*pad_size, ymin, ymax_charm, 504);
+    if (beauty) axis5 = new TGaxis(margin, margin+1*pad_size, margin, margin+2*pad_size, ymin, ymax_beauty, 504);
+    axis5 -> SetLabelSize(0.035);
+    axis5 -> Draw();
+
+    TGaxis *axis6;
+    if (!beauty) axis6 = new TGaxis(margin, margin, margin, margin+1*pad_size, ymin, ymax_charm, 504);
+    if (beauty) axis6 = new TGaxis(margin, margin, margin, margin+1*pad_size, ymin, ymax_beauty, 504);
+    axis6 -> SetLabelSize(0.037);
+    axis6 -> Draw();
+
     // ---------------------------------------- //
     // ---------- plot the F2c_meas ----------- //
     // ---------------------------------------- //
