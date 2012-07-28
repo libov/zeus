@@ -524,13 +524,13 @@ int main(int argc, char **argv) {
     axis3 -> Draw();
 
     // vertical ones
-
     TGaxis *axis4;
     if (!beauty) axis4 = new TGaxis(margin, margin+2*pad_size, margin, 1-top_margin*pad_size, ymin, ymax_charm, 504);
     if (beauty) axis4 = new TGaxis(margin, margin+2*pad_size, margin, 1-top_margin*pad_size, ymin, ymax_beauty_upper_row, 504);
     axis4 -> SetLabelSize(0.035);
     axis4 -> SetTitleOffset(1.2);
-    axis4 -> SetTitle("F_{2}^{c#bar{c}}");
+    if (beauty) axis4 -> SetTitle("F_{2}^{b#bar{b}}");
+    else axis4 -> SetTitle("F_{2}^{c#bar{c}}");
     axis4 -> Draw();
 
     TGaxis *axis5;
