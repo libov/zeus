@@ -507,47 +507,56 @@ int main(int argc, char **argv) {
     c -> cd();
 
     // horizontal axes (for labels and title)
-    TGaxis *axis1 = new TGaxis(margin, margin, margin+pad_size, margin, xmin, xmax, 510,"G");
-    axis1 -> SetLabelSize(0.035);
+    Float_t label_size_x = 0.027;
+    Float_t label_size_y = 0.027;
+    Float_t title_offset_x = 0.93;
+    Float_t title_size_x = 0.035;
+    TString axis_title_x = "x ";
+    TGaxis *axis1 = new TGaxis(margin_x, margin_y, margin_x+pad_size_x, margin_y, xmin, xmax, 510,"G");
+    axis1 -> SetLabelSize(label_size_x);
     axis1 -> SetLabelOffset(0.002);
-    axis1 -> SetTitleOffset(1);
-    axis1 -> SetTitle("x");
+    axis1 -> SetTitleOffset(title_offset_x);
+    axis1 -> SetTitle(axis_title_x);
+    axis1 -> SetTitleSize(title_size_x);
     axis1 -> Draw();
 
-    TGaxis *axis2 = new TGaxis(margin+pad_size, margin+pad_size, margin+2*pad_size, margin+pad_size, xmin, xmax, 510, "G");
-    axis2 -> SetLabelSize(0.035);
+    TGaxis *axis2 = new TGaxis(margin_x+pad_size_x, margin_y+pad_size_y, margin_x+2*pad_size_x, margin_y+pad_size_y, xmin, xmax, 510, "G");
+    axis2 -> SetLabelSize(label_size_x);
     axis2 -> SetLabelOffset(0.002);
-    axis2 -> SetTitleOffset(1);
-    axis2 -> SetTitle("x");
+    axis2 -> SetTitleOffset(title_offset_x);
+    axis2 -> SetTitle(axis_title_x);
+    axis2 -> SetTitleSize(title_size_x);
     axis2 -> Draw();
 
-    TGaxis *axis3 = new TGaxis(margin+2 * pad_size, margin+pad_size, margin+3*pad_size-right_margin*pad_size, margin+pad_size, xmin, xmax, 510, "G");
-    axis3 -> SetLabelSize(0.035);
+    TGaxis *axis3 = new TGaxis(margin_x+2 * pad_size_x, margin_y+pad_size_y, margin_x+3*pad_size_x-right_margin*pad_size_x, margin_y+pad_size_y, xmin, xmax, 510, "G");
+    axis3 -> SetLabelSize(label_size_x);
     axis3 -> SetLabelOffset(0.002);
-    axis3 -> SetTitleOffset(1);
-    axis3 -> SetTitle("x");
+    axis3 -> SetTitleOffset(title_offset_x);
+    axis3 -> SetTitle(axis_title_x);
+    axis3 -> SetTitleSize(title_size_x);
     axis3 -> Draw();
 
     // vertical ones
     TGaxis *axis4;
-    if (!beauty) axis4 = new TGaxis(margin, margin+2*pad_size, margin, 1-top_margin*pad_size, ymin, ymax_charm, 504);
-    if (beauty) axis4 = new TGaxis(margin, margin+2*pad_size, margin, 1-top_margin*pad_size, ymin, ymax_beauty_upper_row, 504);
-    axis4 -> SetLabelSize(0.035);
+    if (!beauty) axis4 = new TGaxis(margin_x, margin_y+2*pad_size_y, margin_x, margin_y+3*pad_size_y, ymin, ymax_charm, 504);
+    if (beauty) axis4 = new TGaxis(margin_x, margin_y+2*pad_size_y, margin_x, margin_y+3*pad_size_y, ymin, ymax_beauty_upper_row, 504);
+    axis4 -> SetLabelSize(label_size_y);
     axis4 -> SetTitleOffset(1.2);
+    if (beauty) axis4 -> SetTitleOffset(1.4);
     if (beauty) axis4 -> SetTitle("F_{2}^{b#bar{b}}");
     else axis4 -> SetTitle("F_{2}^{c#bar{c}}");
     axis4 -> Draw();
 
     TGaxis *axis5;
-    if (!beauty) axis5 = new TGaxis(margin, margin+1*pad_size, margin, margin+2*pad_size, ymin, ymax_charm, 504);
-    if (beauty) axis5 = new TGaxis(margin, margin+1*pad_size, margin, margin+2*pad_size, ymin, ymax_beauty, 504);
-    axis5 -> SetLabelSize(0.035);
+    if (!beauty) axis5 = new TGaxis(margin_x, margin_y+1*pad_size_y, margin_x, margin_y+2*pad_size_y, ymin, ymax_charm, 504);
+    if (beauty) axis5 = new TGaxis(margin_x, margin_y+1*pad_size_y, margin_x, margin_y+2*pad_size_y, ymin, ymax_beauty, 504);
+    axis5 -> SetLabelSize(label_size_y);
     axis5 -> Draw();
 
     TGaxis *axis6;
-    if (!beauty) axis6 = new TGaxis(margin, margin, margin, margin+1*pad_size, ymin, ymax_charm, 504);
-    if (beauty) axis6 = new TGaxis(margin, margin, margin, margin+1*pad_size, ymin, ymax_beauty, 504);
-    axis6 -> SetLabelSize(0.037);
+    if (!beauty) axis6 = new TGaxis(margin_x, margin_y, margin_x, margin_y+1*pad_size_y, ymin, ymax_charm, 504);
+    if (beauty) axis6 = new TGaxis(margin_x, margin_y, margin_x, margin_y+1*pad_size_y, ymin, ymax_beauty, 504);
+    axis6 -> SetLabelSize(label_size_y);
     axis6 -> Draw();
 
     // ---------------------------------------- //
