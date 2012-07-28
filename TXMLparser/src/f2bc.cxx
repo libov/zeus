@@ -625,6 +625,13 @@ int main(int argc, char **argv) {
         previous_Q2 = point.getQ2();
     }
 
+    // finally, print the ZEUS on top
+    c -> cd();
+    TText * zeus = new TText (0.49, 0.94, "ZEUS");
+    zeus -> SetTextFont(22);
+    zeus -> SetTextSize (0.07);
+    zeus -> Draw();
+
     // print the results
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     if (beauty) {
