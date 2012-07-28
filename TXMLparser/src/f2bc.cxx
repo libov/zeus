@@ -48,6 +48,8 @@ Float_t get_xsect(unsigned job_id, TString job_directory);
 
 TPad * pads[10];
 
+TGraph * theory;
+
 // main function
 int main(int argc, char **argv) {
 
@@ -567,6 +569,8 @@ int main(int argc, char **argv) {
 
     // set size of the tick marks at the end of error bars
     gStyle -> SetEndErrorSize(5);
+
+    TGraphAsymmErrors * data;
 
     point_counter = 0;
     canvas_counter = 1;
