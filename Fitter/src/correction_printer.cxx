@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
                 break;
             case 'h':
                 cout << "\nUsage:\n\n";
-                cout << "\tresult_printer --file1 <xmlfile 1> --file2 <xmlfile 2> [-h]\n\n";
+                cout << "\tcorrection_printer --file1 <xmlfile 1> --file2 <xmlfile 2> [-h]\n\n";
                 cout << "\tOptions:\n";
                 cout << "\t-h\tPrint this help and exit\n\n";
                 exit(-1);
