@@ -653,7 +653,7 @@ int main(int argc, char **argv) {
     // the legend
     TLegend * leg = new TLegend(0.5, 0.1, 0.8, 0.28);
     leg->AddEntry(data, "ZEUS 354 pb^{-1}","p");
-    leg -> AddEntry(theory, "HVQDIS", "l");
+    leg -> AddEntry(theory, "HVQDIS #otimes HERAPDF 1.0", "l");
     leg -> SetFillColor(0);
     leg -> SetBorderSize(0);
     leg->Draw();
