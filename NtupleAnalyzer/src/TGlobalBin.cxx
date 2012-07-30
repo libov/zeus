@@ -13,10 +13,12 @@
 #include <inc/VariablePhase.h>
 #include<iostream>
 using namespace std;
+
 TGlobalBin::TGlobalBin()
 {
 }
-TGlobalBin::TGlobalBin(TMiniNtupleAnalyzer*	instance):
+
+TGlobalBin::TGlobalBin(TMiniNtupleAnalyzer* instance):
 fList_TBin(new TList()),
 fListHistograms(new TList()),
 fBinDescription(""),
@@ -148,3 +150,12 @@ void    TGlobalBin::ApplyWeighting(Bool_t	apply) {
     fApplyWeighting = apply;
 }
 
+void TGlobalBin::Print() {
+
+    TBin *currentTBin;
+    TIter Iter_TBin(fList_TBin);
+
+    while ( currentTBin=(TBin *)Iter_TBin.Next() ) {
+        cout << currentTBin -> GetDescription () << endl;
+    }
+}
