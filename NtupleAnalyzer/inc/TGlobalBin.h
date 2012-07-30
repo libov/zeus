@@ -2,7 +2,7 @@
 //                                              //
 //  Inclusive  secondary vertex analysis        //
 //  Libov Vladyslav                             //
-//  DESY			                                 //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
 //  September 2009                              //
 //                                              //
@@ -15,18 +15,17 @@
 #include <TH1F.h>
 #include <TList.h>
 
-#include	<vector>
+#include <vector>
 using namespace std;
 
-class	TMiniNtupleAnalyzer;
+class TMiniNtupleAnalyzer;
 
 /*! \brief Class for automatic binning
 
-	Contains list of TBin objects. Probably many members here that should better belong to TMiniNtupleAnalyzer...
+    Contains a list of TBin objects. NOTE: Probably many members here that should better belong to TMiniNtupleAnalyzer...
 */
 
-class	TGlobalBin : public TObject
-{
+class TGlobalBin : public TObject {
 	public:
 
 		TGlobalBin();
