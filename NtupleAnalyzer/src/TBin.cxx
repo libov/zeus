@@ -2,9 +2,9 @@
 //                                              //
 //  Inclusive  secondary vertex analysis        //
 //  Libov Vladyslav                             //
-//  DESY			                                 //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
-//  September 2009                               //
+//  September 2009                              //
 //                                              //
 //////////////////////////////////////////////////
 #include <inc/TBin.h>
@@ -27,14 +27,14 @@ fVarPhase(VarPhase)
     char up_char[256];
     sprintf(low_char,"%3.4f<",fLowerEdge);
     sprintf(up_char,"<%3.4f",fUpperEdge);
-    TString	low = low_char;
-    TString	up = up_char;
+    TString low = low_char;
+    TString up = up_char;
     fVariableDescription = low + VarDescr + up;
 }
 
 // check whether current event satisfies this subbin
 Bool_t TBin::CheckBin() {
-    
+
     // get a value of a relevant variable for this event
     Float_t Value;
     Value= *fVariable;
@@ -45,7 +45,7 @@ Bool_t TBin::CheckBin() {
 }
 
 TString TBin::GetDescription() {
-    return	fVariableDescription;
+    return fVariableDescription;
 }
 
 VariablePhase TBin::GetVarPhase() {
