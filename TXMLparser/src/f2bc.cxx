@@ -690,10 +690,8 @@ int main(int argc, char **argv) {
     // print the results
     if (beauty) {
         c->Print(PLOTS_PATH+"/f2b.eps");
-        c->Print(PLOTS_PATH+"/f2b.root");
     } else {
         c->Print(PLOTS_PATH+"/f2c.eps");
-        c->Print(PLOTS_PATH+"/f2c.root");
     }
 
     // close the text file
