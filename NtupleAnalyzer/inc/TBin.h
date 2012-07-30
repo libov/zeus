@@ -19,8 +19,8 @@ using namespace std;
     Contains pointer to the relevant variable and upper/lower bound of this variable.
     Several TBins build more complex TGlobalBin
 */
-class	TBin : public TObject
-{
+class TBin : public TObject {
+
 	public:
 
 		/**	Default constructor.
