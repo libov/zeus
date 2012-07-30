@@ -42,7 +42,7 @@ const unsigned  max_f2c_points = 20;
 
 void addToGraph(TPointF2theo point);
 
-void drawGraph (TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter);
+void drawGraph (TCanvas * c, TH1F * h, unsigned & canvas_counter);
 
 Float_t get_xsect(unsigned job_id, TString job_directory);
 
@@ -512,7 +512,7 @@ int main(int argc, char **argv) {
             addToGraph(point);
         } else {
             // create a graph
-            drawGraph(c, dummy, canvas_counter, point_counter);
+            drawGraph(c, dummy, canvas_counter);
             previous_Q2 = point.getQ2();
             // add to current graph
             addToGraph(point);
@@ -520,7 +520,7 @@ int main(int argc, char **argv) {
     }
 
     // create a graph
-    drawGraph(c, dummy, canvas_counter, point_counter);
+    drawGraph(c, dummy, canvas_counter);
 
     c -> cd();
 
@@ -695,7 +695,7 @@ void addToGraph(TPointF2theo point) {
     point_counter++;
 }
 
-void drawGraph (TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter) {
+void drawGraph (TCanvas * c, TH1F * h, unsigned & canvas_counter) {
 
     pads[canvas_counter] -> cd();
     h -> Draw();
