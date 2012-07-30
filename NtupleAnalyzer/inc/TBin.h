@@ -52,10 +52,6 @@ class TBin : public TObject {
         */
         Float_t*    fVariable;
 
-        /** In case of MC - pointer to the true value of fVariable. Otherwise - NULL pointer.
-        */
-	/*	Float_t*				fTrueVariable;				// pointer to the relevant variable*/
-
         /** Contains variable description
         */
         TString     fVariableDescription;
