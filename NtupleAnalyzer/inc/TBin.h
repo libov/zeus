@@ -2,7 +2,7 @@
 //                                              //
 //  Inclusive secondary vertex analysis         //
 //  Libov Vladyslav                             //
-//  DESY			                                 //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
 //  September 2009                              //
 //                                              //
@@ -13,10 +13,11 @@
 #include <inc/VariablePhase.h>
 #include <vector>
 using namespace std;
-/**	Simple bin.
 
-		Contains pointer to the relevant variable and upper/lower bound of this variable.
-		Several TBins build more complex TGlobalBin
+/** Simple bin.
+
+    Contains pointer to the relevant variable and upper/lower bound of this variable.
+    Several TBins build more complex TGlobalBin
 */
 class	TBin : public TObject
 {
@@ -64,4 +65,3 @@ class	TBin : public TObject
 
 };
 #endif
-
