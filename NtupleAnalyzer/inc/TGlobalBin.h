@@ -44,6 +44,7 @@ class TGlobalBin : public TObject {
 		void							SetWeightingFactor(Double_t		factor);
 		Double_t						GetWeightingFactor();
 		void							ApplyWeighting(Bool_t		apply);
+                void        Print();
 
 	private:
 
