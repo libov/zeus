@@ -40,15 +40,54 @@ using namespace std;
 
 const unsigned  max_f2c_points = 20;
 
-void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, unsigned & point_counter, TPointF2theo point);
+void addToGraph(TPointF2theo point);
 
-void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, Float_t * x_err_up, Float_t * x_err_down, TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter);
+void drawGraph (TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter);
 
 Float_t get_xsect(unsigned job_id, TString job_directory);
+
+void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id);
 
 TPad * pads[10];
 
 TGraph * theory;
+
+// globals
+
+// number of points at which we extract F2
+const unsigned  N_F2_POINTS = 18;
+
+// arays to store measured double-differential cross-sections
+Float_t diff_xsect_meas[N_F2_POINTS];
+Float_t diff_xsect_meas_err[N_F2_POINTS];
+Float_t diff_xsect_meas_err_syst_up[N_F2_POINTS];
+Float_t diff_xsect_meas_err_syst_down[N_F2_POINTS];
+
+// array to store theoretical xsections [q2-x point][uncertainty counter]
+Float_t diff_xsect_theo[N_F2_POINTS][10];
+
+// maps to store q2-x F2 point objects: vtx[q2-x point counter][uncertainty counter]
+map<unsigned, map<unsigned, TPointF2theo> > vtx;
+map<unsigned, map<unsigned, TPointF2theo> >::iterator iter1;
+map<unsigned, TPointF2theo>::iterator iter2;
+// map identifier: integer number, uniquely specifies a q2-x point
+unsigned point_counter=1;
+
+// arrays to store f2 values and uncertainties for plotting (some will be used only for F2_meas plotting)
+// x and uncertainties
+Float_t x[max_f2c_points];
+Float_t x_err_up[max_f2c_points];
+Float_t x_err_down[max_f2c_points];
+// F2
+Float_t f2[max_f2c_points];
+// F2 uncertaintines
+Float_t f2_err_stat[max_f2c_points];
+Float_t f2_err_syst_up[max_f2c_points];
+Float_t f2_err_syst_down[max_f2c_points];
+Float_t extrap_unc_up[max_f2c_points];
+Float_t extrap_unc_down[max_f2c_points];
+Float_t f2_err_tot_up[max_f2c_points];
+Float_t f2_err_tot_down[max_f2c_points];
 
 // main function
 int main(int argc, char **argv) {
@@ -100,8 +139,6 @@ int main(int argc, char **argv) {
     // ------- USER SETTINGS ------- //
     // ----------------------------- //
 
-    const unsigned  N_F2_POINTS = 18;
-
     // q2_x_grid.txt
     unsigned f2_points_charm[N_F2_POINTS] = {1, 2, 8, 9, 12, 13, 17, 18, 19, 21, 22, 23, 24, 28, 29, 30, 33, 34};
 
@@ -135,10 +172,6 @@ int main(int argc, char **argv) {
     // number  of bins in the XML cross-section file
     const unsigned  N_BINS = cCrossSection.getNBins();
 
-    Float_t diff_xsect_meas[N_F2_POINTS];
-    Float_t diff_xsect_meas_err[N_F2_POINTS];
-    Float_t diff_xsect_meas_err_syst_up[N_F2_POINTS];
-    Float_t diff_xsect_meas_err_syst_down[N_F2_POINTS];
     unsigned counter=0;
     if (!beauty) {
         for (int bin=46; bin<=63; bin++) {
@@ -206,16 +239,6 @@ int main(int argc, char **argv) {
         // store to the array
         hadr_qed_corr[bin_id.Atoi()] = hadr_corr.Atof() * qed_corr.Atof();
     }
-
-    // array to store theoretical xsections [q2-x point][uncertainty counter]
-    Float_t diff_xsect_theo[N_F2_POINTS][10];
-
-    // maps to store q2-x F2 points: vtx[q2-x point counter][uncertainty counter]
-    map<unsigned, map<unsigned, TPointF2theo> > vtx;
-    map<unsigned, map<unsigned, TPointF2theo> >::iterator iter1;
-    map<unsigned, TPointF2theo>::iterator iter2;
-    // map identifier: integer number, uniquely specifies a q2-x point
-    unsigned point_counter=1;
 
     // meta file name and full path
     TString HVQDIS = getenv("HVQDIS");
@@ -412,15 +435,6 @@ int main(int argc, char **argv) {
     // ---------- plot the F2c_theo ----------- //
     // ---------------------------------------- //
 
-    // arrays to store f2 values and uncertainties - for plotting!
-    Float_t x[max_f2c_points];
-    Float_t f2[max_f2c_points];
-    Float_t f2_err_stat[max_f2c_points];
-    Float_t f2_err_tot_up[max_f2c_points];
-    Float_t f2_err_tot_down[max_f2c_points];
-    Float_t x_err_up[max_f2c_points];
-    Float_t x_err_down[max_f2c_points];
-
     // horizontal errors are zero
     for (unsigned i=0; i<max_f2c_points; i++) {
         x_err_up[i] = 0;
@@ -495,18 +509,18 @@ int main(int argc, char **argv) {
         // add this point to the current graph
         if (point.getQ2() == previous_Q2) {
             // add to current graph
-            addToGraph(x, f2, f2_err_tot_up, f2_err_tot_down, point_counter, point);
+            addToGraph(point);
         } else {
             // create a graph
-            drawGraph(x, f2, f2_err_tot_up, f2_err_tot_down, x_err_up, x_err_down, c, dummy, canvas_counter, point_counter);
+            drawGraph(c, dummy, canvas_counter, point_counter);
             previous_Q2 = point.getQ2();
             // add to current graph
-            addToGraph(x, f2, f2_err_tot_up, f2_err_tot_down, point_counter, point);
+            addToGraph(point);
         }
     }
 
     // create a graph
-    drawGraph(x, f2, f2_err_tot_up, f2_err_tot_down, x_err_up, x_err_down, c, dummy, canvas_counter, point_counter);
+    drawGraph(c, dummy, canvas_counter, point_counter);
 
     c -> cd();
 
@@ -584,24 +598,7 @@ int main(int argc, char **argv) {
         if ( (point.getQ2() != previous_Q2) || (i==(N_F2_POINTS-1)) ) {
             // if this is the last point, it has to be added to the current graph (otherwise not!)
             if (i==(N_F2_POINTS-1)) {
-                x[point_counter] = point.getX();
-                f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
-                Float_t extrap_unc_up = 0;
-                Float_t extrap_unc_down = 0;
-
-                for (int k=2; k<=7; k++) {
-                    Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
-                    if (delta<0) extrap_unc_up += delta*delta;
-                    if (delta>0) extrap_unc_down += delta*delta;
-                }
-
-                f2_err_stat[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
-                Float_t f2_err_syst_up = f2[point_counter] * (diff_xsect_meas_err_syst_up[i]/diff_xsect_meas[i]);
-                Float_t f2_err_syst_down = f2[point_counter] * (diff_xsect_meas_err_syst_down[i]/diff_xsect_meas[i]);
-                f2_err_tot_up[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_up*f2_err_syst_up + extrap_unc_up);
-                f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down*f2_err_syst_down+ extrap_unc_down);
-                // increment counter
-                point_counter++;
+                addToGraphF2(point, i, q2x_point_id);
             }
 
             // one of the points have to be removed for beauty
@@ -621,30 +618,14 @@ int main(int argc, char **argv) {
             data = g_f2_meast;
 
             for (int k=0; k<point_counter; k++) {
-                cout << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +" << f2_err_tot_up[k] << " -" << f2_err_tot_down[k] << endl;
+                cout << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +- " << f2_err_stat[k] << " +" << f2_err_syst_up[k] << " -" << f2_err_syst_down[k];
+                cout << " +" << extrap_unc_up[k] << " -" << extrap_unc_down[k] << endl;
             }
             point_counter = 0;
         }
 
         // add to current graph
-        x[point_counter] = point.getX();
-        f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
-        Float_t extrap_unc_up = 0;
-        Float_t extrap_unc_down = 0;
-
-        for (int k=2; k<=7; k++) {
-            Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
-            if (delta<0) extrap_unc_up += delta*delta;
-            if (delta>0) extrap_unc_down += delta*delta;
-        }
-
-        f2_err_stat[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
-        Float_t f2_err_syst_up = f2[point_counter] * (diff_xsect_meas_err_syst_up[i]/diff_xsect_meas[i]);
-        Float_t f2_err_syst_down = f2[point_counter] * (diff_xsect_meas_err_syst_down[i]/diff_xsect_meas[i]);
-        f2_err_tot_up[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_up*f2_err_syst_up + extrap_unc_up);
-        f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down*f2_err_syst_down+ extrap_unc_down);
-        // increment counter
-        point_counter++;
+        addToGraphF2(point, i, q2x_point_id);
 
         previous_Q2 = point.getQ2();
     }
@@ -706,15 +687,15 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void addToGraph(Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, unsigned & point_counter, TPointF2theo point) {
+void addToGraph(TPointF2theo point) {
     x[point_counter] = point.getX();
     f2[point_counter] = point.getF2();
-    f2_err_up[point_counter] = point.getRelativeUncertaintyUp() * point.getF2();
-    f2_err_down[point_counter] = point.getRelativeUncertaintyDown() * point.getF2();
+    f2_err_tot_up[point_counter] = point.getRelativeUncertaintyUp() * point.getF2();
+    f2_err_tot_down[point_counter] = point.getRelativeUncertaintyDown() * point.getF2();
     point_counter++;
 }
 
-void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err_down, Float_t * x_err_up, Float_t * x_err_down, TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter) {
+void drawGraph (TCanvas * c, TH1F * h, unsigned & canvas_counter, unsigned & point_counter) {
 
     pads[canvas_counter] -> cd();
     h -> Draw();
@@ -722,7 +703,7 @@ void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
     gPad -> SetLogx();
     gPad -> SetTicks(1,1);
 
-    TGraphAsymmErrors * g_band = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_down, f2_err_up);
+    TGraphAsymmErrors * g_band = new TGraphAsymmErrors(point_counter, x, f2, x_err_down, x_err_up, f2_err_tot_down, f2_err_tot_up);
     g_band -> Draw("3C");
     g_band -> SetFillColor(7);
 
@@ -737,8 +718,8 @@ void drawGraph (Float_t * x, Float_t * f2, Float_t * f2_err_up, Float_t * f2_err
     for (unsigned j=0; j<max_f2c_points; j++) {
         x[j] = 0;
         f2[j] = 0;
-        f2_err_up[j] = 0;
-        f2_err_down[j] = 0;
+        f2_err_tot_up[j] = 0;
+        f2_err_tot_down[j] = 0;
     }
 
     canvas_counter++;
@@ -764,4 +745,37 @@ Float_t get_xsect(unsigned job_id, TString job_directory) {
     system("rm -f tmp.txt");
     Float_t xsect = atof(line.c_str());
     return xsect;
+}
+
+void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id) {
+
+    // fill the arrays
+    x[point_counter] = point.getX();
+    f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
+
+    // get extrapolation uncertainties
+    extrap_unc_up[point_counter] = 0;
+    extrap_unc_down[point_counter] = 0;
+    for (int k=2; k<=7; k++) {
+        Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
+        if (delta<0) extrap_unc_up[point_counter] += delta*delta;
+        if (delta>0) extrap_unc_down[point_counter] += delta*delta;
+    }
+
+    extrap_unc_up[point_counter] = sqrt(extrap_unc_up[point_counter]);
+    extrap_unc_down[point_counter] = sqrt(extrap_unc_down[point_counter]);
+
+    // statistical uncertainty
+    f2_err_stat[point_counter] = f2[point_counter] * (diff_xsect_meas_err[i]/diff_xsect_meas[i]);
+
+    // systematic uncertainty
+    f2_err_syst_up[point_counter] = f2[point_counter] * (diff_xsect_meas_err_syst_up[i]/diff_xsect_meas[i]);
+    f2_err_syst_down[point_counter] = f2[point_counter] * (diff_xsect_meas_err_syst_down[i]/diff_xsect_meas[i]);
+
+    // stat + syst + extr
+    f2_err_tot_up[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_up[point_counter]*f2_err_syst_up[point_counter] + extrap_unc_up[point_counter]*extrap_unc_up[point_counter]);
+    f2_err_tot_down[point_counter] = sqrt(f2_err_stat[point_counter]*f2_err_stat[point_counter] + f2_err_syst_down[point_counter]*f2_err_syst_down[point_counter]+ extrap_unc_down[point_counter]*extrap_unc_down[point_counter]);
+
+    // increment counter
+    point_counter++;
 }
