@@ -624,8 +624,8 @@ int main(int argc, char **argv) {
             data = g_f2_meast;
 
             for (int k=0; k<point_counter; k++) {
-                output << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +- " << f2_err_stat[k] << " +" << f2_err_syst_up[k] << " -" << f2_err_syst_down[k];
-                output << "(syst) +" << extrap_unc_up[k] << " -" << extrap_unc_down[k] << " (extrap.)" << endl;
+                output << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +- " << f2_err_stat[k] << " (stat.) +" << f2_err_syst_up[k] << " -" << f2_err_syst_down[k];
+                output << " (syst.) +" << extrap_unc_up[k] << " -" << extrap_unc_down[k] << " (extrap.)" << endl;
             }
             point_counter = 0;
         }
