@@ -580,7 +580,9 @@ int main(int argc, char **argv) {
         unsigned q2x_point_id = f2_points[i];
         TPointF2theo point = vtx[q2x_point_id][1];
 
+        // if this is the next Q2 point or this is the last point, the graph has to be drawn
         if ( (point.getQ2() != previous_Q2) || (i==(N_F2_POINTS-1)) ) {
+            // if this is the last point, it has to be added to the current graph (otherwise not!)
             if (i==(N_F2_POINTS-1)) {
                 x[point_counter] = point.getX();
                 f2[point_counter] = (diff_xsect_meas[i] / diff_xsect_theo[i][1]) * point.getF2();
