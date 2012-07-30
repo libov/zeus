@@ -165,8 +165,14 @@ int main(int argc, char **argv) {
     // output text file
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     ofstream output;
-    if (beauty) output.open(PLOTS_PATH+"/f2b.txt");
-    else output.open(PLOTS_PATH+"/f2c.txt");
+    ofstream output_tex;
+    if (beauty) {
+        output.open(PLOTS_PATH+"/f2b.txt");
+        output_tex.open(PLOTS_PATH+"/f2b_tex.txt");
+    } else {
+        output.open(PLOTS_PATH+"/f2c.txt");
+        output_tex.open(PLOTS_PATH+"/f2c_tex.txt");
+    }
 
     // get constants
     TString metafile_name = meta_file+".txt";
