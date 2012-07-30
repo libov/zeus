@@ -162,6 +162,12 @@ int main(int argc, char **argv) {
     // ------- PREPARATIONS ------- //
     // ---------------------------- //
 
+    // output text file
+    TString PLOTS_PATH=getenv("PLOTS_PATH");
+    ofstream output;
+    if (beauty) output.open(PLOTS_PATH+"/f2b.txt");
+    else output.open(PLOTS_PATH+"/f2c.txt");
+
     // get constants
     TString metafile_name = meta_file+".txt";
     TString job_directory = meta_file;
@@ -618,8 +624,8 @@ int main(int argc, char **argv) {
             data = g_f2_meast;
 
             for (int k=0; k<point_counter; k++) {
-                cout << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +- " << f2_err_stat[k] << " +" << f2_err_syst_up[k] << " -" << f2_err_syst_down[k];
-                cout << " +" << extrap_unc_up[k] << " -" << extrap_unc_down[k] << endl;
+                output << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +- " << f2_err_stat[k] << " +" << f2_err_syst_up[k] << " -" << f2_err_syst_down[k];
+                output << "(syst) +" << extrap_unc_up[k] << " -" << extrap_unc_down[k] << " (extrap.)" << endl;
             }
             point_counter = 0;
         }
@@ -675,7 +681,6 @@ int main(int argc, char **argv) {
     }
 
     // print the results
-    TString PLOTS_PATH=getenv("PLOTS_PATH");
     if (beauty) {
         c->Print(PLOTS_PATH+"/f2b.eps");
         c->Print(PLOTS_PATH+"/f2b.root");
@@ -683,6 +688,9 @@ int main(int argc, char **argv) {
         c->Print(PLOTS_PATH+"/f2c.eps");
         c->Print(PLOTS_PATH+"/f2c.root");
     }
+
+    // close the text file
+    output.close();
 
     return 0;
 }
