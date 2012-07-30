@@ -25,8 +25,8 @@ fVarPhase(VarPhase)
 {
     char low_char[256];
     char up_char[256];
-    sprintf(low_char,"%3.4f<",fLowerEdge);
-    sprintf(up_char,"<%3.4f",fUpperEdge);
+    sprintf(low_char,"%3.6f<",fLowerEdge);
+    sprintf(up_char,"<%3.6f",fUpperEdge);
     TString low = low_char;
     TString up = up_char;
     fVariableDescription = low + VarDescr + up;
