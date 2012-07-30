@@ -36,15 +36,15 @@ class TBin : public TObject {
             \param UpperEdge Upper cut
             \param VarPhase the so called phase of variable - e.g. event variable or jet variable - should be checked in different places of code
     */
-		TBin(TString VarDescr, Float_t* Variable, Float_t LowerEdge, Float_t UpperEdge, VariablePhase VarPhase);
+    TBin(TString VarDescr, Float_t* Variable, Float_t LowerEdge, Float_t UpperEdge, VariablePhase VarPhase);
 
-		/**	Default destructor.
-		*/
-		~TBin() {};
+    /** Default destructor.
+    */
+    ~TBin() {};
 
-		Bool_t			CheckBin();
-		TString			GetDescription();
-		VariablePhase		GetVarPhase();
+    Bool_t          CheckBin();
+    TString         GetDescription();
+    VariablePhase   GetVarPhase();
 
 	private:
 
