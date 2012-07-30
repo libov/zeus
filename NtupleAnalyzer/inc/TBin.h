@@ -46,22 +46,22 @@ class TBin : public TObject {
         TString         GetDescription();
         VariablePhase   GetVarPhase();
 
-	private:
+    private:
 
-		/**  Pointer to relevant variable. Should be a valid pointer to member of TMiniNtupleAnalyzer object (inherited or own) and is used to retreive variable value that is cutted in this bin
-		*/
-		Float_t*				fVariable;
+        /**  Pointer to relevant variable. Should be a valid pointer to member of TMiniNtupleAnalyzer object (inherited or own) and is used to retreive variable value that is cutted in this bin
+        */
+        Float_t*    fVariable;
 
-		/**	In case of MC - pointer to the true value of fVariable. Otherwise - NULL pointer.
-		*/
+        /** In case of MC - pointer to the true value of fVariable. Otherwise - NULL pointer.
+        */
 	/*	Float_t*				fTrueVariable;				// pointer to the relevant variable*/
 
-		/** Contains variable description; is used in ...
-		*/
-		TString				fVariableDescription;
-		Float_t				fLowerEdge;
-		Float_t				fUpperEdge;
-		VariablePhase		fVarPhase;
+        /** Contains variable description
+        */
+        TString     fVariableDescription;
+        Float_t     fLowerEdge;
+        Float_t     fUpperEdge;
+        VariablePhase   fVarPhase;
 
 };
 #endif
