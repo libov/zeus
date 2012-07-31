@@ -497,7 +497,7 @@ int main(int argc, char **argv) {
     TH1F * h = new TH1F ("", "", 100, xmin, xmax);
     h -> SetStats(kFALSE);
     Float_t ymin = 0;
-    Float_t ymax_beauty = 0.05;
+    Float_t ymax_beauty = 0.057;
     Float_t ymax_beauty_upper_row = 0.02;
     Float_t ymax_charm = 0.7;
     if (beauty) h -> SetAxisRange(ymin, ymax_beauty, "Y");
@@ -673,7 +673,7 @@ int main(int argc, char **argv) {
 
     // create Q2 labels
     Float_t y_position;
-    if (beauty) y_position = 0.88; // to avoid touching the point
+    if (beauty) y_position = 0.87;
     if (!beauty) y_position = 0.87;
     TLatex * q2_values[10];
     q2_values[0] = new TLatex(0.24 + 0 * pad_size_x, y_position, "Q^{2} = 6.5 GeV^{2}");
