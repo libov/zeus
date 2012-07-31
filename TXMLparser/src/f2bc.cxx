@@ -631,8 +631,8 @@ int main(int argc, char **argv) {
 
             for (int k=0; k<point_counter; k++) {
                 output << "\tQ2= " << previous_Q2 << "\t\tx= " << x[k] << "\tF2_meas= " << f2[k] << " +- " << f2_err_stat[k] << " (" << 100*f2_err_stat[k]/f2[k] << "%) (stat.)";
-                output << " +" << f2_err_syst_up[k] << " ("<<f2_err_syst_up[k]/f2[k] << "%)";
-                output << " -" << f2_err_syst_down[k] << " ("<<f2_err_syst_down[k]/f2[k] << "%)";
+                output << " +" << f2_err_syst_up[k] << " (" << 100*f2_err_syst_up[k]/f2[k] << "%)";
+                output << " -" << f2_err_syst_down[k] << " (" << 100*f2_err_syst_down[k]/f2[k] << "%)";
                 output << " (syst.) +" << extrap_unc_up[k] << " -" << extrap_unc_down[k] << " (extrap.)" << endl;
                 output_tex << previous_Q2 << " & " << x[k] << " & " << "$\\unit["<< f2[k] << " \\pm " << f2_err_stat[k] << "\\,^{+" << f2_err_syst_up[k] << "}_{-"<< f2_err_syst_down[k] << "}\\,^{+" << extrap_unc_up[k] << "}_{-" << extrap_unc_down[k] << "}]{}$ \\\\"<<endl;
             }
