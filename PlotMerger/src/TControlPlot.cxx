@@ -296,6 +296,16 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "L_{XY}/#sigma(L_{XY})";
 
+    // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
+    if (fNoIndices) {
+        if (cVar.Contains("yel"))   Xtitle = "y";
+        if (cVar.Contains("yjb"))   Xtitle = "y";
+        if (cVar.Contains("xel"))   Xtitle = "x";
+        if (cVar.Contains("xjb"))   Xtitle = "x";
+        if (cVar.Contains("xda"))   Xtitle = "x";
+        if (cVar.Contains("q2da"))  Xtitle = "Q^{2} (GeV^{2})";
+    }
+
     return Xtitle;
 }
 
