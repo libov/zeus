@@ -203,13 +203,11 @@ void TControlPlot::Draw() {
                     // --------------------------------- //
                     // ----------- cosmetics ----------- //
                     // --------------------------------- //
-                    Float_t many_pad_corr = 1;
-                    if (NPads>1) many_pad_corr = 1.5;
                     cHist->SetMarkerStyle(cType->GetMarkerStyle());
-                    cHist->SetMarkerSize((Float_t)cType->GetMarkerSize()/many_pad_corr);
+                    cHist->SetMarkerSize((Float_t)cType->GetMarkerSize());
                     cHist->SetFillColor(cType->GetFillColor());
                     cHist->SetLineColor(cType->GetLineColor());
-                    cHist->SetLineWidth(cType->GetLineWidth()/many_pad_corr);
+                    cHist->SetLineWidth(cType->GetLineWidth());
 
                     cHist->SetTitle("");
                     cHist->SetStats(0);
