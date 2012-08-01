@@ -145,7 +145,7 @@ void TControlPlot::Draw() {
         // create a directory in the output file
         fOutputFile->mkdir(SubDirName);
         fOutputFile->cd(SubDirName);
-        
+
         // loop over canvases that user added to the list
         TIter        Iter_AdvCanvas(fList_AdvCanvas);
         TAdvCanvas   *cAdvCanvas;
