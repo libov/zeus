@@ -155,6 +155,9 @@ int main (int argc, char **argv) {
     // select which figure type
     myPlots -> SetPrintEPS(true);
 
+    // switch off indices if selected
+    if (no_indices) myPlots -> SetNoIndices(true);
+
     // initialize
     myPlots -> Initialize();
 
