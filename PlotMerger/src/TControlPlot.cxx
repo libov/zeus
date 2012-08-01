@@ -276,21 +276,21 @@ TString TControlPlot::GetTitle(TString cVar) {
 
     TString Xtitle = "";
 
-    if (cVar.Contains("zvtx"))  Xtitle = "Z_{PRM VTX}, cm";
-    if (cVar.Contains("empz"))  Xtitle = "E-p_{Z}, GeV";
+    if (cVar.Contains("zvtx"))  Xtitle = "Z_{PRM VTX} (cm)";
+    if (cVar.Contains("empz"))  Xtitle = "E-p_{Z} (GeV)";
     if (cVar.Contains("yel"))   Xtitle = "y_{el}";
     if (cVar.Contains("yjb"))   Xtitle = "y_{jb}";
     if (cVar.Contains("xel"))   Xtitle = "x_{el}";
     if (cVar.Contains("xjb"))   Xtitle = "x_{jb}";
     if (cVar.Contains("xda"))   Xtitle = "x_{da}";
-    if (cVar.Contains("q2da"))  Xtitle = "Q^{2}_{da}, GeV^2";
-    if (cVar == "siecorr")      Xtitle = "E'_{e}, GeV";
-    if (cVar == "thetael")      Xtitle = "#theta_{e}, rad";
-    if (cVar == "phiel")        Xtitle = "#phi_{e}, rad";
-    if (cVar.Contains("kt_etjet_b"))    Xtitle = "E_{T}^{jet}, GeV";
+    if (cVar.Contains("q2da"))  Xtitle = "Q^{2}_{da} (GeV^{2})";
+    if (cVar == "siecorr")      Xtitle = "E'_{e} (GeV)";
+    if (cVar == "thetael")      Xtitle = "#theta_{e} (rad)";
+    if (cVar == "phiel")        Xtitle = "#phi_{e} (rad)";
+    if (cVar.Contains("kt_etjet_b"))    Xtitle = "E_{T}^{jet} (GeV)";
     if (cVar.Contains("kt_etajet_b"))   Xtitle = "#eta^{jet}";
     if (cVar == "kt_phijet_b")          Xtitle = "#phi^{jet}";
-    if (cVar.Contains("vtxsec_mass"))   Xtitle = "MASS (Sec. Vtx.), GeV";
+    if (cVar.Contains("vtxsec_mass"))   Xtitle = "MASS (Sec. Vtx.) (GeV)";
     if (cVar.Contains("vtxsec_multi"))  Xtitle = "MULTIPLICITY (Sec. Vtx.)";
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "L_{XY}/#sigma(L_{XY})";
