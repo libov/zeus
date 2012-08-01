@@ -53,6 +53,7 @@ fPrintROOT(false)
     gStyle->SetPadTickY(1);
     gStyle->SetPadTickX(1);
     gStyle->SetErrorX(0);
+    gStyle -> SetFrameBorderMode(0);
 }
 
 void TControlPlot::Initialize() {
