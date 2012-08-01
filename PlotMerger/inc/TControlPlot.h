@@ -38,6 +38,7 @@ class TControlPlot : public TObject {
         void SetPrintGIF(bool print) {fPrintGIF = print;};
         void SetPrintROOT(bool print) {fPrintROOT = print;};
         void SetConfigFile(TString file) {fConfigFile = file;};
+        void SetNoIndices(bool no_indices) {fNoIndices = no_indices;};
 
     private:
 
