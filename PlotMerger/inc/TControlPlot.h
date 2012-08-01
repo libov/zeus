@@ -53,6 +53,8 @@ class TControlPlot : public TObject {
         bool                    fPrintGIF;
         bool                    fPrintROOT;
 
+        bool                    fNoIndices;
+
         TString                 fConfigFile;
 };
 #endif
