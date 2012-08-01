@@ -204,7 +204,7 @@ void TControlPlot::Draw() {
                     // ----------- cosmetics ----------- //
                     // --------------------------------- //
                     cHist->SetMarkerStyle(cType->GetMarkerStyle());
-                    cHist->SetMarkerSize((Float_t)cType->GetMarkerSize());
+                    cHist->SetMarkerSize(cType->GetMarkerSize());
                     cHist->SetFillColor(cType->GetFillColor());
                     cHist->SetLineColor(cType->GetLineColor());
                     cHist->SetLineWidth(cType->GetLineWidth());
