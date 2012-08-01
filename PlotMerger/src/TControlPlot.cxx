@@ -212,16 +212,21 @@ void TControlPlot::Draw() {
                     cHist->SetTitle("");
                     cHist->SetStats(0);
 
+                    // X-axis title
                     TString Xtitle = GetTitle(cVar);
                     cHist->SetXTitle(Xtitle);
 
+                    // Y-axis title
                     cHist->SetYTitle("Entries");
 
+                    // Axis Range
                     SetAxisRange(cVar, cHist);
 
+                    // X-axis title settings
                     cHist->SetTitleSize(0.05, "X");
                     cHist->SetTitleOffset(0.85, "X");
 
+                    // Y-axis title settings
                     cHist->SetTitleSize(0.06, "Y");
                     cHist->SetTitleOffset(0.82, "Y");
 
