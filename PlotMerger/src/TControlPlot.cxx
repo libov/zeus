@@ -318,6 +318,26 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     if (cVar == "kt_phijet_b") cHist->SetAxisRange(0, 150000, "Y");
     if (cVar.Contains("vtxsec_mass")) cHist->SetAxisRange(0, 6, "X");
     if (cVar.Contains("vtxsec_multi")) cHist->SetAxisRange(0, 14, "X");
+
+    // beauty enriched
+    if (cVar == "kt_etjet_b_beauty_diff") {
+        cHist->SetAxisRange(4, 40, "X");
+        cHist->SetAxisRange(1, 1000, "Y");
+    }
+    if (cVar == "kt_etajet_b_beauty_diff") {
+        cHist->SetAxisRange(-1.7, 2.5, "X");
+        cHist->SetAxisRange(0, 500, "Y");
+    }
+    if (cVar == "q2da_beauty_diff") {
+        cHist->SetAxisRange(0.5, 3.1, "X");
+        cHist->SetAxisRange(0, 170, "Y");
+    }
+    if (cVar == "xda_beauty_diff") {
+        cHist->SetAxisRange(-4.5, -0.9, "X");
+        cHist->SetAxisRange(0, 370, "Y");
+    }
+
+
 }
 
 /*
