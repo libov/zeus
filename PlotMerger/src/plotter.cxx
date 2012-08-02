@@ -147,7 +147,7 @@ int main (int argc, char **argv) {
         if (!no_beauty_resolved) myPlots->AddPlotType("beauty_resolved", true, 0, 0, 0, kBlue, 5);
         if (!no_charm_resolved) myPlots->AddPlotType("charm_resolved", true, 0, 0, 0, kGreen, 5);
     }
-    myPlots->AddPlotType("data", false, 20, 0.5, 0, 1, 1);
+    myPlots->AddPlotType("data", false, 20, 0.8, 0, 1, 1);
 
     // set config file to select plots
     myPlots -> SetConfigFile(config_file);
