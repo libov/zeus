@@ -189,10 +189,13 @@ void TControlPlot::Draw() {
                                                     // of current Pad
                 sprintf(buffer,"%i",cPad);
                 Bool_t    first_histo=true;        // with or without "same"
-                TLegend * leg;
-                if (NPads==3) leg = new TLegend (0.33,0.55,0.87, 0.75, "", "brNDC");
-                else leg = new TLegend (0.6,0.65,0.87, 0.85, "", "brNDC");
+
+                // histograms for the legend
                 TH1F * data_hist;
+                TH1F * mc_hist;
+                TH1F * lf_hist;
+                TH1F * beauty_hist;
+                TH1F * charm_hist;
 
                 for (int type=0;type<fPlotTypes.size();type++) {
                     TPlotType     *cType=fPlotTypes[type];
@@ -244,24 +247,31 @@ void TControlPlot::Draw() {
                     if    (cType->IsDrawHisto()) opt.Append("HIST");
                     if ( ! first_histo) opt.Append("same");
                     first_histo=false;
-                    //cHist->DrawClone(opt);
-
                     cHist->Draw(opt);
-                    TString LegEntry=cDataType;
-                    TString option="L";
-                    if (cDataType=="data"){
-                        LegEntry = "HERAII";
-                        option = "P";
-                    }
-                    if (cDataType=="mc"){
-                        LegEntry = "Sum MC ";
-                        option = "F";
-                    }
-                    leg->AddEntry(cHist, LegEntry, option);
-                    leg->SetFillColor(0);
+
+                    // store pointers to histograms for the legend
+                    if (cDataType=="data") data_hist = cHist;
+                    if (cDataType=="mc") mc_hist = cHist;
+                    if (cDataType=="light") lf_hist = cHist;
+                    if (cDataType=="beauty") beauty_hist = cHist;
+                    if (cDataType=="charm") charm_hist = cHist;
                 }
 
-                //if (cPad==1) leg->Draw("same");
+                // draw a legend in the 1st subpad
+                if (cPad==1) {
+                    TLegend * leg;
+                    if (NPads==3) leg = new TLegend (0.33,0.55,0.87, 0.75, "", "brNDC");
+                    else leg = new TLegend (0.5,0.65,0.87, 0.87, "", "brNDC");
+
+                    leg->AddEntry(data_hist, "ZEUS 354 pb^{-1}", "P");
+                    leg->AddEntry(mc_hist, "Monte Carlo", "F");
+                    leg->AddEntry(lf_hist, "Light Flavours", "L");
+                    leg->AddEntry(charm_hist, "Charm", "L");
+                    leg->AddEntry(beauty_hist, "Beauty", "L");
+                    leg->SetFillColor(0);
+
+                    leg->Draw("same");
+                }
                 cPad++;
             }
 
