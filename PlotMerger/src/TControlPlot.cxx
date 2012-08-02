@@ -55,6 +55,7 @@ fNoIndices(false)
     gStyle->SetPadTickX(1);
     gStyle->SetErrorX(0);
     gStyle -> SetFrameBorderMode(0);
+    gStyle -> SetPadBottomMargin(0.16);
 }
 
 void TControlPlot::Initialize() {
@@ -224,7 +225,7 @@ void TControlPlot::Draw() {
                     SetAxisRange(cVar, cHist);
 
                     // X-axis title settings
-                    cHist->SetTitleSize(0.05, "X");
+                    cHist->SetTitleSize(0.08, "X");
                     cHist->SetTitleOffset(0.85, "X");
 
                     // Y-axis title settings
