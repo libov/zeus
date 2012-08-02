@@ -18,6 +18,7 @@
 #include <TStyle.h>
 #include <TObjString.h>
 #include <TObjArray.h>
+#include <TGaxis.h>
 
 // system headers
 #include<iostream>
@@ -57,7 +58,8 @@ fNoIndices(false)
     gStyle -> SetFrameBorderMode(0);
     gStyle -> SetPadBottomMargin(0.2);
     gStyle -> SetPadLeftMargin(0.15);
-    gStyle -> SetPadTopMargin(0.05);
+    gStyle -> SetPadTopMargin(0.08);
+    TGaxis::SetMaxDigits(3);
 }
 
 void TControlPlot::Initialize() {
@@ -344,7 +346,23 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(0, 370, "Y");
     }
 
-
+    // charm enriched
+    if (cVar == "kt_etjet_b_charm_diff") {
+        cHist->SetAxisRange(4, 40, "X");
+        cHist->SetAxisRange(1, 30000, "Y");
+    }
+    if (cVar == "kt_etajet_b_charm_diff") {
+        cHist->SetAxisRange(-1.7, 2.5, "X");
+        cHist->SetAxisRange(0, 4300, "Y");
+    }
+    if (cVar == "q2da_charm_diff") {
+        cHist->SetAxisRange(0.5, 3.1, "X");
+        cHist->SetAxisRange(0, 3800, "Y");
+    }
+    if (cVar == "xda_charm_diff") {
+        cHist->SetAxisRange(-4.5, -0.9, "X");
+        cHist->SetAxisRange(0, 8300, "Y");
+    }
 }
 
 /*
