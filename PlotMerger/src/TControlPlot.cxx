@@ -301,10 +301,10 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (fNoIndices) {
         if (cVar.Contains("yel"))   Xtitle = "y";
         if (cVar.Contains("yjb"))   Xtitle = "y";
-        if (cVar.Contains("xel"))   Xtitle = "x";
-        if (cVar.Contains("xjb"))   Xtitle = "x";
-        if (cVar.Contains("xda"))   Xtitle = "x";
-        if (cVar.Contains("q2da"))  Xtitle = "Q^{2} (GeV^{2})";
+        if (cVar.Contains("xel"))   Xtitle = "log_{10}x";
+        if (cVar.Contains("xjb"))   Xtitle = "log_{10}x";
+        if (cVar.Contains("xda"))   Xtitle = "log_{10}x";
+        if (cVar.Contains("q2da"))  Xtitle = "log_{10}(Q^{2}/GeV^{2})";
     }
 
     return Xtitle;
