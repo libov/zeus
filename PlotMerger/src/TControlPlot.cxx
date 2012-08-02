@@ -230,7 +230,7 @@ void TControlPlot::Draw() {
                     cHist->SetTitleSize(0.08, "X");
                     cHist->SetTitleOffset(0.95, "X");
                     cHist -> SetLabelSize(0.07, "X");
-                    cHist -> SetLabelOffset(0.008);
+                    cHist -> SetLabelOffset(0.02, "X");
 
                     // Y-axis title settings
                     cHist->SetTitleSize(0.08, "Y");
