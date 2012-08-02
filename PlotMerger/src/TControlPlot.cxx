@@ -281,16 +281,16 @@ void TControlPlot::Draw() {
                     SetAxisRange(cVar, cHist);
 
                     // X-axis title settings
-                    cHist->SetTitleSize(0.08, "X");
-                    cHist->SetTitleOffset(1.1, "X");
-                    cHist -> SetLabelSize(0.07, "X");
-                    cHist -> SetLabelOffset(0.02, "X");
+                    cHist->SetTitleSize(fXaxisTitleSize, "X");
+                    cHist->SetTitleOffset(fXaxisTitleOffset, "X");
+                    cHist -> SetLabelSize(fXaxisLabelSize, "X");
+                    cHist -> SetLabelOffset(fXaxisLabelOffset, "X");
 
                     // Y-axis title settings
-                    cHist->SetTitleSize(0.08, "Y");
-                    cHist->SetTitleOffset(1, "Y");
-                    cHist -> SetLabelSize(0.07, "Y");
-                    cHist -> SetLabelOffset(0.012, "Y");
+                    cHist->SetTitleSize(fYaxisTitleSize, "Y");
+                    cHist->SetTitleOffset(fYaxisTitleOffset, "Y");
+                    cHist -> SetLabelSize(fYaxisLabelSize, "Y");
+                    cHist -> SetLabelOffset(fYaxisLabelOffset, "Y");
 
                     TString opt="";
                     if    (cType->IsDrawHisto()) opt.Append("HIST");
