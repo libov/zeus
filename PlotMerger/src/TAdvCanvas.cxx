@@ -121,7 +121,7 @@ TCanvas* TAdvCanvas::CreateCanvas() {
     TText * t = new TText (0.43, 0.92, "ZEUS");
     t -> SetNDC();
     t -> SetTextFont(22);
-    t -> SetTextSize (0.08);
+    t -> SetTextSize (0.07);
     t -> Draw();
 
     return fCanvas;
