@@ -1,0 +1,3 @@
+# axes settings: title size, title offset, labels size, labels offset
+Xaxis 0.08 1.1 0.07 0.02
+Yaxis 0.08 1 0.07 0.012
