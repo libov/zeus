@@ -241,7 +241,7 @@ void TControlPlot::Draw() {
                     cHist->SetTitleSize(0.08, "Y");
                     cHist->SetTitleOffset(1, "Y");
                     cHist -> SetLabelSize(0.07, "Y");
-
+                    cHist -> SetLabelOffset(0.012, "Y");
 
                     TString opt="";
                     if    (cType->IsDrawHisto()) opt.Append("HIST");
