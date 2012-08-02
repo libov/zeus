@@ -11,6 +11,7 @@
 #include <TROOT.h>
 #include <TCanvas.h>
 #include <TString.h>
+#include <TText.h>
 
 #include <iostream>
 using namespace std;
@@ -114,6 +115,14 @@ TCanvas* TAdvCanvas::CreateCanvas() {
         // set them
         pad -> SetPad(x1, y1, x2, y2);
     }
+
+    // print ZEUS logo
+    fCanvas -> cd();
+    TText * t = new TText (0.43, 0.92, "ZEUS");
+    t -> SetNDC();
+    t -> SetTextFont(22);
+    t -> SetTextSize (0.08);
+    t -> Draw();
 
     return fCanvas;
 }
