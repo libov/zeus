@@ -13,6 +13,7 @@
 // ROOT headers
 #include <TROOT.h>
 #include <TFile.h>
+#include <TList.h>
 
 // custom headers
 #include <inc/TPlotType.h>
@@ -57,5 +58,15 @@ class TControlPlot : public TObject {
         bool                    fNoIndices;
 
         TString                 fConfigFile;
+
+        Float_t                 fXaxisTitleSize;
+        Float_t                 fXaxisTitleOffset;
+        Float_t                 fXaxisLabelSize;
+        Float_t                 fXaxisLabelOffset;
+
+        Float_t                 fYaxisTitleSize;
+        Float_t                 fYaxisTitleOffset;
+        Float_t                 fYaxisLabelSize;
+        Float_t                 fYaxisLabelOffset;
 };
 #endif
