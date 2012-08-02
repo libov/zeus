@@ -320,6 +320,14 @@ void TControlPlot::Draw() {
                 cPad++;
             }
 
+            // print ZEUS logo
+            cCanvas -> cd();
+            TText * t = new TText (0.43, 0.92, "ZEUS");
+            t -> SetNDC();
+            t -> SetTextFont(22);
+            t -> SetTextSize (0.07);
+            t -> Draw();
+
             // print the canvas to file
             if (SubDirName=="bin1") {
               if (fPrintPNG) cCanvas->Print((TString)getenv("PLOTS_PATH")+"/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+"."+SubDirName+".png");
