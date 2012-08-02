@@ -55,7 +55,8 @@ fNoIndices(false)
     gStyle->SetPadTickX(1);
     gStyle->SetErrorX(0);
     gStyle -> SetFrameBorderMode(0);
-    gStyle -> SetPadBottomMargin(0.16);
+    gStyle -> SetPadBottomMargin(0.17);
+    gStyle -> SetPadLeftMargin(0.15);
 }
 
 void TControlPlot::Initialize() {
@@ -226,11 +227,15 @@ void TControlPlot::Draw() {
 
                     // X-axis title settings
                     cHist->SetTitleSize(0.08, "X");
-                    cHist->SetTitleOffset(0.85, "X");
+                    cHist->SetTitleOffset(0.95, "X");
+                    cHist -> SetLabelSize(0.07, "X");
+                    cHist -> SetLabelOffset(0.008);
 
                     // Y-axis title settings
-                    cHist->SetTitleSize(0.06, "Y");
+                    cHist->SetTitleSize(0.08, "Y");
                     cHist->SetTitleOffset(0.82, "Y");
+                    cHist -> SetLabelSize(0.07, "Y");
+
 
                     TString opt="";
                     if    (cType->IsDrawHisto()) opt.Append("HIST");
