@@ -122,7 +122,7 @@ void TControlPlot::Initialize() {
         }
 
         // add a canvas
-        AddAdvCanvas(n_pads_x, n_pads_y, canvas_name, variables_set, logs, 1200, 800);
+        AddAdvCanvas(n_pads_x, n_pads_y, canvas_name, variables_set, logs, 1000, 800);
 
         // clean up
         delete [] logs;
