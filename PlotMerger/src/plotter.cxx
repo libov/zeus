@@ -138,16 +138,16 @@ int main (int argc, char **argv) {
     // first agrument comes from TPlotMerger.cxx (?)
     // (REMINDER: TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Int_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth))
     myPlots->AddPlotType("mc", true, 0,0, kYellow, kBlack, 1);
-    myPlots->AddPlotType("light", true, 0, 0, 0, kRed, 2);
+    myPlots->AddPlotType("light", true, 0, 0, 0, kRed, 1);
     if (include_direct) {
-        myPlots->AddPlotType("beauty", true, 0, 0, 0, kBlue, 2);
-        myPlots->AddPlotType("charm", true, 0, 0, 0, kGreen, 2);
+        myPlots->AddPlotType("beauty", true, 0, 0, 0, kBlue, 1);
+        myPlots->AddPlotType("charm", true, 0, 0, 0, kGreen, 1);
     }
     if (include_resolved) {
         if (!no_beauty_resolved) myPlots->AddPlotType("beauty_resolved", true, 0, 0, 0, kBlue, 5);
         if (!no_charm_resolved) myPlots->AddPlotType("charm_resolved", true, 0, 0, 0, kGreen, 5);
     }
-    myPlots->AddPlotType("data", false, 20, 0.5, 0, 1, 0);
+    myPlots->AddPlotType("data", false, 20, 0.5, 0, 1, 1);
 
     // set config file to select plots
     myPlots -> SetConfigFile(config_file);
