@@ -306,9 +306,7 @@ void TControlPlot::Draw() {
 
                 // draw a legend in the 1st subpad
                 if (cPad==1) {
-                    TLegend * leg;
-                    if (NPads==3) leg = new TLegend (0.33,0.55,0.87, 0.75, "", "brNDC");
-                    else leg = new TLegend (fLegend_x1, fLegend_y1, fLegend_x2, fLegend_y2, "", "brNDC");
+                    TLegend * leg = new TLegend (fLegend_x1, fLegend_y1, fLegend_x2, fLegend_y2, "", "brNDC");
 
                     leg->AddEntry(data_hist, "ZEUS 354 pb^{-1}", "P");
                     leg->AddEntry(mc_hist, "Monte Carlo", "F");
