@@ -129,6 +129,55 @@ void TControlPlot::Initialize() {
         // clean up
         delete [] logs;
     }
+
+    // read also a meta file related to the current config file, if any
+    TString config_meta_path = "config/"+fConfigFile+"_meta";
+    ifstream meta(config_meta_path);
+    if (meta.is_open()) {
+        cout << "INFO: opened " << config_meta_path << endl;
+        while ( meta.good() ) {
+
+            // read each line
+            getline (meta, line);
+            // skip if an empty line
+            if (line=="") continue;
+
+            // tokenize
+            TString line_str = line;
+            TObjArray * tokens = line_str.Tokenize(" ");
+            // check if this line is a comment
+            TString first_word = ((TObjString*)tokens->At(0)) -> GetString();
+            char first_char = first_word[0];
+            if (first_char=='#') continue;
+
+            if (first_word == "Xaxis") {
+                fXaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fXaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fXaxisLabelSize = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+                fXaxisLabelOffset = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+            }
+
+            if (first_word == "Yaxis") {
+                fYaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fYaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fYaxisLabelSize = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+                fYaxisLabelOffset = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+            }
+        }
+        cout << "INFO: fXaxisTitleSize= " << fXaxisTitleSize << endl; 
+        cout << "INFO: fXaxisTitleOffset= " << fXaxisTitleOffset << endl;
+        cout << "INFO: fXaxisLabelSize= " << fXaxisLabelSize << endl;
+        cout << "INFO: fXaxisLabelOffset= " << fXaxisLabelOffset << endl;
+
+        cout << "INFO: fYaxisTitleSize= " << fYaxisTitleSize << endl; 
+        cout << "INFO: fYaxisTitleOffset= " << fYaxisTitleOffset << endl;
+        cout << "INFO: fYaxisLabelSize= " << fYaxisLabelSize << endl;
+        cout << "INFO: fYaxisLabelOffset= " << fYaxisLabelOffset << endl;
+
+    } else {
+        cout << "INFO: meta file not provided, will use default settings for axes" << endl;
+        return;
+    }
 }
 
 void TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth) {
