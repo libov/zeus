@@ -12,6 +12,9 @@
 #include <TCanvas.h>
 #include <TString.h>
 
+#include <iostream>
+using namespace std;
+
 TAdvCanvas::TAdvCanvas()
 {
 }
