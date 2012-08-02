@@ -171,15 +171,6 @@ void TControlPlot::Initialize() {
                 fLegend_y2 = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
             }
         }
-        cout << "INFO: fXaxisTitleSize= " << fXaxisTitleSize << endl; 
-        cout << "INFO: fXaxisTitleOffset= " << fXaxisTitleOffset << endl;
-        cout << "INFO: fXaxisLabelSize= " << fXaxisLabelSize << endl;
-        cout << "INFO: fXaxisLabelOffset= " << fXaxisLabelOffset << endl;
-
-        cout << "INFO: fYaxisTitleSize= " << fYaxisTitleSize << endl; 
-        cout << "INFO: fYaxisTitleOffset= " << fYaxisTitleOffset << endl;
-        cout << "INFO: fYaxisLabelSize= " << fYaxisLabelSize << endl;
-        cout << "INFO: fYaxisLabelOffset= " << fYaxisLabelOffset << endl;
 
     } else {
         cout << "INFO: meta file not provided, will use default settings for axes" << endl;
