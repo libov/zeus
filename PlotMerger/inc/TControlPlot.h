@@ -68,5 +68,10 @@ class TControlPlot : public TObject {
         Float_t                 fYaxisTitleOffset;
         Float_t                 fYaxisLabelSize;
         Float_t                 fYaxisLabelOffset;
+
+        Float_t                 fLegend_x1;
+        Float_t                 fLegend_y1;
+        Float_t                 fLegend_x2;
+        Float_t                 fLegend_y2;
 };
 #endif
