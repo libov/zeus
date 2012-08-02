@@ -163,6 +163,13 @@ void TControlPlot::Initialize() {
                 fYaxisLabelSize = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
                 fYaxisLabelOffset = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
             }
+
+            if (first_word == "legend") {
+                fLegend_x1 = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fLegend_y1 = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fLegend_x2 = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+                fLegend_y2 = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+            }
         }
         cout << "INFO: fXaxisTitleSize= " << fXaxisTitleSize << endl; 
         cout << "INFO: fXaxisTitleOffset= " << fXaxisTitleOffset << endl;
@@ -310,7 +317,7 @@ void TControlPlot::Draw() {
                 if (cPad==1) {
                     TLegend * leg;
                     if (NPads==3) leg = new TLegend (0.33,0.55,0.87, 0.75, "", "brNDC");
-                    else leg = new TLegend (0.5,0.61,0.87, 0.89, "", "brNDC");
+                    else leg = new TLegend (fLegend_x1, fLegend_y1, fLegend_x2, fLegend_y2, "", "brNDC");
 
                     leg->AddEntry(data_hist, "ZEUS 354 pb^{-1}", "P");
                     leg->AddEntry(mc_hist, "Monte Carlo", "F");
