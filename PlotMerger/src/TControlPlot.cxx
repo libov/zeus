@@ -261,11 +261,11 @@ void TControlPlot::Draw() {
                 if (cPad==1) {
                     TLegend * leg;
                     if (NPads==3) leg = new TLegend (0.33,0.55,0.87, 0.75, "", "brNDC");
-                    else leg = new TLegend (0.5,0.65,0.87, 0.87, "", "brNDC");
+                    else leg = new TLegend (0.5,0.61,0.87, 0.89, "", "brNDC");
 
                     leg->AddEntry(data_hist, "ZEUS 354 pb^{-1}", "P");
                     leg->AddEntry(mc_hist, "Monte Carlo", "F");
-                    leg->AddEntry(lf_hist, "Light Flavours", "L");
+                    leg->AddEntry(lf_hist, "LF", "L");
                     leg->AddEntry(charm_hist, "Charm", "L");
                     leg->AddEntry(beauty_hist, "Beauty", "L");
                     leg->SetFillColor(0);
