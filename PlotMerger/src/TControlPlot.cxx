@@ -57,6 +57,7 @@ fNoIndices(false)
     gStyle -> SetFrameBorderMode(0);
     gStyle -> SetPadBottomMargin(0.17);
     gStyle -> SetPadLeftMargin(0.15);
+    gStyle -> SetPadTopMargin(0.05);
 }
 
 void TControlPlot::Initialize() {
