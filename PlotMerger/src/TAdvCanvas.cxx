@@ -89,6 +89,32 @@ TCanvas* TAdvCanvas::CreateCanvas() {
     fCanvas->ToggleEditor();
     fCanvas->Divide(fNPads_X,fNPads_Y);
 
+    // resize the pads to allow some space on top - for the ZEUS logo
+    Float_t top_margin = 0.1;
+    Float_t pad_size_y = (1-top_margin)/fNPads_Y;
+    for (int i=1; i<= fNPads_X*fNPads_Y; i++) {
+        // get the row number
+        div_t divresult;
+        divresult = div (i-1, fNPads_X);
+        unsigned row = divresult.quot + 1;
+
+        // get the pad
+        TString index;
+        index += i;
+        TPad * pad = (TPad*)fCanvas -> GetPrimitive(fCanvName+"_"+index);
+
+        // get pad coordinates
+        Double_t x1, x2, y1, y2;
+        pad -> GetPadPar(x1, y1, x2, y2);
+
+        // modify y-coordinates
+        y1 = 1 - top_margin - row * pad_size_y;
+        y2 = 1 - top_margin - (row-1) * pad_size_y;
+
+        // set them
+        pad -> SetPad(x1, y1, x2, y2);
+    }
+
     return fCanvas;
 }
 
