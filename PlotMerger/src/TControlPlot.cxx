@@ -265,8 +265,11 @@ void TControlPlot::Draw() {
                 }
                 TString        cVar=cAdvCanvas->GetVariable(cVariableNumber);
                 cCanvas->cd(cPad);
-                if (cAdvCanvas->LogPad(cPad)) gPad->SetLogy();
-                else  gPad->SetLogy(0);
+                if (cAdvCanvas->LogPad(cPad)) {
+                    gPad->SetLogy();
+                } else {
+                    gPad->SetLogy(0);
+                }
                 // Loop over the data types, see class TPlotType
 
                 char            buffer[2];        // this is to take into account that same variables
