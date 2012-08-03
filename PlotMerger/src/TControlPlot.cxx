@@ -67,7 +67,6 @@ void TControlPlot::Initialize() {
     ReadSettings();
 
     // set margins according to settings that were just read
-    cout << fPadTopMargin <<" " << fPadBottomMargin << " " <<  fPadLeftMargin << endl;
     gStyle -> SetPadTopMargin(fPadTopMargin);
     gStyle -> SetPadBottomMargin(fPadBottomMargin);
     gStyle -> SetPadLeftMargin(fPadLeftMargin);
@@ -466,6 +465,7 @@ void TControlPlot::ReadSettings() {
             if (first_word == "TopMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
             if (first_word == "BottomMargin") fPadBottomMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
             if (first_word == "LeftMargin") fPadLeftMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+            if (first_word == "RightMargin") fPadRightMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
 
             if (first_word == "Xaxis") {
                 fXaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
