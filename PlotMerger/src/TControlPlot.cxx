@@ -170,6 +170,12 @@ void TControlPlot::Initialize() {
                 fLegend_x2 = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
                 fLegend_y2 = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
             }
+
+            if (first_word == "ZEUSlogo") {
+                fZEUSLogo_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fZEUSLogo_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fZEUSLogo_size =  (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+            }
         }
 
     } else {
@@ -322,10 +328,10 @@ void TControlPlot::Draw() {
 
             // print ZEUS logo
             cCanvas -> cd();
-            TText * t = new TText (0.43, 0.92, "ZEUS");
+            TText * t = new TText (fZEUSLogo_x, fZEUSLogo_y, "ZEUS");
             t -> SetNDC();
             t -> SetTextFont(22);
-            t -> SetTextSize (0.07);
+            t -> SetTextSize (fZEUSLogo_size);
             t -> Draw();
 
             // print the canvas to file
