@@ -178,6 +178,17 @@ void TControlPlot::Initialize() {
                 fZEUSLogo_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atof();
                 fZEUSLogo_size =  (((TObjString*)tokens->At(3)) -> GetString()).Atof();
             }
+
+            // re-tokenize, with TAB delimiter - in order to allow spaces within the text!!
+            tokens = line_str.Tokenize("\t");
+            first_word = ((TObjString*)tokens->At(0)) -> GetString();
+            if (first_word == "text") {
+                fAdditionalText = true;
+                fText.push_back(((TObjString*)tokens->At(1)) -> GetString());
+                fText_x.push_back((((TObjString*)tokens->At(2)) -> GetString()).Atof());
+                fText_y.push_back((((TObjString*)tokens->At(3)) -> GetString()).Atof());
+                fText_size.push_back((((TObjString*)tokens->At(4)) -> GetString()).Atof());
+            }
         }
 
     } else {
