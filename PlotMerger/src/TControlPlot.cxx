@@ -152,6 +152,17 @@ void TControlPlot::Initialize() {
             char first_char = first_word[0];
             if (first_char=='#') continue;
 
+            if (first_word == "Datatype") {
+                TString name = ((TObjString*)tokens->At(1)) -> GetString();
+                bool draw_histo = (bool)(((TObjString*)tokens->At(2)) -> GetString()).Atoi();
+                Int_t MarkerStyle = (((TObjString*)tokens->At(3)) -> GetString()).Atoi();
+                Float_t MarkerSize = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+                Int_t FillColor =  (((TObjString*)tokens->At(5)) -> GetString()).Atoi();
+                Int_t LineColor =  (((TObjString*)tokens->At(6)) -> GetString()).Atoi();
+                Int_t LineWidth =  (((TObjString*)tokens->At(7)) -> GetString()).Atoi();
+                AddPlotType(name, draw_histo, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth);
+            }
+
             if (first_word == "Xaxis") {
                 fXaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
                 fXaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
