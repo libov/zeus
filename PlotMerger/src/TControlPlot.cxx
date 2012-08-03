@@ -70,6 +70,7 @@ void TControlPlot::Initialize() {
     gStyle -> SetPadTopMargin(fPadTopMargin);
     gStyle -> SetPadBottomMargin(fPadBottomMargin);
     gStyle -> SetPadLeftMargin(fPadLeftMargin);
+    gStyle -> SetPadRightMargin(fPadRightMargin);
 
     // read settings from the config file
     if (fConfigFile=="") {
