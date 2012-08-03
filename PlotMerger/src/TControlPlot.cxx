@@ -58,9 +58,6 @@ fAdditionalText(false)
     gStyle->SetPadTickX(1);
     gStyle->SetErrorX(0);
     gStyle -> SetFrameBorderMode(0);
-    gStyle -> SetPadBottomMargin(0.2);
-    gStyle -> SetPadLeftMargin(0.15);
-    gStyle -> SetPadTopMargin(0.08);
     TGaxis::SetMaxDigits(3);
 }
 
@@ -68,6 +65,12 @@ void TControlPlot::Initialize() {
 
     // read settings - data types, canvas size, cosmetics
     ReadSettings();
+
+    // set margins according to settings that were just read
+    cout << fPadTopMargin <<" " << fPadBottomMargin << " " <<  fPadLeftMargin << endl;
+    gStyle -> SetPadTopMargin(fPadTopMargin);
+    gStyle -> SetPadBottomMargin(fPadBottomMargin);
+    gStyle -> SetPadLeftMargin(fPadLeftMargin);
 
     // read settings from the config file
     if (fConfigFile=="") {
@@ -461,8 +464,8 @@ void TControlPlot::ReadSettings() {
             }
 
             if (first_word == "TopMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-            if (first_word == "BottomMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-            if (first_word == "LeftMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+            if (first_word == "BottomMargin") fPadBottomMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+            if (first_word == "LeftMargin") fPadLeftMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
 
             if (first_word == "Xaxis") {
                 fXaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
