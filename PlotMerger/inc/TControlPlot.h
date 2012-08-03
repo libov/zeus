@@ -77,5 +77,11 @@ class TControlPlot : public TObject {
         Float_t                 fZEUSLogo_x;
         Float_t                 fZEUSLogo_y;
         Float_t                 fZEUSLogo_size;
+
+        bool                    fAdditionalText;
+        vector<TString>         fText;
+        vector<Float_t>         fText_x;
+        vector<Float_t>         fText_y;
+        vector<Float_t>         fText_size;
 };
 #endif
