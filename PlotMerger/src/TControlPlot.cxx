@@ -347,6 +347,17 @@ void TControlPlot::Draw() {
             t -> SetTextSize (fZEUSLogo_size);
             t -> Draw();
 
+            // any number of additional TText objects
+            if (fAdditionalText) {
+                for (int i=0; i<fText.size(); i++) {
+                    TLatex * text = new TLatex (fText_x[i], fText_y[i], fText[i]);
+                    text -> SetNDC();
+                    text -> SetTextFont(22);
+                    text -> SetTextSize (fText_size[i]);
+                    text -> Draw();
+                }
+            }
+
             // print the canvas to file
             if (SubDirName=="bin1") {
               if (fPrintPNG) cCanvas->Print((TString)getenv("PLOTS_PATH")+"/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+"."+SubDirName+".png");
