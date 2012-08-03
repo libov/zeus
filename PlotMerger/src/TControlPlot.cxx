@@ -19,6 +19,7 @@
 #include <TObjString.h>
 #include <TObjArray.h>
 #include <TGaxis.h>
+#include <TLatex.h>
 
 // system headers
 #include<iostream>
