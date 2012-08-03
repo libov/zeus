@@ -66,6 +66,9 @@ fAdditionalText(false)
 
 void TControlPlot::Initialize() {
 
+    // read settings - data types, canvas size, cosmetics
+    ReadSettings();
+
     // read settings from the config file
     if (fConfigFile=="") {
         cout << "ERROR: config file not set!" << endl;
@@ -126,86 +129,12 @@ void TControlPlot::Initialize() {
         }
 
         // add a canvas
-        AddAdvCanvas(n_pads_x, n_pads_y, canvas_name, variables_set, logs, 1000, 800);
+        AddAdvCanvas(n_pads_x, n_pads_y, canvas_name, variables_set, logs, fCanvas_size_x, fCanvas_size_y);
 
         // clean up
         delete [] logs;
     }
 
-    // read also a meta file related to the current config file, if any
-    TString config_meta_path = "config/"+fConfigFile+"_meta";
-    ifstream meta(config_meta_path);
-    if (meta.is_open()) {
-        cout << "INFO: opened " << config_meta_path << endl;
-        while ( meta.good() ) {
-
-            // read each line
-            getline (meta, line);
-            // skip if an empty line
-            if (line=="") continue;
-
-            // tokenize
-            TString line_str = line;
-            TObjArray * tokens = line_str.Tokenize(" ");
-            // check if this line is a comment
-            TString first_word = ((TObjString*)tokens->At(0)) -> GetString();
-            char first_char = first_word[0];
-            if (first_char=='#') continue;
-
-            if (first_word == "Datatype") {
-                TString name = ((TObjString*)tokens->At(1)) -> GetString();
-                bool draw_histo = (bool)(((TObjString*)tokens->At(2)) -> GetString()).Atoi();
-                Int_t MarkerStyle = (((TObjString*)tokens->At(3)) -> GetString()).Atoi();
-                Float_t MarkerSize = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
-                Int_t FillColor =  (((TObjString*)tokens->At(5)) -> GetString()).Atoi();
-                Int_t LineColor =  (((TObjString*)tokens->At(6)) -> GetString()).Atoi();
-                Int_t LineWidth =  (((TObjString*)tokens->At(7)) -> GetString()).Atoi();
-                AddPlotType(name, draw_histo, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth);
-            }
-
-            if (first_word == "Xaxis") {
-                fXaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-                fXaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
-                fXaxisLabelSize = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
-                fXaxisLabelOffset = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
-            }
-
-            if (first_word == "Yaxis") {
-                fYaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-                fYaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
-                fYaxisLabelSize = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
-                fYaxisLabelOffset = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
-            }
-
-            if (first_word == "legend") {
-                fLegend_x1 = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-                fLegend_y1 = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
-                fLegend_x2 = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
-                fLegend_y2 = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
-            }
-
-            if (first_word == "ZEUSlogo") {
-                fZEUSLogo_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-                fZEUSLogo_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atof();
-                fZEUSLogo_size =  (((TObjString*)tokens->At(3)) -> GetString()).Atof();
-            }
-
-            // re-tokenize, with TAB delimiter - in order to allow spaces within the text!!
-            tokens = line_str.Tokenize("\t");
-            first_word = ((TObjString*)tokens->At(0)) -> GetString();
-            if (first_word == "text") {
-                fAdditionalText = true;
-                fText.push_back(((TObjString*)tokens->At(1)) -> GetString());
-                fText_x.push_back((((TObjString*)tokens->At(2)) -> GetString()).Atof());
-                fText_y.push_back((((TObjString*)tokens->At(3)) -> GetString()).Atof());
-                fText_size.push_back((((TObjString*)tokens->At(4)) -> GetString()).Atof());
-            }
-        }
-
-    } else {
-        cout << "INFO: meta file not provided, will use default settings for axes" << endl;
-        return;
-    }
 }
 
 void TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth) {
@@ -483,4 +412,86 @@ TH1F * TControlPlot::Rebin(TH1F* h) {
     h->Rebin (7, name+"_rebinned", newbins);
 
     return (TH1F*) gDirectory -> Get(name+"_rebinned");
+}
+void TControlPlot::ReadSettings() {
+    // read also a meta file related to the current config file, if any
+    TString config_meta_path = "config/"+fConfigFile+"_meta";
+    ifstream meta(config_meta_path);
+    string line;
+    if (meta.is_open()) {
+        cout << "INFO: opened " << config_meta_path << endl;
+        while ( meta.good() ) {
+
+            // read each line
+            getline (meta, line);
+            // skip if an empty line
+            if (line=="") continue;
+
+            // tokenize
+            TString line_str = line;
+            TObjArray * tokens = line_str.Tokenize(" ");
+            // check if this line is a comment
+            TString first_word = ((TObjString*)tokens->At(0)) -> GetString();
+            char first_char = first_word[0];
+            if (first_char=='#') continue;
+
+            if (first_word == "Datatype") {
+                TString name = ((TObjString*)tokens->At(1)) -> GetString();
+                bool draw_histo = (bool)(((TObjString*)tokens->At(2)) -> GetString()).Atoi();
+                Int_t MarkerStyle = (((TObjString*)tokens->At(3)) -> GetString()).Atoi();
+                Float_t MarkerSize = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+                Int_t FillColor =  (((TObjString*)tokens->At(5)) -> GetString()).Atoi();
+                Int_t LineColor =  (((TObjString*)tokens->At(6)) -> GetString()).Atoi();
+                Int_t LineWidth =  (((TObjString*)tokens->At(7)) -> GetString()).Atoi();
+                AddPlotType(name, draw_histo, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth);
+            }
+
+            if (first_word == "Xaxis") {
+                fXaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fXaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fXaxisLabelSize = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+                fXaxisLabelOffset = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+            }
+
+            if (first_word == "Yaxis") {
+                fYaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fYaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fYaxisLabelSize = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+                fYaxisLabelOffset = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+            }
+
+            if (first_word == "legend") {
+                fLegend_x1 = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fLegend_y1 = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fLegend_x2 = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+                fLegend_y2 = (((TObjString*)tokens->At(4)) -> GetString()).Atof();
+            }
+
+            if (first_word == "ZEUSlogo") {
+                fZEUSLogo_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fZEUSLogo_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fZEUSLogo_size =  (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+            }
+
+            if (first_word == "canvas") {
+                fCanvas_size_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+                fCanvas_size_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+            }
+
+            // re-tokenize, with TAB delimiter - in order to allow spaces within the text!!
+            tokens = line_str.Tokenize("\t");
+            first_word = ((TObjString*)tokens->At(0)) -> GetString();
+            if (first_word == "text") {
+                fAdditionalText = true;
+                fText.push_back(((TObjString*)tokens->At(1)) -> GetString());
+                fText_x.push_back((((TObjString*)tokens->At(2)) -> GetString()).Atof());
+                fText_y.push_back((((TObjString*)tokens->At(3)) -> GetString()).Atof());
+                fText_size.push_back((((TObjString*)tokens->At(4)) -> GetString()).Atof());
+            }
+        }
+
+    } else {
+        cout << "INFO: no meta file provided" << endl;
+        abort();
+    }
 }
