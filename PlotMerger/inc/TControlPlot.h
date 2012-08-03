@@ -40,6 +40,7 @@ class TControlPlot : public TObject {
         void SetPrintROOT(bool print) {fPrintROOT = print;};
         void SetConfigFile(TString file) {fConfigFile = file;};
         void SetNoIndices(bool no_indices) {fNoIndices = no_indices;};
+        void ReadSettings();
 
     private:
 
@@ -85,5 +86,8 @@ class TControlPlot : public TObject {
         vector<Float_t>         fText_x;
         vector<Float_t>         fText_y;
         vector<Float_t>         fText_size;
+
+        Float_t                 fCanvas_size_x;
+        Float_t                 fCanvas_size_y;
 };
 #endif
