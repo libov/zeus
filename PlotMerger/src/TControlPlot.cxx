@@ -339,9 +339,7 @@ void TControlPlot::Draw() {
                     if (cDataType=="charm") charm_hist = cHist;
                 }
 
-                // draw a legend in the 1st subpad
-                if (cPad==1) {
-                }
+                // increase pad counter
                 cPad++;
             }
 
