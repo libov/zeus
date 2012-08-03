@@ -488,8 +488,8 @@ void TControlPlot::ReadSettings() {
             }
 
             if (first_word == "canvas") {
-                fCanvas_size_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-                fCanvas_size_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+                fCanvas_size_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
+                fCanvas_size_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atoi();
             }
 
             // re-tokenize, with TAB delimiter - in order to allow spaces within the text!!
