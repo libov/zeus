@@ -406,6 +406,17 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(-4.5, -0.9, "X");
         cHist->SetAxisRange(0, 8300, "Y");
     }
+
+    // mirrored significance
+    if (cVar == "significance_massbin1_mirrored") {
+        cHist->SetAxisRange(30, 25000, "Y");
+    }
+    if (cVar == "significance_massbin2_mirrored") {
+        cHist->SetAxisRange(30, 25000, "Y");
+    }
+    if (cVar == "significance_massbin3_mirrored") {
+        cHist->SetAxisRange(30, 25000, "Y");
+    }
 }
 
 TH1F * TControlPlot::Rebin(TH1F* h) {
