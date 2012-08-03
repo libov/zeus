@@ -43,6 +43,8 @@ class TControlPlot : public TObject {
 
     private:
 
+        TH1F* Rebin(TH1F*);
+
         TFile*                  fInputFile;
         TFile*                  fOutputFile;
         TString                 fHistogramsVersion;
