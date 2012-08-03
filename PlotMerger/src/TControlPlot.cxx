@@ -237,6 +237,14 @@ void TControlPlot::Draw() {
             // and draw variable from each sample
             Int_t        cPad=1;
             TCanvas *cCanvas=cAdvCanvas->CreateCanvas();
+
+            // histograms for the legend
+            TH1F * data_hist;
+            TH1F * mc_hist;
+            TH1F * lf_hist;
+            TH1F * beauty_hist;
+            TH1F * charm_hist;
+
             for (int cVariableNumber=0; cVariableNumber<NumberOfVariables; cVariableNumber++) {
 
                 // sanity check
@@ -255,13 +263,6 @@ void TControlPlot::Draw() {
                                                     // of current Pad
                 sprintf(buffer,"%i",cPad);
                 Bool_t    first_histo=true;        // with or without "same"
-
-                // histograms for the legend
-                TH1F * data_hist;
-                TH1F * mc_hist;
-                TH1F * lf_hist;
-                TH1F * beauty_hist;
-                TH1F * charm_hist;
 
                 for (int type=0;type<fPlotTypes.size();type++) {
                     TPlotType     *cType=fPlotTypes[type];
@@ -325,16 +326,6 @@ void TControlPlot::Draw() {
 
                 // draw a legend in the 1st subpad
                 if (cPad==1) {
-                    TLegend * leg = new TLegend (fLegend_x1, fLegend_y1, fLegend_x2, fLegend_y2, "", "brNDC");
-
-                    leg->AddEntry(data_hist, "ZEUS 354 pb^{-1}", "P");
-                    leg->AddEntry(mc_hist, "Monte Carlo", "F");
-                    leg->AddEntry(lf_hist, "LF", "L");
-                    leg->AddEntry(charm_hist, "Charm", "L");
-                    leg->AddEntry(beauty_hist, "Beauty", "L");
-                    leg->SetFillColor(0);
-
-                    leg->Draw("same");
                 }
                 cPad++;
             }
@@ -357,6 +348,16 @@ void TControlPlot::Draw() {
                     text -> Draw();
                 }
             }
+
+            // create and draw the legend
+            TLegend * leg = new TLegend (fLegend_x1, fLegend_y1, fLegend_x2, fLegend_y2, "", "brNDC");
+            leg->AddEntry(data_hist, "ZEUS 354 pb^{-1}", "P");
+            leg->AddEntry(mc_hist, "Monte Carlo", "F");
+            leg->AddEntry(lf_hist, "LF", "L");
+            leg->AddEntry(charm_hist, "Charm", "L");
+            leg->AddEntry(beauty_hist, "Beauty", "L");
+            leg->SetFillColor(0);
+            leg->Draw("same");
 
             // print the canvas to file
             if (SubDirName=="bin1") {
