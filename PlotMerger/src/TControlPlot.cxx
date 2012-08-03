@@ -271,6 +271,9 @@ void TControlPlot::Draw() {
                     if (cDataType=="charm") charm_hist = cHist;
                 }
 
+                // redraw axes so that they are not covered by anything else
+                gPad -> RedrawAxis();
+
                 // increase pad counter
                 cPad++;
             }
