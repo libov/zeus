@@ -89,5 +89,9 @@ class TControlPlot : public TObject {
 
         Int_t                   fCanvas_size_x;
         Int_t                   fCanvas_size_y;
+
+        Float_t                 fPadTopMargin;
+        Float_t                 fPadBottomMargin;
+        Float_t                 fPadLeftMargin;
 };
 #endif
