@@ -87,7 +87,7 @@ class TControlPlot : public TObject {
         vector<Float_t>         fText_y;
         vector<Float_t>         fText_size;
 
-        Float_t                 fCanvas_size_x;
-        Float_t                 fCanvas_size_y;
+        Int_t                   fCanvas_size_x;
+        Int_t                   fCanvas_size_y;
 };
 #endif
