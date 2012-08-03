@@ -291,6 +291,9 @@ void TControlPlot::Draw() {
                     // get a histogram
                     TH1F*    cHist=(TH1F*)fInputFile->Get(SubDirName+"/"+cVar+"/"+cDataType)->Clone(NewHistName);
 
+                    // a hack: rebin the histogram if it represents mirrored significance
+                    if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) cHist = Rebin(cHist);
+
                     // --------------------------------- //
                     // ----------- cosmetics ----------- //
                     // --------------------------------- //
