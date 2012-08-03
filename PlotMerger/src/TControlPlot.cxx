@@ -414,7 +414,7 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar.Contains("vtxsec_multi"))  Xtitle = "MULTIPLICITY (Sec. Vtx.)";
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "L_{XY}/#sigma(L_{XY})";
-    if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "S^{+}-S^{-}";
+    if ( c.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "S^{+}-S^{-}";
 
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
     if (fNoIndices) {
@@ -476,30 +476,11 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     }
 }
 
-/*
-                    if ((SubDirName=="bin13")&&cVar.Contains("significance_massbin3") && cVar.Contains("_mirrored")) {
-                        //Double_t        newbins[100] = {4, 6, 8, 10, 12, 14, 17, 20};
-                        //cHist->Rebin (7, NewHistName+"_rebinned", newbins);
-                        //delete cHist;
-                        //cHist = (TH1F*) gDirectory -> Get(NewHistName+"_rebinned");
-                        Float_t        hjkh [100] = {4, 6, 8, 10, 12, 14, 17, 20};
-                        TH1F        * bla = new TH1F(NewHistName+"_rebinned", "", 7,  hjkh);
-                        bla->SetBinContent(1, cHist->GetBinContent(5)+cHist->GetBinContent(6));
-                        bla->SetBinContent(2, cHist->GetBinContent(7)+cHist->GetBinContent(8));
-                        bla->SetBinContent(3, cHist->GetBinContent(9)+cHist->GetBinContent(10));
-                        bla->SetBinContent(4, cHist->GetBinContent(11)+cHist->GetBinContent(12));
-                        bla->SetBinContent(5, cHist->GetBinContent(13)+cHist->GetBinContent(14));
-                        bla->SetBinContent(6, cHist->GetBinContent(15)+cHist->GetBinContent(16)+cHist->GetBinContent(17));
-                        bla->SetBinContent(7, cHist->GetBinContent(18)+cHist->GetBinContent(19)+cHist->GetBinContent(20));
+TH1F * TControlPlot::Rebin(TH1F* h) {
 
-                        bla -> Sumw2(); // just for drawing - points
-                        delete cHist;
-                        cHist= bla;
-                        cHist->SetMarkerStyle(cType->GetMarkerStyle());
-                        cHist->SetMarkerSize(cType->GetMarkerSize());
-                        cHist->SetFillColor(cType->GetFillColor());
-                        cHist->SetLineColor(cType->GetLineColor());
-                        cHist->SetLineWidth(cType->GetLineWidth());
-                        cHist->SetStats(0);
-                    }
-*/
+    Double_t newbins[100] = {4, 6, 8, 10, 12, 14, 17, 20};
+    TString name = h -> GetName();
+    h->Rebin (7, name+"_rebinned", newbins);
+
+    return (TH1F*) gDirectory -> Get(name+"_rebinned");
+}
