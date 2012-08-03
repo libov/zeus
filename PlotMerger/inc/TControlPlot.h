@@ -93,5 +93,6 @@ class TControlPlot : public TObject {
         Float_t                 fPadTopMargin;
         Float_t                 fPadBottomMargin;
         Float_t                 fPadLeftMargin;
+        Float_t                 fPadRightMargin;
 };
 #endif
