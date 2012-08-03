@@ -460,6 +460,10 @@ void TControlPlot::ReadSettings() {
                 AddPlotType(name, draw_histo, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth);
             }
 
+            if (first_word == "TopMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+            if (first_word == "BottomMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+            if (first_word == "LeftMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+
             if (first_word == "Xaxis") {
                 fXaxisTitleSize = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
                 fXaxisTitleOffset = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
