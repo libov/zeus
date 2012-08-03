@@ -346,7 +346,7 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar.Contains("vtxsec_multi"))  Xtitle = "MULTIPLICITY (Sec. Vtx.)";
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "L_{XY}/#sigma(L_{XY})";
-    if ( c.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "S^{+}-S^{-}";
+    if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "S^{+}-S^{-}";
 
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
     if (fNoIndices) {
