@@ -353,7 +353,7 @@ int main(int argc, char **argv) {
     instance -> SetApplyCharmEtaReweighting(true);
     instance -> SetCharmEtaReweighting_p0(0.937);
     instance -> SetCharmEtaReweighting_p1(0.109);
-    instance -> SetCharmEtaReweighting_p2(0.0715);    // i.e. 0.0888558 / 1.2419
+    instance -> SetCharmEtaReweighting_p2(0.0715);    // i.e. 0.088796 / 1.2419
 
     // Et reweighting
     instance -> SetApplyCharmETReweighting(true);
