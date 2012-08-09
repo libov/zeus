@@ -18,6 +18,8 @@ using namespace std;
 #include <TCrossSection.h>
 #include <TCrossSectionBin.h>
 
+#include<TMath.h>
+
 enum flavour {
   kCharm,
   kBeauty
@@ -117,6 +119,8 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
     output_tex << line;
 
     unsigned counter = 1;
+    Float_t total_xsect = 0;
+    Float_t total_xsect_err = 0;
 
     for (int i=bin1; i<=bin2; i++) {
         TCrossSectionBin bin = instance -> getCrossSectionBin(i);
@@ -145,7 +149,14 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
         // TEX table output
         output_tex << "$\\unit["<< sigma << " \\pm " << sigma_err << "^{+" << sigma_err_syst_up << "}_{-" << sigma_err_syst_down << "}]{}$" << endl;
 
+        // calculate also total cross-sections from every differential ones
+        total_xsect += sigma * bin.getBinWidth ();
+        total_xsect_err += TMath::Power(sigma_err * bin.getBinWidth (), 2);
+
         counter++;
     }
+
+    total_xsect_err = sqrt(total_xsect_err);
+    output << "\n TOTAL CROSS-SECTION: " << total_xsect << " +- " << total_xsect_err << " (STAT) " <<    endl;
 }
 
