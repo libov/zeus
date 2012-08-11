@@ -64,8 +64,9 @@ TList*		TGlobalBin::GetHistList()
 {
 		return fListHistograms;
 }
-int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value)
-{
+
+int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
+
     if (!fListHistograms->FindObject(HistTitle)) {
         cout << "ERROR: " << HistTitle << " histogram not found!" << endl;
         abort();
@@ -73,7 +74,7 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value)
 
     TH1F    *currentHistogram;
     currentHistogram = (TH1F*) fListHistograms -> FindObject(HistTitle);
-    currentHistogram->Fill(Value, fWeightingFactor);
+    currentHistogram -> Fill(Value, fWeightingFactor);
 
     // now fill two histograms separately for S>0 and S<0
     if (!fAnalyzerInstance->fFillMirrored)  return 0;
@@ -89,7 +90,7 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value)
     }
 
     if (fAnalyzerInstance -> fSignificance < 0) {
-        
+
         if (fListHistograms->FindObject(HistTitleNeg)) {
             if (HistTitle.Contains("significance"))	Value=(-1)*Value; // if you work with significance distribution (which is signed) - the negative-significance-part should be also mirrored - that is multiplied by -1; for other distributions (like Q2) this is not true, because the range is the same for S>0 and S<0 obviously
 
@@ -97,7 +98,7 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value)
             currentHistogram->Fill(Value, WeightingFactor);
         }
     }
-    
+
     return 0;
 }
 
