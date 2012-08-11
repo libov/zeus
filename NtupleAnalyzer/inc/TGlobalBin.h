@@ -43,7 +43,6 @@ class TGlobalBin : public TObject {
 		void							MirrorHistograms();
 		void							SetWeightingFactor(Double_t		factor);
 		Double_t						GetWeightingFactor();
-		void							ApplyWeighting(Bool_t		apply);
                 void        Print();
 
 	private:
@@ -62,6 +61,5 @@ class TGlobalBin : public TObject {
 		Double_t						fWeightingFactor;			//!< Weighting factor for histograms filling.
 																		//!< Is used to scale charm distribution when adding up
 																		//!< samples with different q2-min-cut
-		Bool_t						fApplyWeighting;
 };
 #endif
