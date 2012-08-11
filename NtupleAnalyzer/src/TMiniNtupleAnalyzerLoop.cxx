@@ -203,12 +203,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     */
                     if ( ! currentTGlobalBin->CheckGlobalBin(kTrueVarEvent) ) continue;
 
-                    // set weighting factor
-                    // reset from previous event
-                    currentTGlobalBin -> ApplyWeighting (false);
+                    // set weighting factor to unity
+                    currentTGlobalBin -> SetWeightingFactor(1);
+
                     // set if needed; NB. in principle could do it just before the loop over bins!!
                     if (fApplyQ2Reweighting && (fIsCharm || fIsBeauty)) {
-                        currentTGlobalBin -> ApplyWeighting (true);
                         currentTGlobalBin -> SetWeightingFactor (fTrueQ2Weight);
                     }
 
@@ -384,8 +383,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Float_t x_gamma_hadrons = get_x_gamma(hadron_jets, false);
                         if ( x_gamma_hadrons >= 0 ) currentTGlobalBin->FillHistogram("x_gamma_true_hadrons", x_gamma_hadrons);
                     }
-
-                    currentTGlobalBin -> ApplyWeighting (false);    // switch off the weighting for this GlobalBin
 
                 }   // end loop over global bins
             }   // end if (isInFiducial)
@@ -889,8 +886,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             fHistogramsFile->cd(currentTGlobalBin->BinName);
 
             // reweight Q2 according to Philipp's recipe
-            currentTGlobalBin -> ApplyWeighting (false);
-            if (fApplyQ2Reweighting || weight_q2g4 ) currentTGlobalBin ->ApplyWeighting (true);
+            currentTGlobalBin -> SetWeightingFactor(1);
 
             if ( fApplyQ2Reweighting && (!weight_q2g4) ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight);
             if ( weight_q2g4  && (!fApplyQ2Reweighting) ) currentTGlobalBin -> SetWeightingFactor (fCharmQ2g4Weight);
@@ -1015,7 +1011,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 // still this is very obscure and should be done better
 
                 if (fIsMC && (fSubSet.getFlavourENUM()==TSubSet::kLIGHT) && fEtReweightingLF) {
-                    currentTGlobalBin -> ApplyWeighting(true);
                     Double_t    et_weighting_factor = getEtReweighting(fRecoJetEt);
                     currentTGlobalBin -> SetWeightingFactor(et_weighting_factor);
                 }
@@ -1234,7 +1229,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // apply LF weighting (done here in the loop because the weighting depends on jet et which is
                     // a vertex variable)
                     if (fIsMC && (fSubSet.getFlavourENUM()==TSubSet::kLIGHT) && fEtReweightingLF) {
-                        currentTGlobalBin -> ApplyWeighting(true);
                         Double_t    et_weighting_factor = getEtReweighting(fRecoJetEt);
                         currentTGlobalBin -> SetWeightingFactor(et_weighting_factor);
                     }
@@ -1916,7 +1910,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
         }
 
         // fill true-level histograms
-        inclusiveBin->ApplyWeighting(false);
+        inclusiveBin->SetWeightingFactor(1);
         inclusiveBin->FillHistogram("dR_all", Rmin);
         inclusiveBin->FillHistogram("truedR", DeltaR);
 
@@ -2321,7 +2315,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             fHistogramsFile->cd(cGlobalBin->BinName);
 
             // switch on reweighting if mc
-            if (fIsMC) cGlobalBin -> ApplyWeighting(true);
+            if (fIsMC) cGlobalBin -> SetWeightingFactor(1);
 
             // the order of histogram filling
             // 1. rho/phi/event histograms; for binning, we use the information of the 1st pion
