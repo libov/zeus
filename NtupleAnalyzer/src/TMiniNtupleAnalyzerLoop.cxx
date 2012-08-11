@@ -208,7 +208,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                     // set if needed; NB. in principle could do it just before the loop over bins!!
                     if (fApplyQ2Reweighting && (fIsCharm || fIsBeauty)) {
-                        currentTGlobalBin -> SetWeightingFactor (fTrueQ2Weight);
+                        Double_t new_factor = ( currentTGlobalBin -> GetWeightingFactor () ) * fTrueQ2Weight;
+                        currentTGlobalBin -> SetWeightingFactor (new_factor);
                     }
 
                     //fill_parton_histograms(currentTGlobalBin);
