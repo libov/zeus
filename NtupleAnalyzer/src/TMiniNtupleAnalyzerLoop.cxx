@@ -206,7 +206,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // set weighting factor to unity
                     currentTGlobalBin -> SetWeightingFactor(1);
 
-                    // set if needed; NB. in principle could do it just before the loop over bins!!
+                    // set Q2 reweighting
                     if (fApplyQ2Reweighting && (fIsCharm || fIsBeauty)) {
                         Double_t new_factor = ( currentTGlobalBin -> GetWeightingFactor () ) * fTrueQ2Weight;
                         currentTGlobalBin -> SetWeightingFactor (new_factor);
