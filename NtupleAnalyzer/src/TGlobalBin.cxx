@@ -73,12 +73,7 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value)
 
     TH1F    *currentHistogram;
     currentHistogram = (TH1F*) fListHistograms -> FindObject(HistTitle);
-    Double_t    WeightingFactor=1;
-    if (fApplyWeighting) {
-        WeightingFactor = fWeightingFactor;
-    }
-    currentHistogram->Fill(Value, WeightingFactor);
-
+    currentHistogram->Fill(Value, fWeightingFactor);
 
     // now fill two histograms separately for S>0 and S<0
     if (!fAnalyzerInstance->fFillMirrored)  return 0;
@@ -144,10 +139,6 @@ void    TGlobalBin::SetWeightingFactor(Double_t		factor) {
 
 Double_t    TGlobalBin::GetWeightingFactor() {
     return fWeightingFactor;
-}
-
-void    TGlobalBin::ApplyWeighting(Bool_t	apply) {
-    fApplyWeighting = apply;
 }
 
 void TGlobalBin::Print() {
