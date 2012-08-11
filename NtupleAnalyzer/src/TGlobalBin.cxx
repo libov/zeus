@@ -24,8 +24,7 @@ fListHistograms(new TList()),
 fBinDescription(""),
 fAnalyzerInstance(instance),
 fNevents(0),
-fWeightingFactor( (Double_t)1 ),
-fApplyWeighting(false)
+fWeightingFactor( (Double_t)1 )
 {
 }
 
@@ -85,7 +84,7 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
 
         if (fListHistograms->FindObject(HistTitlePos)) {
             currentHistogram=(TH1F*)fListHistograms->FindObject(HistTitlePos);
-            currentHistogram->Fill(Value, WeightingFactor);
+            currentHistogram->Fill(Value, fWeightingFactor);
         }
     }
 
@@ -95,7 +94,7 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
             if (HistTitle.Contains("significance"))	Value=(-1)*Value; // if you work with significance distribution (which is signed) - the negative-significance-part should be also mirrored - that is multiplied by -1; for other distributions (like Q2) this is not true, because the range is the same for S>0 and S<0 obviously
 
             currentHistogram=(TH1F*) fListHistograms -> FindObject(HistTitleNeg);
-            currentHistogram->Fill(Value, WeightingFactor);
+            currentHistogram->Fill(Value, fWeightingFactor);
         }
     }
 
