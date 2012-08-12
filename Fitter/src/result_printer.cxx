@@ -117,27 +117,33 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
     if (f==kBeauty) flavour = "Beauty";
 
     TString line = "\n" + flavour + " differential cross sections d sigma / dY in bins of " + variable + "\n";
+    TString line_true = "\n" + flavour + " RAPGAP differential cross sections d sigma / dY in bins of " + variable + "\n";
     output << line;
+    output_true << line_true;
     output_tex << line;
 
     unsigned counter = 1;
     Float_t total_xsect = 0;
     Float_t total_xsect_err = 0;
+    Float_t total_xsect_true = 0;
 
     for (int i=bin1; i<=bin2; i++) {
         TCrossSectionBin bin = instance -> getCrossSectionBin(i);
         Float_t sigma, sigma_err, sigma_rel_err, sigma_err_syst_up, sigma_err_syst_down, sigma_err_syst_up_rel, sigma_err_syst_down_rel;
+        Float_t sigma_true;
         if (f==kCharm) {
             sigma = bin.get_sigma_c();
             sigma_err = bin.get_sigma_c_err();
             sigma_err_syst_up = bin.get_sigma_c_err_syst_up();
             sigma_err_syst_down = bin.get_sigma_c_err_syst_down();
+            sigma_true = bin.get_sigma_c_true();
 
         } else if (f==kBeauty) {
             sigma = bin.get_sigma_b();
             sigma_err = bin.get_sigma_b_err();
             sigma_err_syst_up = bin.get_sigma_b_err_syst_up();
             sigma_err_syst_down = bin.get_sigma_b_err_syst_down();
+            sigma_true = bin.get_sigma_b_true();
         }
 
         sigma_rel_err = 100 * sigma_err / sigma;
@@ -148,17 +154,22 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
         output << "Bin " << counter << ": " << sigma << " +/- " << sigma_err << " ("<<sigma_rel_err<<"%) [STAT] +"<<sigma_err_syst_up << " ("<<sigma_err_syst_up_rel<<"%)";
         output << " -" << sigma_err_syst_down << " (" << sigma_err_syst_down_rel <<"%) [SYST]"  << endl;
 
+        // true cross-sections
+        output_true << "Bin " << counter << ": " << sigma_true/bin.getBinWidth () << endl;
+
         // TEX table output
         output_tex << "$\\unit["<< sigma << " \\pm " << sigma_err << "^{+" << sigma_err_syst_up << "}_{-" << sigma_err_syst_down << "}]{}$" << endl;
 
         // calculate also total cross-sections from every differential ones
         total_xsect += sigma * bin.getBinWidth ();
         total_xsect_err += TMath::Power(sigma_err * bin.getBinWidth (), 2);
+        total_xsect_true += sigma_true;
 
         counter++;
     }
 
     total_xsect_err = sqrt(total_xsect_err);
     output << "\n TOTAL CROSS-SECTION: " << total_xsect << " +- " << total_xsect_err << " (STAT) " <<    endl;
+    output_true << "\n TRUE TOTAL CROSS-SECTION: " << total_xsect_true << endl;
 }
 
