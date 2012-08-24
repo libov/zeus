@@ -233,7 +233,7 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- - - - - - - - - -  - - - Rho zeusvm Monte Carlo  - - - - - - - - - - - - - - - - -->
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-<!--    <sample>
+    <sample>
         <year>04</year>
         <type>mc</type>
         <flavour>rho_zeusvm</flavour>
@@ -268,7 +268,7 @@
         <CN_version>v06b</CN_version>
         <name_pattern>.f8196.rho_</name_pattern>
         <luminosity>650</luminosity>
-    </sample>-->
+    </sample>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 </dataset>
