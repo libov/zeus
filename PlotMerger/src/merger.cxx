@@ -58,7 +58,8 @@ enum    DataType {
     kBeauty,
     kLight,
     kCharmResolved,
-    kBeautyResolved
+    kBeautyResolved,
+    kRho
 };
 
 struct    Sample {
