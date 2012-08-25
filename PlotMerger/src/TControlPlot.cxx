@@ -489,6 +489,7 @@ void TControlPlot::ReadSettings() {
             }
 
             if (first_word == "legend") {
+                fDrawLegend = true;
                 fLegend_x1 = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
                 fLegend_y1 = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
                 fLegend_x2 = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
