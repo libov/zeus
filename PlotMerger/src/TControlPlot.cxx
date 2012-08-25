@@ -63,6 +63,9 @@ fAdditionalText(false)
 
 void TControlPlot::Initialize() {
 
+    // print info
+    cout << "INFO: entering Initialize()" << endl;
+
     // read settings - data types, canvas size, cosmetics
     ReadSettings();
 
@@ -138,6 +141,8 @@ void TControlPlot::Initialize() {
         delete [] logs;
     }
 
+    // print info
+    cout << "INFO: leaving Initialize()" << endl;
 }
 
 void TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth) {
