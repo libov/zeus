@@ -109,11 +109,13 @@ int main(int argc, char **argv) {
     Bool_t      include_direct = false;
     Bool_t      no_beauty_resolved = false;
     Bool_t      no_charm_resolved = false;
+    Bool_t      tracking = false;
 
     // declare long options
     static struct option long_options[] = {
         {"no_beauty_resolved", no_argument, 0, 1},
         {"no_charm_resolved", no_argument, 0, 2},
+        {"tracking", no_argument, 0, 3}
     };
 
     // handle command line options
@@ -148,6 +150,9 @@ int main(int argc, char **argv) {
                 break;
             case 2:
                 no_charm_resolved = true;
+                break;
+            case 3:
+                tracking = true;
                 break;
             default:
                 abort ();
