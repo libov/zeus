@@ -230,9 +230,9 @@ int main(int argc, char **argv) {
 
     // initialize luminosity_map with zeros, in order to be able to safely
     // add the luminosity in the loop
-    const unsigned number_of_data_types = 6;
+    const unsigned number_of_data_types = 7;
     const unsigned number_of_periods = 4;
-    DataType    DataTypeArray[number_of_data_types] = { kData, kCharm, kBeauty, kLight, kCharmResolved, kBeautyResolved };
+    DataType    DataTypeArray[number_of_data_types] = { kData, kCharm, kBeauty, kLight, kCharmResolved, kBeautyResolved, kRho };
     TSubSet::Period PeriodArray[number_of_periods] = { TSubSet::k0304P, TSubSet::k05E, TSubSet::k06E, TSubSet::k0607P };
     for (int period_ind = 0; period_ind < number_of_periods; period_ind++) {
         for (int type_ind = 0; type_ind < number_of_data_types; type_ind++) {
