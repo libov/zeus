@@ -336,7 +336,7 @@ int main(int argc, char **argv) {
         // get the name of the sample, to be able to uniquely identify it
         TString     sample_name = cSubSet.getSampleName();
         // get a scaling factor which - the relative luminosity to data (from the same period)
-        Float_t     scaling_factor = luminosity_map[period][kData]/luminosity_map[period][data_type];
+        Float_t     relative_luminosity = luminosity_map[period][kData]/luminosity_map[period][data_type];
         switch (data_type) {
             case kData:
                 // data type; note that there is no scaling of data, hence no need to pass the luminosity value
@@ -345,42 +345,42 @@ int main(int argc, char **argv) {
             case kLight:
                 // light flavour; add to "light" and "mc" groups
                 if (!tracking) {
-                    instance->AddSample("light", cSubSet, scaling_factor);
-                    instance->AddSample("mc", cSubSet, scaling_factor);
+                    instance->AddSample("light", cSubSet, relative_luminosity);
+                    instance->AddSample("mc", cSubSet, relative_luminosity);
                 }
                 break;
             case kCharm:
                 if (include_direct) {
-                    instance->AddSample("charm", cSubSet, scaling_factor);
-                    instance->AddSample("mc", cSubSet, scaling_factor);
-                    instance->AddSample("charm_bgf", cSubSet, scaling_factor);
+                    instance->AddSample("charm", cSubSet, relative_luminosity);
+                    instance->AddSample("mc", cSubSet, relative_luminosity);
+                    instance->AddSample("charm_bgf", cSubSet, relative_luminosity);
                 }
                 break;
             case kCharmResolved:
                 if (include_resolved && (!no_charm_resolved)) {
-                    instance->AddSample("charm", cSubSet, scaling_factor);
-                    instance->AddSample("mc", cSubSet, scaling_factor);
-                    instance->AddSample("charm_resolved", cSubSet, scaling_factor);
+                    instance->AddSample("charm", cSubSet, relative_luminosity);
+                    instance->AddSample("mc", cSubSet, relative_luminosity);
+                    instance->AddSample("charm_resolved", cSubSet, relative_luminosity);
                 }
                 break;
             case kBeauty:
                 if (include_direct) {
-                    instance->AddSample("beauty", cSubSet, scaling_factor);
-                    instance->AddSample("mc", cSubSet, scaling_factor);
-                    instance->AddSample("beauty_bgf", cSubSet, scaling_factor);
+                    instance->AddSample("beauty", cSubSet, relative_luminosity);
+                    instance->AddSample("mc", cSubSet, relative_luminosity);
+                    instance->AddSample("beauty_bgf", cSubSet, relative_luminosity);
                 }
                 break;
             case kBeautyResolved:
                 if (include_resolved && (!no_beauty_resolved)) {
-                    instance->AddSample("beauty", cSubSet, scaling_factor);
-                    instance->AddSample("mc", cSubSet, scaling_factor);
-                    instance->AddSample("beauty_resolved", cSubSet, scaling_factor);
+                    instance->AddSample("beauty", cSubSet, relative_luminosity);
+                    instance->AddSample("mc", cSubSet, relative_luminosity);
+                    instance->AddSample("beauty_resolved", cSubSet, relative_luminosity);
                 }
                 break;
             case kRho:
                 if (tracking) {
-                    instance -> AddSample("rho", cSubSet, scaling_factor);
-                    instance -> AddSample("mc", cSubSet, scaling_factor);
+                    instance -> AddSample("rho", cSubSet, relative_luminosity);
+                    instance -> AddSample("mc", cSubSet, relative_luminosity);
                 }
                 break;
             default:
