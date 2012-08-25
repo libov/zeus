@@ -344,8 +344,10 @@ int main(int argc, char **argv) {
                 break;
             case kLight:
                 // light flavour; add to "light" and "mc" groups
-                instance->AddSample("light", cSubSet, scaling_factor);
-                instance->AddSample("mc", cSubSet, scaling_factor);
+                if (!tracking) {
+                    instance->AddSample("light", cSubSet, scaling_factor);
+                    instance->AddSample("mc", cSubSet, scaling_factor);
+                }
                 break;
             case kCharm:
                 if (include_direct) {
