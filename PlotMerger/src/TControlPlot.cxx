@@ -307,7 +307,9 @@ void TControlPlot::Draw() {
             }
 
             // create and draw the legend
-            TLegend * leg = new TLegend (fLegend_x1, fLegend_y1, fLegend_x2, fLegend_y2, "", "brNDC");
+            TLegend * leg;
+            if (fDrawLegend) {
+            leg = new TLegend (fLegend_x1, fLegend_y1, fLegend_x2, fLegend_y2, "", "brNDC");
             leg->AddEntry(data_hist, "ZEUS 354 pb^{-1}", "P");
             leg->AddEntry(mc_hist, "Monte Carlo", "F");
             leg->AddEntry(lf_hist, "LF", "L");
@@ -315,6 +317,7 @@ void TControlPlot::Draw() {
             leg->AddEntry(beauty_hist, "Beauty", "L");
             leg->SetFillColor(0);
             leg->Draw("same");
+            }
 
             // print the canvas to file
             if (SubDirName=="bin1") {
