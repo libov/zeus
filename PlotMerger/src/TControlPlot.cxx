@@ -40,7 +40,8 @@ fPrintEPS(false),
 fPrintGIF(false),
 fPrintROOT(false),
 fNoIndices(false),
-fAdditionalText(false)
+fAdditionalText(false),
+fDrawLegend(false)
 {
     // get a path to histograms folder
     TString HISTO_PATH = getenv("HISTO_PATH");
