@@ -377,6 +377,12 @@ int main(int argc, char **argv) {
                     instance->AddSample("beauty_resolved", cSubSet, scaling_factor);
                 }
                 break;
+            case kRho:
+                if (tracking) {
+                    instance -> AddSample("rho", cSubSet, scaling_factor);
+                    instance -> AddSample("mc", cSubSet, scaling_factor);
+                }
+                break;
             default:
                 cout << "ERROR: could not indentify type of the sample. Terminating!\n";
                 abort();
