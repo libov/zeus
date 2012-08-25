@@ -407,6 +407,7 @@ DataType    getDataType(TSubSet::Type type, TSubSet::Process process, TSubSet::F
         if ((flavour == TSubSet::kCHARM) && (process == TSubSet::kRESOLVED)) data_type = kCharmResolved;
         if ((flavour == TSubSet::kBEAUTY) && (process == TSubSet::kBGF)) data_type = kBeauty;
         if ((flavour == TSubSet::kBEAUTY) && (process == TSubSet::kRESOLVED)) data_type = kBeautyResolved;
+        if ( flavour == TSubSet::kRHO ) data_type = kRho;
     }
     return data_type;
 }
