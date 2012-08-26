@@ -1130,12 +1130,12 @@ Double_t TMiniNtupleAnalyzer::getIslandDCA(int isl, int trk) {
     TVector3 island(Xisl[isl], Yisl[isl], Zisl[isl]);
     TVector3 trk_endOfSwim(Vcatcal_x[trk][0], Vcatcal_x[trk][1], Vcatcal_x[trk][2]);
     TVector3 trk_mom_endOfSwim(Vcatcal_p[trk][0], Vcatcal_p[trk][1], Vcatcal_p[trk][2]);
-    
+
     // get an angle between the relative (to the end of swim point) position vector of the island
     // to the flight direction of a track at the end of swim point
     TVector3 island_relative = island - trk_endOfSwim;
     Double_t cos_alpha = (island_relative.Dot(trk_mom_endOfSwim))/(island_relative.Mag() * trk_mom_endOfSwim.Mag());
-    
+
     // calculate DCA
     Double_t    DCA = sqrt(1-cos_alpha*cos_alpha) * island_relative.Mag();
     return  DCA;
