@@ -208,6 +208,12 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
         if (opt1) classII = ((fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1));
         else classII = ( (fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1) && r_cut );
 
+        // sanity check
+        if ( classI && classII ) {
+            cout << "ERROR: event is classified as classI and classII!" << endl;
+            abort();
+        }
+
         // skip if event doesn't satisfy criteria for classI or classII
         if ( !(classI || classII) ) continue;
 
