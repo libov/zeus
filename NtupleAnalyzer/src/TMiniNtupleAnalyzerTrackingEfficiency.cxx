@@ -131,7 +131,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
         fNonElectronEnergyZufo = 0;
         fElectronEnergyZufo = 0;
         fNonTrackEnergyZufo = 0;
-        Float_t total_energy_zufo = 0;
+
         // look for energetic island not matched to any track(based on the classification in ZUFO block)
         Int_t   zufo_id_electron = -1;
         for (int zufo=0; zufo<Nzufos; zufo++) {
@@ -166,9 +166,6 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
             // if the energy of the zufo is above the noise threshold and has no track matched - add it to the sum
             if (not_noise && zufo_no_track) fNonTrackEnergyZufo += Zufo[zufo][3];
-
-            // old way to sum the energy of zufos (after V.Trusov)
-            if ((Zufo[zufo][3]>0.3) && (Zufo[zufo][3]<10.)) total_energy_zufo += Zufo[zufo][3];
         }
 
         // event printout for events with extra energy in the calorimeter
