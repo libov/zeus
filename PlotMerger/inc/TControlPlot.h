@@ -78,6 +78,7 @@ class TControlPlot : public TObject {
         Float_t                 fLegend_x2;
         Float_t                 fLegend_y2;
 
+        bool                    fDrawZEUSLogo;
         Float_t                 fZEUSLogo_x;
         Float_t                 fZEUSLogo_y;
         Float_t                 fZEUSLogo_size;

@@ -41,7 +41,8 @@ fPrintGIF(false),
 fPrintROOT(false),
 fNoIndices(false),
 fAdditionalText(false),
-fDrawLegend(false)
+fDrawLegend(false),
+fDrawZEUSLogo(false)
 {
     // get a path to histograms folder
     TString HISTO_PATH = getenv("HISTO_PATH");
@@ -289,11 +290,13 @@ void TControlPlot::Draw() {
 
             // print ZEUS logo
             cCanvas -> cd();
+            if (fDrawZEUSLogo) {
             TText * t = new TText (fZEUSLogo_x, fZEUSLogo_y, "ZEUS");
             t -> SetNDC();
             t -> SetTextFont(22);
             t -> SetTextSize (fZEUSLogo_size);
             t -> Draw();
+            }
 
             // any number of additional TText objects
             if (fAdditionalText) {
@@ -500,6 +503,7 @@ void TControlPlot::ReadSettings() {
             }
 
             if (first_word == "ZEUSlogo") {
+                fDrawZEUSLogo = true;
                 fZEUSLogo_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atof();
                 fZEUSLogo_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atof();
                 fZEUSLogo_size =  (((TObjString*)tokens->At(3)) -> GetString()).Atof();
