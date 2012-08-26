@@ -121,7 +121,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
         // fill true-level histograms
         inclusiveBin->SetWeightingFactor(1);
-        inclusiveBin->FillHistogram("dR_all", Rmin);
+        inclusiveBin->FillHistogram("Rmin", Rmin);
         inclusiveBin->FillHistogram("truedR", DeltaR);
 
         // perform also "true level analysis", in this case means filling fate-points histograms
