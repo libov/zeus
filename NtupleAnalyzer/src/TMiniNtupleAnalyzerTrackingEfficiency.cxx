@@ -195,18 +195,8 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
         // class I: exactly 2 primary tracks in event
         bool    classI = ( (fPrimary_ZTT_tracks==2) && (fLong_ZTT_tracks==2) && ((Trk_ntracks-electron_tracks) == 2) );
 
-        // classII: exactly 1 primary track, exactly 1 SA track,
-        // opt.1: no events with exactly 2 long tracks (contain lots of background from the classI)
-        // opt.2: no events, which for 2-long-tracks events give Rmin > [some value]
-        // note: opt2 preserves more good candidates (i.e. class II that were reconstructed as classII)
-        // but there's more background from class I compared to opt1
-        bool opt1 = true;
-        bool r_cut = true;
-        if ((fLong_ZTT_tracks == 2) && (Rmin<0.5)) r_cut = false;
-        bool    classII;
-        //if (opt1) classII = ((fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1) && (fLong_ZTT_tracks!=2));
-        if (opt1) classII = ((fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1));
-        else classII = ( (fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1) && r_cut );
+        // classII: exactly 1 primary track and exactly 1 SA track
+        bool    classII = ((fPrimary_ZTT_tracks==1) && (Trkmsa_ntracks==1));
 
         // sanity check
         if ( classI && classII ) {
