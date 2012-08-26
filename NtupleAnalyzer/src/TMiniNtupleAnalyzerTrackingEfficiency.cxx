@@ -742,9 +742,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("rho_pt_classI", rho.Pt());
                     cGlobalBin->FillHistogram("rho_phi_classI", rho.Phi());
                     cGlobalBin->FillHistogram("rho_theta_classI", rho.Theta());
-                    cGlobalBin->FillHistogram("rho_pt_fine_classI", rho.Pt());
-                    cGlobalBin->FillHistogram("rho_phi_fine_classI", rho.Phi());
-                    cGlobalBin->FillHistogram("rho_theta_fine_classI", rho.Theta());
                     cGlobalBin->FillHistogram("dPhi_classI", dPhi);
                     cGlobalBin->FillHistogram("dTheta_classI", dTheta);
                     cGlobalBin->FillHistogram("dPt_classI", dPt);
