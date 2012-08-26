@@ -241,7 +241,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             if (classII) if ( (min_dca > 30) && (dR>0.5) ) fUnmatchedIslandsEnergy += Eisl[isl];
         }
 
-        // other ways to define the elasticity criterion
+        // other ways to define the elasticity criterion for classII: allowing islands around all long tracks
         Float_t unmatched_islands_energy_classII_relaxed = 0;
         if (classII) {
             for (int isl = 0; isl<Nisl; isl++) {
