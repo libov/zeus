@@ -758,7 +758,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dPt_classII", dPt);
                     cGlobalBin->FillHistogram("theta_star_classII", getThetaStar(pi1, pi2));
                 }
-                
+
             }
 
             // *****************************************
@@ -958,7 +958,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("pi_MSA_chi2ndof_classII", Trkmsa_chi2[0]/Trkmsa_ndof[0]);
                     if (pi2.Pt() > 1) cGlobalBin->FillHistogram("pi_MSA_highpT_chi2_classII", Trkmsa_chi2[0]);
                     if (pi2.Pt() < 1) cGlobalBin->FillHistogram("pi_MSA_lowpT_chi2_classII", Trkmsa_chi2[0]);
-                    
+
                     cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbr_classII", Trkmsa_nbr[0]);
                     cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbz_classII", Trkmsa_nbz[0]);
                     cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nwu_classII", Trkmsa_nwu[0]);
