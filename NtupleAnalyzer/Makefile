@@ -15,7 +15,7 @@ vpath %.cxx $(SRC)
 vpath %.C $(SRC)
 vpath %.h $(INC)
 
-OBJECTS_ANALYSIS= analysis.o TBin.o TGlobalBin.o TNtupleAnalyzer.o TMiniNtupleAnalyzer.o TMiniNtupleAnalyzerLoop.o TMiniNtupleAnalyzerSetBinning.o TVertex.o BaseClass.o TRew.o
+OBJECTS_ANALYSIS= analysis.o TBin.o TGlobalBin.o TNtupleAnalyzer.o TMiniNtupleAnalyzer.o TMiniNtupleAnalyzerLoop.o TMiniNtupleAnalyzerTrackingEfficiency.o TMiniNtupleAnalyzerSetBinning.o TVertex.o BaseClass.o TRew.o
 
 OBJECTS_SUBMIT_ANALYSIS= submit_analysis.o 
 
@@ -69,6 +69,9 @@ TMiniNtupleCreator.o: TMiniNtupleCreator.cxx TMiniNtupleCreator.h BaseClass.o TN
 
 TMiniNtupleAnalyzerLoop.o: TMiniNtupleAnalyzerLoop.cxx TMiniNtupleAnalyzer.h BaseClass.o
 	gcc -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc -I$(ANALYSIS)/xerces -I./reweightingFunction/inc/
+
+TMiniNtupleAnalyzerTrackingEfficiency.o: TMiniNtupleAnalyzerTrackingEfficiency.cxx TMiniNtupleAnalyzer.h BaseClass.o
+	gcc -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc -I$(ANALYSIS)/xerces
 
 TMiniNtupleAnalyzerSetBinning.o: TMiniNtupleAnalyzerSetBinning.cxx TMiniNtupleAnalyzer.h BaseClass.o
 	gcc -o $(OBJ)/$@ -c $< -I. $(FLAGS_OBJ) -I$(ANALYSIS)/TXMLparser/inc -I$(ANALYSIS)/xerces
