@@ -303,7 +303,7 @@ int main(int argc, char **argv) {
     instance->AddSampleGroup("beauty_bgf", kLumi);
 
     // rho samples for tracking studies
-    instance -> AddSampleGroup("rho", kNone);
+    instance -> AddSampleGroup("rho", kArea);
 
     // now loop over the samples one more time and add them to the instance of TPlotMerger;
     // this is done in the 2nd loop as we have to know the relative luminosities already,
@@ -380,7 +380,6 @@ int main(int argc, char **argv) {
             case kRho:
                 if (tracking) {
                     instance -> AddSample("rho", cSubSet, relative_luminosity);
-                    instance -> AddSample("mc", cSubSet, relative_luminosity);
                 }
                 break;
             default:
