@@ -28,13 +28,15 @@ int main (int argc, char **argv) {
     Bool_t      no_beauty_resolved = false;
     Bool_t      no_charm_resolved = false;
     Bool_t      no_indices = false;
+    Bool_t      only_png = false;
 
     // declare long options
     static struct option long_options[] = {
         {"no_beauty_resolved", no_argument, 0, 1},
         {"no_charm_resolved", no_argument, 0, 2},
         {"config_file", required_argument, 0, 3},
-        {"no_indices", no_argument, 0, 4}
+        {"no_indices", no_argument, 0, 4},
+        {"only_png", no_argument, 0, 5},
     };
 
     // handle command line options
@@ -75,6 +77,9 @@ int main (int argc, char **argv) {
             case 4:
                 no_indices = true;
                 break;
+            case 5:
+                only_png = true;
+                break;
             case 'h':
                 cout<<"\nUsage:\n\t plotter -b <Binning File Suffix> -v <Histograms Version Ending> --config_file <config file> [Options]\n"<<endl;
                 cout<<"\t List of Options:"<<endl;
@@ -85,6 +90,7 @@ int main (int argc, char **argv) {
                 cout<<"\t\t-r remark (special suffix in the histogram version; default: .0405e06e07p - as in merger and fitter!)"<<endl;
                 cout<<"\t\t-s apply scaling factors from the fit"<<endl;
                 cout<<"\t\t--no_indices for axes titles, don't display _{da}, _{jb} or _{el} indices for kinematic variables"<<endl;
+                cout<<"\t\t--only_png print only png files; otherwise - eps"<<endl;
                 cout<<"\t\t-h Show this help and exit\n"<<endl;
                 exit(-1);
             default:
@@ -137,7 +143,11 @@ int main (int argc, char **argv) {
     myPlots -> SetConfigFile(config_file);
 
     // select which figure type
-    myPlots -> SetPrintEPS(true);
+    if (only_png) {
+        myPlots -> SetPrintPNG(true);
+    } else {
+        myPlots -> SetPrintEPS(true);
+    }
 
     // switch off indices if selected
     if (no_indices) myPlots -> SetNoIndices(true);
