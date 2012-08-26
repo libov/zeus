@@ -318,7 +318,7 @@ void TMiniNtupleAnalyzer::CreateBinHistograms() {
     TIter          Iter_TGlobalBin(fList_TGlobalBin);
     char           currentDirName[256];
     Int_t          currentBinNumber=0;
-    
+
     while ( (currentTGlobalBin=(TGlobalBin *)Iter_TGlobalBin.Next()) ) {
         currentBinNumber++;
         sprintf(currentDirName,"bin%i",currentBinNumber);
@@ -333,13 +333,13 @@ void TMiniNtupleAnalyzer::CreateBinHistograms() {
         // (and can be accessed by global variable gDirectory); newly created histograms belong to objects-in-memory
         // of this directory; command file->Write() or histogram->Write() writes histogram to the directory it belongs.
         // see ROOT manual for more details
-        
+
         fHistogramsFile -> cd(currentDirName);
 
         // TODO: more info here!
         DeclareHistograms(currentTGlobalBin);
     }
-    
+
     // print info message
     cout<<"INFO: Histograms file is subdivided into "<< currentBinNumber<<" bins"<<endl;
 }
@@ -655,7 +655,7 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
 }
 
 Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
-    
+
         // event counter
         fDebug->Fill(0);
 
@@ -717,7 +717,7 @@ void        TMiniNtupleAnalyzer::DeclareHistograms(TGlobalBin* globalbin) {
     string line;
     // open the file with binning
     ifstream binning ( (TString)getenv("NTUPLEANALYZER") + "/config/" + fHistogramDeclarationFile);
-    
+
     // if successfull - read the contents, otherwise exit
     if (binning.is_open()) {
         // read the file line by line and  process
@@ -750,7 +750,7 @@ void        TMiniNtupleAnalyzer::DeclareHistograms(TGlobalBin* globalbin) {
         cout<< " Terminating, sorry"<<endl;
         exit(-1);
     }
-    
+
     // loop over histograms - cosmetics
     TList*    GlobBinHistList=globalbin->GetHistList();
     TIter        next(GlobBinHistList);
@@ -787,7 +787,7 @@ void TMiniNtupleAnalyzer::GetEtReweightingLF_histo() {
     } else {
         cout << "successfully got the Et LF reweighting histogram" << endl;
     }
-    
+
 }
 
 void TMiniNtupleAnalyzer::GetFragmentationReweighting_Histo() {
@@ -802,7 +802,7 @@ void TMiniNtupleAnalyzer::GetFragmentationReweighting_Histo() {
     } else {
         cout << "successfully got the fragmentation function reweighting histogram" << endl;
     }
-    
+
 }
 
 
@@ -810,7 +810,7 @@ void TMiniNtupleAnalyzer::GetFragmentationReweighting_Histo() {
 Float_t    TMiniNtupleAnalyzer::getEtReweighting(Float_t   jet_et) {
     // declare variable to store a weighting factor
     Double_t    weighting_factor = 1;
-    
+
     // get type and flavour of the sample we are analyzing now
     TSubSet::Type type = fSubSet.getTypeENUM();
     TSubSet::Flavour flavour = fSubSet.getFlavourENUM();
@@ -823,7 +823,7 @@ Float_t    TMiniNtupleAnalyzer::getEtReweighting(Float_t   jet_et) {
             cout << "was not possible to retrieve a histogram " << endl;
             abort();
         }
-        
+
         // loop over the histogram bins to get the binning
         unsigned    good_bins=0;
         unsigned    bin = 0;
@@ -941,7 +941,7 @@ void TMiniNtupleAnalyzer::findVertices() {
 
     // loop over tracks to find those that belong to the jet
     for (int trk = 0; trk < Trk_ntracks; trk++) {
-        
+
         // get a vctrhl id of the track
         Int_t vctrhl_id = Trk_id2[trk];
         // print a warning if there's no link to vctrhl; should not happen; orange version terminates in this case
@@ -955,7 +955,7 @@ void TMiniNtupleAnalyzer::findVertices() {
         Int_t       nSTT = Trk_nstt[trk];
         Int_t       nCTD = Trk_layouter[trk] - Trk_layinner[trk] + 1;
         if ((nCTD < fCTD) && (nSTT < fSTT)) continue;
-        
+
         // number of MVD hits cut
         Int_t       nMVD = Trk_nbr[trk] + Trk_nbz[trk] + Trk_nwu[trk] + Trk_nwv[trk];
         if (nMVD < fMVD) continue;
@@ -997,7 +997,7 @@ void TMiniNtupleAnalyzer::findVertices() {
             Float_t dPhi = TMath::Abs(trk_phi - Kt_phijet_b[jet]);
             if ( dPhi > TMath::Pi() ) dPhi = 2 * TMath::Pi() - dPhi;
             dR = sqrt( pow(trk_eta - Kt_etajet_b[jet], 2) + pow(dPhi, 2) );
-            
+
             // cone cut: check whether closest jet is close enough
             if (dR > fRcut) continue;
             // weight R distance by Et of the jet
