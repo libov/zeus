@@ -558,12 +558,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             if ( (rho.M()<0.6) || (rho.M()>1.1) ) continue;
 
             // debug printouts
-            if ( (!classI) &&  (cGlobalBin -> BinName == "bin1")  && fDebugPrintout) {
-                cout << "INFO: found a candidate " << classI << " Run/Event: ";
-                cout << Runnr << "/" << Eventnr << " mass: " << rho.M() << endl;
-                cout << "INFO: Trk_ntracks = " << Trk_ntracks << endl;
-                cout << "INFO: Trkmsa_ntracks = " << Trkmsa_ntracks << endl;
-            }
             if ((!classI) &&  (cGlobalBin -> BinName == "bin1")) {
                 cout << "Runnr= "<<Runnr<<" Eventnr= "<<Eventnr<<" Trk_ntracks= "<<Trk_ntracks;
                 cout << " fLong_ZTT_tracks= "<<fLong_ZTT_tracks<<" fPrimary_ZTT_tracks= "<<fPrimary_ZTT_tracks<<endl;
