@@ -216,6 +216,16 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
     //TDirectory*          cDirectory=fOuptutHistogramsFile->GetDirectory(cBinHistName);
     TSample                *cSample;
 
+    // map that contains data area for evey period - for kArea normalization
+    map<TSubSet::Period, Double_t> area_data;
+    // initialize the map
+    area_data[TSubSet::k0304P] = 0;
+    area_data[TSubSet::k05E] = 0;
+    area_data[TSubSet::k06E] = 0;
+    area_data[TSubSet::k0607P] = 0;
+    // a flag telling that data area was calculated
+    bool data_area_ok = false;
+
     // loop over all groups
     for( int i = 0; i < fSampleGroupMap.size(); i++) {
 
@@ -245,6 +255,25 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
             if (cHist == NULL) {
                 cout << "ERROR: could not access the histogram "<< cBinHistName << "! " << endl;
                 abort();
+            }
+
+            // get underlying subset from current sample
+            TSubSet cSubSet = cSample -> GetSubSet();
+
+            // get its period
+            TSubSet::Period period = cSubSet.getPeriodENUM();
+            // for data, take into account that 03/04p and 06/07p belong to the same period
+            if (cSubSet.getTypeENUM() == TSubSet::kDATA) {
+                // duplicated from getPeriod function in merger.cxx
+                if ( (period == TSubSet::k03P) || (period == TSubSet::k04P) ) period = TSubSet::k0304P;
+                if ( (period == TSubSet::k06P) || (period == TSubSet::k07P) ) period = TSubSet::k0607P;
+            }
+
+            //  get data area for every period - for area normalization (kArea)
+            if (cSubSet.getTypeENUM() == TSubSet::kDATA) {
+                // get period taking into account that 
+                area_data[period] += cHist -> Integral();
+                data_area_ok = true;
             }
 
             // Normalize according to the group option
@@ -281,8 +310,12 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
                     break;
 
                 case kArea:
-                    cout << "scaling to area is not supported at the moment!" << endl;
-                    abort();
+                    if (!data_area_ok) {
+                        cout << "ERROR: data has to be processed first" << endl;
+                        abort();
+                    }
+                    Double_t    area_mc = cHist -> Integral();
+                    cHist -> Scale (area_data[period]/area_mc);
                     break;
             }
 
