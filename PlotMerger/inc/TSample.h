@@ -38,6 +38,8 @@ class    TSample : public TObject
         vector<TString>     GetVectorOfBins() {return	fVectorOfBins;};
         vector<TString>     GetVectorOfHistograms() {return	fVectorOfHistograms;};
 
+        TSubSet             GetSubSet() { return fSubSet; };
+
     private:
         TFile*              fInputHistogramsFile;
         TString             fHistogramsVersion;
