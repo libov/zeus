@@ -243,8 +243,6 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
         // other ways to define the elasticity criterion
         Float_t unmatched_islands_energy_classII_relaxed = 0;
-        Float_t unmatched_islands_energy_classII_msa_track_account = 0;
-        Float_t energy_in_MSA_cone = 0;
         if (classII) {
             for (int isl = 0; isl<Nisl; isl++) {
                 // skip if the island is below the noise threshold
