@@ -72,6 +72,7 @@ class TControlPlot : public TObject {
         Float_t                 fYaxisLabelSize;
         Float_t                 fYaxisLabelOffset;
 
+        bool                    fDrawLegend;
         Float_t                 fLegend_x1;
         Float_t                 fLegend_y1;
         Float_t                 fLegend_x2;
@@ -94,7 +95,5 @@ class TControlPlot : public TObject {
         Float_t                 fPadBottomMargin;
         Float_t                 fPadLeftMargin;
         Float_t                 fPadRightMargin;
-
-        bool                    fDrawLegend;
 };
 #endif
