@@ -110,12 +110,14 @@ int main(int argc, char **argv) {
     Bool_t      no_beauty_resolved = false;
     Bool_t      no_charm_resolved = false;
     Bool_t      tracking = false;
+    Bool_t      normalize_rho = false;
 
     // declare long options
     static struct option long_options[] = {
         {"no_beauty_resolved", no_argument, 0, 1},
         {"no_charm_resolved", no_argument, 0, 2},
-        {"tracking", no_argument, 0, 3}
+        {"tracking", no_argument, 0, 3},
+        {"normalize_rho", no_argument, 0, 4},
     };
 
     // handle command line options
@@ -153,6 +155,9 @@ int main(int argc, char **argv) {
                 break;
             case 3:
                 tracking = true;
+                break;
+            case 4:
+                normalize_rho = true;
                 break;
             default:
                 abort ();
@@ -302,8 +307,12 @@ int main(int argc, char **argv) {
     instance->AddSampleGroup("charm_bgf", kLumi);
     instance->AddSampleGroup("beauty_bgf", kLumi);
 
-    // rho samples for tracking studies
-    instance -> AddSampleGroup("rho", kArea);
+    // rho samples for tracking studies; can be normalized (for control plots only) or not (for tracking efficiency determination)
+    if (normalize_rho) {
+        instance -> AddSampleGroup("rho", kArea);
+    } else {
+        instance -> AddSampleGroup("rho", kNone);
+    }
 
     // now loop over the samples one more time and add them to the instance of TPlotMerger;
     // this is done in the 2nd loop as we have to know the relative luminosities already,
