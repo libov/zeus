@@ -621,7 +621,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // for MC: get event class,see the definition in RhoTrueLevelAnalysis()
             int event_class;
             if (fIsMC) event_class = RhoTrueLevelAnalysis();
-            if ( classI &&  (!fEvent_histos_filled) ) {
+            if ( classI ) {
                 cGlobalBin->FillHistogram("Trk_ntracks_classI", Trk_ntracks);
                 cGlobalBin->FillHistogram("Trkmsa_ntracks_classI", Trkmsa_ntracks);
                 cGlobalBin->FillHistogram("primary_ZTT_tracks_classI", fPrimary_ZTT_tracks);
@@ -631,9 +631,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("Xvtx_classI", Xvtx);
                 cGlobalBin->FillHistogram("Yvtx_classI", Yvtx);
                 cGlobalBin->FillHistogram("Zvtx_classI", Zvtx);
-
-                fEvent_histos_filled = true;
-            } else if ( (!classI) && (!fEvent_histos_filled) ) {
+            } else {
                 cGlobalBin->FillHistogram("Trk_ntracks_classII", Trk_ntracks);
                 cGlobalBin->FillHistogram("Trkmsa_ntracks_classII", Trkmsa_ntracks);
                 cGlobalBin->FillHistogram("primary_ZTT_tracks_classII", fPrimary_ZTT_tracks);
@@ -722,7 +720,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
                     }*/
                 }
-                fEvent_histos_filled = true;
             }
 
             // fill the rho histograms

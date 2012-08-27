@@ -140,7 +140,6 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Double_t        getIslandDCA(int isl, int trk);
         Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2);
 
-        bool            fEvent_histos_filled;
         unsigned        fPrimary_ZTT_tracks;
         unsigned        fLong_primary_ZTT_tracks;
         unsigned        fLong_ZTT_tracks;
