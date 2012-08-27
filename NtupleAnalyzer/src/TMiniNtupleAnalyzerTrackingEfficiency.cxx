@@ -748,19 +748,19 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
                 if (classI) {
                     cGlobalBin->FillHistogram("rho_pt_classI", rho.Pt());
-                    cGlobalBin->FillHistogram("rho_phi_classI", rho.Phi());
                     cGlobalBin->FillHistogram("rho_theta_classI", rho.Theta());
-                    cGlobalBin->FillHistogram("dPhi_classI", dPhi);
-                    cGlobalBin->FillHistogram("dTheta_classI", dTheta);
+                    cGlobalBin->FillHistogram("rho_phi_classI", rho.Phi());
                     cGlobalBin->FillHistogram("dPt_classI", dPt);
+                    cGlobalBin->FillHistogram("dTheta_classI", dTheta);
+                    cGlobalBin->FillHistogram("dPhi_classI", dPhi);
                     cGlobalBin->FillHistogram("theta_star_classI", getThetaStar(pi1, pi2));
                 } else {
                     cGlobalBin->FillHistogram("rho_pt_classII", rho.Pt());
-                    cGlobalBin->FillHistogram("rho_phi_classII", rho.Phi());
                     cGlobalBin->FillHistogram("rho_theta_classII", rho.Theta());
-                    cGlobalBin->FillHistogram("dPhi_classII", dPhi);
-                    cGlobalBin->FillHistogram("dTheta_classII", dTheta);
+                    cGlobalBin->FillHistogram("rho_phi_classII", rho.Phi());
                     cGlobalBin->FillHistogram("dPt_classII", dPt);
+                    cGlobalBin->FillHistogram("dTheta_classII", dTheta);
+                    cGlobalBin->FillHistogram("dPhi_classII", dPhi);
                     cGlobalBin->FillHistogram("theta_star_classII", getThetaStar(pi1, pi2));
                 }
             }
