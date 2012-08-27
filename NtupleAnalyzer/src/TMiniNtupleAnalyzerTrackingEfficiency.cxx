@@ -637,7 +637,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("Trkmsa_ntracks_classII", Trkmsa_ntracks);
                 cGlobalBin->FillHistogram("primary_ZTT_tracks_classII", fPrimary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_primary_ZTT_tracks_classII", fLong_primary_ZTT_tracks);
-                cGlobalBin->FillHistogram("long_ZTT_tracks_classI", fLong_ZTT_tracks);
+                cGlobalBin->FillHistogram("long_ZTT_tracks_classII", fLong_ZTT_tracks);
                 // primary vertex
                 cGlobalBin->FillHistogram("Xvtx_classII", Xvtx);
                 cGlobalBin->FillHistogram("Yvtx_classII", Yvtx);
