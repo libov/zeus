@@ -739,7 +739,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             }
 
             // *****************************************
-            // ******* rho histograms, 1st pion ********
+            // ************ rho histograms *************
             // *****************************************
 
             Double_t    dPhi = TMath::Abs(pi1.DeltaPhi(pi2));
