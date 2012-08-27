@@ -513,8 +513,8 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
             fHistogramsFile->cd(cGlobalBin->BinName);
 
-            // switch on reweighting if mc
-            if (fIsMC) cGlobalBin -> SetWeightingFactor(1);
+            // set factor to unity - no reweighting
+            cGlobalBin -> SetWeightingFactor(1);
 
             // the order of histogram filling
             // 1. rho/phi/event histograms; for binning, we use the information of the 1st pion
