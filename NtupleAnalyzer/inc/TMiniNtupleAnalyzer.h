@@ -147,6 +147,9 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         bool            fApplyPtReweighting;
         bool            fApplyPhiReweighting;
         bool            fApplyThetaStarReweighting;
+        bool            fApplyRhoPhiReweighting;
+        bool            fApplyRhoPtReweighting;
+        bool            fApplyRhoThetaReweighting;
         bool            fDebugPrintout;
         Double_t        fNonElectronEnergyZufo;
         Double_t        fElectronEnergyZufo;
