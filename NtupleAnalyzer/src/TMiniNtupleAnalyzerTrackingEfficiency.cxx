@@ -835,10 +835,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("pi_plus_layouter_classI", Trk_layouter[fTrack1Id]);
                     cGlobalBin->FillHistogram("pi_plus_laynr_classI", layout_nr_1);
                     cGlobalBin->FillHistogram("pi_plus_chi2_classI", Trk_chi2[fTrack1Id]);
-                    cGlobalBin->FillHistogram("pi_plus_minus_pt_fine_classI", pi1.Pt());
-                    cGlobalBin->FillHistogram("pi_plus_minus_phi_fine_classI", pi1.Phi());
-                    cGlobalBin->FillHistogram("pi_plus_minus_theta_fine_classI", pi1.Theta());
-                    cGlobalBin->FillHistogram("pi_plus_minus_p_fine_classI", pi1.P());
                 } else {
                     cGlobalBin->FillHistogram("pi_ZTT_pt_classII", pi1.Pt());
                     cGlobalBin->FillHistogram("pi_ZTT_phi_classII", pi1.Phi());
@@ -870,10 +866,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("pi_Ecm_ZTT", Ecm);
                     cGlobalBin->FillHistogram("pi_Ecm_fine_ZTT", Ecm);
                     cGlobalBin->FillHistogram("pi_rho_mass_ZTT", rho.M());
-                    cGlobalBin->FillHistogram("pi_plus_minus_pt_fine_classI", pi2.Pt());
-                    cGlobalBin->FillHistogram("pi_plus_minus_phi_fine_classI", pi2.Phi());
-                    cGlobalBin->FillHistogram("pi_plus_minus_theta_fine_classI", pi2.Theta());
-                    cGlobalBin->FillHistogram("pi_plus_minus_p_fine_classI", pi2.P());
                     // classI: this is a negative pion (2nd)
                     cGlobalBin->FillHistogram("pi_minus_pt_ZTT", pi2.Pt());
                     cGlobalBin->FillHistogram("pi_minus_phi_ZTT", pi2.Phi());
