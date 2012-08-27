@@ -47,8 +47,8 @@ void helper2(TString variable) {
     pi_pt_ratio_data -> SetAxisRange(0, 0.03, "Y"); 
 
     // mc: ratio ztt/(ztt+msa) for pion pt
-    TH1F * pi_pt_ZTTMSA_mc = (TH1F*) file -> Get(BIN+"/pi_"+variable+"_ZTTMSA/mc");
-    TH1F * pi_pt_MSA_mc= (TH1F*) file -> Get(BIN+"/pi_"+variable+"_MSA/mc");
+    TH1F * pi_pt_ZTTMSA_mc = (TH1F*) file -> Get(BIN+"/pi_"+variable+"_ZTTMSA/rho");
+    TH1F * pi_pt_MSA_mc= (TH1F*) file -> Get(BIN+"/pi_"+variable+"_MSA/rho");
     TH1F * pi_pt_ratio_mc = (TH1F*) pi_pt_MSA_mc -> Clone("pi_"+variable+"_ratio_mc");
     pi_pt_ratio_mc -> Sumw2();
     pi_pt_ratio_mc -> Divide(pi_pt_ZTTMSA_mc);
@@ -67,6 +67,8 @@ void helper2(TString variable) {
     line -> Draw("same");
     line -> SetLineStyle(2);
 
+    TString PLOTS_PATH = getenv("PLOTS_PATH");
+    c1 -> Print(PLOTS_PATH + "/" + BINNING+HISTO_VERSION+REMARK+BIN+"_"+variable+".eps");
 }
 
 void pt_theta_reweighting_v1() {
@@ -90,7 +92,7 @@ void pt_theta_reweighting_v1() {
 }
 
 void helper1(TCanvas * c, TString bin, int pad1, TString variable) {
-    TH1F * h_mc = (TH1F*) file -> Get(bin+"/pi_"+variable+"_ZTT/mc");
+    TH1F * h_mc = (TH1F*) file -> Get(bin+"/pi_"+variable+"_ZTT/rho");
     TH1F * h_data = (TH1F*) file -> Get(bin+"/pi_"+variable+"_ZTT/data");
     c -> cd(pad1);
     h_mc -> Draw("hist");
@@ -131,7 +133,7 @@ void store_reweighting_histo () {
     FILENAME = "merged." + BINNING + HISTO_VERSION + REMARK + ".root";
     file = new TFile(HISTO_PATH + "/" + FILENAME, "read");
 
-    TH1F * h_mc = (TH1F*) file -> Get(BIN+"/pi_pt_ZTT/mc");
+    TH1F * h_mc = (TH1F*) file -> Get(BIN+"/pi_pt_ZTT/rho");
     TH1F * h_data = (TH1F*) file -> Get(BIN+"/pi_pt_ZTT/data");
     TH1F * h_ratio = (TH1F *) h_data -> Clone ("ratio");
     h_ratio -> Divide(h_mc);
