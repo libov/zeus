@@ -738,7 +738,10 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 }
             }
 
-            // fill the rho histograms
+            // *****************************************
+            // ******* rho histograms, 1st pion ********
+            // *****************************************
+
             Double_t    dPhi = TMath::Abs(pi1.DeltaPhi(pi2));
             Double_t    dTheta = TMath::Abs(pi1.Theta() - pi2.Theta());
             Double_t    dPt = TMath::Abs(pi1.Pt() - pi2.Pt());
