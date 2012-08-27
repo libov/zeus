@@ -586,10 +586,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 }
             }
 
-            // fill various event histograms (at the moment without binning)
-
-            // electron histograms
-
             cGlobalBin->FillHistogram("NonElectronEnergyZufo", fNonElectronEnergyZufo);
             cGlobalBin->FillHistogram("ElectronEnergyZufo", fElectronEnergyZufo);
             cGlobalBin->FillHistogram("NonTrackEnergyZufo", fNonTrackEnergyZufo);
@@ -608,6 +604,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // for MC: get event class,see the definition in getRhoEventClass()
             int event_class;
             if (fIsMC) event_class = getRhoEventClass();
+
             // fill event histograms for class I or class II
             if ( classI ) {
                 // number of tracks
