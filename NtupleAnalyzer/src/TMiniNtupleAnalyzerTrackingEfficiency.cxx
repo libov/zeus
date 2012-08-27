@@ -321,14 +321,12 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
         }
 
         // now fill the histograms
+        // class I
         fEvent_histos_filled = false;
-        FillRhoHistograms (cand_classI, true, 0);
-        // a possibility to have more candidates for class II is supported
-        Float_t n_cand_msa = cand_classII.size()/6;
+        FillRhoHistograms (cand_classI, true);
+        // class II
         fEvent_histos_filled = false;
-        for (int i = 0; i<n_cand_msa; i++) {
-            FillRhoHistograms (cand_classII, false, i);
-        }
+        FillRhoHistograms (cand_classII, false);
 
     } // end loop over events
 
@@ -459,16 +457,16 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  classI) {
     } // end loop over track1 candidates
 }
 
-void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  classI, int candidate_number) {
+void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  classI) {
 
         // check whether a candidate was found
         if (cand.size() == 0) return;
 
         // pick up the relevant vectors
-        TLorentzVector  rho = cand[0 + candidate_number * 6];
-        TLorentzVector  pi1 = cand[1 + candidate_number * 6];
-        TLorentzVector  pi2 = cand[2 + candidate_number * 6];
-        TLorentzVector  phi = cand[3 + candidate_number * 6];
+        TLorentzVector  rho = cand[0];
+        TLorentzVector  pi1 = cand[1];
+        TLorentzVector  pi2 = cand[2];
+        TLorentzVector  phi = cand[3];
 
         TLorentzVector  proton_rest;
         proton_rest.SetXYZM(0, 0, 0, 0.9383);

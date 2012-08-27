@@ -122,7 +122,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
 
         void            TrackingEfficiency();
         void            FindRho(vector<TLorentzVector> &rho, bool  ZTT);
-        void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT, int candidate_number);
+        void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT);
         Double_t        getPionPtReweighting (Double_t pt);
         Double_t        getPionPhiReweighting (Double_t phi);
         Double_t        getThetaStarReweighting(Double_t theta_star);
