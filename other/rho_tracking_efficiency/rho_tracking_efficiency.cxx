@@ -7,28 +7,25 @@
 #include <TLine.h>
 
 // input data
-const TString   BINNING = "tracking";
-const TString   HISTO_VERSION = "rho.v35";
+const TString   BINNING = "inclusive";
+const TString   HISTO_VERSION = "rho.v103";
 const TString   REMARK = ".0405e06e07p";
 const TString   BIN = "bin1";
 const TString   OUTPUT_FILENAME = "pion_pt_reweighting_histo";
 
 // other global constants
-TString   HISTO_PATH;
-TString   FILENAME;
-TFile*    file;
+TString   HISTO_PATH = getenv("HISTO_PATH");
+TString   FILENAME = "merged." + BINNING + HISTO_VERSION + REMARK + ".root";
+TFile*    file = new TFile(HISTO_PATH + "/" + FILENAME, "read");
 
 void helper2(TString variable);
 
 void rho_tracking_efficiency() {
 
-    HISTO_PATH = getenv("HISTO_PATH");
-    FILENAME = "merged." + BINNING + HISTO_VERSION + REMARK + ".root";
-    file = new TFile(HISTO_PATH + "/" + FILENAME, "read");
-
     helper2("pt");
     helper2("phi");
     helper2("theta");
+
 }
 
 void helper2(TString variable) {
@@ -73,10 +70,6 @@ void helper2(TString variable) {
 
 void pt_theta_reweighting_v1() {
 
-    HISTO_PATH = getenv("HISTO_PATH");
-    FILENAME = "merged." + BINNING + HISTO_VERSION + REMARK + ".root";
-    file = new TFile(HISTO_PATH + "/" + FILENAME, "read");
-
     TString FILENAME1 = "analysis.mc07pv06b.f8196.rho_." + BINNING + HISTO_VERSION + ".root";
     TString FILENAME2 = "analysis.data06pv06a." + BINNING + HISTO_VERSION + ".root";
 
@@ -115,10 +108,6 @@ void pt_theta_reweighting_v2() {
     TCanvas * c = new TCanvas();
     c -> Divide (4,4);
 
-    HISTO_PATH = getenv("HISTO_PATH");
-    FILENAME = "merged." + BINNING + HISTO_VERSION + REMARK + ".root";
-    file = new TFile(HISTO_PATH + "/" + FILENAME, "read");
-
     helper1(c, "bin1", 1, "pt");
     helper1(c, "bin2", 3, "pt");
     helper1(c, "bin3", 5, "pt");
@@ -129,9 +118,6 @@ void pt_theta_reweighting_v2() {
 }
 
 void store_reweighting_histo () {
-    HISTO_PATH = getenv("HISTO_PATH");
-    FILENAME = "merged." + BINNING + HISTO_VERSION + REMARK + ".root";
-    file = new TFile(HISTO_PATH + "/" + FILENAME, "read");
 
     TH1F * h_mc = (TH1F*) file -> Get(BIN+"/pi_pt_ZTT/rho");
     TH1F * h_data = (TH1F*) file -> Get(BIN+"/pi_pt_ZTT/data");
@@ -152,10 +138,6 @@ void phi_theta_reweighting_v2() {
     TCanvas * c = new TCanvas();
     c -> Divide (4,4);
 
-    HISTO_PATH = getenv("HISTO_PATH");
-    FILENAME = "merged." + BINNING + HISTO_VERSION + REMARK + ".root";
-    file = new TFile(HISTO_PATH + "/" + FILENAME, "read");
-
     helper1(c, "bin1", 1, "phi");
     helper1(c, "bin2", 3, "phi");
     helper1(c, "bin3", 5, "phi");
@@ -165,3 +147,6 @@ void phi_theta_reweighting_v2() {
     helper1(c, "bin7", 13, "phi");
 }
 
+void theta_star_reweighting() {
+
+}
