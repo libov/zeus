@@ -495,8 +495,14 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
         // determine theta star weighting
         Double_t    weight_theta_star = 1;
         if (fIsMC && fApplyThetaStarReweighting) {
-            weight_theta_star = getThetaStarReweighting(getThetaStar(pi1, pi2));
-            if (getThetaStar(pi1, pi2) < 0) abort();
+            // get true level particles
+            TLorentzVector pi_plus = get_pi_plus();
+            TLorentzVector pi_minus = get_pi_minus();
+            // calculate true theta star
+            Double_t theta_star = getThetaStar(pi_plus, pi_minus);
+            // sanity check
+            if ( theta_star < 0 ) abort();
+            weight_theta_star = getThetaStarReweighting(theta_star);
         }
 
         // now fill the histograms
