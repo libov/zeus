@@ -149,4 +149,9 @@ void phi_theta_reweighting_v2() {
 
 void theta_star_reweighting() {
 
+    TH1F * h_mc = (TH1F*) file -> Get(BIN+"/theta_star_classI/rho");
+    TH1F * h_data = (TH1F*) file -> Get(BIN+"/theta_star_classI/data");
+    TH1F * h_ratio = (TH1F *) h_data -> Clone ("ratio");
+    h_ratio -> Divide(h_mc);
+    h_ratio -> Draw();
 }
