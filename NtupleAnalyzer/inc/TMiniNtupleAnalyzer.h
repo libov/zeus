@@ -127,7 +127,8 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         Double_t        getPionPhiReweighting (Double_t phi);
         Double_t        getThetaStarReweighting(Double_t theta_star);
         bool            TrackMatch(TLorentzVector track1, TLorentzVector track2);
-        int             RhoTrueLevelAnalysis();
+        int             getRhoEventClass();
+        void            FillPionsFatePoint();
         TLorentzVector  get_pi_plus();
         TLorentzVector  get_pi_minus();
         int             get_pi_plus_id();

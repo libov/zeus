@@ -122,8 +122,8 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             DeltaR = pi_plus.DeltaR(pi_minus);
         }
 
-        // perform also "true level analysis", in this case means filling fate-points histograms
-        if (fIsMC) RhoTrueLevelAnalysis();
+        // for MC, fill fate points of pions
+        if (fIsMC) FillPionsFatePoint();
 
         // loop over all zufos to calculate the total energy
         fNonElectronEnergyZufo = 0;
@@ -605,9 +605,9 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("ScalarPtExcess_classI", fScalarPtExcess);
             }
 
-            // for MC: get event class,see the definition in RhoTrueLevelAnalysis()
+            // for MC: get event class,see the definition in getRhoEventClass()
             int event_class;
-            if (fIsMC) event_class = RhoTrueLevelAnalysis();
+            if (fIsMC) event_class = getRhoEventClass();
             // fill event histograms for class I or class II
             if ( classI ) {
                 // number of tracks
@@ -1031,7 +1031,7 @@ bool TMiniNtupleAnalyzer::TrackMatch(TLorentzVector track1, TLorentzVector track
     return matched;
 }
 
-int TMiniNtupleAnalyzer::RhoTrueLevelAnalysis() {
+int TMiniNtupleAnalyzer::getRhoEventClass() {
 
     // classifies events according to the following definition:
     // class 0: pions are not in the fiducial volume
@@ -1050,8 +1050,6 @@ int TMiniNtupleAnalyzer::RhoTrueLevelAnalysis() {
     int pi_plus_id = get_pi_plus_id();
     int pi_minus_id = get_pi_minus_id();
 
-    fMc_pt_theta_pi -> Fill(Fmcf_rm[pi_plus_id][0], Fmcf_rm[pi_plus_id][1]);
-    fMc_pt_theta_pi -> Fill(Fmcf_rm[pi_minus_id][0], Fmcf_rm[pi_minus_id][1]);
     Float_t x1 = Fmcf_rm[pi_plus_id][0];
     Float_t y1 = Fmcf_rm[pi_plus_id][1];
     Float_t x2 = Fmcf_rm[pi_minus_id][0];
@@ -1062,6 +1060,23 @@ int TMiniNtupleAnalyzer::RhoTrueLevelAnalysis() {
     if ( (r1>40) && (r2>40) ) return 1;
     if ( ( (r1<17.5) && (r2>17.5) ) || ( (r1>17.5) && (r2<17.5) ) ) return 2;
     return 3;
+}
+
+void TMiniNtupleAnalyzer::FillPionsFatePoint() {
+
+    TLorentzVector pi1 = get_pi_plus();
+    TLorentzVector pi2 = get_pi_minus();
+
+    if (pi1.Pt()<0.2) return;
+    if ( (pi1.Theta()<0.44) || (pi1.Theta()>2.7) ) return;
+    if (pi2.Pt()<0.2) return;
+    if ( (pi2.Theta()<0.44) || (pi2.Theta()>2.7) ) return;
+
+    int pi_plus_id = get_pi_plus_id();
+    int pi_minus_id = get_pi_minus_id();
+
+    fMc_pt_theta_pi -> Fill(Fmcf_rm[pi_plus_id][0], Fmcf_rm[pi_plus_id][1]);
+    fMc_pt_theta_pi -> Fill(Fmcf_rm[pi_minus_id][0], Fmcf_rm[pi_minus_id][1]);
 }
 
 TLorentzVector TMiniNtupleAnalyzer::get_pi_plus() {
