@@ -775,7 +775,32 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
             // fill the 1st pion to the histos if it passes the pion cuts
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
+
+                // set weighting factor
                 if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi * weight_theta_star);
+
+                // these histograms are used as control plots only 
+                // reminder: for classI, 1st pion is positive,
+                // while for classII, 1st pion is a ZTT track (positive or negative)
+                if (classI) {
+                    cGlobalBin->FillHistogram("pi_plus_pt_classI", pi1.Pt());
+                    cGlobalBin->FillHistogram("pi_plus_theta_classI", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_plus_phi_classI", pi1.Phi());
+                    cGlobalBin->FillHistogram("pi_plus_layinner_classI", Trk_layinner[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_plus_layouter_classI", Trk_layouter[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_plus_laynr_classI", layout_nr_1);
+                    cGlobalBin->FillHistogram("pi_plus_chi2_classI", Trk_chi2[fTrack1Id]);
+                } else {
+                    cGlobalBin->FillHistogram("pi_ZTT_pt_classII", pi1.Pt());
+                    cGlobalBin->FillHistogram("pi_ZTT_theta_classII", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_ZTT_phi_classII", pi1.Phi());
+                    cGlobalBin->FillHistogram("pi_ZTT_layinner_classII", Trk_layinner[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_ZTT_layouter_classII", Trk_layouter[fTrack1Id]);
+                    cGlobalBin->FillHistogram("pi_ZTT_laynr_classII", layout_nr_1);
+                    cGlobalBin->FillHistogram("pi_ZTT_chi2_classII", Trk_chi2[fTrack1Id]);
+                }
+
+                // the following histograms are used for tracking efficiency evaluation
                 cGlobalBin->FillHistogram("pi_pt_ZTT", pi1.Pt());
                 cGlobalBin->FillHistogram("pi_pt_classI", pi1.Pt());
                 cGlobalBin->FillHistogram("pi_phi_ZTT", pi1.Phi());
@@ -838,26 +863,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("pi_Ecm_ZTTMSA",Ecm);
                 cGlobalBin->FillHistogram("pi_Ecm_fine_ZTT", Ecm);
                 cGlobalBin->FillHistogram("pi_Ecm_fine_ZTTMSA",Ecm);
-
-                // for classI, 1st pion is positive
-                // for classII, 1st pion is ZTT track (positive or negative)
-                if (classI) {
-                    cGlobalBin->FillHistogram("pi_plus_pt_classI", pi1.Pt());
-                    cGlobalBin->FillHistogram("pi_plus_theta_classI", pi1.Theta());
-                    cGlobalBin->FillHistogram("pi_plus_phi_classI", pi1.Phi());
-                    cGlobalBin->FillHistogram("pi_plus_layinner_classI", Trk_layinner[fTrack1Id]);
-                    cGlobalBin->FillHistogram("pi_plus_layouter_classI", Trk_layouter[fTrack1Id]);
-                    cGlobalBin->FillHistogram("pi_plus_laynr_classI", layout_nr_1);
-                    cGlobalBin->FillHistogram("pi_plus_chi2_classI", Trk_chi2[fTrack1Id]);
-                } else {
-                    cGlobalBin->FillHistogram("pi_ZTT_pt_classII", pi1.Pt());
-                    cGlobalBin->FillHistogram("pi_ZTT_theta_classII", pi1.Theta());
-                    cGlobalBin->FillHistogram("pi_ZTT_phi_classII", pi1.Phi());
-                    cGlobalBin->FillHistogram("pi_ZTT_layinner_classII", Trk_layinner[fTrack1Id]);
-                    cGlobalBin->FillHistogram("pi_ZTT_layouter_classII", Trk_layouter[fTrack1Id]);
-                    cGlobalBin->FillHistogram("pi_ZTT_laynr_classII", layout_nr_1);
-                    cGlobalBin->FillHistogram("pi_ZTT_chi2_classII", Trk_chi2[fTrack1Id]);
-                }
             }
 
             // *****************************************
@@ -867,9 +872,44 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // set fPionThetaReco variable so that CheckGlobalBin can work
             fPionThetaReco = pi2.Theta();
             fPionPhiReco = pi2.Phi();
+
             // fill the 1st pion to the histos if it passes the pion cuts
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
                 if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi2_pt * weight_pi2_phi * weight_theta_star);
+
+
+                // these histograms are used as control plots only 
+                // reminder: for classI, 2nd pion is negative,
+                // while for classII, 2nd pion is a MSA track (positive or negative)
+                if (classI) {
+                    cGlobalBin->FillHistogram("pi_minus_pt_classI", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_minus_theta_classI", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_minus_phi_classI", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_minus_layinner_classI", Trk_layinner[fTrack2Id]);
+                    cGlobalBin->FillHistogram("pi_minus_layouter_classI", Trk_layouter[fTrack2Id]);
+                    cGlobalBin->FillHistogram("pi_minus_laynr_classI", layout_nr_2);
+                    cGlobalBin->FillHistogram("pi_minus_chi2_classI", Trk_chi2[fTrack2Id]);
+                } else {
+                    cGlobalBin->FillHistogram("pi_MSA_pt_classII", pi2.Pt());
+                    cGlobalBin->FillHistogram("pi_MSA_phi_classII", pi2.Phi());
+                    cGlobalBin->FillHistogram("pi_MSA_theta_classII", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_MSA_chi2_classII", Trkmsa_chi2[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_chi2ndof_classII", Trkmsa_chi2[0]/Trkmsa_ndof[0]);
+                    if (pi2.Pt() > 1) cGlobalBin->FillHistogram("pi_MSA_highpT_chi2_classII", Trkmsa_chi2[0]);
+                    if (pi2.Pt() < 1) cGlobalBin->FillHistogram("pi_MSA_lowpT_chi2_classII", Trkmsa_chi2[0]);
+
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbr_classII", Trkmsa_nbr[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbz_classII", Trkmsa_nbz[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nwu_classII", Trkmsa_nwu[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nwv_classII", Trkmsa_nwv[0]);
+
+                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_imppar_classII", Trkmsa_imppar[0]);
+                    cGlobalBin->FillHistogram("pi_MSA_z_imppar_classII", Trkmsa_pca[0][2] - Zvtx);
+                }
+
+
+                // the following histograms are used for tracking efficiency evaluation
+
                 // ZTT+ZTT (classI=true) or ZTT+MSA (classI=false)
                 TLorentzVector  proton_pion = proton_rest+pi2;
                 Float_t Ecm = sqrt(proton_pion.Dot(proton_pion));
@@ -935,34 +975,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     if (flt_slot_fired) if (classI) cGlobalBin -> FillHistogram("pi_FLT_ZTT", slot);
                     if (flt_slot_fired) if (!classI) cGlobalBin -> FillHistogram("pi_FLT_MSA", slot);
                     if (flt_slot_fired) cGlobalBin -> FillHistogram("pi_FLT_ZTTMSA", slot);
-                }
-
-                // for classI, 2nd pion is negative
-                // for classII, 2nd pion is MSA track (positive or negative)
-                if (classI) {
-                    cGlobalBin->FillHistogram("pi_minus_pt_classI", pi2.Pt());
-                    cGlobalBin->FillHistogram("pi_minus_theta_classI", pi2.Theta());
-                    cGlobalBin->FillHistogram("pi_minus_phi_classI", pi2.Phi());
-                    cGlobalBin->FillHistogram("pi_minus_layinner_classI", Trk_layinner[fTrack2Id]);
-                    cGlobalBin->FillHistogram("pi_minus_layouter_classI", Trk_layouter[fTrack2Id]);
-                    cGlobalBin->FillHistogram("pi_minus_laynr_classI", layout_nr_2);
-                    cGlobalBin->FillHistogram("pi_minus_chi2_classI", Trk_chi2[fTrack2Id]);
-                } else {
-                    cGlobalBin->FillHistogram("pi_MSA_pt_classII", pi2.Pt());
-                    cGlobalBin->FillHistogram("pi_MSA_phi_classII", pi2.Phi());
-                    cGlobalBin->FillHistogram("pi_MSA_theta_classII", pi2.Theta());
-                    cGlobalBin->FillHistogram("pi_MSA_chi2_classII", Trkmsa_chi2[0]);
-                    cGlobalBin->FillHistogram("pi_MSA_chi2ndof_classII", Trkmsa_chi2[0]/Trkmsa_ndof[0]);
-                    if (pi2.Pt() > 1) cGlobalBin->FillHistogram("pi_MSA_highpT_chi2_classII", Trkmsa_chi2[0]);
-                    if (pi2.Pt() < 1) cGlobalBin->FillHistogram("pi_MSA_lowpT_chi2_classII", Trkmsa_chi2[0]);
-
-                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbr_classII", Trkmsa_nbr[0]);
-                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nbz_classII", Trkmsa_nbz[0]);
-                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nwu_classII", Trkmsa_nwu[0]);
-                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_nwv_classII", Trkmsa_nwv[0]);
-
-                    cGlobalBin->FillHistogram("pi_MSA_Trkmsa_imppar_classII", Trkmsa_imppar[0]);
-                    cGlobalBin->FillHistogram("pi_MSA_z_imppar_classII", Trkmsa_pca[0][2] - Zvtx);
                 }
             }
 
