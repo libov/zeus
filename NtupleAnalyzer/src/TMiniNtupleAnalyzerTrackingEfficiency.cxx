@@ -31,6 +31,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
         cout << "ERROR: not able to get the global bin" << endl;
         abort();
     }
+    inclusiveBin->SetWeightingFactor(1);
 
     // helping variable
     Int_t  Nevents;
@@ -120,11 +121,6 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
             TLorentzVector pi_minus = get_pi_minus();
             DeltaR = pi_plus.DeltaR(pi_minus);
         }
-
-        // fill true-level histograms
-        inclusiveBin->SetWeightingFactor(1);
-        inclusiveBin->FillHistogram("Rmin", Rmin);
-        inclusiveBin->FillHistogram("truedR", DeltaR);
 
         // perform also "true level analysis", in this case means filling fate-points histograms
         if (fIsMC) RhoTrueLevelAnalysis();
