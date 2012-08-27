@@ -763,7 +763,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dPt_classII", dPt);
                     cGlobalBin->FillHistogram("theta_star_classII", getThetaStar(pi1, pi2));
                 }
-
             }
 
             // *****************************************
