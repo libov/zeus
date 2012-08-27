@@ -623,20 +623,20 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("primary_ZTT_tracks_classI", fPrimary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_primary_ZTT_tracks_classI", fLong_primary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_ZTT_tracks_classI", fLong_ZTT_tracks);
-                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classI", event_class);
                 cGlobalBin->FillHistogram("Xvtx_classI", Xvtx);
                 cGlobalBin->FillHistogram("Yvtx_classI", Yvtx);
                 cGlobalBin->FillHistogram("Zvtx_classI", Zvtx);
+                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classI", event_class);
             } else {
                 cGlobalBin->FillHistogram("Trk_ntracks_classII", Trk_ntracks);
                 cGlobalBin->FillHistogram("Trkmsa_ntracks_classII", Trkmsa_ntracks);
                 cGlobalBin->FillHistogram("primary_ZTT_tracks_classII", fPrimary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_primary_ZTT_tracks_classII", fLong_primary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_ZTT_tracks_classII", fLong_ZTT_tracks);
-                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classII", event_class);
                 cGlobalBin->FillHistogram("Xvtx_classII", Xvtx);
                 cGlobalBin->FillHistogram("Yvtx_classII", Yvtx);
                 cGlobalBin->FillHistogram("Zvtx_classII", Zvtx);
+                if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classII", event_class);
 
                 // true class II reconstructed as class II
                 if ( fIsMC && ( event_class == 2 ) ) {
