@@ -322,10 +322,8 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
         // now fill the histograms
         // class I
-        fEvent_histos_filled = false;
         FillRhoHistograms (cand_classI, true);
         // class II
-        fEvent_histos_filled = false;
         FillRhoHistograms (cand_classII, false);
 
     } // end loop over events
