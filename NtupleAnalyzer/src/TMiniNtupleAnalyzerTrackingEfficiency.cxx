@@ -19,6 +19,8 @@ using namespace std;
 #include <inc/TGlobalBin.h>
 #include <inc/TVertex.h>
 
+const Float_t M_PION = 0.139570;
+
 void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
     // get a pointer to inclusive bin
@@ -114,8 +116,8 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
         // find also a true distance between daughter pions
         Double_t DeltaR;
         if (fIsMC) {
-            TVector3 pi_plus = get_pi_plus();
-            TVector3 pi_minus = get_pi_minus();
+            TLorentzVector pi_plus = get_pi_plus();
+            TLorentzVector pi_minus = get_pi_minus();
             DeltaR = pi_plus.DeltaR(pi_minus);
         }
 
@@ -701,10 +703,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("primary_ZTT_tracks_classI_as_classII", fPrimary_ZTT_tracks);
                     if (fDebugPrintout) cout << "selected for class 2, but belongs to class1 " << Runnr << " " << Eventnr << endl;
 
-                    TVector3 pi1 = get_pi_plus();
-                    TVector3 pi2 = get_pi_plus();
-                    if (fDebugPrintout) cout << pi1.Mag() << " " << pi1.Pt() << " " << pi2.Mag() << " " << pi2.Pt() << endl;
-
                     // subset of those events, which have exactly two long tracks
 /*                    if (fLong_ZTT_tracks==2) {
                         int long_tracks_found = 0;
@@ -1039,8 +1037,8 @@ int TMiniNtupleAnalyzer::RhoTrueLevelAnalysis() {
     // class 2: one of the pions interacted before the CTD (R<17.5)
     // class 3: does not fall in those above
 
-    TVector3 pi1 = get_pi_plus();
-    TVector3 pi2 = get_pi_minus();
+    TLorentzVector pi1 = get_pi_plus();
+    TLorentzVector pi2 = get_pi_minus();
 
     if (pi1.Pt()<0.2) return 0;
     if ( (pi1.Theta()<0.44) || (pi1.Theta()>2.7) ) return 0;
@@ -1064,15 +1062,18 @@ int TMiniNtupleAnalyzer::RhoTrueLevelAnalysis() {
     return 3;
 }
 
-TVector3 TMiniNtupleAnalyzer::get_pi_plus() {
+TLorentzVector TMiniNtupleAnalyzer::get_pi_plus() {
+
     int pi_plus_id = get_pi_plus_id();
-    TVector3 pi_plus(Fmck_px[pi_plus_id], Fmck_py[pi_plus_id], Fmck_pz[pi_plus_id]);
+    TLorentzVector pi_plus;
+    pi_plus.SetXYZM(Fmck_px[pi_plus_id], Fmck_py[pi_plus_id], Fmck_pz[pi_plus_id], M_PION);
     return pi_plus;
 }
 
-TVector3 TMiniNtupleAnalyzer::get_pi_minus() {
+TLorentzVector TMiniNtupleAnalyzer::get_pi_minus() {
     int pi_minus_id = get_pi_minus_id();
-    TVector3 pi_minus(Fmck_px[pi_minus_id], Fmck_py[pi_minus_id], Fmck_pz[pi_minus_id]);
+    TLorentzVector pi_minus;
+    pi_minus.SetXYZM(Fmck_px[pi_minus_id], Fmck_py[pi_minus_id], Fmck_pz[pi_minus_id], M_PION);
     return pi_minus;
 }
 
