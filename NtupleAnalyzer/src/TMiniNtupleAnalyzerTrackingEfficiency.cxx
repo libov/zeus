@@ -772,6 +772,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // set fPionThetaReco variable so that CheckGlobalBin can work
             fPionThetaReco = pi1.Theta();
             fPionPhiReco = pi1.Phi();
+
             // fill the 1st pion to the histos if it passes the pion cuts
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
                 if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi * weight_theta_star);
