@@ -842,16 +842,16 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 // for classII, 1st pion is ZTT track (positive or negative)
                 if (classI) {
                     cGlobalBin->FillHistogram("pi_plus_pt_classI", pi1.Pt());
-                    cGlobalBin->FillHistogram("pi_plus_phi_classI", pi1.Phi());
                     cGlobalBin->FillHistogram("pi_plus_theta_classI", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_plus_phi_classI", pi1.Phi());
                     cGlobalBin->FillHistogram("pi_plus_layinner_classI", Trk_layinner[fTrack1Id]);
                     cGlobalBin->FillHistogram("pi_plus_layouter_classI", Trk_layouter[fTrack1Id]);
                     cGlobalBin->FillHistogram("pi_plus_laynr_classI", layout_nr_1);
                     cGlobalBin->FillHistogram("pi_plus_chi2_classI", Trk_chi2[fTrack1Id]);
                 } else {
                     cGlobalBin->FillHistogram("pi_ZTT_pt_classII", pi1.Pt());
-                    cGlobalBin->FillHistogram("pi_ZTT_phi_classII", pi1.Phi());
                     cGlobalBin->FillHistogram("pi_ZTT_theta_classII", pi1.Theta());
+                    cGlobalBin->FillHistogram("pi_ZTT_phi_classII", pi1.Phi());
                     cGlobalBin->FillHistogram("pi_ZTT_layinner_classII", Trk_layinner[fTrack1Id]);
                     cGlobalBin->FillHistogram("pi_ZTT_layouter_classII", Trk_layouter[fTrack1Id]);
                     cGlobalBin->FillHistogram("pi_ZTT_laynr_classII", layout_nr_1);
@@ -940,8 +940,8 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 // for classII, 2nd pion is MSA track (positive or negative)
                 if (classI) {
                     cGlobalBin->FillHistogram("pi_minus_pt_classI", pi2.Pt());
-                    cGlobalBin->FillHistogram("pi_minus_phi_classI", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_minus_theta_classI", pi2.Theta());
+                    cGlobalBin->FillHistogram("pi_minus_phi_classI", pi2.Phi());
                     cGlobalBin->FillHistogram("pi_minus_layinner_classI", Trk_layinner[fTrack2Id]);
                     cGlobalBin->FillHistogram("pi_minus_layouter_classI", Trk_layouter[fTrack2Id]);
                     cGlobalBin->FillHistogram("pi_minus_laynr_classI", layout_nr_2);
