@@ -1139,10 +1139,6 @@ Double_t TMiniNtupleAnalyzer::getThetaStar(TLorentzVector pi1, TLorentzVector pi
     TVector3 pi2_p = pi2.Vect();
     TVector3 rho_p = rho.Vect();
 
-//     TVector3 pi1_p = get_pi_plus();
-//     TVector3 pi2_p = get_pi_minus();
-//     TVector3 rho_p = pi1_p + pi2_p;
-
     Double_t cos_theta_lab = pi1_p.Dot(rho_p)/(pi1_p.Mag() * rho_p.Mag());
     Double_t pT_rel = sqrt(1-cos_theta_lab*cos_theta_lab) * pi1_p.Mag();
     // pT is invariant
