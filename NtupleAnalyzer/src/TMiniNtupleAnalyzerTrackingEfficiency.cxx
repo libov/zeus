@@ -585,13 +585,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // fill various event histograms (at the moment without binning)
 
             // electron histograms
-            cGlobalBin->FillHistogram("q2da", Siq2da[0]);
-            cGlobalBin->FillHistogram("yda", Siyda[0]);
-            cGlobalBin->FillHistogram("Sith", Sith[0]);
-            cGlobalBin->FillHistogram("Siph", Siph[0]);
-            cGlobalBin->FillHistogram("Siecorr", Siecorr[0][2]);
-            cGlobalBin->FillHistogram("Sipos_x", Sipos[0][0]);
-            cGlobalBin->FillHistogram("Sipos_y", Sipos[0][1]);
 
             cGlobalBin->FillHistogram("NonElectronEnergyZufo", fNonElectronEnergyZufo);
             cGlobalBin->FillHistogram("ElectronEnergyZufo", fElectronEnergyZufo);
@@ -608,34 +601,61 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                 cGlobalBin->FillHistogram("ScalarPtExcess_classI", fScalarPtExcess);
             }
 
-            // zufos
-            cGlobalBin->FillHistogram("Nzufos", Nzufos);
-            for (int j=0; j<Nzufos; j++) {
-                cGlobalBin->FillHistogram("Tufo", Tufo[j][0]);
-            }
-
             // for MC: get event class,see the definition in RhoTrueLevelAnalysis()
             int event_class;
             if (fIsMC) event_class = RhoTrueLevelAnalysis();
+            // fill event histograms for class I or class II
             if ( classI ) {
+                // number of tracks
                 cGlobalBin->FillHistogram("Trk_ntracks_classI", Trk_ntracks);
                 cGlobalBin->FillHistogram("Trkmsa_ntracks_classI", Trkmsa_ntracks);
                 cGlobalBin->FillHistogram("primary_ZTT_tracks_classI", fPrimary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_primary_ZTT_tracks_classI", fLong_primary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_ZTT_tracks_classI", fLong_ZTT_tracks);
+                // primary vertex
                 cGlobalBin->FillHistogram("Xvtx_classI", Xvtx);
                 cGlobalBin->FillHistogram("Yvtx_classI", Yvtx);
                 cGlobalBin->FillHistogram("Zvtx_classI", Zvtx);
+                // DIS and electron variables
+                cGlobalBin->FillHistogram("q2da_classI", Siq2da[0]);
+                cGlobalBin->FillHistogram("yda_classI", Siyda[0]);
+                cGlobalBin->FillHistogram("Sith_classI", Sith[0]);
+                cGlobalBin->FillHistogram("Siph_classI", Siph[0]);
+                cGlobalBin->FillHistogram("Siecorr_classI", Siecorr[0][2]);
+                cGlobalBin->FillHistogram("Sipos_x_classI", Sipos[0][0]);
+                cGlobalBin->FillHistogram("Sipos_y_classI", Sipos[0][1]);
+                // zufos
+                cGlobalBin->FillHistogram("Nzufos_classI", Nzufos);
+                for (int j=0; j<Nzufos; j++) {
+                    cGlobalBin->FillHistogram("Tufo_classI", Tufo[j][0]);
+                }
+                // for MC only: fill event class as determined from the true level
                 if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classI", event_class);
             } else {
+                // number of tracks
                 cGlobalBin->FillHistogram("Trk_ntracks_classII", Trk_ntracks);
                 cGlobalBin->FillHistogram("Trkmsa_ntracks_classII", Trkmsa_ntracks);
                 cGlobalBin->FillHistogram("primary_ZTT_tracks_classII", fPrimary_ZTT_tracks);
                 cGlobalBin->FillHistogram("long_primary_ZTT_tracks_classII", fLong_primary_ZTT_tracks);
-                cGlobalBin->FillHistogram("long_ZTT_tracks_classII", fLong_ZTT_tracks);
+                cGlobalBin->FillHistogram("long_ZTT_tracks_classI", fLong_ZTT_tracks);
+                // primary vertex
                 cGlobalBin->FillHistogram("Xvtx_classII", Xvtx);
                 cGlobalBin->FillHistogram("Yvtx_classII", Yvtx);
                 cGlobalBin->FillHistogram("Zvtx_classII", Zvtx);
+                // DIS and electron variables
+                cGlobalBin->FillHistogram("q2da_classII", Siq2da[0]);
+                cGlobalBin->FillHistogram("yda_classII", Siyda[0]);
+                cGlobalBin->FillHistogram("Sith_classII", Sith[0]);
+                cGlobalBin->FillHistogram("Siph_classII", Siph[0]);
+                cGlobalBin->FillHistogram("Siecorr_classII", Siecorr[0][2]);
+                cGlobalBin->FillHistogram("Sipos_x_classII", Sipos[0][0]);
+                cGlobalBin->FillHistogram("Sipos_y_classII", Sipos[0][1]);
+                // zufos
+                cGlobalBin->FillHistogram("Nzufos_classII", Nzufos);
+                for (int j=0; j<Nzufos; j++) {
+                    cGlobalBin->FillHistogram("Tufo_classII", Tufo[j][0]);
+                }
+                // for MC only: fill event class as determined from the true level
                 if (fIsMC) cGlobalBin->FillHistogram("event_trueclass_classII", event_class);
 
                 // true class II reconstructed as class II
