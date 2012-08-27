@@ -948,12 +948,19 @@ Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
 
 Double_t TMiniNtupleAnalyzer::getThetaStarReweighting(Double_t theta_star) {
 
-    Double_t p0 = 4.55375;  // +/- 0.650318
-    Double_t p1 = -12.0416; // +/- 3.83131
-    Double_t p2 = 28.3297;  // +/- 8.5852
-    Double_t p3 = -36.0429; // +/- 9.18135
-    Double_t p4 = 20.5197;  // +/- 4.71102
-    Double_t p5 = -4.2362;  // +/- 0.932609
+//     Double_t p0 = 4.55375;  // +/- 0.650318
+//     Double_t p1 = -12.0416; // +/- 3.83131
+//     Double_t p2 = 28.3297;  // +/- 8.5852
+//     Double_t p3 = -36.0429; // +/- 9.18135
+//     Double_t p4 = 20.5197;  // +/- 4.71102
+//     Double_t p5 = -4.2362;  // +/- 0.932609
+
+    Double_t p0                        =     4.75259; //         +/-     0.699956
+    Double_t p1                        =     -11.5345; //        +/-     4.09559
+    Double_t p2                        =     25.1128; //         +/-     9.12174
+    Double_t p3                        =     -31.4116; //        +/-     9.70318
+    Double_t p4                        =     17.8314; //         +/-     4.95559
+    Double_t p5                        =     -3.67589; //        +/-     0.977045
 
     Double_t weight = p0 + p1*theta_star + p2*pow(theta_star,2) + p3*pow(theta_star,3) + p4*pow(theta_star,4) + p5*pow(theta_star,5);
     return weight;
