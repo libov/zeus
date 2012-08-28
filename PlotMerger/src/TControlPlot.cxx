@@ -366,6 +366,11 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "L_{XY}/#sigma(L_{XY})";
     if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "S^{+}-S^{-}";
 
+    // rho tracking plots
+    if (cVar == "theta_star_classI") {
+        Xtitle = "#theta*, rad";
+    }
+
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
     if (fNoIndices) {
         if (cVar.Contains("yel"))   Xtitle = "y";
@@ -434,6 +439,11 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     }
     if (cVar == "significance_massbin3_mirrored") {
         cHist->SetAxisRange(30, 25000, "Y");
+    }
+
+    // rho tracking plots
+    if (cVar == "theta_star_classI") {
+        cHist->SetAxisRange(0, 2500, "Y");
     }
 }
 
