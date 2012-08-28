@@ -42,7 +42,8 @@ fPrintROOT(false),
 fNoIndices(false),
 fAdditionalText(false),
 fDrawLegend(false),
-fDrawZEUSLogo(false)
+fDrawZEUSLogo(false),
+fAxisMaxDigits(3)
 {
     // get a path to histograms folder
     TString HISTO_PATH = getenv("HISTO_PATH");
@@ -60,7 +61,6 @@ fDrawZEUSLogo(false)
     gStyle->SetPadTickX(1);
     gStyle->SetErrorX(0);
     gStyle -> SetFrameBorderMode(0);
-    TGaxis::SetMaxDigits(3);
 }
 
 void TControlPlot::Initialize() {
@@ -70,6 +70,9 @@ void TControlPlot::Initialize() {
 
     // read settings - data types, canvas size, cosmetics
     ReadSettings();
+
+    // set max digits on an axis
+    TGaxis::SetMaxDigits(fAxisMaxDigits);
 
     // set margins according to settings that were just read
     gStyle -> SetPadTopMargin(fPadTopMargin);
@@ -513,6 +516,8 @@ void TControlPlot::ReadSettings() {
                 fCanvas_size_x =  (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
                 fCanvas_size_y =  (((TObjString*)tokens->At(2)) -> GetString()).Atoi();
             }
+
+            if (first_word == "AxisMaxDigits") fAxisMaxDigits = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
 
             // re-tokenize, with TAB delimiter - in order to allow spaces within the text!!
             tokens = line_str.Tokenize("\t");
