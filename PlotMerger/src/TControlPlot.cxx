@@ -364,11 +364,14 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar.Contains("vtxsec_multi"))  Xtitle = "MULTIPLICITY (Sec. Vtx.)";
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "L_{XY}/#sigma(L_{XY})";
-    if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "S^{+}-S^{-}";
+    if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "|S|";
 
     // rho tracking plots
     if (cVar == "theta_star_classI") {
         Xtitle = "#theta*, rad";
+    }
+    if (cVar == "pi_plus_pt_classI") {
+        Xtitle = "p_{T}(#pi^{+}), GeV";
     }
 
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
@@ -445,6 +448,10 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     if (cVar == "theta_star_classI") {
         cHist->SetAxisRange(0, 2500, "Y");
     }
+    if (cVar == "pi_plus_pt_classI") {
+        cHist->SetAxisRange(0, 5100, "Y");
+    }
+
 }
 
 TH1F * TControlPlot::Rebin(TH1F* h) {
