@@ -10,6 +10,9 @@ namespace constants {
     const Double_t E_BEAM = 27.5;
     const Double_t E_BEAM_ZEUSMC = 27.6;
     const Double_t E_PROTON = 920;
+
+    const Double_t PI = TMath::Pi();
+    const Double_t TWOPI = 2 * PI;
 }
 
 #endif
