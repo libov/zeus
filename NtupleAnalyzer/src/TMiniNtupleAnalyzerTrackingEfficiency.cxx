@@ -19,7 +19,102 @@ using namespace std;
 #include <inc/TGlobalBin.h>
 #include <inc/TVertex.h>
 
-const Float_t M_PION = 0.139570;
+Double_t TMiniNtupleAnalyzer::getHelicityPHI(TLorentzVector rho, bool q_reco) {
+
+    // set incoming/outgoing lepton 4vectors
+    TLorentzVector  e_incoming(0, 0, (-1)*E_BEAM, sqrt(E_BEAM*E_BEAM + M_ELECTRON * M_ELECTRON));
+    TLorentzVector  e_outgoing;
+    if (q_reco) {
+        e_outgoing = getElectronConstrainedMethod(rho);
+    } else {
+        e_outgoing.SetXYZM(Plepton[0], Plepton[1], Plepton[2], M_ELECTRON);
+    }
+
+    // set the incoming proton 4-vector
+    TLorentzVector p_incoming(0, 0, E_PROTON, sqrt( E_PROTON * E_PROTON + M_PROTON * M_PROTON ) );
+
+    // get boost and rotation vectors
+    get_gammaP_boost(q_reco, true);
+
+    // boost leptons, incoming proton and the rho to the gamma*-p frame
+    e_incoming.Boost(fBoost);
+    e_incoming.Rotate(fAngle, fRotationAxis);
+
+    e_outgoing.Boost(fBoost);
+    e_outgoing.Rotate(fAngle, fRotationAxis);
+
+    p_incoming.Boost(fBoost);
+    p_incoming.Rotate(fAngle, fRotationAxis);
+
+    rho.Boost(fBoost);
+    rho.Rotate(fAngle, fRotationAxis);
+
+    // get normals to the scattering and production planes
+    TVector3 e_incoming_3vect = e_incoming.Vect();
+    TVector3 e_outgoing_3vect = e_outgoing.Vect();
+    TVector3 scat_plane_perp = e_incoming_3vect.Cross(e_outgoing_3vect);
+
+    TVector3 gamma_3vect = fq.Vect();
+    TVector3 rho_3vect = rho.Vect();
+    TVector3 prod_plane_perp = gamma_3vect.Cross(rho_3vect);
+
+    // these vectors are perpendicular to the Z axis (incoming proton/gamma* direction),
+    // hence can work in 2D space - that is in XY plane of the gamma*-p frame
+    TVector2 vscat = scat_plane_perp.XYvector();
+    TVector2 vprod = prod_plane_perp.XYvector();
+
+    // rotate both vectors in such a way that vscat has phi = 0
+    vprod=vprod.Rotate((-1)*vscat.Phi());
+    vscat=vscat.Rotate((-1)*vscat.Phi());
+
+    // the PHI_h is just the phi angle of vprod (range [0, 2pi], see ROOT docs)
+    Double_t PHI_helicity=vprod.Phi();
+
+    // sanity check
+    if ( TMath::IsNaN(PHI_helicity) ) {
+        cout << "ERROR: helicity angle is NAN" << endl;
+        abort();
+    }
+
+    // the other - equivalent way to define PHI:
+    // very similar to the definition in NUCL PHYS B 61 381-413 (1973),
+    // except a small thing, see below
+
+    TVector3 z = fq.Vect();
+    z = z.Unit();
+
+    TVector3 y = z.Cross(rho_3vect);
+    y = y.Unit();
+
+    TVector3 x = y.Cross(z);
+
+    TVector3 scat_plane_norm = e_incoming_3vect.Cross(e_outgoing_3vect);
+    scat_plane_norm = scat_plane_norm.Unit();
+
+    // the commented line is according to the paper; however
+    // in this case PHI is [0, pi] and not [0, 2pi], since sinPHI>0 - easy to check
+    // TVector3 hadr_plane_par = (y.Cross(scat_plane_norm)).Cross(y);
+    // this definition is used instead, which allows negative sinPHI!
+    TVector3 hadr_plane_par = z.Cross(y);
+    hadr_plane_par = hadr_plane_par.Unit();
+
+    Double_t    cosPHI = scat_plane_norm.Dot(y);
+    Double_t    sinPHI = scat_plane_norm.Dot(hadr_plane_par);
+
+    Double_t    PHI = atan2(sinPHI, cosPHI);
+
+    if (PHI<0) PHI += 2 * TMath::Pi();
+
+    // sanity check
+    Double_t diff = TMath::Abs(PHI_helicity - PHI);
+    if (diff>1e-5) {
+        cout << "ERROR: PHI determined by different methods differ by " << diff << endl;
+        abort();
+    }
+
+    // done
+    return PHI_helicity;
+}
 
 void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
