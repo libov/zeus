@@ -27,6 +27,8 @@
 #include <inc/TNtupleAnalyzer.h>
 #include <inc/TVertex.h>
 #include <TDataset.h>
+#include <inc/constants.h>
+using namespace constants;
 
 // system includes
 #include <vector>
