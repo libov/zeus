@@ -33,7 +33,7 @@ Double_t TMiniNtupleAnalyzer::getHelicityPHI(TLorentzVector rho, bool q_reco) {
     // set the incoming proton 4-vector
     TLorentzVector p_incoming(0, 0, E_PROTON, sqrt( E_PROTON * E_PROTON + M_PROTON * M_PROTON ) );
 
-    // get boost and rotation vectors
+    // get boost and rotation vectors as well as the gamma* vector
     get_gammaP_boost(q_reco, true);
 
     // boost leptons, incoming proton and the rho to the gamma*-p frame
