@@ -1542,16 +1542,8 @@ void TMiniNtupleAnalyzer::checkArrayBounds() {
 
 void TMiniNtupleAnalyzer::get_gammaP_boost(bool q_reco, bool use_rho=true) {
 
-    // in the ZEUSMC, a different beam electron energy - that of 27.6 GeV - wat used
-    Double_t    e_beam;
-    if (fIsMC && use_rho) {
-        e_beam = E_BEAM_ZEUSMC;
-    } else {
-        e_beam = E_BEAM;
-    }
-
     // incoming lepton
-    TLorentzVector  k(0, 0, -e_beam, sqrt(e_beam*e_beam + M_ELECTRON * M_ELECTRON));
+    TLorentzVector  k(0, 0, -E_BEAM, sqrt(E_BEAM*E_BEAM + M_ELECTRON * M_ELECTRON));
 
     // outgoing lepton
     if (use_rho) {
