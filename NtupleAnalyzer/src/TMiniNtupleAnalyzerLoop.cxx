@@ -1563,14 +1563,8 @@ void TMiniNtupleAnalyzer::get_gammaP_boost(bool q_reco, bool use_rho=true) {
         pi_minus_reco.SetXYZM(Trk_px[fTrack2Id], Trk_py[fTrack2Id], Trk_pz[fTrack2Id], M_PION);
         TLorentzVector rho = pi_plus_reco + pi_minus_reco;
 
-        // calculate e-pZ of the rho
-        Double_t    empz = rho.E() - rho.Pz();
-
-        // use it to calculate scattered electron enegry  - "constrained" method, see e.g. eur phys c 6, 603-627 (1999)
-        Double_t    E_elec = (2*e_beam - empz)/(1 - cos(Sith[0]));
-
-        // set scattered electron parameters
-        f_k_prim_reco.SetXYZM(E_elec*sin(Sith[0])*cos(Siph[0]), E_elec*sin(Sith[0])*sin(Siph[0]), E_elec*cos(Sith[0]), M_ELECTRON);
+        // get scattered electron parameters from the constrained method
+        f_k_prim_reco = getElectronConstrainedMethod(rho);
 
     } else {
 
