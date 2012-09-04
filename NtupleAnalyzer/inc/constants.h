@@ -8,6 +8,7 @@ namespace constants {
     const Double_t M_PION = 0.139570;
 
     const Double_t E_BEAM = 27.5;
+    const Double_t E_BEAM_ZEUSMC = 27.6;
     const Double_t E_PROTON = 920;
 }
 
