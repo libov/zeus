@@ -1540,28 +1540,58 @@ void TMiniNtupleAnalyzer::checkArrayBounds() {
     if (Nhbmjets >= 100){ cout << "ERROR: Nhbmjets= " << Nhbmjets << endl; abort();}
 }
 
-void TMiniNtupleAnalyzer::get_gammaP_boost() {
-    bool    q_reco = true;
-    bool    pure_electron = true;   // valid only for q_reco = true;
-    // q reconstructed from leptons
-    TLorentzVector  k(0, 0, (-1)*27.5, sqrt(27.5*27.5 + 0.000511 * 0.000511));
-    TLorentzVector  k_prim_reco;
-    if (pure_electron) {
-        f_k_prim_reco.SetPxPyPzE(sin(Sith[0])*cos(Siph[0]), sin(Sith[0])*sin(Siph[0]), cos(Sith[0]), 1);
-        f_k_prim_reco *= Siecorr[0][2];
+void TMiniNtupleAnalyzer::get_gammaP_boost(bool q_reco, bool use_rho=true) {
+
+    // in the ZEUSMC, a different beam electron energy - that of 27.6 GeV - wat used
+    Double_t    e_beam;
+    if (fIsMC && use_rho) {
+        e_beam = E_BEAM_ZEUSMC;
     } else {
-        Float_t ratio = Siq2da[0] / (4 * 27.5 * 27.5 * (1-Siyda[0]));
-        Float_t c_theta = (ratio - 1) / (ratio + 1);
-        Float_t E_prim = Siq2da[0]/(2 * 27.5 * (1 + c_theta));
-        Float_t s_theta = sqrt(1-c_theta*c_theta);
-        f_k_prim_reco.SetPxPyPzE(s_theta*cos(Siph[0]), s_theta*sin(Siph[0]), c_theta, 1);
-        f_k_prim_reco *= E_prim;
+        e_beam = E_BEAM;
     }
 
+    // incoming lepton
+    TLorentzVector  k(0, 0, -e_beam, sqrt(e_beam*e_beam + M_ELECTRON * M_ELECTRON));
+
+    // outgoing lepton
+    if (use_rho) {
+
+        // it is assumed that rho candidate search was already accomplished,
+        // so that pion candidates IDs are stored to fTrack1Id and fTrack2Id
+        TLorentzVector pi_plus_reco, pi_minus_reco;
+        pi_plus_reco.SetXYZM(Trk_px[fTrack1Id], Trk_py[fTrack1Id], Trk_pz[fTrack1Id], M_PION);
+        pi_minus_reco.SetXYZM(Trk_px[fTrack2Id], Trk_py[fTrack2Id], Trk_pz[fTrack2Id], M_PION);
+        TLorentzVector rho = pi_plus_reco + pi_minus_reco;
+
+        // calculate e-pZ of the rho
+        Double_t    empz = rho.E() - rho.Pz();
+
+        // use it to calculate scattered electron enegry  - "constrained" method, see e.g. eur phys c 6, 603-627 (1999)
+        Double_t    E_elec = (2*e_beam - empz)/(1 - cos(Sith[0]));
+
+        // set scattered electron parameters
+        f_k_prim_reco.SetXYZM(E_elec*sin(Sith[0])*cos(Siph[0]), E_elec*sin(Sith[0])*sin(Siph[0]), E_elec*cos(Sith[0]), M_ELECTRON);
+
+    } else {
+
+        // based purely on Sinistra
+        f_k_prim_reco.SetPxPyPzE(sin(Sith[0])*cos(Siph[0]), sin(Sith[0])*sin(Siph[0]), cos(Sith[0]), 1);
+        f_k_prim_reco *= Siecorr[0][2];
+    }
+
+    // q reconstructed from leptons
     if (q_reco) {
         fq = k - f_k_prim_reco;
+        // when using electron CAL energy, fq.E() might be negative, which makes a transformation impossible (f_gamma_p.E < f_gamma_p.p)
+        // NOTE: not the final solution!
+        if (!use_rho) if (fq.E()<0) fq.SetE(TMath::Abs(fq.E()));
     } else {
-        fq.SetPxPyPzE(Pboson[0], Pboson[1], Pboson[2], Pboson[3]);
+        for (int i=0;i<Fmck_nstor; i++) {
+            // true exchanged photon
+            if (Fmck_prt[i]==29 && Fmck_daug[i]==1) {
+                fq.SetPxPyPzE(Fmck_px[i],Fmck_py[i], Fmck_pz[i], Fmck_e[i]);
+            }
+        }
     }
 
     // initial state proton
