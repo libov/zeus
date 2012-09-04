@@ -116,6 +116,71 @@ Double_t TMiniNtupleAnalyzer::getHelicityPHI(TLorentzVector rho, bool q_reco) {
     return PHI_helicity;
 }
 
+TLorentzVector TMiniNtupleAnalyzer::getPiPlusInRhoHelicityFrame(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q_reco) {
+
+    // get boost and rotation vectors as well as the gamma* vector
+    get_gammaP_boost(q_reco, true);
+
+    TLorentzVector rho = pi_plus + pi_minus;
+    rho.Boost(fBoost);
+    rho.Rotate(fAngle, fRotationAxis);
+
+    pi_plus.Boost(fBoost);
+    pi_plus.Rotate(fAngle, fRotationAxis);
+
+    // rotate the system in such a way that rho direction is Z 
+    // i.e. the outgoing proton direction is opposite to Z - according to a definition of the helicity frame)
+    TVector3 z(0,0,1);
+    TVector3 rho_vect = rho.Vect();
+    // rotation angle is the angle between the original z axis and the rho direction
+    // acos input: [-1, 1] output: [0, pi]
+    Double_t rotation_angle = acos(rho.Pz()/rho.P());
+    // rotation axis is a vector perpendicular to both rho direction and the z axis (i.e. z axis is rotated in z-rho plane)
+    TVector3 rotation_axis = rho_vect.Cross(z);
+
+    // perform rotation of lab vectors (need rho and positive pion)
+    rho.Rotate(rotation_angle, rotation_axis);
+    pi_plus.Rotate(rotation_angle, rotation_axis);
+
+    // determine the boost vector, which is opposite to rho velocity vector and is given in terms of c
+    // (for any lorentz vector, velocity/c = momentum*c/energy, we work in natural units, c=1)
+    Double_t px = rho.Px();
+    Double_t py = rho.Py();
+    Double_t pz = rho.Pz();
+    Double_t e  = rho.E();
+    TVector3 boost(-px/e, -py/e, -pz/e);
+
+    // finally, boost the vectors to the rho rest frame
+    rho.Boost(boost);
+    pi_plus.Boost(boost);
+
+    // return rotated and boosted pi+
+    return pi_plus;
+}
+
+Double_t TMiniNtupleAnalyzer::getCosTheta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco) {
+
+    // get p+ in rho helicity frame
+    TLorentzVector pi_plus_rho_frame = getPiPlusInRhoHelicityFrame(pi_plus, pi_minus, q2_reco);
+
+    // theta*) is the angle between the pi+ direction and the z direction in this frame (e.g. Theta)
+    Double_t cos_theta_star = pi_plus_rho_frame.Z() / pi_plus_rho_frame.P();
+
+    return cos_theta_star;
+}
+
+Double_t TMiniNtupleAnalyzer::getPhi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco) {
+
+    // get p+ in rho helicity frame
+    TLorentzVector pi_plus_rho_frame = getPiPlusInRhoHelicityFrame(pi_plus, pi_minus, q2_reco);
+
+    // Phi_h is azimutal angle of pi+ in this frame
+    Double_t Phi_h = pi_plus_rho_frame.Phi();
+    Phi_h = TVector2::Phi_0_2pi(Phi_h);
+
+    return Phi_h;
+}
+
 void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
     // get a pointer to inclusive bin
