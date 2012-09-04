@@ -152,7 +152,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         // ********************************************************************************************
 
         // set the variables, needed for the transformation to the gamma-p frame
-        get_gammaP_boost();
+        get_gammaP_boost(true, false);
 
         // get the weight from Sasha's reweighting routine
         // NOTE: this is done before any selection, also on true level, because
