@@ -880,7 +880,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dPt_classI", dPt);
                     cGlobalBin->FillHistogram("dTheta_classI", dTheta);
                     cGlobalBin->FillHistogram("dPhi_classI", dPhi);
-                    cGlobalBin->FillHistogram("theta_star_classI", getThetaStar(pi1, pi2));
                     cGlobalBin->FillHistogram("cos_theta_star_classI", get_cos_theta_star(pi1, pi2));
                 } else {
                     cGlobalBin->FillHistogram("rho_pt_classII", rho.Pt());
@@ -889,7 +888,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dPt_classII", dPt);
                     cGlobalBin->FillHistogram("dTheta_classII", dTheta);
                     cGlobalBin->FillHistogram("dPhi_classII", dPhi);
-                    cGlobalBin->FillHistogram("theta_star_classII", getThetaStar(pi1, pi2));
                     cGlobalBin->FillHistogram("cos_theta_star_classII", get_cos_theta_star(pi1, pi2));
                 }
             }
@@ -1228,23 +1226,4 @@ Double_t TMiniNtupleAnalyzer::getIslandDCA(int isl, int trk) {
     // calculate DCA
     Double_t    DCA = sqrt(1-cos_alpha*cos_alpha) * island_relative.Mag();
     return  DCA;
-}
-
-Double_t TMiniNtupleAnalyzer::getThetaStar(TLorentzVector pi1, TLorentzVector pi2) {
-
-    const Float_t M_PION = 0.139570;
-
-    TLorentzVector rho = pi1 + pi2;
-    Double_t    mass = rho.M();
-
-    TVector3 pi1_p = pi1.Vect();
-    TVector3 pi2_p = pi2.Vect();
-    TVector3 rho_p = rho.Vect();
-
-    Double_t cos_theta_lab = pi1_p.Dot(rho_p)/(pi1_p.Mag() * rho_p.Mag());
-    Double_t pT_rel = sqrt(1-cos_theta_lab*cos_theta_lab) * pi1_p.Mag();
-    // pT is invariant
-    Double_t P_star = sqrt(mass*mass/4 - M_PION * M_PION);
-    Double_t sin_theta_star = pT_rel / P_star;
-    return TMath::ASin(sin_theta_star);
 }
