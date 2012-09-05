@@ -717,7 +717,17 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             weight_rho_phi = getRhoPhiWeight(rho.Phi());
         }
 
-        Double_t    TOTAL_WEIGHT = weight_rho_phi;
+        // cos theta* reweighting
+        Double_t    weight_cos_theta_star = 1;
+        if (fIsMC && fApplyThetaStarReweighting) {
+            TLorentzVector pi_plus = get_pi_plus();
+            TLorentzVector pi_minus = get_pi_minus();
+            TLorentzVector rho = pi_plus + pi_minus;
+            Double_t cos_theta_h = get_cos_theta_star(pi_plus, pi_minus);
+            weight_cos_theta_star = get_cos_theta_star_weight(cos_theta_h);
+        }
+
+        Double_t    TOTAL_WEIGHT = weight_rho_phi * weight_cos_theta_star;
 
         // now fill the histograms
         // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
@@ -1262,5 +1272,15 @@ Double_t TMiniNtupleAnalyzer::getRhoPhiWeight(Double_t phi) {
     Double_t p6                        =     0.00393659; //      +/-     0.00020097
 
     Double_t weight = p0 + p1*phi + p2*pow(phi,2) + p3*pow(phi,3) + p4*pow(phi,4) + p5*pow(phi,5) + p6*pow(phi,6);
+    return weight;
+}
+
+Double_t TMiniNtupleAnalyzer::get_cos_theta_star_weight(Double_t cos_theta_star) {
+
+    Double_t p0                        =     0.284033; //        +/-     0.00337638
+    Double_t p1                        =     0.00138078; //      +/-     0.00846044
+    Double_t p2                        =     2.67141; //         +/-     0.017589
+
+    Double_t weight = p0 + p1*cos_theta_star + p2*pow(cos_theta_star,2);
     return weight;
 }
