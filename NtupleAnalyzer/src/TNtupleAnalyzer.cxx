@@ -24,7 +24,8 @@ TNtupleAnalyzer::TNtupleAnalyzer():
 fTestNumberOfEvents(10000),
 fFileList("NOTSELECTED"),
 fPathToMiniNtuples(getenv ("MINI_NTUPLES_PATH")),
-fMiniNtuplesOn_dCache(true)
+fMiniNtuplesOn_dCache(true),
+fTestFirstEvent(0)
 {
     // done here (rather than in BaseClass) in order to keep BaseClass as simple as possible
     fChain = new TChain("orange");

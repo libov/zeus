@@ -59,7 +59,6 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            SetHadronicInteractionCorrection(Float_t corr) {fHadronicInteractionCorrection = corr;};
         void            SetEtReweightingLF_filename(TString name) {fEtReweightingLF_filename = name;};
         void            SetEtReweightingLF(bool do_reweighting) {fEtReweightingLF = do_reweighting;};
-        void            SetTestFirstEvent(unsigned first_event) {fTestFirstEvent = first_event;};
         void            SetSeedVertexSmearing(unsigned seed1, unsigned seed2) {fSeed_rnd = seed1; fSeed_rnd2 = seed2;};
         void            SetSeedCrudeTrackingEfficiency(unsigned seed) {fSeed_rnd_eff = seed;};
 
@@ -312,8 +311,6 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         TH1F *      fFragmentationReweighting_histo;
         TString     fFragmentationReweighting_filename;
         bool        fFragmentationReweighting;
-
-        unsigned    fTestFirstEvent;
 
         // for jet energy uncertainty studies
         // can be positive or negative (+-3% being the most common choice)

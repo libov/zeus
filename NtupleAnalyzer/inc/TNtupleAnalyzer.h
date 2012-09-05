@@ -40,6 +40,7 @@ class	TNtupleAnalyzer : public BaseClass
         Int_t       GetNumberOfEvents();        //!< Returns value of #fNevents variable
         void        SetTestMode (Bool_t	mode);  //!< Enables or disables a test mode (see #fTestMode)
         void        SetTestNumberOfEvents (Int_t TestNumberOfEvents);   //!< Sets number of events to be processed in a test mode (see #fTestNumberOfEvents)
+        void        SetTestFirstEvent(unsigned first_event) {fTestFirstEvent = first_event;}; //!< Sets the first event in the test mode
 
         /** @name 
          * The following methods are used to set properties (identify) of the sample to be analyzed.
@@ -93,6 +94,7 @@ class	TNtupleAnalyzer : public BaseClass
 
         Bool_t      fTestMode;          //!< Test mode means not to run over the full sample, but only process specified event range.
         Int_t       fTestNumberOfEvents;//!< Relevant for the test mode. Specifies number of events to be processed.
+        unsigned    fTestFirstEvent;    //!< Relevant for the test mode. Specifies the first event to be processed
 
         TString     fFileList;          //!< Name of the file with the list of root files to be processed. By default it's constructed from the sample name (plus "txt" extension), but can be optionally selected to have arbitrary value.
         bool        fMiniNtuplesOn_dCache;
