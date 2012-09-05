@@ -145,6 +145,13 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            setDebugPrintout(bool debug) {fDebugPrintout = debug;};
         Double_t        getIslandDCA(int isl, int trk);
         Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2);
+        Double_t        getHelicityPHI(TLorentzVector rho, bool q_reco);
+        TLorentzVector  getPiPlusInRhoHelicityFrame(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco);
+        Double_t        getCosTheta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco);
+        Double_t        getPhi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco);
+        Double_t        getElectronEnergyConstrainedMethod(TLorentzVector rho);
+        TLorentzVector  getElectronConstrainedMethod(TLorentzVector rho);
+        Double_t        getQ2ConstrainedMethod(TLorentzVector rho);
 
         unsigned        fPrimary_ZTT_tracks;
         unsigned        fLong_primary_ZTT_tracks;
