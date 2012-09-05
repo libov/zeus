@@ -89,10 +89,10 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         void            SetCharmETReweightingPar(Float_t par0, Float_t par1);
     
-        // initialisator the class - TODO: more info here
+        // initialisator the class
         void            Initialize();
 
-        //TODO: description here
+        // recalculates luminosity
         void            RecalculateLuminosity();
 
         // main functionality - loops over events and fills the histograms
