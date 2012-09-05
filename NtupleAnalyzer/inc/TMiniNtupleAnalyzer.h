@@ -88,7 +88,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            SetCharmEtaReweighting_p2(Float_t   par) {fCharmEtaReweighting_p2 = par;};
 
         void            SetCharmETReweightingPar(Float_t par0, Float_t par1);
-    
+
         // initialisator the class
         void            Initialize();
 
