@@ -141,6 +141,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Double_t        getQ2ConstrainedMethod(TLorentzVector rho); //!< q2 based on the constrained method
 
         Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2); //!< theta* determination
+        Double_t        get_cos_theta_star(TLorentzVector pi_plus, TLorentzVector pi_minus); //!< cos theta* determination
         Double_t        get_PHI_h(TLorentzVector rho, bool q_reco); //!< helicity PHI determination (see rho papers)
         Double_t        get_cos_theta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity theta determination
         Double_t        get_phi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity phi determination

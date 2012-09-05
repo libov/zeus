@@ -219,6 +219,44 @@ Double_t TMiniNtupleAnalyzer::get_phi_h(TLorentzVector pi_plus, TLorentzVector p
     return phi_h;
 }
 
+Double_t TMiniNtupleAnalyzer::get_cos_theta_star(TLorentzVector pi_plus, TLorentzVector pi_minus) {
+
+    // construct the rho
+    TLorentzVector rho = pi_plus + pi_minus;
+
+    // rotate the system in such a way that rho direction is Z 
+    // i.e. the outgoing proton direction is opposite to Z - according to a definition of the helicity frame)
+    TVector3 z(0,0,1);
+    TVector3 rho_vect = rho.Vect();
+    // rotation angle is the angle between the original z axis and the rho direction
+    // acos input: [-1, 1] output: [0, pi]
+    Double_t rotation_angle = acos(rho.Pz()/rho.P());
+    // rotation axis is a vector perpendicular to both rho direction and the z axis (i.e. z axis is rotated in z-rho plane)
+    TVector3 rotation_axis = rho_vect.Cross(z);
+
+    // perform rotation of lab vectors (need rho and positive pion)
+    rho.Rotate(rotation_angle, rotation_axis);
+    pi_plus.Rotate(rotation_angle, rotation_axis);
+
+    // determine the boost vector, which is opposite to rho velocity vector and is given in terms of c
+    // (for any lorentz vector, velocity/c = momentum*c/energy, we work in natural units, c=1)
+    Double_t px = rho.Px();
+    Double_t py = rho.Py();
+    Double_t pz = rho.Pz();
+    Double_t e  = rho.E();
+    TVector3 boost(-px/e, -py/e, -pz/e);
+
+    // finally, boost the vectors to the rho rest frame
+    rho.Boost(boost);
+    pi_plus.Boost(boost);
+
+    // get the cos theta star
+    Double_t cos_theta_star = pi_plus.Z()/pi_plus.P();
+
+    // done
+    return cos_theta_star;
+}
+
 void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
     // get a pointer to inclusive bin
