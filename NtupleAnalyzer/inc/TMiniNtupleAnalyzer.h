@@ -148,10 +148,10 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         Double_t        getPionPtReweighting (Double_t pt);
         Double_t        getPionPhiReweighting (Double_t phi);
-        Double_t        getThetaStarReweighting(Double_t theta_star);
-        Double_t        getRhoPhiReweighting(Double_t phi);
-        Double_t        getRhoThetaReweighting(Double_t theta);
-        Double_t        getRhoPtReweighting(Double_t pt);
+        Double_t        getRhoPhiWeight (Double_t phi); //!< rho-phi weight
+        Double_t        getRhoThetaWeight (Double_t theta); //!< rho-theta weight
+        Double_t        getRhoPtWeight (Double_t pt); //!< rho-pt weight
+        Double_t        get_cos_theta_star_weight(Double_t cos_theta_star); //!< cos theta* weight
 
         void            setApplyPtReweighting(bool apply) {fApplyPtReweighting = apply;};
         void            setApplyPhiReweighting(bool apply) {fApplyPhiReweighting = apply;};
