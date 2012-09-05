@@ -881,6 +881,9 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dTheta_classI", dTheta);
                     cGlobalBin->FillHistogram("dPhi_classI", dPhi);
                     cGlobalBin->FillHistogram("cos_theta_star_classI", get_cos_theta_star(pi1, pi2));
+                    cGlobalBin->FillHistogram("PHI_h_classI", get_PHI_h(rho, true));
+                    cGlobalBin->FillHistogram("cos_theta_h_classI", get_cos_theta_h(pi1, pi2, true));
+                    cGlobalBin->FillHistogram("phi_h_classI",  get_phi_h(pi1, pi2, true));
                 } else {
                     cGlobalBin->FillHistogram("rho_pt_classII", rho.Pt());
                     cGlobalBin->FillHistogram("rho_theta_classII", rho.Theta());
@@ -889,6 +892,9 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dTheta_classII", dTheta);
                     cGlobalBin->FillHistogram("dPhi_classII", dPhi);
                     cGlobalBin->FillHistogram("cos_theta_star_classII", get_cos_theta_star(pi1, pi2));
+                    cGlobalBin->FillHistogram("PHI_h_classII", get_PHI_h(rho, true));
+                    cGlobalBin->FillHistogram("cos_theta_h_classII", get_cos_theta_h(pi1, pi2, true));
+                    cGlobalBin->FillHistogram("phi_h_classII",  get_phi_h(pi1, pi2, true));
                 }
             }
 
