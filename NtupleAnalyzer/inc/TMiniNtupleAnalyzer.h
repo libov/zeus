@@ -97,7 +97,6 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         // main functionality - loops over events and fills the histograms
         void            Loop (Bool_t IsInclusive);
-        void            Loop_v04b (Bool_t IsInclusive);
 
         // print number of events per run for runs that have non-zero event number
         void            PrintEventsPerRun();
