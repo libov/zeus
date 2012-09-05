@@ -117,9 +117,19 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         void            SetStudyResolutions(bool study) {fStudyResolutions = study;};
 
-        void            TrackingEfficiency();
-        void            FindRho(vector<TLorentzVector> &rho, bool  ZTT);
-        void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT);
+        // rho tracking efficiency studies routines
+        void            TrackingEfficiency(); //!< main event loop
+        void            FindRho(vector<TLorentzVector> &rho, bool  ZTT); //!< rho candidate search
+        void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT); //!< reweighing and histograms filling
+        Double_t        getIslandDCA(int isl, int trk); //!< calculates DCA of an island wrt to a given track
+        Double_t        getElectronEnergyConstrainedMethod(TLorentzVector rho); //!< scattered electron energy based on the constrained method
+        TLorentzVector  getElectronConstrainedMethod(TLorentzVector rho); //!< scattered electron 4-vector based on the constrained method
+        Double_t        getQ2ConstrainedMethod(TLorentzVector rho); //!< q2 based on the constrained method
+        Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2); //!< theta* determination
+        Double_t        getHelicityPHI(TLorentzVector rho, bool q_reco); //!< helicity PHI determination (see rho papers)
+        TLorentzVector  getPiPlusInRhoHelicityFrame(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< boost of pi+ to the helicity frame
+        Double_t        getCosTheta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity theta determination
+        Double_t        getPhi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity phi determination
         Double_t        getPionPtReweighting (Double_t pt);
         Double_t        getPionPhiReweighting (Double_t phi);
         Double_t        getThetaStarReweighting(Double_t theta_star);
@@ -141,15 +151,6 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            setApplyRhoThetaReweighting(bool apply) {fApplyRhoThetaReweighting = apply;};
         void            setApplyRhoPhiReweighting(bool apply) {fApplyRhoPhiReweighting = apply;};
         void            setDebugPrintout(bool debug) {fDebugPrintout = debug;};
-        Double_t        getIslandDCA(int isl, int trk);
-        Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2);
-        Double_t        getHelicityPHI(TLorentzVector rho, bool q_reco);
-        TLorentzVector  getPiPlusInRhoHelicityFrame(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco);
-        Double_t        getCosTheta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco);
-        Double_t        getPhi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco);
-        Double_t        getElectronEnergyConstrainedMethod(TLorentzVector rho);
-        TLorentzVector  getElectronConstrainedMethod(TLorentzVector rho);
-        Double_t        getQ2ConstrainedMethod(TLorentzVector rho);
 
         unsigned        fPrimary_ZTT_tracks;
         unsigned        fLong_primary_ZTT_tracks;
