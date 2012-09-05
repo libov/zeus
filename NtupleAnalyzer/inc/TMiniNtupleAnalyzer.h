@@ -173,12 +173,6 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Int_t           fTrack1Id;
         Int_t           fTrack2Id;
 
-        // -- analysis-specific variables (not generic)
-        // -- change if you want to use for your own analysis
-        // NOTE: this remark is rather obsolete, as most of the stuff here is already
-        // very analysis-specific; the development isn't done anymore with keeping in mind
-        // possible generic usage of this class
-
         Bool_t          fSecondaryVertexFound;
         // the following variables are used heavily TGlobalBim; TODO: think whether this could be improved
         Float_t         fSignificance;
@@ -204,7 +198,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Double_t        fSmearingGauss2Width;
         Double_t        fSmearingExpProb;
         Double_t        fSmearingExpCoeff;
-        
+
         Bool_t          fTrueLevelStudies;
 
     private:
@@ -222,8 +216,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         // initialize random generators
         void        InitializeRandomGenerators();
-        
-        // TODO: description here
+
         void        CreateBinHistograms();
 
         // older methods, to be reviewed
@@ -241,7 +234,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Float_t     getEtReweighting(Float_t   jet_et);
 
         void        GetFragmentationReweighting_Histo();
-        
+
         // this is similar to getEtReweighting but more generic - works for each histogram/value
         Int_t       getReweightingHistoBin(TH1F * histo, Float_t   value);
 
@@ -251,7 +244,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
                                                 //!< more flexibility like lower track pT cut
         Float_t     get_x_gamma(vector<TLorentzVector> jet_list, bool breit_jets, Int_t tagged_jet_id = -1);
         void        fill_parton_histograms(TGlobalBin* global_bin);
-        
+
         // tells whether the program should run on dCache files or on mini ntuples on disk
         bool        fRun_dCache;
 
@@ -295,11 +288,11 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         // a probability to loose track when the fDropTracks flag is enabled
         Float_t     fDropProbability;
         Float_t     fHadronicInteractionCorrection;
-        
+
         // a structure(s) to calculate number of events per run
         // 1st argument: runnumber
         // 2nd argument: number of events in that run
-        
+
         // this one is for keeping ALL events (i.e. no selection on EVTAKE or MVDTAKE)
         std::map<unsigned, unsigned>    fEventsPerRun_ALL;
         // this is to keep events that passed EVTAKE and MVDTAKE criteria
@@ -380,7 +373,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         bool            fIsBeauty;              //!< true, if this sample is beauty, false otherwise
 
         bool            fStudyResolutions;      //!< a switch to select resolution studies
-        
+
         Float_t         getAverageAngle(Int_t  vertex_id);  //!< calculates an average angle between all possible track combination in the vertex
 
         bool            isHFLJet(TLorentzVector * jet);     //!< for the true cross section calculation: is used to separate
