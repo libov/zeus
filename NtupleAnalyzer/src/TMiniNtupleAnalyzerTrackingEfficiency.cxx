@@ -810,7 +810,10 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             int event_class;
             if (fIsMC) event_class = getRhoEventClass();
 
-            // fill event histograms for class I or class II
+            // *****************************************
+            // ********** event histograms ************
+            // *****************************************
+
             if ( classI ) {
                 // number of tracks
                 cGlobalBin->FillHistogram("Trk_ntracks_classI", Trk_ntracks);
