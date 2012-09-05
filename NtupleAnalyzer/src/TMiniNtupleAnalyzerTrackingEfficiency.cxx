@@ -667,34 +667,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
         if (Trk_layinner[fTrack2Id] == 0) layout_nr_2 = Trk_layouter[fTrack2Id];
         else layout_nr_2 = Trk_layouter[fTrack2Id] - Trk_layinner[fTrack2Id] + 1;
 
-        // determine pt-reweighting factors for both pions
-        Double_t    weight_pi1_pt = 1;
-        Double_t    weight_pi2_pt = 1;
-        if (fIsMC && fApplyPtReweighting) {
-            weight_pi1_pt = getPionPtReweighting(pi1.Pt());
-            weight_pi2_pt = getPionPtReweighting(pi2.Pt());
-        }
-        // determine phi-reweighting for both pions
-        Double_t    weight_pi1_phi = 1;
-        Double_t    weight_pi2_phi = 1;
-        if (fIsMC && fApplyPhiReweighting) {
-            weight_pi1_phi = getPionPhiReweighting(pi1.Phi());
-            weight_pi2_phi = getPionPhiReweighting(pi2.Phi());
-        }
-
-        // determine theta star weighting
-        Double_t    weight_theta_star = 1;
-        if (fIsMC && fApplyThetaStarReweighting) {
-            // get true level particles
-            TLorentzVector pi_plus = get_pi_plus();
-            TLorentzVector pi_minus = get_pi_minus();
-            // calculate true theta star
-            Double_t theta_star = getThetaStar(pi_plus, pi_minus);
-            // sanity check
-            if ( theta_star < 0 ) abort();
-            weight_theta_star = getThetaStarReweighting(theta_star);
-        }
-
         // now fill the histograms
         // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
         TGlobalBin  *cGlobalBin;
@@ -723,8 +695,8 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // set fPionThetaReco variable so that CheckGlobalBin can work (as discussed above)
             fPionThetaReco = pi1.Theta();
             fPionPhiReco = pi1.Phi();
-            // for rho/phi histograms, we weight according to the pt of the 1st pion (could do also for the 2nd)
-            if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi * weight_theta_star);
+            // apply weight
+            //if (fIsMC) cGlobalBin -> SetWeightingFactor (xx);
 
             // fill the phi mass
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
