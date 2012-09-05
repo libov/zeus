@@ -706,6 +706,19 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
         if (Trk_layinner[fTrack2Id] == 0) layout_nr_2 = Trk_layouter[fTrack2Id];
         else layout_nr_2 = Trk_layouter[fTrack2Id] - Trk_layinner[fTrack2Id] + 1;
 
+        // *********************************
+        // ******* determine weights *******
+        // *********************************
+
+        // rho phi reweighting
+        Double_t    weight_rho_phi = 1;
+        if (fIsMC && fApplyRhoPhiReweighting) {
+            TLorentzVector rho = get_pi_plus() + get_pi_minus();
+            weight_rho_phi = getRhoPhiWeight(rho.Phi());
+        }
+
+        Double_t    TOTAL_WEIGHT = weight_rho_phi;
+
         // now fill the histograms
         // loop over Global Bins and if this event satisfies bin's criteria - fill histograms that belong to the bin
         TGlobalBin  *cGlobalBin;
@@ -721,6 +734,9 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // set factor to unity - no reweighting
             cGlobalBin -> SetWeightingFactor(1);
 
+            // apply weight for MC
+            if (fIsMC) cGlobalBin -> SetWeightingFactor (TOTAL_WEIGHT);
+
             // the order of histogram filling
             // 1. rho/phi/event histograms; for binning, we use the information of the 1st pion
             // one could alternatively use pi2, the 2nd pion, or choose some particular charge
@@ -734,8 +750,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             // set fPionThetaReco variable so that CheckGlobalBin can work (as discussed above)
             fPionThetaReco = pi1.Theta();
             fPionPhiReco = pi1.Phi();
-            // apply weight
-            //if (fIsMC) cGlobalBin -> SetWeightingFactor (xx);
 
             // fill the phi mass
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
@@ -1235,4 +1249,18 @@ Double_t TMiniNtupleAnalyzer::getIslandDCA(int isl, int trk) {
     // calculate DCA
     Double_t    DCA = sqrt(1-cos_alpha*cos_alpha) * island_relative.Mag();
     return  DCA;
+}
+
+Double_t TMiniNtupleAnalyzer::getRhoPhiWeight(Double_t phi) {
+
+    Double_t p0                        =     1.2885; //          +/-     0.0141317
+    Double_t p1                        =     -0.032724; //       +/-     0.0126286
+    Double_t p2                        =     0.0797095; //       +/-     0.0131964
+    Double_t p3                        =     0.0128284; //       +/-     0.00402727
+    Double_t p4                        =     -0.0499703; //      +/-     0.00308789
+    Double_t p5                        =     -0.00105036; //     +/-     0.000312665
+    Double_t p6                        =     0.00393659; //      +/-     0.00020097
+
+    Double_t weight = p0 + p1*phi + p2*pow(phi,2) + p3*pow(phi,3) + p4*pow(phi,4) + p5*pow(phi,5) + p6*pow(phi,6);
+    return weight;
 }
