@@ -1101,69 +1101,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
         } // end loop over bins
 }
 
-Double_t TMiniNtupleAnalyzer::getPionPhiReweighting (Double_t phi) {
-
-//     Double_t p0 = 1.23939;      // +/-     0.0114037
-//     Double_t p1 = -0.0549178;   // +/-     0.0126261
-//     Double_t p2 = -0.119674;    // +/-     0.0055402
-//     Double_t p3 = 0.022167;     // +/-     0.00449931
-//     Double_t p4 = 0.0103398;    // +/-     0.000570118
-//     Double_t p5 = -0.00175276;  // +/-     0.000375304
-
-    Double_t p0 =     1.33098;   //         +/-     0.00762926
-    Double_t p1 =     -0.0334553;   //      +/-     0.00810863
-    Double_t p2 =     -0.139294;   //       +/-     0.00349777
-    Double_t p3 =     0.0132893;   //       +/-     0.0027489
-    Double_t p4 =     0.0102305;   //       +/-     0.000348818
-    Double_t p5 =     -0.0010197;   //      +/-     0.000221275
-
-    Double_t weight = p0  + p1 * phi + p2 * pow(phi, 2) + p3 * pow(phi, 3) + p4 * pow(phi, 4) + p5 * pow(phi, 5);
-    return weight;
-}
-
-Double_t TMiniNtupleAnalyzer::getPionPtReweighting (Double_t pt) {
-
-//     Double_t p0 = 3.40286;  // +/- 0.0459327
-//     Double_t p1 = -7.26273; // +/- 0.167761
-//     Double_t p2 = 5.96992;  // +/- 0.215883
-//     Double_t p3 = -2.04569; // +/- 0.122476
-//     Double_t p4 = 0.319297; // +/- 0.0309977
-//     Double_t p5 = -0.018484;// +/- 0.00283858
-
-    Double_t p0                        =     1.09509;  //         +/-     0.0329055
-    Double_t p1                        =     0.17879;  //         +/-     0.13525
-    Double_t p2                        =     -0.746055;  //       +/-     0.178135
-    Double_t p3                        =     0.534439;  //        +/-     0.0999949
-    Double_t p4                        =     -0.136556;  //       +/-     0.0247568
-    Double_t p5                        =     0.0116791;  //       +/-     0.00221369
-
-
-    if (pt>5) return getPionPtReweighting(5);
-
-    Double_t weight = p0  + p1 * pt + p2 * pow(pt, 2) + p3 * pow(pt, 3) + p4 * pow(pt, 4) + p5 * pow(pt, 5);
-    return weight;
-}
-
-Double_t TMiniNtupleAnalyzer::getThetaStarReweighting(Double_t theta_star) {
-
-//     Double_t p0 = 4.55375;  // +/- 0.650318
-//     Double_t p1 = -12.0416; // +/- 3.83131
-//     Double_t p2 = 28.3297;  // +/- 8.5852
-//     Double_t p3 = -36.0429; // +/- 9.18135
-//     Double_t p4 = 20.5197;  // +/- 4.71102
-//     Double_t p5 = -4.2362;  // +/- 0.932609
-
-    Double_t p0                        =     4.75259; //         +/-     0.699956
-    Double_t p1                        =     -11.5345; //        +/-     4.09559
-    Double_t p2                        =     25.1128; //         +/-     9.12174
-    Double_t p3                        =     -31.4116; //        +/-     9.70318
-    Double_t p4                        =     17.8314; //         +/-     4.95559
-    Double_t p5                        =     -3.67589; //        +/-     0.977045
-
-    Double_t weight = p0 + p1*theta_star + p2*pow(theta_star,2) + p3*pow(theta_star,3) + p4*pow(theta_star,4) + p5*pow(theta_star,5);
-    return weight;
-}
-
 bool TMiniNtupleAnalyzer::TrackMatch(TLorentzVector track1, TLorentzVector track2) {
     bool matched = false;
     Float_t delta = track1.DeltaR(track2);
