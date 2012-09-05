@@ -57,7 +57,7 @@ Double_t TMiniNtupleAnalyzer::getQ2ConstrainedMethod(TLorentzVector rho) {
     return q2;
 }
 
-Double_t TMiniNtupleAnalyzer::getHelicityPHI(TLorentzVector rho, bool q_reco) {
+Double_t TMiniNtupleAnalyzer::get_PHI_h(TLorentzVector rho, bool q_reco) {
 
     // set incoming/outgoing lepton 4vectors
     TLorentzVector  e_incoming(0, 0, (-1)*E_BEAM, sqrt(E_BEAM*E_BEAM + M_ELECTRON * M_ELECTRON));
@@ -106,10 +106,10 @@ Double_t TMiniNtupleAnalyzer::getHelicityPHI(TLorentzVector rho, bool q_reco) {
     vscat=vscat.Rotate((-1)*vscat.Phi());
 
     // the PHI_h is just the phi angle of vprod (range [0, 2pi], see ROOT docs)
-    Double_t PHI_helicity=vprod.Phi();
+    Double_t PHI_h=vprod.Phi();
 
     // sanity check
-    if ( TMath::IsNaN(PHI_helicity) ) {
+    if ( TMath::IsNaN(PHI_h) ) {
         cout << "ERROR: helicity angle is NAN" << endl;
         abort();
     }
@@ -144,14 +144,14 @@ Double_t TMiniNtupleAnalyzer::getHelicityPHI(TLorentzVector rho, bool q_reco) {
     if (PHI<0) PHI += 2 * TMath::Pi();
 
     // sanity check
-    Double_t diff = TMath::Abs(PHI_helicity - PHI);
+    Double_t diff = TMath::Abs(PHI_h - PHI);
     if (diff>1e-5) {
         cout << "ERROR: PHI determined by different methods differ by " << diff << endl;
         abort();
     }
 
     // done
-    return PHI_helicity;
+    return PHI_h;
 }
 
 TLorentzVector TMiniNtupleAnalyzer::getPiPlusInRhoHelicityFrame(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q_reco) {
@@ -196,27 +196,27 @@ TLorentzVector TMiniNtupleAnalyzer::getPiPlusInRhoHelicityFrame(TLorentzVector p
     return pi_plus;
 }
 
-Double_t TMiniNtupleAnalyzer::getCosTheta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco) {
+Double_t TMiniNtupleAnalyzer::get_cos_theta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco) {
 
     // get p+ in rho helicity frame
     TLorentzVector pi_plus_rho_frame = getPiPlusInRhoHelicityFrame(pi_plus, pi_minus, q2_reco);
 
     // theta*) is the angle between the pi+ direction and the z direction in this frame (e.g. Theta)
-    Double_t cos_theta_star = pi_plus_rho_frame.Z() / pi_plus_rho_frame.P();
+    Double_t cos_theta_h = pi_plus_rho_frame.Z() / pi_plus_rho_frame.P();
 
-    return cos_theta_star;
+    return cos_theta_h;
 }
 
-Double_t TMiniNtupleAnalyzer::getPhi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco) {
+Double_t TMiniNtupleAnalyzer::get_phi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco) {
 
     // get p+ in rho helicity frame
     TLorentzVector pi_plus_rho_frame = getPiPlusInRhoHelicityFrame(pi_plus, pi_minus, q2_reco);
 
     // Phi_h is azimutal angle of pi+ in this frame
-    Double_t Phi_h = pi_plus_rho_frame.Phi();
-    Phi_h = TVector2::Phi_0_2pi(Phi_h);
+    Double_t phi_h = pi_plus_rho_frame.Phi();
+    phi_h = TVector2::Phi_0_2pi(phi_h);
 
-    return Phi_h;
+    return phi_h;
 }
 
 void TMiniNtupleAnalyzer::TrackingEfficiency() {

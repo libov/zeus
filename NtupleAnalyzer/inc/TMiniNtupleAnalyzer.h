@@ -140,10 +140,10 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Double_t        getQ2ConstrainedMethod(TLorentzVector rho); //!< q2 based on the constrained method
 
         Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2); //!< theta* determination
-        Double_t        getHelicityPHI(TLorentzVector rho, bool q_reco); //!< helicity PHI determination (see rho papers)
+        Double_t        get_PHI_h(TLorentzVector rho, bool q_reco); //!< helicity PHI determination (see rho papers)
         TLorentzVector  getPiPlusInRhoHelicityFrame(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< boost of pi+ to the helicity frame
-        Double_t        getCosTheta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity theta determination
-        Double_t        getPhi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity phi determination
+        Double_t        get_cos_theta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity theta determination
+        Double_t        get_phi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity phi determination
 
         Double_t        getPionPtReweighting (Double_t pt);
         Double_t        getPionPhiReweighting (Double_t phi);
