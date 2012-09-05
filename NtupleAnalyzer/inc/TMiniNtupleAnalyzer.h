@@ -40,8 +40,8 @@ class TGlobalBin;
 /*! \brief Class for private mini ntuples analysis.
 */
 
-class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
-{
+class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
+
     public:
 
         // constructors, desctructors
