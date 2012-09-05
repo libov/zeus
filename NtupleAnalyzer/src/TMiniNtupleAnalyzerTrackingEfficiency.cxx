@@ -881,6 +881,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dTheta_classI", dTheta);
                     cGlobalBin->FillHistogram("dPhi_classI", dPhi);
                     cGlobalBin->FillHistogram("theta_star_classI", getThetaStar(pi1, pi2));
+                    cGlobalBin->FillHistogram("cos_theta_star_classI", get_cos_theta_star(pi1, pi2));
                 } else {
                     cGlobalBin->FillHistogram("rho_pt_classII", rho.Pt());
                     cGlobalBin->FillHistogram("rho_theta_classII", rho.Theta());
@@ -889,6 +890,7 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
                     cGlobalBin->FillHistogram("dTheta_classII", dTheta);
                     cGlobalBin->FillHistogram("dPhi_classII", dPhi);
                     cGlobalBin->FillHistogram("theta_star_classII", getThetaStar(pi1, pi2));
+                    cGlobalBin->FillHistogram("cos_theta_star_classII", get_cos_theta_star(pi1, pi2));
                 }
             }
 
