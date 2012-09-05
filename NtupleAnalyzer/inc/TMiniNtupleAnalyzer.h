@@ -34,7 +34,7 @@ using namespace constants;
 #include <vector>
 using namespace std;
 
-// forward declaration of TGlobalBin - in order to resolve circular dependency TODO: more info
+// forward declaration of TGlobalBin - in order to resolve circular dependency
 class TGlobalBin;
 
 /*! \brief Class for private mini ntuples analysis.
