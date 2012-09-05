@@ -38,9 +38,6 @@ using namespace std;
 class TGlobalBin;
 
 /*! \brief Class for private mini ntuples analysis.
-*  continue brief description here
-*
-* put detailed description here
 */
 
 class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
