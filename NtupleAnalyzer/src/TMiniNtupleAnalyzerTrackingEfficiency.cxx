@@ -897,7 +897,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
 
                 // set weighting factor
-                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi1_pt * weight_pi1_phi * weight_theta_star);
 
                 // these histograms are used as control plots only 
                 // reminder: for classI, 1st pion is positive,
@@ -995,7 +994,6 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
             // fill the 1st pion to the histos if it passes the pion cuts
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
-                if (fIsMC) cGlobalBin -> SetWeightingFactor (weight_pi2_pt * weight_pi2_phi * weight_theta_star);
 
 
                 // these histograms are used as control plots only 
