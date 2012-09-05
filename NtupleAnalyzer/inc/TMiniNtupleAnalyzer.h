@@ -365,7 +365,7 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         TLorentzVector  f_true_q;               //!< 4 vector of the exchanged boson, true level
         Float_t         fWda;                   //!< W reconstructed by DA method
         Float_t         fW_true;                //!< W true value
-        void            get_gammaP_boost();             //!< sets the relevant variables used for transformation to gamma-p
+        void            get_gammaP_boost(bool q_reco, bool use_rho); //!< sets the relevant variables used for transformation to gamma-p
 
         void            print_fmckin_table();
         void            checkArrayBounds();             //!< checks whether array bounds are not violated
