@@ -118,32 +118,40 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            SetStudyResolutions(bool study) {fStudyResolutions = study;};
 
         // rho tracking efficiency studies routines
+
         void            TrackingEfficiency(); //!< main event loop
         void            FindRho(vector<TLorentzVector> &rho, bool  ZTT); //!< rho candidate search
         void            FillRhoHistograms(vector<TLorentzVector> &cand, bool  ZTT); //!< reweighing and histograms filling
+
         Double_t        getIslandDCA(int isl, int trk); //!< calculates DCA of an island wrt to a given track
+        bool            TrackMatch(TLorentzVector track1, TLorentzVector track2);   //!< defines whether two tracks are close in eta-phi
+
+        // these functions are used to get true-level pions
+        int             get_pi_id(bool is_plus);
+        int             get_pi_plus_id();
+        int             get_pi_minus_id();
+        TLorentzVector  get_pi_plus();
+        TLorentzVector  get_pi_minus();
+        int             getRhoEventClass(); //!< classifies an event
+        void            FillPionsFatePoint(); //!< fills a histogram with a fate point of pions
+
         Double_t        getElectronEnergyConstrainedMethod(TLorentzVector rho); //!< scattered electron energy based on the constrained method
         TLorentzVector  getElectronConstrainedMethod(TLorentzVector rho); //!< scattered electron 4-vector based on the constrained method
         Double_t        getQ2ConstrainedMethod(TLorentzVector rho); //!< q2 based on the constrained method
+
         Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2); //!< theta* determination
         Double_t        getHelicityPHI(TLorentzVector rho, bool q_reco); //!< helicity PHI determination (see rho papers)
         TLorentzVector  getPiPlusInRhoHelicityFrame(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< boost of pi+ to the helicity frame
         Double_t        getCosTheta_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity theta determination
         Double_t        getPhi_h(TLorentzVector pi_plus, TLorentzVector pi_minus, bool q2_reco); //!< helicity phi determination
+
         Double_t        getPionPtReweighting (Double_t pt);
         Double_t        getPionPhiReweighting (Double_t phi);
         Double_t        getThetaStarReweighting(Double_t theta_star);
         Double_t        getRhoPhiReweighting(Double_t phi);
         Double_t        getRhoThetaReweighting(Double_t theta);
         Double_t        getRhoPtReweighting(Double_t pt);
-        bool            TrackMatch(TLorentzVector track1, TLorentzVector track2);
-        int             getRhoEventClass();
-        void            FillPionsFatePoint();
-        TLorentzVector  get_pi_plus();
-        TLorentzVector  get_pi_minus();
-        int             get_pi_plus_id();
-        int             get_pi_minus_id();
-        int             get_pi_id(bool is_plus);
+
         void            setApplyPtReweighting(bool apply) {fApplyPtReweighting = apply;};
         void            setApplyPhiReweighting(bool apply) {fApplyPhiReweighting = apply;};
         void            setApplyThetaStarReweighting(bool apply) {fApplyThetaStarReweighting = apply;};
