@@ -531,10 +531,6 @@ void TMiniNtupleAnalyzer::FindRho(vector<TLorentzVector> &cand, bool  classI) {
     // classI = true: look for rho candidates with both tracks ZTT (classI)
     // classI = false: look for rho candidates with ZTT and standalone track (classII)
 
-    // define constants
-    const Float_t M_PION = 0.139570;
-    const Float_t M_KAON = 0.4937;
-
     // clear the array
     cand.clear();
 
