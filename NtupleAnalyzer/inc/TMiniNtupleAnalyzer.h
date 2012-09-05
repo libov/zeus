@@ -142,6 +142,9 @@ class	TMiniNtupleAnalyzer : public TNtupleAnalyzer
         void            setApplyPtReweighting(bool apply) {fApplyPtReweighting = apply;};
         void            setApplyPhiReweighting(bool apply) {fApplyPhiReweighting = apply;};
         void            setApplyThetaStarReweighting(bool apply) {fApplyThetaStarReweighting = apply;};
+        void            setApplyRhoPtReweighting(bool apply) {fApplyRhoPtReweighting = apply;};
+        void            setApplyRhoThetaReweighting(bool apply) {fApplyRhoThetaReweighting = apply;};
+        void            setApplyRhoPhiReweighting(bool apply) {fApplyRhoPhiReweighting = apply;};
         void            setDebugPrintout(bool debug) {fDebugPrintout = debug;};
         Double_t        getIslandDCA(int isl, int trk);
         Double_t        getThetaStar(TLorentzVector pi1, TLorentzVector pi2);
