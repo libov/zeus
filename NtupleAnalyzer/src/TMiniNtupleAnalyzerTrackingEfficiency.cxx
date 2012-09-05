@@ -19,6 +19,44 @@ using namespace std;
 #include <inc/TGlobalBin.h>
 #include <inc/TVertex.h>
 
+Double_t TMiniNtupleAnalyzer::getElectronEnergyConstrainedMethod(TLorentzVector rho) {
+
+    // use rho information to calculate scattered electron enegry  - "constrained" method, see e.g. eur phys c 6, 603-627 (1999)
+
+    // calculate e-pZ of the rho
+    Double_t    empz = rho.E() - rho.Pz();
+
+    // calculate electron energy
+    Double_t    E_elec = (2*E_BEAM - empz)/(1 - cos(Sith[0]));
+
+    // done
+    return E_elec;
+}
+
+TLorentzVector TMiniNtupleAnalyzer::getElectronConstrainedMethod(TLorentzVector rho) {
+
+    // get electron energy from constrained method
+    Double_t    E_elec = getElectronEnergyConstrainedMethod(rho);
+
+    // set scattered electron parameters
+    TLorentzVector electron; 
+    electron.SetXYZM(E_elec*sin(Sith[0])*cos(Siph[0]), E_elec*sin(Sith[0])*sin(Siph[0]), E_elec*cos(Sith[0]), M_ELECTRON);
+
+    return electron;
+}
+
+Double_t TMiniNtupleAnalyzer::getQ2ConstrainedMethod(TLorentzVector rho) {
+
+    // get electron energy from constrained method
+    Double_t    E_elec = getElectronEnergyConstrainedMethod(rho);
+
+    // calculate Q2
+    Double_t    q2 = 2 * E_BEAM * E_elec * ( 1 + cos(Sith[0]) );
+
+    // done
+    return q2;
+}
+
 Double_t TMiniNtupleAnalyzer::getHelicityPHI(TLorentzVector rho, bool q_reco) {
 
     // set incoming/outgoing lepton 4vectors
