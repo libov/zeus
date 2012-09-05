@@ -656,10 +656,11 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
         TLorentzVector  pi2 = cand[2];
         TLorentzVector  phi = cand[3];
 
+        // needed for Ecm determination
         TLorentzVector  proton_rest;
-        proton_rest.SetXYZM(0, 0, 0, 0.9383);
+        proton_rest.SetXYZM(0, 0, 0, M_PROTON);
 
-        // needed later: number of superlayers for ZTT tracks
+        // number of superlayers for ZTT tracks
         unsigned layout_nr_1= 0;
         if (Trk_layinner[fTrack1Id] == 0) layout_nr_1 = Trk_layouter[fTrack1Id];
         else layout_nr_1 = Trk_layouter[fTrack1Id] - Trk_layinner[fTrack1Id] + 1;
