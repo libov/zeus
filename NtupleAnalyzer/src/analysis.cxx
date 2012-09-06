@@ -456,9 +456,12 @@ int main(int argc, char **argv) {
     // if selected to run only tracking efficiency part
     if (run_tracking_efficiency) {
         // some settings
-        instance -> setApplyPtReweighting(true);
-        instance -> setApplyPhiReweighting(true);
+        instance -> setApplyPtReweighting(false);
+        instance -> setApplyPhiReweighting(false);
         instance -> setApplyThetaStarReweighting(true);
+        instance -> setApplyRhoPhiReweighting(true);
+        instance -> setApplyRhoThetaReweighting(false);
+        instance -> setApplyRhoPtReweighting(false);
         instance -> setDebugPrintout(false);
         // start event loop
         instance -> TrackingEfficiency();
