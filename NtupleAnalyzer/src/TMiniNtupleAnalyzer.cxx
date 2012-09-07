@@ -661,9 +661,6 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
         // event counter
         fDebug->Fill(0);
 
-        // if ( (!fIsMC ) && (Runnr <= 48600) ) return false;
-        // fDebug->Fill(1);
-
         if (Sincand<1)              return false;
         fDebug->Fill(2);
 
@@ -702,13 +699,6 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS_Rho() {
             if ( Mvdtake <= 0 ) return false;
         }
         fDebug->Fill(9);
-
-        // if (Siq2da[0]<5) return false;
-        // fDebug->Fill(10);
-
-        // Float_t        x_el_abs=TMath::Abs(Sipos[0][0]);
-        // Float_t        y_el_abs=TMath::Abs(Sipos[0][1]);
-        // if ( (x_el_abs<13.) && (y_el_abs<13.) )        return false;
 
         return true;
 }
