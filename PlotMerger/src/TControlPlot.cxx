@@ -368,10 +368,13 @@ TString TControlPlot::GetTitle(TString cVar) {
 
     // rho tracking plots
     if (cVar == "theta_star_classI") {
-        Xtitle = "#theta*, rad";
+        Xtitle = "#theta* (rad)";
+    }
+    if (cVar == "cos_theta_star_classI") {
+        Xtitle = "cos(#theta*)";
     }
     if (cVar == "pi_plus_pt_classI") {
-        Xtitle = "p_{T}(#pi^{+}), GeV";
+        Xtitle = "p_{T}(#pi^{+}) (GeV)";
     }
 
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
