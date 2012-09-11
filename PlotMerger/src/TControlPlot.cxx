@@ -371,10 +371,16 @@ TString TControlPlot::GetTitle(TString cVar) {
         Xtitle = "#theta* (rad)";
     }
     if (cVar == "cos_theta_star_classI") {
-        Xtitle = "cos(#theta*)";
+        Xtitle = "cos #theta*";
     }
     if (cVar == "pi_plus_pt_classI") {
         Xtitle = "p_{T}(#pi^{+}) (GeV)";
+    }
+    if (cVar == "pi_plus_layinner_classI") {
+        Xtitle = "Inner CTD layer";
+    }
+    if (cVar == "pi_plus_layouter_classI") {
+        Xtitle = "Outer CTD layer";
     }
 
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
@@ -450,6 +456,9 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     // rho tracking plots
     if (cVar == "theta_star_classI") {
         cHist->SetAxisRange(0, 2500, "Y");
+    }
+    if (cVar == "cos_theta_star_classI") {
+        cHist->SetAxisRange(0, 4500, "Y");
     }
     if (cVar == "pi_plus_pt_classI") {
         cHist->SetAxisRange(0, 5100, "Y");
