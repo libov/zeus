@@ -370,17 +370,50 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar == "theta_star_classI") {
         Xtitle = "#theta* (rad)";
     }
-    if (cVar == "cos_theta_star_classI") {
+    if (cVar == "cos_theta_star_classI" || cVar == "cos_theta_star_classII") {
         Xtitle = "cos #theta*";
+    }
+    if (cVar == "rho_pt_classI" || cVar == "rho_pt_classII") {
+        Xtitle = "p_{T}(#rho) (GeV)";
+    }
+    if (cVar == "rho_theta_classI" || cVar == "rho_theta_classII") {
+        Xtitle = "#theta(#rho) (rad)";
+    }
+    if (cVar == "rho_phi_classI" || cVar == "rho_phi_classII") {
+        Xtitle = "#phi(#rho) (rad)";
     }
     if (cVar == "pi_plus_pt_classI") {
         Xtitle = "p_{T}(#pi^{+}) (GeV)";
     }
-    if (cVar == "pi_plus_layinner_classI") {
+    if (cVar == "pi_plus_theta_classI") {
+        Xtitle = "#theta(#pi^{+}) (rad)";
+    }
+    if (cVar == "pi_plus_phi_classI") {
+        Xtitle = "#phi(#pi^{+}) (rad)";
+    }
+    if (cVar == "pi_plus_layinner_classI" || cVar == "pi_ZTT_layinner_classII") {
         Xtitle = "Inner CTD layer";
     }
-    if (cVar == "pi_plus_layouter_classI") {
+    if (cVar == "pi_plus_layouter_classI" || cVar == "pi_ZTT_layouter_classII") {
         Xtitle = "Outer CTD layer";
+    }
+    if (cVar == "pi_ZTT_pt_classII") {
+        Xtitle = "p_{T}(long track) (GeV)";
+    }
+    if (cVar == "pi_ZTT_theta_classII") {
+        Xtitle = "#theta(long track) (rad)";
+    }
+    if (cVar == "pi_ZTT_phi_classII") {
+        Xtitle = "#phi(long track) (rad)";
+    }
+    if (cVar == "pi_MSA_pt_classII") {
+        Xtitle = "p_{T}(MVDSA track) (GeV)";
+    }
+    if (cVar == "pi_MSA_theta_classII") {
+        Xtitle = "#theta(MVDSA track) (rad)";
+    }
+    if (cVar == "pi_MSA_phi_classII") {
+        Xtitle = "#phi(MVDSA track) (rad)";
     }
 
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
@@ -463,7 +496,24 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     if (cVar == "pi_plus_pt_classI") {
         cHist->SetAxisRange(0, 5100, "Y");
     }
-
+    if (cVar == "pi_plus_phi_classI") {
+        cHist->SetAxisRange(0, 2000, "Y");
+    }
+    if (cVar == "rho_phi_classI") {
+        cHist->SetAxisRange(0, 2700, "Y");
+    }
+    if (cVar == "rho_phi_classII") {
+        cHist->SetAxisRange(0, 400, "Y");
+    }
+    if (cVar == "pi_ZTT_phi_classII") {
+        cHist->SetAxisRange(0, 170, "Y");
+    }
+    if (cVar == "pi_MSA_pt_classII") {
+        cHist->SetAxisRange(0, 900, "Y");
+    }
+    if (cVar == "pi_MSA_theta_classII") {
+        cHist->SetAxisRange(0, 220, "Y");
+    }
 }
 
 TH1F * TControlPlot::Rebin(TH1F* h) {
