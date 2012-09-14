@@ -415,6 +415,12 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar == "pi_MSA_phi_classII") {
         Xtitle = "#phi(MVDSA track) (rad)";
     }
+    if (cVar == "long_ZTT_tracks_classII") {
+        Xtitle = "number of long tracks (#geq 3 CTD layers)";
+    }
+    if (cVar == "long_tracks_imppar_classII") {
+        Xtitle = "Impact parameter of long secondary tracks (cm)";
+    }
 
     // in  case no-indices options was selected - don't specify el/da/jb index for main kinematic variables
     if (fNoIndices) {
@@ -513,6 +519,12 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     }
     if (cVar == "pi_MSA_theta_classII") {
         cHist->SetAxisRange(0, 220, "Y");
+    }
+    if (cVar == "long_ZTT_tracks_classII") {
+        cHist->SetAxisRange(0, 800, "Y");
+    }
+    if (cVar == "long_tracks_imppar_classII") {
+        cHist->SetAxisRange(0, 350, "Y");
     }
 }
 
