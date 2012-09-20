@@ -1,0 +1,28 @@
+1 1 01_rho_mass_classI rho_mass_classI: 0
+
+1 1 02a_rho_pt_classI rho_pt_classI: 0
+1 1 02b_rho_theta_classI rho_theta_classI: 0
+1 1 02c_rho_phi_classI rho_phi_classI: 0
+
+1 1 03_cos_theta_star_classI cos_theta_star_classI: 0
+
+1 1 04a_pi_plus_pt_classI pi_plus_pt_classI: 0
+1 1 04b_pi_plus_phi_classI pi_plus_phi_classI: 0
+1 1 04c_pi_plus_theta_classI pi_plus_theta_classI: 0
+
+1 1 05a_pi_minus_pt_classI pi_minus_pt_classI: 0
+1 1 05b_pi_minus_phi_classI pi_minus_phi_classI: 0
+1 1 05c_pi_minus_theta_classI pi_minus_theta_classI: 0
+
+1 1 06a_dPt_classI dPt_classI: 0
+1 1 06b_dTheta_classI dTheta_classI: 0
+1 1 06c_dPhi_classI dPhi_classI: 0
+
+1 1 07a_Sith_classI Sith_classI: 1
+1 1 07b_Siph_classI Siph_classI: 0
+1 1 07c_q2da_classI q2da_classI: 0
+
+1 1 08a_pi_plus_layinner_classI pi_plus_layinner_classI: 1
+1 1 08b_pi_plus_layouter_classI pi_plus_layouter_classI: 1
+
+1 1 09a_long_ZTT_tracks_classI long_ZTT_tracks_classI: 0

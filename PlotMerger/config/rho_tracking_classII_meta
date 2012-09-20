@@ -1,0 +1,25 @@
+# data types settings: TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth
+Datatype rho 1 0 0 5 1 1
+Datatype data 0 20 0.8 0 1 1
+
+# pad settings
+TopMargin 0.02
+BottomMargin 0.2
+LeftMargin 0.15
+RightMargin 0.05
+
+# axes settings: title size, title offset, labels size, labels offset
+Xaxis 0.05 1.4 0.06 0.02
+Yaxis 0.07 1.15 0.06 0.012
+
+# legend settings
+# legend 0.26 0.73 0.42 0.85
+
+# ZEUS logo settings x, y, font size
+# ZEUSlogo 0.43 0.92 0.07
+
+# canvas size
+canvas 1000 800
+
+# max digits on an axis
+AxisMaxDigits 4
