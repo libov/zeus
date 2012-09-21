@@ -365,6 +365,7 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. of the vertex fit";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "S";
     if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "|S|";
+    if ( cVar == "decay_length" ) Xtitle = "L_{XY}";
 
     // rho tracking plots
     if (cVar == "theta_star_classI") {
@@ -490,6 +491,9 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     }
     if (cVar == "significance_massbin3_mirrored") {
         cHist->SetAxisRange(30, 25000, "Y");
+    }
+    if ( cVar == "decay_length" ) {
+        cHist->SetAxisRange(0.1, 3000000, "Y");
     }
 
     // rho tracking plots
