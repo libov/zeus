@@ -362,7 +362,7 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar == "kt_phijet_b")          Xtitle = "#phi^{jet}";
     if (cVar.Contains("vtxsec_mass"))   Xtitle = "MASS (Sec. Vtx.) (GeV)";
     if (cVar.Contains("vtxsec_multi"))  Xtitle = "MULTIPLICITY (Sec. Vtx.)";
-    if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. (Sec. Vtx.)";
+    if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. of the vertex fit";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "S";
     if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "|S|";
 
