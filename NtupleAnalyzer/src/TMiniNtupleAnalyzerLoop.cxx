@@ -84,7 +84,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     // ********************************************************************************************
     for (int i=first_event; i < first_event+Nevents; i++) {
 
-        // print number of processed events every n events;        
+        // print number of processed events every n events;
         if ( i % fPrintingFreq == 0 )   cout<< " processing event " << i << endl;
 
         // try to get an entry from the chain
@@ -564,7 +564,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             fDebugSVTX->Fill(6);
 
             // create a vertex object to be stored for later processing
-            TVertex	vtx;
+            TVertex vtx;
             vtx.Significance = Significance;
             vtx.id = vertex;
             vtx.ProjDecayLength = ProjDecayLength;
