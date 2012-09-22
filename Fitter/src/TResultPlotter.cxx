@@ -233,7 +233,11 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
             cBinGroup.histo_dummy -> SetYTitle(fYtitle[id]);
 
             // set axes range according to settings from the config file
-            cBinGroup.histo_dummy -> SetAxisRange(fYaxis_low_limit[id], fYaxis_up_limit[id], "Y");
+            if (fPlotScalingFactors) {
+                cBinGroup.histo_dummy -> SetAxisRange(0.5, 2.5, "Y");
+            } else {
+                cBinGroup.histo_dummy -> SetAxisRange(fYaxis_low_limit[id], fYaxis_up_limit[id], "Y");
+            }
 
             // settings for labels, TODO: add sth controllable from above
             cBinGroup.histo_dummy -> SetTitleSize(0.05, "Y");;
@@ -274,7 +278,7 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
 
             // still some hardcodes... (TODO)
             if ( cBinGroup.ID.Contains("q2") || cBinGroup.ID.Contains("x") ) gPad -> SetLogx();
-            if ( (cBinGroup.ID != "phijet") && (cBinGroup.ID != "etajet") ) gPad -> SetLogy();
+            if ( (cBinGroup.ID != "phijet") && (cBinGroup.ID != "etajet") && (!fPlotScalingFactors) ) gPad -> SetLogy();
 
             gPad->SetLeftMargin(0.15);
             gPad->SetBottomMargin(0.13);
@@ -290,7 +294,7 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 pt -> SetBorderSize(0);
                 pt -> Draw();
 
-                fLegend -> Draw();
+                if (!fPlotScalingFactors) fLegend -> Draw();
             }
 
             // predictions and data are treated separately;
