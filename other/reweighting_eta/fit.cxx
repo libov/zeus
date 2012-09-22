@@ -31,7 +31,7 @@ void fit(TString version="2.29.8", bool draw_variations = true) {
     TF1 * fcn_down = new TF1 ("fcn_down", "pol2(0)", -1.6, 2.2);
     fcn_down -> SetParameters(1.16371, 0.135495, 0.05);
     fcn_down -> SetLineColor(kRed);
-    fcn_down -> SetLineStyle(7);
+    fcn_down -> SetLineStyle(10);
 
     if (draw_variations) {
         fcn_up -> Draw("same");
