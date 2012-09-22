@@ -78,7 +78,7 @@ f2bc: $(OBJECTS) f2bc.o
 txt2XML: $(OBJECTS) txt2XML.o
 	g++ -o txt2XML $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/txt2XML.o -I$(INC) $(FLAGS) -lxerces-c
 
-reweighting:
+reweighting: $(OBJECTS) reweighting.o
 	g++ -o reweighting $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/reweighting.o -I$(INC) $(FLAGS) -lxerces-c
 
 .PHONY: clean
