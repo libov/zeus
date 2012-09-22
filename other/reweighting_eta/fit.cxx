@@ -45,7 +45,4 @@ void fit(TString version="2.29.8", bool draw_variations = true) {
         fcn_up -> Draw("same");
         fcn_down -> Draw("same");
     }
-
-    TString PLOTS_PATH = getenv("PLOTS_PATH");
-    canv -> Print( PLOTS_PATH + "/eta_reweighting_"+version+".eps");
 }
