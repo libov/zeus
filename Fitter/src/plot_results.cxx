@@ -26,7 +26,8 @@ int main(int argc, char **argv) {
     static struct option long_options[] = {
         {"file1", required_argument, 0, 1},
         {"file2", required_argument, 0, 2},
-        {"file3", required_argument, 0, 3}
+        {"file3", required_argument, 0, 3},
+        {"scaling_factors", no_argument, 0, 4},
     };
 
     // results of the command line option processing will be stored here
@@ -37,6 +38,7 @@ int main(int argc, char **argv) {
     bool    second_file_given = false;
     bool    third_file_given = false;
     bool    plot_beauty = false;    // default: plot charm
+    bool    scaling_factors = false;
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -56,12 +58,15 @@ int main(int argc, char **argv) {
                 binningXMLfileName3 = optarg;
                 third_file_given = true;
                 break;
+            case 4:
+                scaling_factors = true;
+                break;
             case 'b':
                 plot_beauty = true;
                 break;
             case 'h':
                 cout << "\nUsage:\n\n";
-                cout << "\tplot_results --file1 <xmlfile1> [--file2 <xmlfile2>] [--file3 <xmlfile3>] [-b] [-h]\n\n";
+                cout << "\tplot_results --file1 <xmlfile1> [--file2 <xmlfile2>] [--file3 <xmlfile3>] [-b] [--scaling_factors] [-h]\n\n";
                 cout << "\t This application is designed to visualize cross-sections that are stored in XML files.\n";
                 cout << "\t If two files are given (i.e. both options --file1 and --file2 are specified), a ratio plot will be shown below the main graph.\n";
                 cout << "\t The functionality of the underlying class TResultPlotter allows any canvas layout and any number of XML files, but that is not implemented in this application.\n";
@@ -76,6 +81,7 @@ int main(int argc, char **argv) {
                 cout << "\t*** EDIT: A THIRD FILE IS NOW POSSIBLE, ASSUMED TO BE OTHER PREDICTION ***\n";
                 cout << "\n\tOptions:\n";
                 cout << "\t-b\tPlot beauty results; otherwise - charm\n";
+                cout << "\t--scaling_factors\tPlot scaling factors, not cross-sections\n";
                 cout << "\t-h\tPrint this help and exit\n\n";
                 exit(-1);
                 break;
@@ -106,7 +112,7 @@ int main(int argc, char **argv) {
     }
 
     // false: plot cross-sections; true: plot scaling factors
-    cResultPlotter.SetPlotScalingFactors(false);
+    cResultPlotter.SetPlotScalingFactors(scaling_factors);
 
     // the layout of the canvas depending on the number of XML files as stated in the help
     if (first_file_given && second_file_given) {
