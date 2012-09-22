@@ -13,7 +13,7 @@ void fit() {
     TCanvas * canv = (TCanvas*) file -> Get("CrossSection.etajetresults.full.forCHARM2.29.8.0405e06e07p.v02.true05e06e0607p.xml");
     TPad * subpad = (TPad*) canv -> GetListOfPrimitives() -> At (0);
     TH1F * histo = (TH1F*) subpad -> GetPrimitive("etajet");
-    
+
     histo -> Fit("pol2");
 
     TCanvas * c = new TCanvas ();
