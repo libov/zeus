@@ -14,6 +14,10 @@ void fit(TString version="2.29.8", bool draw_variations = true) {
     TPad * subpad = (TPad*) canv -> GetListOfPrimitives() -> At (0);
     TH1F * histo = (TH1F*) subpad -> GetPrimitive("etajet");
     histo -> SetYTitle("data/MC");
+    histo -> SetTitleOffset(1.0, "X");
+    histo -> SetTitleOffset(1.0, "Y");
+    histo -> SetLabelSize(0.06, "X");
+    histo -> SetLabelSize(0.06, "Y");
 
     histo -> Fit("pol2");
 
@@ -22,11 +26,15 @@ void fit(TString version="2.29.8", bool draw_variations = true) {
     subpad -> Draw();
     subpad -> cd();
 
+    gPad -> SetBottomMargin(0.16);
+    gPad -> SetRightMargin(0.05);
+    gPad -> SetTopMargin(0.05);
+    gPad -> SetLeftMargin(0.15);
+
     TF1 * fcn_up = new TF1 ("fcn_up", "pol2(0)", -1.6, 2.2);
     fcn_up -> SetParameters(1.16371, 0.135495, 0.15);
     fcn_up -> SetLineColor(kRed);
     fcn_up -> SetLineStyle(7);
-
 
     TF1 * fcn_down = new TF1 ("fcn_down", "pol2(0)", -1.6, 2.2);
     fcn_down -> SetParameters(1.16371, 0.135495, 0.05);
