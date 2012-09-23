@@ -448,7 +448,8 @@ Float_t    TMiniNtupleAnalyzer::CalculateProjDecayLength(Int_t    vertex) {
     ProjectedDecayLength=deltaX*CosPhiJet+deltaY*SinPhiJet; // 09/04/2010
 
     // 04 August 2011: eta-dependend shift of the whole projected decay length distribution
-    if (fIsMC) {
+    // NOTE: works only if smearing is switched on
+    if (fIsMC && fApplySmearing) {
         if ( (1.6 < EtaJet) && (EtaJet < 2.2) ) ProjectedDecayLength -= 0.0021913;
         if ( (1.3 < EtaJet) && (EtaJet < 1.6) ) ProjectedDecayLength -= 0.0015827;
         if ( (1.0 < EtaJet) && (EtaJet < 1.3) ) ProjectedDecayLength -= 0.000766;
