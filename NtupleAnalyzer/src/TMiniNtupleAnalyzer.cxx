@@ -101,6 +101,8 @@ f_do_EM_scale_syst(false)
     fDebugSVTX = new TH1F ("fDebugSVTX", "Debug histo for secondary vertex selection", 50, 0, 50);
     fMc_q2_et = new TH2F ("fMc_q2_et", "Q^{2} - E_{T} plane", 200, 0, 35, 200, 0, 3);
     fMc_pt_theta_pi = new TH2F ("fMc_pt_theta_pi", "fate point", 100, -20 , 20, 100, -20, 20);
+    f_hadr_prob_theta = new TProfile ("f_hadr_prob_theta", "", 30, 0, 180);
+    f_hadr_prob_phi = new TProfile ("f_hadr_prob_phi", "", 30, 0, 360);
 }
 
 // a public method to initialize the class
@@ -413,6 +415,8 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     fDebugSVTX->Write();
     fMc_q2_et->Write();
     fMc_pt_theta_pi -> Write();
+    f_hadr_prob_theta -> Write();
+    f_hadr_prob_phi -> Write();
     fHistogramsFile->Close();
     cout<<"INFO: Histograms written to file"<<endl;
 }
