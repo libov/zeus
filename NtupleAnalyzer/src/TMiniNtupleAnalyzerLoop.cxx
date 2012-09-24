@@ -22,6 +22,16 @@ using namespace std;
 // Sasha's reweighting class
 #include <weight_function.h>
 
+// declarations of Sasha's routine
+void TrackAllEfficiency
+   (int& ntrack, int& ntrMax, float* Phi, float* cotTheta, float* Zh, float* Mom
+    , int& Charge, int& IDpart, float& TrEff, float& TrInt);
+
+void TrackAllEfficiency
+       (float& Phi, float& cotTheta, float& Mom,
+       int& Charge, int& IDpart, float& TrEff, float& TrInt);
+
+
 //Loops over the sample and performs analysis
 void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     // helping variable
@@ -1105,6 +1115,47 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 currentTGlobalBin->FillHistogram("ZUFO_type", fVertices[j].GetZUFO_type());
 
                 currentTGlobalBin->FillHistogram("average_angle", average_angle);
+
+                // hadronic interaction probability
+                for (int k=0; k<Vtxsec_multi[vertex]; k++) {
+
+                    // try to find this track in the Tracking block
+                    int track_id = -1;
+                    for (int j = 0; j<Trk_ntracks; j++){
+                        if (Trk_id[j] == Vtxsec_zttid[vertex][k]) {
+                            track_id = j;
+                            break;
+                        }
+                    }
+
+                    // sanity check
+                    if (track_id == -1) {
+                        continue;
+                        #ifdef CN_VERSION_V06
+                        cout << "ERROR: vertex track was not found in the tracking block. Should not happen for v06. Terminating." << endl;
+                        abort();
+                        #endif
+                    }
+
+                    TVector3 track(Trk_px[track_id], Trk_py[track_id], Trk_pz[track_id]);
+                    Float_t phi = track.Phi();
+                    if (phi<0) phi += (2*TMath::Pi());
+                    Float_t p = track.Mag();
+
+                    Float_t TrEff = -1;
+                    Float_t TrInt = -1;
+                    Int_t   charge = Trk_charge[track_id];
+                    Float_t cot = 1./(TMath::Tan(track.Theta()));
+                    // 2=kaon, 3=proton, else=pion
+                    Int_t   id = 1;
+                    TrackAllEfficiency (phi, cot, p, charge, id, TrEff, TrInt);
+                    // sanity check
+                    if ( (TrEff<0) || (TrInt<0) ) {
+                        cout << "ERROR: efficiency map failure" << endl;
+                        abort();
+                    }
+                    currentTGlobalBin->FillHistogram("hadr_int_prob", TrInt);
+                }
 
                 // fill some histos related to track density effects
 
