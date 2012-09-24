@@ -1155,6 +1155,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         abort();
                     }
                     currentTGlobalBin->FillHistogram("hadr_int_prob", TrInt);
+                    f_hadr_prob_phi -> Fill(phi*180./TMath::Pi(), TrInt);
+                    f_hadr_prob_theta -> Fill(track.Theta()*180./TMath::Pi(), TrInt);
                 }
 
                 // fill some histos related to track density effects
