@@ -22,6 +22,7 @@
 #include <TFile.h>
 #include <TRandom3.h>
 #include <TLorentzVector.h>
+#include <TProfile.h>
 
 // my includes
 #include <inc/TNtupleAnalyzer.h>
@@ -265,6 +266,8 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         TH2F*       fMc_q2_et;
         TH2F*       fMc_pt_theta_pi;
+        TProfile*   f_hadr_prob_theta;
+        TProfile*   f_hadr_prob_phi;
 
         TString     fBinningFileName;
         TString     fHistogramDeclarationFile;
