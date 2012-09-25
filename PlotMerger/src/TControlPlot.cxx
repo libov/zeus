@@ -504,6 +504,33 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(-4.5, -0.9, "X");
         cHist->SetAxisRange(0, 370, "Y");
     }
+    if (cVar == "yel_beauty_diff") {
+        cHist->SetAxisRange(0, 150, "Y");
+    }
+    if (cVar == "yjb_beauty_diff") {
+        cHist->SetAxisRange(0, 135, "Y");
+    }
+    if (cVar == "empz_beauty_diff") {
+        cHist->SetAxisRange(43, 66, "X");
+        cHist->SetAxisRange(0, 300, "Y");
+    }
+    if (cVar == "zvtx_beauty_diff") {
+        cHist->SetAxisRange(-32, 32, "X");
+        cHist->SetAxisRange(0, 250, "Y");
+    }
+    if (cVar == "kt_phijet_b_beauty_diff") {
+        cHist->SetAxisRange(0, 100, "Y");
+    }
+    if (cVar == "vtxsec_mass_beauty_diff") {
+        cHist->SetAxisRange(0.1, 50000, "Y");
+    }
+    if (cVar == "vtxsec_multi_beauty_diff") {
+        cHist->SetAxisRange(0.01, 5000, "Y");
+    }
+    if (cVar == "vtxsec_chi2ndf_beauty_diff") {
+        cHist->SetAxisRange(0, 6, "X");
+        cHist->SetAxisRange(0, 350, "Y");
+    }
 
     // charm enriched
     if (cVar == "kt_etjet_b_charm_diff") {

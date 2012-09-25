@@ -1,0 +1,33 @@
+# data types settings: TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth
+Datatype mc 1 0 0 5 1 1
+Datatype light 1 0 0 0 2 1
+Datatype beauty 1 0 0 0 4 1
+Datatype charm 1 0 0 0 3 1
+Datatype data 0 20 0.7 0 1 1
+
+# pad settings
+TopMargin 0.07
+BottomMargin 0.2
+LeftMargin 0.2
+RightMargin 0.05
+
+# axes settings: title size, title offset, labels size, labels offset
+Xaxis 0.08 1.1 0.05 0.02
+Yaxis 0.08 1.35 0.07 0.012
+
+# legend settings
+# legend 0.835 0.73 0.96 0.84
+
+# ZEUS logo settings x, y, font size
+# ZEUSlogo 0.43 0.92 0.07
+
+# canvas size
+canvas 1000 800
+
+# additional text; NOTE: HERE TAB IS DELIMITER AND NOT SPACE - IN ORDER TO ALLOW SPACES IN TEXT!
+text	(g)	0.25	0.81	0.04
+text	(h)	0.58	0.81	0.04
+text	(i)	0.85	0.81	0.04
+text	(j)	0.25	0.35	0.04
+text	(k)	0.58	0.35	0.04
+text	(l)	0.91	0.35	0.04
