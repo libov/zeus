@@ -346,14 +346,14 @@ TString TControlPlot::GetTitle(TString cVar) {
 
     TString Xtitle = "";
 
-    if (cVar.Contains("zvtx"))  Xtitle = "Z_{PRM VTX} (cm)";
+    if (cVar.Contains("zvtx"))  Xtitle = "Z_{Primary Vertex} (cm)";
     if (cVar.Contains("empz"))  Xtitle = "E-p_{Z} (GeV)";
     if (cVar.Contains("yel"))   Xtitle = "y_{el}";
     if (cVar.Contains("yjb"))   Xtitle = "y_{jb}";
-    if (cVar.Contains("xel"))   Xtitle = "x_{el}";
-    if (cVar.Contains("xjb"))   Xtitle = "x_{jb}";
-    if (cVar.Contains("xda"))   Xtitle = "x_{da}";
-    if (cVar.Contains("q2da"))  Xtitle = "Q^{2}_{da} (GeV^{2})";
+    if (cVar.Contains("xel"))   Xtitle = "log_{10}x_{el}";
+    if (cVar.Contains("xjb"))   Xtitle = "log_{10}x_{jb}";
+    if (cVar.Contains("xda"))   Xtitle = "log_{10}x_{da}";
+    if (cVar.Contains("q2da"))  Xtitle = "log_{10}(Q^{2}_{da}/GeV^{2})";
     if (cVar == "siecorr")      Xtitle = "E'_{e} (GeV)";
     if (cVar == "thetael")      Xtitle = "#theta_{e} (rad)";
     if (cVar == "phiel")        Xtitle = "#phi_{e} (rad)";
@@ -437,12 +437,53 @@ TString TControlPlot::GetTitle(TString cVar) {
 }
 
 void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
+
+    // inclusive plots
     if (cVar == "thetael") {
         cHist->SetAxisRange(1.5, 3.14, "X");
         cHist->SetAxisRange(0, 2300000, "Y");
     }
     if (cVar == "phiel") cHist->SetAxisRange(0, 275000, "Y");
-    if (cVar == "kt_phijet_b") cHist->SetAxisRange(0, 150000, "Y");
+
+    if (cVar == "q2da") {
+        cHist->SetAxisRange(0.4, 3.1, "X");
+        cHist->SetAxisRange(0, 310000, "Y");
+    }
+    if (cVar == "xda") {
+        cHist->SetAxisRange(-5, 0, "X");
+        cHist->SetAxisRange(0, 660000, "Y");
+    }
+    if (cVar == "yjb") {
+        cHist->SetAxisRange(0, 300000, "Y");
+    }
+    if (cVar == "empz") {
+        cHist->SetAxisRange(43, 66, "X");
+        cHist->SetAxisRange(0, 540000, "Y");
+    }
+    if (cVar  == "zvtx") {
+        cHist->SetAxisRange(-32, 32, "X");
+        cHist->SetAxisRange(0, 380000, "Y");
+    }
+    if (cVar  == "siecorr") {
+        cHist->SetAxisRange(8, 35, "X");
+        cHist->SetAxisRange(0, 400000, "Y");
+    }
+    if (cVar  == "thetael" ) {
+        cHist->SetAxisRange(1.5, 3.2, "X");
+        cHist->SetAxisRange(0, 1500000, "Y");
+    }
+    if (cVar  ==  "kt_etjet_b") {
+        cHist->SetAxisRange(2, 50, "X");
+        cHist->SetAxisRange(.1, 2000000, "Y");
+    }
+    if (cVar  ==  "kt_etajet_b") {
+        cHist->SetAxisRange(-1.6, 2.3, "X");
+        cHist->SetAxisRange(.1, 160000, "Y");
+    }
+    if (cVar  == "kt_phijet_b") {
+        cHist->SetAxisRange(0, 120000, "Y");
+    }
+
     if (cVar.Contains("vtxsec_mass")) cHist->SetAxisRange(0, 6, "X");
     if (cVar.Contains("vtxsec_multi")) cHist->SetAxisRange(0, 14, "X");
 
