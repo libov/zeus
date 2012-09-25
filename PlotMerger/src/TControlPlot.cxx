@@ -359,7 +359,7 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar == "phiel")        Xtitle = "#phi_{e} (rad)";
     if (cVar.Contains("kt_etjet_b"))    Xtitle = "E_{T}^{jet} (GeV)";
     if (cVar.Contains("kt_etajet_b"))   Xtitle = "#eta^{jet}";
-    if (cVar == "kt_phijet_b")          Xtitle = "#phi^{jet}";
+    if (cVar.Contains("kt_phijet_b"))          Xtitle = "#phi^{jet}";
     if (cVar.Contains("vtxsec_mass"))   Xtitle = "MASS (Sec. Vtx.) (GeV)";
     if (cVar.Contains("vtxsec_multi"))  Xtitle = "MULTIPLICITY (Sec. Vtx.)";
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/n.d.o.f. of the vertex fit";
@@ -521,6 +521,28 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     if (cVar == "xda_charm_diff") {
         cHist->SetAxisRange(-4.5, -0.9, "X");
         cHist->SetAxisRange(0, 8300, "Y");
+    }
+    if (cVar == "yjb_charm_diff") {
+        cHist->SetAxisRange(0, 3000, "Y");
+    }
+    if (cVar == "empz_charm_diff") {
+        cHist->SetAxisRange(43, 66, "X");
+    }
+    if (cVar == "zvtx_charm_diff") {
+        cHist->SetAxisRange(-32, 32, "X");
+    }
+    if (cVar == "kt_phijet_b_charm_diff") {
+        cHist->SetAxisRange(0, 2000, "Y");
+    }
+    if (cVar == "vtxsec_mass_charm_diff") {
+        cHist->SetAxisRange(0.1, 50000, "Y");
+    }
+    if (cVar == "vtxsec_multi_charm_diff") {
+        cHist->SetAxisRange(0.01, 50000, "Y");
+    }
+    if (cVar == "vtxsec_chi2ndf_charm_diff") {
+        cHist->SetAxisRange(0, 6, "X");
+        cHist->SetAxisRange(0, 6000, "Y");
     }
 
     // mirrored significance
