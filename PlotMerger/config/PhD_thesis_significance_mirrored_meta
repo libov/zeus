@@ -25,6 +25,6 @@ legend 0.15 0.62 0.3 0.79
 canvas 1000 700
 
 # additional text; NOTE: HERE TAB IS DELIMITER AND NOT SPACE - IN ORDER TO ALLOW SPACES IN TEXT!
-text	1 < m_{vtx} < 1.4 GeV	0.105	0.85	0.04
-text	1.4 < m_{vtx} < 2 GeV	0.44	0.85	0.04
-text	2 < m_{vtx} < 6 GeV	0.78	0.85	0.04
+text	1 < m_{vtx} < 1.4 GeV	0.105	0.94	0.04
+text	1.4 < m_{vtx} < 2 GeV	0.44	0.94	0.04
+text	2 < m_{vtx} < 6 GeV	0.78	0.94	0.04
