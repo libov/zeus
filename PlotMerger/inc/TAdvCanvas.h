@@ -18,7 +18,7 @@ class TAdvCanvas : public TObject {
 
     public:
         TAdvCanvas();
-        TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, unsigned * LogPads, Int_t width, Int_t height);
+        TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, unsigned * LogPads, Int_t width, Int_t height, Float_t top_margin);
         ~TAdvCanvas();
         Int_t           GetNPads();
         Int_t           GetNumberOfVariables();
@@ -40,5 +40,6 @@ class TAdvCanvas : public TObject {
         Int_t           fHeight;
         unsigned        *fLogPads;
         void            SeparateVariables();
+        Float_t         fTopMargin;
 };
 #endif

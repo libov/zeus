@@ -140,7 +140,13 @@ void TControlPlot::Initialize() {
         }
 
         // add a canvas
-        AddAdvCanvas(n_pads_x, n_pads_y, canvas_name, variables_set, logs, fCanvas_size_x, fCanvas_size_y);
+        Float_t top_margin;
+        if (fDrawZEUSLogo) {
+            top_margin = 0.1;
+        } else {
+            top_margin = 0;
+        }
+        AddAdvCanvas(n_pads_x, n_pads_y, canvas_name, variables_set, logs, fCanvas_size_x, fCanvas_size_y, top_margin);
 
         // clean up
         delete [] logs;
@@ -154,8 +160,8 @@ void TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle
     fPlotTypes.push_back(new TPlotType(Name, DrawHisto, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth));
 }
 
-void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TString Variables, unsigned * Logs, Int_t width, Int_t height){
-    fList_AdvCanvas->Add(new TAdvCanvas(NPads_X, NPads_Y, SetName, Variables, Logs, width, height));
+void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TString Variables, unsigned * Logs, Int_t width, Int_t height, Float_t top_margin){
+    fList_AdvCanvas->Add(new TAdvCanvas(NPads_X, NPads_Y, SetName, Variables, Logs, width, height, top_margin));
 }
 
 void TControlPlot::Draw() {

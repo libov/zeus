@@ -20,13 +20,14 @@ TAdvCanvas::TAdvCanvas()
 {
 }
 
-TAdvCanvas::TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, unsigned *LogPads, Int_t width, Int_t height):
+TAdvCanvas::TAdvCanvas(Int_t NPads_X,Int_t NPads_Y,TString CanvName, TString colonVariables, unsigned *LogPads, Int_t width, Int_t height, Float_t top_margin):
 fNPads_X(NPads_X),
 fNPads_Y(NPads_Y),
 fCanvName(CanvName),
 fcolonVariables(colonVariables),
 fWidth(width),
-fHeight(height)
+fHeight(height),
+fTopMargin(top_margin)
 {
     SeparateVariables();
     unsigned npads = fNPads_X*fNPads_Y;
@@ -91,8 +92,7 @@ TCanvas* TAdvCanvas::CreateCanvas() {
     fCanvas->Divide(fNPads_X,fNPads_Y);
 
     // resize the pads to allow some space on top - for the ZEUS logo
-    Float_t top_margin = 0.1;
-    Float_t pad_size_y = (1-top_margin)/fNPads_Y;
+    Float_t pad_size_y = (1-fTopMargin)/fNPads_Y;
     for (int i=1; i<= fNPads_X*fNPads_Y; i++) {
         // get the row number
         div_t divresult;
@@ -109,8 +109,8 @@ TCanvas* TAdvCanvas::CreateCanvas() {
         pad -> GetPadPar(x1, y1, x2, y2);
 
         // modify y-coordinates
-        y1 = 1 - top_margin - row * pad_size_y;
-        y2 = 1 - top_margin - (row-1) * pad_size_y;
+        y1 = 1 - fTopMargin - row * pad_size_y;
+        y2 = 1 - fTopMargin - (row-1) * pad_size_y;
 
         // set them
         pad -> SetPad(x1, y1, x2, y2);
