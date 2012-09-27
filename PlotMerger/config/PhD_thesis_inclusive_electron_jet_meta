@@ -16,7 +16,7 @@ Xaxis 0.08 1.1 0.05 0.02
 Yaxis 0.08 1.35 0.07 0.012
 
 # legend settings
-legend 0.82 0.74 0.97 0.86
+# legend 0.8 0.82 0.93 0.94
 
 # ZEUS logo settings x, y, font size
 # ZEUSlogo 0.43 0.92 0.07
@@ -25,9 +25,9 @@ legend 0.82 0.74 0.97 0.86
 canvas 1000 800
 
 # additional text; NOTE: HERE TAB IS DELIMITER AND NOT SPACE - IN ORDER TO ALLOW SPACES IN TEXT!
-text	(g)	0.1	0.81	0.04
-text	(h)	0.43	0.81	0.04
-text	(i)	0.76	0.81	0.04
-text	(j)	0.25	0.35	0.04
-text	(k)	0.43	0.35	0.04
-text	(l)	0.76	0.35	0.04
+text	(g)	0.1	0.9	0.04
+text	(h)	0.43	0.9	0.04
+text	(i)	0.76	0.9	0.04
+text	(j)	0.25	0.4	0.04
+text	(k)	0.43	0.4	0.04
+text	(l)	0.76	0.4	0.04

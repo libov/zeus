@@ -25,9 +25,9 @@ Yaxis 0.08 1.35 0.07 0.012
 canvas 1000 800
 
 # additional text; NOTE: HERE TAB IS DELIMITER AND NOT SPACE - IN ORDER TO ALLOW SPACES IN TEXT!
-text	(g)	0.25	0.81	0.04
-text	(h)	0.58	0.81	0.04
-text	(i)	0.91	0.81	0.04
-text	(j)	0.25	0.35	0.04
-text	(k)	0.58	0.35	0.04
-text	(l)	0.91	0.35	0.04
+text	(g)	0.25	0.9	0.04
+text	(h)	0.58	0.9	0.04
+text	(i)	0.91	0.9	0.04
+text	(j)	0.25	0.4	0.04
+text	(k)	0.58	0.4	0.04
+text	(l)	0.91	0.4	0.04
