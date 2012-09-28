@@ -26,7 +26,8 @@ int main(int argc, char **argv) {
         {"file", required_argument, 0, 1},
         {"scaling_factors", no_argument, 0, 2},
         {"correct_cross_sections", no_argument, 0, 3},
-        {"cross_sections_XMLfile", required_argument, 0, 4}
+        {"cross_sections_XMLfile", required_argument, 0, 4},
+        {"only_inclusive", no_argument, 0, 5},
     };
 
     // results of the command line option processing will be stored here
@@ -34,6 +35,7 @@ int main(int argc, char **argv) {
     bool scaling_factors = false;
     bool correct_cross_sections = false;
     TString cross_sections_XMLfile;
+    bool only_inclusive = false;
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -53,6 +55,9 @@ int main(int argc, char **argv) {
             case 4:
                 cross_sections_XMLfile = optarg;
                 break;
+            case 5:
+                only_inclusive = true;
+                break;
             case 'h':
                 cout << "\nUsage:\n\n";
                 cout << "./systematics --file <config file> [Options] [-h]\n\n";
@@ -62,6 +67,7 @@ int main(int argc, char **argv) {
                 cout << "--scaling_factors - determine the systematics based on the scaling factor (default: based on the xsect)\n\n";
                 cout << "--correct_cross_sections - correct cross-sections by \"systematic uncertainty\"\n\n";
                 cout << "--cross_sections_XMLfile - XML filename to be corrected\n\n";
+                cout << "--only_inclusive - don't print the slope for every bin\n\n";
                 cout << "-h - Show this help\n\n";
                 exit(-1);
                 break;
@@ -196,6 +202,7 @@ int main(int argc, char **argv) {
     instance.SetBinningFile(binning);
     instance.SetYears(years);
     instance.SetOutputFileName(file);
+    instance.SetOnlyInclusive(only_inclusive);
 
     // initialize the object
     instance.Initialize();

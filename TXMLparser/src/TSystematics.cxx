@@ -27,7 +27,8 @@ fBinningFile("full.forCHARM"),
 fTrueYears(".true05e06e0607p"),
 fDrawOnlyErrors(false),
 fYaxisLowLimit(-1),
-fYaxisUpLimit(-1)
+fYaxisUpLimit(-1),
+fOnlyInclusive(true)
 {
     TString PLOTS_PATH = getenv("PLOTS_PATH");
     fOutputPath = PLOTS_PATH;
@@ -268,6 +269,8 @@ void TSystematics::DrawAll() {
         SetBin(bin);
         // determine the systematics and print the plot with the scan
         Draw();
+        // stop if requested to print only the inclusive bin
+        if (fOnlyInclusive) break;
     }
 
     // draw the systematic uncertainty as a function of a bin number
