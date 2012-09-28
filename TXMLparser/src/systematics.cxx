@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
     // try to get the second token which corresponds to down_variation
     pch = strtok (NULL ," ");
     if (pch != NULL) down_variation = atof(pch);
-    
+
     cout << "INFO: Up-variation of the scan variable:\t" << up_variation << endl;
     cout << "INFO: Down-variation of the scan variable:\t" << down_variation << endl;
 
@@ -189,7 +189,7 @@ int main(int argc, char **argv) {
     instance.SetDefault(scan_default_value);
     instance.SetUpVariation(up_variation);
     instance.SetDownVariation(down_variation);
-    
+
     instance.SetYaxisLowLimit(0);
     if (scaling_factors) {
         instance.SetDrawCrossSections(false);
@@ -214,6 +214,6 @@ int main(int argc, char **argv) {
     if (correct_cross_sections) {
         instance.CorrectCrossSections(cross_sections_XMLfile);
     }
- 
+
     return  0;
 }
