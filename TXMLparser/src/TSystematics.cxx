@@ -84,7 +84,7 @@ void TSystematics::Draw() {
     TCanvas def("","", 1200, 1000);
     def.cd();
     def.SetFillColor(0);
-    
+
     // move upper right corner of statistics box inside a pad
     gStyle->SetStatX(0.8);
     gStyle->SetStatY(0.9);
@@ -127,11 +127,11 @@ void TSystematics::Draw() {
     // fit the graph
     fCharmGraph -> Fit("pol1", "q", "", x[0], x[fNpoints-1]);
     fBeautyGraph -> Fit("pol1", "q", "", x[0], x[fNpoints-1]);
-    
+
     // get the function and paramter errors
     TF1 *pol1_charm = fCharmGraph->GetFunction("pol1");
     TF1 *pol1_beauty = fBeautyGraph->GetFunction("pol1");
-    
+
     Float_t     intercept_charm = pol1_charm -> GetParameter(0);
     Float_t     slope_charm = pol1_charm -> GetParameter(1);
     Float_t     slope_err_charm = pol1_charm -> GetParError(1);
@@ -185,7 +185,7 @@ void TSystematics::Draw() {
         fBeautyUpSyst_err[fBin] = systematic_error_beauty_down * TMath::Abs(slope_err_beauty/slope_beauty);
     }
     syst -> AddText(tmp);
-    
+
     syst -> Draw();
 
     // draw the vertical lines representing default value of the scan variable and variations
