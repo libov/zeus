@@ -74,7 +74,7 @@ class TSystematics {
         // now the variables that are necessary to access particular XML file other than version of the histogram
         TString     fCNVersion;                 //!< version of CN
         TString     fYears;                     //!< shows which run periods were used during merging step
-        
+
         bool        fIsCharm;                   //!<
         bool        fPlotxSect;                 //!<
 
