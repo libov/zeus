@@ -28,21 +28,25 @@ fTrueYears(".true05e06e0607p"),
 fDrawOnlyErrors(false),
 fYaxisLowLimit(-1),
 fYaxisUpLimit(-1),
-fOnlyInclusive(true)
+fOnlyInclusive(true),
+fBothFlavours(false)
 {
     TString PLOTS_PATH = getenv("PLOTS_PATH");
     fOutputPath = PLOTS_PATH;
     fCNVersion = getenv("CN_VERSION");
 
-    // guess which flavour
-    if ( fBinningFile.Contains("full.forCHARM") && !fBinningFile.Contains("ET5") ) {
-        fFlavour = kCharm;
-    } else {
-        fFlavour = kBeauty;
-    }
 }
 
 void TSystematics::Initialize () {
+
+    // guess which flavour
+    if ( fBinningFile.Contains("full.forCHARM") && !fBinningFile.Contains("ET5") ) {
+        fFlavour = kCharm;
+        cout << "c" << endl;
+    } else {
+        fFlavour = kBeauty;
+        cout << "b" << endl;
+    }
 
     // by default, set error array to zero
     for (unsigned i=0; i<fNpoints; i++) {
@@ -80,6 +84,9 @@ void TSystematics::Draw() {
         }
     }
 
+    Float_t     intercept_charm, slope_charm, slope_err_charm;
+    Float_t     intercept_beauty, slope_beauty, slope_err_beauty;
+
     // create a canvas
     TCanvas def("","", 1200, 1000);
     def.cd();
@@ -93,50 +100,61 @@ void TSystematics::Draw() {
     // don't show histogram title
     gStyle->SetOptTitle(0);
 
-    // create graphs
-    fCharmGraph = new TGraphErrors(fNpoints, x, k_c, x_err, k_c_err);
-    fBeautyGraph = new TGraphErrors(fNpoints, x, k_b, x_err, k_b_err);
+    // axes for cosmetic settings
+    TAxis   *x_axis, *y_axis;
 
-    // cosmetics
-    fCharmGraph -> SetMarkerStyle(22);
-    fCharmGraph -> SetMarkerColor(kGreen);
-    fCharmGraph -> SetMarkerSize(1.5);
+    if (fFlavour == kCharm || fBothFlavours) {
 
-    fBeautyGraph -> SetMarkerStyle(22);
-    fBeautyGraph -> SetMarkerColor(kBlue);
-    fBeautyGraph -> SetMarkerSize(1.5);
-
-    // axes titles and ranges
-    TAxis   *ax_charm_y = fCharmGraph -> GetYaxis();
-    // change axis range  only if requested
-    if (fYaxisUpLimit!=-1) ax_charm_y -> SetRangeUser(fYaxisLowLimit, fYaxisUpLimit);
-    if (fPlotxSect) ax_charm_y -> SetTitle ("Cross Section");
-    else ax_charm_y -> SetTitle ("Scaling factor");
-    TAxis   *ax_charm_x = fCharmGraph -> GetXaxis();
-    ax_charm_x -> SetTitle(fXAxisTitle);
-
-    // Draw the graph
-    if (fFlavour == kCharm) {
+        // create a graph
+        fCharmGraph = new TGraphErrors(fNpoints, x, k_c, x_err, k_c_err);
+        // cosmetics
+        fCharmGraph -> SetMarkerStyle(22);
+        fCharmGraph -> SetMarkerColor(kGreen);
+        fCharmGraph -> SetMarkerSize(1.5);
+        // Draw the graph
         fCharmGraph -> Draw("ap");
-    } else {
+        // fit the graph
+        fCharmGraph -> Fit("pol1", "q", "", x[0], x[fNpoints-1]);
+        // get the function and paramter errors
+        TF1 *pol1_charm = fCharmGraph->GetFunction("pol1");
+        intercept_charm = pol1_charm -> GetParameter(0);
+        slope_charm = pol1_charm -> GetParameter(1);
+        slope_err_charm = pol1_charm -> GetParError(1);
+        // get axes
+        x_axis = fCharmGraph -> GetXaxis();
+        y_axis = fCharmGraph -> GetYaxis();
+
+    } else if (fFlavour == kBeauty || fBothFlavours) {
+
+        // create a graph
+        fBeautyGraph = new TGraphErrors(fNpoints, x, k_b, x_err, k_b_err);
+        // cosmetics
+        fBeautyGraph -> SetMarkerStyle(22);
+        fBeautyGraph -> SetMarkerColor(kBlue);
+        fBeautyGraph -> SetMarkerSize(1.5);
+        // Draw the graph
         fBeautyGraph -> Draw("ap");
+        // fit the graph
+        fBeautyGraph -> Fit("pol1", "q", "", x[0], x[fNpoints-1]);
+        // get the function and paramter errors
+        TF1 *pol1_beauty = fBeautyGraph->GetFunction("pol1");
+        intercept_beauty = pol1_beauty -> GetParameter(0);
+        slope_beauty = pol1_beauty -> GetParameter(1);
+        slope_err_beauty = pol1_beauty -> GetParError(1);
+        // get axes
+        x_axis = fBeautyGraph -> GetXaxis();
+        y_axis = fBeautyGraph -> GetYaxis();
     }
 
-    // fit the graph
-    fCharmGraph -> Fit("pol1", "q", "", x[0], x[fNpoints-1]);
-    fBeautyGraph -> Fit("pol1", "q", "", x[0], x[fNpoints-1]);
-
-    // get the function and paramter errors
-    TF1 *pol1_charm = fCharmGraph->GetFunction("pol1");
-    TF1 *pol1_beauty = fBeautyGraph->GetFunction("pol1");
-
-    Float_t     intercept_charm = pol1_charm -> GetParameter(0);
-    Float_t     slope_charm = pol1_charm -> GetParameter(1);
-    Float_t     slope_err_charm = pol1_charm -> GetParError(1);
-
-    Float_t     intercept_beauty = pol1_beauty -> GetParameter(0);
-    Float_t     slope_beauty = pol1_beauty -> GetParameter(1);
-    Float_t     slope_err_beauty = pol1_beauty -> GetParError(1);
+    // axes titles and ranges
+    // change axis range  only if requested
+    if (fYaxisUpLimit!=-1) y_axis -> SetRangeUser(fYaxisLowLimit, fYaxisUpLimit);
+    if (fPlotxSect) {
+        y_axis -> SetTitle ("Cross Section");
+    } else {
+        y_axis -> SetTitle ("Scaling factor");
+    }
+    x_axis -> SetTitle(fXAxisTitle);
 
     Float_t     central_value_charm = intercept_charm + slope_charm * fDefault;
     Float_t     central_value_beauty = intercept_beauty + slope_beauty * fDefault;
@@ -152,7 +170,7 @@ void TSystematics::Draw() {
 
     // depending on the sign of the slope, up-variation of the scan variable can enter +systematics or -systematics;
     // similarly for down-variation
-    if (fFlavour == kCharm) {
+    if (fFlavour == kCharm || fBothFlavours) {
         char tmp[256];
         if (slope_charm>0) {
             sprintf (tmp, "Systematic uncertainty: ^{+%.3f}_{-%.3f}", systematic_error_charm_up, systematic_error_charm_down);
@@ -191,6 +209,7 @@ void TSystematics::Draw() {
         abort();
     }
 
+    // draw the systematics bos
     syst -> Draw();
 
     // draw the vertical lines representing default value of the scan variable and variations
