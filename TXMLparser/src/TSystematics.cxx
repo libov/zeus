@@ -90,9 +90,6 @@ void TSystematics::Draw() {
     def.cd();
     def.SetFillColor(0);
 
-    // move upper right corner of statistics box inside a pad
-    gStyle->SetStatX(0.8);
-    gStyle->SetStatY(0.9);
     // show fit results
     gStyle->SetOptFit(1);
     // don't show histogram title
@@ -107,8 +104,7 @@ void TSystematics::Draw() {
         fCharmGraph = new TGraphErrors(fNpoints, x, k_c, x_err, k_c_err);
         // cosmetics
         fCharmGraph -> SetMarkerStyle(22);
-        fCharmGraph -> SetMarkerColor(kGreen);
-        fCharmGraph -> SetMarkerSize(1.5);
+        fCharmGraph -> SetMarkerSize(1.9);
         // Draw the graph
         fCharmGraph -> Draw("ap");
         // fit the graph
@@ -121,15 +117,17 @@ void TSystematics::Draw() {
         // get axes
         x_axis = fCharmGraph -> GetXaxis();
         y_axis = fCharmGraph -> GetYaxis();
-
+        y_axis -> SetTitle ("Charm Cross Section, pb");
+        if (!fPlotxSect) {
+            y_axis -> SetTitle ("Charm Scaling factor");
+        }
     } else if (fFlavour == kBeauty || fBothFlavours) {
 
         // create a graph
         fBeautyGraph = new TGraphErrors(fNpoints, x, k_b, x_err, k_b_err);
         // cosmetics
         fBeautyGraph -> SetMarkerStyle(22);
-        fBeautyGraph -> SetMarkerColor(kBlue);
-        fBeautyGraph -> SetMarkerSize(1.5);
+        fBeautyGraph -> SetMarkerSize(1.9);
         // Draw the graph
         fBeautyGraph -> Draw("ap");
         // fit the graph
@@ -142,17 +140,19 @@ void TSystematics::Draw() {
         // get axes
         x_axis = fBeautyGraph -> GetXaxis();
         y_axis = fBeautyGraph -> GetYaxis();
+        y_axis -> SetTitle ("Beauty Cross Section, pb");
+        if (!fPlotxSect) {
+            y_axis -> SetTitle ("Beauty Scaling factor");
+        }
     }
 
     // axes titles and ranges
     // change axis range  only if requested
     if (fYaxisUpLimit!=-1) y_axis -> SetRangeUser(fYaxisLowLimit, fYaxisUpLimit);
-    if (fPlotxSect) {
-        y_axis -> SetTitle ("Cross Section");
-    } else {
-        y_axis -> SetTitle ("Scaling factor");
-    }
     x_axis -> SetTitle(fXAxisTitle);
+    y_axis -> SetTitleOffset (1.5);
+    x_axis -> SetTitleSize (0.05);
+    y_axis -> SetTitleSize (0.05);
 
     Float_t     central_value_charm = intercept_charm + slope_charm * fDefault;
     Float_t     central_value_beauty = intercept_beauty + slope_beauty * fDefault;
@@ -162,7 +162,7 @@ void TSystematics::Draw() {
     Float_t     systematic_error_beauty_up = TMath::Abs(fUpVariation * slope_beauty / central_value_beauty);
     Float_t     systematic_error_beauty_down = TMath::Abs(fDownVariation * slope_beauty / central_value_beauty);
 
-    TPaveText   *  syst = new TPaveText(0.44, 0.55, 0.8, 0.73 ,"NDC");
+    TPaveText   *  syst = new TPaveText(0.61, 0.7, 0.965, 0.8 ,"NDC");
     syst -> SetShadowColor(0);
     syst -> SetTextAlign(12);
 
@@ -207,25 +207,37 @@ void TSystematics::Draw() {
         abort();
     }
 
-    // draw the systematics bos
-    syst -> Draw();
-
     // draw the vertical lines representing default value of the scan variable and variations
     TLine   * line_central = new TLine (fDefault, fYaxisLowLimit, fDefault, fYaxisUpLimit);
     line_central->SetLineStyle(2);
     line_central->SetLineWidth(2);
 
     TLine   * line_u = new TLine (fDefault+fUpVariation, fYaxisLowLimit, fDefault+fUpVariation, fYaxisUpLimit);
-    line_u->SetLineStyle(3);
+    line_u->SetLineStyle(5);
     line_u->SetLineWidth(1);
 
     TLine   * line_d = new TLine (fDefault-fDownVariation, fYaxisLowLimit, fDefault-fDownVariation, fYaxisUpLimit);
-    line_d->SetLineStyle(3);
+    line_d->SetLineStyle(5);
     line_d->SetLineWidth(1);
 
     line_central -> Draw();
     line_u -> Draw();
     line_d -> Draw();
+
+    // draw the systematics box
+    syst -> Draw();
+
+    gPad->SetRightMargin(0.03);
+    gPad->SetTopMargin(0.03);
+    gPad->SetLeftMargin(0.15);
+
+    // move upper right corner of statistics box inside a pad
+    Float_t right_margin = gPad->GetRightMargin();
+    Float_t top_margin = gPad->GetTopMargin();
+    gStyle -> SetStatX( 1 - right_margin );
+    gStyle -> SetStatY( 1 - top_margin );
+
+    fCharmGraph -> Draw("same");
 
     TString filename = fOutputPath+"/"+fOutputFileName+"_bin";
     filename += fBin;
