@@ -358,8 +358,7 @@ void TSystematics::DrawVector(map<unsigned, Float_t> syst_map, map<unsigned, Flo
     gr -> Draw("p");
 
     // print the result into a file
-    def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.png");
-    def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.root");
+    def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.eps");
 }
 
 // print systematics for all differential bins
