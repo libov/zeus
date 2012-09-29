@@ -16,6 +16,10 @@ using namespace std;
 // custom headers
 #include <TSystematics.h>
 
+// ROOT headers
+#include <TObjArray.h>
+#include <TObjString.h>
+
 // main function
 int main(int argc, char **argv) {
 
@@ -174,7 +178,20 @@ int main(int argc, char **argv) {
     // get the years
     getline(f, line);
     TString years = line;
-    cout << "INFO: periods:\t\t\t\t\t" << years << endl << endl;
+    cout << "INFO: periods:\t\t\t\t\t" << years << endl;
+
+    // get y-axis range
+    getline(f, line);
+    TString line_str = line;
+    TObjArray * tokens = line_str.Tokenize(" ");
+    Float_t low_y, up_y;
+    bool    y_axis_range_set = false;
+    if (!tokens -> IsEmpty()) {
+        low_y = (((TObjString*) tokens->At(0)) -> GetString()).Atof();
+        up_y = (((TObjString*) tokens->At(1)) -> GetString()).Atof();
+        y_axis_range_set = true;
+        cout << "INFO: y-axis range:\t\t\t\t" << low_y << ", " << up_y << endl << endl;
+    }
 
     // create an instance of TSystematics object
     TSystematics instance;
@@ -196,6 +213,10 @@ int main(int argc, char **argv) {
         instance.SetYaxisUpLimit(2);
     } else {
         instance.SetDrawCrossSections(true);
+    }
+    if (y_axis_range_set) {
+        instance.SetYaxisLowLimit(low_y);
+        instance.SetYaxisUpLimit(up_y);
     }
 
     instance.SetXAxisTitle(x_axis_title);
