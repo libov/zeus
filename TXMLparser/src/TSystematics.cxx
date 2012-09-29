@@ -231,9 +231,7 @@ void TSystematics::Draw() {
 
     TString filename = fOutputPath+"/"+fOutputFileName+"_bin";
     filename += fBin;
-    def.Print(filename+".png");
     def.Print(filename+".eps");
-    def.Print(filename+".root");
 }
 
 void    TSystematics::GetResult(unsigned point, Float_t & result, Float_t & result_err) {
