@@ -118,10 +118,8 @@ void TSystematics::Draw() {
     // Draw the graph
     if (fFlavour == kCharm) {
         fCharmGraph -> Draw("ap");
-        fBeautyGraph -> Draw("psame");
     } else {
         fBeautyGraph -> Draw("ap");
-        fCharmGraph -> Draw("psame");
     }
 
     // fit the graph
