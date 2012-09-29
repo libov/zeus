@@ -42,10 +42,8 @@ void TSystematics::Initialize () {
     // guess which flavour
     if ( fBinningFile.Contains("full.forCHARM") && !fBinningFile.Contains("ET5") ) {
         fFlavour = kCharm;
-        cout << "c" << endl;
     } else {
         fFlavour = kBeauty;
-        cout << "b" << endl;
     }
 
     // by default, set error array to zero
