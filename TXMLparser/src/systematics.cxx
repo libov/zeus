@@ -190,9 +190,9 @@ int main(int argc, char **argv) {
     instance.SetUpVariation(up_variation);
     instance.SetDownVariation(down_variation);
 
-    instance.SetYaxisLowLimit(0);
     if (scaling_factors) {
         instance.SetDrawCrossSections(false);
+        instance.SetYaxisLowLimit(0);
         instance.SetYaxisUpLimit(2);
     } else {
         instance.SetDrawCrossSections(true);
