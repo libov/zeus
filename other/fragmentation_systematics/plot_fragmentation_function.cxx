@@ -93,16 +93,17 @@ int plot_fragmentation_function () {
 
     // draw functions
     TF1 * bowler = plot_bowler();
-    TF1 * peterson_1 = plot_peterson(0.072, 2, 9);
+    TF1 * peterson_1 = plot_peterson(0.052, 2, 10);
     TF1 * peterson_2 = plot_peterson(0.062, 3, 3);
-    TF1 * peterson_3 = plot_peterson(0.052, 4, 10);
+    TF1 * peterson_3 = plot_peterson(0.072, 4, 9);
 
     // create a legend
     TLegend * legend = new TLegend (0.2, 0.6, 0.6, 0.95);
     legend -> AddEntry(bowler, "Bowler", "l");
-    legend -> AddEntry(peterson_1, "Peterson, #epsilon = 0.072", "l");
+    legend -> AddEntry(peterson_1, "Peterson, #epsilon = 0.052", "l");
     legend -> AddEntry(peterson_2, "Peterson, #epsilon = 0.062", "l");
-    legend -> AddEntry(peterson_3, "Peterson, #epsilon = 0.052", "l");
+    legend -> AddEntry(peterson_3, "Peterson, #epsilon = 0.072", "l");
+
     legend -> SetFillColor(0);
     legend -> Draw("same");
 
