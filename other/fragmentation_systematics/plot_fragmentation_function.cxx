@@ -21,7 +21,7 @@ Double_t bowler(Double_t *x, Double_t *par) {
 
     // calculate function value
     Double_t    z = x[0];
-    Double_t    f = norm*(1./(TMath::Power(z, 1+rQ*b*mQ*mQ))) * TMath::Power(1-z, a) * TMath::Exp((-1)*b*mT*mT/z);
+    Double_t    f = norm*(1./(TMath::Power(z, 1.+rQ*b*mQ*mQ))) * TMath::Power(1.-z, a) * TMath::Exp((-1.)*b*mT*mT/z);
 
     return f;
 }
