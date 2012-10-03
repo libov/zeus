@@ -1703,22 +1703,36 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
             abort();
         }
 
+        charm_hadrons_found++;
+
         // get 4-momentum of the charm/beauty hadron
         TLorentzVector hadron(Fmck_px[k], Fmck_py[k], Fmck_pz[k], Fmck_e[k]);
 
         // loop over the table again to find index of the mother particle of our charm hadron
         Int_t       string_ind = -1;
+        bool        parent_found = false;
         for (int ii = 0; ii < Fmck_nstor; ii++) {
             if (Fmck_daug[k] == Fmck_id[ii]) {
+                if (parent_found) {
+                    cout << "ERROR: more than 1 parent found!" << endl;
+                    abort();
+                }
+                parent_found = true;
                 string_ind = ii;
-                break;
             }
+        }
+        if (!parent_found) {
+            cout << "WARNING: parent of hadron could not be established, skipping this hadron" << endl;
+            hadrons_skipped_no_parent++;
+            continue;
         }
 
         // we are interested only in hadrons created directly in string fragmentation (not in the decays 
         // of other hadrons);
         // string code is 2092
+        currentTGlobalBin -> FillHistogram("parents", Fmck_prt[string_ind]);
         if (Fmck_prt[string_ind] != 2092) continue;
+        string_charm_hadrons_found++;
 
         // get 4-momentum of the string
         TLorentzVector  string(Fmck_px[string_ind], Fmck_py[string_ind], Fmck_pz[string_ind], Fmck_e[string_ind]);
@@ -1737,9 +1751,10 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
         if ( (fIsCharm&&(quark_id != 7)&&(quark_id != 8)) || (fIsBeauty&&(quark_id != 9)&&(quark_id != 10)) ) {
             cout << "WARNING: parent of the string is not c/cbar or b/bar! Skipping this event" << endl;
             cout << quark_id << endl;
+            hadrons_skipped_no_hfl_quark++;
             continue;
         }
-
+        quark_charm_hadrons_found++;
         TLorentzVector  quark(Fmck_px[quark_ind], Fmck_py[quark_ind], Fmck_pz[quark_ind], Fmck_e[quark_ind]);
 
         // charm hadron variables
@@ -1768,6 +1783,7 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
         currentTGlobalBin->FillHistogram( "R_hadron_jet", Rmin);
         // closest jet should be close enough
         if (Rmin>1) continue;
+        jet_hadrons_found++;
 
         // ok, found a jet which contains our charm hadron
         TLorentzVector jet(Pxhbmjet[jet_ind], Pyhbmjet[jet_ind], Pzhbmjet[jet_ind], Ehbmjet[jet_ind]);
@@ -1804,6 +1820,13 @@ void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
         Double_t    weight = fFragmentationReweighting_histo -> GetBinContent(bin_rew_histo);
         fZstring_weight *= weight;
     }
+    // some debug histos
+    currentTGlobalBin -> FillHistogram("charm_hadrons_found", charm_hadrons_found);
+    currentTGlobalBin -> FillHistogram("string_charm_hadrons_found", string_charm_hadrons_found);
+    currentTGlobalBin -> FillHistogram("quark_charm_hadrons_found", quark_charm_hadrons_found);
+    currentTGlobalBin -> FillHistogram("jet_hadrons_found", jet_hadrons_found);
+    currentTGlobalBin -> FillHistogram("hadrons_skipped_no_parent", hadrons_skipped_no_parent);
+    currentTGlobalBin -> FillHistogram("hadrons_skipped_no_hfl_quark", hadrons_skipped_no_hfl_quark);
 }
 
 Float_t TMiniNtupleAnalyzer::getAverageAngle(Int_t  vertex_id) {
