@@ -1680,6 +1680,12 @@ void TMiniNtupleAnalyzer::get_gammaP_boost(bool q_reco, bool use_rho=true) {
 
 void TMiniNtupleAnalyzer::get_Zstring_weight(TGlobalBin * currentTGlobalBin) {
 
+    unsigned charm_hadrons_found = 0;
+    unsigned string_charm_hadrons_found = 0;
+    unsigned quark_charm_hadrons_found = 0;
+    unsigned jet_hadrons_found = 0;
+    unsigned hadrons_skipped_no_parent = 0;
+    unsigned hadrons_skipped_no_hfl_quark = 0;
     // look for charm/beauty hadrons,
     // loop over all true particles
     for (int k = 0; k < Fmck_nstor; k++) {
