@@ -19,6 +19,7 @@ using namespace std;
 #include <TPad.h>
 #include <TF1.h>
 #include <TStyle.h>
+#include <TMath.h>
 
 // my headers
 #include <TCrossSection.h>
