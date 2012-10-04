@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
 
     // cosmetics
     TH1F * histo = g -> GetHistogram();
-    histo -> SetAxisRange(0.9, 2.2, "Y");
+    histo -> SetAxisRange(0.8, 2.45, "Y");
     if (eta_reweighting) histo -> SetXTitle("#eta(jet)");
     if (et_reweighting) histo -> SetXTitle("E_{T}(jet) (GeV)");
     histo -> SetYTitle("scaling factor = #sigma(data) / #sigma(MC)");
