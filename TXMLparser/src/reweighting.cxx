@@ -89,9 +89,21 @@ int main(int argc, char **argv) {
     Float_t     y_err[MAXBINS];
     Float_t     x_err[MAXBINS];
 
+    // read scaling factors
     unsigned nbins = 0;
+    unsigned first_bin, last_bin;
+    if (eta_reweighting) {
+        first_bin = 2;
+        last_bin = 13;
+    } else if (et_reweighting) {
+        first_bin = 14;
+        last_bin = 21;
+    } else {
+        cout << "ERROR: no reweighting specified" << endl;
+        abort();
+    }
 
-    for (unsigned i=2; i<13; i++) {
+    for (unsigned i = first_bin; i < last_bin; i++) {
         TCrossSectionBin cBin = cCrossSection.getCrossSectionBin(i);
         y[nbins] = cBin.get_k_c();
         y_err[nbins] = cBin.get_k_c_err();
