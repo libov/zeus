@@ -141,18 +141,47 @@ int main(int argc, char **argv) {
     histo -> SetLabelSize(0.05, "Y");
 
     // perform a fit
-    g -> Fit(fit_function);
+    TF1 * func;
+    if ( ( fit_function != "" ) && ( fit_function != "sqrt" ) ) {
+        g -> Fit(fit_function);
+    } else if ( fit_function == "sqrt" ) {
+        func = new TF1 ("func", "[0]+[1]*sqrt(x)", 0, 35);
+        g -> Fit("func");
+    }
 
     // create functions to show extreme systematic variations
-    TF1 * fcn_up = new TF1 ("fcn_up", "pol2(0)", -1.6, 2.2);
-    fcn_up -> SetParameters(1.16371, 0.135495, 0.15);
-    fcn_up -> SetLineColor(kRed);
-    fcn_up -> SetLineStyle(7);
+    TF1 *fcn_up, *fcn_down;
+    if (eta_reweighting) {
+        fcn_up = new TF1 ("fcn_up", "pol2(0)", -1.6, 2.2);
+        fcn_up -> SetParameters(1.16371, 0.135495, 0.15);
+        fcn_up -> SetLineColor(kRed);
+        fcn_up -> SetLineStyle(7);
 
-    TF1 * fcn_down = new TF1 ("fcn_down", "pol2(0)", -1.6, 2.2);
-    fcn_down -> SetParameters(1.16371, 0.135495, 0.05);
-    fcn_down -> SetLineColor(kRed);
-    fcn_down -> SetLineStyle(10);
+        fcn_down = new TF1 ("fcn_down", "pol2(0)", -1.6, 2.2);
+        fcn_down -> SetParameters(1.16371, 0.135495, 0.05);
+        fcn_down -> SetLineColor(kRed);
+        fcn_down -> SetLineStyle(10);
+    } else if (et_reweighting) {
+
+        // choose 8 GeV as a point of intersection of all the curves
+        Float_t ET_REF = 8;
+        Float_t K_CONST = 7.53431e-01 + 1.89124e-01 * TMath::Sqrt(ET_REF);
+        Float_t p0, p1;
+
+        fcn_up = new TF1 ("fcn_up", "[0]+[1]*sqrt(x)", 0, 35);
+        p1 = 1.89124e-01 + 0.119124;
+        p0 = K_CONST - p1 * TMath::Sqrt(ET_REF);
+        fcn_up -> SetParameters(p0, p1);
+        fcn_up -> SetLineColor(kRed);
+        fcn_up -> SetLineStyle(7);
+
+        fcn_down = new TF1 ("fcn_down", "[0]+[1]*sqrt(x)", 0, 35);
+        p1 = 1.89124e-01 - 0.090876;
+        p0 = K_CONST - p1 * TMath::Sqrt(ET_REF);
+        fcn_down -> SetParameters(p0, p1);
+        fcn_down -> SetLineColor(kRed);
+        fcn_down -> SetLineStyle(10);
+    }
 
     // draw
     if (!no_variations) {
