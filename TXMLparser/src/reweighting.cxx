@@ -149,7 +149,11 @@ int main(int argc, char **argv) {
 
     // print
     TString PLOTS_PATH = getenv("PLOTS_PATH");
-    c.Print(PLOTS_PATH + "/" + "eta_reweighting_" + version + ".eps");
+    if (eta_reweighting) {
+        c.Print(PLOTS_PATH + "/" + "eta_reweighting_" + version + ".eps");
+    } else if (et_reweighting) {
+        c.Print(PLOTS_PATH + "/" + "et_reweighting_" + version + ".eps");
+    }
 
     return 0;
 }
