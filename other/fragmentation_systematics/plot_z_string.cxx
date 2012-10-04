@@ -103,7 +103,7 @@ int plot_z_string() {
 
     gPad -> SetLeftMargin(0.15);
     h_z_peterson_0052 -> SetAxisRange(0, 0.99, "X");
-    h_z_peterson_0052 -> SetXTitle("z_{string}");
+    h_z_peterson_0052 -> SetXTitle("z_{hadr}");
     h_z_peterson_0052 -> SetYTitle("Entries");
     h_z_peterson_0052 -> SetTitleSize(0.05, "X");
     h_z_peterson_0052 -> SetTitleSize(0.05, "Y");
