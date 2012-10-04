@@ -32,12 +32,16 @@ int main(int argc, char **argv) {
     static struct option long_options[] = {
         {"no_variations", no_argument, 0, 1},
         {"fit_function", required_argument, 0, 2},
+        {"eta_reweighting", no_argument, 0, 3},
+        {"et_reweighting", no_argument, 0, 4},
     };
 
     // results of the command line option processing will be stored here
     TString version = "";
     bool no_variations = false;
     TString fit_function = "";
+    bool eta_reweighting = false;
+    bool et_reweighting = false;
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -51,6 +55,12 @@ int main(int argc, char **argv) {
             case 2:
                 fit_function = optarg;
                 break;
+            case 3:
+                eta_reweighting = true;
+                break;
+            case 4:
+                et_reweighting = true;
+                break;
             case 'v':
                 version = optarg;
                 break;
@@ -59,6 +69,8 @@ int main(int argc, char **argv) {
                 cout << "\treweighting -v <histogram version> [-h]\n\n";
                 cout << "\t--no_variations\tDon't draw systematic variations\n";
                 cout << "\t--fit_function\tSelect a fit function\n";
+                cout << "\t--eta_reweighting\tFor eta reweighting\n";
+                cout << "\t--et_reweighting\tFor et reweighting\n";
                 cout << "\t-h\tPrint this help and exit\n\n";
                 exit(-1);
                 break;
