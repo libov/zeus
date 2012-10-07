@@ -130,6 +130,8 @@ void    TResultPlotter::AddXMLFile(TString file_name){
         // get a vector of bin IDs and loop over them to build a BinGroup structure
         vector <unsigned> binIDList = (*iter).second;
         unsigned nbins = binIDList.size();
+        // skip last bin in the 3rd Q2 bin for the beauty
+        if ( cBinGroup.ID == "q2da_xda_bin3" && !isCharm) nbins--;
         for (int i=0; i<nbins; i++) {
 
             unsigned id = binIDList[i];
