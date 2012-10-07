@@ -40,6 +40,7 @@ class TResultPlotter {
                 void    SetConfigFile(TString file) {fConfig = file;}
                 void    SetFileStyleSettings(TString, bool, int, int, int, bool, int, int, int, bool, int);
                 void    SetOnlyPNG(bool only_png) {fOnlyPNG = only_png;}
+                void    SetNoZEUSLogo(bool no_logo) {fNoZEUSLogo = no_logo;}
 
         private:
 
@@ -89,6 +90,9 @@ class TResultPlotter {
 
                 // file extension option
                 bool    fOnlyPNG;
+
+                // draw ZEUS-logo or not
+                bool    fNoZEUSLogo;
 };
 
 #endif

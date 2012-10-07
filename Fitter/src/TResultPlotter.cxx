@@ -37,7 +37,8 @@ fNpads_x(1),
 fNpads_y(1),
 isCharm(true),
 fConfig(""),
-fOnlyPNG(false)
+fOnlyPNG(false),
+fNoZEUSLogo(false)
 {
 }
 
@@ -297,7 +298,7 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 pt -> AddText("ZEUS");
                 pt -> SetFillColor(0);
                 pt -> SetBorderSize(0);
-                pt -> Draw();
+                if (!fNoZEUSLogo) pt -> Draw();
 
                 if (!fPlotScalingFactors) fLegend -> Draw();
 
