@@ -19,6 +19,7 @@
 #include <TStyle.h>
 #include <TPaveText.h>
 #include <TLegend.h>
+#include <TLatex.h>
 
 // my includes
 #include <TResultPlotter.h>
@@ -298,6 +299,18 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 pt -> Draw();
 
                 if (!fPlotScalingFactors) fLegend -> Draw();
+
+                // draw label which specifies the measured process
+                TLatex *l = new TLatex ();
+                l -> SetNDC(true);
+                l -> SetTextSize(0.04);
+                TString text;
+                if (isCharm) {
+                    text = "ep#rightarrow e'cc'X#rightarrowe'jetX'";
+                } else {
+                    text = "ep#rightarrow e'bb'X#rightarrowe'jetX'";
+                }
+                l -> DrawLatex(0.5, 0.66, text);
             }
 
             // predictions and data are treated separately;
