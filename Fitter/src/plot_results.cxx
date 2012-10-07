@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
                 break;
             case 'h':
                 cout << "\nUsage:\n\n";
-                cout << "\tplot_results --file1 <xmlfile1> [--file2 <xmlfile2>] [--file3 <xmlfile3>] [-b] [--scaling_factors] [-h]\n\n";
+                cout << "\tplot_results --file1 <xmlfile1> [--file2 <xmlfile2>] [--file3 <xmlfile3>] [Options] [-h]\n\n";
                 cout << "\t This application is designed to visualize cross-sections that are stored in XML files.\n";
                 cout << "\t If two files are given (i.e. both options --file1 and --file2 are specified), a ratio plot will be shown below the main graph.\n";
                 cout << "\t The functionality of the underlying class TResultPlotter allows any canvas layout and any number of XML files, but that is not implemented in this application.\n";
