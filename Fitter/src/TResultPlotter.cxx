@@ -45,6 +45,9 @@ void TResultPlotter::Initialize() {
     gStyle->SetPadTickY(1);
     gStyle->SetPadTickX(1);
 
+    // set size of the tick marks at the end of error bars
+    gStyle -> SetEndErrorSize(5);
+
     // read settings from the config file
     if (fConfig=="") {
         cout << "ERROR: config file not set!" << endl;
@@ -338,6 +341,7 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                 cBinGroup.graph_tot -> SetMarkerColor(fStyleMap[file_name].marker_color);
                 cBinGroup.graph_tot -> SetMarkerStyle(fStyleMap[file_name].marker_style);
                 cBinGroup.graph_tot -> SetMarkerSize(fStyleMap[file_name].marker_size);
+                cBinGroup.graph_tot -> SetLineWidth(fStyleMap[file_name].line_width);
                 if (first_plot) {
                     fLegend -> AddEntry(cBinGroup.graph_tot, "ZEUS 354 pb^{-1}", "p");
                     first_plot = false;

@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
     //     int     band_color;
     // };
     // assumed to be always data
-    cResultPlotter.SetFileStyleSettings(binningXMLfileName1, true, 1, 20, 1, false, 0, 0, 0, false, 0);
+    cResultPlotter.SetFileStyleSettings(binningXMLfileName1, true, 1, 20, 1, false, 0, 0, 2, false, 0);
     // can be data or theory
     if (binningXMLfileName2.Contains("predictions")) {
         cResultPlotter.SetFileStyleSettings(binningXMLfileName2, false, 0, 0, 0, true, 1, 1, 2, true, 7);
