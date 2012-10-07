@@ -28,6 +28,7 @@ int main(int argc, char **argv) {
         {"file2", required_argument, 0, 2},
         {"file3", required_argument, 0, 3},
         {"scaling_factors", no_argument, 0, 4},
+        {"only_png", no_argument, 0, 5},
     };
 
     // results of the command line option processing will be stored here
@@ -39,6 +40,7 @@ int main(int argc, char **argv) {
     bool    third_file_given = false;
     bool    plot_beauty = false;    // default: plot charm
     bool    scaling_factors = false;
+    bool    only_png = false;
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -61,6 +63,9 @@ int main(int argc, char **argv) {
             case 4:
                 scaling_factors = true;
                 break;
+            case 5:
+                only_png = true;
+                break;
             case 'b':
                 plot_beauty = true;
                 break;
@@ -82,6 +87,7 @@ int main(int argc, char **argv) {
                 cout << "\n\tOptions:\n";
                 cout << "\t-b\tPlot beauty results; otherwise - charm\n";
                 cout << "\t--scaling_factors\tPlot scaling factors, not cross-sections\n";
+                cout << "\t--only_png\tPrint PNG files; otherwise - EPS\n";
                 cout << "\t-h\tPrint this help and exit\n\n";
                 exit(-1);
                 break;
@@ -151,6 +157,9 @@ int main(int argc, char **argv) {
     }
     // assumed to be always theory
     cResultPlotter.SetFileStyleSettings(binningXMLfileName3, false, 0, 0, 0, true, 2, 2, 2, false, 0);
+
+    // file extension
+    cResultPlotter.SetOnlyPNG(only_png);
 
     // initialize
     cResultPlotter.Initialize();

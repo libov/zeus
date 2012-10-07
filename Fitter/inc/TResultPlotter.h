@@ -39,6 +39,7 @@ class TResultPlotter {
                 void    SetPlotScalingFactors(bool  plot_scaling) {fPlotScalingFactors = plot_scaling;};
                 void    SetConfigFile(TString file) {fConfig = file;}
                 void    SetFileStyleSettings(TString, bool, int, int, int, bool, int, int, int, bool, int);
+                void    SetOnlyPNG(bool only_png) {fOnlyPNG = only_png;}
 
         private:
 
@@ -85,6 +86,9 @@ class TResultPlotter {
 
                 // the legend
                 TLegend * fLegend;
+
+                // file extension option
+                bool    fOnlyPNG;
 };
 
 #endif
