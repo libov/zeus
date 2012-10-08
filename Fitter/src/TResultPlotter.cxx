@@ -315,6 +315,15 @@ void TResultPlotter::DrawPlots(TString file_name, unsigned pad_number, bool same
                     text = "ep#rightarrow e'bb'X#rightarrowe'jetX'";
                 }
                 l -> DrawLatex(0.5, 0.66, text);
+
+                // draw q2 range for double-differential cross-sections
+                TString q2_range = "";
+                if (cBinGroup.ID == "q2da_xda_bin1") q2_range = "5 < Q^{2} < 20 GeV^{2}";
+                if (cBinGroup.ID == "q2da_xda_bin2") q2_range = "20 < Q^{2} < 60 GeV^{2}";
+                if (cBinGroup.ID == "q2da_xda_bin3") q2_range = "60 < Q^{2} < 120 GeV^{2}";
+                if (cBinGroup.ID == "q2da_xda_bin4") q2_range = "120 < Q^{2} < 400 GeV^{2}";
+                if (cBinGroup.ID == "q2da_xda_bin5") q2_range = "400 < Q^{2} < 1000 GeV^{2}";
+                if (cBinGroup.ID.Contains("q2da_xda_bin")) l -> DrawLatex(0.2, 0.2, q2_range);
             }
 
             // predictions and data are treated separately;
