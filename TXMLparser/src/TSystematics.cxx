@@ -103,8 +103,8 @@ void TSystematics::Draw() {
         // create a graph
         fCharmGraph = new TGraphErrors(fNpoints, x, k_c, x_err, k_c_err);
         // cosmetics
-        fCharmGraph -> SetMarkerStyle(22);
-        fCharmGraph -> SetMarkerSize(1.9);
+        fCharmGraph -> SetMarkerStyle(20);
+        fCharmGraph -> SetMarkerSize(1.5);
         // Draw the graph
         fCharmGraph -> Draw("ap");
         // fit the graph
@@ -126,8 +126,8 @@ void TSystematics::Draw() {
         // create a graph
         fBeautyGraph = new TGraphErrors(fNpoints, x, k_b, x_err, k_b_err);
         // cosmetics
-        fBeautyGraph -> SetMarkerStyle(22);
-        fBeautyGraph -> SetMarkerSize(1.9);
+        fBeautyGraph -> SetMarkerStyle(20);
+        fBeautyGraph -> SetMarkerSize(1.5);
         // Draw the graph
         fBeautyGraph -> Draw("ap");
         // fit the graph
