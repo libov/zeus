@@ -238,8 +238,6 @@ void TSystematics::Draw() {
     gStyle -> SetStatX( 1 - right_margin );
     gStyle -> SetStatY( 1 - top_margin );
 
-    fCharmGraph -> Draw("same");
-
     TString filename = fOutputPath+"/"+fOutputFileName+"_bin";
     filename += fBin;
     def.Print(filename+".eps");
