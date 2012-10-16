@@ -117,7 +117,7 @@ void TSystematics::Draw() {
         // get axes
         x_axis = fCharmGraph -> GetXaxis();
         y_axis = fCharmGraph -> GetYaxis();
-        y_axis -> SetTitle ("Charm Cross Section, pb");
+        y_axis -> SetTitle ("Total charm cross-section, pb");
         if (!fPlotxSect) {
             y_axis -> SetTitle ("Charm Scaling factor");
         }
@@ -140,7 +140,7 @@ void TSystematics::Draw() {
         // get axes
         x_axis = fBeautyGraph -> GetXaxis();
         y_axis = fBeautyGraph -> GetYaxis();
-        y_axis -> SetTitle ("Beauty Cross Section, pb");
+        y_axis -> SetTitle ("Total beauty cross section, pb");
         if (!fPlotxSect) {
             y_axis -> SetTitle ("Beauty Scaling factor");
         }
