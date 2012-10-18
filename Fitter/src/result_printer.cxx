@@ -87,12 +87,12 @@ int main(int argc, char **argv) {
 
         TCrossSectionBin bin = instance.getCrossSectionBin(1);
 
-        cout << "sigma_c= " << bin.get_sigma_c() << endl;
-        cout << "sigma_b= " << bin.get_sigma_b() << endl;
+        cout << "sigma_c= " << bin.get_sigma_c() << " +- " << bin.get_sigma_c_err() << " ( " << 100*bin.get_sigma_c_err()/bin.get_sigma_c() << " % )"<<endl;
+        cout << "sigma_b= " << bin.get_sigma_b() << " +- " << bin.get_sigma_b_err() << " ( " << 100*bin.get_sigma_b_err()/bin.get_sigma_b() << " % )"<<endl;
 
-        cout << "k_c= " << bin.get_k_c() << endl;
-        cout << "k_b= " << bin.get_k_b() << endl;
-        cout << "k_uds= " << bin.get_k_uds() << endl;
+        cout << "k_c= " << bin.get_k_c() << " +- " << bin.get_k_c_err() << " ( " << 100*bin.get_k_c_err()/bin.get_k_c() << " % )"<<endl;
+        cout << "k_b= " << bin.get_k_b() << " +- " << bin.get_k_b_err() << " ( " << 100*bin.get_k_b_err()/bin.get_k_b() << " % )"<<endl;
+        cout << "k_uds= " << bin.get_k_uds() << " +- " << bin.get_k_uds_err() << " ( " << 100*bin.get_k_uds_err()/bin.get_k_uds() << " % )"<<endl;
 
         return 0;
     }
