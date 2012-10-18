@@ -39,12 +39,14 @@ int main(int argc, char **argv) {
     // declare long options
     static struct option long_options[] = {
         {"file", required_argument, 0, 1},
-        {"beauty", no_argument, 0, 2}
+        {"beauty", no_argument, 0, 2},
+        {"only_inclusive", no_argument, 0, 3},
     };
 
     // results of the command line option processing will be stored here
     TString binningXMLfileName;
     bool plot_beauty = false;    // default: plot charm
+    bool only_inclusive = false;
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -58,11 +60,15 @@ int main(int argc, char **argv) {
             case 2:
                 plot_beauty = true;
                 break;
+            case 3:
+                only_inclusive = true;
+                break;
             case 'h':
                 cout << "\nUsage:\n\n";
-                cout << "\tresult_printer --file <xmlfile> [--beauty] [-h]\n\n";
+                cout << "\tresult_printer --file <xmlfile> [--beauty] [--only_inclusive] [-h]\n\n";
                 cout << "\tOptions:\n";
                 cout << "\t--beauty:\tPrint beauty results\n\n";
+                cout << "\t--only_inclusive:\tPrint the inclusive cross-sections and scaling factors\n\n";
                 cout << "\t-h\tPrint this help and exit\n\n";
                 exit(-1);
                 break;
@@ -73,6 +79,23 @@ int main(int argc, char **argv) {
 
     // create a TCrossSection object that keeps the fit results (cross sections)
     TCrossSection instance(binningXMLfileName);
+
+    // if --only_inclusive option was selected, print results for bin1 only and exit
+    if (only_inclusive) {
+
+        cout << "results for " << binningXMLfileName << ": " << endl;
+
+        TCrossSectionBin bin = instance.getCrossSectionBin(1);
+
+        cout << "sigma_c= " << bin.get_sigma_c() << endl;
+        cout << "sigma_b= " << bin.get_sigma_b() << endl;
+
+        cout << "k_c= " << bin.get_k_c() << endl;
+        cout << "k_b= " << bin.get_k_b() << endl;
+        cout << "k_uds= " << bin.get_k_uds() << endl;
+
+        return 0;
+    }
 
     // open the text file to store the results
     TString PLOTS_PATH=getenv("PLOTS_PATH");
