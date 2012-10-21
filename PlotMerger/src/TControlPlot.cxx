@@ -422,6 +422,12 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar == "pi_MSA_phi_classII") {
         Xtitle = "#phi(MVDSA track) (rad)";
     }
+    if (cVar == "pi_MSA_Trkmsa_nbr_classII") {
+        Xtitle = "Number of r-hits in BMVD (MVDSA track)";
+    }
+    if (cVar == "pi_MSA_Trkmsa_nbz_classII") {
+        Xtitle = "Number of z-hits in BMVD (MVDSA track)";
+    }
     if (cVar == "long_ZTT_tracks_classII") {
         Xtitle = "number of long tracks (#geq 3 CTD layers)";
     }
@@ -619,6 +625,14 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     }
     if (cVar == "pi_MSA_theta_classII") {
         cHist->SetAxisRange(0, 220, "Y");
+    }
+    if (cVar == "pi_MSA_Trkmsa_nbr_classII") {
+        cHist->SetAxisRange(0, 8, "X");
+        cHist->SetAxisRange(0, 1400, "Y");
+    }
+    if (cVar == "pi_MSA_Trkmsa_nbz_classII") {
+        cHist->SetAxisRange(0, 8, "X");
+        cHist->SetAxisRange(0, 1400, "Y");
     }
     if (cVar == "long_ZTT_tracks_classII") {
         cHist->SetAxisRange(0, 800, "Y");
