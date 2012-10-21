@@ -31,3 +31,6 @@
 1 1 10a_long_ZTT_tracks_classII long_ZTT_tracks_classII: 0
 1 1 10b_long_tracks_imppar_classII long_tracks_imppar_classII: 0
 1 1 10c_long_ZTT_tracks_fine_classI long_tracks_imppar_fine_classII: 0
+
+1 1 11a_pi_MSA_Trkmsa_imppar_classII pi_MSA_Trkmsa_imppar_classII: 0
+1 1 11b_pi_MSA_z_imppar_classII pi_MSA_z_imppar_classII: 0
