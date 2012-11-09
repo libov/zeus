@@ -16,7 +16,7 @@ Xaxis 0.06 1.2 0.05 0.02
 Yaxis 0.06 1 0.05 0.012
 
 # legend settings: x1, y1, x2, y2
-legend 0.62 0.6 0.92 0.81
+legend 0.62 0.67 0.92 0.88
 
 # ZEUS logo settings x, y, font size
 # ZEUSlogo 0.44 0.93 0.09
