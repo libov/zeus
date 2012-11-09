@@ -371,7 +371,7 @@ TString TControlPlot::GetTitle(TString cVar) {
     if (cVar.Contains("vtxsec_chi2ndf")) Xtitle = "#chi^{2}/ndof of the vertex fit";
     if (cVar.Contains("significance") && (!cVar.Contains("mirrored"))) Xtitle = "S";
     if ( cVar.Contains("significance") && cVar.Contains("mirrored") ) Xtitle = "|S|";
-    if ( cVar == "decay_length" ) Xtitle = "L_{XY}";
+    if ( cVar == "decay_length" ) Xtitle = "L_{XY} (cm)";
 
     // rho tracking plots
     if (cVar == "theta_star_classI") {
