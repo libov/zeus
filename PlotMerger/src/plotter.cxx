@@ -30,6 +30,7 @@ int main (int argc, char **argv) {
     Bool_t      no_indices = false;
     Bool_t      only_png = false;
     Bool_t      print_root = false;
+    TString     bin = "";
 
     // declare long options
     static struct option long_options[] = {
@@ -39,6 +40,7 @@ int main (int argc, char **argv) {
         {"no_indices", no_argument, 0, 4},
         {"only_png", no_argument, 0, 5},
         {"print_root", no_argument, 0, 6},
+        {"bin", required_argument, 0, 7},
     };
 
     // handle command line options
@@ -85,8 +87,11 @@ int main (int argc, char **argv) {
             case 6:
                 print_root = true;
                 break;
+            case 7:
+                bin = optarg;
+                break;
             case 'h':
-                cout<<"\nUsage:\n\t plotter -b <Binning File Suffix> -v <Histograms Version Ending> --config_file <config file> [Options]\n"<<endl;
+                cout<<"\nUsage:\n\t plotter -b <Binning File Suffix> -v <Histograms Version Ending> --config_file <config file> [--bin <bin number>] [Options]\n"<<endl;
                 cout<<"\t List of Options:"<<endl;
                 cout<<"\n\t\t-d include direct"<<endl;
                 cout<<"\t\t-e include resolved"<<endl;
@@ -158,6 +163,9 @@ int main (int argc, char **argv) {
 
     // switch off indices if selected
     if (no_indices) myPlots -> SetNoIndices(true);
+
+    // set binning
+    if ( bin != "" ) myPlots -> SetBin("bin"+bin);
 
     // initialize
     myPlots -> Initialize();

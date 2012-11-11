@@ -43,7 +43,8 @@ fNoIndices(false),
 fAdditionalText(false),
 fDrawLegend(false),
 fDrawZEUSLogo(false),
-fAxisMaxDigits(3)
+fAxisMaxDigits(3),
+fBin("bin1")
 {
     // get a path to histograms folder
     TString HISTO_PATH = getenv("HISTO_PATH");
@@ -332,7 +333,7 @@ void TControlPlot::Draw() {
             }
 
             // print the canvas to file
-            if (SubDirName=="bin1") {
+            if (SubDirName == fBin) {
               if (fPrintPNG) cCanvas->Print((TString)getenv("PLOTS_PATH")+"/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+"."+SubDirName+".png");
               if (fPrintEPS) cCanvas->Print((TString)getenv("PLOTS_PATH")+"/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+"."+SubDirName+".eps");
               if (fPrintGIF) cCanvas->Print((TString)getenv("PLOTS_PATH")+"/controlplot."+cAdvCanvas->GetName()+"."+fHistogramsVersion+"."+SubDirName+".gif");

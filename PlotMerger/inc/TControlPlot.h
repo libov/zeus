@@ -41,6 +41,7 @@ class TControlPlot : public TObject {
         void SetConfigFile(TString file) {fConfigFile = file;};
         void SetNoIndices(bool no_indices) {fNoIndices = no_indices;};
         void ReadSettings();
+        void SetBin(TString bin) { fBin = bin; }
 
     private:
 
@@ -98,5 +99,7 @@ class TControlPlot : public TObject {
         Float_t                 fPadRightMargin;
 
         unsigned                fAxisMaxDigits;
+
+        TString                 fBin;
 };
 #endif
