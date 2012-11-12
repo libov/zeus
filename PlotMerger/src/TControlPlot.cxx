@@ -595,7 +595,8 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     if (cVar == "significance_massbin1_mirrored") {
         cHist->SetAxisRange(30, 25000, "Y");
         if (fBin == "bin2") cHist->SetAxisRange(1, 2500, "Y");
-        if (fBin == "bin10") cHist->SetAxisRange(1, 2500, "Y");
+        if (fBin == "bin5") cHist->SetAxisRange(5, 4000, "Y");
+        if (fBin == "bin11") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin13") cHist->SetAxisRange(10, 20000, "Y");
         if (fBin == "bin18") cHist->SetAxisRange(0.5, 300, "Y");
         if (fBin == "bin31") cHist->SetAxisRange(1, 4000, "Y");
@@ -607,7 +608,8 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     if (cVar == "significance_massbin2_mirrored") {
         cHist->SetAxisRange(30, 25000, "Y");
         if (fBin == "bin2") cHist->SetAxisRange(1, 2500, "Y");
-        if (fBin == "bin10") cHist->SetAxisRange(1, 2500, "Y");
+        if (fBin == "bin5") cHist->SetAxisRange(5, 4000, "Y");
+        if (fBin == "bin11") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin13") cHist->SetAxisRange(10, 20000, "Y");
         if (fBin == "bin18") cHist->SetAxisRange(0.5, 300, "Y");
         if (fBin == "bin31") cHist->SetAxisRange(1, 4000, "Y");
@@ -618,8 +620,9 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
     }
     if (cVar == "significance_massbin3_mirrored") {
         cHist->SetAxisRange(30, 25000, "Y");
-        if (fBin == "bin2") cHist->SetAxisRange(0.5, 500, "Y");
-        if (fBin == "bin10") cHist->SetAxisRange(1, 2500, "Y");
+        if (fBin == "bin2") cHist->SetAxisRange(1, 2500, "Y");
+        if (fBin == "bin5") cHist->SetAxisRange(5, 4000, "Y");
+        if (fBin == "bin11") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin13") cHist->SetAxisRange(1, 3000, "Y");
         if (fBin == "bin18") cHist->SetAxisRange(3, 300, "Y");
         if (fBin == "bin31") cHist->SetAxisRange(0.5, 1000, "Y");
