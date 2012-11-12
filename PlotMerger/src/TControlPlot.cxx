@@ -600,8 +600,9 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         if (fBin == "bin18") cHist->SetAxisRange(0.5, 300, "Y");
         if (fBin == "bin31") cHist->SetAxisRange(1, 4000, "Y");
         if (fBin == "bin36") cHist->SetAxisRange(3, 4000, "Y");
-        if (fBin == "bin38") cHist->SetAxisRange(3, 4000, "Y");
-        if (fBin == "bin45") cHist->SetAxisRange(0.5, 500, "Y");
+        if (fBin == "bin38") cHist->SetAxisRange(3, 6000, "Y");
+        if (fBin == "bin43") cHist->SetAxisRange(3, 2000, "Y");
+        if (fBin == "bin45") cHist->SetAxisRange(1, 400, "Y");
     }
     if (cVar == "significance_massbin2_mirrored") {
         cHist->SetAxisRange(30, 25000, "Y");
@@ -611,8 +612,9 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         if (fBin == "bin18") cHist->SetAxisRange(0.5, 300, "Y");
         if (fBin == "bin31") cHist->SetAxisRange(1, 4000, "Y");
         if (fBin == "bin36") cHist->SetAxisRange(3, 4000, "Y");
-        if (fBin == "bin38") cHist->SetAxisRange(3, 4000, "Y");
-        if (fBin == "bin45") cHist->SetAxisRange(0.5, 500, "Y");
+        if (fBin == "bin38") cHist->SetAxisRange(3, 6000, "Y");
+        if (fBin == "bin43") cHist->SetAxisRange(3, 2000, "Y");
+        if (fBin == "bin45") cHist->SetAxisRange(1, 400, "Y");
     }
     if (cVar == "significance_massbin3_mirrored") {
         cHist->SetAxisRange(30, 25000, "Y");
@@ -622,8 +624,9 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         if (fBin == "bin18") cHist->SetAxisRange(3, 300, "Y");
         if (fBin == "bin31") cHist->SetAxisRange(0.5, 1000, "Y");
         if (fBin == "bin36") cHist->SetAxisRange(3, 2000, "Y");
-        if (fBin == "bin38") cHist->SetAxisRange(1, 2500, "Y");
-        if (fBin == "bin45") cHist->SetAxisRange(0.5, 500, "Y");
+        if (fBin == "bin38") cHist->SetAxisRange(3, 6000, "Y");
+        if (fBin == "bin43") cHist->SetAxisRange(3, 2000, "Y");
+        if (fBin == "bin45") cHist->SetAxisRange(1, 400, "Y");
     }
     if ( cVar == "decay_length" ) {
         cHist->SetAxisRange(0.1, 3000000, "Y");
