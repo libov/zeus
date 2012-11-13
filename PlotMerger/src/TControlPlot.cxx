@@ -596,6 +596,7 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(30, 25000, "Y");
         if (fBin == "bin2") cHist->SetAxisRange(1, 2500, "Y");
         if (fBin == "bin5") cHist->SetAxisRange(5, 4000, "Y");
+        if (fBin == "bin10") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin11") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin13") cHist->SetAxisRange(10, 20000, "Y");
         if (fBin == "bin18") cHist->SetAxisRange(0.5, 300, "Y");
@@ -609,6 +610,7 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(30, 25000, "Y");
         if (fBin == "bin2") cHist->SetAxisRange(1, 2500, "Y");
         if (fBin == "bin5") cHist->SetAxisRange(5, 4000, "Y");
+        if (fBin == "bin10") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin11") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin13") cHist->SetAxisRange(10, 20000, "Y");
         if (fBin == "bin18") cHist->SetAxisRange(0.5, 300, "Y");
@@ -622,6 +624,7 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(30, 25000, "Y");
         if (fBin == "bin2") cHist->SetAxisRange(1, 2500, "Y");
         if (fBin == "bin5") cHist->SetAxisRange(5, 4000, "Y");
+        if (fBin == "bin10") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin11") cHist->SetAxisRange(2, 2000, "Y");
         if (fBin == "bin13") cHist->SetAxisRange(1, 3000, "Y");
         if (fBin == "bin18") cHist->SetAxisRange(3, 300, "Y");
