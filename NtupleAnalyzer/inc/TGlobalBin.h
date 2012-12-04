@@ -30,7 +30,7 @@ class TGlobalBin : public TObject {
 
 		TGlobalBin();
 		TGlobalBin(TMiniNtupleAnalyzer *instance);
-		~TGlobalBin();
+		~TGlobalBin(){};
 
 		void							AddBin(TBin * bin);
 		Bool_t						CheckGlobalBin(VariablePhase	VarPhase);

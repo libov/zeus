@@ -28,9 +28,6 @@ fWeightingFactor( (Double_t)1 )
 {
 }
 
-TGlobalBin::~TGlobalBin() {
-}
-
 void	TGlobalBin::AddBin(TBin* bin) {
     fList_TBin->Add(bin);
     fBinDescription=fBinDescription+bin->GetDescription()+" ";
