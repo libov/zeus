@@ -1079,6 +1079,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     abort();
                 }
 
+                currentTGlobalBin->FillHistogram("q2_x", TMath::Log10(Sixda[0]), TMath::Log10(Siq2da[0]));
+
                 currentTGlobalBin->FillHistogram("kt_etjet_b", Kt_etjet_b[jetB]);
                 currentTGlobalBin->FillHistogram("kt_etajet_b", Kt_etajet_b[jetB]);
                 currentTGlobalBin->FillHistogram("kt_phijet_b", Kt_phijet_b[jetB]);
@@ -1199,6 +1201,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 // charm enriched plots
                 if ( ( TMath::Abs(fSignificance) > 4 ) && (mass>1) && (mass<2) ) {
+                    currentTGlobalBin->FillHistogram("q2_x_charm", TMath::Log10(Sixda[0]), TMath::Log10(Siq2da[0]));
                     currentTGlobalBin->FillHistogram("q2da_charm", TMath::Log10(Siq2da[0]));
                     currentTGlobalBin->FillHistogram("xda_charm", TMath::Log10(Sixda[0]));
                     currentTGlobalBin->FillHistogram("yel_charm", Siyel[0]);
@@ -1227,6 +1230,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 // beauty enriched plots
                 if ( ( TMath::Abs(fSignificance) > 8 ) && (mass>2) && (mass<6) ) {
 
+                    currentTGlobalBin->FillHistogram("q2_x_beauty", TMath::Log10(Sixda[0]), TMath::Log10(Siq2da[0]));
                     currentTGlobalBin->FillHistogram("q2da_beauty", TMath::Log10(Siq2da[0]));
                     currentTGlobalBin->FillHistogram("xda_beauty", TMath::Log10(Sixda[0]));
                     currentTGlobalBin->FillHistogram("yel_beauty", Siyel[0]);
