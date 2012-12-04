@@ -334,9 +334,5 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
 
          } // end loop over sample
 
-        // write the histogram (the directory was set already)
-//         cHistogram -> Write();
-        // and clean up the memory
- //       delete cHistogram;
     } // end loop over groups
 }
