@@ -148,18 +148,15 @@ void TPlotMerger::Merge() {
     // loop over all bins
     for (int bin=0; bin < fVectorOfBins.size(); bin++) {
 
-        //fOuptutHistogramsFile->cd();
         TString cBinName = fVectorOfBins[bin];
         cout<<"INFO: merging histograms from directory: " << cBinName << endl;
         fOuptutHistogramsFile->mkdir(cBinName);
 
         for (int histo=0;histo<fVectorOfHistograms.size(); histo++) {
-            //fOuptutHistogramsFile -> cd(cBinName);
 
             TString cHistName = fVectorOfHistograms[histo];
             fOuptutHistogramsFile -> GetDirectory(cBinName) -> mkdir(cHistName);
-            //gDirectory->mkdir(cHistName);
-            //gDirectory->cd(cHistName);
+
             BuildPlot(cBinName,cHistName);
         }
 
@@ -213,7 +210,6 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
 
     // construct relative path to the histogram (bin name + histo name)
     TString               cBinHistName=cBinName+"/"+cHistName;
-    //TDirectory*          cDirectory=fOuptutHistogramsFile->GetDirectory(cBinHistName);
     TSample                *cSample;
 
     // map that contains data area for evey period - for kArea normalization
