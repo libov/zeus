@@ -33,7 +33,7 @@ Bool_t TGlobalBin::CheckGlobalBin(VariablePhase VarPhase) {
     TBin *currentTBin;
     TIter Iter_TBin(fList_TBin);
 
-    while (currentTBin=(TBin *)Iter_TBin.Next()) {
+    while ( (currentTBin=(TBin *)Iter_TBin.Next()) ) {
 
         if ( (currentTBin -> GetVarPhase()) != VarPhase) continue;
         Bool_t TBinFired=currentTBin -> CheckBin();
@@ -113,7 +113,7 @@ void TGlobalBin::Print() {
     TBin *currentTBin;
     TIter Iter_TBin(fList_TBin);
 
-    while ( currentTBin=(TBin *)Iter_TBin.Next() ) {
+    while ( (currentTBin=(TBin *)Iter_TBin.Next()) ) {
         cout << currentTBin -> GetDescription () << endl;
     }
 }
