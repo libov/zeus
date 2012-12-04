@@ -98,10 +98,10 @@ void TGlobalBin::MirrorHistograms() {
         if ((!fListHistograms->FindObject(HistTitleDiff)))
         cout<<"ERROR: No histogram called "<<HistTitleDiff<<" found"<<endl;
 
-        TH1F* cHistPos=(TH1F*)fListHistograms->FindObject(HistTitlePos);
-        TH1F* cHistNeg=(TH1F*)fListHistograms->FindObject(HistTitleNeg);
-        TH1F* cHistSum=(TH1F*)fListHistograms->FindObject(HistTitleSum);
-        TH1F* cHistDiff=(TH1F*)fListHistograms->FindObject(HistTitleDiff);
+        TH1* cHistPos=(TH1*)fListHistograms->FindObject(HistTitlePos);
+        TH1* cHistNeg=(TH1*)fListHistograms->FindObject(HistTitleNeg);
+        TH1* cHistSum=(TH1*)fListHistograms->FindObject(HistTitleSum);
+        TH1* cHistDiff=(TH1*)fListHistograms->FindObject(HistTitleDiff);
 
         cHistSum->Add(cHistPos,cHistNeg,1,1);
         cHistDiff->Add(cHistPos,cHistNeg,1,-1);
