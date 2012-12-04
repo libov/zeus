@@ -33,20 +33,18 @@ void	TGlobalBin::AddBin(TBin* bin) {
     fBinDescription=fBinDescription+bin->GetDescription()+" ";
 }
 
-Bool_t		TGlobalBin::CheckGlobalBin(VariablePhase VarPhase)
-{
-	TBin				*currentTBin;
-	TIter				Iter_TBin(fList_TBin);
+Bool_t TGlobalBin::CheckGlobalBin(VariablePhase VarPhase) {
+    TBin *currentTBin;
+    TIter Iter_TBin(fList_TBin);
 
-	while (currentTBin=(TBin *)Iter_TBin.Next())
-	{
-		if	( (currentTBin -> GetVarPhase()) != VarPhase) continue;
+    while (currentTBin=(TBin *)Iter_TBin.Next()) {
 
-		Bool_t	TBinFired=currentTBin -> CheckBin();
-		if ( !TBinFired ) return false;
-	}
-	fNevents++;
-	return true;
+        if ( (currentTBin -> GetVarPhase()) != VarPhase) continue;
+        Bool_t TBinFired=currentTBin -> CheckBin();
+        if ( !TBinFired ) return false;
+    }
+    fNevents++;
+    return true;
 }
 
 TString TGlobalBin::GetBinDescription() {
