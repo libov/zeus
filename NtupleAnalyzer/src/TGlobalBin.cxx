@@ -80,32 +80,31 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
     return 0;
 }
 
-void    TGlobalBin::MirrorHistograms() {
+void TGlobalBin::MirrorHistograms() {
 
-	for (int hist=0;hist<fMirroredHistTitle.size(); hist++)
-	{
-		TString 		HistTitle=fMirroredHistTitle[hist];
-		TString		HistTitlePos=HistTitle+"_pos";
-		TString		HistTitleNeg=HistTitle+"_neg";
-		TString		HistTitleSum=HistTitle+"_sum";
-		TString		HistTitleDiff=HistTitle+"_diff";
-		if (!(fListHistograms->FindObject(HistTitlePos)))
-			cout<<"ERROR:	No histogram called "<<HistTitlePos<<" found"<<endl;
-		if (!(fListHistograms->FindObject(HistTitleNeg)))
-			cout<<"ERROR:	No histogram called "<<HistTitleNeg<<" found"<<endl;
-		if ((!fListHistograms->FindObject(HistTitleNeg)))
-			cout<<"ERROR:	No histogram called "<<HistTitleSum<<" found"<<endl;
-		if ((!fListHistograms->FindObject(HistTitleDiff)))
-			cout<<"ERROR:	No histogram called "<<HistTitleDiff<<" found"<<endl;
+    for (int hist=0;hist<fMirroredHistTitle.size(); hist++) {
+        TString HistTitle=fMirroredHistTitle[hist];
+        TString HistTitlePos=HistTitle+"_pos";
+        TString HistTitleNeg=HistTitle+"_neg";
+        TString HistTitleSum=HistTitle+"_sum";
+        TString HistTitleDiff=HistTitle+"_diff";
+        if (!(fListHistograms->FindObject(HistTitlePos)))
+        cout<<"ERROR: No histogram called "<<HistTitlePos<<" found"<<endl;
+        if (!(fListHistograms->FindObject(HistTitleNeg)))
+        cout<<"ERROR: No histogram called "<<HistTitleNeg<<" found"<<endl;
+        if ((!fListHistograms->FindObject(HistTitleNeg)))
+        cout<<"ERROR: No histogram called "<<HistTitleSum<<" found"<<endl;
+        if ((!fListHistograms->FindObject(HistTitleDiff)))
+        cout<<"ERROR: No histogram called "<<HistTitleDiff<<" found"<<endl;
 
-		TH1F*		cHistPos=(TH1F*)fListHistograms->FindObject(HistTitlePos);
-		TH1F*		cHistNeg=(TH1F*)fListHistograms->FindObject(HistTitleNeg);
-		TH1F*		cHistSum=(TH1F*)fListHistograms->FindObject(HistTitleSum);
-		TH1F*		cHistDiff=(TH1F*)fListHistograms->FindObject(HistTitleDiff);
+        TH1F* cHistPos=(TH1F*)fListHistograms->FindObject(HistTitlePos);
+        TH1F* cHistNeg=(TH1F*)fListHistograms->FindObject(HistTitleNeg);
+        TH1F* cHistSum=(TH1F*)fListHistograms->FindObject(HistTitleSum);
+        TH1F* cHistDiff=(TH1F*)fListHistograms->FindObject(HistTitleDiff);
 
-		cHistSum->Add(cHistPos,cHistNeg,1,1);
-		cHistDiff->Add(cHistPos,cHistNeg,1,-1);
-	}
+        cHistSum->Add(cHistPos,cHistNeg,1,1);
+        cHistDiff->Add(cHistPos,cHistNeg,1,-1);
+    }
 }
 
 void TGlobalBin::Print() {
