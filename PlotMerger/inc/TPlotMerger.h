@@ -38,8 +38,8 @@ class TPlotMerger: public TObject
         ~TPlotMerger();
 
         void    Initialize();
-        void    SetXMLFileName(TString filename) {fXMLfilename = filename;};
-        void    SetScaleFitResults(bool scale) {fScaleFitResults=scale;};
+        void    SetXMLFileName(TString filename) {fXMLfilename = filename;}
+        void    SetScaleFitResults(bool scale) {fScaleFitResults=scale;}
         void    AddSampleGroup(TString	cGroupID, normtype cNormType);
         void    AddSample(TString GroupID, TSubSet subset, Float_t Luminosity);
         void    Merge();
