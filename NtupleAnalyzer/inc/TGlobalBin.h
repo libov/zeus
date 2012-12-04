@@ -37,7 +37,7 @@ class TGlobalBin : public TObject {
         Bool_t      CheckGlobalBin(VariablePhase VarPhase);
         TString     BinName;
         TString     GetBinDescription() { return fBinDescription; }
-        void        AddHistogram(TH1F * histogram) { fListHistograms->Add(histogram); }
+        void        AddHistogram(TH1 * histogram) { fListHistograms->Add(histogram); }
         int         FillHistogram(TString HistTitle, Float_t Value);
         TList*      GetHistList() { return fListHistograms; }
         void        AddMirroredHistTitle(TString title) { fMirroredHistTitle.push_back(title); }
