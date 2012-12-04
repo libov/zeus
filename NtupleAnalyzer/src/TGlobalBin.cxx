@@ -82,13 +82,14 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
 
 void TGlobalBin::MirrorHistograms() {
 
-    for (int hist=0;hist<fMirroredHistTitle.size(); hist++) {
-        TString HistTitle=fMirroredHistTitle[hist];
-        TString HistTitlePos=HistTitle+"_pos";
-        TString HistTitleNeg=HistTitle+"_neg";
-        TString HistTitleSum=HistTitle+"_sum";
-        TString HistTitleDiff=HistTitle+"_diff";
-        if (!(fListHistograms->FindObject(HistTitlePos)))
+    for (int hist = 0; hist < fMirroredHistTitle.size(); hist++) {
+
+        TString HistTitle = fMirroredHistTitle[hist];
+        TString HistTitlePos = HistTitle+"_pos";
+        TString HistTitleNeg = HistTitle+"_neg";
+        TString HistTitleSum = HistTitle+"_sum";
+        TString HistTitleDiff = HistTitle+"_diff";
+        if (!(fListHistograms -> FindObject(HistTitlePos)))
         cout<<"ERROR: No histogram called "<<HistTitlePos<<" found"<<endl;
         if (!(fListHistograms->FindObject(HistTitleNeg)))
         cout<<"ERROR: No histogram called "<<HistTitleNeg<<" found"<<endl;
