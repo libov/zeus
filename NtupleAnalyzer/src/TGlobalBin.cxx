@@ -14,10 +14,6 @@
 #include<iostream>
 using namespace std;
 
-TGlobalBin::TGlobalBin()
-{
-}
-
 TGlobalBin::TGlobalBin(TMiniNtupleAnalyzer* instance):
 fList_TBin(new TList()),
 fListHistograms(new TList()),
@@ -28,7 +24,7 @@ fWeightingFactor( (Double_t)1 )
 {
 }
 
-void	TGlobalBin::AddBin(TBin* bin) {
+void TGlobalBin::AddBin(TBin* bin) {
     fList_TBin->Add(bin);
     fBinDescription=fBinDescription+bin->GetDescription()+" ";
 }
@@ -45,18 +41,6 @@ Bool_t TGlobalBin::CheckGlobalBin(VariablePhase VarPhase) {
     }
     fNevents++;
     return true;
-}
-
-TString TGlobalBin::GetBinDescription() {
-    return	fBinDescription;
-}
-void			TGlobalBin::AddHistogram(TH1F * histogram)
-{
-		fListHistograms->Add(histogram);
-}
-TList*		TGlobalBin::GetHistList()
-{
-		return fListHistograms;
 }
 
 int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
@@ -96,10 +80,6 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
     return 0;
 }
 
-void    TGlobalBin::AddMirroredHistTitle(TString title) {
-    fMirroredHistTitle.push_back(title);
-}
-
 void    TGlobalBin::MirrorHistograms() {
 
 	for (int hist=0;hist<fMirroredHistTitle.size(); hist++)
@@ -126,14 +106,6 @@ void    TGlobalBin::MirrorHistograms() {
 		cHistSum->Add(cHistPos,cHistNeg,1,1);
 		cHistDiff->Add(cHistPos,cHistNeg,1,-1);
 	}
-}
-
-void    TGlobalBin::SetWeightingFactor(Double_t		factor) {
-    fWeightingFactor = factor;
-}
-
-Double_t    TGlobalBin::GetWeightingFactor() {
-    return fWeightingFactor;
 }
 
 void TGlobalBin::Print() {

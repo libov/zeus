@@ -28,21 +28,21 @@ class TMiniNtupleAnalyzer;
 class TGlobalBin : public TObject {
 	public:
 
-		TGlobalBin();
+		TGlobalBin() {};
 		TGlobalBin(TMiniNtupleAnalyzer *instance);
 		~TGlobalBin(){};
 
 		void							AddBin(TBin * bin);
 		Bool_t						CheckGlobalBin(VariablePhase	VarPhase);
 		TString						BinName;
-		TString						GetBinDescription();
-		void							AddHistogram(TH1F * histogram);
+		TString						GetBinDescription() {return fBinDescription;}
+		void							AddHistogram(TH1F * histogram) {fListHistograms->Add(histogram);}
 		int							FillHistogram(TString HistTitle, Float_t	Value);
-		TList*						GetHistList();
-		void							AddMirroredHistTitle(TString title);
+		TList*						GetHistList() {return fListHistograms;}
+		void							AddMirroredHistTitle(TString title) {fMirroredHistTitle.push_back(title);}
 		void							MirrorHistograms();
-		void							SetWeightingFactor(Double_t		factor);
-		Double_t						GetWeightingFactor();
+		void							SetWeightingFactor(Double_t		factor) {fWeightingFactor = factor;}
+		Double_t						GetWeightingFactor() {return fWeightingFactor;}
                 void        Print();
 
 	private:
