@@ -31,7 +31,7 @@ class SampleGroup {
         TList       *SampleList;
         TString     GroupID;
         normtype    NormType;
-        TH1F        *Histogram;
+        TH1        *Histogram;
 };
 
 // default constructor and destructors
@@ -238,7 +238,7 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
         // get a normalization type for this group
         normtype        cNormType = cGroup.NormType;
         // set a pointer to group's histogram (the histo does not yet exist!)
-        TH1F            *cHistogram=cGroup.Histogram;
+        TH1            *cHistogram=cGroup.Histogram;
         // this flag will be turned to false when we processed 1st sample for this group
         Bool_t          first_histo=true;
 
@@ -249,8 +249,8 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
             // get a file which belongs to this sample
             TFile *cFile = cSample -> GetInputHistogramsFile();
 
-            TH1F     *cHist = NULL;
-            cHist = (TH1F*)cFile -> Get(cBinHistName);
+            TH1     *cHist = NULL;
+            cHist = (TH1*)cFile -> Get(cBinHistName);
             // sanity check
             if (cHist == NULL) {
                 cout << "ERROR: could not access the histogram "<< cBinHistName << "! " << endl;
@@ -320,7 +320,7 @@ void TPlotMerger::BuildPlot(TString cBinName, TString cHistName) {
             }
 
             if (first_histo) {
-                cHistogram=(TH1F*)cHist->Clone(cGroupID);
+                cHistogram=(TH1*)cHist->Clone(cGroupID);
                 // a new histogram should be stored in the output file (corresponding bin and histo directories),
                 // set it now explicitly; then, it is sufficient to call fOuptutHistogramsFile->Write() to 
                 // write it to file
