@@ -753,12 +753,8 @@ void        TMiniNtupleAnalyzer::DeclareHistograms(TGlobalBin* globalbin) {
     TIter        next(GlobBinHistList);
     TH1F*     h;
     while ( (h = (TH1F*)next()) ) {
-        //h->SetTitle(h->GetTitle()+globalbin->BinName+" "+globalbin->GetBinDescription());
-        //h->SetTitle(h->GetTitle()+space+globalbin->GetBinDescription());
-        //h->SetTitle(h->GetTitle()+globalbin->GetBinDescription()+","+globalbin->BinName);
         h->SetTitle(h->GetTitle()+globalbin->GetBinDescription());
         h->SetXTitle(h->GetName());
-        //h->SetStats(0);
         h->Sumw2();
     }
 }
