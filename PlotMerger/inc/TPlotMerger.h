@@ -55,7 +55,7 @@ class TPlotMerger: public TObject
 
         Int_t                   fNumberOfBins;
         vector <TString>        fVectorOfBins;
-        
+
         Int_t                   fNumberOfHistograms;
         vector <TString>        fVectorOfHistograms;
 
