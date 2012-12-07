@@ -6,7 +6,8 @@ FLAVOR=charm
 XSECT_TYPE=ALL
 UNC_TYPE=DEFAULT
 PDF=DEFAULT
-while getopts "bdcsa" opt; do
+Q2X_GRID=DEFAULT
+while getopts "bdcsag:" opt; do
   if [ $opt == b ] ; then 
         FLAVOR=beauty
   fi
@@ -22,11 +23,15 @@ while getopts "bdcsa" opt; do
   if [ $opt == a ] ; then 
         PDF=ABKM
   fi
+  if [ $opt == g ] ; then 
+        Q2X_GRID=$OPTARG
+  fi
 done
 echo 'INFO: FLAVOR = '$FLAVOR
 echo 'INFO: XSECT_TYPE = '$XSECT_TYPE
 echo 'INFO: UNC_TYPE = '$UNC_TYPE
 echo 'INFO: PDF = '$PDF
+echo 'INFO: Q2X_GRID = '$Q2X_GRID
 
 # sanity check for ABKM case: only central values run implemented
 if [ $PDF == ABKM ] && [ $UNC_TYPE != ONLY_CENTRAL ] ; then
@@ -35,6 +40,7 @@ if [ $PDF == ABKM ] && [ $UNC_TYPE != ONLY_CENTRAL ] ; then
 fi
 
 # selects a file with q2-x grid definition
+if [ $Q2X_GRID == DEFAULT ] ; then
 if [ $FLAVOR == charm ] ; then
     Q2X_GRID_FILE=q2_x_grid.txt
 elif [ $FLAVOR == beauty ] ; then 
@@ -42,6 +48,9 @@ elif [ $FLAVOR == beauty ] ; then
 else
     echo 'unknown flavor'
     exit -1
+fi
+else
+    Q2X_GRID_FILE=$Q2X_GRID
 fi
 Q2X_GRID_FILE=q2_x_grids/$Q2X_GRID_FILE
 
