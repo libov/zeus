@@ -41,14 +41,14 @@ fi
 
 # selects a file with q2-x grid definition
 if [ $Q2X_GRID == DEFAULT ] ; then
-if [ $FLAVOR == charm ] ; then
-    Q2X_GRID_FILE=q2_x_grid.txt
-elif [ $FLAVOR == beauty ] ; then 
-    Q2X_GRID_FILE=q2_x_grid_beauty.txt
-else
-    echo 'unknown flavor'
-    exit -1
-fi
+    if [ $FLAVOR == charm ] ; then
+        Q2X_GRID_FILE=q2_x_grid.txt
+    elif [ $FLAVOR == beauty ] ; then 
+        Q2X_GRID_FILE=q2_x_grid_beauty.txt
+    else
+        echo 'unknown flavor'
+        exit -1
+    fi
 else
     Q2X_GRID_FILE=$Q2X_GRID
 fi
