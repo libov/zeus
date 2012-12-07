@@ -8,22 +8,22 @@ UNC_TYPE=DEFAULT
 PDF=DEFAULT
 Q2X_GRID=DEFAULT
 while getopts "bdcsag:" opt; do
-  if [ $opt == b ] ; then 
+  if [ $opt == b ] ; then
         FLAVOR=beauty
   fi
-  if [ $opt == d ] ; then 
+  if [ $opt == d ] ; then
         XSECT_TYPE=ONLY_DIFFERENTIAL
   fi
-  if [ $opt == c ] ; then 
+  if [ $opt == c ] ; then
         UNC_TYPE=ONLY_CENTRAL
   fi
-  if [ $opt == s ] ; then 
+  if [ $opt == s ] ; then
         UNC_TYPE=SEPARATE_SCALE_VARIATION
   fi
-  if [ $opt == a ] ; then 
+  if [ $opt == a ] ; then
         PDF=ABKM
   fi
-  if [ $opt == g ] ; then 
+  if [ $opt == g ] ; then
         Q2X_GRID=$OPTARG
   fi
 done
