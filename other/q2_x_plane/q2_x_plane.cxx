@@ -198,6 +198,9 @@ int q2_x_plane (TString type="inclusive", TString sample = "data", unsigned mode
         marker(0.005, 200, 26);
         marker(0.013, 200, 26);
 
+        marker(0.01, 350, 26);
+        marker(0.025, 350, 26);
+
         marker(0.013, 650, 26);
         marker(0.032, 650, 26);
     }
