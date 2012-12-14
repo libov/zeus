@@ -224,7 +224,7 @@ int q2_x_plane (TString type="inclusive", TString sample = "data", unsigned mode
         arrow(0.008, 160, 0.012, 200);
     }
 
-    if (mode>3) draw_y_ranges();
+    draw_y_ranges();
 
     TString PLOTS_PATH = getenv("PLOTS_PATH");
     TString title = PLOTS_PATH+"/kin_plane_"+type+"_"+sample + "_";
