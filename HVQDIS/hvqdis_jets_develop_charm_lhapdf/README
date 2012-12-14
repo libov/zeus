@@ -68,3 +68,11 @@ ABKM 3 vs 4 flavours check, beauty; proper sig0.f: cp sig0.f_Philipp sig0.f
 metafiles/meta_Jul18_2012_13:10:17.txt -> ipdf = 40650 (3 flv)
 metafiles/meta_Jul18_2012_13:10:47.txt -> ipdf = 40780 (4 flv)
 
+----------------
+----------------
+meta_Dec7_2012_15:28:26.txt -  only central, only at f2 extraction points
+			       (./submit_hvqdis.sh -c -g q2_x_grid_only_extraction_points.txt)
+
+
+meta_Dec7_2012_15:30:54.txt - only central, charm combination points
+			      (./submit_hvqdis.sh -c -g q2_x_grid_charm_combination.txt)
