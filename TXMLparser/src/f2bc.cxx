@@ -98,12 +98,14 @@ int main(int argc, char **argv) {
     static struct option long_options[] = {
         {"meta_file", required_argument, 0, 1},
         {"XMLfile", required_argument, 0, 2},
-        {"beauty", no_argument, 0, 3}
+        {"beauty", no_argument, 0, 3},
+        {"only_print_f2", no_argument, 0, 4},
     };
 
     TString meta_file = "";
     TString XMLfile="";
     bool    beauty = false;
+    bool    only_print_f2 = false;
 
     // handle command line options
     opterr = 0;
@@ -120,9 +122,13 @@ int main(int argc, char **argv) {
             case 3:
                 beauty = true;
                 break;
+            case 4:
+                only_print_f2 = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
                 cout << "List of options\n" << endl;
+                cout << "--only_print_f2\tdon't extract F2 from data, only print theoretical predictions on it" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -442,6 +448,8 @@ int main(int argc, char **argv) {
     cout << endl;
     for ( iter1=vtx.begin() ; iter1 != vtx.end(); iter1++ ) (*iter1).second[1].Print();
     cout << endl;
+
+    if (only_print_f2) return 0;
 
     // ---------------------------------------- //
     // ---------- plot the F2c_theo ----------- //
