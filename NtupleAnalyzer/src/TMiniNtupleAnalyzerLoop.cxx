@@ -31,6 +31,9 @@ void TrackAllEfficiency
        (float& Phi, float& cotTheta, float& Mom,
        int& Charge, int& IDpart, float& TrEff, float& TrInt);
 
+void TrackSumEfficiency
+       (float& Phi, float& cotTheta, float& Mom,
+       int& Charge, int& IDpart, float& TrEff, float& TrEffI, float& TrInt, float& TrIntN, float& TrPrm);
 
 //Loops over the sample and performs analysis
 void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
