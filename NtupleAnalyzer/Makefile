@@ -30,7 +30,7 @@ all: analysis createMiniNtuples submit_analysis
 # executables
 
 analysis: $(OBJECTS_ANALYSIS) config/orablocks.cfg create-BaseClass.py
-	gcc -o analysis $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS_ANALYSIS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -L$(TLITE)/lib/$(ZARCH_TYPE) -ltLite -L$(CLHEPLIBDIR) -lCLHEP -L. -lxerces-c -L$(TRACKING_MAP) -lTrackAllEfficiency_cc
+	gcc -o analysis $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS_ANALYSIS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -L$(TLITE)/lib/$(ZARCH_TYPE) -ltLite -L$(CLHEPLIBDIR) -lCLHEP -L. -lxerces-c -L$(TRACKING_MAP) -lTrackAllEfficiency_cc -lTrackSumEfficiency_cc
 
 submit_analysis: $(OBJECTS_SUBMIT_ANALYSIS) config/orablocks.cfg create-BaseClass.py
 	gcc -o submit_analysis $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS_SUBMIT_ANALYSIS)) $(patsubst %.o, /data/zenith226a/libov/analysis/TXMLparser/tmp/%.o, $(OBJECTS_XML)) -I. $(FLAGS) -L$(TLITE)/lib/$(ZARCH_TYPE) -ltLite -L$(CLHEPLIBDIR) -lCLHEP -L. -lxerces-c
