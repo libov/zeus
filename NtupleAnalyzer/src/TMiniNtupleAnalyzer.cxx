@@ -109,6 +109,11 @@ f_do_EM_scale_syst(false)
     f_sum_TrInt_phi = new TProfile ("f_sum_TrInt_phi", "", 30, 0, 360);
     f_sum_TrIntN_phi = new TProfile ("f_sum_TrIntN_phi", "", 30, 0, 360);
     f_sum_TrPrm_phi = new TProfile ("f_sum_TrPrm_phi", "", 30, 0, 360);
+    f_sum_TrEff_theta = new TProfile ("f_sum_TrEff_theta", "", 30, 0, 180);
+    f_sum_TrEffI_theta = new TProfile ("f_sum_TrEffI_theta", "", 30, 0, 180);
+    f_sum_TrInt_theta = new TProfile ("f_sum_TrInt_theta", "", 30, 0, 180);
+    f_sum_TrIntN_theta = new TProfile ("f_sum_TrIntN_theta", "", 30, 0, 180);
+    f_sum_TrPrm_theta = new TProfile ("f_sum_TrPrm_theta", "", 30, 0, 180);
 }
 
 // a public method to initialize the class
@@ -429,6 +434,11 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     f_sum_TrInt_phi -> Write();
     f_sum_TrIntN_phi -> Write();
     f_sum_TrPrm_phi -> Write();
+    f_sum_TrEff_theta -> Write();
+    f_sum_TrEffI_theta -> Write();
+    f_sum_TrInt_theta -> Write();
+    f_sum_TrIntN_theta -> Write();
+    f_sum_TrPrm_theta -> Write();
 
     fHistogramsFile->Close();
     cout<<"INFO: Histograms written to file"<<endl;
