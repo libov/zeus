@@ -1191,6 +1191,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
 		    Float_t match_eff = TrEff_plus_TrEffI / TrPrm;
 		    f_sum_match_eff_theta -> Fill(track.Theta()*180./TMath::Pi(), match_eff);
+
+		    Float_t int_and_not_reco = TrEffI + TrInt - TrEffI/match_eff;
+		    f_sum_int_and_not_reco_theta -> Fill(track.Theta()*180./TMath::Pi(), int_and_not_reco);
                 }
 
                 // fill some histos related to track density effects
