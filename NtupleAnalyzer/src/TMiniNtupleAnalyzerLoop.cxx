@@ -1180,6 +1180,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 		    f_sum_TrIntN_phi -> Fill(phi*180./TMath::Pi(), TrIntN);
 		    f_sum_TrPrm_phi -> Fill(phi*180./TMath::Pi(), TrPrm);
 
+                    f_sum_TrEff_theta -> Fill(track.Theta()*180./TMath::Pi(), TrEff);
+                    f_sum_TrEffI_theta -> Fill(track.Theta()*180./TMath::Pi(), TrEffI);
+                    f_sum_TrInt_theta -> Fill(track.Theta()*180./TMath::Pi(), TrInt);
+                    f_sum_TrIntN_theta -> Fill(track.Theta()*180./TMath::Pi(), TrIntN);
+                    f_sum_TrPrm_theta -> Fill(track.Theta()*180./TMath::Pi(), TrPrm);
                 }
 
                 // fill some histos related to track density effects
