@@ -1162,6 +1162,24 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     currentTGlobalBin->FillHistogram("hadr_int_prob", TrInt);
                     f_hadr_prob_phi -> Fill(phi*180./TMath::Pi(), TrInt);
                     f_hadr_prob_theta -> Fill(track.Theta()*180./TMath::Pi(), TrInt);
+
+		    // now for TrackSumEfficiency routine
+		    TrEff = -1;
+		    TrInt = -1;
+		    Float_t TrEffI = -1;
+                    Float_t TrIntN = -1;
+                    Float_t TrPrm = -1;
+         	    TrackSumEfficiency (phi, cot, p, charge, id, TrEff, TrEffI, TrInt, TrIntN, TrPrm);
+                    if ( (TrEff<0) || (TrEffI<0) || (TrInt<0) || (TrIntN<0) || (TrPrm<0) ) {
+                        cout << "ERROR: efficiency map failure" << endl;
+                        abort();
+                    }
+		    f_sum_TrEff_phi -> Fill(phi*180./TMath::Pi(), TrEff);
+		    f_sum_TrEffI_phi -> Fill(phi*180./TMath::Pi(), TrEffI);
+		    f_sum_TrInt_phi -> Fill(phi*180./TMath::Pi(), TrInt);
+		    f_sum_TrIntN_phi -> Fill(phi*180./TMath::Pi(), TrIntN);
+		    f_sum_TrPrm_phi -> Fill(phi*180./TMath::Pi(), TrPrm);
+
                 }
 
                 // fill some histos related to track density effects
