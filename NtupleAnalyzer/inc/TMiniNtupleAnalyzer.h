@@ -268,6 +268,12 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         TH2F*       fMc_pt_theta_pi;
         TProfile*   f_hadr_prob_theta;
         TProfile*   f_hadr_prob_phi;
+	// histograms for TrackSumEfficiency routine from A. Spiridonov
+        TProfile*   f_sum_TrEff_phi;
+        TProfile*   f_sum_TrEffI_phi;
+        TProfile*   f_sum_TrInt_phi;
+        TProfile*   f_sum_TrIntN_phi;
+        TProfile*   f_sum_TrPrm_phi;
 
         TString     fBinningFileName;
         TString     fHistogramDeclarationFile;

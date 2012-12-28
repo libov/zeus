@@ -103,6 +103,12 @@ f_do_EM_scale_syst(false)
     fMc_pt_theta_pi = new TH2F ("fMc_pt_theta_pi", "fate point", 100, -20 , 20, 100, -20, 20);
     f_hadr_prob_theta = new TProfile ("f_hadr_prob_theta", "", 30, 0, 180);
     f_hadr_prob_phi = new TProfile ("f_hadr_prob_phi", "", 30, 0, 360);
+    // histograms for TrackSumEfficiency routine from A. Spiridonov
+    f_sum_TrEff_phi = new TProfile ("f_sum_TrEff_phi", "", 30, 0, 360);
+    f_sum_TrEffI_phi = new TProfile ("f_sum_TrEffI_phi", "", 30, 0, 360);
+    f_sum_TrInt_phi = new TProfile ("f_sum_TrInt_phi", "", 30, 0, 360);
+    f_sum_TrIntN_phi = new TProfile ("f_sum_TrIntN_phi", "", 30, 0, 360);
+    f_sum_TrPrm_phi = new TProfile ("f_sum_TrPrm_phi", "", 30, 0, 360);
 }
 
 // a public method to initialize the class
@@ -417,6 +423,13 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     fMc_pt_theta_pi -> Write();
     f_hadr_prob_theta -> Write();
     f_hadr_prob_phi -> Write();
+    // histograms for TrackSumEfficiency routine from A. Spiridonov
+    f_sum_TrEff_phi -> Write();
+    f_sum_TrEffI_phi -> Write();
+    f_sum_TrInt_phi -> Write();
+    f_sum_TrIntN_phi -> Write();
+    f_sum_TrPrm_phi -> Write();
+
     fHistogramsFile->Close();
     cout<<"INFO: Histograms written to file"<<endl;
 }
