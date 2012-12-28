@@ -281,6 +281,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         TProfile*   f_sum_TrPrm_theta;
 	TProfile*   f_sum_TrEff_plus_TrEffI_theta;
 	TProfile*   f_sum_match_eff_theta;
+	TProfile*   f_sum_int_and_not_reco_theta;
 
         TString     fBinningFileName;
         TString     fHistogramDeclarationFile;
