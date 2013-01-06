@@ -7,7 +7,8 @@ XSECT_TYPE=ALL
 UNC_TYPE=DEFAULT
 PDF=DEFAULT
 Q2X_GRID=DEFAULT
-while getopts "bdcsag:" opt; do
+REDUCED=NO
+while getopts "bdcsag:r" opt; do
   if [ $opt == b ] ; then
         FLAVOR=beauty
   fi
@@ -26,12 +27,16 @@ while getopts "bdcsag:" opt; do
   if [ $opt == g ] ; then
         Q2X_GRID=$OPTARG
   fi
+  if [ $opt == r ] ; then
+        REDUCED=YES
+  fi
 done
 echo 'INFO: FLAVOR = '$FLAVOR
 echo 'INFO: XSECT_TYPE = '$XSECT_TYPE
 echo 'INFO: UNC_TYPE = '$UNC_TYPE
 echo 'INFO: PDF = '$PDF
 echo 'INFO: Q2X_GRID = '$Q2X_GRID
+echo 'INFO: REDUCED = '$REDUCED
 
 # sanity check for ABKM case: only central values run implemented
 if [ $PDF == ABKM ] && [ $UNC_TYPE != ONLY_CENTRAL ] ; then
@@ -267,7 +272,11 @@ do
             XMAX=`echo "scale=10; $x*1.01" | bc`
 
             # set also FL to 0 as needed for F2 evaluation
-            IFL=0
+            if [ $REDUCED == YES ]; then
+                IFL=1
+            else
+                IFL=0
+            fi
 
             # switch off alpha_em running for F2 evaluation
             IRUNEM=0
