@@ -117,6 +117,11 @@ f_do_EM_scale_syst(false)
     f_sum_TrEff_plus_TrEffI_theta = new TProfile ("f_sum_TrEff_plus_TrEffI_theta", "", 30, 0, 180);
     f_sum_match_eff_theta = new TProfile ("f_sum_match_eff_theta", "", 30, 0, 180);
     f_sum_int_and_not_reco_theta = new TProfile ("f_sum_int_and_not_reco_theta", "", 30, 0, 180);
+    f_reco_eff_theta = new TProfile ("f_reco_eff_theta", "", 30, 0, 180);
+    f_int_not_recoverable_theta = new TProfile ("f_int_not_recoverable_theta", "", 30, 0, 180);
+    f_hadr_new_minus_old_theta = new TProfile ("f_hadr_new_minus_old_theta", "", 30, 0, 180);
+    f_hadr_new_minus_old_phi = new TProfile ("f_hadr_new_minus_old_phi", "", 30, -180, 180);
+    f_hadr_new_minus_old_pt = new TProfile ("f_hadr_new_minus_old_pt", "", 30, 0, 10);
 }
 
 // a public method to initialize the class
@@ -445,6 +450,11 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     f_sum_TrEff_plus_TrEffI_theta -> Write();
     f_sum_match_eff_theta -> Write();
     f_sum_int_and_not_reco_theta -> Write();
+    f_reco_eff_theta -> Write();
+    f_int_not_recoverable_theta -> Write();
+    f_hadr_new_minus_old_theta -> Write();
+    f_hadr_new_minus_old_phi -> Write();
+    f_hadr_new_minus_old_pt -> Write();
 
     fHistogramsFile->Close();
     cout<<"INFO: Histograms written to file"<<endl;
