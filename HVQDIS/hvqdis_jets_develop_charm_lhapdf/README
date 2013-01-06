@@ -78,5 +78,9 @@ meta_Dec7_2012_15:30:54.txt - only central, charm combination points
 			      (./submit_hvqdis.sh -c -g q2_x_grid_charm_combination.txt)
 
 meta_Jan6_2013_15:17:36.txt - CHARM REDUCED CROSS SECTION EXTRACTION, only at 18 extraction points
+			      COMMAND:
+					./submit_hvqdis.sh -r -g q2_x_grid_only_extraction_points.txt
 
 meta_Jan6_2013_15:29:01.txt - BEAUTY REDUCED CROSS SECTION EXTRACTION, only at 18 extraction points
+			      COMMAND:
+					./submit_hvqdis.sh -r -g q2_x_grid_only_extraction_points.txt -b
