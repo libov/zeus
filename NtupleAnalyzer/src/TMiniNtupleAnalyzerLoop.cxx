@@ -1162,6 +1162,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     currentTGlobalBin->FillHistogram("hadr_int_prob", TrInt);
                     f_hadr_prob_phi -> Fill(phi*180./TMath::Pi(), TrInt);
                     f_hadr_prob_theta -> Fill(track.Theta()*180./TMath::Pi(), TrInt);
+                    Float_t TrEff_old = TrEff;
+                    Float_t TrInt_old = TrInt;
 
 		    // now for TrackSumEfficiency routine
 		    TrEff = -1;
@@ -1194,6 +1196,16 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
 		    Float_t int_and_not_reco = TrEffI + TrInt - TrEffI/match_eff;
 		    f_sum_int_and_not_reco_theta -> Fill(track.Theta()*180./TMath::Pi(), int_and_not_reco);
+
+                    Float_t reco_eff = TrEff / ( (TrEff + TrIntN) * match_eff) ;
+                    f_reco_eff_theta -> Fill(track.Theta()*180./TMath::Pi(), reco_eff);
+
+                    Float_t int_not_recoverable = TrEffI + TrInt - TrEffI/ ( match_eff * reco_eff) ;
+                    f_int_not_recoverable_theta -> Fill(track.Theta()*180./TMath::Pi(), int_not_recoverable);
+
+                    f_hadr_new_minus_old_theta -> Fill(track.Theta()*180./TMath::Pi(), (TrInt_old - int_not_recoverable)/TrInt_old);
+                    f_hadr_new_minus_old_phi -> Fill(track.Phi()*180./TMath::Pi(), (TrInt_old - int_not_recoverable)/TrInt_old);
+                    f_hadr_new_minus_old_pt -> Fill(track.Mag(), (TrInt_old - int_not_recoverable)/TrInt_old);
                 }
 
                 // fill some histos related to track density effects
