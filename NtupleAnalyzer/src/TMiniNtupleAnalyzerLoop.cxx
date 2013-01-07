@@ -1155,8 +1155,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Int_t   id = 1;
                     TrackAllEfficiency (phi, cot, p, charge, id, TrEff, TrInt);
                     // sanity check
-                    if ( (TrEff<0) || (TrInt<0) ) {
+                    if ( (TrEff<=0) || (TrInt<=0) ) {
                         cout << "ERROR: efficiency map failure" << endl;
+                        cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
+                        cout << TrEff << " " << TrInt << endl;
                         abort();
                     }
                     currentTGlobalBin->FillHistogram("hadr_int_prob", TrInt);
