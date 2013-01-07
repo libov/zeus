@@ -1172,8 +1172,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t TrIntN = -1;
                     Float_t TrPrm = -1;
          	    TrackSumEfficiency (phi, cot, p, charge, id, TrEff, TrEffI, TrInt, TrIntN, TrPrm);
-                    if ( (TrEff<0) || (TrEffI<0) || (TrInt<0) || (TrIntN<0) || (TrPrm<0) ) {
+                    if ( (TrEff<=0) || (TrEffI<=0) || (TrInt<=0) || (TrIntN<=0) || (TrPrm<=0) ) {
                         cout << "ERROR: efficiency map failure" << endl;
+                        cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
+                        cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
                         abort();
                     }
 		    f_sum_TrEff_phi -> Fill(phi*180./TMath::Pi(), TrEff);
