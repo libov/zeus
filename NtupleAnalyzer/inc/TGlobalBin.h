@@ -40,6 +40,7 @@ class TGlobalBin : public TObject {
         void        AddHistogram(TH1 * histogram) { fListHistograms->Add(histogram); }
         int         FillHistogram(TString HistTitle, Float_t Value);
         int         FillHistogram(TString HistTitle, Float_t Value1, Float_t Value2);
+        int         FillProfileHistogram(TString HistTitle, Float_t Value1, Float_t Value2);
         TList*      GetHistList() { return fListHistograms; }
         void        AddMirroredHistTitle(TString title) { fMirroredHistTitle.push_back(title); }
         void        MirrorHistograms();
