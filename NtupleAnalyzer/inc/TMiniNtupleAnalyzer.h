@@ -266,27 +266,6 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         TH2F*       fMc_q2_et;
         TH2F*       fMc_pt_theta_pi;
-        TProfile*   f_hadr_prob_theta;
-        TProfile*   f_hadr_prob_phi;
-	// histograms for TrackSumEfficiency routine from A. Spiridonov
-        TProfile*   f_sum_TrEff_phi;
-        TProfile*   f_sum_TrEffI_phi;
-        TProfile*   f_sum_TrInt_phi;
-        TProfile*   f_sum_TrIntN_phi;
-        TProfile*   f_sum_TrPrm_phi;
-        TProfile*   f_sum_TrEff_theta;
-        TProfile*   f_sum_TrEffI_theta;
-        TProfile*   f_sum_TrInt_theta;
-        TProfile*   f_sum_TrIntN_theta;
-        TProfile*   f_sum_TrPrm_theta;
-	TProfile*   f_sum_TrEff_plus_TrEffI_theta;
-	TProfile*   f_sum_match_eff_theta;
-	TProfile*   f_sum_int_and_not_reco_theta;
-        TProfile*   f_reco_eff_theta;
-        TProfile*   f_int_not_recoverable_theta;
-        TProfile*   f_hadr_new_minus_old_theta;
-        TProfile*   f_hadr_new_minus_old_phi;
-        TProfile*   f_hadr_new_minus_old_pt;
 
         TString     fBinningFileName;
         TString     fHistogramDeclarationFile;
