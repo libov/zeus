@@ -101,27 +101,6 @@ f_do_EM_scale_syst(false)
     fDebugSVTX = new TH1F ("fDebugSVTX", "Debug histo for secondary vertex selection", 50, 0, 50);
     fMc_q2_et = new TH2F ("fMc_q2_et", "Q^{2} - E_{T} plane", 200, 0, 35, 200, 0, 3);
     fMc_pt_theta_pi = new TH2F ("fMc_pt_theta_pi", "fate point", 100, -20 , 20, 100, -20, 20);
-    f_hadr_prob_theta = new TProfile ("f_hadr_prob_theta", "", 30, 0, 180);
-    f_hadr_prob_phi = new TProfile ("f_hadr_prob_phi", "", 30, 0, 360);
-    // histograms for TrackSumEfficiency routine from A. Spiridonov
-    f_sum_TrEff_phi = new TProfile ("f_sum_TrEff_phi", "", 30, 0, 360);
-    f_sum_TrEffI_phi = new TProfile ("f_sum_TrEffI_phi", "", 30, 0, 360);
-    f_sum_TrInt_phi = new TProfile ("f_sum_TrInt_phi", "", 30, 0, 360);
-    f_sum_TrIntN_phi = new TProfile ("f_sum_TrIntN_phi", "", 30, 0, 360);
-    f_sum_TrPrm_phi = new TProfile ("f_sum_TrPrm_phi", "", 30, 0, 360);
-    f_sum_TrEff_theta = new TProfile ("f_sum_TrEff_theta", "", 30, 0, 180);
-    f_sum_TrEffI_theta = new TProfile ("f_sum_TrEffI_theta", "", 30, 0, 180);
-    f_sum_TrInt_theta = new TProfile ("f_sum_TrInt_theta", "", 30, 0, 180);
-    f_sum_TrIntN_theta = new TProfile ("f_sum_TrIntN_theta", "", 30, 0, 180);
-    f_sum_TrPrm_theta = new TProfile ("f_sum_TrPrm_theta", "", 30, 0, 180);
-    f_sum_TrEff_plus_TrEffI_theta = new TProfile ("f_sum_TrEff_plus_TrEffI_theta", "", 30, 0, 180);
-    f_sum_match_eff_theta = new TProfile ("f_sum_match_eff_theta", "", 30, 0, 180);
-    f_sum_int_and_not_reco_theta = new TProfile ("f_sum_int_and_not_reco_theta", "", 30, 0, 180);
-    f_reco_eff_theta = new TProfile ("f_reco_eff_theta", "", 30, 0, 180);
-    f_int_not_recoverable_theta = new TProfile ("f_int_not_recoverable_theta", "", 30, 0, 180);
-    f_hadr_new_minus_old_theta = new TProfile ("f_hadr_new_minus_old_theta", "", 30, 0, 180);
-    f_hadr_new_minus_old_phi = new TProfile ("f_hadr_new_minus_old_phi", "", 30, -180, 180);
-    f_hadr_new_minus_old_pt = new TProfile ("f_hadr_new_minus_old_pt", "", 30, 0, 10);
 }
 
 // a public method to initialize the class
@@ -434,27 +413,6 @@ void TMiniNtupleAnalyzer::WriteHistograms()
     fDebugSVTX->Write();
     fMc_q2_et->Write();
     fMc_pt_theta_pi -> Write();
-    f_hadr_prob_theta -> Write();
-    f_hadr_prob_phi -> Write();
-    // histograms for TrackSumEfficiency routine from A. Spiridonov
-    f_sum_TrEff_phi -> Write();
-    f_sum_TrEffI_phi -> Write();
-    f_sum_TrInt_phi -> Write();
-    f_sum_TrIntN_phi -> Write();
-    f_sum_TrPrm_phi -> Write();
-    f_sum_TrEff_theta -> Write();
-    f_sum_TrEffI_theta -> Write();
-    f_sum_TrInt_theta -> Write();
-    f_sum_TrIntN_theta -> Write();
-    f_sum_TrPrm_theta -> Write();
-    f_sum_TrEff_plus_TrEffI_theta -> Write();
-    f_sum_match_eff_theta -> Write();
-    f_sum_int_and_not_reco_theta -> Write();
-    f_reco_eff_theta -> Write();
-    f_int_not_recoverable_theta -> Write();
-    f_hadr_new_minus_old_theta -> Write();
-    f_hadr_new_minus_old_phi -> Write();
-    f_hadr_new_minus_old_pt -> Write();
 
     fHistogramsFile->Close();
     cout<<"INFO: Histograms written to file"<<endl;
