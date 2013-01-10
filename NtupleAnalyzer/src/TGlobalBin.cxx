@@ -115,6 +115,24 @@ int TGlobalBin::FillHistogram(TString HistTitle, Float_t Value1, Float_t Value2)
     return 0;
 }
 
+int TGlobalBin::FillProfileHistogram(TString HistTitle, Float_t Value1, Float_t Value2) {
+
+    if (!fListHistograms->FindObject(HistTitle)) {
+        cout << "ERROR: " << HistTitle << " histogram not found!" << endl;
+        abort();
+    }
+
+    TProfile    *currentHistogram = NULL;
+    currentHistogram = (TProfile*) fListHistograms -> FindObject(HistTitle);
+    if (!currentHistogram) {
+        cout << "ERROR: " << HistTitle << " profile not found " << endl;
+    }
+
+    // note, filling without a weight!
+    currentHistogram -> Fill(Value1, Value2);
+    return 0;
+}
+
 void TGlobalBin::MirrorHistograms() {
 
     // loop over all histograms that have to be mirrored
