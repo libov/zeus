@@ -43,7 +43,7 @@ Bool_t TGlobalBin::CheckGlobalBin(VariablePhase VarPhase) {
     return true;
 }
 
-int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
+int TGlobalBin::FillHistogram(TString HistTitle, Float_t Value) {
 
     if (!fListHistograms->FindObject(HistTitle)) {
         cout << "ERROR: " << HistTitle << " histogram not found!" << endl;
@@ -54,7 +54,7 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
     currentHistogram = (TH1F*) fListHistograms -> FindObject(HistTitle);
     currentHistogram -> Fill(Value, fWeightingFactor);
 
-    // now fill two histograms separately for S>0 and S<0
+    // now fill two histograms separately for S>0 and S<0 (for histograms stamped as "mirror" in declare-hist file)
     if (!fAnalyzerInstance->fFillMirrored)  return 0;
     TString     HistTitlePos=HistTitle+"_pos";
     TString     HistTitleNeg=HistTitle+"_neg";
@@ -74,6 +74,41 @@ int     TGlobalBin::FillHistogram(TString HistTitle, Float_t	Value) {
 
             currentHistogram=(TH1F*) fListHistograms -> FindObject(HistTitleNeg);
             currentHistogram->Fill(Value, fWeightingFactor);
+        }
+    }
+
+    return 0;
+}
+
+int TGlobalBin::FillHistogram(TString HistTitle, Float_t Value1, Float_t Value2) {
+
+    if (!fListHistograms->FindObject(HistTitle)) {
+        cout << "ERROR: " << HistTitle << " histogram not found!" << endl;
+        abort();
+    }
+
+    TH2F    *currentHistogram;
+    currentHistogram = (TH2F*) fListHistograms -> FindObject(HistTitle);
+    currentHistogram -> Fill(Value1, Value2, fWeightingFactor);
+
+    // now fill two histograms separately for S>0 and S<0 (for histograms stamped as "mirror" in declare-hist file)
+    if (!fAnalyzerInstance->fFillMirrored)  return 0;
+    TString     HistTitlePos=HistTitle+"_pos";
+    TString     HistTitleNeg=HistTitle+"_neg";
+
+    if (fAnalyzerInstance -> fSignificance > 0) {
+
+        if (fListHistograms->FindObject(HistTitlePos)) {
+            currentHistogram=(TH2F*)fListHistograms->FindObject(HistTitlePos);
+            currentHistogram->Fill(Value1, Value2, fWeightingFactor);
+        }
+    }
+
+    if (fAnalyzerInstance -> fSignificance < 0) {
+
+        if (fListHistograms->FindObject(HistTitleNeg)) {
+            currentHistogram=(TH2F*) fListHistograms -> FindObject(HistTitleNeg);
+            currentHistogram->Fill(Value1, Value2, fWeightingFactor);
         }
     }
 
