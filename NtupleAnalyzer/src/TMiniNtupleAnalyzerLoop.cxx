@@ -1156,29 +1156,27 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     if (phi<0) phi += (2*TMath::Pi());
                     Float_t p = track.Mag();
 
-                    Float_t TrEff = -1;
-                    Float_t TrInt = -1;
+                    Float_t TrEff_All = -1;
+                    Float_t TrInt_All = -1;
                     Int_t   charge = Trk_charge[track_id];
                     Float_t cot = 1./(TMath::Tan(track.Theta()));
                     // 2=kaon, 3=proton, else=pion
                     Int_t   id = 1;
-                    TrackAllEfficiency (phi, cot, p, charge, id, TrEff, TrInt);
+                    TrackAllEfficiency (phi, cot, p, charge, id, TrEff_All, TrInt_All);
                     // sanity check
-                    if ( (TrEff<=0) || (TrInt<=0) ) {
+                    if ( (TrEff_All<=0) || (TrInt_All<=0) ) {
                         cout << "ERROR: efficiency map failure" << endl;
                         cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
-                        cout << TrEff << " " << TrInt << endl;
+                        cout << TrEff_All << " " << TrInt_All << endl;
                         abort();
                     }
-                    currentTGlobalBin->FillHistogram("hadr_int_prob", TrInt);
-                    f_hadr_prob_phi -> Fill(phi*180./TMath::Pi(), TrInt);
-                    f_hadr_prob_theta -> Fill(track.Theta()*180./TMath::Pi(), TrInt);
-                    Float_t TrEff_All = TrEff;
-                    Float_t TrInt_All = TrInt;
+                    currentTGlobalBin->FillHistogram("hadr_int_prob", TrInt_All);
+                    f_hadr_prob_phi -> Fill(phi*180./TMath::Pi(), TrInt_All);
+                    f_hadr_prob_theta -> Fill(track.Theta()*180./TMath::Pi(), TrInt_All);
 
 		    // now for TrackSumEfficiency routine
-		    TrEff = -1;
-		    TrInt = -1;
+		    Float_t TrEff = -1;
+		    Float_t TrInt = -1;
 		    Float_t TrEffI = -1;
                     Float_t TrIntN = -1;
                     Float_t TrPrm = -1;
