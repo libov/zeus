@@ -13,6 +13,7 @@ namespace constants {
 
     const Double_t PI = TMath::Pi();
     const Double_t TWOPI = 2 * PI;
+    const Double_t RADtoDEG = 180./PI;
 }
 
 #endif
