@@ -716,27 +716,75 @@ void        TMiniNtupleAnalyzer::DeclareHistograms(TGlobalBin* globalbin) {
     if (binning.is_open()) {
         // read the file line by line and  process
         while (! binning.eof() ) {
+
             // read the line
             getline (binning,line);
-            const char*     linechar=line.data();
-            // helping variable to decode the line
-            char    Title[256];
-            Int_t   NBins=0;
-            Float_t LowerLimit=0;
-            Float_t UpperLimit=0;
-            char    mirror[20]="";
 
-            sscanf (linechar, "%s%d%f%f%s", Title, &NBins, &LowerLimit, &UpperLimit, mirror);
-            string mirror_str = mirror;
-            TString Title_tstring = Title;
-            if (mirror_str=="mirror") {
-                globalbin -> AddHistogram(new TH1F(Title_tstring+"_pos", "", NBins, LowerLimit, UpperLimit) );
-                globalbin -> AddHistogram(new TH1F(Title_tstring+"_neg", "", NBins, LowerLimit, UpperLimit) );
-                globalbin -> AddHistogram(new TH1F(Title_tstring+"_sum", "", NBins, LowerLimit, UpperLimit) );
-                globalbin -> AddHistogram(new TH1F(Title_tstring+"_diff", "", NBins, LowerLimit, UpperLimit) );
-                globalbin -> AddMirroredHistTitle(Title_tstring);
+            // convert to an array of words
+            TString line_str = line;
+            TObjArray * tokens = line_str.Tokenize(" ");
+            // check if this line is a comment
+            TString first_word = ((TObjString*)tokens->At(0)) -> GetString();
+            char first_char = first_word[0];
+            if (first_char=='#') continue;
+            // get total number of elements in the line
+            unsigned n_elements = tokens -> GetEntries();
+
+            // sanity check: should be at least four words (title, number of bins, lower and upper range)
+            if (n_elements < 4) {
+                cout << "ERROR: bad entry in " << fHistogramDeclarationFile << endl;
+                abort();
             }
-            globalbin -> AddHistogram(new TH1F(Title_tstring,"",NBins,LowerLimit,UpperLimit) );
+
+            // start decoding
+            // histogram title
+            TString title = ((TObjString*)tokens->At(0)) -> GetString();
+
+            //  number of bins and lower/upper ranges
+            Int_t NBins = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
+            Float_t LowerLimit= (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+            Float_t UpperLimit= (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+
+            // four elements: 1-dim, no mirroring
+            // five elements: 1-dim, mirroring or TProfile
+
+            if ( n_elements == 4 ) {
+                globalbin -> AddHistogram(new TH1F(title, "", NBins, LowerLimit, UpperLimit) );
+            } else  if ( n_elements == 5 ) {
+                TString comment = ((TObjString*)tokens->At(4)) -> GetString();
+                if (comment == "mirror") {
+                    globalbin -> AddHistogram(new TH1F(title, "", NBins, LowerLimit, UpperLimit) );
+                    globalbin -> AddHistogram(new TH1F(title+"_pos", "", NBins, LowerLimit, UpperLimit) );
+                    globalbin -> AddHistogram(new TH1F(title+"_neg", "", NBins, LowerLimit, UpperLimit) );
+                    globalbin -> AddHistogram(new TH1F(title+"_sum", "", NBins, LowerLimit, UpperLimit) );
+                    globalbin -> AddHistogram(new TH1F(title+"_diff", "", NBins, LowerLimit, UpperLimit) );
+                    globalbin -> AddMirroredHistTitle(title);
+                } else if (comment == "profile") {
+                    globalbin -> AddHistogram(new TProfile(title, "", NBins, LowerLimit, UpperLimit));
+                }
+            } else if ( ( n_elements == 7 ) || ( n_elements == 8 ) ) {
+                // if we are here, then more than 5 elements: 2-dim histogram
+                // must be 7 or 8 elements
+                Int_t NBins2 = (((TObjString*)tokens->At(4)) -> GetString()).Atoi();
+                Float_t LowerLimit2= (((TObjString*)tokens->At(5)) -> GetString()).Atof();
+                Float_t UpperLimit2= (((TObjString*)tokens->At(6)) -> GetString()).Atof();
+                globalbin -> AddHistogram(new TH2F(title, "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+
+                if ( n_elements == 8 ) {
+                    TString mirror = ((TObjString*)tokens->At(7)) -> GetString();
+                    if (mirror == "mirror") {
+                        globalbin -> AddHistogram(new TH2F(title+"_pos", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                        globalbin -> AddHistogram(new TH2F(title+"_neg", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                        globalbin -> AddHistogram(new TH2F(title+"_sum", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                        globalbin -> AddHistogram(new TH2F(title+"_diff", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                        globalbin -> AddMirroredHistTitle(title);
+                    }
+                }
+                continue;
+            } else {
+                cout << "ERROR: bad entry in " << fHistogramDeclarationFile << endl;
+                abort();
+            }
         }
         binning.close();
     } else {
