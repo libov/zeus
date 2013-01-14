@@ -1241,6 +1241,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // comparison
                     Float_t corr_slava_vs_All = (correction_slava - correction_All) / correction_All;
                     Float_t corr_Rec_vs_All = (correction_Rec - correction_All) / correction_All;
+                    Float_t corr_slava_vs_Olaf_theta = (correction_Olaf-correction_slava)/correction_slava;
 
                     // fill the histograms
                     currentTGlobalBin -> FillProfileHistogram("TrEff_phi", phi_deg, TrEff);
@@ -1295,7 +1296,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_theta",  theta_deg, corr_Rec_vs_All);
                     currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_phi",  phi_deg, corr_Rec_vs_All);
                     currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_p", p, corr_Rec_vs_All);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Olaf_theta",  theta_deg, (correction_Olaf-correction_slava)/correction_slava);
+                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Olaf_theta",  theta_deg, corr_slava_vs_Olaf_theta);
                 }
 
                 // fill some histos related to track density effects
