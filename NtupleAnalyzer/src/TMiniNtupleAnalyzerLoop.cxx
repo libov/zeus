@@ -1231,14 +1231,13 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t int_and_not_reco_Sum = TrEffI_Sum + TrInt_Sum - TrEffI_Sum/VMCU_match_eff_Sum;
                     Float_t correction_achim = int_and_not_reco_Sum/(TrEff_Sum + TrIntN_Sum);
                     // Olaf's approach
-                    Float_t C = TrEffI_Sum/VMCU_match_eff_Sum + TrInt_Sum + TrEff_Sum/VMCU_match_eff_Sum + TrIntN_Sum;
                     Float_t TrEff_Sum_renorm = TrEff_Sum / VMCU_match_eff_Sum;
                     Float_t TrEffI_Sum_renorm = TrEffI_Sum / VMCU_match_eff_Sum;
                     Float_t TrInt_Sum_renorm = TrInt_Sum +  TrEffI_Sum  - TrEffI_Sum_renorm;
                     Float_t TrIntN_Sum_renorm = TrIntN_Sum + TrEff_Sum - TrEff_Sum_renorm;
-                    Float_t eff_old = TrEff_Sum_renorm + TrEffI_Sum_renorm;
-                    Float_t eff_new = (TrEffI_Sum_renorm + TrEff_Sum_renorm)/(TrEffI_Sum_renorm + TrEff_Sum_renorm + 1.4 * TrInt_Sum_renorm + TrIntN_Sum_renorm);
-                    Float_t correction_Olaf = (1 - eff_new/eff_old) / (1.4 - 1);
+                    Float_t hadr_lost_due_to_detector = TrEffI_Sum_renorm * (1.-detector_eff_Sum)/detector_eff_Sum;
+                    Float_t hadr_int = TrInt_Sum_renorm - hadr_lost_due_to_detector;
+                    Float_t correction_Olaf =  hadr_int/(1-hadr_int);
                     // comparison
                     Float_t corr_slava_vs_All = (correction_slava - correction_All) / correction_All;
                     Float_t corr_Rec_vs_All = (correction_Rec - correction_All) / correction_All;
