@@ -1296,6 +1296,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_theta",  theta_deg, corr_Rec_vs_All);
                     currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_phi",  phi_deg, corr_Rec_vs_All);
                     currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_p", p, corr_Rec_vs_All);
+                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Olaf_theta",  theta_deg, (correction_Olaf-correction_slava)/correction_slava);
                 }
 
                 // fill some histos related to track density effects
