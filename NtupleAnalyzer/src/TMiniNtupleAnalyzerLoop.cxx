@@ -1172,11 +1172,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t TrInt = -1;
                     TrackEfficiency (phi, cot, p, charge, id, TrEff, TrInt);
                     // sanity check
-                    if ( (TrEff<0) || (TrInt<0) ) {
+                    if ( (TrEff<=0) || (TrInt<=0) ) {
                         cout << "ERROR: TrackEfficiency map failure" << endl;
                         cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
                         cout << TrEff << " " << TrInt << endl;
-                        abort();
+                        continue;
                     }
 
                     // TrackRecEfficiency
@@ -1184,11 +1184,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t TrInt_Rec = -1;
                     TrackRecEfficiency (phi, cot, p, charge, id, TrEff_Rec, TrInt_Rec);
                     // sanity check
-                    if ( (TrEff_Rec<0) || (TrInt_Rec<0) ) {
+                    if ( (TrEff_Rec<=0) || (TrInt_Rec<=0) ) {
                         cout << "ERROR: TrackRecEfficiency map failure" << endl;
                         cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
                         cout << TrEff_Rec << " " << TrInt_Rec << endl;
-                        abort();
+                        continue;
                     }
 
                     // TrackAllEfficiency
@@ -1196,11 +1196,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t TrInt_All = -1;
                     TrackAllEfficiency (phi, cot, p, charge, id, TrEff_All, TrInt_All);
                     // sanity check
-                    if ( (TrEff_All<0) || (TrInt_All<0) ) {
+                    if ( (TrEff_All<=0) || (TrInt_All<=0) ) {
                         cout << "ERROR: TrackAllEfficiency map failure" << endl;
                         cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
                         cout << TrEff_All << " " << TrInt_All << endl;
-                        abort();
+                        continue;
                     }
 
                     // TrackSumEfficiency
@@ -1210,11 +1210,11 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t TrIntN_Sum = -1;
                     Float_t TrPrm_Sum = -1;
                     TrackSumEfficiency (phi, cot, p, charge, id, TrEff_Sum, TrEffI_Sum, TrInt_Sum, TrIntN_Sum, TrPrm_Sum);
-                    if ( (TrEff_Sum<0) || (TrEffI_Sum<0) || (TrInt_Sum<0) || (TrIntN_Sum<0) || (TrPrm_Sum<0) ) {
+                    if ( (TrEff_Sum<=0) || (TrEffI_Sum<=0) || (TrInt_Sum<=0) || (TrIntN_Sum<=0) || (TrPrm_Sum<=0) ) {
                         cout << "ERROR: efficiency map failure" << endl;
                         cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
                         cout << TrEff_Sum << " " << TrEffI_Sum << " " << TrInt_Sum << " " << TrIntN_Sum << " " << TrPrm_Sum << endl;
-                        abort();
+                        continue;
                     }
 
                     // simple corrections from first three versions
