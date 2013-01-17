@@ -1287,7 +1287,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     currentTGlobalBin -> FillProfileHistogram("detector_eff_Sum_theta", theta_deg, detector_eff_Sum);
                     currentTGlobalBin -> FillProfileHistogram("hadr_int_non_recoverable_Sum_theta", theta_deg, hadr_int_non_recoverable_Sum);
                     currentTGlobalBin -> FillProfileHistogram("correction_slava_theta", theta_deg, correction_slava);
-                    currentTGlobalBin -> FillProfileHistogram("int_and_not_reco_Sum_theta", theta_deg, int_and_not_reco_Sum);
                     currentTGlobalBin -> FillProfileHistogram("correction_achim_theta", theta_deg, correction_achim);
 
                     currentTGlobalBin -> FillProfileHistogram("correction_Olaf_theta",  theta_deg, correction_Olaf);
