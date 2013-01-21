@@ -803,7 +803,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     // refit the vertex; this makes the fit, updates relevant TVertex parameters
                     // (coordinates and covariance matrix), recalculates significance, chi2ndf, mass and updates those parameters
                     bool  fit_successful = cVtx.RefitVertex();
-                    if (!fit_successful) abort();
+                    if (!fit_successful) {
+                        cout << " ERROR: fit was not succesfull" << endl;
+                        abort();
+                    }
                     // various sanity checks below (to check if results are the same as in orange)
                     const Float_t   EQUALITY_CRITERION = 1e-6;
                     // sanity check: compare to what we got in orange
