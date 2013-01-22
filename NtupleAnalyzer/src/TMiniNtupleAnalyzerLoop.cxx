@@ -761,14 +761,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 cVtx.id=vertex;
                 cVtx.fJetB=correspjetB;
 
-                // if selected, do a uncertainty estimation due to tracking inefficiency,
-                // that is drop tracks with a certain probability which is a measure of how well
-                // tracking efficiency is known in the Monte Carlo simulation
-                if (fIsMC && fDropTracks) {
-
-                    // specific for v04/v06; get track helix parameters and covariance for tracks
-                    // belonging to a secondary vertex
-
+                // specific for v04/v06; get track helix parameters and covariance for tracks
+                // belonging to a secondary vertex
+                if ( fGetVertexTracks || (fIsMC && fDropTracks) ) {
                     // some initializations
                     Float_t     trackhelix[60][5];
                     Float_t     trackhelixcov[60][15];
@@ -825,6 +820,13 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     cVtx.SetTrackTheta(Vtxsec_multi[vertex], track_theta);
                     cVtx.SetTrackPhi(Vtxsec_multi[vertex], track_phi);
                     cVtx.SetTrackCharge(Vtxsec_multi[vertex], track_charge);
+                }
+
+                // if selected, do a uncertainty estimation due to tracking inefficiency,
+                // that is drop tracks with a certain probability which is a measure of how well
+                // tracking efficiency is known in the Monte Carlo simulation
+
+                if (fIsMC && fDropTracks) {
 
                     // do the fits
                     // first redo the fit without track dropping in order to check that results
