@@ -1171,7 +1171,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 // hadronic interaction probability
                 if (fGetVertexTracks || fRedoVertexing) {
 
-
                     for (int k=0; k<vtx_multi; k++) {
 
                         // try to find this track in the Tracking block
@@ -1277,7 +1276,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Float_t corr_slava_scaled_div_Rec = correction_slava_scaled / correction_Rec;
                         Float_t corr_slava_scaled_div_All = correction_slava_scaled / correction_All;
 
-
                         // fill the histograms
                         currentTGlobalBin -> FillProfileHistogram("TrEff_phi", phi_deg, TrEff);
                         currentTGlobalBin -> FillProfileHistogram("TrInt_phi", phi_deg, TrInt);
@@ -1337,7 +1335,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled_theta",  theta_deg, correction_slava_scaled);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_Rec_theta",  theta_deg, corr_slava_scaled_div_Rec);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_All_theta",  theta_deg, corr_slava_scaled_div_All);
-
                     }
                 }
 
