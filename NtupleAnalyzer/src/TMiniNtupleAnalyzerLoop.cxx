@@ -1022,6 +1022,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 Float_t chi2 = fVertices[j].GetChi2();
                 #endif
 
+                Int_t trackIDs[60];
+                fVertices[j].GetVertexTracks(vtx_multi, trackIDs);
+
                 //Float_t average_angle = getAverageAngle(vertex);
                 Float_t average_angle;
 
@@ -1165,26 +1168,13 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 currentTGlobalBin->FillHistogram("average_angle", average_angle);
 
+                if (fGetVertexTracks || fRedoVertexing) {
+
                 // hadronic interaction probability
                 for (int k=0; k<vtx_multi; k++) {
 
                     // try to find this track in the Tracking block
-                    int track_id = -1;
-                    for (int j = 0; j<Trk_ntracks; j++){
-                        if (Trk_id[j] == Vtxsec_zttid[vertex][k]) {
-                            track_id = j;
-                            break;
-                        }
-                    }
-
-                    // sanity check
-                    if (track_id == -1) {
-                        continue;
-                        #ifdef CN_VERSION_V06
-                        cout << "ERROR: vertex track was not found in the tracking block. Should not happen for v06. Terminating." << endl;
-                        abort();
-                        #endif
-                    }
+                    int track_id = trackIDs[k];
 
                     // create a track object
                     TVector3 track(Trk_px[track_id], Trk_py[track_id], Trk_pz[track_id]);
