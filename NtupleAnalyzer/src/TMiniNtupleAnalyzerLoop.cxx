@@ -602,6 +602,34 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 vtx.SetZUFO_type(ZUFO_type);
             }
 
+            // set vertex multiplicity and track IDs
+            vtx.SetNTracks(Vtxsec_multi[vertex]);
+
+            if (fGetVertexTracks) {
+                Int_t track_ids[60];
+
+                for (int i=0; i<Vtxsec_multi[vertex]; i++) {
+
+                    // try to find this track in the Tracking block
+                    int track_id = -1;
+                    for (int j = 0; j<Trk_ntracks; j++){
+                        if (Trk_id[j] == Vtxsec_zttid[vertex][i]) {
+                            track_id = j;
+                            break;
+                        }
+                    }
+
+                    // sanity check
+                    if (track_id == -1) {
+                        cout << "ERROR: Unable to find vertex track in the Tracking block. Terminating" << endl;
+                        abort();
+                    }
+
+                    track_ids[i] = track_id;
+                }
+                vtx.SetVertexTracks(Vtxsec_multi[vertex], track_ids);
+            }
+
             // ok, a good vertex was found, store it to array and raise the good-vtx-found flag
             fVertices.push_back(vtx);
             fSecondaryVertexFound=true;
