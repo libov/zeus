@@ -1168,176 +1168,177 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 currentTGlobalBin->FillHistogram("average_angle", average_angle);
 
+                // hadronic interaction probability
                 if (fGetVertexTracks || fRedoVertexing) {
 
-                // hadronic interaction probability
-                for (int k=0; k<vtx_multi; k++) {
 
-                    // try to find this track in the Tracking block
-                    int track_id = trackIDs[k];
+                    for (int k=0; k<vtx_multi; k++) {
 
-                    // create a track object
-                    TVector3 track(Trk_px[track_id], Trk_py[track_id], Trk_pz[track_id]);
+                        // try to find this track in the Tracking block
+                        int track_id = trackIDs[k];
 
-                    // assign track parameters to be passed to Sasha's routines
-                    Float_t phi = track.Phi();
-                    if (phi<0) phi += TWOPI;
-                    Float_t phi_deg = phi * RADtoDEG;
-                    Float_t p = track.Mag();
-                    Int_t   charge = Trk_charge[track_id];
-                    Float_t cot = 1./(TMath::Tan(track.Theta()));
-                    Float_t theta_deg = track.Theta() * RADtoDEG;
-                    // particle ID: 2=kaon, 3=proton, else=pion
-                    Int_t   id = 1;
+                        // create a track object
+                        TVector3 track(Trk_px[track_id], Trk_py[track_id], Trk_pz[track_id]);
 
-                    // get information from various versions of Sasha's routine
+                        // assign track parameters to be passed to Sasha's routines
+                        Float_t phi = track.Phi();
+                        if (phi<0) phi += TWOPI;
+                        Float_t phi_deg = phi * RADtoDEG;
+                        Float_t p = track.Mag();
+                        Int_t   charge = Trk_charge[track_id];
+                        Float_t cot = 1./(TMath::Tan(track.Theta()));
+                        Float_t theta_deg = track.Theta() * RADtoDEG;
+                        // particle ID: 2=kaon, 3=proton, else=pion
+                        Int_t   id = 1;
 
-                    // TrackEfficiency
-                    Float_t TrEff = -1;
-                    Float_t TrInt = -1;
-                    TrackEfficiency (phi, cot, p, charge, id, TrEff, TrInt);
-                    // sanity check
-                    if ( (TrEff<=0) || (TrInt<=0) ) {
-                        cout << "ERROR: TrackEfficiency map failure" << endl;
-                        cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
-                        cout << TrEff << " " << TrInt << endl;
-                        continue;
+                        // get information from various versions of Sasha's routine
+
+                        // TrackEfficiency
+                        Float_t TrEff = -1;
+                        Float_t TrInt = -1;
+                        TrackEfficiency (phi, cot, p, charge, id, TrEff, TrInt);
+                        // sanity check
+                        if ( (TrEff<=0) || (TrInt<=0) ) {
+                            cout << "ERROR: TrackEfficiency map failure" << endl;
+                            cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
+                            cout << TrEff << " " << TrInt << endl;
+                            continue;
+                        }
+
+                        // TrackRecEfficiency
+                        Float_t TrEff_Rec = -1;
+                        Float_t TrInt_Rec = -1;
+                        TrackRecEfficiency (phi, cot, p, charge, id, TrEff_Rec, TrInt_Rec);
+                        // sanity check
+                        if ( (TrEff_Rec<=0) || (TrInt_Rec<=0) ) {
+                            cout << "ERROR: TrackRecEfficiency map failure" << endl;
+                            cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
+                            cout << TrEff_Rec << " " << TrInt_Rec << endl;
+                            continue;
+                        }
+
+                        // TrackAllEfficiency
+                        Float_t TrEff_All = -1;
+                        Float_t TrInt_All = -1;
+                        TrackAllEfficiency (phi, cot, p, charge, id, TrEff_All, TrInt_All);
+                        // sanity check
+                        if ( (TrEff_All<=0) || (TrInt_All<=0) ) {
+                            cout << "ERROR: TrackAllEfficiency map failure" << endl;
+                            cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
+                            cout << TrEff_All << " " << TrInt_All << endl;
+                            continue;
+                        }
+
+                        // TrackSumEfficiency
+                        Float_t TrEff_Sum = -1;
+                        Float_t TrEffI_Sum = -1;
+                        Float_t TrInt_Sum = -1;
+                        Float_t TrIntN_Sum = -1;
+                        Float_t TrPrm_Sum = -1;
+                        TrackSumEfficiency (phi, cot, p, charge, id, TrEff_Sum, TrEffI_Sum, TrInt_Sum, TrIntN_Sum, TrPrm_Sum);
+                        if ( (TrEff_Sum<=0) || (TrEffI_Sum<=0) || (TrInt_Sum<=0) || (TrIntN_Sum<=0) || (TrPrm_Sum<=0) ) {
+                            cout << "ERROR: efficiency map failure" << endl;
+                            cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
+                            cout << TrEff_Sum << " " << TrEffI_Sum << " " << TrInt_Sum << " " << TrIntN_Sum << " " << TrPrm_Sum << endl;
+                            continue;
+                        }
+
+                        // simple corrections from first three versions
+                        Float_t correction = TrInt/(1.-TrInt);
+                        Float_t correction_Rec = TrInt_Rec/(1.-TrInt_Rec);
+                        Float_t correction_All = TrInt_All/(1.-TrInt_All);
+                        // Slava's approach
+                        Float_t TrEff_Sum_plus_TrEffI_Sum = TrEff_Sum + TrEffI_Sum;
+                        Float_t VMCU_match_eff_Sum = TrEff_Sum_plus_TrEffI_Sum / TrPrm_Sum;
+                        Float_t detector_eff_Sum = TrEff_Sum / ( (TrEff_Sum + TrIntN_Sum) * VMCU_match_eff_Sum) ;
+                        Float_t hadr_int_non_recoverable_Sum = TrEffI_Sum + TrInt_Sum - TrEffI_Sum/ ( VMCU_match_eff_Sum * detector_eff_Sum) ;
+                        Float_t correction_slava = hadr_int_non_recoverable_Sum/(1.-hadr_int_non_recoverable_Sum);
+                        // Achim's approach
+                        Float_t int_rec = TrEffI_Sum * (TrEff_Sum + TrIntN_Sum) / TrEff_Sum;
+                        Float_t numerator_achim = TrEffI_Sum + TrInt_Sum - int_rec;
+                        Float_t denominator_achim = TrEff_Sum + TrIntN_Sum + int_rec;
+                        Float_t correction_achim = numerator_achim/denominator_achim;
+                        // Olaf's approach
+                        Float_t TrEff_Sum_renorm = TrEff_Sum / VMCU_match_eff_Sum;
+                        Float_t TrEffI_Sum_renorm = TrEffI_Sum / VMCU_match_eff_Sum;
+                        Float_t TrInt_Sum_renorm = TrInt_Sum +  TrEffI_Sum  - TrEffI_Sum_renorm;
+                        Float_t TrIntN_Sum_renorm = TrIntN_Sum + TrEff_Sum - TrEff_Sum_renorm;
+                        Float_t hadr_lost_due_to_detector = TrEffI_Sum_renorm * (1.-detector_eff_Sum)/detector_eff_Sum;
+                        Float_t hadr_int = TrInt_Sum_renorm - hadr_lost_due_to_detector;
+                        Float_t correction_Olaf =  hadr_int/(1-hadr_int);
+                        // comparison
+                        Float_t corr_slava_vs_All = (correction_slava - correction_All) / correction_All;
+                        Float_t corr_slava_vs_Rec = (correction_slava - correction_Rec) / correction_Rec;
+                        Float_t corr_slava_div_Rec = correction_slava / correction_Rec;
+                        Float_t corr_Rec_vs_All = (correction_Rec - correction_All) / correction_All;
+                        Float_t corr_slava_vs_Olaf_theta = (correction_Olaf-correction_slava)/correction_slava;
+                        Float_t corr_achim_div_slava = correction_achim / correction_slava;
+                        Float_t correction_slava_scaled = correction_slava / 0.85;
+                        Float_t corr_slava_scaled_div_Rec = correction_slava_scaled / correction_Rec;
+                        Float_t corr_slava_scaled_div_All = correction_slava_scaled / correction_All;
+
+
+                        // fill the histograms
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_phi", phi_deg, TrEff);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_phi", phi_deg, TrInt);
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_theta", theta_deg, TrEff);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_theta", theta_deg, TrInt);
+                        currentTGlobalBin -> FillProfileHistogram("correction_phi", phi_deg, correction);
+                        currentTGlobalBin -> FillProfileHistogram("correction_theta", theta_deg, correction);
+                        currentTGlobalBin -> FillHistogram("TrInt", TrInt);
+
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_Rec_phi", phi_deg, TrEff_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_Rec_phi", phi_deg, TrInt_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_Rec_theta", theta_deg, TrEff_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_Rec_theta", theta_deg, TrInt_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("correction_Rec_phi", phi_deg, correction_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("correction_Rec_theta", theta_deg, correction_Rec);
+                        currentTGlobalBin -> FillHistogram("TrInt_Rec", TrInt_Rec);
+
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_All_phi", phi_deg, TrEff_All);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_All_phi", phi_deg, TrInt_All);
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_All_theta", theta_deg, TrEff_All);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_All_theta", theta_deg, TrInt_All);
+                        currentTGlobalBin -> FillProfileHistogram("correction_All_phi", phi_deg, correction_All);
+                        currentTGlobalBin -> FillProfileHistogram("correction_All_theta", theta_deg, correction_All);
+                        currentTGlobalBin -> FillHistogram("TrInt_All", TrInt_All);
+
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_Sum_phi", phi_deg, TrEff_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrEffI_Sum_phi", phi_deg, TrEffI_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_Sum_phi", phi_deg, TrInt_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrIntN_Sum_phi", phi_deg, TrIntN_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrPrm_Sum_phi", phi_deg, TrPrm_Sum);
+
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_Sum_theta", theta_deg, TrEff_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrEffI_Sum_theta", theta_deg, TrEffI_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_Sum_theta", theta_deg, TrInt_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrIntN_Sum_theta", theta_deg, TrIntN_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("TrPrm_Sum_theta", theta_deg, TrPrm_Sum);
+
+                        currentTGlobalBin -> FillProfileHistogram("TrEff_Sum_plus_TrEffI_Sum_theta", theta_deg, TrEff_Sum_plus_TrEffI_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("VMCU_match_eff_Sum_theta", theta_deg, VMCU_match_eff_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("detector_eff_Sum_theta", theta_deg, detector_eff_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("hadr_int_non_recoverable_Sum_theta", theta_deg, hadr_int_non_recoverable_Sum);
+                        currentTGlobalBin -> FillProfileHistogram("correction_slava_theta", theta_deg, correction_slava);
+                        currentTGlobalBin -> FillProfileHistogram("correction_achim_theta", theta_deg, correction_achim);
+
+                        currentTGlobalBin -> FillProfileHistogram("correction_Olaf_theta",  theta_deg, correction_Olaf);
+
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_theta",  theta_deg, corr_slava_vs_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_phi",  phi_deg, corr_slava_vs_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_p", p, corr_slava_vs_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Rec_theta",  theta_deg, corr_slava_vs_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_div_Rec_theta",  theta_deg, corr_slava_div_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_theta",  theta_deg, corr_Rec_vs_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_phi",  phi_deg, corr_Rec_vs_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_p", p, corr_Rec_vs_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Olaf_theta",  theta_deg, corr_slava_vs_Olaf_theta);
+                        currentTGlobalBin -> FillProfileHistogram("corr_achim_div_slava_theta",  theta_deg, corr_achim_div_slava);
+                        currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled_theta",  theta_deg, correction_slava_scaled);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_Rec_theta",  theta_deg, corr_slava_scaled_div_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_All_theta",  theta_deg, corr_slava_scaled_div_All);
+
                     }
-
-                    // TrackRecEfficiency
-                    Float_t TrEff_Rec = -1;
-                    Float_t TrInt_Rec = -1;
-                    TrackRecEfficiency (phi, cot, p, charge, id, TrEff_Rec, TrInt_Rec);
-                    // sanity check
-                    if ( (TrEff_Rec<=0) || (TrInt_Rec<=0) ) {
-                        cout << "ERROR: TrackRecEfficiency map failure" << endl;
-                        cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
-                        cout << TrEff_Rec << " " << TrInt_Rec << endl;
-                        continue;
-                    }
-
-                    // TrackAllEfficiency
-                    Float_t TrEff_All = -1;
-                    Float_t TrInt_All = -1;
-                    TrackAllEfficiency (phi, cot, p, charge, id, TrEff_All, TrInt_All);
-                    // sanity check
-                    if ( (TrEff_All<=0) || (TrInt_All<=0) ) {
-                        cout << "ERROR: TrackAllEfficiency map failure" << endl;
-                        cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
-                        cout << TrEff_All << " " << TrInt_All << endl;
-                        continue;
-                    }
-
-                    // TrackSumEfficiency
-                    Float_t TrEff_Sum = -1;
-                    Float_t TrEffI_Sum = -1;
-                    Float_t TrInt_Sum = -1;
-                    Float_t TrIntN_Sum = -1;
-                    Float_t TrPrm_Sum = -1;
-                    TrackSumEfficiency (phi, cot, p, charge, id, TrEff_Sum, TrEffI_Sum, TrInt_Sum, TrIntN_Sum, TrPrm_Sum);
-                    if ( (TrEff_Sum<=0) || (TrEffI_Sum<=0) || (TrInt_Sum<=0) || (TrIntN_Sum<=0) || (TrPrm_Sum<=0) ) {
-                        cout << "ERROR: efficiency map failure" << endl;
-                        cout << phi << " " << cot << " " << p << " " << charge << " " << id << endl;
-                        cout << TrEff_Sum << " " << TrEffI_Sum << " " << TrInt_Sum << " " << TrIntN_Sum << " " << TrPrm_Sum << endl;
-                        continue;
-                    }
-
-                    // simple corrections from first three versions
-                    Float_t correction = TrInt/(1.-TrInt);
-                    Float_t correction_Rec = TrInt_Rec/(1.-TrInt_Rec);
-                    Float_t correction_All = TrInt_All/(1.-TrInt_All);
-                    // Slava's approach
-                    Float_t TrEff_Sum_plus_TrEffI_Sum = TrEff_Sum + TrEffI_Sum;
-                    Float_t VMCU_match_eff_Sum = TrEff_Sum_plus_TrEffI_Sum / TrPrm_Sum;
-                    Float_t detector_eff_Sum = TrEff_Sum / ( (TrEff_Sum + TrIntN_Sum) * VMCU_match_eff_Sum) ;
-                    Float_t hadr_int_non_recoverable_Sum = TrEffI_Sum + TrInt_Sum - TrEffI_Sum/ ( VMCU_match_eff_Sum * detector_eff_Sum) ;
-                    Float_t correction_slava = hadr_int_non_recoverable_Sum/(1.-hadr_int_non_recoverable_Sum);
-                    // Achim's approach
-                    Float_t int_rec = TrEffI_Sum * (TrEff_Sum + TrIntN_Sum) / TrEff_Sum;
-                    Float_t numerator_achim = TrEffI_Sum + TrInt_Sum - int_rec;
-                    Float_t denominator_achim = TrEff_Sum + TrIntN_Sum + int_rec;
-                    Float_t correction_achim = numerator_achim/denominator_achim;
-                    // Olaf's approach
-                    Float_t TrEff_Sum_renorm = TrEff_Sum / VMCU_match_eff_Sum;
-                    Float_t TrEffI_Sum_renorm = TrEffI_Sum / VMCU_match_eff_Sum;
-                    Float_t TrInt_Sum_renorm = TrInt_Sum +  TrEffI_Sum  - TrEffI_Sum_renorm;
-                    Float_t TrIntN_Sum_renorm = TrIntN_Sum + TrEff_Sum - TrEff_Sum_renorm;
-                    Float_t hadr_lost_due_to_detector = TrEffI_Sum_renorm * (1.-detector_eff_Sum)/detector_eff_Sum;
-                    Float_t hadr_int = TrInt_Sum_renorm - hadr_lost_due_to_detector;
-                    Float_t correction_Olaf =  hadr_int/(1-hadr_int);
-                    // comparison
-                    Float_t corr_slava_vs_All = (correction_slava - correction_All) / correction_All;
-                    Float_t corr_slava_vs_Rec = (correction_slava - correction_Rec) / correction_Rec;
-                    Float_t corr_slava_div_Rec = correction_slava / correction_Rec;
-                    Float_t corr_Rec_vs_All = (correction_Rec - correction_All) / correction_All;
-                    Float_t corr_slava_vs_Olaf_theta = (correction_Olaf-correction_slava)/correction_slava;
-                    Float_t corr_achim_div_slava = correction_achim / correction_slava;
-                    Float_t correction_slava_scaled = correction_slava / 0.85;
-                    Float_t corr_slava_scaled_div_Rec = correction_slava_scaled / correction_Rec;
-                    Float_t corr_slava_scaled_div_All = correction_slava_scaled / correction_All;
-
-
-                    // fill the histograms
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_phi", phi_deg, TrEff);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_phi", phi_deg, TrInt);
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_theta", theta_deg, TrEff);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_theta", theta_deg, TrInt);
-                    currentTGlobalBin -> FillProfileHistogram("correction_phi", phi_deg, correction);
-                    currentTGlobalBin -> FillProfileHistogram("correction_theta", theta_deg, correction);
-                    currentTGlobalBin -> FillHistogram("TrInt", TrInt);
-
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_Rec_phi", phi_deg, TrEff_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_Rec_phi", phi_deg, TrInt_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_Rec_theta", theta_deg, TrEff_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_Rec_theta", theta_deg, TrInt_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("correction_Rec_phi", phi_deg, correction_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("correction_Rec_theta", theta_deg, correction_Rec);
-                    currentTGlobalBin -> FillHistogram("TrInt_Rec", TrInt_Rec);
-
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_All_phi", phi_deg, TrEff_All);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_All_phi", phi_deg, TrInt_All);
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_All_theta", theta_deg, TrEff_All);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_All_theta", theta_deg, TrInt_All);
-                    currentTGlobalBin -> FillProfileHistogram("correction_All_phi", phi_deg, correction_All);
-                    currentTGlobalBin -> FillProfileHistogram("correction_All_theta", theta_deg, correction_All);
-                    currentTGlobalBin -> FillHistogram("TrInt_All", TrInt_All);
-
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_Sum_phi", phi_deg, TrEff_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrEffI_Sum_phi", phi_deg, TrEffI_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_Sum_phi", phi_deg, TrInt_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrIntN_Sum_phi", phi_deg, TrIntN_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrPrm_Sum_phi", phi_deg, TrPrm_Sum);
-
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_Sum_theta", theta_deg, TrEff_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrEffI_Sum_theta", theta_deg, TrEffI_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrInt_Sum_theta", theta_deg, TrInt_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrIntN_Sum_theta", theta_deg, TrIntN_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("TrPrm_Sum_theta", theta_deg, TrPrm_Sum);
-
-                    currentTGlobalBin -> FillProfileHistogram("TrEff_Sum_plus_TrEffI_Sum_theta", theta_deg, TrEff_Sum_plus_TrEffI_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("VMCU_match_eff_Sum_theta", theta_deg, VMCU_match_eff_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("detector_eff_Sum_theta", theta_deg, detector_eff_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("hadr_int_non_recoverable_Sum_theta", theta_deg, hadr_int_non_recoverable_Sum);
-                    currentTGlobalBin -> FillProfileHistogram("correction_slava_theta", theta_deg, correction_slava);
-                    currentTGlobalBin -> FillProfileHistogram("correction_achim_theta", theta_deg, correction_achim);
-
-                    currentTGlobalBin -> FillProfileHistogram("correction_Olaf_theta",  theta_deg, correction_Olaf);
-
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_theta",  theta_deg, corr_slava_vs_All);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_phi",  phi_deg, corr_slava_vs_All);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_p", p, corr_slava_vs_All);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Rec_theta",  theta_deg, corr_slava_vs_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_div_Rec_theta",  theta_deg, corr_slava_div_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_theta",  theta_deg, corr_Rec_vs_All);
-                    currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_phi",  phi_deg, corr_Rec_vs_All);
-                    currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_p", p, corr_Rec_vs_All);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Olaf_theta",  theta_deg, corr_slava_vs_Olaf_theta);
-                    currentTGlobalBin -> FillProfileHistogram("corr_achim_div_slava_theta",  theta_deg, corr_achim_div_slava);
-                    currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled_theta",  theta_deg, correction_slava_scaled);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_Rec_theta",  theta_deg, corr_slava_scaled_div_Rec);
-                    currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_All_theta",  theta_deg, corr_slava_scaled_div_All);
-
-                }
                 }
 
                 // fill some histos related to track density effects
