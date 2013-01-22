@@ -11087,7 +11087,7 @@ void TrackSumEfficiency
 {
   
   bool debug = true;
-  //debug = false;
+  debug = false;
   //static float Pi = 3.1415927;  
   static float DegreeToPi = 57.29578;
   float ThetaTr = atan2((float)1., cotTheta);
