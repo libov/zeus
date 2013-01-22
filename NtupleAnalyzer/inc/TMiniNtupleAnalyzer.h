@@ -245,6 +245,8 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         void        GetFragmentationReweighting_Histo();
 
+        void        HadronicInteractionReweighting(TGlobalBin * currentTGlobalBin);
+
         // this is similar to getEtReweighting but more generic - works for each histogram/value
         Int_t       getReweightingHistoBin(TH1F * histo, Float_t   value);
 
