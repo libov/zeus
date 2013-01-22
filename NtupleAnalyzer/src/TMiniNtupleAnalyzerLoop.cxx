@@ -1136,7 +1136,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 currentTGlobalBin->FillHistogram("average_angle", average_angle);
 
                 // hadronic interaction probability
-                for (int k=0; k<Vtxsec_multi[vertex]; k++) {
+                for (int k=0; k<vtx_multi; k++) {
 
                     // try to find this track in the Tracking block
                     int track_id = -1;
