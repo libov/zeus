@@ -2057,3 +2057,31 @@ bool TMiniNtupleAnalyzer::isHFLJet(TLorentzVector * jet) {
 Float_t TMiniNtupleAnalyzer::getCharmETweightingFactor(Float_t  jet_et) {
     return (fCharmETReweighting_p0 + fCharmETReweighting_p1 * TMath::Sqrt(jet_et));
 }
+
+void TMiniNtupleAnalyzer::HadronicInteractionReweighting(TGlobalBin * currentTGlobalBin) {
+    currentTGlobalBin -> FillHistogram("Fmck_nstor",Fmck_nstor);
+    div_t divresult;
+    for (int i = 0; i<Fmck_nstor; i++) {
+        divresult = div (Fmck_isthep[i], 10000);
+        Int_t Tn_ISTHEP = divresult.quot;
+        Int_t Generator_ISTHEP = divresult.rem;
+        if (Generator_ISTHEP != 1) continue;
+        divresult = div (Tn_ISTHEP, 1000);
+        Int_t UBUF2 = divresult.quot;
+        Int_t UBUF1 = divresult.rem - 500;
+        divresult = div (UBUF2, 100);
+        Float_t fate = divresult.rem;
+        if (Tn_ISTHEP == 0) continue;
+        if (fate != 12) continue;
+
+        if ( (Fmcf_rm[i][2]>-110) && (Fmcf_rm[i][2]<200) ) {
+            currentTGlobalBin -> FillHistogram("Fmcf_rm_xy_all", Fmcf_rm[i][0], Fmcf_rm[i][1]);
+            currentTGlobalBin -> FillHistogram("Fmcf_rm_xy_ctd", Fmcf_rm[i][0], Fmcf_rm[i][1]);
+            currentTGlobalBin -> FillHistogram("Fmcf_rm_xy_mvd", Fmcf_rm[i][0], Fmcf_rm[i][1]);
+        }
+
+        currentTGlobalBin -> FillHistogram("Fmcf_rm_zy_all", Fmcf_rm[i][2], Fmcf_rm[i][1]);
+        currentTGlobalBin -> FillHistogram("Fmcf_rm_zy_ctd", Fmcf_rm[i][2], Fmcf_rm[i][1]);
+        currentTGlobalBin -> FillHistogram("Fmcf_rm_zy_mvd", Fmcf_rm[i][2], Fmcf_rm[i][1]);
+    }
+}
