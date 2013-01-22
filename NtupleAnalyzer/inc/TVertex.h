@@ -162,7 +162,7 @@ class TVertex
                 unsigned        fTracks_dropped;        //!< number of tracks dropped from the fit
                 Float_t         fHadronicInteractionCorrection;
                 bool            fUseHadronicInteractionMap;
-            
+
                 Float_t         fProjectedDecayLengthError;
                 Float_t         fDecayLength;
 
