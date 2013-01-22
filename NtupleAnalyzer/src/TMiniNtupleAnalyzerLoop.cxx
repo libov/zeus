@@ -1253,8 +1253,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t hadr_int_non_recoverable_Sum = TrEffI_Sum + TrInt_Sum - TrEffI_Sum/ ( VMCU_match_eff_Sum * detector_eff_Sum) ;
                     Float_t correction_slava = hadr_int_non_recoverable_Sum/(1.-hadr_int_non_recoverable_Sum);
                     // Achim's approach
-                    Float_t int_and_not_reco_Sum = TrEffI_Sum + TrInt_Sum - TrEffI_Sum/VMCU_match_eff_Sum;
-                    Float_t correction_achim = int_and_not_reco_Sum/(TrEff_Sum + TrIntN_Sum);
+                    Float_t int_rec = TrEffI_Sum * (TrEff_Sum + TrIntN_Sum) / TrEff_Sum;
+                    Float_t numerator_achim = TrEffI_Sum + TrInt_Sum - int_rec;
+                    Float_t denominator_achim = TrEff_Sum + TrIntN_Sum + int_rec;
+                    Float_t correction_achim = numerator_achim/denominator_achim;
                     // Olaf's approach
                     Float_t TrEff_Sum_renorm = TrEff_Sum / VMCU_match_eff_Sum;
                     Float_t TrEffI_Sum_renorm = TrEffI_Sum / VMCU_match_eff_Sum;
