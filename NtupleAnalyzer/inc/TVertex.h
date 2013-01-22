@@ -18,9 +18,9 @@
 
 class TVertex
 {
-	public:
-		TVertex();
-		~TVertex();
+        public:
+                TVertex();
+                ~TVertex();
                 Float_t         CalculateVertexSignificance();
                 Float_t         CalculateVertexProjectedDecayLength();
                 bool            RefitVertex();
@@ -98,8 +98,8 @@ class TVertex
                 // some static members related to random numbers
 
                 // TRandom objects
-                static TRandom3	rnd;
-		static TRandom3	rnd2;
+                static TRandom3 rnd;
+                static TRandom3 rnd2;
 
                 // TRandom object for dropping the tracks; created a different one - not using those for smearing
                 // not sure this is needed, but to be on the safe side and avoid possible interferences (if any)
@@ -113,7 +113,7 @@ class TVertex
 
                 Float_t         fSignificanceSmeared;          //!< significance of the vertex after the smearing
                 Float_t         fProjDecayLengthSmeared;       //!< projected decay length of the vertex after smearing
-        
+
                 Float_t         fVertexX;               //!< X coordinate of the vertex
                 Float_t         fVertexY;               //!< Y coordinate of the vertex
                 Float_t         fVertexZ;               //!< Z coordinate of the vertex
@@ -133,20 +133,18 @@ class TVertex
                 Float_t         fMass;                  //!< vertex mass
                 Float_t         fChi2;
 
-		// 20 February
-		Int_t		fNumberOfTracks;
-		Int_t		fTrackIDs[30];
+                Int_t           fNumberOfTracks;
+                Int_t           fTrackIDs[30];
 
-		// 21 February
-		Float_t		fTrackHelices[30][5];
-		Float_t		fTrackHelixCovariance[30][15];
-		Float_t		fTrackMomentum[30];
-                Float_t		fTrackPT[30];
-                Float_t		fTrackTheta[30];
-                Float_t		fTrackPhi[30];
-                Float_t		fTrackCharge[30];
+                Float_t         fTrackHelices[30][5];
+                Float_t         fTrackHelixCovariance[30][15];
+                Float_t         fTrackMomentum[30];
+                Float_t         fTrackPT[30];
+                Float_t         fTrackTheta[30];
+                Float_t         fTrackPhi[30];
+                Float_t         fTrackCharge[30];
 
-	        bool		fApplySmearing;
+                bool            fApplySmearing;
                 Double_t        fSmearingGauss1Prob;
                 Double_t        fSmearingGauss1Width;
                 Double_t        fSmearingGauss2Prob;
