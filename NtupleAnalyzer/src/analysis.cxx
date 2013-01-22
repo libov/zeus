@@ -420,6 +420,10 @@ int main(int argc, char **argv) {
     // on part of the sample
     instance -> SetStudyResolutions (false);
 
+    // means that track ids will be read from the orange block and will be stored as array to the vertex object.
+    // Note that this should crash on v02 and v06, since id writing in orange was most likely screwed up
+    instance -> GetVertexTracks(false);
+
     // select whether to run on Minintuples or on dCache
     if (dCache) instance -> SetRundCache (true);
     else instance -> SetRundCache (false);
