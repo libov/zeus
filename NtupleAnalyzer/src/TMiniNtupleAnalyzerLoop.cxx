@@ -407,6 +407,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         if ( x_gamma_hadrons >= 0 ) currentTGlobalBin->FillHistogram("x_gamma_true_hadrons", x_gamma_hadrons);
                     }
 
+                    // HadronicInteractionReweighting(currentTGlobalBin);
+
                 }   // end loop over global bins
             }   // end if (isInFiducial)
         }   // end if (fIsMC) condition
