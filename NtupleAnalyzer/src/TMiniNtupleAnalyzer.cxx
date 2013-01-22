@@ -94,7 +94,8 @@ fTrack1Id(-1),
 fTrack2Id(-1),
 fHadronicInteractionCorrection(0.4),
 f_EM_scale(0),
-f_do_EM_scale_syst(false)
+f_do_EM_scale_syst(false),
+fGetVertexTracks(false)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);

@@ -211,6 +211,8 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         Bool_t          fTrueLevelStudies;
 
+        void            GetVertexTracks(bool get) {fGetVertexTracks = get;}
+
     private:
 
         // set of private methods, should be used only within the class
@@ -394,5 +396,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Float_t         fPionPhiTrue;                       //!< a variable needed to use phi of the pion for binning
 
         Float_t         f_EM_scale;                         //!< for EM scale systematic studies
+
+        bool            fGetVertexTracks;
 };
 #endif
