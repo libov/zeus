@@ -313,9 +313,8 @@ bool    TVertex::RefitVertex() {
                     cout << "ERROR: efficiency map failure" << endl;
                     abort();
                 }
-                probability = fHadronicInteractionCorrection * TrInt / (1 - TrInt);
-                // no correction for high-pt tracks
-                if (fTrackPT[i]>1.5) probability = (fHadronicInteractionCorrection-0.4) * TrInt / (1 - TrInt);
+                // correct only low-pt tracks
+                if (fTrackPT[i]<1.5) probability = fHadronicInteractionCorrection * TrInt / (1 - TrInt);
             // constant probability
             } else {
                 probability = fDropProbability;
