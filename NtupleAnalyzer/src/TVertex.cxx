@@ -287,6 +287,7 @@ bool    TVertex::RefitVertex() {
     fTracks_dropped = 0;
     for(int i = 0 ; i < fNumberOfTracks; ++i) {
         // check whether dropping tracks for systematic studies was selected
+        Float_t probability = -1;
         if (fDropTracks) {
             // if yes, generate a random number
             // it turned out that the way I used TRandom3 (declaring as a private member of TVertex) is completely wrong,
