@@ -79,6 +79,7 @@ class TVertex
                 unsigned        GetNTracksDropped(){return fTracks_dropped;}
                 Float_t         GetChi2() {return fChi2;}
                 Float_t         GetTrackMomentum(unsigned index) {return fTrackMomentum[index];}
+                Float_t         GetTrackPT(unsigned index) {return fTrackPT[index];}
                 Float_t         GetTrackTheta(unsigned index) {return fTrackTheta[index];}
                 Float_t         GetTrackDropProbability(unsigned index) {return fTrackDropProbability[index];}
 
