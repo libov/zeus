@@ -3,6 +3,8 @@
 
 #include <TROOT.h>
 #include <TRandom3.h>
+#include <vector>
+using namespace std;
 
 /*! \brief Secondary Vertex Class
 *  
@@ -76,7 +78,9 @@ class TVertex
                 Int_t           GetNTracks() {return fNumberOfTracks;}
                 unsigned        GetNTracksDropped(){return fTracks_dropped;}
                 Float_t         GetChi2() {return fChi2;}
-
+                Float_t         GetTrackMomentum(unsigned index) {return fTrackMomentum[index];}
+                Float_t         GetTrackTheta(unsigned index) {return fTrackTheta[index];}
+                Float_t         GetTrackDropProbability(unsigned index) {return fTrackDropProbability[index];}
 
                 Float_t         GetZUFO_jet_ratio() {return fZUFO_jet_ratio;}
                 Float_t         GetCAL_total_ratio() {return fCAL_total_ratio;}
@@ -106,6 +110,9 @@ class TVertex
                 static TRandom3	fRndDropTracks;
                 static unsigned two_track_vertices_total;
                 static unsigned two_track_vertices_dropped;
+
+                // select how to determine the hadronic interaction probability
+                static bool fUseTrackSumEfficiency;
 
         private:
                 Float_t         fSignificance;          //!< significance of the vertex
@@ -143,6 +150,7 @@ class TVertex
                 Float_t         fTrackTheta[30];
                 Float_t         fTrackPhi[30];
                 Float_t         fTrackCharge[30];
+                Float_t         fTrackDropProbability[30];
 
                 bool            fApplySmearing;
                 Double_t        fSmearingGauss1Prob;
