@@ -24,6 +24,10 @@ void TrackAllEfficiency
        (float& Phi, float& cotTheta, float& Mom,
        int& Charge, int& IDpart, float& TrEff, float& TrInt);
 
+void TrackSumEfficiency
+       (float& Phi, float& cotTheta, float& Mom,
+       int& Charge, int& IDpart, float& TrEff, float& TrEffI, float& TrInt, float& TrIntN, float& TrPrm);
+
 TVertex::TVertex():
 fApplySmearing(false),
 fDropTracks(false),
