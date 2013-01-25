@@ -36,7 +36,7 @@ TRandom3 TVertex::rnd2;
 TRandom3 TVertex::fRndDropTracks;
 unsigned TVertex::two_track_vertices_total = 0;
 unsigned TVertex::two_track_vertices_dropped = 0;
-
+bool TVertex::fUseTrackSumEfficiency;
 
 /*! Main function
     \fn main
@@ -364,6 +364,8 @@ int main(int argc, char **argv) {
     // if true, Sasha Spiridonov's map will be used, meaning that track drop probability is
     // determined on a track-by-track basis
     instance -> SetUseHadronicInteractionMap (true);
+    // which map version to use
+    TVertex::fUseTrackSumEfficiency = true;
     // defines probability to loose a track in case of constant probability (i.e. when SetUseHadronicInteractionMap(false))
     instance -> SetDropTrackProbability (0.02);
     // defines a hadronic interaction correction factor on MC in case of Sasha's map is used (i.e. when SetUseHadronicInteractionMap(true))
