@@ -1168,6 +1168,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 currentTGlobalBin->FillHistogram("average_angle", average_angle);
 
+                if (fDropTracks) {
+                    for (int i=0; i<vtx_multi; i++) {
+                        currentTGlobalBin->FillProfileHistogram("drop_probability_theta", fVertices[j].GetTrackTheta(i)*RADtoDEG, fVertices[j].GetTrackDropProbability(i));
+                        if (fVertices[j].GetTrackPT(i)<1.5) currentTGlobalBin->FillProfileHistogram("drop_probability_lowpt_theta", fVertices[j].GetTrackTheta(i)*RADtoDEG, fVertices[j].GetTrackDropProbability(i));
+                        currentTGlobalBin->FillProfileHistogram("drop_probability_pt", fVertices[j].GetTrackPT(i), fVertices[j].GetTrackDropProbability(i));
+                    }
+                }
+
                 // hadronic interaction probability
                 if (fGetVertexTracks || fRedoVertexing) {
 
