@@ -1274,13 +1274,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Float_t hadr_int = TrInt_Sum_renorm - hadr_lost_due_to_detector;
                         Float_t correction_Olaf =  hadr_int/(1-hadr_int);
                         // comparison
-                        Float_t corr_slava_vs_All = (correction_slava - correction_All) / correction_All;
-                        Float_t corr_slava_vs_Rec = (correction_slava - correction_Rec) / correction_Rec;
+                        Float_t corr_slava_div_All = correction_slava / correction_All;
                         Float_t corr_slava_div_Rec = correction_slava / correction_Rec;
-                        Float_t corr_Rec_vs_All = (correction_Rec - correction_All) / correction_All;
-                        Float_t corr_slava_vs_Olaf_theta = (correction_Olaf-correction_slava)/correction_slava;
-                        Float_t corr_achim_div_slava = correction_achim / correction_slava;
-                        Float_t correction_slava_scaled = correction_slava / 0.85;
+                        Float_t corr_Rec_div_All = correction_Rec  / correction_All;
+                        Float_t corr_slava_div_Olaf = correction_Olaf / correction_slava;
+                        Float_t corr_slava_div_achim = correction_slava / correction_achim;
+                        Float_t correction_slava_scaled = correction_slava / 0.875;
                         Float_t corr_slava_scaled_div_Rec = correction_slava_scaled / correction_Rec;
                         Float_t corr_slava_scaled_div_All = correction_slava_scaled / correction_All;
 
@@ -1327,19 +1326,17 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin -> FillProfileHistogram("hadr_int_non_recoverable_Sum_theta", theta_deg, hadr_int_non_recoverable_Sum);
                         currentTGlobalBin -> FillProfileHistogram("correction_slava_theta", theta_deg, correction_slava);
                         currentTGlobalBin -> FillProfileHistogram("correction_achim_theta", theta_deg, correction_achim);
-
                         currentTGlobalBin -> FillProfileHistogram("correction_Olaf_theta",  theta_deg, correction_Olaf);
 
-                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_theta",  theta_deg, corr_slava_vs_All);
-                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_phi",  phi_deg, corr_slava_vs_All);
-                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_All_p", p, corr_slava_vs_All);
-                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Rec_theta",  theta_deg, corr_slava_vs_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_div_All_theta",  theta_deg, corr_slava_div_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_div_All_phi",  phi_deg, corr_slava_div_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_div_All_p", p, corr_slava_div_All);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_div_Rec_theta",  theta_deg, corr_slava_div_Rec);
-                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_theta",  theta_deg, corr_Rec_vs_All);
-                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_phi",  phi_deg, corr_Rec_vs_All);
-                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_vs_All_p", p, corr_Rec_vs_All);
-                        currentTGlobalBin -> FillProfileHistogram("corr_slava_vs_Olaf_theta",  theta_deg, corr_slava_vs_Olaf_theta);
-                        currentTGlobalBin -> FillProfileHistogram("corr_achim_div_slava_theta",  theta_deg, corr_achim_div_slava);
+                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_div_All_theta",  theta_deg, corr_Rec_div_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_div_All_phi",  phi_deg, corr_Rec_div_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_Rec_div_All_p", p, corr_Rec_div_All);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_div_Olaf_theta",  theta_deg, corr_slava_div_Olaf);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_div_achim_theta",  theta_deg, corr_slava_div_achim);
                         currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled_theta",  theta_deg, correction_slava_scaled);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_Rec_theta",  theta_deg, corr_slava_scaled_div_Rec);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_All_theta",  theta_deg, corr_slava_scaled_div_All);
