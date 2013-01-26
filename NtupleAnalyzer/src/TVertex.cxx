@@ -303,27 +303,54 @@ bool    TVertex::RefitVertex() {
             Double_t  rand_number = fRndDropTracks.Rndm();
 
             // get the probability of loosing a track
-            Float_t probability = -1;
             // Sasha Spiridonov's map
             if (fUseHadronicInteractionMap) {
                 Float_t TrEff = -1;
                 Float_t TrInt = -1;
+                Float_t TrEffI = -1;
+                Float_t TrIntN = -1;
+                Float_t TrPrm = -1;
                 Int_t   charge = fTrackCharge[i];
                 Float_t cot = 1./(TMath::Tan(fTrackTheta[i]));
                 // 2=kaon, 3=proton, else=pion
                 Int_t   id = 1;
-                TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
-                // sanity check
-                if ( (TrEff<0) || (TrInt<0) ) {
-                    cout << "ERROR: efficiency map failure" << endl;
-                    abort();
+                Float_t phadr = -1;
+                if (fUseTrackSumEfficiency) {
+                    TrackSumEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrEffI, TrInt, TrIntN, TrPrm);
+                    if ( (TrEff<=0) || (TrEffI<=0) || (TrInt<=0) || (TrIntN<=0) || (TrPrm<=0) ) {
+                        cout << "ERROR: efficiency map failure" << endl;
+                        cout << fTrackPhi[i] << " " << cot << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
+                        cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
+                        abort();
+                    }
+                    Float_t TrEff_plus_TrEffI = TrEff + TrEffI;
+                    Float_t VMCU_match_eff = TrEff_plus_TrEffI / TrPrm;
+                    Float_t detector_eff = TrEff / ( (TrEff + TrIntN) * VMCU_match_eff) ;
+                    phadr = TrEffI + TrInt - TrEffI/ ( VMCU_match_eff * detector_eff) ;
+
+                } else {
+                    TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
+                    // sanity check
+                    if ( (TrEff<=0) || (TrInt<=0) ) {
+                        cout << "ERROR: TrackAllEfficiency map failure" << endl;
+                        abort();
+                    }
+                    phadr = TrInt;
                 }
                 // correct only low-pt tracks
-                if (fTrackPT[i]<1.5) probability = fHadronicInteractionCorrection * TrInt / (1 - TrInt);
+                if (fTrackPT[i]<1.5) {
+                    probability = fHadronicInteractionCorrection * phadr / (1 - phadr);
+                    if (fUseTrackSumEfficiency) probability = probability/0.875;
+                } else {
+                    probability = 0;
+                }
             // constant probability
             } else {
                 probability = fDropProbability;
             }
+
+            // store to an array
+            fTrackDropProbability[i]=probability;
 
             // if the random number is smaller or equal to chosen probability to loose tracks - drop the track
             // otherwise - proceed normally and add the track to the vertex
