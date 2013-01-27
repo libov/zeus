@@ -1348,6 +1348,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_div_achim_theta",  theta_deg, corr_slava_div_achim);
                         currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled_theta",  theta_deg, correction_slava_scaled);
                         currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled2_theta",  theta_deg, correction_slava_scaled2);
+                        if (track.Pt()<1.5) currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled2_lowpt_theta",  theta_deg, correction_slava_scaled2);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_Rec_theta",  theta_deg, corr_slava_scaled_div_Rec);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_All_theta",  theta_deg, corr_slava_scaled_div_All);
                         if (TrInt_Rec != 0) currentTGlobalBin -> FillProfileHistogram("phadr_slava_div_Rec_theta",  theta_deg, phadr_slava_div_Rec);
