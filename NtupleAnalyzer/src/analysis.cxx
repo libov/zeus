@@ -374,6 +374,8 @@ int main(int argc, char **argv) {
     instance -> SetHadronicInteractionCorrection(0.4);
     // set the scaling factors to make phadr from TrackSumEfficiency and that from TrackRecEfficiency agree in the central part
     TVertex::fPHADRScaling = 0.88;
+    // in case the map give zero values - set phadr to this value
+    TVertex::fPHADRaverage = 0.04;
 
     // for the jet energy scale uncertainty
     // 0 = no change, default
