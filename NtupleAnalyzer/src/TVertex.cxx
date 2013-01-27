@@ -327,6 +327,7 @@ bool    TVertex::RefitVertex() {
                     Float_t VMCU_match_eff = TrEff_plus_TrEffI / TrPrm;
                     Float_t detector_eff = TrEff / ( (TrEff + TrIntN) * VMCU_match_eff) ;
                     phadr = TrEffI + TrInt - TrEffI/ ( VMCU_match_eff * detector_eff) ;
+                    phadr = phadr/fPHADRScaling;
 
                 } else {
                     TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
@@ -340,7 +341,6 @@ bool    TVertex::RefitVertex() {
                 // correct only low-pt tracks
                 if (fTrackPT[i]<1.5) {
                     probability = fHadronicInteractionCorrection * phadr / (1. - phadr);
-                    if (fUseTrackSumEfficiency) probability = probability/0.875;
                 } else {
                     probability = 0;
                 }
