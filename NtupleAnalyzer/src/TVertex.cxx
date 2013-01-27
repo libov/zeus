@@ -339,7 +339,7 @@ bool    TVertex::RefitVertex() {
                 }
                 // correct only low-pt tracks
                 if (fTrackPT[i]<1.5) {
-                    probability = fHadronicInteractionCorrection * phadr / (1 - phadr);
+                    probability = fHadronicInteractionCorrection * phadr / (1. - phadr);
                     if (fUseTrackSumEfficiency) probability = probability/0.875;
                 } else {
                     probability = 0;
