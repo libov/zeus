@@ -37,6 +37,7 @@ TRandom3 TVertex::fRndDropTracks;
 unsigned TVertex::two_track_vertices_total = 0;
 unsigned TVertex::two_track_vertices_dropped = 0;
 bool TVertex::fUseTrackSumEfficiency;
+Float_t TVertex::fPHADRScaling;
 
 /*! Main function
     \fn main
@@ -370,6 +371,8 @@ int main(int argc, char **argv) {
     instance -> SetDropTrackProbability (0.02);
     // defines a hadronic interaction correction factor on MC in case of Sasha's map is used (i.e. when SetUseHadronicInteractionMap(true))
     instance -> SetHadronicInteractionCorrection(0.4);
+    // set the scaling factors to make phadr from TrackSumEfficiency and that from TrackRecEfficiency agree in the central part
+    TVertex::fPHADRScaling = 0.88;
 
     // for the jet energy scale uncertainty
     // 0 = no change, default
