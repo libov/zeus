@@ -327,16 +327,17 @@ bool    TVertex::RefitVertex() {
                         abort();
                     }
                     if ( (TrEff==0) || (TrEffI==0) || (TrInt==0) || (TrIntN==0) || (TrPrm==0) ) {
-                        cout << "WARNING in TVertex: TrackSumEfficiency map failure - zero output values!" << endl;
+                        cout << "WARNING in TVertex: TrackSumEfficiency map failure - zero output values! Setting phadr to average = 4 per cent" << endl;
                         cout << fTrackPhi[i] << " " << fTrackTheta[i] * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
                         cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
-                        continue;
+                        phadr = 0.04;
+                    } else {
+                        Float_t TrEff_plus_TrEffI = TrEff + TrEffI;
+                        Float_t VMCU_match_eff = TrEff_plus_TrEffI / TrPrm;
+                        Float_t detector_eff = TrEff / ( (TrEff + TrIntN) * VMCU_match_eff) ;
+                        phadr = TrEffI + TrInt - TrEffI/ ( VMCU_match_eff * detector_eff) ;
+                        phadr = phadr/fPHADRScaling;
                     }
-                    Float_t TrEff_plus_TrEffI = TrEff + TrEffI;
-                    Float_t VMCU_match_eff = TrEff_plus_TrEffI / TrPrm;
-                    Float_t detector_eff = TrEff / ( (TrEff + TrIntN) * VMCU_match_eff) ;
-                    phadr = TrEffI + TrInt - TrEffI/ ( VMCU_match_eff * detector_eff) ;
-                    phadr = phadr/fPHADRScaling;
 
                 } else {
                     TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
@@ -346,10 +347,9 @@ bool    TVertex::RefitVertex() {
                         abort();
                     }
                     if ( (TrEff==0) || (TrInt==0) ) {
-                        cout << "WARNING in TVertex: TrackAllEfficiency map failure - zero output values!" << endl;
-                        continue;
-                    }
-                    phadr = TrInt;
+                        cout << "WARNING in TVertex: TrackAllEfficiency map failure - zero output values! Setting phadr to average = 4 per cent" << endl;
+                        phadr = 0.04;
+                    } else phadr = TrInt;
                 }
                 // correct only low-pt tracks
                 if (fTrackPT[i]<1.5) {
