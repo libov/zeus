@@ -115,6 +115,9 @@ class TVertex
                 // select how to determine the hadronic interaction probability
                 static bool fUseTrackSumEfficiency;
 
+                // scaling factor for phadr calculated from TrackSumEfficiency
+                static Float_t  fPHADRScaling;
+
         private:
                 Float_t         fSignificance;          //!< significance of the vertex
                 Float_t         fProjDecayLength;       //!< projected decay length of the vertex
