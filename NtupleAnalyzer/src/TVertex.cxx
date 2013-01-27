@@ -5,6 +5,7 @@ using namespace std;
 
 #include<inc/TVertex.h>
 #include<TMath.h>
+#include <inc/constants.h>
 
 #include<DAFVertexFinder.hh>
 #include<VertexFitter.hh>
@@ -14,6 +15,8 @@ using namespace std;
 using CLHEP::HepLorentzVector;
 
 using namespace VxLite;
+
+using namespace constants;
 
 // declarations of Sasha's routine
 void TrackAllEfficiency
@@ -317,11 +320,17 @@ bool    TVertex::RefitVertex() {
                 Float_t phadr = -1;
                 if (fUseTrackSumEfficiency) {
                     TrackSumEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrEffI, TrInt, TrIntN, TrPrm);
-                    if ( (TrEff<=0) || (TrEffI<=0) || (TrInt<=0) || (TrIntN<=0) || (TrPrm<=0) ) {
-                        cout << "ERROR: efficiency map failure" << endl;
-                        cout << fTrackPhi[i] << " " << cot << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
+                    if ( (TrEff<0) || (TrEffI<0) || (TrInt<0) || (TrIntN<0) || (TrPrm<0) ) {
+                        cout << "ERROR in TVertex: TrackSumEfficiency map failure - negative output values!" << endl;
+                        cout << fTrackPhi[i] << " " << fTrackTheta[i] * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
                         cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
                         abort();
+                    }
+                    if ( (TrEff==0) || (TrEffI==0) || (TrInt==0) || (TrIntN==0) || (TrPrm==0) ) {
+                        cout << "WARNING in TVertex: TrackSumEfficiency map failure - zero output values!" << endl;
+                        cout << fTrackPhi[i] << " " << fTrackTheta[i] * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
+                        cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
+                        continue;
                     }
                     Float_t TrEff_plus_TrEffI = TrEff + TrEffI;
                     Float_t VMCU_match_eff = TrEff_plus_TrEffI / TrPrm;
@@ -332,9 +341,13 @@ bool    TVertex::RefitVertex() {
                 } else {
                     TrackAllEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrInt);
                     // sanity check
-                    if ( (TrEff<=0) || (TrInt<=0) ) {
-                        cout << "ERROR: TrackAllEfficiency map failure" << endl;
+                    if ( (TrEff<0) || (TrInt<0) ) {
+                        cout << "ERROR in TVertex: TrackAllEfficiency map failure - negative output values!" << endl;
                         abort();
+                    }
+                    if ( (TrEff==0) || (TrInt==0) ) {
+                        cout << "WARNING in TVertex: TrackAllEfficiency map failure - zero output values!" << endl;
+                        continue;
                     }
                     phadr = TrInt;
                 }
