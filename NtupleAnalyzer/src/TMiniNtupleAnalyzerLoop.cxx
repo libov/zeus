@@ -1298,8 +1298,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin -> FillProfileHistogram("TrInt_Rec_phi", phi_deg, TrInt_Rec);
                         currentTGlobalBin -> FillProfileHistogram("TrEff_Rec_theta", theta_deg, TrEff_Rec);
                         currentTGlobalBin -> FillProfileHistogram("TrInt_Rec_theta", theta_deg, TrInt_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("TrInt_Rec_nonzero_theta", theta_deg, TrInt_Rec);
                         currentTGlobalBin -> FillProfileHistogram("correction_Rec_phi", phi_deg, correction_Rec);
                         currentTGlobalBin -> FillProfileHistogram("correction_Rec_theta", theta_deg, correction_Rec);
+                        if (track.Pt()<1.5) currentTGlobalBin -> FillProfileHistogram("correction_Rec_lowpt_theta", theta_deg, correction_Rec);
                         currentTGlobalBin -> FillHistogram("TrInt_Rec", TrInt_Rec);
 
                         currentTGlobalBin -> FillProfileHistogram("TrEff_All_phi", phi_deg, TrEff_All);
@@ -1308,6 +1310,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin -> FillProfileHistogram("TrInt_All_theta", theta_deg, TrInt_All);
                         currentTGlobalBin -> FillProfileHistogram("correction_All_phi", phi_deg, correction_All);
                         currentTGlobalBin -> FillProfileHistogram("correction_All_theta", theta_deg, correction_All);
+                        if (track.Pt()<1.5) currentTGlobalBin -> FillProfileHistogram("correction_All_lowpt_theta", theta_deg, correction_All);
                         currentTGlobalBin -> FillHistogram("TrInt_All", TrInt_All);
 
                         currentTGlobalBin -> FillProfileHistogram("TrEff_Sum_phi", phi_deg, TrEff_Sum);
