@@ -38,6 +38,7 @@ unsigned TVertex::two_track_vertices_total = 0;
 unsigned TVertex::two_track_vertices_dropped = 0;
 bool TVertex::fUseTrackSumEfficiency;
 Float_t TVertex::fPHADRScaling;
+Float_t TVertex::fPHADRaverage;
 
 /*! Main function
     \fn main
