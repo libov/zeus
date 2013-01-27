@@ -1260,6 +1260,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Float_t detector_eff_Sum = TrEff_Sum / ( (TrEff_Sum + TrIntN_Sum) * VMCU_match_eff_Sum) ;
                         Float_t hadr_int_non_recoverable_Sum = TrEffI_Sum + TrInt_Sum - TrEffI_Sum/ ( VMCU_match_eff_Sum * detector_eff_Sum) ;
                         Float_t correction_slava = hadr_int_non_recoverable_Sum/(1.-hadr_int_non_recoverable_Sum);
+                        Float_t hadr_int_non_recoverable_Sum_scaled = hadr_int_non_recoverable_Sum/0.878;
+                        Float_t correction_slava_scaled2 = hadr_int_non_recoverable_Sum_scaled/(1.-hadr_int_non_recoverable_Sum_scaled);
                         // Achim's approach
                         Float_t int_rec = TrEffI_Sum * (TrEff_Sum + TrIntN_Sum) / TrEff_Sum;
                         Float_t numerator_achim = TrEffI_Sum + TrInt_Sum - int_rec;
@@ -1284,6 +1286,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Float_t corr_slava_scaled_div_Rec = 0;
                         if (correction_Rec!=0) corr_slava_scaled_div_Rec = correction_slava_scaled / correction_Rec;
                         Float_t corr_slava_scaled_div_All = correction_slava_scaled / correction_All;
+                        Float_t phadr_slava_div_Rec = 0;
+                        if (TrInt_Rec != 0) phadr_slava_div_Rec = hadr_int_non_recoverable_Sum / TrInt_Rec;
 
                         // fill the histograms
                         currentTGlobalBin -> FillProfileHistogram("TrEff_phi", phi_deg, TrEff);
@@ -1343,8 +1347,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_div_Olaf_theta",  theta_deg, corr_slava_div_Olaf);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_div_achim_theta",  theta_deg, corr_slava_div_achim);
                         currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled_theta",  theta_deg, correction_slava_scaled);
+                        currentTGlobalBin -> FillProfileHistogram("correction_slava_scaled2_theta",  theta_deg, correction_slava_scaled2);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_Rec_theta",  theta_deg, corr_slava_scaled_div_Rec);
                         currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_All_theta",  theta_deg, corr_slava_scaled_div_All);
+                        if (TrInt_Rec != 0) currentTGlobalBin -> FillProfileHistogram("phadr_slava_div_Rec_theta",  theta_deg, phadr_slava_div_Rec);
+                        currentTGlobalBin -> FillProfileHistogram("corr_slava_scaled_div_scaled2",  theta_deg, correction_slava_scaled / correction_slava_scaled2);
+
                     }
                 }
 
