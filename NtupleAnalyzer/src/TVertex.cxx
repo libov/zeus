@@ -330,7 +330,7 @@ bool    TVertex::RefitVertex() {
                         cout << "WARNING in TVertex: TrackSumEfficiency map failure - zero output values! Setting phadr to average = 4 per cent" << endl;
                         cout << fTrackPhi[i] << " " << fTrackTheta[i] * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
                         cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
-                        phadr = 0.04;
+                        phadr = fPHADRaverage;
                     } else {
                         Float_t TrEff_plus_TrEffI = TrEff + TrEffI;
                         Float_t VMCU_match_eff = TrEff_plus_TrEffI / TrPrm;
@@ -348,7 +348,7 @@ bool    TVertex::RefitVertex() {
                     }
                     if ( (TrEff==0) || (TrInt==0) ) {
                         cout << "WARNING in TVertex: TrackAllEfficiency map failure - zero output values! Setting phadr to average = 4 per cent" << endl;
-                        phadr = 0.04;
+                        phadr = fPHADRaverage;
                     } else phadr = TrInt;
                 }
                 // correct only low-pt tracks

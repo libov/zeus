@@ -118,6 +118,9 @@ class TVertex
                 // scaling factor for phadr calculated from TrackSumEfficiency
                 static Float_t  fPHADRScaling;
 
+                // default (average) value of phadr; employed if the map gives zero values
+                static Float_t  fPHADRaverage;
+
         private:
                 Float_t         fSignificance;          //!< significance of the vertex
                 Float_t         fProjDecayLength;       //!< projected decay length of the vertex
