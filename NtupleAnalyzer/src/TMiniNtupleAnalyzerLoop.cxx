@@ -1275,12 +1275,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Float_t correction_Olaf =  hadr_int/(1-hadr_int);
                         // comparison
                         Float_t corr_slava_div_All = correction_slava / correction_All;
-                        Float_t corr_slava_div_Rec = correction_slava / correction_Rec;
+                        Float_t corr_slava_div_Rec = 0;
+                        if (correction_Rec!=0) corr_slava_div_Rec = correction_slava / correction_Rec;
                         Float_t corr_Rec_div_All = correction_Rec  / correction_All;
                         Float_t corr_slava_div_Olaf = correction_Olaf / correction_slava;
                         Float_t corr_slava_div_achim = correction_slava / correction_achim;
                         Float_t correction_slava_scaled = correction_slava / 0.875;
-                        Float_t corr_slava_scaled_div_Rec = correction_slava_scaled / correction_Rec;
+                        Float_t corr_slava_scaled_div_Rec = 0;
+                        if (correction_Rec!=0) corr_slava_scaled_div_Rec = correction_slava_scaled / correction_Rec;
                         Float_t corr_slava_scaled_div_All = correction_slava_scaled / correction_All;
 
                         // fill the histograms
