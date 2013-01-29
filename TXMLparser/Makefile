@@ -13,7 +13,7 @@ OBJECTS=TDataset.o TXMLparser.o TSubSet.o TCrossSection.o TCrossSectionBin.o TSy
 
 default: all
 
-all: compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics f2bc txt2XML reweighting
+all: compare_CN_versions compare_fit_results THistogram.o jet_energy_scale systematics f2bc txt2XML reweighting correct_qed
 
 TXMLparser.o: TXMLparser.cxx TXMLparser.h
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
@@ -60,6 +60,9 @@ txt2XML.o: txt2XML.cxx
 reweighting.o: reweighting.cxx
 	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
 
+correct_qed.o: correct_qed.cxx
+	g++ -o $(OBJ)/$@ -c $< -I$(INC) $(FLAGS_OBJ)
+
 systematics: $(OBJECTS) systematics.o
 	g++ -o systematics $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/systematics.o -I$(INC) $(FLAGS) -lxerces-c
 
@@ -80,6 +83,9 @@ txt2XML: $(OBJECTS) txt2XML.o
 
 reweighting: $(OBJECTS) reweighting.o
 	g++ -o reweighting $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/reweighting.o -I$(INC) $(FLAGS) -lxerces-c
+
+correct_qed: $(OBJECTS) correct_qed.o
+	g++ -o correct_qed $(patsubst %.o, $(OBJ)/%.o, $(OBJECTS)) $(OBJ)/correct_qed.o -I$(INC) $(FLAGS) -lxerces-c
 
 .PHONY: clean
 clean:
