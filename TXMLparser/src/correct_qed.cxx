@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
         cCrossSection.modifyCrossSectionBin(i, cBin);
     }
 
-    XMLfile += ".QED_corrected";
+    XMLfile += "QED_corrected";
     cCrossSection.WriteXMLfile(XMLfile);
 
     return 0;
