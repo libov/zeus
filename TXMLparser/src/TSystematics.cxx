@@ -13,6 +13,7 @@ using namespace std;
 #include <TGraphErrors.h>
 #include <TLine.h>
 #include <TH1F.h>
+#include <TLatex.h>
 
 ofstream output;
 
