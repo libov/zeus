@@ -30,6 +30,7 @@ int main(int argc, char **argv) {
         {"scaling_factors", no_argument, 0, 4},
         {"only_png", no_argument, 0, 5},
         {"no_zeus_logo", no_argument, 0, 6},
+        {"zoom", no_argument, 0, 7},
     };
 
     // results of the command line option processing will be stored here
@@ -43,6 +44,7 @@ int main(int argc, char **argv) {
     bool    scaling_factors = false;
     bool    only_png = false;
     bool    no_zeus_logo = false;
+    bool    zoom = false;
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -71,6 +73,9 @@ int main(int argc, char **argv) {
             case 6:
                 no_zeus_logo = true;
                 break;
+            case 7:
+                zoom = true;
+                break;
             case 'b':
                 plot_beauty = true;
                 break;
@@ -94,6 +99,7 @@ int main(int argc, char **argv) {
                 cout << "\t--scaling_factors\tPlot scaling factors, not cross-sections\n";
                 cout << "\t--only_png\tPrint PNG files; otherwise - EPS\n";
                 cout << "\t--no_zeus_logo\tDon't print ZEUS logo on top\n";
+                cout << "\t--zoom:\tZoom Y-axis scale\n\n";
                 cout << "\t-h\tPrint this help and exit\n\n";
                 exit(-1);
                 break;
@@ -169,6 +175,9 @@ int main(int argc, char **argv) {
 
     // print ZEUS on top or not
     cResultPlotter.SetNoZEUSLogo(no_zeus_logo);
+
+    // to zoom or not to zoom
+    if (zoom) cResultPlotter.SetZoom(zoom);
 
     // initialize
     cResultPlotter.Initialize();
