@@ -38,7 +38,8 @@ fNpads_y(1),
 isCharm(true),
 fConfig(""),
 fOnlyPNG(false),
-fNoZEUSLogo(false)
+fNoZEUSLogo(false),
+fZoom(false)
 {
 }
 
@@ -456,7 +457,11 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
 
         // clone the dummy histogram so that no interference with other pads
         TH1F * histo_dummy = (TH1F*)cBinGroup1.histo_dummy -> Clone();
-        histo_dummy -> SetAxisRange(0.4, 2.0, "Y");
+        if (fZoom) {
+            histo_dummy -> SetAxisRange(0.95, 1.05, "Y");
+        } else {
+            histo_dummy -> SetAxisRange(0.4, 2.0, "Y");
+        }
         histo_dummy -> SetNdivisions(504, "Y");
         histo_dummy -> SetLabelSize(0.15,"Y");
         histo_dummy -> SetYTitle("data / HVQDIS");
