@@ -52,6 +52,8 @@ class TSystematics {
         void        SetOnlyInclusive(bool only_inclusive) {fOnlyInclusive = only_inclusive;}
         void        SetBothFlavours(bool both_flavours) {fBothFlavours = both_flavours;}
         void        CorrectCrossSections(TString XMLfile);
+        void        DrawLine(Double_t x1, Double_t y1, Double_t x2, Double_t y2);
+        void        PrintVariable(Double_t x, Double_t y, TString text);
 
         // getters
         int         GetNpoints() {return fNpoints;};
