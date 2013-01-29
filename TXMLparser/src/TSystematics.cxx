@@ -499,3 +499,17 @@ void TSystematics::CorrectCrossSections(TString XMLfile) {
     XMLfile += "corrected."+fOutputFileName;
     cCrossSection.WriteXMLfile(XMLfile);
 }
+
+void TSystematics::DrawLine(Double_t x1, Double_t y1, Double_t x2, Double_t y2){
+    TLine * l = new TLine (x1, y1, x2, y2);
+    l -> SetLineColor(kRed);
+    l -> SetLineStyle(3);
+    l -> Draw();
+}
+
+void TSystematics::PrintVariable(Double_t x, Double_t y, TString text) {
+    TLatex * l = new TLatex (x, y, text);
+    l -> SetNDC(true);
+    l -> SetTextSize(0.04);
+    l -> Draw();
+}
