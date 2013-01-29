@@ -351,11 +351,58 @@ void TSystematics::DrawVector(map<unsigned, Float_t> syst_map, map<unsigned, Flo
     TH1F * h  = new TH1F ("dummy","",65,0,65);
     h->SetStats(0);
     h->Draw();
-    h->SetAxisRange(-0.05, 0.25, "Y");
+    Float_t low_range = -0.05;
+    Float_t up_range = 0.25;
+    h->SetAxisRange(low_range, up_range, "Y");
 
     gr -> SetMarkerStyle(20);
     gr -> SetMarkerSize(1);
     gr -> Draw("p");
+
+    if ( fBinningFile.Contains("full.forCHARM") ) {
+        DrawLine(2, low_range, 2, up_range);
+        DrawLine (12, low_range, 12, up_range);
+        DrawLine (14, low_range, 14, up_range);
+        DrawLine (20, low_range, 20, up_range);
+        DrawLine (31, low_range, 31, up_range);
+        DrawLine (36, low_range, 36, up_range);
+        DrawLine (38, low_range, 38, up_range);
+        DrawLine (45, low_range, 45, up_range);
+        DrawLine (46, low_range, 46, up_range);
+        DrawLine (49, low_range, 49, up_range);
+        DrawLine (50, low_range, 50, up_range);
+        DrawLine (54, low_range, 54, up_range);
+        DrawLine (55, low_range, 55, up_range);
+        DrawLine (58, low_range, 58, up_range);
+        DrawLine (59, low_range, 59, up_range);
+        DrawLine (61, low_range, 61, up_range);
+        DrawLine (62, low_range, 62, up_range);
+        DrawLine (63, low_range, 63, up_range);
+    } else {
+        DrawLine(2, low_range, 2, up_range);
+        DrawLine (11, low_range, 11, up_range);
+        DrawLine (13, low_range, 13, up_range);
+        DrawLine (19, low_range, 19, up_range);
+        DrawLine (30, low_range, 30, up_range);
+        DrawLine (35, low_range, 35, up_range);
+        DrawLine (37, low_range, 37, up_range);
+        DrawLine (44, low_range, 44, up_range);
+        DrawLine (45, low_range, 45, up_range);
+        DrawLine (48, low_range, 48, up_range);
+        DrawLine (49, low_range, 49, up_range);
+        DrawLine (53, low_range, 53, up_range);
+        DrawLine (54, low_range, 54, up_range);
+        DrawLine (57, low_range, 57, up_range);
+        DrawLine (58, low_range, 58, up_range);
+        DrawLine (60, low_range, 60, up_range);
+        DrawLine (61, low_range, 61, up_range);
+        DrawLine (62, low_range, 62, up_range);
+    }
+
+    PrintVariable(0.17, 0.8, "#eta");
+    PrintVariable(0.3, 0.8, "E_{T}");
+    PrintVariable(0.5, 0.8, "x");
+    PrintVariable(0.6, 0.8, "Q^{2}");
 
     // print the result into a file
     def.Print(fOutputPath+"/"+fOutputFileName+"_"+suffix+"_all_bins.eps");
