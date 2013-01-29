@@ -41,6 +41,7 @@ class TResultPlotter {
                 void    SetFileStyleSettings(TString, bool, int, int, int, bool, int, int, int, bool, int);
                 void    SetOnlyPNG(bool only_png) {fOnlyPNG = only_png;}
                 void    SetNoZEUSLogo(bool no_logo) {fNoZEUSLogo = no_logo;}
+                void    SetZoom(bool zoom) {fZoom = zoom;}
 
         private:
 
@@ -93,6 +94,9 @@ class TResultPlotter {
 
                 // draw ZEUS-logo or not
                 bool    fNoZEUSLogo;
+
+                // axis range for ratio plot
+                bool    fZoom;
 };
 
 #endif
