@@ -1000,6 +1000,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 Int_t   jetB=fVertices[j].fJetB;
                 Int_t   vertex=fVertices[j].id;
+                TVertex cVtx = fVertices[j];
 
                 // TODO: not really sure that this should be different for v02 and v04 - check!
                 #ifdef CN_VERSION_V02
@@ -1009,6 +1010,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 fRecoJetPhi = Kt_phijet_a[vertex];
                 Float_t mass = Vtxsec_mass[vertex];
                 Int_t   vtx_multi = Vtxsec_multi[vertex];
+                Int_t   vtx_multi_total = vtx_multi;
                 Float_t chi2 = Vtxsec_chi2[vertex];
                 #endif
 
@@ -1019,11 +1021,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 fRecoJetPhi = Kt_phijet_b[jetB];
                 Float_t     mass = fVertices[j].GetVertexMass();
                 Int_t       vtx_multi = fVertices[j].GetNTracks() - fVertices[j].GetNTracksDropped();
+                Int_t       vtx_multi_total = fVertices[j].GetNTracks();
                 Float_t chi2 = fVertices[j].GetChi2();
                 #endif
 
                 Int_t trackIDs[60];
-                fVertices[j].GetVertexTracks(vtx_multi, trackIDs);
+                fVertices[j].GetVertexTracks(vtx_multi_total, trackIDs);
 
                 //Float_t average_angle = getAverageAngle(vertex);
                 Float_t average_angle;
