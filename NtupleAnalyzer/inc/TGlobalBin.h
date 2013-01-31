@@ -14,6 +14,7 @@
 #include <TROOT.h>
 #include <TH1F.h>
 #include <TList.h>
+#include <TProfile2D.h>
 
 #include <vector>
 using namespace std;
@@ -41,6 +42,7 @@ class TGlobalBin : public TObject {
         int         FillHistogram(TString HistTitle, Float_t Value);
         int         FillHistogram(TString HistTitle, Float_t Value1, Float_t Value2);
         int         FillProfileHistogram(TString HistTitle, Float_t Value1, Float_t Value2);
+        int         FillProfile2DHistogram(TString HistTitle, Float_t x, Float_t y, Float_t value);
         TList*      GetHistList() { return fListHistograms; }
         void        AddMirroredHistTitle(TString title) { fMirroredHistTitle.push_back(title); }
         void        MirrorHistograms();
