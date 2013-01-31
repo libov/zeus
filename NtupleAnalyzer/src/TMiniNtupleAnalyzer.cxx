@@ -766,23 +766,27 @@ void        TMiniNtupleAnalyzer::DeclareHistograms(TGlobalBin* globalbin) {
                 } else if (comment == "profile") {
                     globalbin -> AddHistogram(new TProfile(title, "", NBins, LowerLimit, UpperLimit));
                 }
-            } else if ( ( n_elements == 7 ) || ( n_elements == 8 ) ) {
-                // if we are here, then more than 5 elements: 2-dim histogram
-                // must be 7 or 8 elements
+            } else if ( n_elements == 7 ) {
                 Int_t NBins2 = (((TObjString*)tokens->At(4)) -> GetString()).Atoi();
                 Float_t LowerLimit2= (((TObjString*)tokens->At(5)) -> GetString()).Atof();
                 Float_t UpperLimit2= (((TObjString*)tokens->At(6)) -> GetString()).Atof();
                 globalbin -> AddHistogram(new TH2F(title, "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+            } else if ( n_elements == 8 ) {
 
-                if ( n_elements == 8 ) {
-                    TString mirror = ((TObjString*)tokens->At(7)) -> GetString();
-                    if (mirror == "mirror") {
-                        globalbin -> AddHistogram(new TH2F(title+"_pos", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
-                        globalbin -> AddHistogram(new TH2F(title+"_neg", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
-                        globalbin -> AddHistogram(new TH2F(title+"_sum", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
-                        globalbin -> AddHistogram(new TH2F(title+"_diff", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
-                        globalbin -> AddMirroredHistTitle(title);
-                    }
+                Int_t NBins2 = (((TObjString*)tokens->At(4)) -> GetString()).Atoi();
+                Float_t LowerLimit2= (((TObjString*)tokens->At(5)) -> GetString()).Atof();
+                Float_t UpperLimit2= (((TObjString*)tokens->At(6)) -> GetString()).Atof();
+
+                TString comment = ((TObjString*)tokens->At(7)) -> GetString();
+                if (comment == "mirror") {
+                    globalbin -> AddHistogram(new TH2F(title, "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                    globalbin -> AddHistogram(new TH2F(title+"_pos", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                    globalbin -> AddHistogram(new TH2F(title+"_neg", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                    globalbin -> AddHistogram(new TH2F(title+"_sum", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                    globalbin -> AddHistogram(new TH2F(title+"_diff", "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2) );
+                    globalbin -> AddMirroredHistTitle(title);
+                } else if (comment == "profile") {
+                    globalbin -> AddHistogram(new TProfile2D(title, "", NBins, LowerLimit, UpperLimit, NBins2, LowerLimit2, UpperLimit2));
                 }
                 continue;
             } else {
