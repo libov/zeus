@@ -23,6 +23,7 @@
 #include <TRandom3.h>
 #include <TLorentzVector.h>
 #include <TProfile.h>
+#include <TProfile2D.h>
 
 // my includes
 #include <inc/TNtupleAnalyzer.h>
