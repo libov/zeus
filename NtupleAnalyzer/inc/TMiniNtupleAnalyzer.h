@@ -260,6 +260,9 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Float_t     get_x_gamma(vector<TLorentzVector> jet_list, bool breit_jets, Int_t tagged_jet_id = -1);
         void        fill_parton_histograms(TGlobalBin* global_bin);
 
+        void        check_negative(float& Phi, float& cotTheta, float& Mom, int& Charge, int& IDpart, float& TrEff, float& TrInt);
+        void        check_negative(float& Phi, float& cotTheta, float& Mom, int& Charge, int& IDpart, float& TrEff, float& TrEffI, float& TrInt, float& TrIntN, float& TrPrm);
+
         // tells whether the program should run on dCache files or on mini ntuples on disk
         bool        fRun_dCache;
 
