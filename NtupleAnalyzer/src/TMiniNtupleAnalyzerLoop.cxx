@@ -1171,18 +1171,36 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                 currentTGlobalBin->FillHistogram("average_angle", average_angle);
 
-                if (fDropTracks) {
-                    for (int i=0; i<vtx_multi; i++) {
-                        currentTGlobalBin->FillProfileHistogram("drop_probability_theta", fVertices[j].GetTrackTheta(i)*RADtoDEG, fVertices[j].GetTrackDropProbability(i));
-                        if (fVertices[j].GetTrackPT(i)<1.5) currentTGlobalBin->FillProfileHistogram("drop_probability_lowpt_theta", fVertices[j].GetTrackTheta(i)*RADtoDEG, fVertices[j].GetTrackDropProbability(i));
-                        currentTGlobalBin->FillProfileHistogram("drop_probability_pt", fVertices[j].GetTrackPT(i), fVertices[j].GetTrackDropProbability(i));
+                // fill track variables
+                for (int i=0; i<vtx_multi_total; i++) {
+
+                    Float_t track_theta = cVtx.GetTrackTheta(i);
+                    Float_t track_theta_deg = track_theta * RADtoDEG;
+                    Float_t track_eta = (-1) * TMath::Log( TMath::Tan(track_theta/2) );
+                    Float_t probability = cVtx.GetTrackDropProbability(i);
+                    Float_t momentum = cVtx.GetTrackMomentum(i);
+                    Float_t pt = cVtx.GetTrackPT(i);
+
+                    currentTGlobalBin->FillHistogram("track_theta", track_theta_deg);
+                    currentTGlobalBin->FillHistogram("track_eta", track_eta);
+
+                    if (fDropTracks && fIsMC) {
+
+                        currentTGlobalBin -> FillProfileHistogram("drop_probability_theta", track_theta_deg, probability);
+                        currentTGlobalBin -> FillProfileHistogram("drop_probability_pt", pt, probability);
+                        currentTGlobalBin -> FillProfile2DHistogram("drop_probability_theta_p", track_theta_deg, momentum, probability);
+                        if ( pt < 1.5 ) {
+                            currentTGlobalBin->FillProfileHistogram("drop_probability_lowpt_theta", track_theta_deg, probability);
+                            currentTGlobalBin->FillProfile2DHistogram("drop_probability_lowpt_theta_p", track_theta_deg, momentum, probability);
+                            if (probability<0) currentTGlobalBin->FillProfileHistogram("drop_probability_lowpt_neg_theta", track_theta_deg, probability);
+                        }
                     }
                 }
 
                 // hadronic interaction probability
                 if (fGetVertexTracks || fRedoVertexing) {
 
-                    for (int k=0; k<vtx_multi; k++) {
+                    for (int k=0; k<vtx_multi_total; k++) {
 
                         // try to find this track in the Tracking block
                         int track_id = trackIDs[k];
