@@ -856,13 +856,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         cout << "X: " << Vtxsec_x[vertex] << " " << vertexX_refitted << endl;
                         cout << "Y: " << Vtxsec_y[vertex] << " " << vertexY_refitted << endl;
                         cout << "Z: " << Vtxsec_z[vertex] << " " << vertexZ_refitted << endl;
-                    } else {
-                        cout << "parameters the same as in orange" << endl;
-                        cout << "X: " << Vtxsec_x[vertex] << " " << vertexX_refitted << endl;
-                        cout << "Y: " << Vtxsec_y[vertex] << " " << vertexY_refitted << endl;
-                        cout << "Z: " << Vtxsec_z[vertex] << " " << vertexZ_refitted << endl;
-                        cout << "mass: " << Vtxsec_mass[vertex] <<" -> " << cVtx.GetVertexMass() << endl;
-                        cout << "chi2: " << chi2ndf << " vs " << cVtx.chi2ndf << endl;
                     }
 
                     // another sanity check: covariance matrices
