@@ -2156,3 +2156,21 @@ void TMiniNtupleAnalyzer::HadronicInteractionReweighting(TGlobalBin * currentTGl
         currentTGlobalBin -> FillHistogram("Fmcf_rm_zy_mvd", Fmcf_rm[i][2], Fmcf_rm[i][1]);
     }
 }
+
+void TMiniNtupleAnalyzer::check_negative(float& Phi, float& cotTheta, float& Mom, int& Charge, int& IDpart, float& TrEff, float& TrInt) {
+    if ( (TrEff<0) || (TrInt<0) ) {
+        cout << "ERROR: TrackEfficiency map failure" << endl;
+        cout << Phi << " " << TMath::ATan(1./cotTheta) * RADtoDEG << " " << Mom << " " << Charge << " " << IDpart << endl;
+        cout << TrEff << " " << TrInt << endl;
+        abort();
+    }
+}
+
+void TMiniNtupleAnalyzer::check_negative(float& Phi, float& cotTheta, float& Mom, int& Charge, int& IDpart, float& TrEff, float& TrEffI, float& TrInt, float& TrIntN, float& TrPrm) {
+    if ( (TrEff<0) || (TrEffI<0) || (TrInt<0) || (TrIntN<0) || (TrPrm<0) ) {
+        cout << "ERROR: TrackEfficiency map failure" << endl;
+        cout << Phi << " " << TMath::ATan(1./cotTheta) * RADtoDEG << " " << Mom << " " << Charge << " " << IDpart << endl;
+        cout << TrEff << " " << TrInt << endl;
+        abort();
+    }
+}
