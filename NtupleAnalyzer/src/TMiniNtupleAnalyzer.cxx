@@ -751,7 +751,6 @@ void        TMiniNtupleAnalyzer::DeclareHistograms(TGlobalBin* globalbin) {
             // seven elements: 2-dim histogram
             // eight elements: 2-dim mirrored or TProfile2D
 
-
             if ( n_elements == 4 ) {
                 globalbin -> AddHistogram(new TH1F(title, "", NBins, LowerLimit, UpperLimit) );
             } else  if ( n_elements == 5 ) {
