@@ -90,10 +90,4 @@ void TMiniNtupleAnalyzer::SetBinning() {
     }
     bindef.close();
 
-    // print info about the bins
-    TGlobalBin * currentTGlobalBin;
-    TIter Iter_TGlobalBin(fList_TGlobalBin);
-    while ( (currentTGlobalBin=(TGlobalBin*) Iter_TGlobalBin.Next()) ) {
-        currentTGlobalBin -> Print();
-    }
 }
