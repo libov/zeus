@@ -261,7 +261,11 @@ int main(int argc, char **argv) {
         TString qed_corr =  ((TObjString*) tokens->At(2)) -> GetString();
 
         // store to the array
-        hadr_qed_corr[bin_id.Atoi()] = hadr_corr.Atof() * qed_corr.Atof();
+        if (no_qed) {
+            hadr_qed_corr[bin_id.Atoi()] = hadr_corr.Atof() * qed_corr.Atof();
+        } else {
+            hadr_qed_corr[bin_id.Atoi()] = hadr_corr.Atof();
+        }
     }
 
     // meta file name and full path
