@@ -32,10 +32,10 @@ class TCrossSection : public TXMLparser  {
 
         TCrossSectionBin        getCrossSectionBin(unsigned id);
         unsigned                getCrossSectionBinIndex(unsigned id);
-        TCrossSectionBin        getCrossSectionBinbyIndex(unsigned id) {return fBinList[id];};// TODO: CHECK THAT ID IS NOT GREATER THAN SIZE OF THE VECTOR!!!!
+        TCrossSectionBin        getCrossSectionBinbyIndex(unsigned id) {return fBinList[id];} // TODO: CHECK THAT ID IS NOT GREATER THAN SIZE OF THE VECTOR!!!!
         void                    modifyCrossSectionBin(unsigned id, TCrossSectionBin bin);
 
-        unsigned                getNBins() { return fBinList.size(); };
+        unsigned                getNBins() { return fBinList.size(); }
 
         void                    linkBinGroupWithBins();
 
