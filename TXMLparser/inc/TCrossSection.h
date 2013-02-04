@@ -26,7 +26,8 @@
 class TCrossSection : public TXMLparser  {
 
     public:
-        TCrossSection(TString	xml_filename);
+
+        TCrossSection(TString xml_filename);
         ~TCrossSection(){};
 
         TCrossSectionBin        getCrossSectionBin(unsigned id);
@@ -39,7 +40,7 @@ class TCrossSection : public TXMLparser  {
         void                    linkBinGroupWithBins();
 
         unsigned                getNBinGroups(){return fBinIDsMap.size();}
-        // NOTE: 
+        // NOTE:
         // 1. here one has to check that group_index is not greater than map size!!!
         // 2. is it ok to return vector??
         std::map<TString, std::vector<unsigned> >         getBinIDsMap() {return fBinIDsMap;}
@@ -47,6 +48,7 @@ class TCrossSection : public TXMLparser  {
         void                    Print();
 
     private:
+
         std::vector<TCrossSectionBin>                  fBinList;
         std::map<unsigned, xercesc::DOMNode*>          fDOMNodeMap;
 
