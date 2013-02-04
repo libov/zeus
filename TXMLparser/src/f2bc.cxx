@@ -100,12 +100,14 @@ int main(int argc, char **argv) {
         {"XMLfile", required_argument, 0, 2},
         {"beauty", no_argument, 0, 3},
         {"only_print_f2", no_argument, 0, 4},
+        {"no_qed", no_argument, 0, 5},
     };
 
     TString meta_file = "";
     TString XMLfile="";
     bool    beauty = false;
     bool    only_print_f2 = false;
+    bool    no_qed = false;
 
     // handle command line options
     opterr = 0;
@@ -125,10 +127,14 @@ int main(int argc, char **argv) {
             case 4:
                 only_print_f2 = true;
                 break;
+            case 5:
+                no_qed = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
                 cout << "List of options\n" << endl;
                 cout << "--only_print_f2\tdon't extract F2 from data, only print theoretical predictions on it" << endl;
+                cout << "--no_qed\tData points are not corrected for QED radiation, hence correct them in the extraction" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
