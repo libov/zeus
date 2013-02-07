@@ -363,7 +363,7 @@ bool    TVertex::RefitVertex() {
             }
 
             // store to an array
-            fTrackDropProbability[i]=probability;
+            fTrackDropProbability[i] = probability / fHadronicInteractionCorrection;
 
             // if the random number is smaller or equal to chosen probability to loose tracks - drop the track
             // otherwise - proceed normally and add the track to the vertex
