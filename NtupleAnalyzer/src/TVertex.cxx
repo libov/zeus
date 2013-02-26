@@ -322,13 +322,13 @@ bool    TVertex::RefitVertex() {
                     TrackSumEfficiency (fTrackPhi[i], cot, fTrackMomentum[i], charge, id, TrEff, TrEffI, TrInt, TrIntN, TrPrm);
                     if ( (TrEff<0) || (TrEffI<0) || (TrInt<0) || (TrIntN<0) || (TrPrm<0) ) {
                         cout << "ERROR in TVertex: TrackSumEfficiency map failure - negative output values!" << endl;
-                        cout << fTrackPhi[i] << " " << fTrackTheta[i] * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
+                        cout << fTrackPhi[i] << " " << theta * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
                         cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
                         abort();
                     }
                     if ( (TrEff==0) || (TrEffI==0) || (TrInt==0) || (TrIntN==0) || (TrPrm==0) ) {
                         cout << "WARNING in TVertex: TrackSumEfficiency map failure - zero output values! Setting phadr to average = 4 per cent" << endl;
-                        cout << fTrackPhi[i] << " " << fTrackTheta[i] * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
+                        cout << fTrackPhi[i] << " " << theta * RADtoDEG << " " << fTrackMomentum[i] << " " << charge << " " << id << endl;
                         cout << TrEff << " " << TrEffI << " " << TrInt << " " << TrIntN << " " << TrPrm << endl;
                         phadr = fPHADRaverage;
                     } else {
