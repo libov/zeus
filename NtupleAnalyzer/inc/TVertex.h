@@ -81,6 +81,7 @@ class TVertex
                 Float_t         GetTrackMomentum(unsigned index) {return fTrackMomentum[index];}
                 Float_t         GetTrackPT(unsigned index) {return fTrackPT[index];}
                 Float_t         GetTrackTheta(unsigned index) {return fTrackTheta[index];}
+                Float_t         GetTrackPhi(unsigned index) {return fTrackPhi[index];}
                 Float_t         GetTrackDropProbability(unsigned index) {return fTrackDropProbability[index];}
 
                 Float_t         GetZUFO_jet_ratio() {return fZUFO_jet_ratio;}
