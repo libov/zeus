@@ -1173,21 +1173,28 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     Float_t probability = cVtx.GetTrackDropProbability(i);
                     Float_t momentum = cVtx.GetTrackMomentum(i);
                     Float_t pt = cVtx.GetTrackPT(i);
+                    Float_t phi = cVtx.GetTrackPhi(i);
+                    if (phi<0) phi += TWOPI;
+                    Float_t phi_deg = phi * RADtoDEG;
 
                     currentTGlobalBin->FillHistogram("track_theta", track_theta_deg);
                     currentTGlobalBin->FillHistogram("track_theta_p", track_theta_deg, momentum);
                     currentTGlobalBin->FillHistogram("track_eta", track_eta);
+                    currentTGlobalBin->FillHistogram("track_theta_phi", track_theta_deg, phi_deg);
 
                     if (fDropTracks && fIsMC) {
 
                         currentTGlobalBin -> FillProfileHistogram("drop_probability_theta", track_theta_deg, probability);
                         currentTGlobalBin -> FillProfileHistogram("drop_probability_pt", pt, probability);
                         currentTGlobalBin -> FillProfile2DHistogram("drop_probability_theta_p", track_theta_deg, momentum, probability);
+                        currentTGlobalBin -> FillProfile2DHistogram("drop_probability_theta_phi", track_theta_deg, phi_deg, probability);
                         if ( pt < 1.5 ) {
                             currentTGlobalBin->FillProfileHistogram("drop_probability_lowpt_theta", track_theta_deg, probability);
                             currentTGlobalBin->FillProfile2DHistogram("drop_probability_lowpt_theta_p", track_theta_deg, momentum, probability);
                             if (probability<0) currentTGlobalBin->FillProfileHistogram("drop_probability_lowpt_neg_theta", track_theta_deg, probability);
                         }
+                        currentTGlobalBin -> FillProfileHistogram("average_p_theta", track_theta_deg, momentum);
+                        currentTGlobalBin -> FillProfileHistogram("average_phi_theta", track_theta_deg, phi_deg);
                     }
                 }
 
@@ -1347,6 +1354,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                             currentTGlobalBin -> FillProfileHistogram("VMCU_match_eff_Sum_theta", theta_deg, VMCU_match_eff_Sum);
                             currentTGlobalBin -> FillProfileHistogram("detector_eff_Sum_theta", theta_deg, detector_eff_Sum);
                             currentTGlobalBin -> FillProfileHistogram("phadr_Sum_theta", theta_deg, phadr_Sum);
+                            currentTGlobalBin -> FillProfileHistogram("phadr_Sum_phi", phi_deg, phadr_Sum);
+                            currentTGlobalBin -> FillProfileHistogram("phadr_Sum_p", p, phadr_Sum);
+                            currentTGlobalBin -> FillProfileHistogram("phadr_Sum_pt", track.Pt(), phadr_Sum);
                             currentTGlobalBin -> FillProfileHistogram("corr_Sum_theta", theta_deg, corr_Sum);
                             currentTGlobalBin -> FillProfile2DHistogram("corr_Sum_theta_p", theta_deg, p, corr_Sum);
                             currentTGlobalBin -> FillProfileHistogram("corr_Sum_scaled1_theta",  theta_deg, corr_Sum_scaled1);
