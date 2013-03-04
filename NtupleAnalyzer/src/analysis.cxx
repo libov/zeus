@@ -39,6 +39,7 @@ unsigned TVertex::two_track_vertices_dropped = 0;
 bool TVertex::fUseTrackSumEfficiency;
 Float_t TVertex::fPHADRScaling;
 Float_t TVertex::fPHADRaverage;
+bool    TVertex::CUTOFF = true;
 
 /*! Main function
     \fn main
@@ -111,7 +112,8 @@ int main(int argc, char **argv) {
         {"nevents_test", required_argument, 0, 9},
         {"dCache", no_argument, 0, 10},
         {"do_EM_scale_syst", no_argument, 0, 11},
-        {"EMScaleUncertainty", required_argument, 0, 12}
+        {"EMScaleUncertainty", required_argument, 0, 12},
+        {"no_cutoff", no_argument, 0, 13},
     };
     // loop over program arguments (i.e. argv array) and store info to above variables depending on an option
     int option;
@@ -196,6 +198,9 @@ int main(int argc, char **argv) {
                 break;
             case 12:
                 EMScaleUncertainty = atof(optarg);
+                break;
+            case 13:
+                TVertex::CUTOFF = false;
                 break;
             case 'h':
                 cout<<"\nUsage: " << endl;
