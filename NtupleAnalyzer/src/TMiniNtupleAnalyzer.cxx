@@ -1168,7 +1168,7 @@ void TMiniNtupleAnalyzer::findVertices() {
             cVtx.SetHadronicInteractionCorrection(fHadronicInteractionCorrection);
         }
 
-        // perform vertexing!
+        // perform vertex fit!
         bool fit_successful = cVtx.RefitVertex();
         // skip if the fit was not successful or gave too large decay length
         if (!fit_successful) continue;
