@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
         {"noQED_only", no_argument, 0, 11},
         {"do_EM_scale_syst", no_argument, 0, 12},
         {"EMScaleUncertainty", required_argument, 0, 13},
-        {"dry_run", no_argument, 0, 14}
+        {"dry_run", no_argument, 0, 14},
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
