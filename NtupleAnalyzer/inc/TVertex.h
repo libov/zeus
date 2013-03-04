@@ -122,6 +122,8 @@ class TVertex
                 // default (average) value of phadr; employed if the map gives zero values
                 static Float_t  fPHADRaverage;
 
+                static bool     CUTOFF;
+
         private:
                 Float_t         fSignificance;          //!< significance of the vertex
                 Float_t         fProjDecayLength;       //!< projected decay length of the vertex
