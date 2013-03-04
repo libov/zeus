@@ -223,7 +223,7 @@ int main(int argc, char **argv) {
     }
 
     // ok, the necessary number of arguments was provided, the program can continue
-    
+
     // first, open the XML file containing information about the samples
     TString   XMLfilename;
     #ifdef CN_VERSION_V02
@@ -250,7 +250,7 @@ int main(int argc, char **argv) {
     system("rm -f NtupleAnalyzer.tar.gz");
     system("tar -zcf NtupleAnalyzer.tar.gz NtupleAnalyzer");
     chdir(getenv("NTUPLEANALYZER"));
-    
+
     // loop over samples and submit each for analysis
     for (unsigned i = 0; i < cDataset.getNSamples(); i++) {
 
@@ -383,7 +383,7 @@ TString float_to_TString (float f) {
 
 // a function to submmit a job: creates a script to be launched on ZARAH and submits it, together with needed files
 void submitJob(TString run_command, TString samplename) {
-        
+
     // remove old file
     remove("run_zarah.sh");
 
@@ -425,7 +425,7 @@ void submitJob(TString run_command, TString samplename) {
     if (SELECT_SL4) {
         resources = "-R \"defined(sl4)\"";
     }
-    
+
     TString submit_command="zarah-jobsub -q "+ZARAH_QUEUE+" -s run_zarah.sh " + resources + " ../NtupleAnalyzer.tar.gz "+ANALYSIS+"/*.sh"+" ../xerces/$ZARCH_TYPE/lib* " + " filelists/"+samplename+".txt" ;
     cout << "INFO: submission command: " << submit_command << endl;
     system (submit_command.Data());
