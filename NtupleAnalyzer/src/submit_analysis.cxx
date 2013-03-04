@@ -71,6 +71,7 @@ int main(int argc, char **argv) {
     bool        run_dCache = false;
     bool        noQED_only = false;
     bool        dry_run = false;
+    bool        no_cutoff = false;
 
     // for significance smearing
     Float_t    SmearingGauss1Prob = -1;
@@ -100,6 +101,7 @@ int main(int argc, char **argv) {
         {"do_EM_scale_syst", no_argument, 0, 12},
         {"EMScaleUncertainty", required_argument, 0, 13},
         {"dry_run", no_argument, 0, 14},
+        {"no_cutoff", no_argument, 0, 15},
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
@@ -180,6 +182,9 @@ int main(int argc, char **argv) {
             case 14:
                 dry_run = true;
                 break;
+            case 15:
+                no_cutoff = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
@@ -205,6 +210,7 @@ int main(int argc, char **argv) {
                 cout << "\t--do_EM_scale_syst\tswitch on variation of the electron energy in the MC in order to study EM scale systematics\n";
                 cout << "\t--EMScaleUncertainty\tsize of the variation, has effect only if --do_EM_scale_syst is selected\n";
                 cout << "\t--dry_run - don't run, just print command which would be executed with the given options\n";
+                cout << "\t--no_cutoff - don't apply a cutoff for the tracking efficiency map. See analysis.cxx and TVertex.cxx for more details.\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -312,6 +318,8 @@ int main(int argc, char **argv) {
             command += " --do_EM_scale_syst";
             command += " --EMScaleUncertainty " + EMScaleUncertainty;
         }
+
+        if (no_cutoff) command += " --no_cutoff";
 
         cout << "INFO: command to be executed: " << command << endl;
 
