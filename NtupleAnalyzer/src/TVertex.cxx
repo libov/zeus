@@ -314,7 +314,18 @@ bool    TVertex::RefitVertex() {
                 Float_t TrIntN = -1;
                 Float_t TrPrm = -1;
                 Int_t   charge = fTrackCharge[i];
-                Float_t cot = 1./(TMath::Tan(fTrackTheta[i]));
+                Float_t theta = fTrackTheta[i];
+                // in case of Sum map - take into account 'cutoffs' below 11.5 and 160 degrees
+                if (fUseTrackSumEfficiency && CUTOFF) {
+                    Float_t lower_cutoff = 11.5 / RADtoDEG;
+                    Float_t upper_cutoff = 160. / RADtoDEG;
+                    if ( theta  < lower_cutoff ) {
+                        theta = lower_cutoff;
+                    } else if ( theta > upper_cutoff ) {
+                        theta = upper_cutoff;
+                    }
+                }
+                Float_t cot = 1./(TMath::Tan(theta));
                 // 2=kaon, 3=proton, else=pion
                 Int_t   id = 1;
                 Float_t phadr = -1;
