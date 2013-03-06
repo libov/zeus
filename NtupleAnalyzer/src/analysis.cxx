@@ -75,6 +75,7 @@ int main(int argc, char **argv) {
     bool                test_mode = false;
     int                 nevents_test = 500000;
     bool                dCache = false;
+    Float_t             tracking_correction = 0.4;
 
     // flag to distinguish luminosity-only mode
     bool                recalulate_luminosity_only = false;
@@ -114,6 +115,7 @@ int main(int argc, char **argv) {
         {"do_EM_scale_syst", no_argument, 0, 11},
         {"EMScaleUncertainty", required_argument, 0, 12},
         {"no_cutoff", no_argument, 0, 13},
+        {"tracking_correction", required_argument, 0, 14},
     };
     // loop over program arguments (i.e. argv array) and store info to above variables depending on an option
     int option;
@@ -202,6 +204,9 @@ int main(int argc, char **argv) {
             case 13:
                 TVertex::CUTOFF = false;
                 break;
+            case 14:
+                tracking_correction = atof(optarg);
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t analysis  -t <Type> -p <Period> [-f <Flavour> -q <Q2> -o <Process> -g <trigger period>] -b <Binning File Suffix> -v <Histograms Version Ending> [-r] [-j <size of the variation of the jet energy scale>] [-l <filename> run on specific filelist; all the sample properties set from the command line will be just dummies] [--do_EM_scale_syst --EMScaleUncertainty <scale variation>]"<<endl;
@@ -216,6 +221,7 @@ int main(int argc, char **argv) {
                 cout << "--test\t\trun in test mode\n\n";
                 cout << "--nevents_test\t\tnumber of events to be processed in test mode\n\n";
                 cout << "--dCache\t\trun directly on dCache\n\n";
+                cout << "--tracking_correction\t\tSet correction for tracking efficiency, (epsilon - 1). Default: 0.4 (since default epsilon is 1.4)\n\n";
                 cout << "Consult also TSubSet.h for encoding, this might be outdated\n" << endl;
                 exit(-1);
             default:
@@ -376,7 +382,7 @@ int main(int argc, char **argv) {
     // defines probability to loose a track in case of constant probability (i.e. when SetUseHadronicInteractionMap(false))
     instance -> SetDropTrackProbability (0.02);
     // defines a hadronic interaction correction factor on MC in case of Sasha's map is used (i.e. when SetUseHadronicInteractionMap(true))
-    instance -> SetHadronicInteractionCorrection(0.4);
+    instance -> SetHadronicInteractionCorrection(tracking_correction);
     // set the scaling factors to make phadr from TrackSumEfficiency and that from TrackRecEfficiency agree in the central part
     TVertex::fPHADRScaling = 0.88;
     // in case the map give zero values - set phadr to this value
