@@ -72,6 +72,8 @@ int main(int argc, char **argv) {
     bool        noQED_only = false;
     bool        dry_run = false;
     bool        no_cutoff = false;
+    Float_t     tracking_correction = 0.4;
+    bool        tracking_correction_given = false;
 
     // for significance smearing
     Float_t    SmearingGauss1Prob = -1;
@@ -102,6 +104,7 @@ int main(int argc, char **argv) {
         {"EMScaleUncertainty", required_argument, 0, 13},
         {"dry_run", no_argument, 0, 14},
         {"no_cutoff", no_argument, 0, 15},
+        {"tracking_correction", required_argument, 0, 16},
     };
 
     // loop over program arguments (i.e. argv array) and store info to above variables
@@ -185,6 +188,10 @@ int main(int argc, char **argv) {
             case 15:
                 no_cutoff = true;
                 break;
+            case 16:
+                tracking_correction = atof(optarg);
+                tracking_correction_given = true;
+                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\t submit_analysis  -b <Binning File Suffix> -v <Histograms Version Ending> [OPTIONS]"<<endl;
@@ -211,6 +218,7 @@ int main(int argc, char **argv) {
                 cout << "\t--EMScaleUncertainty\tsize of the variation, has effect only if --do_EM_scale_syst is selected\n";
                 cout << "\t--dry_run - don't run, just print command which would be executed with the given options\n";
                 cout << "\t--no_cutoff - don't apply a cutoff for the tracking efficiency map. See analysis.cxx and TVertex.cxx for more details.\n";
+                cout << "\t--tracking_correction\tSet correction for tracking efficiency, (epsilon - 1). Default: 0.4 (since default epsilon is 1.4)\n\n";
                 cout << "\t-h\t\tPrint this help\n\n";
                 exit(-1);
             default:
@@ -320,6 +328,8 @@ int main(int argc, char **argv) {
         }
 
         if (no_cutoff) command += " --no_cutoff";
+
+        if (tracking_correction_given) command += " --tracking_correction " + float_to_TString(tracking_correction);
 
         cout << "INFO: command to be executed: " << command << endl;
 
