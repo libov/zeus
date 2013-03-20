@@ -420,7 +420,7 @@ void submitJob(TString run_command, TString samplename) {
     myfile << "ln -s ../libxerces-c.so.27.0 libxerces-c.so\n";
     myfile << "make clean && make analysis && make createMiniNtuples\n";
     myfile << "mv analysis createMiniNtuples ../\n";
-    myfile << "mv reweightingFunction/weightTables/* ../\n";
+    myfile << "cp reweightingFunction/weightTables/* ../\n";
     myfile << "cd ../\n";
     myfile << "rm NtupleAnalyzer.tar.gz\n";
     myfile << "tar -zcvf NtupleAnalyzer.tar.gz NtupleAnalyzer\n";
