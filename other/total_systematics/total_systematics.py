@@ -22,9 +22,9 @@ else:
 INPUT='/zow/user/libov/WWW/ZEUS_ONLY/F2cb_vtx_paper_May2012'
 
 if BEAUTY:
-    SYST_SOURCES=['BRSystematics_beauty', 'FragmFractionSystematics_beauty', 'tracking_map_beauty_systematics_2.75', 'charm_fragmentation_5.0', 'beauty_fragmentation_5.0', 'jet_energy_scale_beauty', 'smearing_core_beauty', 'smearing_tail_beauty', 'lf_asymmetry_beauty', 'et_reweighting_beauty', 'signal_extraction_beauty', 'DIS_y_beauty', 'DIS_Ee_beauty', 'DIS_empz_beauty', 'q2_reweighting_beauty', 'flt_efficiency_beauty', 'EMscale_beauty']
+    SYST_SOURCES=['BRSystematics_beauty', 'FragmFractionSystematics_beauty', 'tracking_map_beauty_systematics_2.78', 'charm_fragmentation_5.0', 'beauty_fragmentation_5.0', 'jet_energy_scale_beauty', 'smearing_core_beauty', 'smearing_tail_beauty', 'lf_asymmetry_beauty', 'et_reweighting_beauty', 'signal_extraction_beauty', 'DIS_y_beauty', 'DIS_Ee_beauty', 'DIS_empz_beauty', 'q2_reweighting_beauty', 'flt_efficiency_beauty', 'EMscale_beauty']
 else:
-    SYST_SOURCES=['BRSystematics_charm', 'FragmFractionSystematics_charm', 'tracking_map_charm_systematics_2.74', 'charm_fragmentation_4.2', 'beauty_fragmentation_4.2', 'jet_energy_scale_charm', 'smearing_core_charm', 'smearing_tail_charm', 'lf_asymmetry_charm', 'eta_reweighting_charm', 'et_reweighting_charm', 'signal_extraction_charm', 'DIS_y_charm', 'DIS_Ee_charm', 'DIS_empz_charm', 'q2_reweighting_charm', 'flt_efficiency_charm', 'EMscale_charm']
+    SYST_SOURCES=['BRSystematics_charm', 'FragmFractionSystematics_charm', 'tracking_map_charm_systematics_2.77', 'charm_fragmentation_4.2', 'beauty_fragmentation_4.2', 'jet_energy_scale_charm', 'smearing_core_charm', 'smearing_tail_charm', 'lf_asymmetry_charm', 'eta_reweighting_charm', 'et_reweighting_charm', 'signal_extraction_charm', 'DIS_y_charm', 'DIS_Ee_charm', 'DIS_empz_charm', 'q2_reweighting_charm', 'flt_efficiency_charm', 'EMscale_charm']
 
 # a directory with input files
 OUTPUT=os.getenv('PLOTS_PATH')
