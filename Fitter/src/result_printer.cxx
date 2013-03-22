@@ -173,6 +173,21 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
         sigma_err_syst_up_rel = 100 * sigma_err_syst_up / sigma;
         sigma_err_syst_down_rel = 100 * sigma_err_syst_down / sigma;
 
+        // get bin boundaries
+        Float_t low1, up1, low2, up2;
+        Float_t n_sub_bins = bin.getNSubBins();
+        if ( (n_sub_bins == 1) || (n_sub_bins == 2) ) {
+            low1 = bin.getSubBinLowEdge(0);
+            up1 = bin.getSubBinUpEdge(0);
+        } else {
+            cout << "ERROR: bad TCrossSectionBin object" << endl;
+            abort();
+        }
+        if ( n_sub_bins == 2 ) {
+            low2 = bin.getSubBinLowEdge(1);
+            up2 = bin.getSubBinUpEdge(1);
+        }
+
         // text file output
         output << "Bin " << counter << ": " << sigma << " +/- " << sigma_err << " ("<<sigma_rel_err<<"%) [STAT] +"<<sigma_err_syst_up << " ("<<sigma_err_syst_up_rel<<"%)";
         output << " -" << sigma_err_syst_down << " (" << sigma_err_syst_down_rel <<"%) [SYST]"  << endl;
@@ -181,7 +196,11 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
         output_true << "Bin " << counter << ": " << sigma_true/bin.getBinWidth () << endl;
 
         // TEX table output
-        output_tex << "$\\unit["<< sigma << " \\pm " << sigma_err << "^{+" << sigma_err_syst_up << "}_{-" << sigma_err_syst_down << "}]{}$" << endl;
+        if (n_sub_bins == 1) {
+            output_tex << low1 << " \t& " << up1 << " \t& " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2}" << endl;
+        } else if (n_sub_bins == 2) {
+            output_tex << low1 << " \t& " << up1 << " \t& " << low2 << " & " << up2 << " & " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2}" << endl;
+        }
 
         // calculate also total cross-sections from every differential ones
         total_xsect += sigma * bin.getBinWidth ();
