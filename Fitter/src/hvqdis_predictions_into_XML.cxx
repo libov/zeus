@@ -32,11 +32,13 @@ int main(int argc, char **argv) {
     // some declarations
     TString     BinningFileSuffix;
     bool        beauty = false;
+    bool        no_qed_corrections = false;
 
     // declare long options
     static struct option long_options[] = {
         {"meta_file", required_argument, 0, 1},
-        {"beauty", no_argument, 0, 2}
+        {"beauty", no_argument, 0, 2},
+        {"no_qed_corrections", no_argument, 0, 3},
     };
 
     TString meta_file = "";
@@ -56,10 +58,14 @@ int main(int argc, char **argv) {
             case 2:
                 beauty = true;
                 break;
+            case 3:
+                no_qed_corrections = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t hvqdis_predictions_into_XML  -b <Binning File Suffix> --meta_file <filename prefix (without extension)> [options]\n"<<endl;
                 cout << "List of options\n" << endl;
                 cout << "--beauty\t\tbeauty cross-sections"<<endl;
+                cout << "--no_qed_corrections\t\t don't apply QED corrections to theory predictions, i.e. produce results on QED Born level (default: apply QED corrections)" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -79,7 +85,9 @@ int main(int argc, char **argv) {
     cout << "INFO: opened " << binningXMLfileName << endl;
 
     // construct name of the output file
-    TString out_file_name = "hvqdis_predictions." + meta_file + ".xml";
+    TString suffix = "";
+    if (no_qed_corrections) suffix = ".no_qed_corrections";
+    TString out_file_name = "hvqdis_predictions." + meta_file + suffix + ".xml";
     // jobs directory is assumed to have the same name as the prefix of the metafile
     TString job_directory = meta_file;
     // this is total number of cross-sections sets including the central value, i.e. 
@@ -118,11 +126,13 @@ int main(int argc, char **argv) {
     }
     cout << "INFO: opened " << filename << endl;
 
-    // an array to store corrections
-    Float_t hadr_qed_corr[N_BINS+1];
+    // arrays to store corrections
+    Float_t hadr_corr[N_BINS+1];
+    Float_t qed_corr[N_BINS+1];
     // initialize with zeros
     for (int i=0; i<(N_BINS+1); i++) {
-        hadr_qed_corr[i] = 0;
+        hadr_corr[i] = 0;
+        qed_corr[i] = 0;
     }
     
     string line;
@@ -137,11 +147,12 @@ int main(int argc, char **argv) {
 
         // get the id of the bin (is assumed to match those of the XML binning file)
         TString bin_id = ((TObjString*) tokens->At(0)) -> GetString();
-        TString hadr_corr =  ((TObjString*) tokens->At(1)) -> GetString();
-        TString qed_corr =  ((TObjString*) tokens->At(2)) -> GetString();
+        TString hadr =  ((TObjString*) tokens->At(1)) -> GetString();
+        TString qed =  ((TObjString*) tokens->At(2)) -> GetString();
 
-        // store to the array
-        hadr_qed_corr[bin_id.Atoi()] = hadr_corr.Atof() * qed_corr.Atof();
+        // store to the arrays
+        hadr_corr[bin_id.Atoi()] = hadr.Atof();
+        qed_corr[bin_id.Atoi()] = qed.Atof();
     }
 
     // open the metafile
@@ -250,7 +261,10 @@ int main(int argc, char **argv) {
         }
 
         // correct for qed and hadronization effects
-        for (int i=1;i<=N_BINS; i++) diff_xsect_theo[uncertainty_counter][i] *= hadr_qed_corr[i];
+        for (int i=1;i<=N_BINS; i++) {
+            diff_xsect_theo[uncertainty_counter][i] *= hadr_corr[i];
+            if (!no_qed_corrections) diff_xsect_theo[uncertainty_counter][i] *= qed_corr[i];
+        }
 
         // number of variations matches maximum uncertainty counter in a metafile
         if (uncertainty_counter>N_VARIATIONS) N_VARIATIONS = uncertainty_counter;
