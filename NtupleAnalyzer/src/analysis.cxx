@@ -427,7 +427,7 @@ int main(int argc, char **argv) {
     instance -> SetLowEtaCut (-1.6);
 
     // redo vertex track selection and revertexing; affects only v04 and higher
-    instance -> SetRedoVertexing(true);
+    instance -> SetRedoVertexing(false);
     instance -> SetRcut(1);
     instance -> SetpT(0.5);
     instance -> SetSTT(0);
