@@ -197,9 +197,9 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
 
         // TEX table output
         if (n_sub_bins == 1) {
-            output_tex << low1 << " \t& " << up1 << " \t& " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2}" << endl;
+            output_tex << low1 << " \t& " << up1 << " \t& " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2} \\\\" << endl;
         } else if (n_sub_bins == 2) {
-            output_tex << low1 << " \t& " << up1 << " \t& " << low2 << " & " << up2 << " & " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2}" << endl;
+            output_tex << low1 << " \t& " << up1 << " \t& " << low2 << " & " << up2 << " & " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2} \\\\" << endl;
         }
 
         // calculate also total cross-sections from every differential ones
