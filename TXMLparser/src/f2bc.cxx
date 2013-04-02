@@ -652,7 +652,9 @@ int main(int argc, char **argv) {
                 output << " +" << f2_err_syst_up[k] << " (" << 100*f2_err_syst_up[k]/f2[k] << "%)";
                 output << " -" << f2_err_syst_down[k] << " (" << 100*f2_err_syst_down[k]/f2[k] << "%)";
                 output << " (syst.) +" << extrap_unc_up[k] << " -" << extrap_unc_down[k] << " (extrap.)" << endl;
-                output_tex << previous_Q2 << " & " << x[k] << " & " << "$\\unit["<< f2[k] << " \\pm " << f2_err_stat[k] << "\\,^{+" << f2_err_syst_up[k] << "}_{-"<< f2_err_syst_down[k] << "}\\,^{+" << extrap_unc_up[k] << "}_{-" << extrap_unc_down[k] << "}]{}$ \\\\"<<endl;
+                output_tex << previous_Q2 << " & " << x[k] << " & " << f2[k] << " & " << f2_err_stat[k];
+                output_tex << " & \\numpmerr{+" << f2_err_syst_up[k] << "}{-" << f2_err_syst_down[k] << "}{2} ";
+                output_tex << "& \\numpmerr{+" << extrap_unc_up[k] << "}{-" << extrap_unc_down[k] << "}{2} \\\\" << endl;
             }
             point_counter = 0;
         }
