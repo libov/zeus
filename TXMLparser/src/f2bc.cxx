@@ -101,6 +101,7 @@ int main(int argc, char **argv) {
         {"beauty", no_argument, 0, 3},
         {"only_print_f2", no_argument, 0, 4},
         {"no_qed", no_argument, 0, 5},
+        {"grid_file", required_argument, 0, 6},
     };
 
     TString meta_file = "";
@@ -108,6 +109,7 @@ int main(int argc, char **argv) {
     bool    beauty = false;
     bool    only_print_f2 = false;
     bool    no_qed = false;
+    TString grid_file = "";
 
     // handle command line options
     opterr = 0;
@@ -130,11 +132,15 @@ int main(int argc, char **argv) {
             case 5:
                 no_qed = true;
                 break;
+            case 6:
+                grid_file = optarg;
+                break;
             case  'h':
                 cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
                 cout << "List of options\n" << endl;
                 cout << "--only_print_f2\tdon't extract F2 from data, only print theoretical predictions on it" << endl;
                 cout << "--no_qed\tData points are not corrected for QED radiation, hence correct them in the extraction" << endl;
+                cout << "--grid_file\tSpecify name of the grid file with this option if it's different from default ones (q2_x_grid.txt for charm and q2_x_grid_beauty.txt for beauty)" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -163,11 +169,14 @@ int main(int argc, char **argv) {
     // pick up the proper array depending on charm or beauty
     unsigned f2_points[N_F2_POINTS];
     for (int i=0; i<N_F2_POINTS; i++) {
+        // default behaviour, assuming jobs were created with q2_x_grid.txt for charm or q2_x_grid_beauty.txt for beauty
         if (beauty) {
             f2_points[i] = f2_points_beauty[i];
         } else {
             f2_points[i] = f2_points_charm[i];
         }
+        // if jobs were done with q2_x_grid_only_extraction_points.txt grid file, this should be explicitely given to --grid_file option, 
+        if (grid_file == "q2_x_grid_only_extraction_points.txt") f2_points[i] = f2_points_only_extraction[i];
     }
 
     // ---------------------------- //
