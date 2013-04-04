@@ -818,9 +818,9 @@ void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id) {
     extrap_unc_up[point_counter] = 0;
     extrap_unc_down[point_counter] = 0;
     for (int k=2; k<=7; k++) {
-        Float_t delta = f2[point_counter] - (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2();
-        if (delta<0) extrap_unc_up[point_counter] += delta*delta;
-        if (delta>0) extrap_unc_down[point_counter] += delta*delta;
+        Float_t delta = (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2() - f2[point_counter];
+        if (delta>0) extrap_unc_up[point_counter] += delta*delta;
+        if (delta<0) extrap_unc_down[point_counter] += delta*delta;
     }
 
     extrap_unc_up[point_counter] = sqrt(extrap_unc_up[point_counter]);
