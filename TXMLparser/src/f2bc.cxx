@@ -823,15 +823,14 @@ void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstrea
     // get extrapolation uncertainties
     extrap_unc_up[point_counter] = 0;
     extrap_unc_down[point_counter] = 0;
+    output_file_tex_extrap << point.getQ2() << "     &     " << point.getX();
     for (int k=2; k<=7; k++) {
         Float_t delta = (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2() - f2[point_counter];
         if (delta>0) extrap_unc_up[point_counter] += delta*delta;
         if (delta<0) extrap_unc_down[point_counter] += delta*delta;
         Double_t delta_percent = 100 * delta / f2[point_counter];
         output_file_extrap << delta_percent << "     ";
-        // some special treatment for tex output
-        if (k!=2) output_file_tex_extrap << "     &     ";
-        output_file_tex_extrap << delta_percent;
+        output_file_tex_extrap << "     &     " << delta_percent;
     }
     output_file_extrap << endl;
     output_file_tex_extrap << "\t\\\\";
