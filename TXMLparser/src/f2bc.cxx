@@ -46,7 +46,7 @@ void drawGraph (TCanvas * c, TH1F * h, unsigned & canvas_counter);
 
 Float_t get_xsect(unsigned job_id, TString job_directory);
 
-void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id);
+void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstream& output_file, ofstream& output_tex_file);
 
 TPad * pads[10];
 
@@ -193,6 +193,8 @@ int main(int argc, char **argv) {
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     ofstream output;
     ofstream output_tex;
+    ofstream extrap_unc_file;
+    ofstream extrap_unc_tex_file;
     TString suffix = "";
     TString figure_filename = "";
     TString y_axis_title = "";
@@ -209,11 +211,15 @@ int main(int argc, char **argv) {
         output_tex.open(PLOTS_PATH+"/"+suffix+"_b_tex.txt");
         figure_filename = suffix + "_b.eps";
         y_axis_title = y_axis_title_suffix+"^{b#bar{b}}";
+        extrap_unc_file.open(PLOTS_PATH+"/extrapolation_"+suffix+"_b.txt");
+        extrap_unc_tex_file.open(PLOTS_PATH+"/extrapolation_tex_"+suffix+"_b.txt");
     } else {
         output.open(PLOTS_PATH+"/"+suffix+"_c.txt");
         output_tex.open(PLOTS_PATH+"/"+suffix+"_c_tex.txt");
         figure_filename = suffix + "_c.eps";
         y_axis_title = y_axis_title_suffix+"^{c#bar{c}}";
+        extrap_unc_file.open(PLOTS_PATH+"/extrapolation_"+suffix+"_c.txt");
+        extrap_unc_tex_file.open(PLOTS_PATH+"/extrapolation_tex_"+suffix+"_c.txt");
     }
 
     // get constants
@@ -657,7 +663,7 @@ int main(int argc, char **argv) {
         if ( (point.getQ2() != previous_Q2) || (i==(N_F2_POINTS-1)) ) {
             // if this is the last point, it has to be added to the current graph (otherwise not!)
             if (i==(N_F2_POINTS-1)) {
-                addToGraphF2(point, i, q2x_point_id);
+                addToGraphF2(point, i, q2x_point_id, extrap_unc_file, extrap_unc_tex_file);
             }
 
             // one of the points have to be removed for beauty
@@ -689,7 +695,7 @@ int main(int argc, char **argv) {
         }
 
         // add to current graph
-        addToGraphF2(point, i, q2x_point_id);
+        addToGraphF2(point, i, q2x_point_id, extrap_unc_file, extrap_unc_tex_file);
 
         previous_Q2 = point.getQ2();
     }
@@ -808,7 +814,7 @@ Float_t get_xsect(unsigned job_id, TString job_directory) {
     return xsect;
 }
 
-void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id) {
+void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstream& output_file_extrap, ofstream& output_file_tex_extrap) {
 
     // fill the arrays
     x[point_counter] = point.getX();
@@ -821,7 +827,15 @@ void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id) {
         Float_t delta = (diff_xsect_meas[i] / diff_xsect_theo[i][k]) * vtx[q2x_point_id][k].getF2() - f2[point_counter];
         if (delta>0) extrap_unc_up[point_counter] += delta*delta;
         if (delta<0) extrap_unc_down[point_counter] += delta*delta;
+        Double_t delta_percent = 100 * delta / f2[point_counter];
+        output_file_extrap << delta_percent << "     ";
+        // some special treatment for tex output
+        if (k!=2) output_file_tex_extrap << "     &     ";
+        output_file_tex_extrap << delta_percent;
     }
+    output_file_extrap << endl;
+    output_file_tex_extrap << "\t\\\\";
+    output_file_tex_extrap << endl;
 
     extrap_unc_up[point_counter] = sqrt(extrap_unc_up[point_counter]);
     extrap_unc_down[point_counter] = sqrt(extrap_unc_down[point_counter]);
