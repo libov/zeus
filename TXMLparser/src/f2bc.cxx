@@ -102,6 +102,7 @@ int main(int argc, char **argv) {
         {"only_print_f2", no_argument, 0, 4},
         {"no_qed", no_argument, 0, 5},
         {"grid_file", required_argument, 0, 6},
+        {"reduced", no_argument, 0, 7},
     };
 
     TString meta_file = "";
@@ -110,6 +111,7 @@ int main(int argc, char **argv) {
     bool    only_print_f2 = false;
     bool    no_qed = false;
     TString grid_file = "";
+    bool    reduced = false;
 
     // handle command line options
     opterr = 0;
@@ -135,12 +137,16 @@ int main(int argc, char **argv) {
             case 6:
                 grid_file = optarg;
                 break;
+            case 7:
+                reduced = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
                 cout << "List of options\n" << endl;
                 cout << "--only_print_f2\tdon't extract F2 from data, only print theoretical predictions on it" << endl;
                 cout << "--no_qed\tData points are not corrected for QED radiation, hence correct them in the extraction" << endl;
                 cout << "--grid_file\tSpecify name of the grid file with this option if it's different from default ones (q2_x_grid.txt for charm and q2_x_grid_beauty.txt for beauty)" << endl;
+                cout << "--reduced\tassumes that extraction of reduced cross sections (and not F2) is taking place. Affects only output file names and Y axis titles" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -183,16 +189,31 @@ int main(int argc, char **argv) {
     // ------- PREPARATIONS ------- //
     // ---------------------------- //
 
-    // output text file
+    // open output text files and assign some strings
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     ofstream output;
     ofstream output_tex;
-    if (beauty) {
-        output.open(PLOTS_PATH+"/f2b.txt");
-        output_tex.open(PLOTS_PATH+"/f2b_tex.txt");
+    TString suffix = "";
+    TString figure_filename = "";
+    TString y_axis_title = "";
+    TString y_axis_title_suffix = "";
+    if (reduced) {
+        suffix = "reduced";
+        y_axis_title_suffix = "#sigma_{red}";
     } else {
-        output.open(PLOTS_PATH+"/f2c.txt");
-        output_tex.open(PLOTS_PATH+"/f2c_tex.txt");
+        suffix = "f2";
+        y_axis_title_suffix = "F_{2}";
+    }
+    if (beauty) {
+        output.open(PLOTS_PATH+"/"+suffix+"_b.txt");
+        output_tex.open(PLOTS_PATH+"/"+suffix+"_b_tex.txt");
+        figure_filename = suffix + "_b.eps";
+        y_axis_title = y_axis_title_suffix+"^{b#bar{b}}";
+    } else {
+        output.open(PLOTS_PATH+"/"+suffix+"_c.txt");
+        output_tex.open(PLOTS_PATH+"/"+suffix+"_c_tex.txt");
+        figure_filename = suffix + "_c.eps";
+        y_axis_title = y_axis_title_suffix+"^{c#bar{c}}";
     }
 
     // get constants
@@ -600,8 +621,7 @@ int main(int argc, char **argv) {
     axis4 -> SetLabelSize(label_size_y);
     axis4 -> SetTitleOffset(1.2);
     if (beauty) axis4 -> SetTitleOffset(1.4);
-    if (beauty) axis4 -> SetTitle("F_{2}^{b#bar{b}}");
-    else axis4 -> SetTitle("F_{2}^{c#bar{c}}");
+    axis4 -> SetTitle(y_axis_title);
     axis4 -> Draw();
 
     TGaxis *axis5;
@@ -719,11 +739,7 @@ int main(int argc, char **argv) {
     }
 
     // print the results
-    if (beauty) {
-        c->Print(PLOTS_PATH+"/f2b.eps");
-    } else {
-        c->Print(PLOTS_PATH+"/f2c.eps");
-    }
+    c->Print(PLOTS_PATH+"/" + figure_filename);
 
     // close the text file
     output.close();
