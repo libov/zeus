@@ -137,29 +137,151 @@ print '\nINFO: printing results to ', filename
 
 file.write('Total systematic uncertainty')
 
-def printme( file, nbins, variable ):
+def printme( file, variable ):
     string='\n\n'+new_xsect_prefix+' '+variable
     file.write(string)
-    for i in range(1,nbins+1):
+    for i in range(1,NBINS[variable]+1):
+        # sum up in quadrature systematics from different sources
+        pos = 0
+        neg = 0
+        for source in SYST_SOURCES:
+            pos = pos+uncertainty_pos[source][variable][i]**2
+            neg = neg+uncertainty_neg[source][variable][i]**2
+        pos = math.sqrt(pos)
+        neg = math.sqrt(neg)
         string='\nBin '
         string+=str(i)
         string+=': +'
-        string+=str(math.sqrt(uncertainty_pos[variable][i]))
+        string+=str(pos)
         string+=' -'
-        string+=str(math.sqrt(uncertainty_neg[variable][i]))
+        string+=str(neg)
         file.write(string)
     return
 
-if BEAUTY:
-    printme(file, 10, 'Eta')
-else:
-    printme(file, 11, 'Eta')
+# Print total systematics for every variable to the file
+for variable in VARIABLES:
+    printme(file, variable)
 
-printme(file, 7, 'Et')
-printme(file, 6, 'xda')
-printme(file, 8, 'q2da')
-printme(file, 4, 'x_q2bin1')
-printme(file, 5, 'x_q2bin2')
-printme(file, 4, 'x_q2bin3')
-printme(file, 3, 'x_q2bin4')
-printme(file, 2, 'x_q2bin5')
+##########################################################################
+################## PRINT SYSTEMATICS FROM EVERY SOURCE ##################
+##########################################################################
+
+# fist merge certain elements, in particular three DIS variations as one, smearing, and BR/fractions
+def merge(sources_to_merge, new_source):
+    uncertainty_pos[new_source]={}
+    uncertainty_neg[new_source]={}
+    for variable in VARIABLES:
+        uncertainty_pos[new_source][variable]={}
+        uncertainty_neg[new_source][variable]={}
+        for bin in range (1, NBINS[variable]+1):
+            uncertainty_pos[new_source][variable][bin]=0
+            uncertainty_neg[new_source][variable][bin]=0
+            for source in sources_to_merge:
+                uncertainty_pos[new_source][variable][bin] += uncertainty_pos[source][variable][bin]**2
+                uncertainty_neg[new_source][variable][bin] += uncertainty_neg[source][variable][bin]**2
+            uncertainty_pos[new_source][variable][bin] = math.sqrt(uncertainty_pos[new_source][variable][bin])
+            uncertainty_neg[new_source][variable][bin] = -math.sqrt(uncertainty_neg[new_source][variable][bin])
+    return
+
+if BEAUTY:
+    merge(['BRSystematics_beauty', 'FragmFractionSystematics_beauty'], 'BR_frag_frac_beauty')
+    merge(['DIS_y_beauty', 'DIS_Ee_beauty', 'DIS_empz_beauty'], 'DIS_beauty')
+    merge(['smearing_core_beauty', 'smearing_tail_beauty'], 'smearing_beauty')
+else:
+    merge(['BRSystematics_charm', 'FragmFractionSystematics_charm'], 'BR_frag_frac_charm')
+    merge(['DIS_y_charm', 'DIS_Ee_charm', 'DIS_empz_charm'], 'DIS_charm')
+    merge(['smearing_core_charm', 'smearing_tail_charm'], 'smearing_charm')
+
+# take into account these changes and also change the order so that it matches that of the Table 1 in the paper
+
+if BEAUTY:
+    SYST_SOURCES_DDIFF=['DIS_beauty', 'flt_efficiency_beauty', 'tracking_map_beauty_systematics_2.78', 'smearing_beauty', 'signal_extraction_beauty', 'jet_energy_scale_beauty',
+                        'EMscale_beauty', 'q2_reweighting_beauty', 'et_reweighting_beauty', 'eta_reweighting_beauty', 'lf_asymmetry_beauty', 'charm_fragmentation_5.0',
+                        'beauty_fragmentation_5.0', 'BR_frag_frac_beauty']
+else:
+    SYST_SOURCES_DDIFF=['DIS_charm', 'flt_efficiency_charm', 'tracking_map_charm_systematics_2.77', 'smearing_charm', 'signal_extraction_charm', 'jet_energy_scale_charm',
+                        'EMscale_charm', 'q2_reweighting_charm', 'et_reweighting_charm', 'eta_reweighting_charm', 'lf_asymmetry_charm', 'charm_fragmentation_4.2',
+                        'beauty_fragmentation_4.2', 'BR_frag_frac_charm']
+
+BIN_RANGE_Q2_X={}
+for variable in DDIFF_VARIABLES:
+    BIN_RANGE_Q2_X[variable]={}
+
+BIN_RANGE_Q2_X['x_q2bin1'][1]= '5 	& 20 	& 8e-05  & 0.0002'
+BIN_RANGE_Q2_X['x_q2bin1'][2]= '5 	& 20 	& 0.0002 & 0.0003'
+BIN_RANGE_Q2_X['x_q2bin1'][3]= '5 	& 20 	& 0.0003 & 0.0005'
+BIN_RANGE_Q2_X['x_q2bin1'][4]= '5 	& 20 	& 0.0005 & 0.003'
+
+BIN_RANGE_Q2_X['x_q2bin2'][1]= '20 	& 60 	& 0.0003 & 0.0005'
+BIN_RANGE_Q2_X['x_q2bin2'][2]= '20 	& 60 	& 0.0005 & 0.0012'
+BIN_RANGE_Q2_X['x_q2bin2'][3]= '20 	& 60 	& 0.0012 & 0.002'
+BIN_RANGE_Q2_X['x_q2bin2'][4]= '20 	& 60 	& 0.002  & 0.0035'
+BIN_RANGE_Q2_X['x_q2bin2'][5]= '20 	& 60 	& 0.0035 & 0.01'
+
+BIN_RANGE_Q2_X['x_q2bin3'][1]= '60 	& 120 	& 0.0008 & 0.0018'
+BIN_RANGE_Q2_X['x_q2bin3'][2]= '60 	& 120 	& 0.0018 & 0.003'
+BIN_RANGE_Q2_X['x_q2bin3'][3]= '60 	& 120 	& 0.003  & 0.006'
+BIN_RANGE_Q2_X['x_q2bin3'][4]= '60 	& 120 	& 0.006  & 0.04'
+
+BIN_RANGE_Q2_X['x_q2bin4'][1]= '120 	& 400 	& 0.0016 & 0.005'
+BIN_RANGE_Q2_X['x_q2bin4'][2]= '120 	& 400 	& 0.005  & 0.016'
+BIN_RANGE_Q2_X['x_q2bin4'][3]= '120 	& 400 	& 0.016  & 0.06'
+
+BIN_RANGE_Q2_X['x_q2bin5'][1]= '400 	& 1000 	& 0.005  & 0.02'
+BIN_RANGE_Q2_X['x_q2bin5'][2]= '400 	& 1000 	& 0.02   & 0.1'
+
+def print_ddiff( file, variable ):
+    string='\n\n% '+new_xsect_prefix+' '+variable + '\n'
+    file.write(string)
+    for i in range(1, NBINS[variable]+1):
+
+        # skip the 4th x bin in the 3rd q2 bin
+        if BEAUTY and variable == 'x_q2bin3' and i == 4: continue
+
+        file.write(BIN_RANGE_Q2_X[variable][i])
+        for source in SYST_SOURCES_DDIFF:
+            if BEAUTY and source == 'eta_reweighting_beauty':
+                # pos = str(0.000000)
+                # neg = str(-0.000000)
+                # for the timebeing, skip this
+                continue 
+            else:
+                pos = uncertainty_pos[source][variable][i]
+                neg = uncertainty_neg[source][variable][i]
+                spos = str(100 * pos)
+                sneg = str(100 * neg)
+
+            if pos == 0 and neg != 0:
+                file_double_diff.write(' & \\num{' + sneg + '}')
+            elif pos != 0 and neg == 0:
+                file_double_diff.write(' & \\num{+' + spos + '}')
+            elif pos == 0 and neg == 0:
+                file_double_diff.write(' & \\pm 0.0000')
+            else:
+                file_double_diff.write(' & \\numpmerr{+' + spos + '}{' + sneg + '}{2}')
+        file_double_diff.write(' \\\\\n')
+    return
+
+if BEAUTY:
+    filename_double_diff=OUTPUT+'/double_diff_systematics_beauty'
+else:
+    filename_double_diff=OUTPUT+'/double_diff_systematics_charm'
+file_double_diff=open(filename_double_diff, 'w')
+
+file_double_diff.write('\multicolumn{2}{c|}{\Qsq} & \multicolumn{2}{c|}{$x$}') 
+for i in range(1,len(SYST_SOURCES_DDIFF)+1):
+    # for the timebeing we skip delta_10 for beauty
+    if BEAUTY and i == 10: continue
+    file_double_diff.write(' & $\delta_{'+str(i)+'}$')
+file_double_diff.write(' \\\\\n')
+
+file_double_diff.write('\multicolumn{2}{c|}{(\gev$^{2}$)} & \multicolumn{2}{c|}{}')
+for i in range(1,len(SYST_SOURCES_DDIFF)+1):
+    # for the timebeing we skip delta_10 for beauty
+    if BEAUTY and i == 10: continue
+    file_double_diff.write(' & {(\\%)}')
+file_double_diff.write(' \\\\ \hline \n')
+
+# Finally, print the results
+for variable in DDIFF_VARIABLES:
+    print_ddiff(file_double_diff, variable)
