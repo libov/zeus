@@ -1,7 +1,14 @@
 #!/usr/bin/python
-# this scripts adds up all the systematic uncertainties in quadrature
-# and produces an output file with the results
+# This script adds up all the systematic uncertainties in quadrature
+# and produces an output file with the results.
+# It also prints systematic uncertainties for double differential cross from every source
+# in a format suitable for inserting directly in the F2bc paper
 
+##########################################################################
+############################## PREPARATIONS ##############################
+##########################################################################
+
+# import modules
 import os, math
 from optparse import OptionParser
 
