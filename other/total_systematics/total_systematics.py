@@ -75,53 +75,56 @@ print 'INFO: writing results to ', OUTPUT, '\n'
 uncertainty_pos={}
 uncertainty_neg={}
 
-# a flag to say whether this is the first file we study (in this case, the map elements are created)
-first_file = True
-
 # loop over all elements of SYST_SOURCES array, i.e. all input files which have to be processed
 for source in SYST_SOURCES:
     # get the filename and open it
     filename=INPUT+'/'+source
     print 'INFO: opening ', filename
     file=open(filename,'r')
+    # create maps for this source
+    uncertainty_pos[source]={}
+    uncertainty_neg[source]={}
     # loop over lines in the files, i.e. read uncertainties for this source
     for line in file:
+        # read the line
         line=line.strip()
+        # try to find whether this is a beginning of a new cross section (new variable)
         pos=line.find(new_xsect_prefix)
         if not pos<0:
             # a new differential cross-section is encountered
             # check which one
             variable=line.lstrip(new_xsect_prefix)
 
-            # if a first file, create a new element of map, which is itself a map
-            if first_file:
-                uncertainty_pos[variable]={}
-                uncertainty_neg[variable]={}
+            # create maps for this variable
+            uncertainty_pos[source][variable]={}
+            uncertainty_neg[source][variable]={}
+            # stop processing of this line, go to the next one
             continue
+        # check whether it's a valid line
         line_list=line.split()
         if line_list==[]: continue
         if line_list[0]!='Bin': continue
+        # this must be a line containing systematics for a given source for a given bin in a given variable
+        # get the bin number
         index=int(line_list[1].rstrip(':'))
-        syst_pos=float(line_list[2])
-        syst_neg=float(line_list[3])
-        # create a zero element if the first file
-        if first_file:
-            uncertainty_pos[variable][index]=0
-            uncertainty_neg[variable][index]=0
+        # and the systematics itself
+        syst_first=float(line_list[2])
+        syst_second=float(line_list[3])
         # divide by 100 for Sasha's and Philipp's files
         if source=="BRSystematics_charm" or source=="BRSystematics_beauty" or source=="BRSystematics_charm" or source=="FragmFractionSystematics_charm" or source=="FragmFractionSystematics_beauty" or source=="q2_reweighting_beauty" or source=="q2_reweighting_charm" or source=="flt_efficiency_beauty" or source=="flt_efficiency_charm":
-            syst_pos=syst_pos/100
-            syst_neg=syst_neg/100
-        # add systematics in quadrature
-        if (syst_pos>0):
-            uncertainty_pos[variable][index]+=syst_pos**2
+            syst_first=syst_first/100
+            syst_second=syst_second/100
+        # store the values to the maps, depending on the sign
+        uncertainty_pos[source][variable][index] = 0
+        uncertainty_neg[source][variable][index] = 0
+        if (syst_first>0):
+            uncertainty_pos[source][variable][index]=syst_first
         else:
-            uncertainty_neg[variable][index]+=syst_pos**2
-        if (syst_neg>0):
-            uncertainty_pos[variable][index]+=syst_neg**2
+            uncertainty_neg[source][variable][index]=syst_first
+        if (syst_second>0):
+            uncertainty_pos[source][variable][index]=syst_second
         else:
-            uncertainty_neg[variable][index]+=syst_neg**2
-    first_file = False
+            uncertainty_neg[source][variable][index]=syst_second
 
 # print the results to a file
 if BEAUTY:
