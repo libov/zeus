@@ -42,7 +42,30 @@ if BEAUTY:
 else:
     new_xsect_prefix='Charm systematics in differential cross sections d sigma / dY in bins of'
 
+# a list to store all variables we have
+VARIABLES = ['Eta', 'Et', 'xda', 'q2da', 'x_q2bin1', 'x_q2bin2', 'x_q2bin3', 'x_q2bin4', 'x_q2bin5']
+# and another to store only double differential variables
+DDIFF_VARIABLES = ['x_q2bin1', 'x_q2bin2', 'x_q2bin3', 'x_q2bin4', 'x_q2bin5']
+# and a map to specify number of points (bins) for each variable
+NBINS={}
 
+if BEAUTY:
+    NBINS['Eta']=10
+else:
+    NBINS['Eta']=11
+
+NBINS['Et'] = 7
+NBINS['xda'] = 6
+NBINS['q2da'] = 8
+NBINS['x_q2bin1'] = 4
+NBINS['x_q2bin2'] = 5
+NBINS['x_q2bin3'] = 4
+NBINS['x_q2bin4'] = 3
+NBINS['x_q2bin5'] = 2
+
+##########################################################################
+################# CALCULATE AND PRINT TOTAL SYSTEMATICS ##################
+##########################################################################
 
 # print some info
 print '\nINFO: taking files with systematic uncertainties from ', INPUT
