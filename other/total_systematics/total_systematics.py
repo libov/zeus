@@ -240,10 +240,8 @@ def print_ddiff( file, variable ):
 
         file.write(BIN_RANGE_Q2_X[variable][i])
         for source in SYST_SOURCES_DDIFF:
+            # at the moment there is no file for eta reweighting syst. for beauty, therefore skip it 
             if BEAUTY and source == 'eta_reweighting_beauty':
-                # pos = str(0.000000)
-                # neg = str(-0.000000)
-                # for the timebeing, skip this
                 continue 
             else:
                 pos = uncertainty_pos[source][variable][i]
