@@ -95,3 +95,15 @@ meta_Dec7_2012_15:30:54.txt - only central, charm combination points
 ********************************************************************
 *************************** FOR SWIMMING ***************************
 ********************************************************************
+
+5a. meta_Apr8_2013_13:11:07.txt - reduced, only central, charm combination points (different from meta_Dec7_2012_15:30:54.txt which is F2c, not reduced)
+
+            COMMAND: ./submit_hvqdis.sh -c -r -g q2_x_grid_charm_combination.txt
+
+            INFO: FLAVOR = charm
+            INFO: XSECT_TYPE = ALL
+            INFO: UNC_TYPE = ONLY_CENTRAL
+            INFO: PDF = DEFAULT
+            INFO: Q2X_GRID = q2_x_grid_charm_combination.txt
+            INFO: REDUCED = YES
+            writing metadata to metafiles/meta_Apr8_2013_13:11:07.txt
