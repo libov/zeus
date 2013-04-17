@@ -108,7 +108,7 @@ meta_Dec7_2012_15:30:54.txt - only central, charm combination points
             INFO: REDUCED = YES
             writing metadata to metafiles/meta_Apr8_2013_13:11:07.txt
 
-5b. meta_Apr15_2013_10:45:22 - F2b, only central, points to be swum to 
+5b. meta_Apr17_2013_09:45:18.txt - F2b, only central, points to be swum to 
 	    COMMAND: 
 			[zenith237] /data/zenith226a/libov/analysis/HVQDIS/hvqdis_jets_develop_charm_lhapdf $ ./submit_hvqdis.sh -b  -c  -g q2_x_grid_common_grid_beauty.txt
 			INFO: FLAVOR = beauty
@@ -117,5 +117,5 @@ meta_Dec7_2012_15:30:54.txt - only central, charm combination points
 			INFO: PDF = DEFAULT
 			INFO: Q2X_GRID = q2_x_grid_common_grid_beauty.txt
 			INFO: REDUCED = NO
-			writing metadata to metafiles/meta_Apr15_2013_10:45:22.txt
+			writing metadata to metafiles/meta_Apr17_2013_09:45:18.txt
 
