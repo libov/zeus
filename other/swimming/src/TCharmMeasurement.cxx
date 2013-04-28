@@ -46,14 +46,14 @@ void TCharmMeasurement::read_data() {
         fQ2[fNpoints] = (((TObjString*) tokens->At(0)) -> GetString()).Atof();
         fX[fNpoints] = (((TObjString*) tokens->At(1)) -> GetString()).Atof();
 
-        if (fFileType == 1) {
+        if (fFileType == 1) { //charm combination
 
             fValue[fNpoints] = (((TObjString*) tokens->At(3)) -> GetString()).Atof();
             fErrStat[fNpoints] = (((TObjString*) tokens->At(4)) -> GetString()).Atof();
             fErrTotalUp[fNpoints] = (((TObjString*) tokens->At(6)) -> GetString()).Atof();
             fErrTotalDown[fNpoints] = fErrTotalUp[fNpoints];
 
-        } else if  (fFileType == 2) {
+        } else if  (fFileType == 2) { // D+ and vertex
 
             fValue[fNpoints] = (((TObjString*) tokens->At(2)) -> GetString()).Atof();
             fErrStat[fNpoints] = (((TObjString*) tokens->At(3)) -> GetString()).Atof();
@@ -64,7 +64,7 @@ void TCharmMeasurement::read_data() {
             fErrTotalUp[fNpoints] = sqrt( pow(fErrStat[fNpoints], 2) + pow(fErrSystUp[fNpoints], 2) + pow(fErrExtrapUp[fNpoints], 2));
             fErrTotalDown[fNpoints] = sqrt( pow(fErrStat[fNpoints], 2) + pow(fErrSystDown[fNpoints], 2) + pow(fErrExtrapDown[fNpoints], 2));
 
-        } else if  (fFileType == 3) {
+        } else if  (fFileType == 3) { // D*
 
             fValue[fNpoints] = (((TObjString*) tokens->At(2)) -> GetString()).Atof();
             fErrStat[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(3)) -> GetString()).Atof()/100;
