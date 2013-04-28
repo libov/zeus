@@ -42,7 +42,7 @@ void TCharmMeasurement::read_data() {
         TObjArray * tokens = line_str.Tokenize(" ");
         if (tokens -> IsEmpty()) continue;
 
-        // get the id of the bin (is assumed to match those of the XML binning file)
+        // extract data from tokens
         fQ2[fNpoints] = (((TObjString*) tokens->At(0)) -> GetString()).Atof();
         fX[fNpoints] = (((TObjString*) tokens->At(1)) -> GetString()).Atof();
 
