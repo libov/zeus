@@ -1,4 +1,4 @@
-int swimming_reduced() {
+int swimming_reduced_charm() {
 
     // plug in F2c values for the vertex measurement
     const unsigned n_points_vtx = 18;
