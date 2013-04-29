@@ -68,10 +68,10 @@ void TCharmMeasurement::read_data() {
 
             fValue[fNpoints] = (((TObjString*) tokens->At(2)) -> GetString()).Atof();
             fErrStat[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(3)) -> GetString()).Atof()/100;
-            fErrSystUp[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(4)) -> GetString()).Atof()/100;
-            fErrSystDown[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(5)) -> GetString()).Atof()/100;
-            fErrExtrapUp[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(6)) -> GetString()).Atof()/100;
-            fErrExtrapDown[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(7)) -> GetString()).Atof()/100;
+            fErrSystDown[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(4)) -> GetString()).Atof()/100;
+            fErrSystUp[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(5)) -> GetString()).Atof()/100;
+            fErrExtrapDown[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(6)) -> GetString()).Atof()/100;
+            fErrExtrapUp[fNpoints] = fValue[fNpoints]*(((TObjString*) tokens->At(7)) -> GetString()).Atof()/100;
             fErrTotalUp[fNpoints] = sqrt( pow(fErrStat[fNpoints], 2) + pow(fErrSystUp[fNpoints], 2) + pow(fErrExtrapUp[fNpoints], 2));
             fErrTotalDown[fNpoints] = sqrt( pow(fErrStat[fNpoints], 2) + pow(fErrSystDown[fNpoints], 2) + pow(fErrExtrapDown[fNpoints], 2));
 
