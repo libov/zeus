@@ -8,7 +8,7 @@ class TCharmMeasurement {
     public:
 
         TCharmMeasurement();
-        TCharmMeasurement(TString filename, unsigned type);
+        TCharmMeasurement(TString filename, TString name_for_legend, unsigned type);
         ~TCharmMeasurement(){};
 
         unsigned get_n_points() {return fNpoints;}
@@ -22,6 +22,8 @@ class TCharmMeasurement {
         Double_t getErrExtrapDown(unsigned point) {return fErrExtrapDown[point];}
         Double_t getErrTotalUp(unsigned point) {return fErrTotalUp[point];}
         Double_t getErrTotalDown(unsigned point) {return fErrTotalDown[point];}
+
+        TString getNameForLegend() {return fNameForLegend;}
 
     private:
 
@@ -41,6 +43,7 @@ class TCharmMeasurement {
         Double_t fErrTotalDown[100];
 
         unsigned fFileType;
+        TString fNameForLegend;
 };
 
 #endif
