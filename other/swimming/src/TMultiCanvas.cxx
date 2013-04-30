@@ -57,6 +57,12 @@ fNPads(npads)
     draw_dummy_histos();
     draw_axes();
     draw_labels();
+
+    fLegend = new TLegend(0.55, 0.10, 0.85, 0.27);
+    fLegend -> SetFillColor(0);
+    fLegend -> SetShadowColor(0);
+    fLegend -> SetBorderSize(0);
+    fLegend -> Draw();
 }
 
 void TMultiCanvas::create_pads() {
@@ -261,6 +267,7 @@ void TMultiCanvas::PlotData(TCharmMeasurement data, Float_t shift, int marker_st
         g -> Draw(draw_option);
     }
 
+    if (draw_total_uncertainty) fLegend -> AddEntry(g, data.getNameForLegend(), "p");
 }
 
 void TMultiCanvas::Print(TString filename) {
