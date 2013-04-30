@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     plot.PlotData(vtx, 0.0, 21, 0.7, kMagenta, true);
     plot.PlotData(vtx, 0.0, 21, 0.7, kMagenta, false);
 
-    plot.Print("sigma_red_charm.eps");
+    plot.Print("Sigma_Reduced_Charm.eps");
 
     return 0;
 }
