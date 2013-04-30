@@ -221,6 +221,8 @@ void TMultiCanvas::PlotData(TCharmMeasurement data, Float_t shift, int marker_st
 
     unsigned npoints = data.get_n_points();
 
+    TGraphAsymmErrors * g;
+
     for (int i=0; i<npoints; i++) {
 
         Double_t q2 = data.getQ2(i);
@@ -251,7 +253,7 @@ void TMultiCanvas::PlotData(TCharmMeasurement data, Float_t shift, int marker_st
             y_err_down_array[0] = stat_error;
         }
 
-        TGraphAsymmErrors * g = new TGraphAsymmErrors(1, x_array, y_array, x_err_down_array, x_err_up_array, y_err_down_array, y_err_up_array);
+        g = new TGraphAsymmErrors(1, x_array, y_array, x_err_down_array, x_err_up_array, y_err_down_array, y_err_up_array);
         g -> SetMarkerStyle(marker_style);
         g -> SetMarkerSize(marker_size);
         g -> SetMarkerColor(color);
