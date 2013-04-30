@@ -11,9 +11,10 @@ using namespace std;
 // custom headers
 #include <TCharmMeasurement.h>
 
-TCharmMeasurement::TCharmMeasurement(TString name, unsigned type):
+TCharmMeasurement::TCharmMeasurement(TString name, TString name_for_legend, unsigned type):
 fFilename(name),
 fNpoints(0),
+fNameForLegend(name_for_legend),
 fFileType(type)
 {
     read_data();
