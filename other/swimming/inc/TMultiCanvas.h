@@ -53,6 +53,8 @@ class TMultiCanvas {
 
         Bool_t fBeauty;
 
+        TLegend * fLegend;
+
 };
 
 #endif
