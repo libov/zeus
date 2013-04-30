@@ -14,14 +14,14 @@ int main(int argc, char **argv) {
 
     TMultiCanvas plot(7);
 
-    plot.PlotData(combination, 0.0, 24, 1, kRed, true);
-    plot.PlotData(combination, 0.0, 24, 1, kRed, false);
+    plot.PlotData(combination, 0.025, 24, 1, kRed, true);
+    plot.PlotData(combination, 0.025, 24, 1, kRed, false);
 
     plot.PlotData(dplus, 0.0, 25, 1, kBlue, true);
     plot.PlotData(dplus, 0.0, 25, 1, kBlue, false);
 
-    plot.PlotData(dstar, -0.0, 20, 1, kBlack, true);
-    plot.PlotData(dstar, -0.0, 20, 1, kBlack, false);
+    plot.PlotData(dstar, -0.025, 20, 1, kBlack, true);
+    plot.PlotData(dstar, -0.025, 20, 1, kBlack, false);
 
     plot.PlotData(vtx, 0.0, 21, 0.7, kMagenta, true);
     plot.PlotData(vtx, 0.0, 21, 0.7, kMagenta, false);
