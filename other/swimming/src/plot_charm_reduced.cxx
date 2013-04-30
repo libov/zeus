@@ -7,10 +7,10 @@
 int main(int argc, char **argv) {
 
     // read input data
-    TCharmMeasurement combination("charm_data/kl_paper_v3_ucost.out", 1);
-    TCharmMeasurement dplus("charm_data/dplus.dat", 2);
-    TCharmMeasurement dstar("charm_data/dstarhera2_forplot.dat", 3);
-    TCharmMeasurement vtx("charm_data/zeus_vtx.dat", 2);
+    TCharmMeasurement combination("charm_data/kl_paper_v3.out", "HERA", 1);
+    TCharmMeasurement dplus("charm_data/dplus.dat", "ZEUS D^{+} 354 pb^{-1}", 2);
+    TCharmMeasurement dstar("charm_data/dstarhera2_forplot.dat", "ZEUS D* 363 pb^{-1}", 3);
+    TCharmMeasurement vtx("charm_data/zeus_vtx.dat", "this analysis", 2);
 
     TMultiCanvas plot(7);
 
