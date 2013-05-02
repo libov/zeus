@@ -15,7 +15,7 @@ class	TPlotType : public TObject
 {
 	public:
 		TPlotType();
-		TPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth);
+		TPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth, Int_t LineStyle);
 		~TPlotType();
 
 		TString		GetName();
@@ -24,6 +24,7 @@ class	TPlotType : public TObject
 		Int_t			GetFillColor();
 		Int_t			GetLineColor();
 		Int_t			GetLineWidth();
+		Int_t			GetLineStyle();
 		Bool_t		IsDrawHisto();
 
 	private:
@@ -36,6 +37,7 @@ class	TPlotType : public TObject
 		Int_t			fFillColor;
 		Int_t			fLineColor;
 		Int_t			fLineWidth;
+                Int_t                   fLineStyle;
 
 };
 #endif
