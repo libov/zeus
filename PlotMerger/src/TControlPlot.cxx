@@ -157,8 +157,8 @@ void TControlPlot::Initialize() {
     cout << "INFO: leaving Initialize()" << endl;
 }
 
-void TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth) {
-    fPlotTypes.push_back(new TPlotType(Name, DrawHisto, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth));
+void TControlPlot::AddPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth, Int_t LineStyle) {
+    fPlotTypes.push_back(new TPlotType(Name, DrawHisto, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth, LineStyle));
 }
 
 void TControlPlot::AddAdvCanvas(Int_t NPads_X, Int_t NPads_Y,TString SetName, TString Variables, unsigned * Logs, Int_t width, Int_t height, Float_t top_margin){
@@ -251,6 +251,7 @@ void TControlPlot::Draw() {
                     cHist->SetFillColor(cType->GetFillColor());
                     cHist->SetLineColor(cType->GetLineColor());
                     cHist->SetLineWidth(cType->GetLineWidth());
+                    cHist->SetLineStyle(cType->GetLineStyle());
 
                     cHist->SetTitle("");
                     cHist->SetStats(0);
@@ -728,7 +729,8 @@ void TControlPlot::ReadSettings() {
                 Int_t FillColor =  (((TObjString*)tokens->At(5)) -> GetString()).Atoi();
                 Int_t LineColor =  (((TObjString*)tokens->At(6)) -> GetString()).Atoi();
                 Int_t LineWidth =  (((TObjString*)tokens->At(7)) -> GetString()).Atoi();
-                AddPlotType(name, draw_histo, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth);
+                Int_t LineStyle =  (((TObjString*)tokens->At(8)) -> GetString()).Atoi();
+                AddPlotType(name, draw_histo, MarkerStyle, MarkerSize, FillColor, LineColor, LineWidth, LineStyle);
             }
 
             if (first_word == "TopMargin") fPadTopMargin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
