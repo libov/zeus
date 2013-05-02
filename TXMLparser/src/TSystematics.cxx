@@ -159,10 +159,10 @@ void TSystematics::Draw() {
     Float_t     central_value_charm = intercept_charm + slope_charm * fDefault;
     Float_t     central_value_beauty = intercept_beauty + slope_beauty * fDefault;
 
-    Float_t     systematic_error_charm_up = TMath::Abs(fUpVariation * slope_charm / central_value_charm);
-    Float_t     systematic_error_charm_down = TMath::Abs(fDownVariation * slope_charm / central_value_charm);
-    Float_t     systematic_error_beauty_up = TMath::Abs(fUpVariation * slope_beauty / central_value_beauty);
-    Float_t     systematic_error_beauty_down = TMath::Abs(fDownVariation * slope_beauty / central_value_beauty);
+    Float_t     systematic_error_charm_up = fUpVariation * slope_charm / central_value_charm;
+    Float_t     systematic_error_charm_down = (-1)*fDownVariation * slope_charm / central_value_charm;
+    Float_t     systematic_error_beauty_up = fUpVariation * slope_beauty / central_value_beauty;
+    Float_t     systematic_error_beauty_down = (-1)*fDownVariation * slope_beauty / central_value_beauty;
 
     TPaveText   *  syst = new TPaveText(0.61, 0.7, 0.965, 0.8 ,"NDC");
     syst -> SetShadowColor(0);
