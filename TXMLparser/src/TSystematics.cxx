@@ -424,7 +424,7 @@ void TSystematics::PrintAll() {
         if ( fBinningFile.Contains("ET5") ) {
 
             output << "\nBeauty systematics, total cross-section:" << endl;
-            output << "+" << fBeautyUpSyst[1] << " -" << fBeautyDownSyst[1] << endl;
+            output << fBeautyUpSyst[1] << " " << fBeautyDownSyst[1] << endl;
 
             PrintDifferential(2, 12, kBeauty, "Eta");
             PrintDifferential(14, 20, kBeauty, "Et");
@@ -439,7 +439,7 @@ void TSystematics::PrintAll() {
         } else {
 
             output << "\nCharm systematics, total cross-section:" << endl;
-            output << "+" << fCharmUpSyst[1] << " -" << fCharmDownSyst[1] << endl;
+            output << fCharmUpSyst[1] << " " << fCharmDownSyst[1] << endl;
 
             PrintDifferential(2, 12, kCharm, "Eta");
             PrintDifferential(14, 20, kCharm, "Et");
@@ -456,7 +456,7 @@ void TSystematics::PrintAll() {
     } else {
 
         output << "\nBeauty systematics, total cross-section:" << endl;
-        output << "+" << fBeautyUpSyst[1] << " -" << fBeautyDownSyst[1] << endl;
+        output << fBeautyUpSyst[1] << " " << fBeautyDownSyst[1] << endl;
 
         PrintDifferential(2, 11, kBeauty, "Eta");
         PrintDifferential(13, 19, kBeauty, "Et");
@@ -485,9 +485,9 @@ void TSystematics::PrintDifferential(unsigned bin1, unsigned bin2, flavour f, TS
 
     for (int i=bin1; i<=bin2; i++) {
         if (f==kCharm) {
-            output << "Bin " << counter << ": +" << fCharmUpSyst[i] << " -" << fCharmDownSyst[i] << endl;
+            output << "Bin " << counter << ": " << fCharmUpSyst[i] << " " << fCharmDownSyst[i] << endl;
         } else if (f==kBeauty) {
-            output << "Bin " << counter << ": +" << fBeautyUpSyst[i] << " -" << fBeautyDownSyst[i] << endl;
+            output << "Bin " << counter << ": " << fBeautyUpSyst[i] << " " << fBeautyDownSyst[i] << endl;
         }
         counter++;
     }
@@ -513,7 +513,7 @@ void TSystematics::CorrectCrossSections(TString XMLfile) {
         // get value of the correction; supposed to be one-sided! hence determine if it is indeed one-sided first!
         Float_t correction_charm;
         if (fCharmUpSyst[i]==0) {
-            correction_charm = 1 - fCharmDownSyst[i];
+            correction_charm = 1 + fCharmDownSyst[i];
         } else if (fCharmDownSyst[i]==0) {
             correction_charm = 1 + fCharmUpSyst[i];
         } else {
@@ -523,7 +523,7 @@ void TSystematics::CorrectCrossSections(TString XMLfile) {
 
         Float_t correction_beauty;
         if (fBeautyUpSyst[i]==0) {
-            correction_beauty = 1 - fBeautyDownSyst[i];
+            correction_beauty = 1 + fBeautyDownSyst[i];
         } else if (fBeautyDownSyst[i]==0) {
             correction_beauty = 1 + fBeautyUpSyst[i];
         } else {
