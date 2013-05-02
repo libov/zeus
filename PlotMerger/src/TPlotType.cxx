@@ -16,14 +16,15 @@ TPlotType::TPlotType()
 {
 }
 
-TPlotType::TPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth):
+TPlotType::TPlotType(TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth, Int_t LineStyle):
 fName(Name),
 fDrawHisto(DrawHisto),
 fMarkerStyle(MarkerStyle),
 fMarkerSize(MarkerSize),
 fFillColor(FillColor),
 fLineColor(LineColor),
-fLineWidth(LineWidth)
+fLineWidth(LineWidth),
+fLineStyle(LineStyle)
 {
 }
 
@@ -57,6 +58,11 @@ Int_t		TPlotType::GetLineColor()
 Int_t		TPlotType::GetLineWidth()
 {
 		return fLineWidth;
+}
+
+Int_t		TPlotType::GetLineStyle()
+{
+		return fLineStyle;
 }
 
 
