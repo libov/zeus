@@ -170,38 +170,39 @@ void TSystematics::Draw() {
 
     // depending on the sign of the slope, up-variation of the scan variable can enter +systematics or -systematics;
     // similarly for down-variation
+    TString pattern = "Systematic uncertainty: ";
     if (fFlavour == kCharm || fBothFlavours) {
         char tmp[256];
-        if (slope_charm>0) {
-            sprintf (tmp, "Systematic uncertainty: ^{+%.3f}_{-%.3f}", systematic_error_charm_up, systematic_error_charm_down);
-            fCharmUpSyst[fBin] = systematic_error_charm_up;
-            fCharmDownSyst[fBin] = systematic_error_charm_down;
-            fCharmUpSyst_err[fBin] = systematic_error_charm_up * TMath::Abs(slope_err_charm/slope_charm);
-            fCharmDownSyst_err[fBin] = systematic_error_charm_down * TMath::Abs(slope_err_charm/slope_charm);
 
+        if (slope_charm>0) {
+            pattern += "^{+%.3f}_{%.3f}";
         } else {
-            sprintf (tmp, "Systematic uncertainty: ^{+%.3f}_{-%.3f}", systematic_error_charm_down, systematic_error_charm_up);
-            fCharmDownSyst[fBin] = systematic_error_charm_up;
-            fCharmUpSyst[fBin] = systematic_error_charm_down;
-            fCharmDownSyst_err[fBin] = systematic_error_charm_up * TMath::Abs(slope_err_charm/slope_charm);
-            fCharmUpSyst_err[fBin] = systematic_error_charm_down * TMath::Abs(slope_err_charm/slope_charm);
+            pattern += "^{%.3f}_{+%.3f}";
         }
+
+        sprintf (tmp, pattern, systematic_error_charm_up, systematic_error_charm_down);
+        fCharmUpSyst[fBin] = systematic_error_charm_up;
+        fCharmDownSyst[fBin] = systematic_error_charm_down;
+        fCharmUpSyst_err[fBin] = systematic_error_charm_up * TMath::Abs(slope_err_charm/slope_charm);
+        fCharmDownSyst_err[fBin] = systematic_error_charm_down * TMath::Abs(slope_err_charm/slope_charm);
+
         syst -> AddText(tmp);
+
     } else if (fFlavour == kBeauty) {
         char tmp[256];
+
         if (slope_beauty>0) {
-            sprintf (tmp, "Systematic uncertainty: ^{+%.3f}_{-%.3f}", systematic_error_beauty_up, systematic_error_beauty_down);
-            fBeautyUpSyst[fBin] = systematic_error_beauty_up;
-            fBeautyDownSyst[fBin] = systematic_error_beauty_down;
-            fBeautyUpSyst_err[fBin] = systematic_error_beauty_up * TMath::Abs(slope_err_beauty/slope_beauty);
-            fBeautyDownSyst_err[fBin] = systematic_error_beauty_down * TMath::Abs(slope_err_beauty/slope_beauty);
+            pattern += "^{+%.3f}_{%.3f}";
         } else {
-            sprintf (tmp, "Systematic uncertainty: ^{+%.3f}_{-%.3f}", systematic_error_beauty_down, systematic_error_beauty_up);
-            fBeautyDownSyst[fBin] = systematic_error_beauty_up;
-            fBeautyUpSyst[fBin] = systematic_error_beauty_down;
-            fBeautyDownSyst_err[fBin] = systematic_error_beauty_up * TMath::Abs(slope_err_beauty/slope_beauty);
-            fBeautyUpSyst_err[fBin] = systematic_error_beauty_down * TMath::Abs(slope_err_beauty/slope_beauty);
+            pattern += "^{%.3f}_{+%.3f}";
         }
+
+        sprintf (tmp, pattern, systematic_error_beauty_up, systematic_error_beauty_down);
+        fBeautyUpSyst[fBin] = systematic_error_beauty_up;
+        fBeautyDownSyst[fBin] = systematic_error_beauty_down;
+        fBeautyUpSyst_err[fBin] = systematic_error_beauty_up * TMath::Abs(slope_err_beauty/slope_beauty);
+        fBeautyDownSyst_err[fBin] = systematic_error_beauty_down * TMath::Abs(slope_err_beauty/slope_beauty);
+
         syst -> AddText(tmp);
 
     } else {
