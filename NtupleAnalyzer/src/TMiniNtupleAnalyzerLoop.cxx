@@ -1088,10 +1088,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 currentTGlobalBin->FillHistogram("significance", fSignificance);
                 #ifdef CN_VERSION_V02
                 currentTGlobalBin->FillHistogram("decay_length", fVertices[j].ProjDecayLength);
+                currentTGlobalBin->FillHistogram("decay_length_error", (fVertices[j].ProjDecayLength) / fSignificance );
                 #endif
 
                 #if defined CN_VERSION_V04 || defined CN_VERSION_V06
                 currentTGlobalBin->FillHistogram("decay_length", fVertices[j].GetVertexProjectedDecayLength());
+                currentTGlobalBin->FillHistogram("decay_length_error", (fVertices[j].GetVertexProjectedDecayLength()) / fSignificance );
                 // brand new: track pT. NOTE: works only if tracks are un-dropped!
                 Float_t     trackPT[30];
                 fVertices[j].GetTrackPt(trackPT);
