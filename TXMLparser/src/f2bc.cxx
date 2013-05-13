@@ -103,6 +103,7 @@ int main(int argc, char **argv) {
         {"no_qed", no_argument, 0, 5},
         {"grid_file", required_argument, 0, 6},
         {"reduced", no_argument, 0, 7},
+        {"no_extraction_theory", no_argument, 0, 8}
     };
 
     TString meta_file = "";
@@ -112,6 +113,7 @@ int main(int argc, char **argv) {
     bool    no_qed = false;
     TString grid_file = "";
     bool    reduced = false;
+    bool    no_extraction_theory = false;
 
     // handle command line options
     opterr = 0;
@@ -140,6 +142,9 @@ int main(int argc, char **argv) {
             case 7:
                 reduced = true;
                 break;
+            case 8:
+                no_extraction_theory = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
                 cout << "List of options\n" << endl;
@@ -147,6 +152,7 @@ int main(int argc, char **argv) {
                 cout << "--no_qed\tData points are not corrected for QED radiation, hence correct them in the extraction" << endl;
                 cout << "--grid_file\tSpecify name of the grid file with this option if it's different from default ones (q2_x_grid.txt for charm and q2_x_grid_beauty.txt for beauty)" << endl;
                 cout << "--reduced\tassumes that extraction of reduced cross sections (and not F2) is taking place. Affects only output file names and Y axis titles" << endl;
+                cout << "--no_extraction_theory\tdon't plot theory (that was used for extraction)" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -579,6 +585,7 @@ int main(int argc, char **argv) {
         } else {
             // create a graph
             drawGraph(c, dummy, canvas_counter);
+            if (no_extraction_theory) dummy -> Draw();
             previous_Q2 = point.getQ2();
             // add to current graph
             addToGraph(point);
@@ -587,6 +594,7 @@ int main(int argc, char **argv) {
 
     // create a graph
     drawGraph(c, dummy, canvas_counter);
+    if (no_extraction_theory) dummy -> Draw();
 
     c -> cd();
 
@@ -706,7 +714,7 @@ int main(int argc, char **argv) {
     // the legend
     TLegend * leg = new TLegend(0.5, 0.1, 0.8, 0.28);
     leg->AddEntry(data, "ZEUS 354 pb^{-1}","p");
-    leg -> AddEntry(theory, "HVQDIS #otimes HERAPDF 1.0", "l");
+    if (!no_extraction_theory) leg -> AddEntry(theory, "HVQDIS #otimes HERAPDF 1.0", "l");
     leg -> SetFillColor(0);
     leg -> SetBorderSize(0);
     leg->Draw();
@@ -714,11 +722,11 @@ int main(int argc, char **argv) {
     // additionally a box and a line for HVQDIS entry
     TBox * box_hvqdis = new TBox (0.51, 0.13, 0.57, 0.16);
     box_hvqdis -> SetFillColor(7);
-    box_hvqdis -> Draw();
+    if (!no_extraction_theory) box_hvqdis -> Draw();
 
     TLine * line_hvqdis = new TLine (0.51, 0.145, 0.57, 0.145);
     line_hvqdis -> SetLineWidth(2);
-    line_hvqdis -> Draw();
+    if (!no_extraction_theory) line_hvqdis -> Draw();
 
     // finally, print the ZEUS on top
     TText * zeus = new TText (0.49, 0.94, "ZEUS");
