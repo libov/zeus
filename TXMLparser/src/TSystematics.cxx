@@ -338,7 +338,9 @@ void TSystematics::DrawVector(map<unsigned, Float_t> syst_map, map<unsigned, Flo
         // get the systematic uncertainty
         y[counter] = (*it).second;
         // get "uncertainty on uncertainty", i.e. an uncertainty of the slope fit
-        y_err[counter] = syst_err_map[(*it).first];
+        //y_err[counter] = syst_err_map[(*it).first];
+        // for the timebeing, set the error to zero
+        y_err[counter] = 0;
         counter++;
     }
 
