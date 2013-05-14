@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <vector>
 #include <string.h>
 #include <getopt.h>
 #include <sys/stat.h>
@@ -48,7 +49,7 @@ Float_t get_xsect(unsigned job_id, TString job_directory);
 
 void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstream& output_file, ofstream& output_tex_file);
 
-void draw_beauty_mass_measurement_fits(TLegend*);
+void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString label, unsigned color);
 
 TPad * pads[10];
 
@@ -105,7 +106,8 @@ int main(int argc, char **argv) {
         {"no_qed", no_argument, 0, 5},
         {"grid_file", required_argument, 0, 6},
         {"reduced", no_argument, 0, 7},
-        {"no_extraction_theory", no_argument, 0, 8}
+        {"no_extraction_theory", no_argument, 0, 8},
+        {"draw_beauty_mass_measurement_fits", no_argument, 0, 9},
     };
 
     TString meta_file = "";
@@ -116,6 +118,7 @@ int main(int argc, char **argv) {
     TString grid_file = "";
     bool    reduced = false;
     bool    no_extraction_theory = false;
+    bool    draw_beauty_mass_measurement_fits = false;
 
     // handle command line options
     opterr = 0;
@@ -147,6 +150,9 @@ int main(int argc, char **argv) {
             case 8:
                 no_extraction_theory = true;
                 break;
+            case 9:
+                draw_beauty_mass_measurement_fits = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
                 cout << "List of options\n" << endl;
@@ -155,6 +161,7 @@ int main(int argc, char **argv) {
                 cout << "--grid_file\tSpecify name of the grid file with this option if it's different from default ones (q2_x_grid.txt for charm and q2_x_grid_beauty.txt for beauty)" << endl;
                 cout << "--reduced\tassumes that extraction of reduced cross sections (and not F2) is taking place. Affects only output file names and Y axis titles" << endl;
                 cout << "--no_extraction_theory\tdon't plot theory (that was used for extraction)" << endl;
+                cout << "--draw_beauty_mass_measurement_fits\tspecific feature to plot predefined theory curves, all hardcoded at the moment" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
@@ -714,7 +721,12 @@ int main(int argc, char **argv) {
     c -> cd();
 
     // the legend
-    TLegend * leg = new TLegend(0.5, 0.1, 0.8, 0.28);
+    TLegend * leg;
+    if (draw_beauty_mass_measurement_fits) {
+        leg = new TLegend(0.5, 0.1, 0.9, 0.28);
+    } else {
+        leg = new TLegend(0.5, 0.1, 0.8, 0.28);
+    }
     leg->AddEntry(data, "ZEUS 354 pb^{-1}","p");
     if (!no_extraction_theory) leg -> AddEntry(theory, "HVQDIS #otimes HERAPDF 1.0", "l");
     leg -> SetFillColor(0);
@@ -754,7 +766,12 @@ int main(int argc, char **argv) {
         q2_values[i] -> SetTextSize(0.025);
     }
 
-    draw_beauty_mass_measurement_fits(leg);
+    if (draw_beauty_mass_measurement_fits) {
+
+        draw_beauty_mass_measurement_fit("beauty_fits/central", leg, "QCD fit, m_{b}=4.16 GeV (best fit)", kBlack);
+        draw_beauty_mass_measurement_fit("beauty_fits/mass_down", leg, "QCD fit, m_{b}=4.02 GeV", kBlue);
+        draw_beauty_mass_measurement_fit("beauty_fits/mass_up", leg, "QCD fit, m_{b}=4.35 GeV", kRed);
+    }
 
     // print the results
     c->Print(PLOTS_PATH+"/" + figure_filename);
@@ -866,201 +883,83 @@ void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstrea
     point_counter++;
 }
 
-void draw_beauty_mass_measurement_fits(TLegend * leg) {
+    struct q2_graph {
+        Double_t q2;
+        Double_t x[20];
+        Double_t sigma_red[20];
+        unsigned pad;
+        unsigned npoints;
+    };
 
-    // Beauty 4.16 central
-    // Q2          x             th mod
+void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString label, unsigned color) {
 
-    // 6.5 GeV2
-    Double_t x_6_5[] = {0.15000E-03, 0.28000E-03};
-    Double_t sigma_red_6_5[] = {0.42032E-02, 0.30566E-02};
+    TGraph * graph_return;
 
-    // 12 GeV2
-    Double_t x_12[] = {0.43000E-03, 0.65000E-03};
-    Double_t sigma_red_12[] = {0.57936E-02, 0.45652E-02};
-
-    // 25 GeV2
-    Double_t x_25[] = {0.43000E-03, 0.80000E-03};
-    Double_t sigma_red_25[] = {0.13673E-01, 0.10568E-01};
-
-    // 30 GeV2
-    Double_t x_30[] = {0.16000E-02, 0.25000E-02, 0.45000E-02};
-    Double_t sigma_red_30[] = {0.94079E-02, 0.66702E-02, 0.48958E-02};
-
-    // 80 GeV2
-    Double_t x_80[] = {0.16000E-02, 0.25000E-02, 0.45000E-02};
-    Double_t sigma_red_80[] = {0.24431E-01, 0.19458E-01, 0.12760E-01};
-
-    // 160 GeV2
-    Double_t x_160[] = {0.35000E-02, 0.80000E-02, 0.20000E-01};
-    Double_t sigma_red_160[] = {0.26003E-01, 0.16384E-01, 0.69939E-02};
-
-    // 600 GeV2
-    Double_t x_600[] = {0.13000E-01, 0.35000E-01};
-    Double_t sigma_red_600[] = {0.19571E-01, 0.80923E-02};
-
-    TGraph * g_6_5 = new TGraph(2, x_6_5, sigma_red_6_5);
-    pads[1] -> cd();
-    g_6_5 -> Draw("C");
-
-    TGraph * g_12 = new TGraph(2, x_12, sigma_red_12);
-    pads[2] -> cd();
-    g_12 -> Draw("C");
-
-    TGraph * g_25 = new TGraph(2, x_25, sigma_red_25);
-    pads[3] -> cd();
-    g_25 -> Draw("C");
-
-    TGraph * g_30 = new TGraph(3, x_30, sigma_red_30);
-    pads[4] -> cd();
-    g_30 -> Draw("C");
-
-    TGraph * g_80 = new TGraph(3, x_80, sigma_red_80);
-    pads[5] -> cd();
-    g_80 -> Draw("C");
-
-    TGraph * g_160 = new TGraph(3, x_160, sigma_red_160);
-    pads[6] -> cd();
-    g_160 -> Draw("C");
-
-    TGraph * g_600 = new TGraph(2, x_600, sigma_red_600);
-    pads[7] -> cd();
-    g_600 -> Draw("C");
-
-    //  mass up (4.35)
-    //  Q2          x              th mod
-
-    // 6.5 GeV2
-    Double_t x_6_5_up[] = {0.15000E-03, 0.28000E-03};
-    Double_t sigma_red_6_5_up[] = {0.40298E-02, 0.29724E-02};
-
-    // 12 GeV2
-    Double_t x_12_up[] = {0.43000E-03, 0.65000E-03};
-    Double_t sigma_red_12_up[] = {0.55464E-02, 0.43065E-02};
-
-    // 25 GeV2
-    Double_t x_25_up[] = {0.43000E-03, 0.80000E-03};
-    Double_t sigma_red_25_up[] = {0.13624E-01, 0.10217E-01};
-
-    // 30 GeV2
-    Double_t x_30_up[] = {0.16000E-02, 0.25000E-02, 0.45000E-02 };
-    Double_t sigma_red_30_up[] = {0.89412E-02, 0.61473E-02, 0.45700E-02};
-
-    // 80 GeV2
-    Double_t x_80_up[] = {0.16000E-02, 0.25000E-02, 0.45000E-02};
-    Double_t sigma_red_80_up[] = {0.23799E-01, 0.19046E-01, 0.12299E-01};
-
-    // 160 GeV2
-    Double_t x_160_up[] = {0.35000E-02, 0.80000E-02, 0.20000E-01};
-    Double_t sigma_red_160_up[] = {0.25910E-01, 0.16055E-01, 0.70825E-02};
-
-    // 600 GeV2
-    Double_t x_600_up[] = {0.13000E-01, 0.35000E-01};
-    Double_t sigma_red_600_up[] = {0.19793E-01, 0.84024E-02};
-
-    TGraph * g_6_5_up = new TGraph(2, x_6_5_up, sigma_red_6_5_up);
-    pads[1] -> cd();
-    g_6_5_up -> SetLineColor(kRed);
-    g_6_5_up -> Draw("C");
-
-    TGraph * g_12_up = new TGraph(2, x_12_up, sigma_red_12_up);
-    pads[2] -> cd();
-    g_12_up -> SetLineColor(kRed);
-    g_12_up -> Draw("C");
-
-    TGraph * g_25_up = new TGraph(2, x_25_up, sigma_red_25_up);
-    pads[3] -> cd();
-    g_25_up -> SetLineColor(kRed);
-    g_25_up -> Draw("C");
-
-    TGraph * g_30_up = new TGraph(3, x_30_up, sigma_red_30_up);
-    pads[4] -> cd();
-    g_30_up -> SetLineColor(kRed);
-    g_30_up -> Draw("C");
-
-    TGraph * g_80_up = new TGraph(3, x_80_up, sigma_red_80_up);
-    pads[5] -> cd();
-    g_80_up -> SetLineColor(kRed);
-    g_80_up -> Draw("C");
-
-    TGraph * g_160_up = new TGraph(3, x_160_up, sigma_red_160_up);
-    pads[6] -> cd();
-    g_160_up -> SetLineColor(kRed);
-    g_160_up-> Draw("C");
-
-    TGraph * g_600_up = new TGraph(2, x_600_up, sigma_red_600_up);
-    pads[7] -> cd();
-    g_600_up -> SetLineColor(kRed);
-    g_600_up -> Draw("C");
+    ifstream file(filename);
+    if (file.good()) {
+        cout << "\nINFO: opened " << filename << endl;
+    } else {
+        cout << "ERROR: could not open " << filename << endl;
+        abort();
+    }
 
 
-    // mass down 4.02
-    //  Q2          x             th mod
+    vector<q2_graph> q2_graphs;
 
-    // 6.5 GeV2
-    Double_t x_6_5_down[] = {0.15000E-03, 0.28000E-03};
-    Double_t sigma_red_6_5_down[] = {0.43235E-02, 0.31058E-02};
+    bool new_q2_point;
+    Double_t current_q2_point = -1;
+    unsigned q2_point_counter = -1;
 
-    // 12 GeV2
-    Double_t x_12_down[] = {0.43000E-03, 0.65000E-03};
-    Double_t sigma_red_12_down[] = {0.59677E-02, 0.47582E-02};
+    // extract data from the file
+    string line;
+    while ( file.good() ) {
 
-    // 25 GeV2
-    Double_t x_25_down[] = {0.43000E-03, 0.80000E-03};
-    Double_t sigma_red_25_down[] = {0.13627E-01, 0.10801E-01};
+        // read each line
+        getline (file,line);
+        TString line_str = line;
 
-    // 30 GeV2
-    Double_t x_30_down[] = {0.16000E-02, 0.25000E-02, 0.45000E-02};
-    Double_t sigma_red_30_down[] = {0.97472E-02, 0.70767E-02, 0.51323E-02};
+        // tokenize it, skip if empty
+        TObjArray * tokens = line_str.Tokenize(" ");
+        if (tokens -> IsEmpty()) continue;
 
-    // 80 GeV2
-    Double_t x_80_down[] = {0.16000E-02, 0.25000E-02, 0.45000E-02};
-    Double_t sigma_red_80_down[] = {0.24868E-01, 0.19713E-01, 0.13096E-01};
+        TString token1 = ((TObjString*) tokens->At(0)) -> GetString();
+        if (token1 == "#") continue;
 
-    // 160 GeV2
-    Double_t x_160_down[] = {0.35000E-02, 0.80000E-02, 0.20000E-01};
-    Double_t sigma_red_160_down[] = {0.25998E-01, 0.16593E-01, 0.68812E-02};
+        // extract data from tokens
+        Double_t q2 =  (((TObjString*) tokens->At(0)) -> GetString()).Atof();
+        Double_t x =  (((TObjString*) tokens->At(1)) -> GetString()).Atof();
+        Double_t sigma_red =  (((TObjString*) tokens->At(2)) -> GetString()).Atof();
 
-    // 600 GeV2
-    Double_t x_600_down[] = {0.13000E-01, 0.35000E-01};
-    Double_t sigma_red_600_down[] = {0.19355E-01, 0.78221E-02};
+         if (current_q2_point != q2) {
 
-    TGraph * g_6_5_down = new TGraph(2, x_6_5_down, sigma_red_6_5_down);
-    pads[1] -> cd();
-    g_6_5_down -> SetLineColor(kBlue);
-    g_6_5_down -> Draw("C");
+            q2_point_counter++;
+            current_q2_point = q2;
+            new_q2_point = false;
 
-    TGraph * g_12_down = new TGraph(2, x_12_down, sigma_red_12_down);
-    pads[2] -> cd();
-    g_12_down -> SetLineColor(kBlue);
-    g_12_down -> Draw("C");
+            q2_graph graph;
+            graph.npoints = 0;
+            q2_graphs.push_back(graph);
+        }
 
-    TGraph * g_25_down = new TGraph(2, x_25_down, sigma_red_25_down);
-    pads[3] -> cd();
-    g_25_down -> SetLineColor(kBlue);
-    g_25_down -> Draw("C");
+        unsigned x_point_counter = q2_graphs[q2_point_counter].npoints;
 
-    TGraph * g_30_down = new TGraph(3, x_30_down, sigma_red_30_down);
-    pads[4] -> cd();
-    g_30_down -> SetLineColor(kBlue);
-    g_30_down -> Draw("C");
+        q2_graphs[q2_point_counter].q2 = q2;
+        q2_graphs[q2_point_counter].x[x_point_counter] = x;
+        q2_graphs[q2_point_counter].sigma_red[x_point_counter] = sigma_red;
 
-    TGraph * g_80_down = new TGraph(3, x_80_down, sigma_red_80_down);
-    pads[5] -> cd();
-    g_80_down -> SetLineColor(kBlue);
-    g_80_down -> Draw("C");
+        q2_graphs[q2_point_counter].npoints++;
+    }
 
-    TGraph * g_160_down = new TGraph(3, x_160_down, sigma_red_160_down);
-    pads[6] -> cd();
-    g_160_down -> SetLineColor(kBlue);
-    g_160_down -> Draw("C");
+    for (int i=0; i<q2_graphs.size(); i++) {
 
-    TGraph * g_600_down = new TGraph(2, x_600_down, sigma_red_600_down);
-    pads[7] -> cd();
-    g_600_down -> SetLineColor(kBlue);
-    g_600_down -> Draw("C");
+        TGraph * g = new TGraph(q2_graphs[i].npoints, q2_graphs[i].x, q2_graphs[i].sigma_red);
+        pads[i+1] -> cd();
+        g -> SetLineColor(color);
+        g -> Draw("C");
 
-    leg -> AddEntry(g_600, "QCD fit, m_{b}=4.16 GeV", "l");
-    leg -> AddEntry(g_600_down, "QCD fit, m_{b}=4.02 GeV", "l");
-    leg -> AddEntry(g_600_up, "QCD fit, m_{b}=4.35 GeV", "l");
+        graph_return = g;
+
+    }
+
+    leg -> AddEntry(graph_return, label, "l");
 }
