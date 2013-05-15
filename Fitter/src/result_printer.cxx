@@ -19,6 +19,8 @@ using namespace std;
 #include <TCrossSectionBin.h>
 
 #include<TMath.h>
+#include <TObjString.h>
+#include <TObjArray.h>
 
 enum flavour {
   kCharm,
@@ -79,6 +81,52 @@ int main(int argc, char **argv) {
 
     // create a TCrossSection object that keeps the fit results (cross sections)
     TCrossSection instance(binningXMLfileName);
+
+    // number  of bins in the XML cross-section file
+    const unsigned  N_BINS = instance.getNBins();
+
+    // read values of hadronization and QED corrections (Chad, Crad)
+    TString DATABASE_PATH=getenv("DATABASE_PATH");
+    TString filename;
+    if (plot_beauty) {
+        filename = DATABASE_PATH+"/hadr_qed_corr_beauty.txt";
+    } else {
+        filename = DATABASE_PATH+"/hadr_qed_corr_charm.txt";
+    }
+    ifstream hadr(filename);
+    if (!hadr.is_open()) {
+        cout << "ERROR: Unable to open file " << filename; 
+        abort();
+    }
+    cout << "INFO: opened " << filename << endl;
+
+    // an array to store corrections
+    Float_t hadr_corr[N_BINS+1];
+    Float_t qed_corr[N_BINS+1];
+    // initialize with zeros
+    for (int i=0; i<(N_BINS+1); i++) {
+        hadr_corr[i] = 0;
+        qed_corr[i] = 0;
+    }
+
+    // a string for file operations
+    string line;
+    while ( hadr.good() ) {
+        // read each line
+        getline (hadr,line);
+        TString line_str = line;
+
+        // tokenize it, skip if empty
+        TObjArray * tokens = line_str.Tokenize("\t");
+        if (tokens -> IsEmpty()) continue;
+
+        // get the id of the bin (is assumed to match those of the XML binning file)
+        TString bin_id = ((TObjString*) tokens->At(0)) -> GetString();
+        // store to the array
+        hadr_corr[bin_id.Atoi()] =  (((TObjString*) tokens->At(1)) -> GetString()).Atof();
+        qed_corr[bin_id.Atoi()] =  (((TObjString*) tokens->At(2)) -> GetString()).Atof();
+
+    }
 
     // if --only_inclusive option was selected, print results for bin1 only and exit
     if (only_inclusive) {
