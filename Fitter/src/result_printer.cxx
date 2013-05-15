@@ -31,7 +31,7 @@ ofstream output;
 ofstream output_true;
 ofstream output_tex;
 
-void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TString variable);
+void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TString variable, Float_t * hadr, Float_t * qed);
 
 // my includes
 int main(int argc, char **argv) {
@@ -153,27 +153,27 @@ int main(int argc, char **argv) {
 
     if (!plot_beauty) {
 
-        print(&instance, 2, 12, kCharm, "Eta");
-        print(&instance, 14, 20, kCharm, "Et");
-        print(&instance, 31, 36, kCharm, "xda");
-        print(&instance, 38, 45, kCharm, "q2da");
-        print(&instance, 46, 49, kCharm, "x_q2bin1");
-        print(&instance, 50, 54, kCharm, "x_q2bin2");
-        print(&instance, 55, 58, kCharm, "x_q2bin3");
-        print(&instance, 59, 61, kCharm, "x_q2bin4");
-        print(&instance, 62, 63, kCharm, "x_q2bin5");
+        print(&instance, 2, 12, kCharm, "Eta", hadr_corr, qed_corr);
+        print(&instance, 14, 20, kCharm, "Et", hadr_corr, qed_corr);
+        print(&instance, 31, 36, kCharm, "xda", hadr_corr, qed_corr);
+        print(&instance, 38, 45, kCharm, "q2da", hadr_corr, qed_corr);
+        print(&instance, 46, 49, kCharm, "x_q2bin1", hadr_corr, qed_corr);
+        print(&instance, 50, 54, kCharm, "x_q2bin2", hadr_corr, qed_corr);
+        print(&instance, 55, 58, kCharm, "x_q2bin3", hadr_corr, qed_corr);
+        print(&instance, 59, 61, kCharm, "x_q2bin4", hadr_corr, qed_corr);
+        print(&instance, 62, 63, kCharm, "x_q2bin5", hadr_corr, qed_corr);
 
     } else {
 
-        print(&instance, 2, 11, kBeauty, "Eta");
-        print(&instance, 13, 19, kBeauty, "Et");
-        print(&instance, 30, 35, kBeauty, "xda");
-        print(&instance, 37, 44, kBeauty, "q2da");
-        print(&instance, 45, 48, kBeauty, "x_q2bin1");
-        print(&instance, 49, 53, kBeauty, "x_q2bin2");
-        print(&instance, 54, 57, kBeauty, "x_q2bin3");
-        print(&instance, 58, 60, kBeauty, "x_q2bin4");
-        print(&instance, 61, 62, kBeauty, "x_q2bin5");
+        print(&instance, 2, 11, kBeauty, "Eta", hadr_corr, qed_corr);
+        print(&instance, 13, 19, kBeauty, "Et", hadr_corr, qed_corr);
+        print(&instance, 30, 35, kBeauty, "xda", hadr_corr, qed_corr);
+        print(&instance, 37, 44, kBeauty, "q2da", hadr_corr, qed_corr);
+        print(&instance, 45, 48, kBeauty, "x_q2bin1", hadr_corr, qed_corr);
+        print(&instance, 49, 53, kBeauty, "x_q2bin2", hadr_corr, qed_corr);
+        print(&instance, 54, 57, kBeauty, "x_q2bin3", hadr_corr, qed_corr);
+        print(&instance, 58, 60, kBeauty, "x_q2bin4", hadr_corr, qed_corr);
+        print(&instance, 61, 62, kBeauty, "x_q2bin5", hadr_corr, qed_corr);
     }
 
     // finished successfully
@@ -181,7 +181,7 @@ int main(int argc, char **argv) {
 }
 
 // prints cross-section results
-void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TString variable) {
+void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TString variable, Float_t * hadr, Float_t * qed) {
 
     TString flavour;
     if (f==kCharm) flavour = "Charm";
@@ -245,9 +245,9 @@ void print(TCrossSection * instance, unsigned bin1, unsigned bin2, flavour f, TS
 
         // TEX table output
         if (n_sub_bins == 1) {
-            output_tex << low1 << " \t& " << up1 << " \t& " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2} \\\\" << endl;
+            output_tex << low1 << " \t& " << up1 << " \t& " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2} \t& " << hadr[i] << "\t& " << qed[i] <<" \t \\\\" << endl;
         } else if (n_sub_bins == 2) {
-            output_tex << low1 << " \t& " << up1 << " \t& " << low2 << " & " << up2 << " & " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2} \\\\" << endl;
+            output_tex << low1 << " \t& " << up1 << " \t& " << low2 << " & " << up2 << " & " << sigma << " \t& " << sigma_err << " \t& \\numpmerr{+" << sigma_err_syst_up << "}{-" << sigma_err_syst_down << "}{2} \t& " << hadr[i] << "\t& " << qed[i] <<" \t \\\\" << endl;
         }
 
         // calculate also total cross-sections from every differential ones
