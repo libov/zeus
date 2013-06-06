@@ -185,6 +185,20 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             else if (fIsBeauty) FragFracBRWeight = rewObj.GetEventWeight(false);
         }
 
+        // if c MC, get highest ET true jet (that passes jet cuts) and calculate EVENT weight based on Et and eta of this jet
+        Double_t charm_eta_weight = 1;
+        Double_t charm_et_weight = 1;
+        Int_t   highest_et_jet = get_highest_et_true_jet();
+        if ( fIsCharm ) {
+            // set the weight if there is a jet that passes the cuts
+            if ( highest_et_jet >= 0 ) {
+                // get the weights
+                TLorentzVector jet(Pxhbmjet[highest_et_jet], Pyhbmjet[highest_et_jet], Pzhbmjet[highest_et_jet], Ehbmjet[highest_et_jet]);
+                charm_eta_weight = fCharmEtaReweighting_p0 + jet.Eta() * fCharmEtaReweighting_p1 + jet.Eta() * jet.Eta() * fCharmEtaReweighting_p2;
+                charm_et_weight = getCharmETweightingFactor( jet.Et() );
+            }
+        }
+
         // ********************************************************************************************
         // ********************************************************************************************
         // *********************************** True level analysis ************************************
@@ -268,6 +282,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Double_t        new_factor = old_factor * FragFracBRWeight;
                         currentTGlobalBin -> SetWeightingFactor (new_factor);
                     }
+                    // apply charm jet et and eta reweighting
+                    if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) && fApplyJetWeightOnTrueOnly) {
+                        Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
+                        Double_t        new_factor = old_factor;
+                        if (fApplyCharmEtaReweighting) new_factor += charm_eta_weight;
+                        if (fApplyCharmETReweighting) new_factor += charm_et_weight;
+                        currentTGlobalBin -> SetWeightingFactor (new_factor);
+                    }
 
                     // Calculate number of true jets in current bin; will be used at the fitter level
                     // to get the true cross-sections
@@ -299,7 +321,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                             if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
 
                             // additional ETA reweighting and Et reweighting in bins of Q2
-                            if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) ) {
+                            if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) && (!fApplyJetWeightOnTrueOnly)) {
                                 //see $ANALYSIS/other/reweighting_eta/README
                                 Double_t    eta_weight = 1;
                                 if (fApplyCharmEtaReweighting) {
@@ -348,7 +370,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                             if ( ! currentTGlobalBin -> CheckGlobalBin (kTrueVarJet) ) continue;
 
                             // additional ETA reweighting and Et reweighting in bins of Q2
-                            if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) ) {
+                            if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) && (!fApplyJetWeightOnTrueOnly)) {
                                 //see $ANALYSIS/other/reweighting_eta/README
                                 Double_t    eta_weight = 1;
                                 if (fApplyCharmEtaReweighting) {
@@ -965,6 +987,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 Double_t        new_factor = old_factor * FragFracBRWeight;
                 currentTGlobalBin -> SetWeightingFactor (new_factor);
             }
+            // apply charm jet et and eta reweighting
+            if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) && fApplyJetWeightOnTrueOnly) {
+                Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
+                Double_t        new_factor = old_factor;
+                if (fApplyCharmEtaReweighting) new_factor += charm_eta_weight;
+                if (fApplyCharmETReweighting) new_factor += charm_et_weight;
+                currentTGlobalBin -> SetWeightingFactor (new_factor);
+            }
 
             currentTGlobalBin->FillHistogram("nvertices", fVertices.size());
 
@@ -1044,7 +1074,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 if ( !currentTGlobalBin -> CheckGlobalBin (kVertexVar) ) continue;
 
                 // additional ETA reweighting and Et reweighting in bins of Q2
-                if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) ) {
+                if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) && (!fApplyJetWeightOnTrueOnly) ) {
                     //see $ANALYSIS/other/reweighting_eta/README
                     Double_t    eta_weight = 1;
                     if (fApplyCharmEtaReweighting) {
