@@ -2185,3 +2185,24 @@ void TMiniNtupleAnalyzer::check_negative(float& Phi, float& cotTheta, float& Mom
         abort();
     }
 }
+
+Int_t TMiniNtupleAnalyzer::get_highest_et_true_jet() {
+
+    Int_t highest_et_jet = -1;
+    Double_t    max_et = -999;
+    for (int trueJet = 0; trueJet < Nhbmjets; trueJet++) {
+
+        // create a ROOT Lorentz vector whith - a jet 4-momentum
+        TLorentzVector jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
+
+        if ( ( jet.Eta() > fJetEtaUpCut ) || ( jet.Eta() < fJetEtaLowCut ) ) continue;
+        if ( jet.Et() < fJetEtCut ) continue;
+
+        if (jet.Et() > max_et) {
+            max_et = jet.Et();
+            highest_et_jet = trueJet;
+        }
+    }
+
+    return highest_et_jet;
+}
