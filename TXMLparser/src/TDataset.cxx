@@ -40,14 +40,14 @@ TXMLparser(xml_file)
 
     // introduce variable to count and mark samples
     unsigned        SubSetCounter=0;
-        
+
     // loop over all child nodes of the root element, i.e. loop over all samples
     for ( unsigned i = 0; i < children->getLength(); i++ ) {
 
         // get a child node
         DOMNode* sampleNode = children -> item(i);
         if ( ! (sampleNode->getNodeType() == DOMNode::ELEMENT_NODE) ) continue;
-                
+
         // check if the node represents "sample" structure
         // this is an element node, hence it's NodeName property equals to it's tag
         if (! XMLString::equals (XMLString::transcode(sampleNode->getNodeName()), "sample" )) {
@@ -72,7 +72,7 @@ TXMLparser(xml_file)
 
             // get name of this node
             char * nodeName = XMLString::transcode( cSampleChildNode->getNodeName() );
-        
+
             // get first child of the child element of sample.
             // this should be a text node containing value of that tag.
             DOMNode * cTextNode =  cSampleChildNode->getFirstChild();
@@ -231,7 +231,7 @@ void	TDataset::modifySubSet(TSubSet::Type t, TSubSet::Period p, TSubSet::Flavour
         cout << "ERROR in TSubSet::modifySubSet(...): more than one sample found! Terminating!"<<endl;
         abort();
     }
-        
+
     // sanity check: IDs of both samples should be the same. This is to avoid the situation
     // when subset is overwritten by accident with another one that has a different ID, and hence
     // will spoil DOMNode -> SubSet link
@@ -242,7 +242,7 @@ void	TDataset::modifySubSet(TSubSet::Type t, TSubSet::Period p, TSubSet::Flavour
 
     // now overwrite the sample; uses operator= as implemented in TSubSet
     fSampleList[sample_index] = new_set;
-        
+
     // get a local copy
     TSubSet cSubSet = fSampleList[sample_index];
 

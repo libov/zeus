@@ -31,7 +31,6 @@ class TDataset : public TXMLparser {
 
         TSubSet     getSubSet(TSubSet::Type, TSubSet::Period p, TSubSet::Flavour f, TSubSet::Q2 q2, TSubSet::Process process, unsigned trigger_period=0);
         TSubSet     getSubSet(TSubSet::Type, TSubSet::Period p);
-
         void        modifySubSet(TSubSet::Type t, TSubSet::Period p, TSubSet::Flavour f, TSubSet::Q2 q2,  TSubSet::Process process, TSubSet new_set, unsigned trigger_period=0);
 
         // returns number of samples in the current structure (i.e. in the XML file)
