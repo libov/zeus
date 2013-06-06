@@ -372,6 +372,9 @@ int main(int argc, char **argv) {
     instance -> SetApplyCharmETReweighting(true);
     instance -> SetCharmETReweightingPar(0.753431, 0.189124);
 
+    // jet reweighting option
+    instance -> setApplyJetWeightOnTrueOnly(false);
+
     // a flag to say whether we want to do tracking uncertainty studies
     instance -> SetDropTracks (false);
     // if true, Sasha Spiridonov's map will be used, meaning that track drop probability is
