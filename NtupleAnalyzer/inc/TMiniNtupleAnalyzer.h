@@ -163,6 +163,8 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            setApplyRhoPhiReweighting(bool apply) {fApplyRhoPhiReweighting = apply;};
         void            setDebugPrintout(bool debug) {fDebugPrintout = debug;};
 
+        void            setApplyJetWeightOnTrueOnly (bool apply) {fApplyJetWeightOnTrueOnly = apply;}
+
         unsigned        fPrimary_ZTT_tracks;
         unsigned        fLong_primary_ZTT_tracks;
         unsigned        fLong_ZTT_tracks;
@@ -262,6 +264,8 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
 
         void        check_negative(float& Phi, float& cotTheta, float& Mom, int& Charge, int& IDpart, float& TrEff, float& TrInt);
         void        check_negative(float& Phi, float& cotTheta, float& Mom, int& Charge, int& IDpart, float& TrEff, float& TrEffI, float& TrInt, float& TrIntN, float& TrPrm);
+
+        Int_t       get_highest_et_true_jet();
 
         // tells whether the program should run on dCache files or on mini ntuples on disk
         bool        fRun_dCache;
@@ -402,5 +406,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Float_t         f_EM_scale;                         //!< for EM scale systematic studies
 
         bool            fGetVertexTracks;
+
+        bool            fApplyJetWeightOnTrueOnly;
 };
 #endif
