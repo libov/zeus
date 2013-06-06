@@ -2,7 +2,7 @@
 //                                              //
 //  Inclusive  secondary vertex analysis        //
 //  Libov Vladyslav                             //
-//  DESY                            //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
 //  February 2011                               //
 //                                              //
@@ -97,7 +97,7 @@ class TSubSet {
         void          setQ2ENUM(Q2 q2) {fQ2ENUM = q2;};
         void          setTypeENUM(Type type) {fTypeENUM = type;};
         void          setProcessENUM(Process process) {fProcessENUM = process;};
-        
+
         // others
         void          Classify();
         void          Print();

@@ -2,7 +2,7 @@
 //                                              //
 //  Inclusive  secondary vertex analysis        //
 //  Libov Vladyslav                             //
-//  DESY			                //
+//  DESY                                        //
 //  libov@mail.desy.de                          //
 //  February 2011                               //
 //                                              //
@@ -28,7 +28,6 @@ fID(0)
 void TSubSet::Classify() {
 
     // define whether it's data or MC
-        
     if (fType.Contains("data")) {
         fTypeENUM = kDATA;
     } else if (fType.Contains("mc")) {
@@ -62,7 +61,7 @@ void TSubSet::Classify() {
             abort();
         }
     } else if (fTypeENUM == kDATA) {
-                
+
         if (fYear.Contains("03")) fPeriodENUM = k03P;
         else if (fYear.Contains("04")) fPeriodENUM = k04P;
         else if (fYear.Contains("05")) fPeriodENUM = k05E;
@@ -75,7 +74,7 @@ void TSubSet::Classify() {
             abort();
         }
     }
-        
+
     // if MC, determine also flavour and Q2 generator cut. otherwise return;
     if (fTypeENUM == kDATA) return;
 
@@ -124,7 +123,7 @@ void TSubSet::Classify() {
     } else if (fQ2 == "4") {
         fQ2ENUM = kQ2g4;
     }
-    
+
     // check whether Q2 was determined
     if (fQ2ENUM == kUNKNOWNQ2) {
         cout << "ERROR in TSubSet::Classify(): was not possible to identify Q2 of the sample!";
@@ -145,7 +144,6 @@ void TSubSet::Print(){
     cout << "name_pattern: " << getNamePattern() << endl;
     cout << "trigger period: " << getTriggerPeriod() << endl;
     cout << "luminosity: " << getLuminosity() << endl;
-       
     cout << "sample name: " << getSampleName() << endl;
     cout << "**********************************\n";
 }
