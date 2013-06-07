@@ -286,8 +286,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) && fApplyJetWeightOnTrueOnly) {
                         Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
                         Double_t        new_factor = old_factor;
-                        if (fApplyCharmEtaReweighting) new_factor += charm_eta_weight;
-                        if (fApplyCharmETReweighting) new_factor += charm_et_weight;
+                        if (fApplyCharmEtaReweighting) new_factor *= charm_eta_weight;
+                        if (fApplyCharmETReweighting) new_factor *= charm_et_weight;
                         currentTGlobalBin -> SetWeightingFactor (new_factor);
                     }
 
@@ -991,8 +991,8 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             if (fIsCharm && (fApplyCharmEtaReweighting || fApplyCharmETReweighting) && fApplyJetWeightOnTrueOnly) {
                 Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
                 Double_t        new_factor = old_factor;
-                if (fApplyCharmEtaReweighting) new_factor += charm_eta_weight;
-                if (fApplyCharmETReweighting) new_factor += charm_et_weight;
+                if (fApplyCharmEtaReweighting) new_factor *= charm_eta_weight;
+                if (fApplyCharmETReweighting) new_factor *= charm_et_weight;
                 currentTGlobalBin -> SetWeightingFactor (new_factor);
             }
 
