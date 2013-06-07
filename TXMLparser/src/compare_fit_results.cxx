@@ -180,9 +180,6 @@ void    print_results_version_year(TString year, TString histo_version, float * 
 
 
     TCrossSection   cCrossSection(filename);
-    
-    
-    cCrossSection.setVerbose(false);
 
     /*cout << "k_c["<<counter<<"]= " << cCrossSection.getCrossSectionBin(bin_to_study).get_k_c() << "; ";
     cout << "k_c_err["<<counter<<"]= " << cCrossSection.getCrossSectionBin(bin_to_study).get_k_c_err() << ";" << endl;;

@@ -250,7 +250,6 @@ void    getScalingFactorsCharm(TString histo_version, unsigned bin, Float_t & sc
     }
 
     TCrossSection   cCrossSection(XMLfilename);
-    cCrossSection.setVerbose(false);
 
     if (!isBeauty) {
         scaling_factor = cCrossSection.getCrossSectionBin(bin).get_k_c();

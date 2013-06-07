@@ -251,7 +251,6 @@ void    TSystematics::GetResult(unsigned point, Float_t & result, Float_t & resu
     XMLfilename = "results."+fBinningFile+fVersionArray[point]+fYears+"."+fCNVersion+fTrueYears+".xml";
 
     TCrossSection   cCrossSection(XMLfilename);
-    cCrossSection.setVerbose(false);
 
     if (fPlotxSect) {
             if (fIsCharm) {
