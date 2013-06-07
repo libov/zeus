@@ -903,7 +903,6 @@ void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString l
         abort();
     }
 
-
     vector<q2_graph> q2_graphs;
 
     bool new_q2_point;
