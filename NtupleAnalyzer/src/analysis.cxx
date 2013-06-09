@@ -374,6 +374,9 @@ int main(int argc, char **argv) {
 
     // jet reweighting option
     instance -> setApplyJetWeightOnTrueOnly(false);
+    instance -> setWeightOnlyFiducialVolumeJets(false);
+    instance -> setEtaMargin(0.5);
+    instance -> setEtMargin(2);
 
     // a flag to say whether we want to do tracking uncertainty studies
     instance -> SetDropTracks (false);
