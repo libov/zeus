@@ -164,6 +164,12 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            setDebugPrintout(bool debug) {fDebugPrintout = debug;};
 
         void            setApplyJetWeightOnTrueOnly (bool apply) {fApplyJetWeightOnTrueOnly = apply;}
+        void            setWeightOnlyFiducialVolumeJets (bool only_fiducial) {fWeightOnlyFiducialVolumeJets = only_fiducial;}
+        void            setEtaMargin(Double_t margin) { fEtaMargin = margin; }
+        void            setEtMargin(Double_t margin) { fEtMargin = margin; }
+        bool            fWeightOnlyFiducialVolumeJets;
+        Double_t        fEtaMargin;
+        Double_t        fEtMargin;
 
         unsigned        fPrimary_ZTT_tracks;
         unsigned        fLong_primary_ZTT_tracks;
