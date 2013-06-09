@@ -2225,8 +2225,15 @@ Int_t TMiniNtupleAnalyzer::get_highest_et_true_jet() {
         // create a ROOT Lorentz vector whith - a jet 4-momentum
         TLorentzVector jet(Pxhbmjet[trueJet], Pyhbmjet[trueJet], Pzhbmjet[trueJet], Ehbmjet[trueJet]);
 
-        if ( ( jet.Eta() > fJetEtaUpCut ) || ( jet.Eta() < fJetEtaLowCut ) ) continue;
-        if ( jet.Et() < fJetEtCut ) continue;
+        if (fWeightOnlyFiducialVolumeJets) {
+
+            Double_t jet_eta_low_cut = fJetEtaLowCut - fEtaMargin;
+            Double_t jet_eta_up_cut = fJetEtaUpCut + fEtaMargin;
+            Double_t jet_et_cut = fJetEtCut - fEtMargin;
+
+            if ( ( jet.Eta() > jet_eta_up_cut ) || ( jet.Eta() < jet_eta_low_cut ) ) continue;
+            if ( jet.Et() < jet_et_cut ) continue;
+        }
 
         if (jet.Et() > max_et) {
             max_et = jet.Et();
