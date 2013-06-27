@@ -510,7 +510,7 @@ and \a Bspt_yer. Change later to avoid confusion!
         Float_t     SmearingGauss1Width = fSmearingGauss1Width;
         Float_t     SmearingGauss1Prob = fSmearingGauss1Prob;
         Float_t     SmearingGauss2Width = fSmearingGauss2Width;
-        Float_t     SmearingGauss2Prob = fSmearingGauss2Prob;   
+        Float_t     SmearingGauss2Prob = fSmearingGauss2Prob;
 
         // for highest eta bin using a bit different parameters
         if ( (1.6 < EtaJet) && (EtaJet < 2.2) ) {
