@@ -194,7 +194,6 @@ int main(int argc, char **argv) {
         cout << "INFO: Reading xml file with fit results to obtain scaling factors: " << XMLfilename << endl;
 
         TCrossSection   cCrossSection(XMLfilename);
-        cCrossSection.setVerbose(false);
     }
 
     if (use_scaling_factors) {
