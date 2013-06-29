@@ -23,6 +23,7 @@ export NTUPLEANALYZER=$ANALYSIS/NtupleAnalyzer
 export FITTER=$ANALYSIS/Fitter
 export PLOTMERGER=$ANALYSIS/PlotMerger
 export TXMLPARSER=$ANALYSIS/TXMLparser
+export OTHER=$ANALYSIS/other
 
 export HVQDIS=$ANALYSIS/HVQDIS/hvqdis_jets_develop_charm_lhapdf
 
