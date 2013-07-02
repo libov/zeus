@@ -522,6 +522,110 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
     }
 }
 
+void    TResultPlotter::DrawSystematics(TString file_name, TString syst_file_name, unsigned pad_number) {
+
+    // open the systematics file
+    ifstream f(syst_file_name);
+    if (!f.is_open()) {
+        cout << "ERROR: Unable to open file " << syst_file_name << endl;
+        abort();
+    }
+    cout << "INFO: opened " << syst_file_name << endl;
+
+    // read the contents
+    TString new_xsect_prefix;
+    if (isCharm) {
+        new_xsect_prefix = "Charm systematics in differential cross sections d sigma / dY in bins of";
+    } else {
+        new_xsect_prefix = "Beauty systematics in differential cross sections d sigma / dY in bins of";
+    }
+
+    map<TString, map<unsigned, Double_t> > uncertainty_first;
+    map<TString, map<unsigned, Double_t> > uncertainty_second;
+
+    string line;
+    TString current_variable;
+    while ( f.good() ) {
+
+        // read each line
+        getline (f,line);
+
+        // skip if an empty line
+        if (line=="") continue;
+
+        // tokenize
+        TString line_str = line;
+        TObjArray * tokens = line_str.Tokenize(" ");
+
+        // check if this is a start of new differential cross section
+        if ( line_str.Contains(new_xsect_prefix) ) {
+            unsigned ntokens = tokens -> GetEntries();
+            current_variable = ((TObjString*)tokens->At(ntokens-1)) -> GetString();
+        }
+
+        TString first_word = ((TObjString*)tokens->At(0)) -> GetString();
+        if (first_word != "Bin") continue;
+
+        TString second_word = ((TObjString*)tokens->At(1)) -> GetString();
+        second_word.Remove(TString::kTrailing, ':');
+        unsigned bin_number = second_word.Atoi();
+
+        uncertainty_first[current_variable][bin_number] = (((TObjString*)tokens->At(2)) -> GetString()).Atof();
+        uncertainty_second[current_variable][bin_number] = (((TObjString*)tokens->At(3)) -> GetString()).Atof();
+
+    }
+
+    // now plot it
+
+    // get vectors of bins for the file
+    vector<BinGroup> cBinGroupList = fBinGroupMap[file_name];
+
+    // sanity check: sizes of both arrays should be the same
+    // loop over contents of the vectors
+    for (int i=0; i<cBinGroupList.size(); i++) {
+
+        BinGroup cBinGroup = cBinGroupList[i];
+
+        // get an identifier in the file
+        TString id_file;
+        TString id = cBinGroup.ID;
+        if (id == "etajet") id_file = "Eta";
+        else if (id == "etjet") id_file = "Et";
+        else if (id == "xda") id_file = id;
+        else if (id == "q2da") id_file = id;
+        else if (id == "q2da_xda_bin1") id_file = "x_q2bin1";
+        else if (id == "q2da_xda_bin2") id_file = "x_q2bin2";
+        else if (id == "q2da_xda_bin3") id_file = "x_q2bin3";
+        else if (id == "q2da_xda_bin4") id_file = "x_q2bin4";
+        else if (id == "q2da_xda_bin5") id_file = "x_q2bin5";
+        else continue;
+
+        // create a canvas or get a pointer to it
+        TCanvas   * cCanvas = fCanvasMap[cBinGroup.ID];
+
+        // select respective subpad
+        cCanvas -> cd(pad_number);
+
+        // create histograms and draw them
+        TH1F * histo_up = (TH1F*)cBinGroup.histo_dummy -> Clone(id+"_up");
+        TH1F * histo_down = (TH1F*)cBinGroup.histo_dummy -> Clone(id+"_down");
+        unsigned nbins = cBinGroup.histo_dummy -> GetNbinsX();
+
+        for (int j=1; j<=nbins; j++) {
+            histo_up -> SetBinContent(j, 1+uncertainty_first[id_file][j]);
+            histo_down -> SetBinContent(j, 1+uncertainty_second[id_file][j]);
+        }
+
+        histo_up -> SetAxisRange(0.95, 1.05, "Y");
+        histo_down -> SetAxisRange(0.95, 1.05, "Y");
+
+        histo_up -> Draw("same");
+        histo_down -> Draw("same");
+
+        gPad -> RedrawAxis();
+    }
+}
+
 void    TResultPlotter::PrintCanvases() {
 
         // create an iterator
