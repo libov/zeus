@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
         {"only_png", no_argument, 0, 5},
         {"no_zeus_logo", no_argument, 0, 6},
         {"zoom", no_argument, 0, 7},
+        {"systematics_file", required_argument, 0, 8},
     };
 
     // results of the command line option processing will be stored here
@@ -45,6 +46,7 @@ int main(int argc, char **argv) {
     bool    only_png = false;
     bool    no_zeus_logo = false;
     bool    zoom = false;
+    TString systematics_file = "";
 
     // loop over program arguments (i.e. argv array) and store info to above variables
     // depending on an option
@@ -76,12 +78,15 @@ int main(int argc, char **argv) {
             case 7:
                 zoom = true;
                 break;
+            case 8:
+                systematics_file = optarg;
+                break;
             case 'b':
                 plot_beauty = true;
                 break;
             case 'h':
                 cout << "\nUsage:\n\n";
-                cout << "\tplot_results --file1 <xmlfile1> [--file2 <xmlfile2>] [--file3 <xmlfile3>] [Options] [-h]\n\n";
+                cout << "\tplot_results --file1 <xmlfile1> [--file2 <xmlfile2>] [--file3 <xmlfile3>] [--systematics_file <full path>] [Options] [-h]\n\n";
                 cout << "\t This application is designed to visualize cross-sections that are stored in XML files.\n";
                 cout << "\t If two files are given (i.e. both options --file1 and --file2 are specified), a ratio plot will be shown below the main graph.\n";
                 cout << "\t The functionality of the underlying class TResultPlotter allows any canvas layout and any number of XML files, but that is not implemented in this application.\n";
@@ -95,6 +100,7 @@ int main(int argc, char **argv) {
                 cout << "\t-> ratio plots: uncertainties are only of the 1st object, normalized by the 2nd object\n";
                 cout << "\t*** EDIT: A THIRD FILE IS NOW POSSIBLE, ASSUMED TO BE OTHER PREDICTION ***\n";
                 cout << "\n\tOptions:\n";
+                cout << "\t--systematics_file <full path>\tAdd systematics from a file to the ratio plot - useful to compare difference between the cross sections to some systematics\n";
                 cout << "\t-b\tPlot beauty results; otherwise - charm\n";
                 cout << "\t--scaling_factors\tPlot scaling factors, not cross-sections\n";
                 cout << "\t--only_png\tPrint PNG files; otherwise - EPS\n";
@@ -212,6 +218,11 @@ int main(int argc, char **argv) {
         }
     }
     if (second_file_given && third_file_given) cResultPlotter.DrawRatio(binningXMLfileName3, binningXMLfileName2, 2, true);
+
+    // draw systematics in the ratio plot, if required
+    if ( systematics_file != "" ) {
+        cResultPlotter.DrawSystematics(binningXMLfileName1, systematics_file, 2);
+    }
 
     // save results
     cResultPlotter.PrintCanvases();
