@@ -33,6 +33,7 @@ fScaleLF(false)
 }
 
 void TMyFitter::Initialize() {
+
     cout << "INFO: Initializing TMyFitter for " << fBinName << endl;
 
     if (fScaleLF) {
@@ -59,20 +60,22 @@ void TMyFitter::Initialize() {
     }
 }
 
-
 Double_t TMyFitter::GetChi2(Double_t p1, Double_t p2, Double_t p3) {
-    Double_t tempChi2 = 0;
-    tempChi2=tempChi2+bin1.CalculateChi2(p1,p2,p3);
-    tempChi2=tempChi2+bin2.CalculateChi2(p1,p2,p3);
-    tempChi2=tempChi2+bin3.CalculateChi2(p1,p2,p3);
-    tempChi2=tempChi2+UnsubstrTOT.CalculateChi2Norm(p1,p2,p3);
 
-    if (tempChi2 < fChi2Min) fChi2Min = tempChi2;
-    return tempChi2;
+    // calculate the chi2: three mirrored distributions, and the unmirrored one
+    Double_t chi2 = 0;
+    chi2 += bin1.CalculateChi2(p1, p2, p3);
+    chi2 += bin2.CalculateChi2(p1, p2, p3);
+    chi2 += bin3.CalculateChi2(p1, p2, p3);
+    chi2 += UnsubstrTOT.CalculateChi2Norm(p1, p2, p3);
+
+    if (chi2 < fChi2Min) fChi2Min = chi2;
+
+    return chi2;
 }
 
 Int_t TMyFitter::Fit() {
-    
+
     // print some stuff
     cout<<"INFO: Fitting distributions in "<<fBinName<<" subdirectory"<<endl;
     // perform the fit with Migrad, store the error flag
@@ -98,7 +101,7 @@ Int_t TMyFitter::Fit() {
     } else {
         cout << "INFO: HESSE finished successfully! " << endl;
     }
-    
+
     // call minos
     cout << "INFO: Performing MINOS error analysis! " << endl;
     fMinuit->mnmnos();
@@ -131,12 +134,12 @@ Int_t TMyFitter::Fit() {
     cout<<"k_uds="<<k_uds<<" +- "<<k_uds_err<<" ("<<k_uds_rel_err<<"%)"<<endl;
     cout<<"Chi2 of the fit: "<<fChi2Min/(21.+1.-3.)<<endl;
     cout<<"***************************************"<<endl;
-    
+
     bin1.Draw(k_b,k_c,k_uds,"e3");
     bin2.Draw(k_b,k_c,k_uds,"e3");
     bin3.Draw(k_b,k_c,k_uds,"e3");
     UnsubstrTOT.Draw(k_b,k_c,k_uds,"Hist");
-    
+
     TString    path = getenv ("HISTO_PATH");
     TString    FileName = path + "/fitted." + fHistogramsVersion + "." + fBinName;
     cout << FileName+".root" << endl;
@@ -145,7 +148,7 @@ Int_t TMyFitter::Fit() {
     bin2.Write(out);
     bin3.Write(out);
     UnsubstrTOT.Write(out);
-    
+
     ofstream myfile;
     myfile.open (FileName+".txt");
     myfile<<"***************************************"<<endl;
@@ -155,8 +158,8 @@ Int_t TMyFitter::Fit() {
     myfile<<"k_uds="<<k_uds<<" +- "<<k_uds_err<<" ("<<k_uds_rel_err<<"%)"<<endl;
     myfile<<"Chi2 of the fit: "<<fChi2Min/(21.+1.-3.)<<endl;
     myfile<<"***************************************"<<endl;
-    
+
     myfile.close();
-    
+
     return fit_result;
 }
