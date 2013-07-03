@@ -21,7 +21,7 @@ class	TDistribution : public TObject
     public:
         TDistribution();
         TDistribution(TString BinName,TString VariableName, TString HistogramsVersion);
-        ~TDistribution();
+        ~TDistribution() {};
 
         void        Draw(Double_t p1, Double_t p2, Double_t p3, TString TotMCDrawOpt);
         Double_t    CalculateChi2(Double_t p1, Double_t p2, Double_t p3);

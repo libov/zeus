@@ -97,10 +97,6 @@ fHist_b(NULL)
 
 }
 
-TDistribution::~TDistribution()
-{
-}
-
 void TDistribution::FillArrays() {
     // loop over all bins in the histogram and fill arrays
     for (int k=1;k<fNbins+1;k++) {
