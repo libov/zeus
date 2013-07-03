@@ -209,6 +209,38 @@ Double_t	TDistribution::CalculateChi2Norm(Double_t p1, Double_t p2, Double_t p3)
     return chi2Norm;
 }
 
+Double_t	TDistribution::CalculateChi2NormEXCLUDE(Double_t p1, Double_t p2, Double_t p3, unsigned nbins) {
+
+    Double_t    data = 0;
+    Double_t    b = 0;
+    Double_t    c = 0;
+    Double_t    uds = 0;
+
+    Double_t    error_squared=0;
+
+    unsigned    bin1 = fNbins/2 - nbins+1;
+    unsigned    bin2 = fNbins/2 + nbins;
+    for (int bin=1;bin<fNbins+1;bin++) {
+
+        if ( (bin>=bin1) && (bin<=bin2) ) continue;
+
+        data += fN_data[bin];
+        b += fN_b[bin];
+        c += fN_c[bin];
+        uds += fN_uds[bin];
+
+        error_squared += Power(fSigma_data[bin], 2) + Power(p1*fSigma_b[bin], 2)+Power(p2*fSigma_c[bin], 2)+Power(p3*fSigma_uds[bin], 2);
+    }
+
+    Double_t    deviation = data - p1 * b - p2 * c - p3 * uds;
+
+    if (error_squared==0) abort();
+
+    Double_t    chi2Norm = (Power(deviation,2))/(error_squared);
+
+    return chi2Norm;
+}
+
 void	TDistribution::Draw(Double_t p1, Double_t p2, Double_t p3, TString TotMCDrawOpt)
 {
     this->Scale(p1,p2,p3);
