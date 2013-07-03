@@ -20,7 +20,6 @@ class TMyFitter : public TObject
 
         TMyFitter() {};
         TMyFitter(TString VariableName, void (*func)(Int_t&, Double_t*, Double_t&, Double_t*, Int_t), TString HistogramsVersion);
-        TMyFitter(TString VariableName, TString HistogramsVersion);
         ~TMyFitter() {};
 
         void        Initialize();
