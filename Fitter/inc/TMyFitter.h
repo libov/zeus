@@ -17,10 +17,10 @@ class	TMyFitter : public TObject
 {
 
 	public:
-		TMyFitter();
+		TMyFitter() {};
 		TMyFitter(TString VariableName, void (*func)(Int_t&, Double_t*, Double_t&, Double_t*, Int_t), TString HistogramsVersion);
 		TMyFitter(TString VariableName, TString HistogramsVersion);
-		~TMyFitter();
+		~TMyFitter() {};
 
 		Double_t	GetChi2(Double_t p1, Double_t p2, Double_t p3);
 		Double_t	GetMinChi2(){return fChi2Min;};

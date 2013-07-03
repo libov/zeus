@@ -17,9 +17,6 @@
 #include <fstream>
 using namespace std;
 
-TMyFitter::TMyFitter() {
-}
-
 TMyFitter::TMyFitter(TString BinName, void (*func)(Int_t&, Double_t*, Double_t&, Double_t*, Int_t) , TString HistogramsVersion):
 fChi2Min(10000),
 bin1(BinName,"significance_massbin1_mirrored",HistogramsVersion),
@@ -33,9 +30,6 @@ fScaleLF(false)
 {
     fMinuit->SetFCN(func);
     Initialize();
-}
-
-TMyFitter::~TMyFitter() {
 }
 
 void TMyFitter::Initialize() {
