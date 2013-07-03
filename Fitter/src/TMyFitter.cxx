@@ -119,21 +119,21 @@ Int_t TMyFitter::Fit() {
     k_c = par[1];
     k_uds = par[2];
 
-    k_b_err=par_err[0];
-    k_c_err=par_err[1];
-    k_uds_err=par_err[2];
+    k_b_err = par_err[0];
+    k_c_err = par_err[1];
+    k_uds_err = par_err[2];
 
-    Double_t    k_b_rel_err=(100.) * k_b_err/k_b;
-    Double_t    k_c_rel_err=(100.) * k_c_err/k_c;
-    Double_t    k_uds_rel_err=(100.) * k_uds_err/k_uds;
+    Double_t    k_b_rel_err = (100.) * k_b_err/k_b;
+    Double_t    k_c_rel_err = (100.) * k_c_err/k_c;
+    Double_t    k_uds_rel_err = (100.) * k_uds_err/k_uds;
 
-    cout<<"***************************************"<<endl;
-    cout<<"Fit results for "<<fBinName<<endl;
-    cout<<"k_b="<<k_b<<" +- "<<k_b_err<<" ("<<k_b_rel_err<<"%)"<<endl;
-    cout<<"k_c="<<k_c<<" +- "<<k_c_err<<" ("<<k_c_rel_err<<"%)"<<endl;
-    cout<<"k_uds="<<k_uds<<" +- "<<k_uds_err<<" ("<<k_uds_rel_err<<"%)"<<endl;
-    cout<<"Chi2 of the fit: "<<fChi2Min/(21.+1.-3.)<<endl;
-    cout<<"***************************************"<<endl;
+    cout << "***************************************" << endl;
+    cout << "Fit results for " << fBinName << endl;
+    cout << "k_b=" << k_b << " +- " << k_b_err << " (" << k_b_rel_err << "%)" << endl;
+    cout << "k_c=" << k_c<< " +- " << k_c_err << " (" << k_c_rel_err << "%)" << endl;
+    cout << "k_uds=" << k_uds << " +- " << k_uds_err << " (" << k_uds_rel_err << "%)" << endl;
+    cout << "Chi2 of the fit: " << fChi2Min/(21.+1.-3.) << endl;
+    cout << "***************************************" << endl;
 
     bin1.Draw(k_b,k_c,k_uds,"e3");
     bin2.Draw(k_b,k_c,k_uds,"e3");
