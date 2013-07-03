@@ -26,6 +26,7 @@ class	TDistribution : public TObject
         void        Draw(Double_t p1, Double_t p2, Double_t p3, TString TotMCDrawOpt);
         Double_t    CalculateChi2(Double_t p1, Double_t p2, Double_t p3);
         Double_t    CalculateChi2Norm(Double_t p1, Double_t p2, Double_t p3);
+        Double_t    CalculateChi2NormEXCLUDE(Double_t p1, Double_t p2, Double_t p3, unsigned nbins);
 
         void        Scale (Double_t	p1,Double_t	p2,Double_t	p3);
         void        ScaleInput (Double_t	p1,Double_t	p2,Double_t	p3);
