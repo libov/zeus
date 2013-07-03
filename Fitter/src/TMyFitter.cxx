@@ -68,6 +68,7 @@ Double_t TMyFitter::GetChi2(Double_t p1, Double_t p2, Double_t p3) {
     chi2 += bin2.CalculateChi2(p1, p2, p3);
     chi2 += bin3.CalculateChi2(p1, p2, p3);
     chi2 += UnsubstrTOT.CalculateChi2Norm(p1, p2, p3);
+    //chi2 += UnsubstrTOT.CalculateChi2NormEXCLUDE(p1, p2, p3, 10);
 
     if (chi2 < fChi2Min) fChi2Min = chi2;
 
