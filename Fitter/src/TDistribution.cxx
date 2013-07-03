@@ -185,36 +185,29 @@ Double_t    TDistribution::CalculateChi2(Double_t p1, Double_t p2, Double_t p3) 
     return chi2;
 }
 
-Double_t	TDistribution::CalculateChi2Norm(Double_t p1, Double_t p2, Double_t p3)
-{
+Double_t	TDistribution::CalculateChi2Norm(Double_t p1, Double_t p2, Double_t p3) {
 
-	Double_t    chi2Norm=0;
+    Double_t    Int_data = fHist_data->Integral();
+    Double_t    Int_b = fHist_b->Integral();
+    Double_t    Int_c = fHist_c->Integral();
+    Double_t    Int_uds = fHist_uds->Integral();
 
-	Double_t    Int_data=fHist_data->Integral();
-	Double_t    Int_b=fHist_b->Integral();
-	Double_t    Int_c=fHist_c->Integral();
-	Double_t    Int_uds=fHist_uds->Integral();
+    Double_t    deviation = Int_data - p1 * Int_b - p2 * Int_c - p3 * Int_uds;
 
-	Double_t	deviation=(Int_data-p1*Int_b-p2*Int_c-p3*Int_uds);
+    Double_t    data_error_squared = Int_data;
 
-	Double_t    error_squared=0;
-	Double_t    data_error_squared=Int_data;
-	Double_t    MC_error_squared=0;
+    Double_t    MC_error_squared=0;
+    //MC_error_squared=(p1**2)*Int_b+(p2**2)*Int_c+(p3**2)*Int_uds;
+    for (int bin=1;bin<fNbins+1;bin++) {
+        MC_error_squared = Power(p1*fSigma_b[bin], 2)+Power(p2*fSigma_c[bin], 2)+Power(p3*fSigma_uds[bin], 2);
+    }
 
-	for (int bin=1;bin<fNbins+1;bin++)
-	{
-MC_error_squared=Power(p1*fSigma_b[bin],2)+Power(p2*fSigma_c[bin],2)+Power(p3*fSigma_uds[bin],2);
-//MC_error_squared=(p1**2)*Int_b+(p2**2)*Int_c+(p3**2)*Int_uds;
-	}
+    Double_t    error_squared = data_error_squared + MC_error_squared;
+    Double_t    chi2Norm=0;
+    if (error_squared!=0) chi2Norm=(Power(deviation,2))/(error_squared);
 
-	error_squared=data_error_squared+MC_error_squared;
-	chi2Norm=0;
-	if (error_squared!=0)
-    chi2Norm=(Power(deviation,2))/(error_squared);
-
-	return chi2Norm;
+    return chi2Norm;
 }
-
 
 void	TDistribution::Draw(Double_t p1, Double_t p2, Double_t p3, TString TotMCDrawOpt)
 {
