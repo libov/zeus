@@ -1064,6 +1064,7 @@ void draw_herapdf_graph(TString filename, TLegend * leg) {
     leg -> AddEntry(graph_return, "HERAPDF 1.5 GMVFNS", "l");
 }
 
+// a C++ reimplementation of A. Cooper's f2qcdfine.f
 Double_t get_value(Double_t * array, Double_t q2, Double_t x) {
 
     Int_t q2_low_id = -1;
