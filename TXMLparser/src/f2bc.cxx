@@ -679,6 +679,28 @@ int main(int argc, char **argv) {
     axis6 -> Draw();
 
     // ---------------------------------------- //
+    // ---------- plot other theory ----------- //
+    // ---------------------------------------- //
+
+    if (draw_beauty_mass_measurement_fits) {
+
+        draw_beauty_mass_measurement_fit("beauty_fits/central", leg, "QCD fit, m_{b}=4.16 GeV (best fit)", kBlack);
+        draw_beauty_mass_measurement_fit("beauty_fits/mass_down", leg, "QCD fit, m_{b}=4.02 GeV", kBlue);
+        draw_beauty_mass_measurement_fit("beauty_fits/mass_up", leg, "QCD fit, m_{b}=4.35 GeV", kRed);
+    }
+
+    if (draw_herapdf) {
+        TString filename;
+        if (beauty) {
+            filename = "herapdf_grids/f2b/f2b_herapdf_TOTAL_UNCERTAINTY.dat";
+        } else {
+            filename = "herapdf_grids/f2c/f2c_herapdf_TOTAL_UNCERTAINTY.dat";
+        }
+        draw_herapdf_graph(filename, leg);
+    }
+
+
+    // ---------------------------------------- //
     // ---------- plot the F2c_meas ----------- //
     // ---------------------------------------- //
 
@@ -777,13 +799,6 @@ int main(int argc, char **argv) {
     for (int i=0; i<7; i++) {
         q2_values[i] -> Draw();
         q2_values[i] -> SetTextSize(0.025);
-    }
-
-    if (draw_beauty_mass_measurement_fits) {
-
-        draw_beauty_mass_measurement_fit("beauty_fits/central", leg, "QCD fit, m_{b}=4.16 GeV (best fit)", kBlack);
-        draw_beauty_mass_measurement_fit("beauty_fits/mass_down", leg, "QCD fit, m_{b}=4.02 GeV", kBlue);
-        draw_beauty_mass_measurement_fit("beauty_fits/mass_up", leg, "QCD fit, m_{b}=4.35 GeV", kRed);
     }
 
     // print the results
@@ -974,4 +989,201 @@ void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString l
     }
 
     leg -> AddEntry(graph_return, label, "l");
+}
+
+void draw_herapdf_graph(TString filename, TLegend * leg) {
+
+    // open the file, check it was opened successfully
+    ifstream file(filename);
+    if (file.good()) {
+        cout << "\nINFO: opened " << filename << endl;
+    } else {
+        cout << "ERROR: could not open " << filename << endl;
+        abort();
+    }
+
+    // some definitions
+    const unsigned N_ENTRIES = 161 * 161; // the Q2-x grid consists of 161 Q2 points times 161 x points
+    unsigned actual_entries = 0;
+
+    Double_t central[N_ENTRIES];
+    Double_t up[N_ENTRIES];
+    Double_t down[N_ENTRIES];
+
+    TGraph * graph_return;
+
+    // extract data from the file
+    string line;
+    while ( file.good() ) {
+
+        // read each line
+        getline (file,line);
+        TString line_str = line;
+
+        // tokenize it, skip if empty
+        TObjArray * tokens = line_str.Tokenize(" ");
+        if (tokens -> IsEmpty()) continue;
+
+        // extract data from tokens
+        central[actual_entries] =  (((TObjString*) tokens->At(0)) -> GetString()).Atof();
+        up[actual_entries] =  (((TObjString*) tokens->At(1)) -> GetString()).Atof();
+        down[actual_entries] =  (((TObjString*) tokens->At(2)) -> GetString()).Atof();
+
+        actual_entries++;
+    }
+
+    cout << "INFO: read " << actual_entries << " lines from " << filename << endl;
+
+    // sanity check
+    if ( actual_entries != N_ENTRIES ) {
+        cout << "ERROR: number of entries is " << actual_entries << ", should be " << N_ENTRIES << endl;
+        abort();
+    }
+
+    // now perform plotting
+    const unsigned NPOINTS = 7;
+    Double_t q2[NPOINTS] = {6.5, 12, 25, 30, 80, 160, 600};
+    Double_t xmin[NPOINTS] = {1e-4, 2e-4, 2.5e-4, 8e-4, 1e-3, 2e-3, 8e-3};
+    Double_t xmax[NPOINTS] = {5e-4, 1e-3, 2e-3, 7e-3, 1e-2, 5e-2, 5e-2};
+
+    for (int i=0; i<NPOINTS; i++) {
+
+        TGraph * g_band = create_asymm_errors_graph(central, down, up, q2[i], xmin[i], xmax[i], 100);
+        pads[i+1] -> cd();
+        g_band -> SetFillColor(kGreen);
+        g_band -> Draw("3C");
+
+        TGraph * g = create_graph(central, q2[i], xmin[i], xmax[i], 100);
+        pads[i+1] -> cd();
+        g -> SetLineColor(kBlack);
+        g -> Draw("C");
+
+        graph_return = g;
+    }
+
+    leg -> AddEntry(graph_return, "HERAPDF 1.5 GMVFNS", "l");
+}
+
+Double_t get_value(Double_t * array, Double_t q2, Double_t x) {
+
+    Int_t q2_low_id = -1;
+    Int_t q2_up_id = -1;
+    Double_t tq;
+
+    Int_t x_low_id = -1;
+    Int_t x_up_id = -1;
+    Double_t tx;
+
+    for (int i=0; i<=159; i++) {
+
+        Double_t q2_low = 0;
+        Double_t q2_up = 0;
+
+        if ( i <= 71 ) {
+
+            q2_low = pow(10, (5.*i/120.) );
+            q2_up = pow(10, (5.*(i+1)/120.) );
+
+        } else if ( i == 72) {
+
+            q2_low = pow(10, (5.*i/120.) );
+            q2_up = pow(10, (2.*(i-71)/88. +3.) );
+
+        } else {
+
+            q2_low = pow(10, (2.*(i-72)/88. +3.) );
+            q2_up = pow(10, (2.*(i-71)/88. +3.) );
+        }
+
+        if ( (q2 >= q2_low) && (q2 < q2_up) ) {
+            q2_low_id = i+1;
+            q2_up_id = i+2;
+            tq=(q2-q2_low)/(q2_up-q2_low);
+        }
+
+    }
+
+    for (int i=0; i<=159; i++) {
+
+        Double_t x_low = 0;
+        Double_t x_up = 0;
+
+        if ( i <= 79 ) {
+
+            x_low = pow(10, (5.*i/133.-5.) );
+            x_up = pow(10, (5.*(i+1)/133.-5.) );
+
+        } else if ( i == 80) {
+
+            x_low = pow(10, (5.*i/133.-5.) );
+            x_up = pow(10, (2./80.*(i-79)-2.) );
+
+        } else {
+
+            x_low = pow(10, (2./80.*(i-80)-2.) );
+            x_up = pow(10, (2./80.*(i-79)-2.) );
+        }
+
+        if ( (x >= x_low) && (x < x_up) ) {
+            x_low_id = i+1;
+            x_up_id = i+2;
+            tx=(x - x_low) / (x_up - x_low);
+        }
+
+    }
+
+    unsigned id_x_low_q2_low = x_low_id + q2_low_id * 161;
+    unsigned id_x_up_q2_low = x_up_id + q2_low_id* 161;
+    Double_t value_q2_low = (1-tx)*array[id_x_low_q2_low] + tx * array[id_x_up_q2_low];
+
+    unsigned id_x_low_q2_high = x_low_id + q2_up_id * 161;
+    unsigned id_x_up_q2_high = x_up_id + q2_up_id * 161;
+    Double_t value_q2_high = (1-tx) * array[id_x_low_q2_high] + tx * array[id_x_up_q2_high];
+
+    Double_t result = (1-tq)*value_q2_low + tq*value_q2_high;
+
+    if (result <= 0) {
+        abort();
+    }
+
+    return result;
+}
+
+TGraph * create_graph(Double_t * array, Double_t q2, Double_t xmin, Double_t xmax, const unsigned npoints) {
+
+    Double_t x[npoints];
+    Double_t y[npoints];
+
+    Double_t step = (xmax - xmin)/npoints;
+    for (int i=0; i<npoints; i++) {
+        x[i] = xmin+step*i;
+        y[i] = get_value(array, q2, x[i]);
+    }
+
+    TGraph * g = new TGraph(npoints, x, y);
+
+    return g;
+}
+
+TGraphAsymmErrors * create_asymm_errors_graph(Double_t * array, Double_t * err_down, Double_t * err_up, Double_t q2, Double_t xmin, Double_t xmax, const unsigned npoints) {
+
+    Double_t x[npoints];
+    Double_t x_err[npoints];
+    Double_t y[npoints];
+    Double_t y_err_up[npoints];
+    Double_t y_err_down[npoints];
+
+    Double_t step = (xmax - xmin)/npoints;
+    for (int i=0; i<npoints; i++) {
+        x[i] = xmin+step*i;
+        y[i] = get_value(array, q2, x[i]);
+
+        x_err[i]=0;
+        y_err_up[i] = get_value(err_up, q2, x[i]) - y[i];
+        y_err_down[i] = y[i] - get_value(err_down, q2, x[i]);
+    }
+
+    TGraphAsymmErrors * g = new TGraphAsymmErrors(npoints, x, y, x_err, x_err, y_err_down, y_err_up);
+
+    return g;
 }
