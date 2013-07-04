@@ -92,8 +92,6 @@ output_file = open(output, 'w')
 for i in range (0,NLINES):
     uncertainty_plus[i] = math.sqrt(uncertainty_plus[i])
     uncertainty_minus[i] = math.sqrt(uncertainty_minus[i])
-    line = ''
-    if i != 0: line = '\n'
-    line += str(arrays['central'][i]) + '  ' + str(arrays['central'][i]+uncertainty_plus[i]) + '  ' + str(arrays['central'][i]-uncertainty_minus[i])
+    line = str(arrays['central'][i]) + '  ' + str(arrays['central'][i]+uncertainty_plus[i]) + '  ' + str(arrays['central'][i]-uncertainty_minus[i]) + '\n'
     output_file.write(line)
 output_file.close()
