@@ -54,7 +54,7 @@ void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString l
 void draw_herapdf_graph(TString filename, TLegend * leg);
 Double_t get_value(Double_t * array, Double_t q2, Double_t x);
 TGraph * create_graph(Double_t * array, Double_t q2, Double_t xmin, Double_t xmax, const unsigned npoints);
-TGraphAsymmErrors * create_asymm_errors_graph(Double_t * array, Double_t * err_up, Double_t * err_down, Double_t q2, Double_t xmin, Double_t xmax, const unsigned npoints);
+TGraphAsymmErrors * create_asymm_errors_graph(Double_t * array, Double_t * err_down, Double_t * err_up, Double_t q2, Double_t xmin, Double_t xmax, const unsigned npoints);
 
 TPad * pads[10];
 
