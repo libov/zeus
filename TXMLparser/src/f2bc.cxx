@@ -1097,8 +1097,9 @@ Double_t get_value(Double_t * array, Double_t q2, Double_t x) {
         }
 
         if ( (q2 >= q2_low) && (q2 < q2_up) ) {
-            q2_low_id = i+1;
-            q2_up_id = i+2;
+            // with such a definition, point ids are counted from zero
+            q2_low_id = i;
+            q2_up_id = i+1;
             tq=(q2-q2_low)/(q2_up-q2_low);
         }
 
@@ -1126,13 +1127,16 @@ Double_t get_value(Double_t * array, Double_t q2, Double_t x) {
         }
 
         if ( (x >= x_low) && (x < x_up) ) {
-            x_low_id = i+1;
-            x_up_id = i+2;
+            // with such a definition, point ids are counted from zero
+            x_low_id = i;
+            x_up_id = i+1;
             tx=(x - x_low) / (x_up - x_low);
         }
 
     }
 
+    // point ids are counted from zero (see a comment in each of the above two loops)
+    // hence this is appropriate as index for array (where points are counted from zero to 161*161-1)
     unsigned id_x_low_q2_low = x_low_id + q2_low_id * 161;
     unsigned id_x_up_q2_low = x_up_id + q2_low_id* 161;
     Double_t value_q2_low = (1-tx)*array[id_x_low_q2_low] + tx * array[id_x_up_q2_low];
