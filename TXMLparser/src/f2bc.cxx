@@ -51,6 +51,11 @@ void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstrea
 
 void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString label, unsigned color);
 
+void draw_herapdf_graph(TString filename, TLegend * leg);
+Double_t get_value(Double_t * array, Double_t q2, Double_t x);
+TGraph * create_graph(Double_t * array, Double_t q2, Double_t xmin, Double_t xmax, const unsigned npoints);
+TGraphAsymmErrors * create_asymm_errors_graph(Double_t * array, Double_t * err_up, Double_t * err_down, Double_t q2, Double_t xmin, Double_t xmax, const unsigned npoints);
+
 TPad * pads[10];
 
 TGraph * theory;
@@ -108,6 +113,7 @@ int main(int argc, char **argv) {
         {"reduced", no_argument, 0, 7},
         {"no_extraction_theory", no_argument, 0, 8},
         {"draw_beauty_mass_measurement_fits", no_argument, 0, 9},
+        {"draw_herapdf", no_argument, 0, 10},
     };
 
     TString meta_file = "";
@@ -119,6 +125,7 @@ int main(int argc, char **argv) {
     bool    reduced = false;
     bool    no_extraction_theory = false;
     bool    draw_beauty_mass_measurement_fits = false;
+    bool    draw_herapdf = false;
 
     // handle command line options
     opterr = 0;
@@ -153,6 +160,9 @@ int main(int argc, char **argv) {
             case 9:
                 draw_beauty_mass_measurement_fits = true;
                 break;
+            case 10:
+                draw_herapdf = true;
+                break;
             case  'h':
                 cout<<"usage:\n\t ./f2bc --meta_file <filename prefix (without extension)> --XMLfile <XML file> [--beauty] [options]\n"<<endl;
                 cout << "List of options\n" << endl;
@@ -162,6 +172,7 @@ int main(int argc, char **argv) {
                 cout << "--reduced\tassumes that extraction of reduced cross sections (and not F2) is taking place. Affects only output file names and Y axis titles" << endl;
                 cout << "--no_extraction_theory\tdon't plot theory (that was used for extraction)" << endl;
                 cout << "--draw_beauty_mass_measurement_fits\tspecific feature to plot predefined theory curves, all hardcoded at the moment" << endl;
+                cout << "--draw_herapdf\tspecific feature to plot predefined theory curves, all hardcoded at the moment" << endl;
                 cout << "-h\t\tprint this help"<<endl;
                 exit(0);
                 break;
