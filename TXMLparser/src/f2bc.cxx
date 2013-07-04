@@ -215,6 +215,14 @@ int main(int argc, char **argv) {
     // ------- PREPARATIONS ------- //
     // ---------------------------- //
 
+    // the legend
+    TLegend * leg;
+    if (draw_beauty_mass_measurement_fits) {
+        leg = new TLegend(0.5, 0.1, 0.9, 0.28);
+    } else {
+        leg = new TLegend(0.5, 0.1, 0.8, 0.28);
+    }
+
     // open output text files and assign some strings
     TString PLOTS_PATH=getenv("PLOTS_PATH");
     ofstream output;
@@ -732,12 +740,6 @@ int main(int argc, char **argv) {
     c -> cd();
 
     // the legend
-    TLegend * leg;
-    if (draw_beauty_mass_measurement_fits) {
-        leg = new TLegend(0.5, 0.1, 0.9, 0.28);
-    } else {
-        leg = new TLegend(0.5, 0.1, 0.8, 0.28);
-    }
     leg->AddEntry(data, "ZEUS 354 pb^{-1}","p");
     if (!no_extraction_theory) leg -> AddEntry(theory, "HVQDIS #otimes HERAPDF 1.0", "l");
     leg -> SetFillColor(0);
