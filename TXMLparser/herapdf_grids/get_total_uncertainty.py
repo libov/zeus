@@ -56,6 +56,8 @@ for file in files_actual:
         third = float(line_list[2])
         if file != 'tot':
             arrays[file].append(first)
+            if (first != second) or (first != third):
+                sys.exit('ERROR: numbers are different')
         else:
             arrays['central'].append(first)
             arrays['exp_up'].append(second)
