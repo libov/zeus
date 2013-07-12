@@ -43,6 +43,7 @@ class TResultPlotter {
                 void    SetOnlyPNG(bool only_png) {fOnlyPNG = only_png;}
                 void    SetNoZEUSLogo(bool no_logo) {fNoZEUSLogo = no_logo;}
                 void    SetZoom(bool zoom) {fZoom = zoom;}
+                void    SetRatioPlotTitle(TString title) {fRatioPlotTitle = title;}
 
         private:
 
@@ -98,6 +99,8 @@ class TResultPlotter {
 
                 // axis range for ratio plot
                 bool    fZoom;
+
+                TString fRatioPlotTitle;
 };
 
 #endif
