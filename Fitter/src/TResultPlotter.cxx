@@ -613,8 +613,14 @@ void    TResultPlotter::DrawSystematics(TString file_name, TString syst_file_nam
         unsigned nbins = cBinGroup.histo_dummy -> GetNbinsX();
 
         for (int j=1; j<=nbins; j++) {
-            histo_up -> SetBinContent(j, 1+uncertainty_first[id_file][j]);
-            histo_down -> SetBinContent(j, 1+uncertainty_second[id_file][j]);
+            Double_t percent_to_absolute;
+            if (syst_file_name.Contains("flt_efficiency")) {
+                percent_to_absolute = 100;
+            } else {
+                percent_to_absolute = 1;
+            }
+            histo_up -> SetBinContent(j, 1+uncertainty_first[id_file][j]/percent_to_absolute);
+            histo_down -> SetBinContent(j, 1+uncertainty_second[id_file][j]/percent_to_absolute);
         }
 
         histo_up -> SetAxisRange(0.95, 1.05, "Y");
