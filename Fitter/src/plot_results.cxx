@@ -211,9 +211,11 @@ int main(int argc, char **argv) {
     // the ratio plot
     if (first_file_given && second_file_given) {
         if (binningXMLfileName2.Contains("predictions")) {
+            cResultPlotter.SetRatioPlotTitle("Data / HVQDIS");
             cResultPlotter.DrawRatio(binningXMLfileName2, binningXMLfileName2, 2, false);   // theory/theory - to show uncertainties; drawn 1st so that band is behind the points
             cResultPlotter.DrawRatio(binningXMLfileName1, binningXMLfileName2, 2, true);   // data/theory
         } else {
+            cResultPlotter.SetRatioPlotTitle("black / #color[2]{red}");
             cResultPlotter.DrawRatio(binningXMLfileName1, binningXMLfileName2, 2, false);   // data/data
         }
     }

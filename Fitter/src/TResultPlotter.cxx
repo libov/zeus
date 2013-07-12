@@ -39,7 +39,8 @@ isCharm(true),
 fConfig(""),
 fOnlyPNG(false),
 fNoZEUSLogo(false),
-fZoom(false)
+fZoom(false),
+fRatioPlotTitle("")
 {
 }
 
@@ -464,7 +465,7 @@ void TResultPlotter::DrawRatio(TString file_name1, TString file_name2, unsigned 
         }
         histo_dummy -> SetNdivisions(504, "Y");
         histo_dummy -> SetLabelSize(0.15,"Y");
-        histo_dummy -> SetYTitle("data / HVQDIS");
+        histo_dummy -> SetYTitle(fRatioPlotTitle);
         histo_dummy -> SetTitleSize(0.13, "Y");
         histo_dummy -> SetTitleOffset(0.45, "Y");
         histo_dummy -> SetLabelSize(0.12,"X");
