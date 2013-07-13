@@ -150,6 +150,7 @@ void TSystematics::Draw() {
     // axes titles and ranges
     // change axis range  only if requested
     if (fYaxisUpLimit!=-1) y_axis -> SetRangeUser(fYaxisLowLimit, fYaxisUpLimit);
+    if (x[0] == 0) x_axis -> SetLimits(-0.1, 1.2*x[fNpoints-1]);
     x_axis -> SetTitle(fXAxisTitle);
     x_axis -> SetTitleOffset (0.9);
     y_axis -> SetTitleOffset (1.5);
