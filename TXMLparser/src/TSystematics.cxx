@@ -150,7 +150,10 @@ void TSystematics::Draw() {
     // axes titles and ranges
     // change axis range  only if requested
     if (fYaxisUpLimit!=-1) y_axis -> SetRangeUser(fYaxisLowLimit, fYaxisUpLimit);
-    if (x[0] == 0) x_axis -> SetLimits(-0.1, 1.2*x[fNpoints-1]);
+    // set x-axis
+    Double_t range = x[fNpoints-1] - x[0];
+    Double_t offset = 0.1; // 10% - should be same to the default ROOT behaviour
+    x_axis -> SetLimits(x[0]-offset*range, x[fNpoints-1]+offset*range);
     x_axis -> SetTitle(fXAxisTitle);
     x_axis -> SetTitleOffset (0.9);
     y_axis -> SetTitleOffset (1.5);
@@ -226,7 +229,8 @@ void TSystematics::Draw() {
 
     line_central -> Draw();
     line_u -> Draw();
-    line_d -> Draw();
+    // draw down-variation only if there is a point on the left to it
+    if (fDefault-fDownVariation > x[0]) line_d -> Draw();
 
     // draw the systematics box
     syst -> Draw();
