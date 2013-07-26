@@ -34,3 +34,7 @@
 
 1 1 11a_pi_MSA_Trkmsa_imppar_classII pi_MSA_Trkmsa_imppar_classII: 0
 1 1 11b_pi_MSA_z_imppar_classII pi_MSA_z_imppar_classII: 0
+
+1 1 12a_rho_mass_signal_classII rho_mass_signal_classII: 0
+1 1 12b_rho_mass_lowpt_classII rho_mass_lowpt_classII: 0
+1 1 12c_rho_mass_highpt_classII rho_mass_highpt_classII: 0

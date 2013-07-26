@@ -26,3 +26,8 @@
 1 1 08b_pi_plus_layouter_classI pi_plus_layouter_classI: 1
 
 1 1 09a_long_ZTT_tracks_classI long_ZTT_tracks_classI: 0
+
+1 1 10a_rho_mass_signal_classI rho_mass_signal_classI: 0
+1 1 10b_rho_mass_lowpt_classI rho_mass_lowpt_classI: 0
+1 1 10c_rho_mass_highpt_classI rho_mass_highpt_classI: 0
+
