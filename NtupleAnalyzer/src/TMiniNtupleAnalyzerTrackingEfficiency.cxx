@@ -262,7 +262,7 @@ void TMiniNtupleAnalyzer::TrackingEfficiency() {
 
         // same requirement for both classI and classII,
         // however the definition of fUnmatchedIslandsEnergy is different for both cases
-        if (classI || classII) if (fUnmatchedIslandsEnergy > 0.5) continue;
+        if (classI || classII) if (fUnmatchedIslandsEnergy > 0) continue;
 
         // loop over long, non-primary tracks and calculate the sum of track momenta:
         // this is what we call momentum excess
@@ -533,8 +533,18 @@ void TMiniNtupleAnalyzer::FillRhoHistograms(vector<TLorentzVector> &cand, bool  
 
             // fill the rho mass
             if ( cGlobalBin -> CheckGlobalBin(kPionVar) ) {
-                if (classI) cGlobalBin->FillHistogram("rho_mass_classI", rho.M());
-                if (!classI) cGlobalBin->FillHistogram("rho_mass_classII", rho.M());
+                if (classI) {
+                    cGlobalBin->FillHistogram("rho_mass_classI", rho.M());
+                    cGlobalBin->FillHistogram("rho_mass_signal_classI", rho.M());
+                    if (rho.Pt()<1.5) cGlobalBin->FillHistogram("rho_mass_lowpt_classI", rho.M());
+                    if (rho.Pt()>=1.5) cGlobalBin->FillHistogram("rho_mass_highpt_classI", rho.M());
+                }
+                if (!classI) {
+                    cGlobalBin->FillHistogram("rho_mass_classII", rho.M());
+                    cGlobalBin->FillHistogram("rho_mass_signal_classII", rho.M());
+                    if (rho.Pt()<1.5) cGlobalBin->FillHistogram("rho_mass_lowpt_classII", rho.M());
+                    if (rho.Pt()>=1.5) cGlobalBin->FillHistogram("rho_mass_highpt_classII", rho.M());
+                }
             }
 
             if (!classI) {
