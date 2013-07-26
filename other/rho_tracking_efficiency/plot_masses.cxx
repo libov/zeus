@@ -1,7 +1,7 @@
 enum type_t {kData, kMC};
 enum class_t {kClassI, kClassII};
 
-int plot_mass(type_t type, class_t cl, TString id) {
+int plot_mass(TString version, type_t type, class_t cl, TString id) {
 
     // for merger
     TString var_type;
@@ -37,7 +37,7 @@ int plot_mass(type_t type, class_t cl, TString id) {
     gStyle -> SetStatX( 1 - right_margin );
     gStyle -> SetStatY( 1 - top_margin );
 
-    TFile * file = new TFile ("/data/zenith226a/libov/data/histo/merged.inclusiverho.v136.0405e06e07p.root", "read");
+    TFile * file = new TFile ("/data/zenith226a/libov/data/histo/merged.inclusive"+version+".0405e06e07p.root", "read");
     TH1F * h = (TH1F*) file -> Get("bin1/"+variable+"/"+var_type);
 
     TCanvas * c = new TCanvas ("c1", "Exclusive rho production", 600, 600);
@@ -67,14 +67,14 @@ int plot_mass(type_t type, class_t cl, TString id) {
     t.DrawLatex(0.2, 0.85, id);
 
     TString PLOTS_PATH = getenv("PLOTS_PATH");
-    c -> Print(PLOTS_PATH + "/" + variable + "_" + var_type_txt+".eps");
+    c -> Print(PLOTS_PATH + "/" + variable + "_" + var_type_txt+"_"+version+".eps");
 
     return 0;
 }
 
-plot_masses() {
-    plot_mass(kData, kClassI, "(a)");
-    plot_mass(kData, kClassII, "(b)");
-    plot_mass(kMC, kClassI, "(c)");
-    plot_mass(kMC, kClassII, "(d)");
+plot_masses(TString version="rho.v136") {
+    plot_mass(version, kData, kClassI, "(a)");
+    plot_mass(version, kData, kClassII, "(b)");
+    plot_mass(version, kMC, kClassI, "(c)");
+    plot_mass(version, kMC, kClassII, "(d)");
 }
