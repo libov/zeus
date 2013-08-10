@@ -373,7 +373,7 @@ int main(int argc, char **argv) {
     instance -> SetCharmETReweightingPar(0.753431, 0.189124);
 
     // jet reweighting option
-    instance -> setApplyJetWeightOnTrueOnly(false);
+    instance -> setApplyJetWeightOnTrueOnly(true);
     instance -> setWeightOnlyFiducialVolumeJets(false);
     instance -> setEtaMargin(0.5);
     instance -> setEtMargin(2);
