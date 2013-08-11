@@ -1,9 +1,9 @@
 # data types settings: TString Name, Bool_t DrawHisto, Int_t MarkerStyle, Float_t MarkerSize, Int_t FillColor, Int_t LineColor, Int_t LineWidth
-Datatype mc 1 0 0 5 1 1
-Datatype light 1 0 0 0 2 1
-Datatype beauty 1 0 0 0 4 1
-Datatype charm 1 0 0 0 3 1
-Datatype data 0 20 1.0 0 1 1
+Datatype mc 1 0 0 5 1 1 1
+Datatype light 1 0 0 0 2 1 1
+Datatype beauty 1 0 0 0 4 1 2
+Datatype charm 1 0 0 0 3 1 3
+Datatype data 0 20 1.0 0 1 1 1
 
 # pad settings
 TopMargin 0.05
