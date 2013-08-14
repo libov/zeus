@@ -449,6 +449,9 @@ int main(int argc, char **argv) {
     // Note that this should crash on v02 and v06, since id writing in orange was most likely screwed up
     instance -> GetVertexTracks(false);
 
+    // cut away bad RCAL region?
+    instance -> SetCutBadRCALregion(false);
+
     // select whether to run on Minintuples or on dCache
     if (dCache) instance -> SetRundCache (true);
     else instance -> SetRundCache (false);
