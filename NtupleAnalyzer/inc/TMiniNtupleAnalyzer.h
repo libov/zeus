@@ -221,6 +221,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Bool_t          fTrueLevelStudies;
 
         void            GetVertexTracks(bool get) {fGetVertexTracks = get;}
+        void            SetCutBadRCALregion(bool cut) {fCutBadRCALregion = cut;}
 
     private:
 
@@ -414,5 +415,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         bool            fGetVertexTracks;
 
         bool            fApplyJetWeightOnTrueOnly;
+
+        bool            fCutBadRCALregion;
 };
 #endif
