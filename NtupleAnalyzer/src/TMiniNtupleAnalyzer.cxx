@@ -99,7 +99,8 @@ fGetVertexTracks(false),
 fApplyJetWeightOnTrueOnly(false),
 fWeightOnlyFiducialVolumeJets(false),
 fEtaMargin(0),
-fEtMargin(0)
+fEtMargin(0),
+fCutBadRCALregion(0)
 {
     fTestMode = false;
     fDebug = new TH1F("fDebug", " Debug histogram for mini ntuples analysis ", 50, 0, 50);
@@ -658,6 +659,12 @@ Bool_t    TMiniNtupleAnalyzer::IsDIS() {
         if (x_el>=7.515 && x_el<=31.845 && y_el>=7.90 && y_el<=31.90)  return false;
     }
     fDebug->Fill(19);
+
+    // bad RCAL ISOe region, see O. Bachynska's PhD thesis, p.62
+    if (fCutBadRCALregion) {
+        if ( (cRunnr<60400) && (x_el>26.5) && (x_el<29.5) && ( TMath::Abs(y_el) < 10 ) ) return false;
+    }
+    fDebug->Fill(20);
 
     // all cuts passed, this is a good event
     return true;
