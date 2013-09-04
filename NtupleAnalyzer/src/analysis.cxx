@@ -450,7 +450,7 @@ int main(int argc, char **argv) {
     instance -> GetVertexTracks(false);
 
     // cut away bad RCAL region?
-    instance -> SetCutBadRCALregion(false);
+    instance -> SetCutBadRCALregion(true);
 
     // select whether to run on Minintuples or on dCache
     if (dCache) instance -> SetRundCache (true);
