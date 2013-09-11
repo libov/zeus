@@ -23,3 +23,11 @@
 ./systematics --file smearing_core_charm
 ./systematics --file smearing_tail_beauty
 ./systematics --file smearing_tail_charm
+
+export CN_VERSION=v06
+
+./systematics --file tracking_map_charm_systematics_2.77
+./systematics --file tracking_map_beauty_systematics_2.78
+
+export CN_VERSION=v02 
+
