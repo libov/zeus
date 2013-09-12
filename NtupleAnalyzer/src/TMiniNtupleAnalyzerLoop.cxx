@@ -185,17 +185,21 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             else if (fIsBeauty) FragFracBRWeight = rewObj.GetEventWeight(false);
         }
 
-        // if c MC, get highest ET true jet (that passes jet cuts) and calculate EVENT weight based on Et and eta of this jet
+        // if c/b MC, get highest ET true jet (that passes jet cuts) and calculate EVENT weight based on Et and eta of this jet
         Double_t charm_eta_weight = 1;
         Double_t charm_et_weight = 1;
+        Double_t beauty_eta_weight = 1;
+        Double_t beauty_et_weight = 1;
         Int_t   highest_et_jet = get_highest_et_true_jet();
-        if ( fIsCharm ) {
+        if ( fIsCharm || fIsBeauty ) {
             // set the weight if there is a jet that passes the cuts
             if ( highest_et_jet >= 0 ) {
                 // get the weights
                 TLorentzVector jet(Pxhbmjet[highest_et_jet], Pyhbmjet[highest_et_jet], Pzhbmjet[highest_et_jet], Ehbmjet[highest_et_jet]);
                 charm_eta_weight = fCharmEtaReweighting_p0 + jet.Eta() * fCharmEtaReweighting_p1 + jet.Eta() * jet.Eta() * fCharmEtaReweighting_p2;
                 charm_et_weight = getCharmETweightingFactor( jet.Et() );
+                beauty_eta_weight = getBeautyEtaweightingFactor( jet.Eta() );
+                beauty_et_weight = getBeautyETweightingFactor( jet.Et() );
             }
         }
 
@@ -288,6 +292,14 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                         Double_t        new_factor = old_factor;
                         if (fApplyCharmEtaReweighting) new_factor *= charm_eta_weight;
                         if (fApplyCharmETReweighting) new_factor *= charm_et_weight;
+                        currentTGlobalBin -> SetWeightingFactor (new_factor);
+                    }
+                    // apply beauty jet et and eta reweighting
+                    if (fIsBeauty && (fApplyBeautyEtaReweighting || fApplyBeautyETReweighting) && fApplyJetWeightOnTrueOnly) {
+                        Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
+                        Double_t        new_factor = old_factor;
+                        if (fApplyBeautyEtaReweighting) new_factor *= beauty_eta_weight;
+                        if (fApplyBeautyETReweighting) new_factor *= beauty_et_weight;
                         currentTGlobalBin -> SetWeightingFactor (new_factor);
                     }
 
@@ -993,6 +1005,15 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 Double_t        new_factor = old_factor;
                 if (fApplyCharmEtaReweighting) new_factor *= charm_eta_weight;
                 if (fApplyCharmETReweighting) new_factor *= charm_et_weight;
+                currentTGlobalBin -> SetWeightingFactor (new_factor);
+            }
+
+            // apply beauty jet et and eta reweighting
+            if (fIsBeauty && (fApplyBeautyEtaReweighting || fApplyBeautyETReweighting) && fApplyJetWeightOnTrueOnly) {
+                Double_t        old_factor = currentTGlobalBin -> GetWeightingFactor ();
+                Double_t        new_factor = old_factor;
+                if (fApplyBeautyEtaReweighting) new_factor *= beauty_eta_weight;
+                if (fApplyBeautyETReweighting) new_factor *= beauty_et_weight;
                 currentTGlobalBin -> SetWeightingFactor (new_factor);
             }
 
@@ -2168,6 +2189,16 @@ bool TMiniNtupleAnalyzer::isHFLJet(TLorentzVector * jet) {
 
 Float_t TMiniNtupleAnalyzer::getCharmETweightingFactor(Float_t  jet_et) {
     return (fCharmETReweighting_p0 + fCharmETReweighting_p1 * TMath::Sqrt(jet_et));
+}
+
+Float_t TMiniNtupleAnalyzer::getBeautyEtaweightingFactor(Float_t  jet_eta) {
+    Double_t variation = fBeautyEtaReweighting_p0 + fBeautyEtaReweighting_p1*jet_eta + fBeautyEtaReweighting_p2*jet_eta*jet_eta;
+    Double_t def = fBeautyEtaReweighting_p3 + fBeautyEtaReweighting_p4*jet_eta + fBeautyEtaReweighting_p5*jet_eta*jet_eta;
+    return  ( variation/def );
+}
+
+Float_t TMiniNtupleAnalyzer::getBeautyETweightingFactor(Float_t  jet_et) {
+    return  ((fBeautyETReweighting_p0 + fBeautyETReweighting_p1 * TMath::Sqrt(jet_et)) / (fBeautyETReweighting_p2 + fBeautyETReweighting_p3 * TMath::Sqrt(jet_et)));
 }
 
 void TMiniNtupleAnalyzer::HadronicInteractionReweighting(TGlobalBin * currentTGlobalBin) {
