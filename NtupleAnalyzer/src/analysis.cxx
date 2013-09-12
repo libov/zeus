@@ -372,6 +372,24 @@ int main(int argc, char **argv) {
     instance -> SetApplyCharmETReweighting(true);
     instance -> SetCharmETReweightingPar(0.753431, 0.189124);
 
+    // beauty eta jet reweighting
+    instance -> SetApplyBeautyEtaReweighting(false);
+    // down variation
+    //instance -> SetBeautyEtaReweightingPar(0.937, 0.109, 0.05/1.2419, 0.937, 0.109, 0.0715);
+    // no reweighting (identical to switching the reweighting off)
+    instance -> SetBeautyEtaReweightingPar(0.937, 0.109, 0.0715, 0.937, 0.109, 0.0715);
+    // up variation
+    //instance -> SetBeautyEtaReweightingPar(0.937, 0.109, 0.15/1.2419, 0.937, 0.109, 0.0715);
+
+    // beauty Et jet reweighting
+    instance -> SetApplyBeautyETReweighting(false);
+    // down variation
+    //instance -> SetBeautyETReweightingPar(1.09036, 0.07, 0.753431, 0.189124);
+    // no reweighting (identical to switching the reweighting off)
+    instance -> SetBeautyETReweightingPar(0.753431, 0.189124, 0.753431, 0.189124);
+    // up variation
+    //instance -> SetBeautyETReweightingPar(0.496394, 0.28, 0.753431, 0.189124);
+
     // jet reweighting option
     instance -> setApplyJetWeightOnTrueOnly(true);
     instance -> setWeightOnlyFiducialVolumeJets(false);
