@@ -83,12 +83,17 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            SetApplyQ2Reweighting(bool apply_reweighting) {fApplyQ2Reweighting = apply_reweighting;};
         void            SetApplyCharmEtaReweighting(bool apply_reweighting) {fApplyCharmEtaReweighting = apply_reweighting;};
         void            SetApplyCharmETReweighting(bool apply_reweighting) {fApplyCharmETReweighting = apply_reweighting;};
+        void            SetApplyBeautyEtaReweighting(bool apply_reweighting) {fApplyBeautyEtaReweighting = apply_reweighting;};
+        void            SetApplyBeautyETReweighting(bool apply_reweighting) {fApplyBeautyETReweighting = apply_reweighting;};
 
         void            SetCharmEtaReweighting_p0(Float_t   par) {fCharmEtaReweighting_p0 = par;};
         void            SetCharmEtaReweighting_p1(Float_t   par) {fCharmEtaReweighting_p1 = par;};
         void            SetCharmEtaReweighting_p2(Float_t   par) {fCharmEtaReweighting_p2 = par;};
 
         void            SetCharmETReweightingPar(Float_t par0, Float_t par1);
+
+        void            SetBeautyEtaReweightingPar(Float_t par0, Float_t par1, Float_t par2, Float_t par3, Float_t par4, Float_t par5);
+        void            SetBeautyETReweightingPar(Float_t par0, Float_t par1, Float_t par2, Float_t par3);
 
         // initialisator the class
         void            Initialize();
@@ -263,6 +268,8 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Int_t       getReweightingHistoBin(TH1F * histo, Float_t   value);
 
         Float_t     getCharmETweightingFactor(Float_t  jet_et);
+        Float_t     getBeautyEtaweightingFactor(Float_t  jet_eta);
+        Float_t     getBeautyETweightingFactor(Float_t  jet_et);
 
         void        findVertices();             //!< replacement for orange sec vtx finder - to allow
                                                 //!< more flexibility like lower track pT cut
@@ -295,11 +302,25 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         bool        fApplyQ2Reweighting;
         bool        fApplyCharmEtaReweighting;
         bool        fApplyCharmETReweighting;
+        bool        fApplyBeautyEtaReweighting;
+        bool        fApplyBeautyETReweighting;
         Float_t     fCharmEtaReweighting_p0;
         Float_t     fCharmEtaReweighting_p1;
         Float_t     fCharmEtaReweighting_p2;
         Float_t     fCharmETReweighting_p0;
         Float_t     fCharmETReweighting_p1;
+
+        Float_t     fBeautyEtaReweighting_p0;
+        Float_t     fBeautyEtaReweighting_p1;
+        Float_t     fBeautyEtaReweighting_p2;
+        Float_t     fBeautyEtaReweighting_p3;
+        Float_t     fBeautyEtaReweighting_p4;
+        Float_t     fBeautyEtaReweighting_p5;
+
+        Float_t     fBeautyETReweighting_p0;
+        Float_t     fBeautyETReweighting_p1;
+        Float_t     fBeautyETReweighting_p2;
+        Float_t     fBeautyETReweighting_p3;
 
         // Random numbers generators
         TRandom3    *rnd;
