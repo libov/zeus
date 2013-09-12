@@ -4,7 +4,7 @@ Float_t     K_CONST;
 void single_et() {
 
     TString PLOTS_PATH = getenv("PLOTS_PATH");
-    TString PATH_SCALING_FACTORS = PLOTS_PATH + "/27_19October2011/06a_2.29.16_scaling_factors_charm";
+    TString PATH_SCALING_FACTORS = PLOTS_PATH + "/027_19October2011/06a_2.29.16_scaling_factors_charm";
 
     TFile * file = new TFile (PATH_SCALING_FACTORS+"/etjet.root", "read");
     TCanvas * canv = (TCanvas*) file -> Get("CrossSection.etjetresults.ETQ2.v22.29.16.0405e06e07p.v02.true05e06e0607p.xml");
