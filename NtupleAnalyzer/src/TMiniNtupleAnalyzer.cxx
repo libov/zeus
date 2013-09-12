@@ -76,6 +76,8 @@ fStudyResolutions(true),
 fApplyQ2Reweighting(true),
 fApplyCharmEtaReweighting(false),
 fApplyCharmETReweighting(false),
+fApplyBeautyEtaReweighting(false),
+fApplyBeautyETReweighting(false),
 fCharmEtaReweighting_p0(1),
 fCharmEtaReweighting_p1(0),
 fCharmEtaReweighting_p2(0),
@@ -1201,4 +1203,20 @@ void TMiniNtupleAnalyzer::findVertices() {
 void TMiniNtupleAnalyzer::SetCharmETReweightingPar(Float_t par0, Float_t par1) {
     fCharmETReweighting_p0 = par0;
     fCharmETReweighting_p1 = par1;
+}
+
+void TMiniNtupleAnalyzer::SetBeautyETReweightingPar(Float_t par0, Float_t par1, Float_t par2, Float_t par3) {
+    fBeautyETReweighting_p0 = par0;
+    fBeautyETReweighting_p1 = par1;
+    fBeautyETReweighting_p2 = par2;
+    fBeautyETReweighting_p3 = par3;
+}
+
+void TMiniNtupleAnalyzer::SetBeautyEtaReweightingPar(Float_t par0, Float_t par1, Float_t par2, Float_t par3, Float_t par4, Float_t par5) {
+    fBeautyEtaReweighting_p0 = par0;
+    fBeautyEtaReweighting_p1 = par1;
+    fBeautyEtaReweighting_p2 = par2;
+    fBeautyEtaReweighting_p3 = par3;
+    fBeautyEtaReweighting_p4 = par4;
+    fBeautyEtaReweighting_p5 = par5;
 }
