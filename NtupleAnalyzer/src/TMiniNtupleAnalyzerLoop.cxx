@@ -2188,7 +2188,9 @@ bool TMiniNtupleAnalyzer::isHFLJet(TLorentzVector * jet) {
 }
 
 Float_t TMiniNtupleAnalyzer::getCharmETweightingFactor(Float_t  jet_et) {
+
     return (fCharmETReweighting_p0 + fCharmETReweighting_p1 * TMath::Sqrt(jet_et));
+
 }
 
 Float_t TMiniNtupleAnalyzer::getBeautyEtaweightingFactor(Float_t  jet_eta) {
