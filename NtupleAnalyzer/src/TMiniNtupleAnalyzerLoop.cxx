@@ -2198,7 +2198,9 @@ Float_t TMiniNtupleAnalyzer::getBeautyEtaweightingFactor(Float_t  jet_eta) {
 }
 
 Float_t TMiniNtupleAnalyzer::getBeautyETweightingFactor(Float_t  jet_et) {
-    return  ((fBeautyETReweighting_p0 + fBeautyETReweighting_p1 * TMath::Sqrt(jet_et)) / (fBeautyETReweighting_p2 + fBeautyETReweighting_p3 * TMath::Sqrt(jet_et)));
+    Double_t variation = fBeautyETReweighting_p0 + fBeautyETReweighting_p1 * TMath::Sqrt(jet_et);
+    Double_t       def = fBeautyETReweighting_p2 + fBeautyETReweighting_p3 * TMath::Sqrt(jet_et); 
+    return  ( variation / def );
 }
 
 void TMiniNtupleAnalyzer::HadronicInteractionReweighting(TGlobalBin * currentTGlobalBin) {
