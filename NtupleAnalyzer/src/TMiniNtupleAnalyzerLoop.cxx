@@ -192,7 +192,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         Double_t beauty_et_weight = 1;
         Int_t   highest_et_jet = get_highest_et_true_jet();
         if ( fIsCharm || fIsBeauty ) {
-            // set the weight if there is a jet that passes the cuts
+            // set the weight if there is a jet that passes the cuts, otherwise the weight is unity
             if ( highest_et_jet >= 0 ) {
                 // get the weights
                 TLorentzVector jet(Pxhbmjet[highest_et_jet], Pyhbmjet[highest_et_jet], Pzhbmjet[highest_et_jet], Ehbmjet[highest_et_jet]);
