@@ -200,6 +200,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                 charm_et_weight = getCharmETweightingFactor( jet.Et() );
                 beauty_eta_weight = getBeautyEtaweightingFactor( jet.Eta() );
                 beauty_et_weight = getBeautyETweightingFactor( jet.Et() );
+                inclusiveBin -> FillProfileHistogram("charm_eta_weight", jet.Eta(), charm_eta_weight);
+                inclusiveBin -> FillProfileHistogram("charm_et_weight", jet.Et(), charm_et_weight);
+                inclusiveBin -> FillProfileHistogram("beauty_eta_weight", jet.Eta(), beauty_eta_weight);
+                inclusiveBin -> FillProfileHistogram("beauty_et_weight", jet.Et(), beauty_et_weight);
             }
         }
 
