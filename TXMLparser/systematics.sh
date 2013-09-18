@@ -11,8 +11,13 @@
 ./systematics --file EMscale_beauty
 ./systematics --file EMscale_charm
 ./systematics --file eta_reweighting_charm
+./systematics --file eta_reweighting_beauty
 ./systematics --file et_reweighting_beauty
 ./systematics --file et_reweighting_charm
+./systematics --file etbeauty_reweighting_charm
+./systematics --file etbeauty_reweighting_beauty
+./systematics --file etabeauty_reweighting_charm
+./systematics --file etabeauty_reweighting_beauty
 ./systematics --file jet_energy_scale_beauty
 ./systematics --file jet_energy_scale_charm
 ./systematics --file lf_asymmetry_beauty
