@@ -361,6 +361,10 @@ int main(int argc, char **argv) {
 
     // Q2 reweighting
     instance -> SetApplyQ2Reweighting(true);
+    instance -> SetVaryCharmQ2ReweightingUP(false);
+    instance -> SetVaryCharmQ2ReweightingDOWN(false);
+    instance -> SetVaryBeautyQ2ReweightingUP(false);
+    instance -> SetVaryBeautyQ2ReweightingDOWN(false);
 
     // eta reweighting - switch on/off and set the parameters
     instance -> SetApplyCharmEtaReweighting(true);

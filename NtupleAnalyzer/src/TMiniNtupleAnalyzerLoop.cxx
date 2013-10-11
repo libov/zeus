@@ -211,6 +211,12 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         if ( fIsCharm ) fQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
         if ( fIsBeauty ) fQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
 
+        // apply variations if requested
+        if (fIsCharm && fVaryCharmQ2ReweightingUP) fQ2Weight = 1 + (fQ2Weight-1) * 1.5;
+        if (fIsCharm && fVaryCharmQ2ReweightingDOWN) fQ2Weight = 1 + (fQ2Weight-1) * 0.5;
+        if (fIsBeauty && fVaryBeautyQ2ReweightingUP) fQ2Weight = 1 + (fQ2Weight-1) * 1.5;
+        if (fIsBeauty && fVaryBeautyQ2ReweightingDOWN) fQ2Weight = 1 + (fQ2Weight-1) * 0.5;
+
         // ********************************************************************************************
         // ********************************************************************************************
         // *********************************** True level analysis ************************************

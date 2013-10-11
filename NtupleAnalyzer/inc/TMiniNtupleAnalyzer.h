@@ -95,6 +95,11 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         void            SetBeautyEtaReweightingPar(Float_t par0, Float_t par1, Float_t par2, Float_t par3, Float_t par4, Float_t par5);
         void            SetBeautyETReweightingPar(Float_t par0, Float_t par1, Float_t par2, Float_t par3);
 
+        void            SetVaryCharmQ2ReweightingUP(bool apply) {fVaryCharmQ2ReweightingUP = apply;}
+        void            SetVaryCharmQ2ReweightingDOWN(bool apply) {fVaryCharmQ2ReweightingDOWN = apply;}
+        void            SetVaryBeautyQ2ReweightingUP(bool apply) {fVaryBeautyQ2ReweightingUP = apply;}
+        void            SetVaryBeautyQ2ReweightingDOWN(bool apply) {fVaryBeautyQ2ReweightingDOWN = apply;}
+
         // initialisator the class
         void            Initialize();
 
@@ -320,6 +325,11 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         Float_t     fBeautyETReweighting_p1;
         Float_t     fBeautyETReweighting_p2;
         Float_t     fBeautyETReweighting_p3;
+
+        bool        fVaryCharmQ2ReweightingUP;
+        bool        fVaryCharmQ2ReweightingDOWN;
+        bool        fVaryBeautyQ2ReweightingUP;
+        bool        fVaryBeautyQ2ReweightingDOWN;
 
         // Random numbers generators
         TRandom3    *rnd;
