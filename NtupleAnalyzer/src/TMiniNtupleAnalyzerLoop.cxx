@@ -207,6 +207,10 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             }
         }
 
+        // calculate weight for the true cross-sections (for charm and beauty MC)
+        if ( fIsCharm ) fQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
+        if ( fIsBeauty ) fQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
+
         // ********************************************************************************************
         // ********************************************************************************************
         // *********************************** True level analysis ************************************
@@ -224,10 +228,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
             // if this MC event passes true cuts on Q2 and y:
             if (InFiducial) {
-
-                // calculate weight for the true cross-sections (for charm and beauty MC)
-                if ( fIsCharm ) fTrueQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
-                if ( fIsBeauty ) fTrueQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
 
                 // variable to store a weight for fragmentation fraction studies
                 fZstring_weight = 1;
@@ -252,7 +252,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
                     // set Q2 reweighting
                     if (fApplyQ2Reweighting && (fIsCharm || fIsBeauty)) {
-                        Double_t new_factor = ( currentTGlobalBin -> GetWeightingFactor () ) * fTrueQ2Weight;
+                        Double_t new_factor = ( currentTGlobalBin -> GetWeightingFactor () ) * fQ2Weight;
                         currentTGlobalBin -> SetWeightingFactor (new_factor);
                     }
 
@@ -953,10 +953,6 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
         TGlobalBin      *currentTGlobalBin;
         TIter           Iter_TGlobalBin(fList_TGlobalBin);
 
-        // determine the Q2 weight
-        if ( fIsCharm ) fRecoQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
-        if ( fIsBeauty ) fRecoQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
-
         Bool_t weight_q2g4 = false;
         if ((fApplyQ2g4Weighting) && (Mc_q2_cr > 4)) weight_q2g4 = true;
 
@@ -975,9 +971,9 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
             // reweight Q2 according to Philipp's recipe
             currentTGlobalBin -> SetWeightingFactor(1);
 
-            if ( fApplyQ2Reweighting && (!weight_q2g4) ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight);
+            if ( fApplyQ2Reweighting && (!weight_q2g4) ) currentTGlobalBin -> SetWeightingFactor (fQ2Weight);
             if ( weight_q2g4  && (!fApplyQ2Reweighting) ) currentTGlobalBin -> SetWeightingFactor (fCharmQ2g4Weight);
-            if ( fApplyQ2Reweighting && weight_q2g4 ) currentTGlobalBin -> SetWeightingFactor (fRecoQ2Weight * fCharmQ2g4Weight);
+            if ( fApplyQ2Reweighting && weight_q2g4 ) currentTGlobalBin -> SetWeightingFactor (fQ2Weight * fCharmQ2g4Weight);
 
             // fragmentation function studies - reweight the z distribution
             if (fFragmentationReweighting && (fIsCharm || fIsBeauty) ) {

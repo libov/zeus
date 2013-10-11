@@ -297,8 +297,7 @@ class TMiniNtupleAnalyzer : public TNtupleAnalyzer {
         TString     fHistogramDeclarationFile;
         Bool_t      fApplyQ2g4Weighting;
         Double_t    fCharmQ2g4Weight;
-        Double_t    fTrueQ2Weight;
-        Double_t    fRecoQ2Weight;
+        Double_t    fQ2Weight;
         bool        fApplyQ2Reweighting;
         bool        fApplyCharmEtaReweighting;
         bool        fApplyCharmETReweighting;
