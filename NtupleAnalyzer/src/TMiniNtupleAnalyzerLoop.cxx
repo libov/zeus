@@ -955,9 +955,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
 
         // determine the Q2 weight
         if ( fIsCharm ) fRecoQ2Weight = (TMath::Exp(-0.486-0.0158*Mc_q2_cr)+0.781);
-        if ( fIsBeauty ) {
-            fRecoQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
-        }
+        if ( fIsBeauty ) fRecoQ2Weight = (TMath::Exp(-0.599-0.00389*Mc_q2_cr)+0.631);
 
         Bool_t weight_q2g4 = false;
         if ((fApplyQ2g4Weighting) && (Mc_q2_cr > 4)) weight_q2g4 = true;
