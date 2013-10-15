@@ -26,10 +26,16 @@ export CN_VERSION=v02
 ./systematics --file EMscale_beauty
 ./systematics --file EMscale_charm
 
+./systematics --file q2charm_reweighting_beauty
+./systematics --file q2charm_reweighting_charm
+./systematics --file q2beauty_reweighting_beauty
+./systematics --file q2beauty_reweighting_charm
+
 ./systematics --file eta_reweighting_beauty
 ./systematics --file eta_reweighting_charm
 ./systematics --file etabeauty_reweighting_beauty
 ./systematics --file etabeauty_reweighting_charm
+
 ./systematics --file et_reweighting_beauty
 ./systematics --file et_reweighting_charm
 ./systematics --file etbeauty_reweighting_beauty
