@@ -132,7 +132,7 @@ for element in SYST_SOURCES:
     for line in file:
         # read the line
         line=line.strip()
-        # try to find whether this is a beginning of a new cross section (new variable)
+        # try to find whether this is the beginning of a new cross section (new variable)
         pos=line.find(new_xsect_prefix)
         if not pos<0:
             # a new differential cross-section is encountered
@@ -142,7 +142,7 @@ for element in SYST_SOURCES:
             # create maps for this variable
             uncertainty_first[source][variable]={}
             uncertainty_second[source][variable]={}
-            # stop processing of this line, go to the next one
+            # stop processing this line, go to the next one
             continue
         # check whether it's a valid line
         line_list=line.split()
