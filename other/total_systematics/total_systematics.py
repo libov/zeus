@@ -178,27 +178,27 @@ def printme( file, variable ):
     file.write(string)
     for i in range(1,NBINS[variable]+1):
         # sum up in quadrature systematics from different sources
-        pos = 0
-        neg = 0
+        pos_total = 0
+        neg_total = 0
         for element in SYST_SOURCES:
             source = element[0]
             if uncertainty_first[source][variable][i] > 0:
-                pos = pos+uncertainty_first[source][variable][i]**2
+                pos_total = pos_total+uncertainty_first[source][variable][i]**2
             else:
-                neg = neg+uncertainty_first[source][variable][i]**2
+                neg_total = neg_total+uncertainty_first[source][variable][i]**2
 
             if uncertainty_second[source][variable][i] > 0:
-                pos = pos+uncertainty_second[source][variable][i]**2
+                pos_total = pos_total+uncertainty_second[source][variable][i]**2
             else:
-                neg = neg+uncertainty_second[source][variable][i]**2
-        pos = math.sqrt(pos)
-        neg = math.sqrt(neg)
+                neg_total = neg_total+uncertainty_second[source][variable][i]**2
+        pos_total = math.sqrt(pos_total)
+        neg_total = math.sqrt(neg_total)
         string='\nBin '
         string+=str(i)
         string+=': +'
-        string+=str(pos)
+        string+=str(pos_total)
         string+=' -'
-        string+=str(neg)
+        string+=str(neg_total)
         file.write(string)
     return
 
