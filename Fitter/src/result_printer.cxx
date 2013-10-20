@@ -171,7 +171,7 @@ int main(int argc, char **argv) {
         print(&instance, 37, 44, kBeauty, "q2da", hadr_corr, qed_corr);
         print(&instance, 45, 48, kBeauty, "x_q2bin1", hadr_corr, qed_corr);
         print(&instance, 49, 53, kBeauty, "x_q2bin2", hadr_corr, qed_corr);
-        print(&instance, 54, 57, kBeauty, "x_q2bin3", hadr_corr, qed_corr);
+        print(&instance, 54, 56, kBeauty, "x_q2bin3", hadr_corr, qed_corr);
         print(&instance, 58, 60, kBeauty, "x_q2bin4", hadr_corr, qed_corr);
         print(&instance, 61, 62, kBeauty, "x_q2bin5", hadr_corr, qed_corr);
     }
