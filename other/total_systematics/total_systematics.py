@@ -155,7 +155,7 @@ for element in SYST_SOURCES:
         syst_first=float(line_list[2])
         syst_second=float(line_list[3])
         # divide by 100 for Sasha's and Philipp's files
-        if source=="BRSystematics_charm" or source=="BRSystematics_beauty" or source=="FragmFractionSystematics_charm" or source=="FragmFractionSystematics_beauty" or source=="q2_reweighting_beauty" or source=="q2_reweighting_charm" or source=="flt_efficiency_beauty" or source=="flt_efficiency_charm":
+        if source=="BRSystematics_charm" or source=="BRSystematics_beauty" or source=="FragmFractionSystematics_charm" or source=="FragmFractionSystematics_beauty" or source=="flt_efficiency_beauty" or source=="flt_efficiency_charm":
             syst_first=syst_first/100
             syst_second=syst_second/100
         # store the values to the maps, depending on the sign
