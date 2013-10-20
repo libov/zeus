@@ -287,10 +287,10 @@ for element in SYST_SOURCES:
     if nelements==2 and first_long_element:
         i = i + 1
         first_long_element=False
-    if len(element)==1:
+    if nelements==1:
         delta=' & $\delta_{'+str(i)+'}$'
         first_long_element=True
-    elif len(element)==2:
+    elif nelements==2:
         delta=' & $\delta_{'+str(i)+'}^'+element[1]+'$'
     file_double_diff.write(delta)
 
