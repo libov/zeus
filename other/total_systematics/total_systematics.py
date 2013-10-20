@@ -99,7 +99,10 @@ NBINS['xda'] = 6
 NBINS['q2da'] = 8
 NBINS['x_q2bin1'] = 4
 NBINS['x_q2bin2'] = 5
-NBINS['x_q2bin3'] = 4
+if BEAUTY:
+    NBINS['x_q2bin3'] = 3
+else:
+    NBINS['x_q2bin3'] = 4
 NBINS['x_q2bin4'] = 3
 NBINS['x_q2bin5'] = 2
 
