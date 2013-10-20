@@ -182,15 +182,17 @@ def printme( file, variable ):
         neg_total = 0
         for element in SYST_SOURCES:
             source = element[0]
-            if uncertainty_first[source][variable][i] > 0:
-                pos_total = pos_total+uncertainty_first[source][variable][i]**2
+            first = uncertainty_first[source][variable][i]
+            second = uncertainty_second[source][variable][i]
+            if first > 0:
+                pos_total = pos_total+first**2
             else:
-                neg_total = neg_total+uncertainty_first[source][variable][i]**2
+                neg_total = neg_total+first**2
 
-            if uncertainty_second[source][variable][i] > 0:
-                pos_total = pos_total+uncertainty_second[source][variable][i]**2
+            if second > 0:
+                pos_total = pos_total+second**2
             else:
-                neg_total = neg_total+uncertainty_second[source][variable][i]**2
+                neg_total = neg_total+second**2
         pos_total = math.sqrt(pos_total)
         neg_total = math.sqrt(neg_total)
         string='\nBin '
