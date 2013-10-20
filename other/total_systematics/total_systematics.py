@@ -29,9 +29,49 @@ else:
 INPUT='/zow/user/libov/WWW/ZEUS_ONLY/F2cb_vtx_paper_May2012/systematics'
 
 if BEAUTY:
-    SYST_SOURCES=['BRSystematics_beauty', 'FragmFractionSystematics_beauty', 'tracking_map_beauty_systematics_2.78', 'charm_fragmentation_5.0', 'beauty_fragmentation_5.0', 'jet_energy_scale_beauty', 'smearing_core_beauty', 'smearing_tail_beauty', 'lf_asymmetry_beauty', 'eta_reweighting_beauty_v2_2.60', 'et_reweighting_beauty', 'etabeauty_reweighting_beauty', 'etbeauty_reweighting_beauty', 'signal_extraction_beauty', 'DIS_y_beauty', 'DIS_Ee_beauty', 'DIS_empz_beauty', 'q2_reweighting_beauty', 'flt_efficiency_beauty', 'EMscale_beauty']
+    SYST_SOURCES=[['DIS_Ee_beauty', '{E_e}'],
+                  ['DIS_y_beauty', '{y}'],
+                  ['DIS_empz_beauty', '{E-p_Z}'],
+                  ['flt_efficiency_beauty'],
+                  ['tracking_map_beauty_systematics_2.78'],
+                  ['smearing_core_beauty', '{core}'],
+                  ['smearing_tail_beauty', '{tail}'],
+                  ['signal_extraction_beauty'],
+                  ['jet_energy_scale_beauty'],
+                  ['EMscale_beauty'],
+                  ['q2charm_reweighting_beauty', '{Q^2, c}'],
+                  ['q2beauty_reweighting_beauty', '{Q^2, b}'],
+                  ['eta_reweighting_beauty', '{\eta, c}'],
+                  ['etabeauty_reweighting_beauty', '{\eta, b}'],
+                  ['et_reweighting_beauty', '{E_T, c}'],
+                  ['etbeauty_reweighting_beauty', '{E_T, b}'],
+                  ['lf_asymmetry_beauty'],
+                  ['charm_fragmentation_5.0'],
+                  ['beauty_fragmentation_5.0'],
+                  ['BRSystematics_beauty', '{BR}'],
+                  ['FragmFractionSystematics_beauty', '{Frag}']]
 else:
-    SYST_SOURCES=['BRSystematics_charm', 'FragmFractionSystematics_charm', 'tracking_map_charm_systematics_2.77', 'charm_fragmentation_4.2', 'beauty_fragmentation_4.2', 'jet_energy_scale_charm', 'smearing_core_charm', 'smearing_tail_charm', 'lf_asymmetry_charm', 'eta_reweighting_charm', 'et_reweighting_charm', 'etabeauty_reweighting_charm', 'etbeauty_reweighting_charm', 'signal_extraction_charm', 'DIS_y_charm', 'DIS_Ee_charm', 'DIS_empz_charm', 'q2_reweighting_charm', 'flt_efficiency_charm', 'EMscale_charm']
+    SYST_SOURCES=[['DIS_Ee_charm', '{E_e}'],
+                  ['DIS_y_charm', '{y}'],
+                  ['DIS_empz_charm', '{E-p_Z}'], 
+                  ['flt_efficiency_charm'],
+                  ['tracking_map_charm_systematics_2.77'],
+                  ['smearing_core_charm', '{core}'],
+                  ['smearing_tail_charm', '{tail}'],
+                  ['signal_extraction_charm'],
+                  ['jet_energy_scale_charm'],
+                  ['EMscale_charm'],
+                  ['q2charm_reweighting_charm', '{Q^2, c}'],
+                  ['q2beauty_reweighting_charm', '{Q^2, b}'],
+                  ['eta_reweighting_charm', '{\eta, c}'],
+                  ['etabeauty_reweighting_charm', '{\eta, b}'],
+                  ['et_reweighting_charm', '{E_T, c}'],
+                  ['etbeauty_reweighting_charm', '{E_T, b}'],
+                  ['lf_asymmetry_charm'],
+                  ['charm_fragmentation_4.2'],
+                  ['beauty_fragmentation_4.2'],
+                  ['BRSystematics_charm', '{BR}'],
+                  ['FragmFractionSystematics_charm', '{Frag}']]
 
 # a directory with input files
 OUTPUT=os.getenv('PLOTS_PATH')
@@ -76,8 +116,9 @@ uncertainty_first={}
 uncertainty_second={}
 
 # loop over all elements of SYST_SOURCES array, i.e. all input files which have to be processed
-for source in SYST_SOURCES:
+for element in SYST_SOURCES:
     # get the filename and open it
+    source=element[0]
     filename=INPUT+'/'+source
     print 'INFO: opening ', filename
     file=open(filename,'r')
@@ -111,7 +152,7 @@ for source in SYST_SOURCES:
         syst_first=float(line_list[2])
         syst_second=float(line_list[3])
         # divide by 100 for Sasha's and Philipp's files
-        if source=="BRSystematics_charm" or source=="BRSystematics_beauty" or source=="BRSystematics_charm" or source=="FragmFractionSystematics_charm" or source=="FragmFractionSystematics_beauty" or source=="q2_reweighting_beauty" or source=="q2_reweighting_charm" or source=="flt_efficiency_beauty" or source=="flt_efficiency_charm":
+        if source=="BRSystematics_charm" or source=="BRSystematics_beauty" or source=="FragmFractionSystematics_charm" or source=="FragmFractionSystematics_beauty" or source=="q2_reweighting_beauty" or source=="q2_reweighting_charm" or source=="flt_efficiency_beauty" or source=="flt_efficiency_charm":
             syst_first=syst_first/100
             syst_second=syst_second/100
         # store the values to the maps, depending on the sign
@@ -136,7 +177,8 @@ def printme( file, variable ):
         # sum up in quadrature systematics from different sources
         pos = 0
         neg = 0
-        for source in SYST_SOURCES:
+        for element in SYST_SOURCES:
+            source = element[0]
             if uncertainty_first[source][variable][i] > 0:
                 pos = pos+uncertainty_first[source][variable][i]**2
             else:
@@ -164,50 +206,6 @@ for variable in VARIABLES:
 ##########################################################################
 ################## PRINT SYSTEMATICS FROM EVERY SOURCE ##################
 ##########################################################################
-
-# fist merge certain elements, in particular three DIS variations as one, smearing, and BR/fractions
-def merge(sources_to_merge, new_source):
-    uncertainty_first[new_source]={}
-    uncertainty_second[new_source]={}
-    for variable in VARIABLES:
-        uncertainty_first[new_source][variable]={}
-        uncertainty_second[new_source][variable]={}
-        for bin in range (1, NBINS[variable]+1):
-            pos=0
-            neg=0
-            for source in sources_to_merge:
-                
-                if uncertainty_first[source][variable][bin] > 0:
-                    pos += uncertainty_first[source][variable][bin]**2
-                if uncertainty_second[source][variable][bin] > 0:
-                    pos += uncertainty_second[source][variable][bin]**2
-
-                if uncertainty_first[source][variable][bin] < 0:
-                    neg += uncertainty_first[source][variable][bin]**2
-                if uncertainty_second[source][variable][bin] < 0:
-                    neg += uncertainty_second[source][variable][bin]**2
-                
-            uncertainty_first[new_source][variable][bin] = math.sqrt(pos)
-            uncertainty_second[new_source][variable][bin] = -math.sqrt(neg)
-    return
-
-if BEAUTY:
-    merge(['BRSystematics_beauty', 'FragmFractionSystematics_beauty'], 'BR_frag_frac_beauty')
-    merge(['DIS_y_beauty', 'DIS_Ee_beauty', 'DIS_empz_beauty'], 'DIS_beauty')
-else:
-    merge(['BRSystematics_charm', 'FragmFractionSystematics_charm'], 'BR_frag_frac_charm')
-    merge(['DIS_y_charm', 'DIS_Ee_charm', 'DIS_empz_charm'], 'DIS_charm')
-
-# take into account these changes and also change the order so that it matches that of the Table 1 in the paper
-
-if BEAUTY:
-    SYST_SOURCES_DDIFF=['DIS_beauty', 'flt_efficiency_beauty', 'tracking_map_beauty_systematics_2.78', 'smearing_core_beauty', 'smearing_tail_beauty', 'signal_extraction_beauty', 'jet_energy_scale_beauty',
-                        'EMscale_beauty', 'q2_reweighting_beauty', 'et_reweighting_beauty', 'eta_reweighting_beauty', 'lf_asymmetry_beauty', 'charm_fragmentation_5.0',
-                        'beauty_fragmentation_5.0', 'BR_frag_frac_beauty']
-else:
-    SYST_SOURCES_DDIFF=['DIS_charm', 'flt_efficiency_charm', 'tracking_map_charm_systematics_2.77', 'smearing_core_charm', 'smearing_tail_charm', 'signal_extraction_charm', 'jet_energy_scale_charm',
-                        'EMscale_charm', 'q2_reweighting_charm', 'et_reweighting_charm', 'eta_reweighting_charm', 'lf_asymmetry_charm', 'charm_fragmentation_4.2',
-                        'beauty_fragmentation_4.2', 'BR_frag_frac_charm']
 
 BIN_RANGE_Q2_X={}
 for variable in DDIFF_VARIABLES:
@@ -245,7 +243,8 @@ def print_ddiff( file, variable ):
         if BEAUTY and variable == 'x_q2bin3' and i == 4: continue
 
         file.write(BIN_RANGE_Q2_X[variable][i])
-        for source in SYST_SOURCES_DDIFF:
+        for element in SYST_SOURCES:
+            source=element[0]
             # at the moment there is no file for eta reweighting syst. for beauty, therefore skip it 
             if BEAUTY and source == 'eta_reweighting_beauty':
                 continue 
@@ -277,24 +276,25 @@ else:
 file_double_diff=open(filename_double_diff, 'w')
 
 file_double_diff.write('\multicolumn{2}{c|}{\Qsq} & \multicolumn{2}{c|}{$x$}') 
-for i in range(1,len(SYST_SOURCES_DDIFF)+1):
-    # for the timebeing we skip delta_10 for beauty
-    if BEAUTY and i == 11: continue
-    if i<4:
-        file_double_diff.write(' & $\delta_{'+str(i)+'}$')
-    elif i==4:
-        file_double_diff.write(' & $\delta_{4}^{core}$')
-    elif i==5:
-        file_double_diff.write(' & $\delta_{4}^{tail}$')
-    else:
-        file_double_diff.write(' & $\delta_{'+str(i-1)+'}$')
+i=0
+first_long_element = True
+for element in SYST_SOURCES:
+    nelements=len(element)
+    if nelements==1: i=i+1
+    if nelements==2 and first_long_element:
+        i = i + 1
+        first_long_element=False
+    if len(element)==1:
+        delta=' & $\delta_{'+str(i)+'}$'
+        first_long_element=True
+    elif len(element)==2:
+        delta=' & $\delta_{'+str(i)+'}^'+element[1]+'$'
+    file_double_diff.write(delta)
 
 file_double_diff.write(' \\\\\n')
 
 file_double_diff.write('\multicolumn{2}{c|}{(\gev$^{2}$)} & \multicolumn{2}{c|}{}')
-for i in range(1,len(SYST_SOURCES_DDIFF)+1):
-    # for the timebeing we skip delta_10 for beauty
-    if BEAUTY and i == 11: continue
+for element in SYST_SOURCES:
     file_double_diff.write(' & {(\\%)}')
 file_double_diff.write(' \\\\ \hline \n')
 
