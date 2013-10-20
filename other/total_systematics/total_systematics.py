@@ -78,9 +78,9 @@ OUTPUT=os.getenv('PLOTS_PATH')
 
 # new differential cross-section specifier
 if BEAUTY:
-    new_xsect_prefix='Beauty systematics in differential cross sections d sigma / dY in bins of'
+    NEW_XSECT_PREFIX='Beauty systematics in differential cross sections d sigma / dY in bins of'
 else:
-    new_xsect_prefix='Charm systematics in differential cross sections d sigma / dY in bins of'
+    NEW_XSECT_PREFIX='Charm systematics in differential cross sections d sigma / dY in bins of'
 
 # a list to store all variables we have
 VARIABLES = ['Eta', 'Et', 'xda', 'q2da', 'x_q2bin1', 'x_q2bin2', 'x_q2bin3', 'x_q2bin4', 'x_q2bin5']
@@ -133,11 +133,11 @@ for element in SYST_SOURCES:
         # read the line
         line=line.strip()
         # try to find whether this is the beginning of a new cross section (new variable)
-        pos=line.find(new_xsect_prefix)
+        pos=line.find(NEW_XSECT_PREFIX)
         if not pos<0:
             # a new differential cross-section is encountered
             # check which one
-            variable=line.lstrip(new_xsect_prefix)
+            variable=line.lstrip(NEW_XSECT_PREFIX)
 
             # create maps for this variable
             uncertainty_first[source][variable]={}
@@ -174,7 +174,7 @@ print '\nINFO: printing results to ', filename
 file.write('Total systematic uncertainty')
 
 def printme( file, variable ):
-    string='\n\n'+new_xsect_prefix+' '+variable
+    string='\n\n'+NEW_XSECT_PREFIX+' '+variable
     file.write(string)
     for i in range(1,NBINS[variable]+1):
         # sum up in quadrature systematics from different sources
@@ -238,7 +238,7 @@ BIN_RANGE_Q2_X['x_q2bin5'][1]= '400 	& 1000 	& 0.005  & 0.02'
 BIN_RANGE_Q2_X['x_q2bin5'][2]= '400 	& 1000 	& 0.02   & 0.1'
 
 def print_ddiff( file, variable ):
-    string='\n\n% '+new_xsect_prefix+' '+variable + '\n'
+    string='\n\n% '+NEW_XSECT_PREFIX+' '+variable + '\n'
     file.write(string)
     for i in range(1, NBINS[variable]+1):
 
