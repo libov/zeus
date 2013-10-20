@@ -242,9 +242,6 @@ def print_ddiff( file, variable ):
     file.write(string)
     for i in range(1, NBINS[variable]+1):
 
-        # skip the 4th x bin in the 3rd q2 bin
-        if BEAUTY and variable == 'x_q2bin3' and i == 4: continue
-
         file.write(BIN_RANGE_Q2_X[variable][i])
         for element in SYST_SOURCES:
             source=element[0]
