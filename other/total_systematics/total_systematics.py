@@ -99,10 +99,7 @@ NBINS['xda'] = 6
 NBINS['q2da'] = 8
 NBINS['x_q2bin1'] = 4
 NBINS['x_q2bin2'] = 5
-if BEAUTY:
-    NBINS['x_q2bin3'] = 3
-else:
-    NBINS['x_q2bin3'] = 4
+NBINS['x_q2bin3'] = 4
 NBINS['x_q2bin4'] = 3
 NBINS['x_q2bin5'] = 2
 
@@ -243,6 +240,9 @@ def print_ddiff( file, variable ):
     string='\n\n% '+NEW_XSECT_PREFIX+' '+variable + '\n'
     file.write(string)
     for i in range(1, NBINS[variable]+1):
+
+        # skip the 4th bin in the 3rd q2 bin
+        if BEAUTY and variable=='x_q2bin3' and i==4: continue
 
         file.write(BIN_RANGE_Q2_X[variable][i])
         for element in SYST_SOURCES:
