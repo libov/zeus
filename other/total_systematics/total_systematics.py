@@ -209,10 +209,14 @@ for variable in VARIABLES:
 ################## PRINT SYSTEMATICS FROM EVERY SOURCE ##################
 ##########################################################################
 
+# map holding bin ranges
 BIN_RANGE_Q2_X={}
+
+# initialise maps
 for variable in DDIFF_VARIABLES:
     BIN_RANGE_Q2_X[variable]={}
 
+# assign bin ranges
 BIN_RANGE_Q2_X['x_q2bin1'][1]= '5 	& 20 	& 8e-05  & 0.0002'
 BIN_RANGE_Q2_X['x_q2bin1'][2]= '5 	& 20 	& 0.0002 & 0.0003'
 BIN_RANGE_Q2_X['x_q2bin1'][3]= '5 	& 20 	& 0.0003 & 0.0005'
@@ -236,6 +240,7 @@ BIN_RANGE_Q2_X['x_q2bin4'][3]= '120 	& 400 	& 0.016  & 0.06'
 BIN_RANGE_Q2_X['x_q2bin5'][1]= '400 	& 1000 	& 0.005  & 0.02'
 BIN_RANGE_Q2_X['x_q2bin5'][2]= '400 	& 1000 	& 0.02   & 0.1'
 
+# main printing function
 def print_ddiff( file, variable ):
     string='\n\n% '+NEW_XSECT_PREFIX+' '+variable + '\n'
     file.write(string)
@@ -271,13 +276,19 @@ def print_ddiff( file, variable ):
         file_double_diff.write(' \\\\\n')
     return
 
+# create output file
 if BEAUTY:
     filename_double_diff=OUTPUT+'/double_diff_systematics_beauty'
 else:
     filename_double_diff=OUTPUT+'/double_diff_systematics_charm'
 file_double_diff=open(filename_double_diff, 'w')
 
-file_double_diff.write('\multicolumn{2}{c|}{\Qsq} & \multicolumn{2}{c|}{$x$}') 
+# write table header (describing the columns)
+
+# columns containing bin ranges
+file_double_diff.write('\multicolumn{2}{c|}{\Qsq} & \multicolumn{2}{c|}{$x$}')
+ 
+ # now loop over sources and create an entry (column) for each source
 i=0
 first_long_element = True
 for element in SYST_SOURCES:
@@ -292,14 +303,14 @@ for element in SYST_SOURCES:
     elif nelements==2:
         delta=' & $\delta_{'+str(i)+'}^'+element[1]+'$'
     file_double_diff.write(delta)
-
 file_double_diff.write(' \\\\\n')
 
+# second row of the header
 file_double_diff.write('\multicolumn{2}{c|}{(\gev$^{2}$)} & \multicolumn{2}{c|}{}')
 for element in SYST_SOURCES:
     file_double_diff.write(' & {(\\%)}')
 file_double_diff.write(' \\\\ \hline \n')
 
-# Finally, print the results
+# Finally, print the actual table content - call the main function for each q2 bin
 for variable in DDIFF_VARIABLES:
     print_ddiff(file_double_diff, variable)
