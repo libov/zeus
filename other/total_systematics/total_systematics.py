@@ -240,21 +240,48 @@ BIN_RANGE_Q2_X['x_q2bin4'][3]= '120 	& 400 	& 0.016  & 0.06'
 BIN_RANGE_Q2_X['x_q2bin5'][1]= '400 	& 1000 	& 0.005  & 0.02'
 BIN_RANGE_Q2_X['x_q2bin5'][2]= '400 	& 1000 	& 0.02   & 0.1'
 
+# create output file
+if BEAUTY:
+    filename_double_diff=OUTPUT+'/double_diff_systematics_beauty'
+else:
+    filename_double_diff=OUTPUT+'/double_diff_systematics_charm'
+FILE_DDIFF=open(filename_double_diff, 'w')
+
+# another map to store the actual source number (i.e. the one corresponding to the number in the Table 1 of the draft)
+SOURCE_INDEX={}
+# loop over sources, fill the map
+i=0
+first_long_element = True
+for element in SYST_SOURCES:
+
+    nelements=len(element)
+    if nelements==1: i += 1
+    if nelements==2 and first_long_element:
+        i += 1
+        first_long_element=False
+    if nelements==1:
+        first_long_element=True
+    SOURCE_INDEX[element[0]] = i
+
 # main printing function
-def print_ddiff( file, variable ):
+def print_ddiff( variable , i_first, i_last):
     string='\n\n% '+NEW_XSECT_PREFIX+' '+variable + '\n'
-    file.write(string)
+    FILE_DDIFF.write(string)
     for i in range(1, NBINS[variable]+1):
 
         # skip the 4th bin in the 3rd q2 bin
         if BEAUTY and variable=='x_q2bin3' and i==4: continue
 
-        file.write(BIN_RANGE_Q2_X[variable][i])
+        FILE_DDIFF.write(BIN_RANGE_Q2_X[variable][i])
+        
+        counter=0
+        first_long_element = True
         for element in SYST_SOURCES:
+
             source=element[0]
-            # at the moment there is no file for eta reweighting syst. for beauty, therefore skip it 
-            if BEAUTY and source == 'eta_reweighting_beauty':
-                continue 
+
+            counter = SOURCE_INDEX[source]
+            if counter<i_first or counter>i_last: continue
 
             first = uncertainty_first[source][variable][i]
             second = uncertainty_second[source][variable][i]
@@ -268,49 +295,62 @@ def print_ddiff( file, variable ):
             if first==0: sfirst=''
             if second==0: ssecond=''
             if first!=0 and second!=0:
-                file_double_diff.write(' & \\numpmerr{' + suffix1 + sfirst + '}{' + suffix2 + ssecond + '}{2}')
+                FILE_DDIFF.write(' & \\numpmerr{' + suffix1 + sfirst + '}{' + suffix2 + ssecond + '}{2}')
             elif first!=0 or second!=0:
-                file_double_diff.write(' & \\footnotesize \\num[round-precision=2,round-mode=places]{' + suffix1 + sfirst + suffix2 + ssecond+'}')
+                FILE_DDIFF.write(' & \\footnotesize \\num[round-precision=2,round-mode=places]{' + suffix1 + sfirst + suffix2 + ssecond+'}')
             else:
-                file_double_diff.write(' & \\footnotesize +0.00')
-        file_double_diff.write(' \\\\\n')
+                FILE_DDIFF.write(' & \\footnotesize +0.00')
+        FILE_DDIFF.write(' \\\\\n')
     return
 
-# create output file
-if BEAUTY:
-    filename_double_diff=OUTPUT+'/double_diff_systematics_beauty'
-else:
-    filename_double_diff=OUTPUT+'/double_diff_systematics_charm'
-file_double_diff=open(filename_double_diff, 'w')
+# function to print the table header
+def print_header( i_first, i_last ):
+    
+    FILE_DDIFF.write(' \n\n')
 
-# write table header (describing the columns)
+    # columns containing bin ranges
+    FILE_DDIFF.write('\multicolumn{2}{c|}{\Qsq} & \multicolumn{2}{c|}{$x$}')
+    
+    # now loop over sources and create an entry (column) for each source
+    for element in SYST_SOURCES:
+        
+        i = SOURCE_INDEX[element[0]]
+        
+        nelements = len(element)
+        
+        if nelements==1:
+            delta=' & $\delta_{'+str(i)+'}$'
+        elif nelements==2:
+            delta=' & $\delta_{'+str(i)+'}^'+element[1]+'$'
+        if i<i_first or i>i_last: continue
+        FILE_DDIFF.write(delta)
+    FILE_DDIFF.write(' \\\\\n')
+    
+    # second row of the header
+    FILE_DDIFF.write('\multicolumn{2}{c|}{(\gev$^{2}$)} & \multicolumn{2}{c|}{}')
+    for element in SYST_SOURCES:
+        i = SOURCE_INDEX[element[0]]
+        if i<i_first or i>i_last: continue
+        FILE_DDIFF.write(' & {(\\%)}')
 
-# columns containing bin ranges
-file_double_diff.write('\multicolumn{2}{c|}{\Qsq} & \multicolumn{2}{c|}{$x$}')
+    FILE_DDIFF.write(' \\\\ \hline \n')
+    
+    return
+
+# The table should span on two pages, each containing roughly 10 sources (columns)
  
- # now loop over sources and create an entry (column) for each source
-i=0
-first_long_element = True
-for element in SYST_SOURCES:
-    nelements=len(element)
-    if nelements==1: i=i+1
-    if nelements==2 and first_long_element:
-        i = i + 1
-        first_long_element=False
-    if nelements==1:
-        delta=' & $\delta_{'+str(i)+'}$'
-        first_long_element=True
-    elif nelements==2:
-        delta=' & $\delta_{'+str(i)+'}^'+element[1]+'$'
-    file_double_diff.write(delta)
-file_double_diff.write(' \\\\\n')
-
-# second row of the header
-file_double_diff.write('\multicolumn{2}{c|}{(\gev$^{2}$)} & \multicolumn{2}{c|}{}')
-for element in SYST_SOURCES:
-    file_double_diff.write(' & {(\\%)}')
-file_double_diff.write(' \\\\ \hline \n')
-
-# Finally, print the actual table content - call the main function for each q2 bin
+# part one, sources 1-7 (corresponding to 10 columns of sources)
+# header
+print_header(1, 7)
+# content
 for variable in DDIFF_VARIABLES:
-    print_ddiff(file_double_diff, variable)
+    print_ddiff(variable, 1, 7)
+
+# part two, sources 8-12 (corresponding to 11 columns of sources)
+# header
+print_header(8, 12)
+# content
+for variable in DDIFF_VARIABLES:
+    print_ddiff(variable, 8, 12)
+
+
