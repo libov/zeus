@@ -586,7 +586,7 @@ int main(int argc, char **argv) {
     h -> SetStats(kFALSE);
     Float_t ymin = 0;
     Float_t ymax_beauty = 0.057;
-    Float_t ymax_beauty_upper_row = 0.02;
+    Float_t ymax_beauty_upper_row = 0.03;
     Float_t ymax_charm = 0.7;
     if (beauty) h -> SetAxisRange(ymin, ymax_beauty, "Y");
     else h -> SetAxisRange(ymin, ymax_charm, "Y");
