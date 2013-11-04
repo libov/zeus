@@ -1050,7 +1050,7 @@ void draw_herapdf_graph(TString filename, TLegend * leg) {
 
         TGraph * g_band = create_asymm_errors_graph(central, down, up, q2[i], xmin[i], xmax[i], 100);
         pads[i+1] -> cd();
-        g_band -> SetFillColor(kGreen);
+        g_band -> SetFillColor(7);
         g_band -> Draw("3C");
 
         TGraph * g = create_graph(central, q2[i], xmin[i], xmax[i], 100);
