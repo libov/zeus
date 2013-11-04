@@ -764,6 +764,14 @@ int main(int argc, char **argv) {
     // the legend
     leg->AddEntry(data, "ZEUS 354 pb^{-1}","p");
     if (!no_extraction_theory) leg -> AddEntry(theory, "HVQDIS #otimes HERAPDF 1.0", "l");
+    if (draw_herapdf) {
+        TH1F * tmp = new TH1F("tmp", "",10,0,10);
+        tmp -> SetLineColor(kBlack);
+        tmp -> SetLineWidth(2);
+        tmp -> SetFillColor(7);
+        leg -> AddEntry(tmp, "HERAPDF 1.5 GMVFNS", "fl");
+        
+    }
     leg -> SetFillColor(0);
     leg -> SetBorderSize(0);
     leg->Draw();
@@ -1061,7 +1069,6 @@ void draw_herapdf_graph(TString filename, TLegend * leg) {
         graph_return = g;
     }
 
-    leg -> AddEntry(graph_return, "HERAPDF 1.5 GMVFNS", "l");
 }
 
 // a C++ reimplementation of A. Cooper's f2qcdfine.f
