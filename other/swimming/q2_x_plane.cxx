@@ -22,7 +22,7 @@ int q2_x_plane (TString type="inclusive", TString sample = "data", unsigned mode
     gStyle -> SetLineStyle(7);
 
     TString HISTO_PATH = getenv("HISTO_PATH");
-    TString filename = HISTO_PATH+"/merged.full.forCHARM2.70.1.0405e06e07p.root";
+    TString filename = HISTO_PATH+"/merged.full.forCHARM2.108.1.0405e06e07p.root";
     cout << "Opening " << filename << endl;
     TFile * f = new TFile (filename);
 
