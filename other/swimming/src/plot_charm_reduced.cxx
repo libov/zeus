@@ -14,8 +14,8 @@ int main(int argc, char **argv) {
 
     TMultiCanvas plot(7);
 
-    plot.PlotData(dstar, -0.025, 20, 1, kBlack, true);
-    plot.PlotData(dstar, -0.025, 20, 1, kBlack, false);
+    plot.PlotData(dstar, -0.025, 26, 1, kMagenta, true);
+    plot.PlotData(dstar, -0.025, 26, 1, kMagenta, false);
 
     plot.PlotData(dplus, 0.0, 25, 1, kBlue, true);
     plot.PlotData(dplus, 0.0, 25, 1, kBlue, false);
@@ -23,8 +23,8 @@ int main(int argc, char **argv) {
     plot.PlotData(combination, 0.025, 24, 1, kRed, true);
     plot.PlotData(combination, 0.025, 24, 1, kRed, false);
 
-    plot.PlotData(vtx, 0.0, 21, 0.7, kMagenta, true);
-    plot.PlotData(vtx, 0.0, 21, 0.7, kMagenta, false);
+    plot.PlotData(vtx, 0.0, 20, 1, kBlack, true);
+    plot.PlotData(vtx, 0.0, 20, 0.5, kBlack, false); // smaller point size so that error bars are still drawn when smaller than the marker
 
     plot.Print("Sigma_Reduced_Charm.eps");
 
