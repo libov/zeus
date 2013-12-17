@@ -1,0 +1,1089 @@
+// FastJet headers
+#include "fastjet/ClusterSequence.hh"
+
+// ROOT headers
+#include <TROOT.h>
+#include <TSystem.h>
+#include <TChain.h>
+#include <TTree.h>
+#include <TH1F.h>
+#include <TLorentzVector.h>
+#include <TCanvas.h>
+#include <TStyle.h>
+
+// system headers
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void add_files_to_chain_v06_06e_charm_1_5GeV2(TChain * c);
+void add_files_to_chain_v06_06e_charm_4GeV2(TChain * c);
+void add_files_to_chain_v06_0607p_charm_1_5GeV2(TChain * c);
+void add_files_to_chain_v06_0607p_charm_4GeV2(TChain * c);
+void add_files_to_chain_v06_0607p_beauty_q1GeV2(TChain * c);
+
+int main (int argc, char **argv) {
+
+    // create a "chain" - an object that will contain all the ROOT files ("ntuples") we want to analyze
+    TChain  * fChain = new TChain ("orange");
+
+    //TString dataset = "v06_06e_charm_1_5GeV2";
+    // TString dataset = "v06_06e_charm_4GeV2";
+    TString dataset = "v06_0607p_charm_1_5GeV2";
+    //TString dataset = "v06_0607p_charm_4GeV2";
+    //TString dataset = "v06_0607p_beauty_q1GeV2";
+    //TString dataset = "charm";
+    //TString dataset = "beauty";
+
+    // charm sets
+    if      (dataset == "v06_06e_charm_1_5GeV2")   add_files_to_chain_v06_06e_charm_1_5GeV2(fChain);
+    else if (dataset == "v06_06e_charm_4GeV2")     add_files_to_chain_v06_06e_charm_4GeV2(fChain);
+    else if (dataset == "v06_0607p_charm_1_5GeV2") add_files_to_chain_v06_0607p_charm_1_5GeV2(fChain);
+    else if (dataset == "v06_0607p_charm_4GeV2")   add_files_to_chain_v06_0607p_charm_4GeV2(fChain);
+    // beauty sets
+    else if (dataset == "v06_0607p_beauty_q1GeV2") add_files_to_chain_v06_0607p_beauty_q1GeV2(fChain);
+    // all charm
+    else if ( dataset == "charm" ) {
+        add_files_to_chain_v06_06e_charm_1_5GeV2(fChain);
+        add_files_to_chain_v06_06e_charm_4GeV2(fChain);
+        add_files_to_chain_v06_0607p_charm_4GeV2(fChain);
+        add_files_to_chain_v06_0607p_charm_4GeV2(fChain);
+    // all beauty
+    } else if ( dataset == "beauty" ) {
+        add_files_to_chain_v06_0607p_beauty_q1GeV2(fChain);
+
+    } else {
+        cout << "ERROR: this dataset is not supported at the moment." << endl;
+        abort();
+    }
+
+    // calculate number of events (entries) in this set of files
+    unsigned   Nevents = fChain -> GetEntries ();
+    cout << Nevents << " events found in this chain" << endl;
+
+    // declare variables
+    Int_t	Nhbmjets;
+    Float_t	Pxhbmjet[100];
+    Float_t	Pyhbmjet[100];
+    Float_t	Pzhbmjet[100];
+    Float_t	Ehbmjet[100];
+    Int_t	Nphbmjet[100];
+    Int_t	Phbmjet[100][512];
+
+    Int_t       Fmck_nstor;
+    Int_t       Fmck_prt[10000];
+    Int_t       Fmck_daug[10000];
+    Int_t       Fmck_daug2[10000];
+    Int_t       Fmck_isthep[10000];
+    Int_t       Fmck_id[10000];
+
+    Float_t     Fmck_px[10000];
+    Float_t     Fmck_py[10000];
+    Float_t     Fmck_pz[10000];
+    Float_t     Fmck_e[10000];
+    Float_t     Fmck_m[10000];
+
+    Float_t	Mc_q2_cr;
+    Float_t	Mc_x_cr;
+
+    Int_t       Npart;
+    Int_t       Fmck_nkin;
+
+    fChain->SetBranchStatus("*", 0);
+
+    fChain->SetBranchStatus("Nhbmjets", 1);
+    fChain->SetBranchAddress("Nhbmjets",&Nhbmjets);
+    fChain->SetBranchStatus("Pxhbmjet", 1);
+    fChain->SetBranchAddress("Pxhbmjet",Pxhbmjet);
+    fChain->SetBranchStatus("Pyhbmjet", 1);
+    fChain->SetBranchAddress("Pyhbmjet",Pyhbmjet);
+    fChain->SetBranchStatus("Pzhbmjet", 1);
+    fChain->SetBranchAddress("Pzhbmjet",Pzhbmjet);
+    fChain->SetBranchStatus("Ehbmjet", 1);
+    fChain->SetBranchAddress("Ehbmjet",Ehbmjet);
+
+    fChain->SetBranchStatus("Nphbmjet", 1);
+    fChain->SetBranchAddress("Nphbmjet",Nphbmjet);
+    fChain->SetBranchStatus("Phbmjet", 1);
+    fChain->SetBranchAddress("Phbmjet",Phbmjet);
+
+    fChain->SetBranchStatus ("Fmck_nstor", 1);
+    fChain->SetBranchAddress("Fmck_nstor",&Fmck_nstor);
+    fChain->SetBranchStatus ("Fmck_prt", 1);
+    fChain->SetBranchAddress("Fmck_prt", Fmck_prt);
+    fChain->SetBranchStatus ("Fmck_daug",1);
+    fChain->SetBranchAddress("Fmck_daug", Fmck_daug);
+    fChain->SetBranchStatus ("Fmck_daug2",1);
+    fChain->SetBranchAddress("Fmck_daug2", Fmck_daug2);
+    fChain->SetBranchStatus ("Fmck_id",1);
+    fChain->SetBranchAddress("Fmck_id", Fmck_id);
+    fChain->SetBranchStatus ("Fmck_px",1);
+    fChain->SetBranchAddress("Fmck_px", Fmck_px);
+    fChain->SetBranchStatus ("Fmck_py",1);
+    fChain->SetBranchAddress("Fmck_py", Fmck_py);
+    fChain->SetBranchStatus ("Fmck_pz",1);
+    fChain->SetBranchAddress("Fmck_pz", Fmck_pz);
+    fChain->SetBranchStatus ("Fmck_m",1);
+    fChain->SetBranchAddress("Fmck_m", Fmck_m);
+    fChain->SetBranchStatus ("Fmck_e",1);
+    fChain->SetBranchAddress("Fmck_e", Fmck_e);
+    fChain->SetBranchStatus ("Fmck_isthep",1);
+    fChain->SetBranchAddress("Fmck_isthep", Fmck_isthep);
+
+    fChain->SetBranchStatus("Mc_q2_cr", 1);
+    fChain->SetBranchAddress("Mc_q2_cr",&Mc_q2_cr);
+    fChain->SetBranchStatus("Mc_x_cr", 1);
+    fChain->SetBranchAddress("Mc_x_cr",&Mc_x_cr);
+
+    fChain->SetBranchStatus("Fmck_nkin", 1);
+    fChain->SetBranchAddress("Fmck_nkin",&Fmck_nkin);
+
+    fChain->SetBranchStatus("Npart", 1);
+    fChain->SetBranchAddress("Npart",&Npart);
+
+    // reference hadronization corrections from Philipp
+    Float_t chad_et_paper_values_beauty[]= {0.95, 1.08, 1.05, 1.04, 0.99, 0.93, 0.80};
+    Float_t chad_et_paper_values_charm[]=  {1.06, 1.05, 1.03, 0.99, 0.96, 0.95, 0.86};
+    Float_t * CHAD_ET_PAPER_VALUES;
+
+    Float_t chad_eta_paper_values_beauty[]= {0.96, 0.98, 0.93, 0.91, 0.94, 1.01, 1.06, 1.07, 1.07, 1.07};
+    Float_t chad_eta_paper_values_charm[]=  {0.89, 0.97, 1.02, 1.05, 1.07, 1.10, 1.11, 1.10, 1.09, 1.07, 1.13};
+    Float_t * CHAD_ETA_PAPER_VALUES;
+
+    Float_t chad_q2_paper_values_beauty[]= {1.01, 1.01, 0.99, 0.98, 0.98, 0.99, 0.99, 1.01};
+    Float_t chad_q2_paper_values_charm[]=  {1.15, 1.08, 1.01, 1, 1, 1.01, 1.01, 1.02};
+    Float_t * CHAD_Q2_PAPER_VALUES;
+
+    Float_t chad_x_paper_values_beauty[]= {1.09, 1.05, 0.99, 0.95, 0.93, 0.92};
+    Float_t chad_x_paper_values_charm[]=  {1.19, 1.20, 1.09, 0.97, 0.91, 0.88};
+    Float_t * CHAD_X_PAPER_VALUES;
+
+    // binning
+    unsigned NBINS_ETA;
+    Float_t BINS_ETA_CHARM[] = {-1.6, -1.1, -0.8, -0.5, -0.2, 0.1, 0.4, 0.7, 1, 1.3, 1.6, 2.2};
+    Float_t BINS_ETA_BEAUTY[] = {-1.6, -0.8, -0.5, -0.2, 0.1, 0.4, 0.7, 1, 1.3, 1.6, 2.2};
+    Float_t * BINS_ETA;
+
+    const unsigned NBINS_ET = 7; 
+    const Float_t BINS_ET[] = {5, 8, 11, 14, 17, 20, 25, 35};
+
+    const unsigned NBINS_Q2 = 8; 
+    const Float_t BINS_Q2[] = {5, 10, 20, 40, 70, 120, 200, 400, 1000};
+
+    const unsigned NBINS_X = 6; 
+    const Float_t BINS_X[] = {0.00008, 0.0002, 0.0006, 0.0016, 0.005, 0.01, 0.1};
+
+    // jet cuts
+    Float_t JET_ET_MIN;
+    const Float_t JET_ETA_MAX = 2.2;
+    const Float_t JET_ETA_MIN = -1.6;
+
+    // charm/beauty dependent quantities
+    if ( dataset.Contains("charm") ) {
+        NBINS_ETA = 11;
+        BINS_ETA = BINS_ETA_CHARM;
+        CHAD_ET_PAPER_VALUES  = chad_et_paper_values_charm;
+        CHAD_ETA_PAPER_VALUES = chad_eta_paper_values_charm;
+        CHAD_Q2_PAPER_VALUES  = chad_q2_paper_values_charm;
+        CHAD_X_PAPER_VALUES   = chad_x_paper_values_charm;
+        JET_ET_MIN = 4.2;
+    } else if ( dataset.Contains("beauty") ) {
+        NBINS_ETA = 10;
+        BINS_ETA = BINS_ETA_BEAUTY;
+        CHAD_ET_PAPER_VALUES  = chad_et_paper_values_beauty;
+        CHAD_ETA_PAPER_VALUES = chad_eta_paper_values_beauty;
+        CHAD_Q2_PAPER_VALUES  = chad_q2_paper_values_beauty;
+        CHAD_X_PAPER_VALUES   = chad_x_paper_values_beauty;
+        JET_ET_MIN = 5.0;
+    }
+
+    // create histograms
+    TH1F * hadr_ORANGE_njets = new TH1F ("hadr_ORANGE_njets", "", 20, 0, 20);
+    TH1F * hadr_CN_njets     = new TH1F ("hadr_CN_njets",     "", 20, 0, 20);
+    TH1F * part_CN_njets     = new TH1F ("part_CN_njets",     "", 20, 0, 20);
+
+    TH1F * hadr_ORANGE_et = new TH1F ("hadr_ORANGE_et", "", NBINS_ET, BINS_ET);
+    TH1F * hadr_CN_et     = new TH1F ("hadr_CN_et",     "", NBINS_ET, BINS_ET);
+    TH1F * part_CN_et     = new TH1F ("part_CN_et",     "", NBINS_ET, BINS_ET);
+
+    TH1F * hadr_ORANGE_eta = new TH1F ("hadr_ORANGE_eta", "", NBINS_ETA, BINS_ETA);
+    TH1F * hadr_CN_eta     = new TH1F ("hadr_CN_eta",     "", NBINS_ETA, BINS_ETA);
+    TH1F * part_CN_eta     = new TH1F ("part_CN_eta",     "", NBINS_ETA, BINS_ETA);
+
+    TH1F * hadr_ORANGE_q2 = new TH1F ("hadr_ORANGE_q2", "", NBINS_Q2, BINS_Q2);
+    TH1F * hadr_CN_q2     = new TH1F ("hadr_CN_q2",     "", NBINS_Q2, BINS_Q2);
+    TH1F * part_CN_q2     = new TH1F ("part_CN_q2",     "", NBINS_Q2, BINS_Q2);
+
+    TH1F * hadr_ORANGE_x = new TH1F ("hadr_ORANGE_x", "", NBINS_X, BINS_X);
+    TH1F * hadr_CN_x     = new TH1F ("hadr_CN_x",     "", NBINS_X, BINS_X);
+    TH1F * part_CN_x     = new TH1F ("part_CN_x",     "", NBINS_X, BINS_X);
+
+    // vector to store FMCK_ID of stable c/b hadrons and their daughters (the daughters won't be considered in the clustering algorithm)
+    vector<unsigned> donttake;
+
+    // 2D-arrays to store particle ID ranges
+    unsigned const NBRANGE = 7;
+    unsigned const NCRANGE = 3;
+    unsigned BRANGE[2][NBRANGE] = {
+                                   {72, 214, 468, 480, 500, 504, 508},
+                                   {75, 215, 471, 497, 501, 505, 509}
+                                  };
+    unsigned CRANGE[2][NCRANGE] = {
+                                   {64, 208, 466},
+                                   {69, 211, 467}
+                                  };
+
+    // electron flag
+    bool electron_flag = false;
+
+    // input to the jet finder
+    vector<fastjet::PseudoJet> hadrons;
+    vector<fastjet::PseudoJet> partons;
+
+    // resulting jets
+    vector<fastjet::PseudoJet> hadron_jets;
+    vector<fastjet::PseudoJet> parton_jets;
+
+    // choose a jet definition
+    double R = 1.0;
+    fastjet::JetDefinition jet_def(fastjet::kt_algorithm, R, fastjet::E_scheme);
+
+    // helper
+    bool skip_this_particle = false;
+
+    // loop over events
+    for (unsigned event = 0; event < Nevents; event++) {
+
+        if ( event % 10000 == 0 )   cout<< " processing event " << event << endl;
+
+        fChain -> GetEntry(event);
+
+        // fiducial volume
+        if (Mc_q2_cr<5) continue;
+        if (Mc_q2_cr>1000) continue;
+        Float_t Mc_y = Mc_q2_cr / (318.*318.* Mc_x_cr);
+        if (Mc_y < 0.02)  continue;
+        if (Mc_y > 0.7)  continue;
+
+        // clean up
+        donttake.clear();
+        electron_flag = false;
+        hadrons.clear();
+        partons.clear();
+        hadron_jets.clear();
+        parton_jets.clear();
+
+        // ------ CN HADRON JETS ------ //
+        // loop over FMCKIN table
+        for (Int_t prt=0; prt<Fmck_nstor; prt++) {
+
+            skip_this_particle = false;
+            // check if this is a daughter particle
+            if ( Fmck_daug[prt] > 0 ) {
+                // check whether part of the decay chain of already found b/c hadrons that should be treated as stable
+                for (unsigned prt_notake=0; prt_notake<donttake.size(); prt_notake++) {
+                    // if this is a daughter of one of those - add to the list
+                    if ( Fmck_daug[prt] == donttake[prt_notake] ) {
+                        donttake.push_back( Fmck_id[prt] );
+                        skip_this_particle = true;
+                        break;
+                    }
+                }
+            }
+
+            // skip this particle - in the decay chain of the b/c hadron which should be treated as stable
+            if (skip_this_particle) continue;
+
+            bool stable_hadron=false;
+            // check whether this is a weakly decaying b/c hadron,
+            // add to the donttake array if yes
+            // beauty
+            for (unsigned bhadr = 0; bhadr < NBRANGE; bhadr++) {
+                if ( (Fmck_prt[prt] >= BRANGE[0][bhadr]) && (Fmck_prt[prt] <= BRANGE[1][bhadr]) ) {
+                    donttake.push_back( Fmck_id[prt] );
+                    stable_hadron = true;
+                    break;
+                }
+            }
+            // charm
+            for (unsigned chadr = 0; chadr < NCRANGE; chadr++) {
+                if ( (Fmck_prt[prt] >= CRANGE[0][chadr]) && (Fmck_prt[prt] <= CRANGE[1][chadr]) ) {
+                    donttake.push_back( Fmck_id[prt] );
+                    stable_hadron = true;
+                    break;
+                }
+            }
+
+            // sanity check: hadron we treat stable should have decayed in fact
+            // if (stable_hadron && ((Fmck_isthep[prt] % 10000) != 2) ) {
+            //    cout << "WARNING: weakly decaying hadron has not decayed in MC! " << endl;
+            // }
+
+            // check whether this is the scattered electron; skip if yes
+            if ( (Fmck_isthep[prt] % 10000) == 1 ) {
+                if (  ((Fmck_prt[prt]==23)||(Fmck_prt[prt]==24)) && (!electron_flag) ) {
+                    electron_flag = true;
+                    // sanity check
+                    if (Fmck_daug[prt] != 1) abort();
+                    continue;
+                }
+            }
+
+            if ( stable_hadron || ( (Fmck_isthep[prt] % 10000) == 1 ) ) {
+                // ok, this is input particle to jet finder
+                fastjet::PseudoJet particle(Fmck_px[prt], Fmck_py[prt], Fmck_pz[prt], Fmck_e[prt]);
+                hadrons.push_back(particle);
+             }
+        }
+
+        // run the clustering, extract the jets
+        fastjet::ClusterSequence ClusterSequenceHadrons(hadrons, jet_def);
+        hadron_jets = ClusterSequenceHadrons.inclusive_jets();
+
+        // ------ CN PARTON JETS ------ //
+        // note: this is a c++ implementation of the relevant part of code from mcjets.fpp originally written by Philipp Roloff
+        unsigned first_string = 0;
+        unsigned first_mother = 10000;
+        for (Int_t prt=0; prt<Fmck_nstor; prt++) {
+
+            // find the first string and the first mother-of-a-string
+            if (Fmck_prt[prt] == 2092) {
+                if ( first_string == 0 ) first_string = Fmck_id[prt];
+                if ( Fmck_daug[prt] < first_mother) first_mother = Fmck_daug[prt];
+            }
+        }
+
+        for (Int_t prt=0; prt<Fmck_nstor; prt++) {
+
+            if ( (Fmck_id[prt]>=first_mother) && (Fmck_id[prt]<first_string) ) {
+                fastjet::PseudoJet particle(Fmck_px[prt], Fmck_py[prt], Fmck_pz[prt], Fmck_e[prt]);
+                partons.push_back(particle);
+            }
+        }
+
+        fastjet::ClusterSequence ClusterSequencePartons(partons, jet_def);
+        parton_jets = ClusterSequencePartons.inclusive_jets();
+
+        // ------ FILL HISTOGRAMS ------ //
+        // CN hadron jets
+        unsigned cn_hadron_jets = 0;
+        for (int jet=0; jet<hadron_jets.size(); jet++) {
+            Double_t et = hadron_jets[jet].Et();
+            Double_t eta = hadron_jets[jet].eta();
+            if ( et < JET_ET_MIN ) continue;
+            if ( eta > JET_ETA_MAX ) continue;
+            if ( eta < JET_ETA_MIN ) continue;
+            hadr_CN_et -> Fill( et );
+            hadr_CN_eta -> Fill( eta );
+            hadr_CN_q2 -> Fill( Mc_q2_cr );
+            hadr_CN_x -> Fill( Mc_x_cr );
+            cn_hadron_jets++;
+        }
+        hadr_CN_njets -> Fill (cn_hadron_jets);
+
+        // ORANGE hadron jets
+        unsigned orange_jets = 0;
+        for (int k=0; k<Nhbmjets; k++) {
+            TLorentzVector jet(Pxhbmjet[k], Pyhbmjet[k], Pzhbmjet[k], Ehbmjet[k]);
+            if ( jet.Et() < JET_ET_MIN ) continue;
+            if ( jet.Eta() > JET_ETA_MAX ) continue;
+            if ( jet.Eta() < JET_ETA_MIN ) continue;
+            // fill histos
+            hadr_ORANGE_et -> Fill( jet.Et() );
+            hadr_ORANGE_eta -> Fill( jet.Eta() );
+            hadr_ORANGE_q2 -> Fill( Mc_q2_cr );
+            hadr_ORANGE_x -> Fill( Mc_x_cr );
+            orange_jets++;
+        }
+        hadr_ORANGE_njets -> Fill (orange_jets);
+
+        // CN parton jets
+        unsigned cn_parton_jets = 0;
+        for (int jet=0; jet<parton_jets.size(); jet++) {
+            Double_t et = parton_jets[jet].Et();
+            Double_t eta = parton_jets[jet].eta();
+            if ( et < JET_ET_MIN ) continue;
+            if ( eta > JET_ETA_MAX ) continue;
+            if ( eta < JET_ETA_MIN ) continue;
+            part_CN_et -> Fill( et );
+            part_CN_eta -> Fill( eta );
+            part_CN_q2 -> Fill( Mc_q2_cr );
+            part_CN_x -> Fill( Mc_x_cr );
+            cn_parton_jets++;
+        }
+        part_CN_njets -> Fill (cn_parton_jets);
+
+    }
+
+    gROOT -> SetStyle("Plain");
+    TString PLOTS_PATH = getenv("PLOTS_PATH");
+
+    // hadron level
+    TCanvas * c_hadr = new TCanvas();
+    c_hadr -> Divide(3,2);
+    c_hadr -> cd(1);
+    hadr_ORANGE_njets -> Draw();
+    c_hadr -> cd(2);
+    hadr_ORANGE_et -> Draw();
+    c_hadr -> cd(3);
+    hadr_ORANGE_eta -> Draw();
+    c_hadr -> cd(4);
+    hadr_CN_njets -> Draw();
+    c_hadr -> cd(5);
+    hadr_CN_et -> Draw();
+    c_hadr -> cd(6);
+    hadr_CN_eta -> Draw();
+    c_hadr -> Print(PLOTS_PATH+"/"+dataset+"_hadr.eps");
+
+    // parton level
+    TCanvas * c_part = new TCanvas();
+    c_part -> Divide(3,2);
+    c_part -> cd(1);
+    part_CN_njets -> Draw();
+    c_part -> cd(2);
+    part_CN_et -> Draw();
+    c_part -> cd(3);
+    part_CN_eta -> Draw();
+    c_part -> Print(PLOTS_PATH+"/"+dataset+"_part.eps");
+
+    // hadronisation corrections
+    TCanvas * c_corr = new TCanvas();
+    c_corr -> Divide(2,2);
+
+    c_corr -> cd (1);
+    TH1F * chad_et = (TH1F*)hadr_CN_et -> Clone();
+    chad_et -> Divide(part_CN_et);
+    chad_et -> SetAxisRange(0, 1.4, "Y");
+    chad_et -> Draw();
+
+    c_corr -> cd (2);
+    TH1F * chad_eta = (TH1F*)hadr_CN_eta -> Clone();
+    chad_eta -> Divide(part_CN_eta);
+    chad_eta -> SetAxisRange(0, 1.4, "Y");
+    chad_eta -> Draw();
+
+    c_corr -> cd (3);
+    TH1F * chad_q2 = (TH1F*)hadr_CN_q2 -> Clone();
+    chad_q2 -> Divide(part_CN_q2);
+    chad_q2 -> SetAxisRange(0, 1.4, "Y");
+    gPad -> SetLogx();
+    chad_q2 -> Draw();
+
+    c_corr -> cd (4);
+    TH1F * chad_x = (TH1F*)hadr_CN_x -> Clone();
+    chad_x -> Divide(part_CN_x);
+    chad_x -> SetAxisRange(0, 1.4, "Y");
+    gPad -> SetLogx();
+    chad_x -> Draw();
+
+    // draw also the current corrections
+    c_corr -> cd (1);
+    TH1F * chad_et_paper = new TH1F ("chad_et_paper", "", NBINS_ET, BINS_ET);
+    for (unsigned i=0; i<NBINS_ET; i++) chad_et_paper -> SetBinContent(i+1, CHAD_ET_PAPER_VALUES[i]);
+    chad_et_paper -> SetLineColor(kRed);
+    chad_et_paper -> Draw("same");
+
+    c_corr -> cd (2);
+    TH1F * chad_eta_paper = new TH1F ("chad_eta_paper", "", NBINS_ETA, BINS_ETA);
+    for (unsigned i=0; i<NBINS_ETA; i++) chad_eta_paper -> SetBinContent(i+1, CHAD_ETA_PAPER_VALUES[i]);
+    chad_eta_paper -> SetLineColor(kRed);
+    chad_eta_paper -> Draw("same");
+
+    c_corr -> cd (3);
+    TH1F * chad_q2_paper = new TH1F ("chad_q2_paper", "", NBINS_Q2, BINS_Q2);
+    for (unsigned i=0; i<NBINS_Q2; i++) chad_q2_paper -> SetBinContent(i+1, CHAD_Q2_PAPER_VALUES[i]);
+    chad_q2_paper -> SetLineColor(kRed);
+    chad_q2_paper -> Draw("same");
+
+    c_corr -> cd (4);
+    TH1F * chad_x_paper = new TH1F ("chad_x_paper", "", NBINS_X, BINS_X);
+    for (unsigned i=0; i<NBINS_X; i++) chad_x_paper -> SetBinContent(i+1, CHAD_X_PAPER_VALUES[i]);
+    chad_x_paper -> SetLineColor(kRed);
+    chad_x_paper -> Draw("same");
+
+    c_corr -> Print(PLOTS_PATH+"/"+dataset+"_corr.eps");
+
+    return 0;
+}
+
+void add_files_to_chain_v06_06e_charm_1_5GeV2(TChain * c) {
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.aetre26.f15643.ccbar.rg30.q2g1.5.bgf.0079.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.aetre26.f15643.ccbar.rg30.q2g1.5.bgf.0081.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.aetre26.f15643.ccbar.rg30.q2g1.5.bgf.0082.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.aetre26.f15643.ccbar.rg30.q2g1.5.bgf.0109.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.aetre26.f15643.ccbar.rg30.q2g1.5.bgf.0110.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.aetre26.f15643.ccbar.rg30.q2g1.5.bgf.0148.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.aetre26.f15643.ccbar.rg30.q2g1.5.bgf.0150.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.fetre26.f15643.ccbar.rg30.q2g1.5.bgf.0085.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.fetre26.f15643.ccbar.rg30.q2g1.5.bgf.0086.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.fetre26.f15643.ccbar.rg30.q2g1.5.bgf.0151.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0001.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0002.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0003.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0004.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0005.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0006.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0007.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0008.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0009.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0010.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0011.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0012.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0013.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0014.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0015.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0016.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0017.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0018.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0019.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0020.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0021.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0022.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0023.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0024.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0025.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0026.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0027.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0028.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0029.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0030.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0031.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0032.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0033.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0034.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0035.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0036.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0037.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0038.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0039.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0040.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0041.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0042.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0043.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0044.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0045.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0046.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0047.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0048.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0049.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0050.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0051.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0052.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0053.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0054.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0055.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0056.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0057.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0058.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0059.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0060.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0061.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0062.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0063.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0064.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0065.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0066.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0067.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0068.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0069.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0070.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0071.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0072.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0073.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0074.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0075.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0076.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0087.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0088.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0089.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0090.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0091.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0092.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0093.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0094.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0095.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0096.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0097.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0098.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0099.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0100.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0101.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0102.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0103.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0104.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0105.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0106.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0107.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0111.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0112.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0113.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0114.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0115.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0116.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0117.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0118.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0119.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0120.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0121.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0122.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0123.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0124.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0125.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0126.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0129.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0130.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0131.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0132.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0133.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0134.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0135.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0136.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0137.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0138.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0139.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0140.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0141.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0142.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0143.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0144.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0145.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0146.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0147.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0152.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0153.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0154.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0155.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0156.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0157.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0158.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0159.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0160.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0161.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0162.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0163.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0164.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0165.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0166.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.ccbar.rg30.q2g1.5.bgf.0167.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.oetre26.f15643.ccbar.rg30.q2g1.5.bgf.0083.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.oetre26.f15643.ccbar.rg30.q2g1.5.bgf.0084.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.oetre26.f15643.ccbar.rg30.q2g1.5.bgf.0127.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.oetre26.f15643.ccbar.rg30.q2g1.5.bgf.0128.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.xetre26.f15643.ccbar.rg30.q2g1.5.bgf.0077.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.xetre26.f15643.ccbar.rg30.q2g1.5.bgf.0078.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.xetre26.f15643.ccbar.rg30.q2g1.5.bgf.0080.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.xetre26.f15643.ccbar.rg30.q2g1.5.bgf.0108.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.xetre26.f15643.ccbar.rg30.q2g1.5.bgf.0149.root");
+}
+
+void add_files_to_chain_v06_06e_charm_4GeV2(TChain * c) {
+
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.028.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.029.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.030.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.031.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.032.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.033.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.034.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.035.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.036.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.037.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.038.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.039.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.040.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.041.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.042.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.043.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.044.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.045.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.046.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.047.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.048.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.049.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.050.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.055.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.056.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.057.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.058.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.059.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.060.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.061.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.062.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.063.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.064.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.065.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.066.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.067.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.068.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.069.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.070.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.071.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.072.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.073.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.074.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.075.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.076.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.077.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.078.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.079.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.080.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.081.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.082.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.083.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.084.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/06e/v06b/mc/root/zeusmc.hetre26.f15643.rgap3.nc.ccdir.e.q2g4.085.root");
+}
+
+void add_files_to_chain_v06_0607p_charm_1_5GeV2(TChain * c) {
+
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0160.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0161.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0162.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0163.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0164.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0165.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0166.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0167.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0169.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0170.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0171.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0172.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0173.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0174.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0175.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0176.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0177.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0178.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0179.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0180.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0182.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0183.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0184.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0185.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0186.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0187.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0188.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0189.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0190.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0191.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0192.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0193.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0194.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0195.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0196.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0197.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0198.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0199.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0200.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0201.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0202.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0203.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0204.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0206.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0209.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0210.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0211.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0212.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0213.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0214.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0215.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0216.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0217.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0218.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0219.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0220.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0221.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0222.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0223.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0224.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0225.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0226.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0227.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0228.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0229.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0230.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0231.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0232.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0233.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0234.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0235.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0236.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0237.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0238.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0241.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0242.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0243.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0244.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0245.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0246.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0247.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0248.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0249.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0250.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0251.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0252.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0253.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0254.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0255.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0256.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0257.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0258.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0259.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0260.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0261.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0262.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0263.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0264.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0265.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0266.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0267.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0268.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0269.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0270.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0271.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0272.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0273.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0274.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0275.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0276.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0277.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0278.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0279.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0280.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0281.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0282.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0283.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0284.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0285.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0286.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0287.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0288.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0289.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0290.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0291.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0292.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0293.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0294.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0295.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0296.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0297.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0298.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0299.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0300.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0301.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0305.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0306.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0307.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0308.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0309.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0310.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0311.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0312.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0313.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0314.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0315.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0316.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0317.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0318.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0319.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0320.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0321.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0322.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0323.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0324.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0325.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0326.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0327.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0328.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0329.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0330.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0331.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0332.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0333.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0334.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0335.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0336.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0337.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0338.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0339.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0340.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0341.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0342.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0343.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0344.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0345.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0346.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0347.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0348.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0349.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0350.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0351.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0352.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0353.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0354.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0355.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0356.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0357.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0358.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0359.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0363.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0364.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0365.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0366.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0367.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0368.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0369.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0370.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0371.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0372.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0373.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0374.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.ccbar.rg30.q2g1.5.bgf.0375.root");
+}
+
+void add_files_to_chain_v06_0607p_charm_4GeV2(TChain * c) {
+
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.282.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.282.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.283.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.283.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.284.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.284.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.285.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.285.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.286.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.286.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.287.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.287.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.288.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.288.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.289.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.289.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.290.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.290.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.291.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.291.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.293.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.293.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.294.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.294.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.295.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.295.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.296.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.296.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.297.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.297.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.298.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.298.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.299.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.299.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.300.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.300.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.301.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.301.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.302.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.302.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.303.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.303.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.304.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.304.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.305.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.305.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.306.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.306.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.307.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.307.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.308.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.308.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.309.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.309.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.310.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.310.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.311.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.311.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.312.1.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.312.2.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.c.q2g4.p.313.1.root");
+}
+
+void add_files_to_chain_v06_0607p_beauty_q1GeV2(TChain * c) {
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.afix627.f15643.rgap3.nc.b.q2g1.p.013.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.afix627.f15643.rgap3.nc.b.q2g1.p.058.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.ffix627.f15643.rgap3.nc.b.q2g1.p.011.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.ffix627.f15643.rgap3.nc.b.q2g1.p.015.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.ffix627.f15643.rgap3.nc.b.q2g1.p.037.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfir627.f15643.rgap3.nc.b.q2g1.p.114.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfir627.f15643.rgap3.nc.b.q2g1.p.115.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfir627.f15643.rgap3.nc.b.q2g1.p.116.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfir627.f15643.rgap3.nc.b.q2g1.p.117.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.001.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.002.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.003.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.004.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.005.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.006.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.007.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.008.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.009.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.016.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.017.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.018.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.019.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.020.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.021.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.022.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.023.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.024.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.025.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.026.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.027.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.028.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.029.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.030.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.031.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.032.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.033.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.034.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.035.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.038.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.039.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.040.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.041.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.042.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.043.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.044.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.045.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.046.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.047.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.048.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.049.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.050.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.051.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.052.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.053.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.054.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.055.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.056.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.059.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.060.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.061.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.062.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.063.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.064.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.065.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.066.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.067.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.068.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.069.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.070.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.071.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.072.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.073.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.074.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.075.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.076.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.077.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.078.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.079.root");
+    c -> Add("dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/zeusmc.hfix627.f15643.rgap3.nc.b.q2g1.p.080.root");
+}
