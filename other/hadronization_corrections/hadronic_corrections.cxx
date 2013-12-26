@@ -14,6 +14,7 @@
 // system headers
 #include <iostream>
 #include <vector>
+#include <getopt.h>
 using namespace std;
 
 void add_files_to_chain_v06_06e_charm_1_5GeV2(TChain * c);
@@ -24,16 +25,49 @@ void add_files_to_chain_v06_0607p_beauty_q1GeV2(TChain * c);
 
 int main (int argc, char **argv) {
 
+    // parse command line options
+    static struct option long_options[] = {
+        {"sample",     required_argument, 0, 1},
+        {"nevents",    required_argument, 0, 2},
+        {"maxpartons", required_argument, 0, 3},
+    };
+    TString  sample     = "";
+    unsigned nevents    = 0;
+    unsigned maxpartons = 0;
+
+    int option;
+    int option_index;
+    while ((option = getopt_long (argc, argv, "h", long_options, &option_index)) != -1) {
+        switch (option) {
+            case 1:
+                sample = optarg;
+                cout << "INFO: sample= " << sample << endl;
+                break;
+            case 2:
+                nevents = atoi(optarg);
+                cout << "INFO: nevents= " << nevents << endl;
+                break;
+            case 3:
+                maxpartons = atoi(optarg);
+                cout << "INFO: maxpartons= " << maxpartons << endl;
+                break;
+            case 'h':
+                cout<<"\nUsage: " << endl;
+                cout<<"\thadronic_corrections  --sample <sample name> [--maxpartons <max number of partons>] [--nevents <max number of events>]\n"<<endl;
+                cout<<"\t\t--sample <sample name> \tsupported samples: v06_06e_charm_1_5GeV2, v06_06e_charm_4GeV2, v06_0607p_charm_1_5GeV2, v06_0607p_charm_4GeV2, v06_0607p_beauty_q1GeV2, charm, beauty" << endl;
+                cout <<"\t\t\t\t\t(the two latter combine all available charm/beauty samples"<<endl;
+                cout << endl;
+                exit(-1);
+            default:
+                cout << "Unknown opiton or missing option argument. The program will terminate, sorry." << endl;
+                exit(-1);
+        }
+    }
+
     // create a "chain" - an object that will contain all the ROOT files ("ntuples") we want to analyze
     TChain  * fChain = new TChain ("orange");
 
-    //TString dataset = "v06_06e_charm_1_5GeV2";
-    // TString dataset = "v06_06e_charm_4GeV2";
-    TString dataset = "v06_0607p_charm_1_5GeV2";
-    //TString dataset = "v06_0607p_charm_4GeV2";
-    //TString dataset = "v06_0607p_beauty_q1GeV2";
-    //TString dataset = "charm";
-    //TString dataset = "beauty";
+    TString dataset = sample;
 
     // charm sets
     if      (dataset == "v06_06e_charm_1_5GeV2")   add_files_to_chain_v06_06e_charm_1_5GeV2(fChain);
@@ -57,9 +91,14 @@ int main (int argc, char **argv) {
         abort();
     }
 
-    // calculate number of events (entries) in this set of files
-    unsigned   Nevents = fChain -> GetEntries ();
-    cout << Nevents << " events found in this chain" << endl;
+    // calculate number of events (entries) in this set of files or take the number from the command line if given
+    unsigned   Nevents;
+    if (nevents == 0 ) {
+        Nevents = fChain -> GetEntries ();
+    } else {
+        Nevents = nevents;
+    } 
+    cout << Nevents << " events will be processed" << endl;
 
     // declare variables
     Int_t	Nhbmjets;
@@ -218,6 +257,8 @@ int main (int argc, char **argv) {
     TH1F * hadr_CN_x     = new TH1F ("hadr_CN_x",     "", NBINS_X, BINS_X);
     TH1F * part_CN_x     = new TH1F ("part_CN_x",     "", NBINS_X, BINS_X);
 
+    TH1F * part_npartons = new TH1F ("part_npartons", "", 20, 0, 20);
+
     // vector to store FMCK_ID of stable c/b hadrons and their daughters (the daughters won't be considered in the clustering algorithm)
     vector<unsigned> donttake;
 
@@ -361,6 +402,12 @@ int main (int argc, char **argv) {
             }
         }
 
+        unsigned npartons = partons.size();
+
+        // for Achim's systematic check - skip event if more than a certain number of partons
+        if ( (maxpartons != 0) && (npartons > maxpartons) ) continue;
+
+        part_npartons -> Fill(npartons);
         fastjet::ClusterSequence ClusterSequencePartons(partons, jet_def);
         parton_jets = ClusterSequencePartons.inclusive_jets();
 
@@ -502,6 +549,10 @@ int main (int argc, char **argv) {
     chad_x_paper -> Draw("same");
 
     c_corr -> Print(PLOTS_PATH+"/"+dataset+"_corr.eps");
+
+    TCanvas * c_npartons = new TCanvas();
+    part_npartons -> Draw();
+    c_npartons -> Print(PLOTS_PATH+"/"+dataset+"_npartons.eps");
 
     return 0;
 }
