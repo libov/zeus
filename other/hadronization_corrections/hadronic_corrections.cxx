@@ -10,6 +10,7 @@
 #include <TLorentzVector.h>
 #include <TCanvas.h>
 #include <TStyle.h>
+#include <TFile.h>
 
 // system headers
 #include <iostream>
@@ -465,94 +466,59 @@ int main (int argc, char **argv) {
     gROOT -> SetStyle("Plain");
     TString PLOTS_PATH = getenv("PLOTS_PATH");
 
+    TString maxpartons_str = "";
+    maxpartons_str += maxpartons;
+    TFile * output = new TFile (PLOTS_PATH+"/"+dataset+"_max_"+maxpartons_str+"_partons"+".root", "recreate");
+    output -> cd();
+
     // hadron level
-    TCanvas * c_hadr = new TCanvas();
-    c_hadr -> Divide(3,2);
-    c_hadr -> cd(1);
-    hadr_ORANGE_njets -> Draw();
-    c_hadr -> cd(2);
-    hadr_ORANGE_et -> Draw();
-    c_hadr -> cd(3);
-    hadr_ORANGE_eta -> Draw();
-    c_hadr -> cd(4);
-    hadr_CN_njets -> Draw();
-    c_hadr -> cd(5);
-    hadr_CN_et -> Draw();
-    c_hadr -> cd(6);
-    hadr_CN_eta -> Draw();
-    c_hadr -> Print(PLOTS_PATH+"/"+dataset+"_hadr.eps");
+    hadr_ORANGE_njets -> Write();
+    hadr_ORANGE_et -> Write();
+    hadr_ORANGE_eta -> Write();
+    hadr_CN_njets -> Write();
+    hadr_CN_et -> Write();
+    hadr_CN_eta -> Write();
 
     // parton level
-    TCanvas * c_part = new TCanvas();
-    c_part -> Divide(3,2);
-    c_part -> cd(1);
-    part_CN_njets -> Draw();
-    c_part -> cd(2);
-    part_CN_et -> Draw();
-    c_part -> cd(3);
-    part_CN_eta -> Draw();
-    c_part -> Print(PLOTS_PATH+"/"+dataset+"_part.eps");
+    part_CN_njets -> Write();
+    part_CN_et -> Write();
+    part_CN_eta -> Write();
 
     // hadronisation corrections
-    TCanvas * c_corr = new TCanvas();
-    c_corr -> Divide(2,2);
-
-    c_corr -> cd (1);
-    TH1F * chad_et = (TH1F*)hadr_CN_et -> Clone();
+    TH1F * chad_et = (TH1F*)hadr_CN_et -> Clone("chad_et");
     chad_et -> Divide(part_CN_et);
-    chad_et -> SetAxisRange(0, 1.4, "Y");
-    chad_et -> Draw();
+    chad_et -> Write();
 
-    c_corr -> cd (2);
-    TH1F * chad_eta = (TH1F*)hadr_CN_eta -> Clone();
+    TH1F * chad_eta = (TH1F*)hadr_CN_eta -> Clone("chad_eta");
     chad_eta -> Divide(part_CN_eta);
-    chad_eta -> SetAxisRange(0, 1.4, "Y");
-    chad_eta -> Draw();
+    chad_eta -> Write();
 
-    c_corr -> cd (3);
-    TH1F * chad_q2 = (TH1F*)hadr_CN_q2 -> Clone();
+    TH1F * chad_q2 = (TH1F*)hadr_CN_q2 -> Clone("chad_q2");
     chad_q2 -> Divide(part_CN_q2);
-    chad_q2 -> SetAxisRange(0, 1.4, "Y");
-    gPad -> SetLogx();
-    chad_q2 -> Draw();
+    chad_q2 -> Write();
 
-    c_corr -> cd (4);
-    TH1F * chad_x = (TH1F*)hadr_CN_x -> Clone();
+    TH1F * chad_x = (TH1F*)hadr_CN_x -> Clone("chad_x");
     chad_x -> Divide(part_CN_x);
-    chad_x -> SetAxisRange(0, 1.4, "Y");
-    gPad -> SetLogx();
-    chad_x -> Draw();
+    chad_x -> Write();
 
     // draw also the current corrections
-    c_corr -> cd (1);
     TH1F * chad_et_paper = new TH1F ("chad_et_paper", "", NBINS_ET, BINS_ET);
     for (unsigned i=0; i<NBINS_ET; i++) chad_et_paper -> SetBinContent(i+1, CHAD_ET_PAPER_VALUES[i]);
-    chad_et_paper -> SetLineColor(kRed);
-    chad_et_paper -> Draw("same");
+    chad_et_paper -> Write();
 
-    c_corr -> cd (2);
     TH1F * chad_eta_paper = new TH1F ("chad_eta_paper", "", NBINS_ETA, BINS_ETA);
     for (unsigned i=0; i<NBINS_ETA; i++) chad_eta_paper -> SetBinContent(i+1, CHAD_ETA_PAPER_VALUES[i]);
-    chad_eta_paper -> SetLineColor(kRed);
-    chad_eta_paper -> Draw("same");
+    chad_eta_paper -> Write();
 
-    c_corr -> cd (3);
     TH1F * chad_q2_paper = new TH1F ("chad_q2_paper", "", NBINS_Q2, BINS_Q2);
     for (unsigned i=0; i<NBINS_Q2; i++) chad_q2_paper -> SetBinContent(i+1, CHAD_Q2_PAPER_VALUES[i]);
-    chad_q2_paper -> SetLineColor(kRed);
-    chad_q2_paper -> Draw("same");
+    chad_q2_paper -> Write();
 
-    c_corr -> cd (4);
     TH1F * chad_x_paper = new TH1F ("chad_x_paper", "", NBINS_X, BINS_X);
     for (unsigned i=0; i<NBINS_X; i++) chad_x_paper -> SetBinContent(i+1, CHAD_X_PAPER_VALUES[i]);
-    chad_x_paper -> SetLineColor(kRed);
-    chad_x_paper -> Draw("same");
+    chad_x_paper -> Write();
 
-    c_corr -> Print(PLOTS_PATH+"/"+dataset+"_corr.eps");
-
-    TCanvas * c_npartons = new TCanvas();
-    part_npartons -> Draw();
-    c_npartons -> Print(PLOTS_PATH+"/"+dataset+"_npartons.eps");
+    part_npartons -> Write();
 
     return 0;
 }
