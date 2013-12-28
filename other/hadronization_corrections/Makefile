@@ -16,4 +16,4 @@ hadronic_corrections.o: hadronic_corrections.cxx
 .PHONY: clean
 clean:
 	-rm -rf *.o
-	-rm -rf test2
+	-rm -rf hadronic_corrections
