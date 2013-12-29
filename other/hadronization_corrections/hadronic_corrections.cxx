@@ -198,6 +198,26 @@ int main (int argc, char **argv) {
     Float_t chad_x_paper_values_charm[]=  {1.19, 1.20, 1.09, 0.97, 0.91, 0.88};
     Float_t * CHAD_X_PAPER_VALUES;
 
+    Float_t chad_x_q2bin1_paper_values_beauty[]= {1.09, 1.07, 1.04, 0.91};
+    Float_t chad_x_q2bin1_paper_values_charm[]=  {1.19, 1.21, 1.23, 1.07};
+    Float_t * CHAD_X_Q2BIN1_PAPER_VALUES;
+
+    Float_t chad_x_q2bin2_paper_values_beauty[]= {1.07, 1.05, 1, 0.94, 0.81};
+    Float_t chad_x_q2bin2_paper_values_charm[]=  {1.13, 1.09, 1.05, 1.01, 0.91};
+    Float_t * CHAD_X_Q2BIN2_PAPER_VALUES;
+
+    Float_t chad_x_q2bin3_paper_values_beauty[]= {1.03, 1.02, 0.98};
+    Float_t chad_x_q2bin3_paper_values_charm[]=  {1.07, 1.03, 1.01, 0.93};
+    Float_t * CHAD_X_Q2BIN3_PAPER_VALUES;
+
+    Float_t chad_x_q2bin4_paper_values_beauty[]= {1.01, 0.99, 0.92};
+    Float_t chad_x_q2bin4_paper_values_charm[]=  {1.05, 1.01, 0.96};
+    Float_t * CHAD_X_Q2BIN4_PAPER_VALUES;
+
+    Float_t chad_x_q2bin5_paper_values_beauty[]= {1.01, 1};
+    Float_t chad_x_q2bin5_paper_values_charm[]=  {1.02, 1.01};
+    Float_t * CHAD_X_Q2BIN5_PAPER_VALUES;
+
     // binning
     unsigned NBINS_ETA;
     Float_t BINS_ETA_CHARM[] = {-1.6, -1.1, -0.8, -0.5, -0.2, 0.1, 0.4, 0.7, 1, 1.3, 1.6, 2.2};
@@ -213,6 +233,23 @@ int main (int argc, char **argv) {
     const unsigned NBINS_X = 6; 
     const Float_t BINS_X[] = {0.00008, 0.0002, 0.0006, 0.0016, 0.005, 0.01, 0.1};
 
+    const unsigned NBINS_X_Q2BIN1 = 4;
+    Float_t BINS_X_Q2BIN1[] = {8e-05, 0.0002, 0.0003, 0.0005, 0.003};
+
+    const unsigned NBINS_X_Q2BIN2 = 5;
+    Float_t BINS_X_Q2BIN2[] = {0.0003, 0.0005, 0.0012, 0.002, 0.0035, 0.01};
+
+    unsigned NBINS_X_Q2BIN3;
+    Float_t * BINS_X_Q2BIN3;
+    Float_t BINS_X_Q2BIN3_CHARM[] = {0.0008, 0.0018, 0.003, 0.006, 0.04};
+    Float_t BINS_X_Q2BIN3_BEAUTY[] = {0.0008, 0.0018, 0.003, 0.006};
+
+    const unsigned NBINS_X_Q2BIN4 = 3;
+    Float_t BINS_X_Q2BIN4[] = {0.0016, 0.005, 0.016, 0.06};
+
+    const unsigned NBINS_X_Q2BIN5 = 2;
+    Float_t BINS_X_Q2BIN5[] = {0.005, 0.02, 0.1};
+
     // jet cuts
     Float_t JET_ET_MIN;
     const Float_t JET_ETA_MAX = 2.2;
@@ -222,18 +259,32 @@ int main (int argc, char **argv) {
     if ( dataset.Contains("charm") ) {
         NBINS_ETA = 11;
         BINS_ETA = BINS_ETA_CHARM;
+        NBINS_X_Q2BIN3 = 4;
+        BINS_X_Q2BIN3 = BINS_X_Q2BIN3_CHARM;
         CHAD_ET_PAPER_VALUES  = chad_et_paper_values_charm;
         CHAD_ETA_PAPER_VALUES = chad_eta_paper_values_charm;
         CHAD_Q2_PAPER_VALUES  = chad_q2_paper_values_charm;
         CHAD_X_PAPER_VALUES   = chad_x_paper_values_charm;
+        CHAD_X_Q2BIN1_PAPER_VALUES = chad_x_q2bin1_paper_values_charm;
+        CHAD_X_Q2BIN2_PAPER_VALUES = chad_x_q2bin2_paper_values_charm;
+        CHAD_X_Q2BIN3_PAPER_VALUES = chad_x_q2bin3_paper_values_charm;
+        CHAD_X_Q2BIN4_PAPER_VALUES = chad_x_q2bin4_paper_values_charm;
+        CHAD_X_Q2BIN5_PAPER_VALUES = chad_x_q2bin5_paper_values_charm;
         JET_ET_MIN = 4.2;
     } else if ( dataset.Contains("beauty") ) {
         NBINS_ETA = 10;
         BINS_ETA = BINS_ETA_BEAUTY;
+        NBINS_X_Q2BIN3 = 3;
+        BINS_X_Q2BIN3 = BINS_X_Q2BIN3_BEAUTY;
         CHAD_ET_PAPER_VALUES  = chad_et_paper_values_beauty;
         CHAD_ETA_PAPER_VALUES = chad_eta_paper_values_beauty;
         CHAD_Q2_PAPER_VALUES  = chad_q2_paper_values_beauty;
         CHAD_X_PAPER_VALUES   = chad_x_paper_values_beauty;
+        CHAD_X_Q2BIN1_PAPER_VALUES = chad_x_q2bin1_paper_values_beauty;
+        CHAD_X_Q2BIN2_PAPER_VALUES = chad_x_q2bin2_paper_values_beauty;
+        CHAD_X_Q2BIN3_PAPER_VALUES = chad_x_q2bin3_paper_values_beauty;
+        CHAD_X_Q2BIN4_PAPER_VALUES = chad_x_q2bin4_paper_values_beauty;
+        CHAD_X_Q2BIN5_PAPER_VALUES = chad_x_q2bin5_paper_values_beauty;
         JET_ET_MIN = 5.0;
     }
 
@@ -257,6 +308,21 @@ int main (int argc, char **argv) {
     TH1F * hadr_ORANGE_x = new TH1F ("hadr_ORANGE_x", "", NBINS_X, BINS_X);
     TH1F * hadr_CN_x     = new TH1F ("hadr_CN_x",     "", NBINS_X, BINS_X);
     TH1F * part_CN_x     = new TH1F ("part_CN_x",     "", NBINS_X, BINS_X);
+
+    TH1F * hadr_CN_x_q2bin1 = new TH1F ("hadr_CN_x_q2bin1",     "", NBINS_X_Q2BIN1, BINS_X_Q2BIN1);
+    TH1F * part_CN_x_q2bin1 = new TH1F ("part_CN_x_q2bin1",     "", NBINS_X_Q2BIN1, BINS_X_Q2BIN1);
+
+    TH1F * hadr_CN_x_q2bin2 = new TH1F ("hadr_CN_x_q2bin2",     "", NBINS_X_Q2BIN2, BINS_X_Q2BIN2);
+    TH1F * part_CN_x_q2bin2 = new TH1F ("part_CN_x_q2bin2",     "", NBINS_X_Q2BIN2, BINS_X_Q2BIN2);
+
+    TH1F * hadr_CN_x_q2bin3 = new TH1F ("hadr_CN_x_q2bin3",     "", NBINS_X_Q2BIN3, BINS_X_Q2BIN3);
+    TH1F * part_CN_x_q2bin3 = new TH1F ("part_CN_x_q2bin3",     "", NBINS_X_Q2BIN3, BINS_X_Q2BIN3);
+
+    TH1F * hadr_CN_x_q2bin4 = new TH1F ("hadr_CN_x_q2bin4",     "", NBINS_X_Q2BIN4, BINS_X_Q2BIN4);
+    TH1F * part_CN_x_q2bin4 = new TH1F ("part_CN_x_q2bin4",     "", NBINS_X_Q2BIN4, BINS_X_Q2BIN4);
+
+    TH1F * hadr_CN_x_q2bin5 = new TH1F ("hadr_CN_x_q2bin5",     "", NBINS_X_Q2BIN5, BINS_X_Q2BIN5);
+    TH1F * part_CN_x_q2bin5 = new TH1F ("part_CN_x_q2bin5",     "", NBINS_X_Q2BIN5, BINS_X_Q2BIN5);
 
     TH1F * part_npartons = new TH1F ("part_npartons", "", 20, 0, 20);
 
@@ -425,6 +491,11 @@ int main (int argc, char **argv) {
             hadr_CN_eta -> Fill( eta );
             hadr_CN_q2 -> Fill( Mc_q2_cr );
             hadr_CN_x -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 5) && (Mc_q2_cr < 20) )  hadr_CN_x_q2bin1 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 20) && (Mc_q2_cr < 60) )  hadr_CN_x_q2bin2 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 60) && (Mc_q2_cr < 120) )  hadr_CN_x_q2bin3 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 120) && (Mc_q2_cr < 400) )  hadr_CN_x_q2bin4 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 400) && (Mc_q2_cr < 1000) )  hadr_CN_x_q2bin5 -> Fill( Mc_x_cr );
             cn_hadron_jets++;
         }
         hadr_CN_njets -> Fill (cn_hadron_jets);
@@ -457,6 +528,11 @@ int main (int argc, char **argv) {
             part_CN_eta -> Fill( eta );
             part_CN_q2 -> Fill( Mc_q2_cr );
             part_CN_x -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 5) && (Mc_q2_cr < 20) )  part_CN_x_q2bin1 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 20) && (Mc_q2_cr < 60) )  part_CN_x_q2bin2 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 60) && (Mc_q2_cr < 120) )  part_CN_x_q2bin3 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 120) && (Mc_q2_cr < 400) )  part_CN_x_q2bin4 -> Fill( Mc_x_cr );
+            if ( (Mc_q2_cr >= 400) && (Mc_q2_cr < 1000) )  part_CN_x_q2bin5 -> Fill( Mc_x_cr );
             cn_parton_jets++;
         }
         part_CN_njets -> Fill (cn_parton_jets);
@@ -478,11 +554,21 @@ int main (int argc, char **argv) {
     hadr_CN_njets -> Write();
     hadr_CN_et -> Write();
     hadr_CN_eta -> Write();
+    hadr_CN_x_q2bin1 -> Write();
+    hadr_CN_x_q2bin2 -> Write();
+    hadr_CN_x_q2bin3 -> Write();
+    hadr_CN_x_q2bin4 -> Write();
+    hadr_CN_x_q2bin5 -> Write();
 
     // parton level
     part_CN_njets -> Write();
     part_CN_et -> Write();
     part_CN_eta -> Write();
+    part_CN_x_q2bin1 -> Write();
+    part_CN_x_q2bin2 -> Write();
+    part_CN_x_q2bin3 -> Write();
+    part_CN_x_q2bin4 -> Write();
+    part_CN_x_q2bin5 -> Write();
 
     // hadronisation corrections
     TH1F * chad_et = (TH1F*)hadr_CN_et -> Clone("chad_et");
@@ -501,6 +587,26 @@ int main (int argc, char **argv) {
     chad_x -> Divide(part_CN_x);
     chad_x -> Write();
 
+    TH1F * chad_x_q2bin1 = (TH1F*)hadr_CN_x_q2bin1 -> Clone("chad_x_q2bin1");
+    chad_x_q2bin1 -> Divide(part_CN_x_q2bin1);
+    chad_x_q2bin1 -> Write();
+
+    TH1F * chad_x_q2bin2 = (TH1F*)hadr_CN_x_q2bin2 -> Clone("chad_x_q2bin2");
+    chad_x_q2bin2 -> Divide(part_CN_x_q2bin2);
+    chad_x_q2bin2 -> Write();
+
+    TH1F * chad_x_q2bin3 = (TH1F*)hadr_CN_x_q2bin3 -> Clone("chad_x_q2bin3");
+    chad_x_q2bin3 -> Divide(part_CN_x_q2bin3);
+    chad_x_q2bin3 -> Write();
+
+    TH1F * chad_x_q2bin4 = (TH1F*)hadr_CN_x_q2bin4 -> Clone("chad_x_q2bin4");
+    chad_x_q2bin4 -> Divide(part_CN_x_q2bin4);
+    chad_x_q2bin4 -> Write();
+
+    TH1F * chad_x_q2bin5 = (TH1F*)hadr_CN_x_q2bin5 -> Clone("chad_x_q2bin5");
+    chad_x_q2bin5 -> Divide(part_CN_x_q2bin5);
+    chad_x_q2bin5 -> Write();
+
     // draw also the current corrections
     TH1F * chad_et_paper = new TH1F ("chad_et_paper", "", NBINS_ET, BINS_ET);
     for (unsigned i=0; i<NBINS_ET; i++) chad_et_paper -> SetBinContent(i+1, CHAD_ET_PAPER_VALUES[i]);
@@ -517,6 +623,26 @@ int main (int argc, char **argv) {
     TH1F * chad_x_paper = new TH1F ("chad_x_paper", "", NBINS_X, BINS_X);
     for (unsigned i=0; i<NBINS_X; i++) chad_x_paper -> SetBinContent(i+1, CHAD_X_PAPER_VALUES[i]);
     chad_x_paper -> Write();
+
+    TH1F * chad_x_q2bin1_paper = new TH1F ("chad_x_q2bin1_paper", "", NBINS_X_Q2BIN1, BINS_X_Q2BIN1);
+    for (unsigned i=0; i<NBINS_X_Q2BIN1; i++) chad_x_q2bin1_paper -> SetBinContent(i+1, CHAD_X_Q2BIN1_PAPER_VALUES[i]);
+    chad_x_q2bin1_paper -> Write();
+
+    TH1F * chad_x_q2bin2_paper = new TH1F ("chad_x_q2bin2_paper", "", NBINS_X_Q2BIN2, BINS_X_Q2BIN2);
+    for (unsigned i=0; i<NBINS_X_Q2BIN2; i++) chad_x_q2bin2_paper -> SetBinContent(i+1, CHAD_X_Q2BIN2_PAPER_VALUES[i]);
+    chad_x_q2bin2_paper -> Write();
+
+    TH1F * chad_x_q2bin3_paper = new TH1F ("chad_x_q2bin3_paper", "", NBINS_X_Q2BIN3, BINS_X_Q2BIN3);
+    for (unsigned i=0; i<NBINS_X_Q2BIN3; i++) chad_x_q2bin3_paper -> SetBinContent(i+1, CHAD_X_Q2BIN3_PAPER_VALUES[i]);
+    chad_x_q2bin3_paper -> Write();
+
+    TH1F * chad_x_q2bin4_paper = new TH1F ("chad_x_q2bin4_paper", "", NBINS_X_Q2BIN4, BINS_X_Q2BIN4);
+    for (unsigned i=0; i<NBINS_X_Q2BIN4; i++) chad_x_q2bin4_paper -> SetBinContent(i+1, CHAD_X_Q2BIN4_PAPER_VALUES[i]);
+    chad_x_q2bin4_paper -> Write();
+
+    TH1F * chad_x_q2bin5_paper = new TH1F ("chad_x_q2bin5_paper", "", NBINS_X_Q2BIN5, BINS_X_Q2BIN5);
+    for (unsigned i=0; i<NBINS_X_Q2BIN5; i++) chad_x_q2bin5_paper -> SetBinContent(i+1, CHAD_X_Q2BIN5_PAPER_VALUES[i]);
+    chad_x_q2bin5_paper -> Write();
 
     part_npartons -> Write();
 
