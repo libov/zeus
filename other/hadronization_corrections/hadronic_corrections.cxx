@@ -364,7 +364,7 @@ int main (int argc, char **argv) {
     // loop over events
     for (unsigned event = 0; event < Nevents; event++) {
 
-        if ( event % 10000 == 0 )   cout<< " processing event " << event << endl;
+        if ( event % 100000 == 0 )   cout<< " processing event " << event << endl;
 
         fChain -> GetEntry(event);
 
