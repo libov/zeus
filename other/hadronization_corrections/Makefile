@@ -11,7 +11,7 @@ hadronic_corrections: hadronic_corrections.o
 	gcc -o hadronic_corrections hadronic_corrections.o $(FLAGS)
 
 hadronic_corrections.o: hadronic_corrections.cxx
-	gcc -o $@ -c $< -I/data/zenith226a/libov/fastJet/fastjet-install/include $(FLAGS_OBJ)
+	gcc -o $@ -c $< -I/data/zenith226a/libov/fastJet/fastjet-install/include -I inc/ $(FLAGS_OBJ)
 
 .PHONY: clean
 clean:
