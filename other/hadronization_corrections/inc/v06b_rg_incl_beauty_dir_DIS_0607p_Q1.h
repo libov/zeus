@@ -9,7 +9,7 @@ class ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_0607p_Q1 {
 
   static TChain* addToZaconChain(TChain *ch) {
     
-   string prefix="zeus://acs/z/ntup/07p/v06b/mc/root/";
+   string prefix="dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/07p/v06b/mc/root/";
    ch->Add( (prefix + "zeusmc.afix627.f15643.rgap3.nc.b.q2g1.p.013.root").c_str() );
    ch->Add( (prefix + "zeusmc.afix627.f15643.rgap3.nc.b.q2g1.p.058.root").c_str() );
    ch->Add( (prefix + "zeusmc.ffix627.f15643.rgap3.nc.b.q2g1.p.011.root").c_str() );
