@@ -328,6 +328,15 @@ int main (int argc, char **argv) {
 
     TH1F * part_npartons = new TH1F ("part_npartons", "", 20, 0, 20);
 
+    TIter next(gDirectory->GetList());
+    TObject* obj;
+    while ( obj= (TObject*)next() ) {
+        //if(obj->InheritsFrom(TH1::Class())){
+        TString className = obj -> ClassName();
+        if ( className != "TH1F") continue;
+        ( (TH1F*)obj ) -> Sumw2();
+    }
+
     // vector to store FMCK_ID of stable c/b hadrons and their daughters (the daughters won't be considered in the clustering algorithm)
     vector<unsigned> donttake;
 
