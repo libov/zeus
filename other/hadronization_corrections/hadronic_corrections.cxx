@@ -63,7 +63,7 @@ int main (int argc, char **argv) {
             case 'h':
                 cout<<"\nUsage: " << endl;
                 cout<<"\thadronic_corrections  --sample <sample name> [--maxpartons <max number of partons>] [--nevents <max number of events>]\n"<<endl;
-                cout<<"\t\t--sample <sample name> \tsupported samples: see code..." << endl;
+                cout<<"\t\t--sample <sample name> \twhere sample name corresponds to sample name in cninfo; see code or inc/ for list of currently implemented samples." << endl;
                 cout <<"\t\t\t\t\t(the two latter combine all available charm/beauty samples"<<endl;
                 cout << endl;
                 exit(-1);
@@ -78,18 +78,18 @@ int main (int argc, char **argv) {
 
     TString dataset = sample;
 
-    if      ( dataset == "rg_incl_beauty_dir_DIS_0304p_Q1.h" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_0304p_Q1::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_beauty_dir_DIS_05e_Q1.h" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_05e_Q1::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_beauty_dir_DIS_0607p_Q1.h" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_0607p_Q1::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_beauty_dir_DIS_06e_Q1.h" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_06e_Q1::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_0304p_Q1.5.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0304p_Q1_5::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_0304p_Q4.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0304p_Q4::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_05e_Q1.5.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_05e_Q1_5::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_05e_Q4.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_05e_Q4::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_0607p_Q1.5.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0607p_Q1_5::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_0607p_Q4.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0607p_Q4::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_06e_Q1.5.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_06e_Q1_5::addToZaconChain(fChain);
-    else if ( dataset == "rg_incl_charm_dir_DIS_06e_Q4.h" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_06e_Q4::addToZaconChain(fChain);
+    if      ( dataset == "rg_incl_beauty_dir_DIS_0304p_Q1" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_0304p_Q1::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_beauty_dir_DIS_05e_Q1" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_05e_Q1::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_beauty_dir_DIS_0607p_Q1" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_0607p_Q1::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_beauty_dir_DIS_06e_Q1" ) ZaconChainFactory_v06b_rg_incl_beauty_dir_DIS_06e_Q1::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_0304p_Q1.5" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0304p_Q1_5::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_0304p_Q4" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0304p_Q4::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_05e_Q1.5" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_05e_Q1_5::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_05e_Q4" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_05e_Q4::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_0607p_Q1.5" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0607p_Q1_5::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_0607p_Q4" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0607p_Q4::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_06e_Q1.5" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_06e_Q1_5::addToZaconChain(fChain);
+    else if ( dataset == "rg_incl_charm_dir_DIS_06e_Q4" ) ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_06e_Q4::addToZaconChain(fChain);
     // all charm
     else if ( dataset == "charm" ) {
         ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0304p_Q1_5::addToZaconChain(fChain);
