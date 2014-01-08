@@ -1,0 +1,144 @@
+#include <string>
+#include <TChain.h>
+
+using namespace::std;
+
+class ZaconChainFactory_v06b_rg_incl_charm_dir_DIS_0304p_Q1_5 {
+ 
+ public:
+
+  static TChain* addToZaconChain(TChain *ch) {
+    
+   string prefix="dcap://dcap.desy.de/pnfs/desy.de/usr/zeus/z/ntup/04/v06b/mc/root/";
+   ch->Add( (prefix + "zeusmc.acn4z24.f15643.ccbar.rg30.q2g1.5.bgf.33.root").c_str() );
+   ch->Add( (prefix + "zeusmc.acnz324.f15643.ccbar.rg30.q2g1.5.bgf.13.root").c_str() );
+   ch->Add( (prefix + "zeusmc.fcnu424.f15643.ccbar.rg30.q2g1.5.bgf.22.root").c_str() );
+   ch->Add( (prefix + "zeusmc.fcnz324.f15643.ccbar.rg30.q2g1.5.bgf.14.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.0.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.1.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.10.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.11.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.12.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.13.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.14.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.15.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.16.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.17.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.18.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.19.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.2.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.20.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.21.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.22.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.23.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.24.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.25.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.26.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.27.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.28.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.29.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.3.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.30.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.31.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.32.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.34.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.35.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.36.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.37.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.38.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.39.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.4.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.5.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.6.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.7.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.8.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcn4z24.f15643.ccbar.rg30.q2g1.5.bgf.9.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.0.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.1.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.10.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.11.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.12.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.13.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.14.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.15.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.16.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.17.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.18.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.19.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.2.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.20.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.21.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.23.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.24.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.25.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.26.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.27.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.28.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.29.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.3.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.30.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.31.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.32.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.33.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.34.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.35.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.36.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.37.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.38.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.39.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.4.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.40.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.41.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.42.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.43.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.44.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.5.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.6.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.7.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.8.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnu424.f15643.ccbar.rg30.q2g1.5.bgf.9.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.0.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.1.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.10.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.11.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.12.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.15.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.16.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.17.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.18.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.19.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.2.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.20.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.21.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.22.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.23.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.24.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.25.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.26.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.3.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.4.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.5.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.6.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.7.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.8.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz324.f15643.ccbar.rg30.q2g1.5.bgf.9.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.0.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.1.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.10.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.11.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.12.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.13.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.14.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.2.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.3.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.4.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.5.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.6.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.7.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.8.root").c_str() );
+   ch->Add( (prefix + "zeusmc.hcnz424.f15643.ccbar.rg30.q2g1.5.bgf.9.root").c_str() );
+
+   return ch;
+  }
+
+};
