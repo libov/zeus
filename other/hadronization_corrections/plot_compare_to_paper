@@ -1,2 +1,2 @@
-root -l -b -q "plot_compare_to_paper.cxx(\"v06_0607p_charm_1_5GeV2\")"
-root -l -b -q "plot_compare_to_paper.cxx(\"v06_0607p_beauty_q1GeV2\")"
+root -l -b -q "plot_compare_to_paper.cxx(\"charm\")"
+root -l -b -q "plot_compare_to_paper.cxx(\"beauty\")"

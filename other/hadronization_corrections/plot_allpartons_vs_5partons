@@ -1,2 +1,4 @@
-root -l -b -q "plot_allpartons_vs_5partons.cxx(\"v06_0607p_charm_1_5GeV2\")"
-root -l -b -q "plot_allpartons_vs_5partons.cxx(\"v06_0607p_beauty_q1GeV2\")"
+root -l -b -q "plot_allpartons_vs_5partons.cxx(\"charm\")"
+root -l -b -q "plot_allpartons_vs_5partons.cxx(\"beauty\")"
+
+

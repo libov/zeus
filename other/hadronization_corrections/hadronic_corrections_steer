@@ -1,9 +1,9 @@
 make
 
 # central values
-hadronic_corrections --sample v06_0607p_charm_1_5GeV2
-hadronic_corrections --sample v06_0607p_beauty_q1GeV2
+hadronic_corrections --sample charm
+hadronic_corrections --sample beauty
 
 # 4 or 5 partons - systematic uncertainty
-hadronic_corrections --sample v06_0607p_charm_1_5GeV2 --maxpartons 5
-hadronic_corrections --sample v06_0607p_beauty_q1GeV2 --maxpartons 5
+hadronic_corrections --sample charm --maxpartons 5
+hadronic_corrections --sample beauty --maxpartons 5
