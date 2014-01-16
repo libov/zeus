@@ -28,26 +28,29 @@ int plot_allpartons_vs_5partons(TString dataset="v06_0607p_charm_1_5GeV2") {
     TH1F * chad_x_q2bin5_5partons = (TH1F*) input_5partons -> Get("chad_x_q2bin5");
 
     TH1F * part_npartons = (TH1F*) input -> Get ("part_npartons");
+    TH1F * part_npartons_5partons = (TH1F*) input_5partons -> Get ("part_npartons");
 
     // draw and store to eps files
     TCanvas * c_corr = new TCanvas();
     c_corr -> Divide(2,2);
 
+    const Float_t   Y_AXIS_RANGE_MAX = 3;
+
     c_corr -> cd (1);
-    chad_et -> SetAxisRange(0, 1.4, "Y");
+    chad_et -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     chad_et -> Draw();
 
     c_corr -> cd (2);
-    chad_eta -> SetAxisRange(0, 1.4, "Y");
+    chad_eta -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     chad_eta -> Draw();
 
     c_corr -> cd (3);
-    chad_q2 -> SetAxisRange(0, 1.4, "Y");
+    chad_q2 -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     gPad -> SetLogx();
     chad_q2 -> Draw();
 
     c_corr -> cd (4);
-    chad_x -> SetAxisRange(0, 1.4, "Y");
+    chad_x -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     gPad -> SetLogx();
     chad_x -> Draw();
 
@@ -73,44 +76,46 @@ int plot_allpartons_vs_5partons(TString dataset="v06_0607p_charm_1_5GeV2") {
     c_corr_ddiff -> Divide(3,2);
 
     c_corr_ddiff -> cd (1);
-    chad_x_q2bin1 -> SetAxisRange(0, 1.4, "Y");
+    chad_x_q2bin1 -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     gPad -> SetLogx();
     chad_x_q2bin1 -> Draw();
     chad_x_q2bin1_5partons -> SetLineColor(kGreen);
     chad_x_q2bin1_5partons -> Draw("same");
 
     c_corr_ddiff -> cd (2);
-    chad_x_q2bin2 -> SetAxisRange(0, 1.4, "Y");
+    chad_x_q2bin2 -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     gPad -> SetLogx();
     chad_x_q2bin2 -> Draw();
     chad_x_q2bin2_5partons -> SetLineColor(kGreen);
     chad_x_q2bin2_5partons -> Draw("same");
 
     c_corr_ddiff -> cd (3);
-    chad_x_q2bin3 -> SetAxisRange(0, 1.4, "Y");
+    chad_x_q2bin3 -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     gPad -> SetLogx();
     chad_x_q2bin3 -> Draw();
     chad_x_q2bin3_5partons -> SetLineColor(kGreen);
     chad_x_q2bin3_5partons -> Draw("same");
 
     c_corr_ddiff -> cd (4);
-    chad_x_q2bin4 -> SetAxisRange(0, 1.4, "Y");
+    chad_x_q2bin4 -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     gPad -> SetLogx();
     chad_x_q2bin4 -> Draw();
     chad_x_q2bin4_5partons -> SetLineColor(kGreen);
     chad_x_q2bin4_5partons -> Draw("same");
 
     c_corr_ddiff -> cd (5);
-    chad_x_q2bin5 -> SetAxisRange(0, 1.4, "Y");
+    chad_x_q2bin5 -> SetAxisRange(0, Y_AXIS_RANGE_MAX, "Y");
     gPad -> SetLogx();
     chad_x_q2bin5 -> Draw();
-    chad_x_q2bin5_paper -> SetLineColor(kGreen);
-    chad_x_q2bin5_paper -> Draw("same");
+    chad_x_q2bin5_5partons -> SetLineColor(kGreen);
+    chad_x_q2bin5_5partons -> Draw("same");
 
     c_corr_ddiff -> Print(PLOTS_PATH+"/"+dataset+"_corr_ddiff_all_vs_5_partons.eps");
 
     TCanvas * c_npartons = new TCanvas();
     part_npartons -> Draw();
+    part_npartons_5partons -> SetLineColor(kGreen);
+    part_npartons_5partons -> Draw("same");
     c_npartons -> Print(PLOTS_PATH+"/"+dataset+"_npartons_all_vs_5_partons.eps");
 
     return 0;
