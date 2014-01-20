@@ -348,7 +348,6 @@ int main (int argc, char **argv) {
     TIter next(gDirectory->GetList());
     TObject* obj;
     while ( obj= (TObject*)next() ) {
-        //if(obj->InheritsFrom(TH1::Class())){
         TString className = obj -> ClassName();
         if ( className != "TH1F") continue;
         ( (TH1F*)obj ) -> Sumw2();
