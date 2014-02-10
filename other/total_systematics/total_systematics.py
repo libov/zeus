@@ -264,7 +264,7 @@ for element in SYST_SOURCES:
     SOURCE_INDEX[element[0]] = i
 
 # main printing function
-def print_ddiff( variable , i_first, i_last):
+def print_ddiff( variable , i_first, i_last, filetype):
     string='\n\n% '+NEW_XSECT_PREFIX+' '+variable + '\n'
     FILE_DDIFF.write(string)
     for i in range(1, NBINS[variable]+1):
@@ -272,7 +272,8 @@ def print_ddiff( variable , i_first, i_last):
         # skip the 4th bin in the 3rd q2 bin
         if BEAUTY and variable=='x_q2bin3' and i==4: continue
 
-        FILE_DDIFF.write(BIN_RANGE_Q2_X[variable][i])
+        if filetype == 'latex':
+            FILE_DDIFF.write(BIN_RANGE_Q2_X[variable][i])
         
         counter=0
         first_long_element = True
@@ -294,13 +295,29 @@ def print_ddiff( variable , i_first, i_last):
             if second>0: suffix2='+'
             if first==0: sfirst=''
             if second==0: ssecond=''
-            if first!=0 and second!=0:
-                FILE_DDIFF.write(' & \\numpmerr{' + suffix1 + sfirst + '}{' + suffix2 + ssecond + '}{2}')
-            elif first!=0 or second!=0:
-                FILE_DDIFF.write(' & \\footnotesize \\num[round-precision=2,round-mode=places]{' + suffix1 + sfirst + suffix2 + ssecond+'}')
-            else:
-                FILE_DDIFF.write(' & \\footnotesize +0.00')
-        FILE_DDIFF.write(' \\\\\n')
+            if filetype == 'latex':
+                if first!=0 and second!=0:
+                    FILE_DDIFF.write(' & \\numpmerr{' + suffix1 + sfirst + '}{' + suffix2 + ssecond + '}{2}')
+                elif first!=0 or second!=0:
+                    FILE_DDIFF.write(' & \\footnotesize \\num[round-precision=2,round-mode=places]{' + suffix1 + sfirst + suffix2 + ssecond+'}')
+                else:
+                    FILE_DDIFF.write(' & \\footnotesize +0.00')
+            elif filetype == 'plain':
+                str1=suffix1+sfirst
+                str2=suffix2+ssecond
+                if first==0 and second==0:
+                    FILE_DDIFF.write('0.00'.ljust(14))
+                else:
+                    if str1!='':
+                        FILE_DDIFF.write(str1.ljust(14))
+                    if str2!='':
+                        FILE_DDIFF.write(str2.ljust(14))
+
+        if filetype == 'latex':
+            FILE_DDIFF.write(' \\\\')
+        
+        FILE_DDIFF.write('\n')
+
     return
 
 # function to print the table header
@@ -344,13 +361,20 @@ def print_header( i_first, i_last ):
 print_header(1, 7)
 # content
 for variable in DDIFF_VARIABLES:
-    print_ddiff(variable, 1, 7)
+    print_ddiff(variable, 1, 7, 'latex')
 
 # part two, sources 8-12 (corresponding to 11 columns of sources)
 # header
 print_header(8, 12)
 # content
 for variable in DDIFF_VARIABLES:
-    print_ddiff(variable, 8, 12)
+    print_ddiff(variable, 8, 12, 'latex')
+FILE_DDIFF.close()
 
+# print double differential systematics in form of a table
+FILE_DDIFF=open(filename_double_diff+'_plain.txt', 'w')
+for variable in DDIFF_VARIABLES:
+    print_ddiff(variable, 1, 12, 'plain')
+
+FILE_DDIFF.close()
 
