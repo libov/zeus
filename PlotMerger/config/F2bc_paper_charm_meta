@@ -26,3 +26,6 @@ canvas 1000 800
 
 # max digits on an axis
 AxisMaxDigits 4
+
+# number of ticks
+Ndivisions 505
