@@ -44,6 +44,7 @@ fAdditionalText(false),
 fDrawLegend(false),
 fDrawZEUSLogo(false),
 fAxisMaxDigits(3),
+fNdivisions(0),
 fBin("bin1")
 {
     // get a path to histograms folder
@@ -277,6 +278,11 @@ void TControlPlot::Draw() {
                     cHist->SetTitleOffset(fYaxisTitleOffset, "Y");
                     cHist -> SetLabelSize(fYaxisLabelSize, "Y");
                     cHist -> SetLabelOffset(fYaxisLabelOffset, "Y");
+
+                    // number of ticks on the y axis
+                    if (fNdivisions != 0) {
+                        ( cHist -> GetYaxis() ) -> SetNdivisions(fNdivisions);
+                    }
 
                     TString opt="";
                     if    (cType->IsDrawHisto()) opt.Append("HIST");
@@ -773,6 +779,8 @@ void TControlPlot::ReadSettings() {
             }
 
             if (first_word == "AxisMaxDigits") fAxisMaxDigits = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
+
+            if (first_word == "Ndivisions") fNdivisions = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
 
             // re-tokenize, with TAB delimiter - in order to allow spaces within the text!!
             tokens = line_str.Tokenize("\t");
