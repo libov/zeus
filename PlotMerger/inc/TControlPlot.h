@@ -100,6 +100,8 @@ class TControlPlot : public TObject {
 
         unsigned                fAxisMaxDigits;
 
+        int                     fNdivisions;
+
         TString                 fBin;
 };
 #endif
