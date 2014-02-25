@@ -2,6 +2,8 @@
 
 ./plotter -b full -v 2.99.2 -d -s --config_file F2bc_paper_beauty --no_indices
 
-./plotter -b full.forCHARM -v 2.98.2 -d -s --config_file F2bc_paper_significance
+# note, the final analysis for charm is 2.98.2 while here 2.111.1 is used. this is because the binning for one of the plots (significance no mass restriction) had to be changed so the
+# analysis needed to be rerun
+./plotter -b full.forCHARM -v 2.111.1 -d -s --config_file F2bc_paper_significance
 
 ./plotter -b full.forCHARM -v 2.98.2 -d -s --config_file F2bc_paper_significance_mirrored
