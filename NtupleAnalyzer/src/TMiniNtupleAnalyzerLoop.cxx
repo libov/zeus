@@ -1607,6 +1607,7 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
     // 26/03/2010 --> mirrored histograms obtained in this way are still used in the fitting!
     // so this is for sure not just a cross check! ;)
     this->MirrorHistogramOLD("significance");
+    this->MirrorHistogramOLD("significance_allmasses");
     this->MirrorHistogramOLD("significance_massbin1");
     this->MirrorHistogramOLD("significance_massbin2");
     this->MirrorHistogramOLD("significance_massbin3");
