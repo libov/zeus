@@ -6,4 +6,4 @@
 # analysis needed to be rerun
 ./plotter -b full.forCHARM -v 2.111.1 -d -s --config_file F2bc_paper_significance
 
-./plotter -b full.forCHARM -v 2.98.2 -d -s --config_file F2bc_paper_significance_mirrored
+./plotter -b full.forCHARM -v 2.111.1 -d -s --config_file F2bc_paper_significance_mirrored
