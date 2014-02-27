@@ -320,7 +320,7 @@ void TControlPlot::Draw() {
                 for (int i=0; i<fText.size(); i++) {
                     TLatex * text = new TLatex (fText_x[i], fText_y[i], fText[i]);
                     text -> SetNDC();
-                    text -> SetTextFont(22);
+                    text -> SetTextFont(62);
                     text -> SetTextSize (fText_size[i]);
                     text -> Draw();
                 }
