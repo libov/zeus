@@ -49,7 +49,7 @@ Float_t get_xsect(unsigned job_id, TString job_directory);
 
 void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstream& output_file, ofstream& output_tex_file);
 
-void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString label, unsigned color);
+TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color);
 
 void draw_herapdf_graph(TString filename, TLegend * leg);
 Double_t get_value(Double_t * array, Double_t q2, Double_t x);
@@ -682,11 +682,14 @@ int main(int argc, char **argv) {
     // ---------- plot other theory ----------- //
     // ---------------------------------------- //
 
+    TGraph * beauty_mass_fit_central;
+    TGraph * beauty_mass_fit_down;
+    TGraph * beauty_mass_fit_up;
     if (draw_beauty_mass_measurement_fits) {
 
-        draw_beauty_mass_measurement_fit("beauty_fits/central", leg, "QCD fit, m_{b}=4.16 GeV (best fit)", kBlack);
-        draw_beauty_mass_measurement_fit("beauty_fits/mass_down", leg, "QCD fit, m_{b}=4.02 GeV", kBlue);
-        draw_beauty_mass_measurement_fit("beauty_fits/mass_up", leg, "QCD fit, m_{b}=4.35 GeV", kRed);
+        beauty_mass_fit_central = draw_beauty_mass_measurement_fit("beauty_fits/central", kBlack);
+        beauty_mass_fit_down = draw_beauty_mass_measurement_fit("beauty_fits/mass_down", kBlue);
+        beauty_mass_fit_up = draw_beauty_mass_measurement_fit("beauty_fits/mass_up", kRed);
     }
 
     if (draw_herapdf) {
@@ -764,6 +767,12 @@ int main(int argc, char **argv) {
     // the legend
     leg->AddEntry(data, "ZEUS 354 pb^{-1}","p");
     if (!no_extraction_theory) leg -> AddEntry(theory, "HVQDIS #otimes HERAPDF 1.0", "l");
+    if (draw_beauty_mass_measurement_fits) {
+
+        leg -> AddEntry(beauty_mass_fit_central, "QCD fit, m_{b}=4.07 GeV (best fit)", "l"); 
+        leg -> AddEntry(beauty_mass_fit_down,    "QCD fit, m_{b}=3.93 GeV", "l");
+        leg -> AddEntry(beauty_mass_fit_up,      "QCD fit, m_{b}=4.21 GeV", "l");
+    }
     if (draw_herapdf) {
         TH1F * tmp = new TH1F("tmp", "",10,0,10);
         tmp -> SetLineColor(kBlack);
@@ -927,7 +936,7 @@ void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstrea
         unsigned npoints;
     };
 
-void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString label, unsigned color) {
+TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color) {
 
     TGraph * graph_return;
 
@@ -996,7 +1005,7 @@ void draw_beauty_mass_measurement_fit(TString filename, TLegend * leg, TString l
 
     }
 
-    leg -> AddEntry(graph_return, label, "l");
+    return graph_return;
 }
 
 void draw_herapdf_graph(TString filename, TLegend * leg) {
