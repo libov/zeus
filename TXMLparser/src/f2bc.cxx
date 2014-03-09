@@ -963,11 +963,11 @@ TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color) {
         TString line_str = line;
 
         // tokenize it, skip if empty
-        TObjArray * tokens = line_str.Tokenize(" ");
+        TObjArray * tokens = line_str.Tokenize("\t");
         if (tokens -> IsEmpty()) continue;
 
         TString token1 = ((TObjString*) tokens->At(0)) -> GetString();
-        if (token1 == "#") continue;
+        if (token1[0] == (TString)"#") continue;
 
         // extract data from tokens
         Double_t q2 =  (((TObjString*) tokens->At(0)) -> GetString()).Atof();
