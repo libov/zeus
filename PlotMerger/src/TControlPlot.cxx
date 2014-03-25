@@ -310,7 +310,7 @@ void TControlPlot::Draw() {
             if (fDrawZEUSLogo) {
             TText * t = new TText (fZEUSLogo_x, fZEUSLogo_y, "ZEUS");
             t -> SetNDC();
-            t -> SetTextFont(22);
+            t -> SetTextFont(62);
             t -> SetTextSize (fZEUSLogo_size);
             t -> Draw();
             }
@@ -523,11 +523,11 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(0, 500, "Y");
     }
     if (cVar == "q2da_beauty_diff") {
-        cHist->SetAxisRange(0.5, 3.1, "X");
+        cHist->SetAxisRange(0.4, 3.1, "X");
         cHist->SetAxisRange(0, 170, "Y");
     }
     if (cVar == "xda_beauty_diff") {
-        cHist->SetAxisRange(-4.5, -0.9, "X");
+        cHist->SetAxisRange(-4.6, -0.9, "X");
         cHist->SetAxisRange(0, 370, "Y");
     }
     if (cVar == "yel_beauty_diff") {
@@ -568,11 +568,11 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         cHist->SetAxisRange(0, 4300, "Y");
     }
     if (cVar == "q2da_charm_diff") {
-        cHist->SetAxisRange(0.5, 3.1, "X");
+        cHist->SetAxisRange(0.4, 3.1, "X");
         cHist->SetAxisRange(0, 3800, "Y");
     }
     if (cVar == "xda_charm_diff") {
-        cHist->SetAxisRange(-4.5, -0.9, "X");
+        cHist->SetAxisRange(-4.6, -0.9, "X");
         cHist->SetAxisRange(0, 8300, "Y");
     }
     if (cVar == "yjb_charm_diff") {
