@@ -641,6 +641,9 @@ void TControlPlot::SetAxisRange(TString cVar, TH1F * cHist){
         if (fBin == "bin43") cHist->SetAxisRange(3, 2000, "Y");
         if (fBin == "bin45") cHist->SetAxisRange(1, 400, "Y");
     }
+    if (cVar == "significance_allmasses_mirrored") {
+        cHist->SetAxisRange(300, 250000, "Y");
+    }
     if ( cVar == "decay_length" ) {
         cHist->SetAxisRange(0.1, 3000000, "Y");
     }
