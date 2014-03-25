@@ -8,18 +8,18 @@ Datatype data 0 20 0.8 0 1 1 1
 # pad settings
 TopMargin 0.08
 BottomMargin 0.2
-LeftMargin 0.15
-RightMargin 0.1
+LeftMargin 0.2
+RightMargin 0.05
 
 # axes settings: title size, title offset, labels size, labels offset
 Xaxis 0.08 1.1 0.07 0.02
-Yaxis 0.08 1 0.07 0.012
+Yaxis 0.08 1.2 0.07 0.009
 
 # legend settings
-legend 0.29 0.74 0.43 0.85
+legend 0.315 0.74 0.45 0.85
 
 # ZEUS logo settings x, y, font size
-ZEUSlogo 0.43 0.92 0.07
+ZEUSlogo 0.465 0.9 0.07
 
 # canvas size
 canvas 1000 800
@@ -28,4 +28,4 @@ canvas 1000 800
 Ndivisions 505
 
 # additional text; NOTE: HERE TAB IS DELIMITER AND NOT SPACE - IN ORDER TO ALLOW SPACES IN TEXT!
-text	2 < m_{vtx} < 6 GeV	0.295	0.722	0.02
+text	2 < m_{vtx} < 6 GeV	0.32	0.722	0.02
