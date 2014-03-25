@@ -12,14 +12,14 @@ LeftMargin 0.23
 RightMargin 0.035
 
 # axes settings: title size, title offset, labels size, labels offset
-Xaxis 0.07 1.2   0.06 0.02
+Xaxis 0.07 1.05   0.06 0.015
 Yaxis 0.07 1.2 0.06 0.012
 
 # legend settings: x1, y1, x2, y2
-legend 0.26 0.75 0.46 0.88
+legend 0.26 0.76 0.41 0.88
 
 # ZEUS logo settings x, y, font size
-ZEUSlogo 0.46 0.94 0.06
+ZEUSlogo 0.46 0.93 0.06
 
 # canvas size
 canvas 800 800 
