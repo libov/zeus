@@ -235,7 +235,7 @@ int main(int argc, char **argv) {
     TString y_axis_title_suffix = "";
     if (reduced) {
         suffix = "reduced";
-        y_axis_title_suffix = "#sigma_{red}";
+        y_axis_title_suffix = "#sigma_{r}";
     } else {
         suffix = "f2";
         y_axis_title_suffix = "F_{2}";
