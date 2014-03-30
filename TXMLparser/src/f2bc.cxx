@@ -796,7 +796,7 @@ int main(int argc, char **argv) {
 
     // finally, print the ZEUS on top
     TText * zeus = new TText (0.49, 0.94, "ZEUS");
-    zeus -> SetTextFont(22);
+    zeus -> SetTextFont(62);
     zeus -> SetTextSize (0.07);
     zeus -> Draw();
 
