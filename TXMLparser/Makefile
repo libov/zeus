@@ -90,4 +90,4 @@ correct_qed: $(OBJECTS) correct_qed.o
 .PHONY: clean
 clean:
 	-rm -rf $(OBJ)/*.o
-	-rm -rf compare_CN_versions compare_fit_results systematics jet_energy_scale f2bc
+	-rm -rf compare_CN_versions compare_fit_results systematics jet_energy_scale f2bc txt2XML reweighting correct_qed
