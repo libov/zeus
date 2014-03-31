@@ -50,7 +50,7 @@ fNPads(npads)
 
     fBeauty = false;
 
-    fYAxisTitle = "#sigma_{red}^{c#bar{c}}";
+    fYAxisTitle = "#sigma_{r}^{c#bar{c}}";
 
     // initialize
     create_pads();
