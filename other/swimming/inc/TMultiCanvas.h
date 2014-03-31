@@ -18,7 +18,7 @@ class TMultiCanvas {
         ~TMultiCanvas(){};
 
         void Print(TString filename);
-        void PlotData(TCharmMeasurement data, Float_t shift, int marker_style, Float_t marker_size, int color, bool draw_total_uncertainty);
+        void PlotData(TCharmMeasurement data, Float_t shift, int marker_style, Float_t marker_size, int color, bool draw_total_uncertainty, bool draw_legend);
 
     private:
 
