@@ -217,7 +217,7 @@ Int_t TMultiCanvas::get_pad_number(Double_t q2) {
     return -1;
 }
 
-void TMultiCanvas::PlotData(TCharmMeasurement data, Float_t shift, int marker_style, Float_t marker_size, int color, bool draw_total_uncertainty) {
+void TMultiCanvas::PlotData(TCharmMeasurement data, Float_t shift, int marker_style, Float_t marker_size, int color, bool draw_total_uncertainty, bool draw_legend) {
 
     unsigned npoints = data.get_n_points();
 
@@ -269,7 +269,7 @@ void TMultiCanvas::PlotData(TCharmMeasurement data, Float_t shift, int marker_st
         g -> Draw(draw_option);
     }
 
-    if (draw_total_uncertainty) fLegend -> AddEntry(g, data.getNameForLegend(), "p");
+    if (draw_legend) fLegend -> AddEntry(g, data.getNameForLegend(), "p");
 }
 
 void TMultiCanvas::Print(TString filename) {
