@@ -49,7 +49,7 @@ Float_t get_xsect(unsigned job_id, TString job_directory);
 
 void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstream& output_file, ofstream& output_tex_file);
 
-TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color);
+TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color, unsigned style);
 
 void draw_herapdf_graph(TString filename, TLegend * leg);
 Double_t get_value(Double_t * array, Double_t q2, Double_t x);
@@ -687,9 +687,9 @@ int main(int argc, char **argv) {
     TGraph * beauty_mass_fit_up;
     if (draw_beauty_mass_measurement_fits) {
 
-        beauty_mass_fit_central = draw_beauty_mass_measurement_fit("beauty_fits/central", kBlack);
-        beauty_mass_fit_down = draw_beauty_mass_measurement_fit("beauty_fits/mass_down", kBlue);
-        beauty_mass_fit_up = draw_beauty_mass_measurement_fit("beauty_fits/mass_up", kRed);
+        beauty_mass_fit_central = draw_beauty_mass_measurement_fit("beauty_fits/central", kBlack, 1);
+        beauty_mass_fit_down = draw_beauty_mass_measurement_fit("beauty_fits/mass_down", kBlue, 2);
+        beauty_mass_fit_up = draw_beauty_mass_measurement_fit("beauty_fits/mass_up", kRed, 4);
     }
 
     if (draw_herapdf) {
@@ -936,7 +936,7 @@ void addToGraphF2(TPointF2theo point, unsigned i, unsigned q2x_point_id, ofstrea
         unsigned npoints;
     };
 
-TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color) {
+TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color, unsigned style) {
 
     TGraph * graph_return;
 
@@ -999,6 +999,7 @@ TGraph * draw_beauty_mass_measurement_fit(TString filename, unsigned color) {
         TGraph * g = new TGraph(q2_graphs[i].npoints, q2_graphs[i].x, q2_graphs[i].sigma_red);
         pads[i+1] -> cd();
         g -> SetLineColor(color);
+        g -> SetLineStyle(style);
         g -> Draw("C");
 
         graph_return = g;
