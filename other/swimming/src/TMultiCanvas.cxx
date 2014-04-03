@@ -39,8 +39,8 @@ fNPads(npads)
     fMarginY = 0.08;
     fPadSizeY = (1.0 - 2 * fMarginY)/3;
     fPadSizeX = (1.0 - fMarginX)/3;
-    fXmin = 4e-5;
-    fXmax = 2.5e-1;
+    fXmin = 5.5e-5;
+    fXmax = 5e-2;
     fRightMargin = 0.015;
 
     fYmin = 0;
@@ -188,17 +188,18 @@ void TMultiCanvas::draw_labels() {
     zeus -> Draw();
 
     // create Q2 labels
+    Float_t x_position = 0.25;
     Float_t y_position;
     if (fBeauty) y_position = 0.87;
     if (!fBeauty) y_position = 0.87;
     TLatex * q2_values[10];
-    q2_values[0] = new TLatex(0.24 + 0 * fPadSizeX, y_position, "Q^{2} = 7 GeV^{2}");
-    q2_values[1] = new TLatex(0.24 + 1 * fPadSizeX, y_position, "Q^{2} = 12 GeV^{2}");
-    q2_values[2] = new TLatex(0.24 + 2 * fPadSizeX, y_position, "Q^{2} = 18 GeV^{2}");
-    q2_values[3] = new TLatex(0.24 + 0 * fPadSizeX, y_position - 1 * fPadSizeY, "Q^{2} = 32 GeV^{2}");
-    q2_values[4] = new TLatex(0.24 + 1 * fPadSizeX, y_position - 1 * fPadSizeY, "Q^{2} = 60 GeV^{2}");
-    q2_values[5] = new TLatex(0.24 + 2 * fPadSizeX, y_position - 1 * fPadSizeY, "Q^{2} = 120 GeV^{2}");
-    q2_values[6] = new TLatex(0.24 + 0 * fPadSizeX, y_position- 2 * fPadSizeY, "Q^{2} = 650 GeV^{2}");
+    q2_values[0] = new TLatex(x_position + 0 * fPadSizeX, y_position, "Q^{2} = 7 GeV^{2}");
+    q2_values[1] = new TLatex(x_position + 1 * fPadSizeX, y_position, "Q^{2} = 12 GeV^{2}");
+    q2_values[2] = new TLatex(x_position + 2 * fPadSizeX, y_position, "Q^{2} = 18 GeV^{2}");
+    q2_values[3] = new TLatex(x_position + 0 * fPadSizeX, y_position - 1 * fPadSizeY, "Q^{2} = 32 GeV^{2}");
+    q2_values[4] = new TLatex(x_position + 1 * fPadSizeX, y_position - 1 * fPadSizeY, "Q^{2} = 60 GeV^{2}");
+    q2_values[5] = new TLatex(x_position + 2 * fPadSizeX, y_position - 1 * fPadSizeY, "Q^{2} = 120 GeV^{2}");
+    q2_values[6] = new TLatex(x_position + 0 * fPadSizeX, y_position- 2 * fPadSizeY, "Q^{2} = 650 GeV^{2}");
 
     for (int i=0; i<fNPads; i++) {
         q2_values[i] -> Draw();
