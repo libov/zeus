@@ -16,14 +16,14 @@ int main(int argc, char **argv) {
 
     plot.PlotData(vtx, 0.0, 20, 1, kBlack, true, true);
 
-    plot.PlotData(dstar, -0.025, 26, 1, kMagenta, true, true);
-    plot.PlotData(dstar, -0.025, 26, 1, kMagenta, false, false);
+    plot.PlotData(dstar, 0.0, 26, 1, kMagenta, true, true);
+    plot.PlotData(dstar, 0.0, 26, 1, kMagenta, false, false);
 
     plot.PlotData(dplus, 0.0, 25, 1, kBlue, true, true);
     plot.PlotData(dplus, 0.0, 25, 1, kBlue, false, false);
 
-    plot.PlotData(combination, 0.025, 24, 1, kRed, true, true);
-    plot.PlotData(combination, 0.025, 24, 1, kRed, false, false);
+    plot.PlotData(combination, 0.0, 24, 1, kRed, true, true);
+    plot.PlotData(combination, 0.0, 24, 1, kRed, false, false);
 
     plot.PlotData(vtx, 0.0, 20, 1, kBlack, true, false);
     plot.PlotData(vtx, 0.0, 20, 0.5, kBlack, false, false); // smaller point size so that error bars are still drawn when smaller than the marker
