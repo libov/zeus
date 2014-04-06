@@ -582,17 +582,40 @@ int main(int argc, char **argv) {
     // dummy histo
     Float_t xmin = 4e-5;
     Float_t xmax = 2.5e-1;
-    TH1F * h = new TH1F ("", "", 100, xmin, xmax);
-    h -> SetStats(kFALSE);
+    if (draw_beauty_mass_measurement_fits) {
+        xmin = 5.5e-5;
+        xmax = 5e-2;
+    }
     Float_t ymin = 0;
-    Float_t ymax_beauty = 0.057;
-    Float_t ymax_beauty_upper_row = 0.03;
-    Float_t ymax_charm = 0.7;
-    if (beauty) h -> SetAxisRange(ymin, ymax_beauty, "Y");
-    else h -> SetAxisRange(ymin, ymax_charm, "Y");
-    h -> SetNdivisions(504, "Y");
-    TH1F * h2 = (TH1F *) h -> Clone();
-    h2 -> SetAxisRange(0, ymax_beauty_upper_row, "Y"); 
+    Float_t ymax_upper_row;
+    Float_t ymax_middle_row;
+    Float_t ymax_lower_row;
+    if (beauty) {
+        if (draw_beauty_mass_measurement_fits) {
+            ymax_lower_row  = 0.039;
+            ymax_middle_row = 0.057;
+            ymax_upper_row  = 0.02;
+        } else {
+            ymax_lower_row  = 0.057;
+            ymax_middle_row = 0.057;
+            ymax_upper_row  = 0.03;
+        }
+    } else {
+        ymax_lower_row  = 0.7;
+        ymax_middle_row = 0.7;
+        ymax_upper_row  = 0.7;
+    }
+
+    TH1F * h_lower_row = new TH1F ("", "", 100, xmin, xmax);
+    h_lower_row -> SetStats(kFALSE);
+    h_lower_row -> SetNdivisions(504, "Y");
+    h_lower_row -> SetAxisRange(ymin, ymax_lower_row, "Y");
+
+    TH1F * h_middle_row = (TH1F *) h_lower_row -> Clone();
+    h_middle_row -> SetAxisRange(ymin, ymax_middle_row, "Y");
+
+    TH1F * h_upper_row = (TH1F *) h_lower_row -> Clone();
+    h_upper_row -> SetAxisRange(ymin, ymax_upper_row, "Y");
 
     TH1F * dummy;
 
@@ -601,8 +624,13 @@ int main(int argc, char **argv) {
     point_counter = 0;
     // loop over all points
     for ( iter1=vtx.begin() ; iter1 != vtx.end(); iter1++ ) {
-        if (canvas_counter<=3 && beauty) dummy = h2;
-        else dummy = h;
+        if (canvas_counter<=3) {
+            dummy = h_upper_row;
+        } else if (canvas_counter>3 && canvas_counter<=6) {
+            dummy = h_middle_row;
+        } else {
+            dummy = h_lower_row;
+        }
 
         TPointF2theo point = (*iter1).second[1];
         // if Q2 is the same as for previous point (holds by definition for the 1st point),
@@ -657,24 +685,18 @@ int main(int argc, char **argv) {
     axis3 -> Draw();
 
     // vertical ones
-    TGaxis *axis4;
-    if (!beauty) axis4 = new TGaxis(margin_x, margin_y+2*pad_size_y, margin_x, margin_y+3*pad_size_y, ymin, ymax_charm, 504);
-    if (beauty) axis4 = new TGaxis(margin_x, margin_y+2*pad_size_y, margin_x, margin_y+3*pad_size_y, ymin, ymax_beauty_upper_row, 504);
+    TGaxis *axis4 = new TGaxis(margin_x, margin_y+2*pad_size_y, margin_x, margin_y+3*pad_size_y, ymin, ymax_upper_row, 504);
     axis4 -> SetLabelSize(label_size_y);
     axis4 -> SetTitleOffset(1.2);
     if (beauty) axis4 -> SetTitleOffset(1.4);
     axis4 -> SetTitle(y_axis_title);
     axis4 -> Draw();
 
-    TGaxis *axis5;
-    if (!beauty) axis5 = new TGaxis(margin_x, margin_y+1*pad_size_y, margin_x, margin_y+2*pad_size_y, ymin, ymax_charm, 504);
-    if (beauty) axis5 = new TGaxis(margin_x, margin_y+1*pad_size_y, margin_x, margin_y+2*pad_size_y, ymin, ymax_beauty, 504);
+    TGaxis *axis5 = new TGaxis(margin_x, margin_y+1*pad_size_y, margin_x, margin_y+2*pad_size_y, ymin, ymax_middle_row, 504);
     axis5 -> SetLabelSize(label_size_y);
     axis5 -> Draw();
 
-    TGaxis *axis6;
-    if (!beauty) axis6 = new TGaxis(margin_x, margin_y, margin_x, margin_y+1*pad_size_y, ymin, ymax_charm, 504);
-    if (beauty) axis6 = new TGaxis(margin_x, margin_y, margin_x, margin_y+1*pad_size_y, ymin, ymax_beauty, 504);
+    TGaxis *axis6 = new TGaxis(margin_x, margin_y, margin_x, margin_y+1*pad_size_y, ymin, ymax_lower_row, 504);
     axis6 -> SetLabelSize(label_size_y);
     axis6 -> Draw();
 
