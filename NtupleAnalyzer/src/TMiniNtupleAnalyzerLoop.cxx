@@ -1239,8 +1239,27 @@ void TMiniNtupleAnalyzer::Loop(Bool_t reject_cb_ari) {
                     currentTGlobalBin->FillHistogram("track_eta", track_eta);
                     currentTGlobalBin->FillHistogram("track_theta_phi", track_theta_deg, phi_deg);
 
-                    if (fDropTracks && fIsMC) {
+                    if (fGetVertexTracks) {
+                        int track_id = trackIDs[i];
+    
+                        // sanity check
+                        TVector3 track(Trk_px[track_id], Trk_py[track_id], Trk_pz[track_id]);
+                        if (TMath::Abs(track.Theta() - track_theta) > 1e-6) {
+                            cout << " ERROR: track parameters (theta) don't match" << endl;
+                            abort();
+                        }
+                        currentTGlobalBin->FillHistogram("track_type", Trk_type[track_id]);
+                        currentTGlobalBin->FillHistogram("track_inner_sl", Trk_layinner[track_id]);
+                        currentTGlobalBin->FillHistogram("track_outer_sl", Trk_layouter[track_id]);
+                        currentTGlobalBin->FillHistogram("track_outer_sl_theta", Trk_layouter[track_id], track_theta_deg);
+                        currentTGlobalBin->FillHistogram("track_outer_sl_ctdhits", Trk_layouter[track_id], Trk_nzbyt[track_id]+Trk_naxial[track_id]+Trk_nstereo[track_id]);
+                        currentTGlobalBin->FillHistogram("track_ctdhits", Trk_nzbyt[track_id]+Trk_naxial[track_id]+Trk_nstereo[track_id]);
+                        currentTGlobalBin->FillHistogram("trk_nstt", Trk_nstt[track_id]);
+                        currentTGlobalBin->FillHistogram("trk_nstt_theta", Trk_nstt[track_id], track_theta_deg);
+                        currentTGlobalBin->FillHistogram("trk_nstt_outer_sl", Trk_nstt[track_id], Trk_layouter[track_id]);
+                    }
 
+                    if (fDropTracks && fIsMC) {
                         currentTGlobalBin -> FillProfileHistogram("drop_probability_theta", track_theta_deg, probability);
                         currentTGlobalBin -> FillProfileHistogram("drop_probability_pt", pt, probability);
                         currentTGlobalBin -> FillProfile2DHistogram("drop_probability_theta_p", track_theta_deg, momentum, probability);
