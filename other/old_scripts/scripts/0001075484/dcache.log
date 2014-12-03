@@ -1,0 +1,151 @@
+[Mon May 18 12:29:37 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62411_62412_01.roo in cache.
+Connected in 0.00s.
+Command failed!
+Server error message for [1]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [2]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:37 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62413_62423_01.roo in cache.
+Command failed!
+Server error message for [3]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [4]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:38 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62427_62439_01.roo in cache.
+Command failed!
+Server error message for [5]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [6]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:38 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62441_62443_01.roo in cache.
+Command failed!
+Server error message for [7]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [8]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:38 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62444_62446_01.roo in cache.
+Command failed!
+Server error message for [9]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [10]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:39 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62447_62453_01.roo in cache.
+Command failed!
+Server error message for [11]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [12]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:39 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62454_62457_01.roo in cache.
+Command failed!
+Server error message for [13]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [14]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:39 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62458_62458_01.roo in cache.
+Command failed!
+Server error message for [15]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [16]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:40 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62459_62459_01.roo in cache.
+Command failed!
+Server error message for [17]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [18]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:40 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62460_62463_01.roo in cache.
+Command failed!
+Server error message for [19]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [20]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:40 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62464_62464_01.roo in cache.
+Command failed!
+Server error message for [21]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [22]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:41 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62466_62470_01.roo in cache.
+Command failed!
+Server error message for [23]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [24]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:41 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62474_62476_01.roo in cache.
+Command failed!
+Server error message for [25]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [26]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:42 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62478_62478_01.roo in cache.
+Command failed!
+Server error message for [27]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [28]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:42 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62479_62479_01.roo in cache.
+Command failed!
+Server error message for [29]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [30]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:42 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62479_62479_02.roo in cache.
+Command failed!
+Server error message for [31]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [32]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:42 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62480_62481_01.roo in cache.
+Command failed!
+Server error message for [33]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [34]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:43 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62482_62482_01.roo in cache.
+Command failed!
+Server error message for [35]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [36]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:43 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62482_62482_02.roo in cache.
+Command failed!
+Server error message for [37]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [38]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:44 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62483_62483_01.roo in cache.
+Command failed!
+Server error message for [39]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [40]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:45 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62484_62484_01.roo in cache.
+Command failed!
+Server error message for [41]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [42]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:45 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62484_62484_02.roo in cache.
+Command failed!
+Server error message for [43]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [44]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:46 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62487_62490_01.roo in cache.
+Command failed!
+Server error message for [45]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [46]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:46 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62492_62492_01.roo in cache.
+Command failed!
+Server error message for [47]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [48]: "can't get pnfsId (not a pnfsfile)" (errno 666).
+[Mon May 18 12:29:47 2009] Going to open file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62492_62492_02.roo in cache.
+Command failed!
+Server error message for [49]: "No such file or directory" (errno 2).
+Failed open file in the dCache.
+Command failed!
+Server error message for [50]: "can't get pnfsId (not a pnfsfile)" (errno 666).

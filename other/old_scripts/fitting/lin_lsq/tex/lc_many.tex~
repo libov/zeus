@@ -1,0 +1,95 @@
+\begin{slide}
+\pagestyle{headings}
+\sf
+\header{Averaging several measurements}
+%
+%\renewcommand{\baselinestretch}{1.1}
+\Large
+$n$ measurements $y_i\pm \sigma_i$ of the same quantity
+$y$ $\rightarrow$ what is the best way to average?
+%
+
+\noindent
+(Why is $\frac{1}{n} \Sigma y_i$ not the best? $\rightarrow$
+measurements with large errors get too much weight and can
+spoil the average!)
+%
+\[ \chi^2 = \Sigma_{i=1}^n \frac{\dd (y_i -a)^2}{\sigma_i^2} \]
+%
+\[ \frac{d\chi^2}{da} = 0 = \Sigma_{i=1}^{n} \frac{-2 (y_i - a)}{\sigma_i^2}
+ = -2 \Sigma_{i=1}^{n} \frac{y_i}{\sigma_i^2} + 
+    2 a \Sigma_{i=1}^{n} \frac{1}{\sigma_i^2}
+\]
+%
+\[
+\rightarrow \quad 
+\begin{array}{|lll|}
+\hline
+\hat{a} & = & \Sigma_{i=1}^n \frac{\dd y_i}{\dd \sigma_i^2} /  \Sigma_{i=1}^n \frac{\dd 1}{\dd \sigma_i^2} 
+\\[4mm]
+\hline
+\end{array}
+\]
+%
+\end{slide}
+
+
+
+
+\begin{slide}
+\pagestyle{headings}
+\sf
+\header{Averaging several measurements}
+%
+\Large
+$\rightarrow$ Single measurements contribute with weight 
+$G_i = \frac{\dd 1}{\dd \sigma_i^2}$; 
+
+Define $G_s:= \Sigma_{i=1}^{n} G_i;$ \hspace{5mm}
+%
+Hesse Matrix $H = 1/2 \frac{\dd d^2\chi^2}{\dd da^2} = G_s$
+%
+ 
+\[
+\rightarrow \quad 
+\begin{array}{|lll|}
+\hline
+\hat{a} & = & \frac{1}{\Sigma_{i=1}^n G_i}  \cdot 
+\Sigma_{i=1}^n G_i y_i = \frac{1}{G_s} \cdot \Sigma_{i=1}^n G_i y_i
+\\[2mm]
+\hline
+\end{array}
+\]
+%
+Error on $\hat{a}$: 
+%
+\[ 
+\begin{array}{|l|}
+\hline
+\sigma_{\hat{a}}^2 = \Sigma_{i=1}^n \left( \frac{\dd d\hat{a}}{\dd dy_i}\right)^2 
+\cdot \sigma_i^2 = 
+\Sigma_{i=1}^n \left( \frac{\dd G_i}{\dd G_s}\right)^2 
+\cdot \sigma_i^2 \\
+= 
+\frac{\dd 1}{\dd G_s^2} \cdot \Sigma_{i=1}^n G_i = \frac{\dd 1}{\dd G_s} = 
+\frac{\dd 1}{\dd \Sigma_{i=1}^n 1/\sigma_i^2} 
+\\[4mm]
+\hline
+\end{array}
+\]
+
+In short
+\[ 
+\begin{array}{|l|}
+\hline
+\hat{a} = \frac{ \dd \Sigma_{i=1}^n y_i/\sigma_i^2}{\dd
+ \Sigma_{i=1}^n 1/\sigma_i^2} \; \pm \; \frac{\dd 1}{\dd 
+\sqrt{\Sigma_{i=1}^n 1/\sigma_i^2} }
+\\[4mm]
+\hline
+\end{array}
+\]
+\end{slide}
+
+
+

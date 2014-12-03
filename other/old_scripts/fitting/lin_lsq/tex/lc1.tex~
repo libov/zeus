@@ -1,0 +1,50 @@
+\begin{slide}
+\pagestyle{headings}
+\sf 
+\header{Fit of a constant}
+%\begin{center}
+\vspace*{2mm}
+\Large 
+Example: Averaging of $n$ different measurements 
+$a_i \pm \sigma_i$ of an observable $a$ (e.g. $a = \alpha_s(m_Z)$)
+\[ \chi^2 = \Sigma_i^n \frac{ (a_i - a)^2}{\sigma_i^2} \]
+``Idiot example'' of one single measurement $a_1 \pm \sigma_1$:
+\[ \chi^2 = \frac{ (a_1 - a)^2}{\sigma_1^2} \]
+\[Min. \chi^2: \quad \frac{d \chi^2}{da} = 0 \; 
+\rightarrow \; \mbox{Estimated value}\quad
+\hat{a} = a_1; \; \sigma_{\hat{a}} = \sigma_1 \]
+%
+%\end{center}
+\end{slide}
+%
+%
+%
+%
+\begin{slide}
+\pagestyle{headings}
+\sf 
+\header{Fit of a constant}
+\Large 
+{\em \blue Continuing example of one single measurement:}
+Probability density $p$ for true value of $a$ ({\em inverse probability}):
+\[ p \sim
+%\frac{1}{\sqrt{2\pi}\sigma_{\hat{a}}} \cdot 
+e^{- \frac{(a - \hat{a})^2}{2\sigma_{\hat{a}}^2}} 
+= e^{-\chi^2/2} 
+\]
+%
+Important general relation:
+$\displaystyle \sigma_{\hat{a}} = 
+\left[ -\frac{d^2\chi^2}{da_{|a=\hat{a}}^2} \right]^{-1/2}
+$
+
+\begin{figure}[h]
+\unitlength1cm
+  \begin{picture}(8,5.7)
+%    \put(0.,0.){\epsfig{file=feynman/chisqp1.epsi,width=8.cm}}
+    \put(0.,.0){\epsfig{file=feynman/gauss1.epsi,width=5.cm}}
+    \put(5.4,.0){\epsfig{file=feynman/chisqp1.epsi,width=5.5cm}}
+    \put(11.3,3.7){\Large $\chi^2(\hat{a}+\sigma_{\hat{a}}) = 1$}
+\end{picture}
+\end{figure}
+\end{slide}

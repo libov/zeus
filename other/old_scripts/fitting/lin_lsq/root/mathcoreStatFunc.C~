@@ -1,0 +1,24 @@
+// Example macro showing some major probability density functions in ROOT. 
+// The macro shows four of them with
+// respect to their two variables. In order to run the macro type:
+//
+//   root [0] .x mathcoreStatFunc.C 
+//
+//  Author: Andras Zsenei
+
+#include "TF2.h"
+#include "TSystem.h"
+#include "TCanvas.h"
+
+
+void mathcoreStatFunc() {
+
+gSystem->Load("libMathCore");
+
+const Int_t ndof=3;
+TF1 *fchi2 = new TF1("fchi2","ROOT::Math::chisquared_pdf(x,4)",0,20);
+ fchi2->Draw();
+//TCanvas *c1 = new TCanvas("c1","c1",1000,750);
+
+}
+

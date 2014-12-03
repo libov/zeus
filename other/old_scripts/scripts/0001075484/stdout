@@ -1,0 +1,81 @@
+Sender: LSF System <lsfzeus@zenith173.desy.de>
+Subject: Job 845127: <0001075484> Done
+
+Job <0001075484> was submitted from host <zarah4.desy.de> by user <libov>.
+Job was executed on host(s) <zenith173.desy.de>, in queue <M>, as user <libov>.
+</tmp/.lsbtmp15643> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Mon May 18 12:29:33 2009
+Results reported at Mon May 18 12:29:48 2009
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+17
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      3.52 sec.
+    Max Memory :         2 MB
+    Max Swap   :         7 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
++ '[' zarah4.desy.de == zarah1.desy.de ']'
++ echo 'submitted using JSP'
+submitted using JSP
++ /usr/share/lsf/mnt/conf/lsbatch/zeus/scripts/java_job_starter.sh 17
+=============== 845127 ==============
+Mon May 18 12:29:37 CEST 2009
+-----------------------------------------
+/tmp
+-----------------------------------------
+-----------------------------------------
+NEW JOB
+17
+/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/Released/Support/root/i586-sl4-linux/5.20.00/bin:/afs/desy.de/user/l/libov/bin.Linux_RHEL4:/afs/desy.de/user/l/libov/bin:/etc/local/groups/zeus/bin:/etc/local/groups/zeus/scripts:/usr/share/lsf/bin:/usr/sue/bin:/opt/products/scripts:/opt/products/bin:/bin:/usr/bin:/usr/bin/X11:/usr/local/X11/bin:/usr/local/bin:/usr/kerberos/bin:/cern/pro/bin:.:.:/zeus/bin:/usr/sbin:/afs/desy.de/common/usr/local/bin:/afs/desy.de/common/usr/local/X11/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd
+EXECUTING USER SCRIPT
+Add files to chain
+Evaluating number of events...
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62411_62412_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62413_62423_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62427_62439_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62441_62443_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62444_62446_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62447_62453_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62454_62457_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62458_62458_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62459_62459_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62460_62463_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62464_62464_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62466_62470_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62474_62476_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62478_62478_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62479_62479_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62479_62479_02.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62480_62481_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62482_62482_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62482_62482_02.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62483_62483_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62484_62484_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62484_62484_02.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62487_62490_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62492_62492_01.roo does not exist
+Error in <ZDcapFile::ZDcapFile>: file dcap://dcachedoor1.desy.de:22128/pnfs/desy.de/zeus/z/ntup/07p/v02d/data/root/data_07p_62492_62492_02.roo does not exist
+0 events in this chain
+1 files
+07pGRcomntup_17_0.root created
+Starting loop
+0 events passed DIS selection
+0 events with at least 1 V0
+Done Succesfully !!!
+size 0
+./$1  0.37s user 0.06s system 3% cpu 10.986 total
++ exit 0

@@ -1,0 +1,352 @@
+AverageMW.C:   // set FCN function
+AverageMW.C:   minuit->SetFCN( &fcn );
+AverageMW.C:   minuit->SetPrintLevel( 0 );
+AverageMW.C:   gStyle->SetOptTitle(0);
+AverageMW.C:   gStyle->SetOptStat(0);
+AverageMW.C:   gStyle->SetOptFit(0);
+AverageMW.C:   c->SetGridy();
+AverageMW.C:   frame->SetLineColor(0);
+AverageMW.C:   frame->SetTickLength(0,"Y");
+AverageMW.C:   frame->SetXTitle("M_{W} [GeV]");  
+AverageMW.C:   frame->GetYaxis()->SetNdivisions( frame->GetNbinsY()+10, 1 );
+AverageMW.C:   frame->GetYaxis()->SetBinLabel( 1, "" ); // no labels
+AverageMW.C:   text->SetTextAlign( 32 );
+AverageMW.C:   text->SetTextSize( frame->GetLabelSize( "Y" ) );
+AverageMW.C:      text->SetTextColor( 1 );
+AverageMW.C:   line->SetLineColor( color );
+AverageMW.C:   line->SetLineWidth( 2 );
+AverageMW.C:   lbar->SetLineColor( color );
+AverageMW.C:   lbar->SetLineWidth( 2 );
+AverageMW.C:   rbar->SetLineColor( color );
+AverageMW.C:   rbar->SetLineWidth( 2 );
+AverageMW.C:   m2->SetMarkerColor( color );
+AverageMW.C:   m2->SetMarkerSize( 1.2 );
+AverageMW.C:   m2->SetMarkerStyle( 21 );
+AverageMW.C:   box->SetLineColor( DarkColor );
+AverageMW.C:   box->SetFillColor( LightColor );
+AverageMW.C:   louter->SetLineWidth( 1 );
+AverageMW.C:   louter->SetLineColor( DarkColor );
+AverageMW.C:   linner->SetLineWidth( 1 );
+AverageMW.C:   linner->SetLineStyle( 3 );
+AverageMW.C:   linner->SetLineColor( DarkColor );
+ChiSquareDistribution.C:   gStyle->SetOptTitle(1);
+ChiSquareDistribution.C:   gStyle->SetOptStat(0);
+ChiSquareDistribution.C:   gStyle->SetOptFit(0);
+ChiSquareDistribution.C:   gStyle->SetPadTopMargin(0.07);
+ChiSquareDistribution.C:   gStyle->SetTitleW(.3);
+ChiSquareDistribution.C:   gStyle->SetTitleH(.05);
+ChiSquareDistribution.C:   gStyle->SetTitleY(1);
+ChiSquareDistribution.C:   gStyle->SetTitleX(0.1);
+ChiSquareDistribution.C:   frame1->SetXTitle("#chi^{2}");
+ChiSquareDistribution.C:      chi2dist[indof-1]->SetParameter(0, indof);
+ChiSquareDistribution.C:      chi2dist[indof-1]->SetLineColor(indof);
+ChiSquareDistribution.C:   frame2->SetXTitle("#chi^{2}");
+ChiSquareDistribution.C:      chi2dist[indof-1]->SetParameter(0, 10.*indof);
+ChiSquareDistribution.C:      chi2dist[indof-1]->SetLineColor(indof);
+ChiSquareDistribution.C:   frame3->SetXTitle("#chi^{2}/n_{dof}");
+ChiSquareDistribution.C:      chi2OverNdist[indof-1]->SetParameter(0, indof);
+ChiSquareDistribution.C:      chi2OverNdist[indof-1]->SetLineColor(indof);
+ChiSquareDistribution.C:   frame4->SetXTitle("#chi^{2}/n_{dof}");
+ChiSquareDistribution.C:      chi2OverNdist[indof-1]->SetParameter(0, 10*indof);
+ChiSquareDistribution.C:      chi2OverNdist[indof-1]->SetLineColor(indof);
+ChiSquareDistribution.C:   chi2pvalue->SetParameter(0, n_dof);
+ChiSquareDistribution.C:   frame5->SetXTitle("#chi^{2}");
+ChiSquareDistribution.C:   chi2Integral->SetParameter(0, n_dof);
+ChiSquareDistribution.C:   chi2Integral->SetFillColor(2);
+ChiSquareDistribution.C:   chi2Integral->SetFillStyle(3004);
+ChiSquareDistribution.C:   text2->SetTextColor(2);
+ChiSquareDistribution.C:   chi2OverNpvalue->SetParameter(0, n_dof);
+ChiSquareDistribution.C:   frame6->SetXTitle("#chi^{2}/n_{dof}");
+ChiSquareDistribution.C:   chi2OverNIntegral->SetParameter(0, n_dof);
+ChiSquareDistribution.C:   chi2OverNIntegral->SetFillColor(2);
+ChiSquareDistribution.C:   chi2OverNIntegral->SetFillStyle(3004);
+ChiSquareDistribution.C:   text2->SetTextColor(2);
+StraightLineFit.C:   gStyle->SetOptTitle(0);
+StraightLineFit.C:   gStyle->SetOptStat(0);
+StraightLineFit.C:   gStyle->SetOptFit(1111);
+StraightLineFit.C:   gStyle->SetStatX(0.46);
+StraightLineFit.C:   gStyle->SetStatY(0.94);
+StraightLineFit.C:   gStyle->SetStatW(0.17);
+StraightLineFit.C:   data->SetMarkerStyle(21);
+StraightLineFit.C:   data->SetMarkerColor(2);
+StraightLineFit.C:   data->SetLineWidth(2);
+StraightLineFit.C:   data->SetLineColor(2);
+StraightLineFit.C:   y_err->SetParameter( 0, errp0 );
+StraightLineFit.C:   y_err->SetParameter( 1, errp1 );
+StraightLineFit.C:   y_err->SetParameter( 2, covMatrix[1][0] );
+StraightLineFit.C:   error1->SetLineWidth(1);
+StraightLineFit.C:   error2->SetLineWidth(1);
+StraightLineFit.C:   frame->SetXTitle("p0");
+StraightLineFit.C:   frame->SetYTitle("p1");
+StraightLineFit.C:   p0_line->SetLineColor(2);
+StraightLineFit.C:   p0_line->SetLineWidth(2);
+StraightLineFit.C:   p1_line->SetLineColor(2);
+StraightLineFit.C:   p1_line->SetLineWidth(2);
+StraightLineFit.C:   // set 1 sigma contour
+StraightLineFit.C:   gMinuit->SetErrorDef(1);
+StraightLineFit.C:   err_ellipse->SetLineWidth(3);
+TrackFit_SL.C:   gStyle->SetOptTitle(0);
+TrackFit_SL.C:   gStyle->SetOptStat(0);
+TrackFit_SL.C:   gStyle->SetOptFit(1111);
+TrackFit_SL.C:   gStyle->SetStatX(0.46);
+TrackFit_SL.C:   gStyle->SetStatY(0.94);
+TrackFit_SL.C:   gStyle->SetStatW(0.17);
+TrackFit_SL.C:   data->SetMarkerStyle(21);
+TrackFit_SL.C:   data->SetMarkerColor(2);
+TrackFit_SL.C:   data->SetLineWidth(2);
+TrackFit_SL.C:   data->SetLineColor(2);
+TrackFit_SL.C:   //y_err->SetParameter( 0, errp0 );
+TrackFit_SL.C:   //y_err->SetParameter( 1, errp1 );
+TrackFit_SL.C:   //y_err->SetParameter( 2, covMatrix[1][0] );
+TrackFit_SL.C:   //error1->SetLineWidth(1);
+TrackFit_SL.C:   //error2->SetLineWidth(1);
+TrackFit_SL.C:  //frame->SetXTitle("p0");
+TrackFit_SL.C:  //   frame->SetYTitle("p1");
+TrackFit_SL.C:  // p0_line->SetLineColor(2);
+TrackFit_SL.C:  // p0_line->SetLineWidth(2);
+TrackFit_SL.C:  // p1_line->SetLineColor(2);
+TrackFit_SL.C:  // p1_line->SetLineWidth(2);
+TrackFit_SL.C:   // set 1 sigma contour
+TrackFit_SL.C:// gMinuit->SetErrorDef(1);
+TrackFit_SL.C://  err_ellipse->SetLineWidth(3);
+TrackFit_SL.C~:   gStyle->SetOptTitle(0);
+TrackFit_SL.C~:   gStyle->SetOptStat(0);
+TrackFit_SL.C~:   gStyle->SetOptFit(1111);
+TrackFit_SL.C~:   gStyle->SetStatX(0.46);
+TrackFit_SL.C~:   gStyle->SetStatY(0.94);
+TrackFit_SL.C~:   gStyle->SetStatW(0.17);
+TrackFit_SL.C~:   data->SetMarkerStyle(21);
+TrackFit_SL.C~:   data->SetMarkerColor(2);
+TrackFit_SL.C~:   data->SetLineWidth(2);
+TrackFit_SL.C~:   data->SetLineColor(2);
+TrackFit_SL.C~:   //y_err->SetParameter( 0, errp0 );
+TrackFit_SL.C~:   //y_err->SetParameter( 1, errp1 );
+TrackFit_SL.C~:   //y_err->SetParameter( 2, covMatrix[1][0] );
+TrackFit_SL.C~:   //error1->SetLineWidth(1);
+TrackFit_SL.C~:   //error2->SetLineWidth(1);
+TrackFit_SL.C~:  //frame->SetXTitle("p0");
+TrackFit_SL.C~:  //   frame->SetYTitle("p1");
+TrackFit_SL.C~:  // p0_line->SetLineColor(2);
+TrackFit_SL.C~:  // p0_line->SetLineWidth(2);
+TrackFit_SL.C~:  // p1_line->SetLineColor(2);
+TrackFit_SL.C~:  // p1_line->SetLineWidth(2);
+TrackFit_SL.C~:   // set 1 sigma contour
+TrackFit_SL.C~:// gMinuit->SetErrorDef(1);
+TrackFit_SL.C~://  err_ellipse->SetLineWidth(3);
+WidthAndMassOfW.C:   // correlation between LEP-II results are still under evaluation (set to 0) 
+WidthAndMassOfW.C:   // set FCN function
+WidthAndMassOfW.C:   minuit->SetFCN( &fcn );
+WidthAndMassOfW.C:   minuit->SetPrintLevel( 0 );
+average_mw.ps:/c {setrgbcolor} def /black {0 setgray} def /sd {setdash} def
+average_mw.ps:/cl {closepath} def /sf {scalefont setfont} def /lw {setlinewidth} def
+average_mw.ps:%%BeginSetup
+average_mw.ps:%%EndSetup
+c.eps:/c {setrgbcolor} def /black {0 setgray} def /sd {setdash} def
+c.eps:/cl {closepath} def /sf {scalefont setfont} def /lw {setlinewidth} def
+c.eps:%%BeginSetup
+c.eps:%%EndSetup
+c2.eps:/c {setrgbcolor} def /black {0 setgray} def /sd {setdash} def
+c2.eps:/cl {closepath} def /sf {scalefont setfont} def /lw {setlinewidth} def
+c2.eps:%%BeginSetup
+c2.eps:%%EndSetup
+c2.eps: gr end } >> [ 0.24 0 0 0.24 0 0 ] makepattern /P04 exch def /cs {[/Pattern /DeviceRGB] setcolorspace} def /FA {f [/DeviceRGB] setcolorspace} def cs 1 0 0 P04 setcolor 495 76 m 346 Y 6 X -13 Y 5 X -12 Y 5 X -13 Y 5 X -12 Y 5 X -12 Y 5 X -12 Y 5 X
+c2.eps: d 9 X 9 -1 d 17 X 9 -1 d 26 X 9 -1 d 43 X s 2123 77 m 9 X s 1 0 0 c black 3 lw 1 0 0 c cs 1 0 0 P04 setcolor 1629 76 m 346 Y 5 X -13 Y 5 X -12 Y 6 X -13 Y 5 X -12 Y 5 X -12 Y 5 X -12 Y 5 X -12 Y 5 X -11 Y 5 X -11 Y 5 X -11 Y 5 X -10 Y 5 X -11 Y 5 X
+chisq_ndf_curves.eps:/c {setrgbcolor} def /black {0 setgray} def /sd {setdash} def
+chisq_ndf_curves.eps:/cl {closepath} def /sf {scalefont setfont} def /lw {setlinewidth} def
+chisq_ndf_curves.eps:%%BeginSetup
+chisq_ndf_curves.eps:%%EndSetup
+mygr:   gre->SetName("Graph");
+mygr:   gre->SetTitle("Graph");
+mygr:   gre->SetFillColor(1);
+mygr:   gre->SetLineColor(2);
+mygr:   gre->SetLineWidth(2);
+mygr:   gre->SetMarkerColor(2);
+mygr:   gre->SetMarkerStyle(21);
+mygr:   gre->SetPoint(0,2.5,2.14235);
+mygr:   gre->SetPointError(0,0,0.1);
+mygr:   gre->SetPoint(1,5,2.57571);
+mygr:   gre->SetPointError(1,0,0.1);
+mygr:   gre->SetPoint(2,10,4.25449);
+mygr:   gre->SetPointError(2,0,0.1);
+mygr:   gre->SetPoint(3,20,6.79099);
+mygr:   gre->SetPointError(3,0,0.5);
+mygr:   gre->SetPoint(4,21,6.5624);
+mygr:   gre->SetPointError(4,0,0.5);
+mygr:   gre->SetPoint(5,22,7.98984);
+mygr:   gre->SetPointError(5,0,0.5);
+mygr:   gre->SetPoint(6,23,7.83797);
+mygr:   gre->SetPointError(6,0,0.5);
+mygr:   gre->SetPoint(7,24,9.00874);
+mygr:   gre->SetPointError(7,0,0.5);
+mygr:   gre->SetPoint(8,25,8.59257);
+mygr:   gre->SetPointError(8,0,0.5);
+mygr:   gre->SetPoint(9,26,9.35184);
+mygr:   gre->SetPointError(9,0,0.5);
+mygr:   gre->SetPoint(10,27,6.34682);
+mygr:   gre->SetPointError(10,0,0.5);
+mygr:   gre->SetPoint(11,28,9.35892);
+mygr:   gre->SetPointError(11,0,0.5);
+mygr:   gre->SetPoint(12,29,9.67099);
+mygr:   gre->SetPointError(12,0,0.5);
+mygr:   gre->SetPoint(13,30,9.89864);
+mygr:   gre->SetPointError(13,0,0.5);
+mygr:   gre->SetPoint(14,31,10.8523);
+mygr:   gre->SetPointError(14,0,0.5);
+mygr:   gre->SetPoint(15,32,11.3282);
+mygr:   gre->SetPointError(15,0,0.5);
+mygr:   gre->SetPoint(16,33,11.3038);
+mygr:   gre->SetPointError(16,0,0.5);
+mygr:   gre->SetPoint(17,34,11.1135);
+mygr:   gre->SetPointError(17,0,0.5);
+mygr:   gre->SetPoint(18,35,12.0755);
+mygr:   gre->SetPointError(18,0,0.5);
+mygr:   gre->SetPoint(19,36,10.9328);
+mygr:   gre->SetPointError(19,0,0.5);
+mygr:   gre->SetPoint(20,37,12.5361);
+mygr:   gre->SetPointError(20,0,0.5);
+mygr:   gre->SetPoint(21,38,11.9598);
+mygr:   gre->SetPointError(21,0,0.5);
+mygr:   gre->SetPoint(22,39,12.6618);
+mygr:   gre->SetPointError(22,0,0.5);
+mygr:   gre->SetPoint(23,40,12.8901);
+mygr:   gre->SetPointError(23,0,0.5);
+mygr:   gre->SetPoint(24,41,12.7571);
+mygr:   gre->SetPointError(24,0,0.5);
+mygr:   gre->SetPoint(25,42,14.0119);
+mygr:   gre->SetPointError(25,0,0.5);
+mygr:   gre->SetPoint(26,43,13.0959);
+mygr:   gre->SetPointError(26,0,0.5);
+mygr:   gre->SetPoint(27,44,14.3829);
+mygr:   gre->SetPointError(27,0,0.5);
+mygr:   gre->SetPoint(28,45,14.5938);
+mygr:   gre->SetPointError(28,0,0.5);
+mygr:   gre->SetPoint(29,46,14.5895);
+mygr:   gre->SetPointError(29,0,0.5);
+mygr:   gre->SetPoint(30,47,16.0216);
+mygr:   gre->SetPointError(30,0,0.5);
+mygr:   gre->SetPoint(31,48,15.5532);
+mygr:   gre->SetPointError(31,0,0.5);
+mygr:   gre->SetPoint(32,49,15.7996);
+mygr:   gre->SetPointError(32,0,0.5);
+mygr:   gre->SetPoint(33,50,15.9467);
+mygr:   gre->SetPointError(33,0,0.5);
+mygr:   gre->SetPoint(34,51,16.2178);
+mygr:   gre->SetPointError(34,0,0.5);
+mygr:   gre->SetPoint(35,52,17.3339);
+mygr:   gre->SetPointError(35,0,0.5);
+mygr:   gre->SetPoint(36,53,16.6966);
+mygr:   gre->SetPointError(36,0,0.5);
+mygr:   gre->SetPoint(37,54,17.2732);
+mygr:   gre->SetPointError(37,0,0.5);
+mygr:   gre->SetPoint(38,55,17.2092);
+mygr:   gre->SetPointError(38,0,0.5);
+mygr:   gre->SetPoint(39,56,18.3205);
+mygr:   gre->SetPointError(39,0,0.5);
+mygr:   gre->SetPoint(40,57,18.5246);
+mygr:   gre->SetPointError(40,0,0.5);
+mygr:   gre->SetPoint(41,58,19.1269);
+mygr:   gre->SetPointError(41,0,0.5);
+mygr:   gre->SetPoint(42,59,20.8321);
+mygr:   gre->SetPointError(42,0,0.5);
+mygr:   gre->SetPoint(43,60,18.653);
+mygr:   gre->SetPointError(43,0,0.5);
+mygr:   gre->SetPoint(44,61,20.0808);
+mygr:   gre->SetPointError(44,0,0.5);
+mygr:   gre->SetPoint(45,62,20.478);
+mygr:   gre->SetPointError(45,0,0.5);
+mygr:   gre->SetPoint(46,63,19.5435);
+mygr:   gre->SetPointError(46,0,0.5);
+mygr:   gre->SetPoint(47,64,20.9335);
+mygr:   gre->SetPointError(47,0,0.5);
+mygr:   gre->SetPoint(48,65,21.2752);
+mygr:   gre->SetPointError(48,0,0.5);
+mygr:   gre->SetPoint(49,66,22.6446);
+mygr:   gre->SetPointError(49,0,0.5);
+mygr:   gre->SetPoint(50,67,21.0878);
+mygr:   gre->SetPointError(50,0,0.5);
+mygr:   gre->SetPoint(51,68,21.91);
+mygr:   gre->SetPointError(51,0,0.5);
+mygr:   gre->SetPoint(52,69,21.657);
+mygr:   gre->SetPointError(52,0,0.5);
+mygr:   gre->SetPoint(53,70,21.5269);
+mygr:   gre->SetPointError(53,0,0.5);
+mygr:   gre->SetPoint(54,71,22.5312);
+mygr:   gre->SetPointError(54,0,0.5);
+mygr:   gre->SetPoint(55,72,26.0667);
+mygr:   gre->SetPointError(55,0,0.5);
+mygr:   gre->SetPoint(56,73,23.0316);
+mygr:   gre->SetPointError(56,0,0.5);
+mygr:   gre->SetPoint(57,74,23.0279);
+mygr:   gre->SetPointError(57,0,0.5);
+mygr:   gre->SetPoint(58,75,23.4455);
+mygr:   gre->SetPointError(58,0,0.5);
+mygr:   gre->SetPoint(59,76,23.8837);
+mygr:   gre->SetPointError(59,0,0.5);
+mygr:   gre->SetPoint(60,77,23.7545);
+mygr:   gre->SetPointError(60,0,0.5);
+mygr:   gre->SetPoint(61,78,25.7162);
+mygr:   gre->SetPointError(61,0,0.5);
+mygr:   gre->SetPoint(62,79,25.0198);
+mygr:   gre->SetPointError(62,0,0.5);
+mygr:   Graph1->SetMinimum(0);
+mygr:   Graph1->SetMaximum(29.0191);
+mygr:   Graph1->SetDirectory(0);
+mygr:   Graph1->SetStats(0);
+mygr:   gre->SetHistogram(Graph1);
+mygr:   func->SetFillColor(19);
+mygr:   func->SetFillStyle(0);
+mygr:   func->SetLineWidth(3);
+mygr:   func->SetChisquare(146.942);
+mygr:   func->SetParameter(0,1.32);
+mygr:   func->SetParError(0,0.0794271);
+mygr:   func->SetParLimits(0,0,0);
+mygr:   func->SetParameter(1,0.281702);
+mygr:   func->SetParError(1,0.00705923);
+mygr:   func->SetParLimits(1,0,0);
+mygr:   func->SetParameter(2,0.000296108);
+mygr:   func->SetParError(2,9.82287e-05);
+mygr:   func->SetParLimits(2,0,0);
+mygr:   ptstats->SetName("stats");
+mygr:   ptstats->SetBorderSize(2);
+mygr:   ptstats->SetFillColor(19);
+mygr:   ptstats->SetTextAlign(12);
+mygr:   ptstats->SetOptStat(0);
+mygr:   ptstats->SetOptFit(1111);
+mygr:   ptstats->SetParent(gre->GetListOfFunctions());
+prob_examples.ps:/c {setrgbcolor} def /black {0 setgray} def /sd {setdash} def
+prob_examples.ps:/cl {closepath} def /sf {scalefont setfont} def /lw {setlinewidth} def
+prob_examples.ps:%%BeginSetup
+prob_examples.ps:%%EndSetup
+prob_examples.ps: /BBox [ 0 0 100 100 ] /XStep 100 /YStep 100 /PaintProc { begin gsave 0 0 m 100 100 l s gr end } >> [ 0.24 0 0 0.24 0 0 ] makepattern /P04 exch def /cs {[/Pattern /DeviceRGB] setcolorspace} def /FA {f [/DeviceRGB] setcolorspace} def cs 1 0 0 P04
+prob_examples.ps: setcolor 644 99 m 450 Y 7 X -17 Y 6 X -16 Y 7 X -17 Y 6 X -16 Y 7 X -16 Y 7 X -15 Y 6 X -15 Y 7 X -15 Y 6 X -14 Y 7 X -14 Y 7 X -14 Y 6 X -13 Y 7 X -13 Y 6 X -12 Y 7 X -12 Y 7 X -11 Y 6 X -11 Y 7 X -11 Y 6 X -10 Y 7 X -10 Y 6 X -9 Y 7 X -9 Y 7 X -9
+prob_examples.ps: -3 d 11 -2 d 12 -2 d 11 -2 d 11 -2 d 12 -2 d 11 -1 d 11 -1 d 12 -1 d 11 -1 d 11 -1 d 12 -1 d 11 X 11 -1 d 12 X 11 -1 d 11 X 12 -1 d 33 X 12 -1 d 45 X s 2760 100 m 11 X s 1 0 0 c black 3 lw 1 0 0 c cs 1 0 0 P04 setcolor 2118 99 m 450 Y 7 X -17 Y 6 X
+trackfit.ps:/c {setrgbcolor} def /black {0 setgray} def /sd {setdash} def
+trackfit.ps:/cl {closepath} def /sf {scalefont setfont} def /lw {setlinewidth} def
+trackfit.ps:%%BeginSetup
+trackfit.ps:%%EndSetup
+wav.C:    a-> SetBinContent(i,val_MW(i));
+wav.C:    a-> SetBinError(i,err_MW(i));
+wav.C~:   gStyle->SetOptTitle(0);
+wav.C~:   gStyle->SetOptStat(0);
+wav.C~:   gStyle->SetOptFit(1111);
+wav.C~:   gStyle->SetStatX(0.46);
+wav.C~:   gStyle->SetStatY(0.94);
+wav.C~:   gStyle->SetStatW(0.17);
+wav.C~:   data->SetMarkerStyle(21);
+wav.C~:   data->SetMarkerColor(2);
+wav.C~:   data->SetLineWidth(2);
+wav.C~:   data->SetLineColor(2);
+wav.C~:   y_err->SetParameter( 0, errp0 );
+wav.C~:   y_err->SetParameter( 1, errp1 );
+wav.C~:   y_err->SetParameter( 2, covMatrix[1][0] );
+wav.C~:   error1->SetLineWidth(1);
+wav.C~:   error2->SetLineWidth(1);
+wav.C~:   frame->SetXTitle("p0");
+wav.C~:   frame->SetYTitle("p1");
+wav.C~:   p0_line->SetLineColor(2);
+wav.C~:   p0_line->SetLineWidth(2);
+wav.C~:   p1_line->SetLineColor(2);
+wav.C~:   p1_line->SetLineWidth(2);
+wav.C~:   // set 1 sigma contour
+wav.C~:   gMinuit->SetErrorDef(1);
+wav.C~:   err_ellipse->SetLineWidth(3);

@@ -1,0 +1,4 @@
+#!  /bin/bash
+export DCACHE_RAHEAD=1
+export DCACHE_RA_BUFFER=102400
+./17.exe

@@ -1,0 +1,129 @@
+MACRO k0eff
+*********************************************************************************
+*
+* Plot k0-eff. for data and MC
+*
+*********************************************************************************
+*
+*--- Read in data results
+*
+tag = '__00_m20p90'
+*tag = '__00_pg110x'
+*tag = '__00_pl70xx'
+*tag = '__00_phi90r'
+*tag = '__00_pospis'
+*tag = '__04_pospis'
+*tagmc = '__00_pospis'
+td1 = 'iter/pts_da'//[tag]//'.txt1'
+td2 = 'iter/exp_da'//[tag]//'.txt4'
+td3 = 'iter/eff_da'//[tr]//'.txt4'
+*
+tm1 = 'iter/pts_mc'//[tag]//'.txt1'
+tm2 = 'iter/exp_mc'//[tag]//'.txt4'
+tm3 = 'iter/eff_mc'//[tag]//'.txt4'
+*
+v/read vpts  [td1]
+v/read vexp  [td2]
+v/read veff  [td3]
+*
+nb = 68 
+ptmin = 0.06 
+1d 100 'pts' [nb] [ptmin] 0.4; put_vec/cont 100 vpts
+1d 101 'exp' [nb] [ptmin] 0.4; put_vec/cont 101 vexp
+1d 102 'eff' [nb] [ptmin] 0.4; put_vec/cont 102 veff
+div 100 101 103 1. 1. e
+v/crea verr([nb]) r
+get_vect/err 103 verr
+vscale verr 1 verr
+put_vect/err 103 verr  
+*
+*--- Read in MC results
+*
+v/read vpts_mc [tm1] 
+v/read vexp_mc [tm2] 
+v/read veff_mc [tm3] 
+*
+1d 200 'pts mc' [nb] [ptmin] 0.4; put_vec/cont  200 vpts_mc
+1d 201 'exp mc' [nb] [ptmin] 0.4; put_vect/cont 201 vexp_mc
+1d 202 'eff mc' [nb] [ptmin] 0.4; put_vec/cont  202 veff_mc
+div 200 201 203 1. 1. e
+get_vect/err 203 verr
+vscale verr 1 verr
+put_vect/err 203 verr  
+*
+*--- Eff. ratio data mc
+*
+di 103 203 303 1. 1. e
+*div 102 202 302 1. 1. e
+hi/fit 303 p0
+*
+*--- Make nice output
+*
+zone 2 2; set hcol 1; set hwid 5; set pass 3
+set asiz 0.45; opt grid; set hwid 5
+set mtyp 20; set pmci 4; set hcol 4; set ksiz 0.3
+*
+*exec nice1 2
+tps = 'k0eff'//[tag]//'.ps'
+for/file 21 [tps]
+*
+meta 21 -111
+opt utit
+title 'Track eff. vs pt with W.Erdmann K0-method  '//[tag]
+*norm 100
+set dmod 1
+hi/pl 100
+set dmod 2
+hi/pl 101 s
+set xlab 1.4
+atit 'p?t!' 'Rates' 
+set dmod 1
+*max 102 1.3
+*hi/pl 102
+max 103 1.3
+hi/pl 103
+set xlab 1.
+atit 'p?t!' 'Eff'
+hi/pl 200
+atit 'p?t!' 
+set dmod 2
+hi/pl 201 s
+set xlab 1.4
+atit 'p?t!' 'Rates' 
+set dmod 1
+*max 202 1.3
+*hi/pl 202
+max 203 1.3
+hi/pl 203 
+set xlab 1.
+atit 'p?t!' 'Eff' 
+selnt 1
+text 4 14 'open  measured K0' 0.3
+text 4 13 'dashed expected K0' 0.3
+text 8 17 'Data' 0.3
+text 8 8  'MC' 0.3
+text 17 17 'Data' 0.3
+text 17 8  'MC' 0.3
+*
+wait
+zone 1 1
+opt fit
+opt nstat
+set fit 111
+max 303 1.4
+min 303 0.
+hi/pl 303
+set xlab 1.4
+atit 'p?t!' 'eff data / eff mc'
+selnt 1
+text 4 10 'Eff. ratio data / MC' 0.6
+close 21
+return
+
+
+
+
+
+
+
+

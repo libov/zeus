@@ -1,0 +1,144 @@
+********************************************************
+*
+* 01/09 Test linear track-fit
+*
+*
+********************************************************
+*
+exec nice2
+*
+* Load dummy data
+* 
+chain - -
+chain csmu orange.ntp
+*
+*--- Create track parameters for y = p0 + p1 * x
+*
+v/crea p(2) r 1.2 0.3
+*
+*--- Create tracking system
+*
+v/crea nd(1) i 63
+v/crea x(63) r 
+v/crea y(63) r 
+v/crea ex(63) r 
+v/crea ey(63) r 
+*
+*
+*--- MVD
+*
+* radia
+v/inp x(1) 2.5
+v/inp x(2) 5.
+v/inp x(3) 10.
+*
+* resolution
+v/inp ey(1) 0.1
+v/inp ey(2) 0.1
+v/inp ey(3) 0.1
+*
+*--- CTD
+*
+do i=1,60
+* radia 
+  r = 19 + [i]
+  ind = [i]+3
+  v/inp x([ind]) [r]
+* resolution
+*  v/inp ey([ind]) 0.03
+  v/inp ey([ind]) 0.5
+enddo
+*
+cd //csmu
+uwfunc 1 csmunt.inc
+nt/loop 1 myana.f(0.) 1
+*
+*--- Store track info
+*
+v/write p   'p.txt'
+*
+v/write nd  'nd.txt'
+v/write x   'x.txt'
+v/write y   'y.txt'
+v/write ex  'ex.txt'
+v/write ey  'ey.txt'
+*
+*
+*--- Fit
+*
+v/crea par(2) r
+v/crea step(2) r
+v/crea pmin(2) r
+v/crea pmax(2) r
+v/crea errpar(2) r
+*
+v/fit x y ey p1 ! 2 par step pmin pmax errpar
+fun1 100 fp1.f 100 0. 100
+*
+r0 = par(1)
+r1 = par(2)
+er0 = errpar(1)
+er1 = errpar(2)
+
+*
+*
+*--- Plot
+*
+for/file 21 'trackfit.ps'
+meta 21 -113
+Title 'Linear Track fit' 
+nul 0. 100 0. 30.
+set mtyp 21
+set plci 1
+hplot/errors x y ey ey 63 20 0.3
+*set hwid 5
+*set plci 1
+set fcol 2
+set fwid 10
+h/pl 100 s
+selnt 1
+set pass 3
+text 4 16 'p0 = '//[r0]//' +- '//[er0] 0.3
+text 4 15 'p1 = '//[r1]//' +- '//[er1] 0.3
+atit 'x (cm) ' 'y (cm) '
+close 21
+*
+return
+
+
+**********************************************
+* nice2
+*
+* some nice layout options for presentations
+* from http://hep.bu.edu/~fdufour/readme/paw/
+*
+***********************************************
+*
+macro nice2
+
+opt zfl1
+opt nbox
+set vfon -20
+set vsiz 0.35
+* set vsiz 0.45
+set hwid 2
+set fwid 3
+set xmgl 3
+set ymgu 3
+set txfp -20
+set chhe 0.5
+set tsiz 0.5
+set tfon -20
+set mtyp 20
+set mscf 0.5
+set ksiz 0.4
+*set ksiz 0.5
+set gsiz 0.6
+set gfon -20
+set asiz 0.4
+set lfon -20
+set xlab 2
+
+set *fon -20
+return
+*

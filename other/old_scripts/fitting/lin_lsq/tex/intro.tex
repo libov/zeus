@@ -1,0 +1,88 @@
+\section{\LARGE \it Linear least square fits}
+%
+\sf
+\Large
+%
+\underline{Reminder $\chi^2$ minimisation:} 
+Example: n measurements of particle
+$y_i$ with errors $\sigma_i$ at fixed detector 
+positions $x_i$. Fit model:  $y = f(x,a)$,
+depends on parameter $a$ (e.g. slope). 
+%
+For good fit the function should be close to the points
+\[
+\rightarrow 
+\mbox{\framebox{
+$ \chi^2 = \Sigma_{i=1}^n \frac{ (y_i-f(x_i,a))^2}{\sigma_i^2} $}}
+%}
+\leftrightarrow \mbox{Min. wrt a!}
+\rightarrow \frac{d\chi^2}{da} = 0
+\]
+Most general not solvable analytically.
+%
+
+%\underline{Most general case:}
+%\begin{itemize}
+%\item 
+\noindent
+General case:
+$y_i,y_j$ correlated measurements with covariance
+$V_{ij}$; $m$ fitparameters $\vec{a}$
+%\end{itemize}
+\[ \rightarrow \begin{array}{|lll|}
+\hline
+ \chi^2 &  = & \Sigma_{i,j=1}^n 
+(y_i - f(x_i,\vec{a}))  V_{ij}^{-1} (y_i - f(x_i,\vec{a}))\\
+% & = & (\vec{y} - \vec{f}(\vec{a}))^t V^{-1} (\vec{y} - \vec{f}(\vec{a}))\\
+\hline
+\end{array}
+\]
+
+\noindent
+%\LARGE \sf
+\vspace{3mm}
+\underline{Linear $\chi^2$ fit}
+%\Large
+%\sf
+
+$ \vec{y} \; \quad \mbox{Vektor of n measurements} \quad =
+\left( \begin{array}{l}
+y_1(x_1)\\
+. \\
+y_n(x_n)\\
+\end{array}
+\right)
+\quad \mbox{with Cov. Matrix} \quad V
+$
+\vspace{5mm}
+
+%
+%\[ V: \quad \mbox{Kov. Matrix von} \quad \vec{y} \]
+$ \vec{a} \; \quad \mbox{Vektor of m fitparameters} \quad =
+\left( \begin{array}{l}
+a_1\\
+. \\
+a_m\\
+\end{array}
+\right)
+$
+
+$\mbox{Modell for}\; \vec{y}: \;\; =   A \,\vec{a}$
+
+Watch out: linear in $\vec{a}$, but not necessarily in x.
+
+Example. Fkt. =  $a e^{-x}$, i.e. model for $y_i$: =   $e^{-x_i}\, a$
+
+
+\[ 
+\begin{array}{|l|}
+\hline
+\chi^2 = \left(\vec{y} - A \, \vec{a}\right)^t V^{-1}
+            \left(\vec{y} - A \, \vec{a}\right)
+%\quad
+\\
+\hline
+\end{array}
+\]
+
+$\rightarrow$ to be minimised w.r.t $\vec{a}$

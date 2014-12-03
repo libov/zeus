@@ -1,0 +1,85 @@
+*
+* Examples of linear fits 
+*
+*--- P0
+*
+v/cre v(5) r 4. 3.7 3.9 5.1 4.2
+v/crea ve(5) r 0.5 0.5 0.5 0.5 0.5
+1d 100 '' 5 0. 5. 
+put_vect/cont 100 v
+put_vect/err 100 ve
+hi/fit 100 p0
+opt fit
+set fit 111
+*
+*--- P1
+*
+v/cre v(5) r 1. 2.9 3.1 4.7 4.8
+v/crea ve(5) r 0.5 0.5 0.5 0.5 0.5
+1d 101 '' 5 0. 5. 
+put_vect/cont 101 v
+put_vect/err 101 ve
+hi/fit 101 p1
+opt fit
+set fit 111
+*
+*--- P2
+*
+v/cre v(6) r 2.2 2.4 2.6 3.8 5.0 6.
+v/crea ve(6) r 0.2 0.2 0.2 0.2 0.2 0.2
+1d 102 '' 6 0. 6. 
+put_vect/cont 102 v
+put_vect/err 102 ve
+hi/fit 102 p2
+opt fit
+set fit 111
+*
+*--- P4
+*
+v/cre v(10) r 2.2 2.4 2.6 3.8 5.0 5. 4. 3.5 4.1 4.1
+v/crea ve(10) r 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4
+1d 103 '' 10 0. 10. 
+put_vect/cont 103 v
+put_vect/err 103 ve
+hi/fit 103 p4
+opt fit
+set fit 111
+*
+*--- exp
+*
+v/cre v(6) r 100 50 15 8 5. 1.
+v/crea ve(6) r 10 10 8 4 2 1
+1d 104 '' 6 0. 6. 
+put_vect/cont 104 v
+put_vect/err 104 ve
+v/crea par(1) r 
+hi/fit 104 fexp.f ! 1 par
+opt fit
+set fit 1
+*
+*---
+*
+opt nbox
+for/file 21 linfits.eps
+set fit 111
+meta 21 -113
+zone 2 3
+max 100 8
+hi/pl 100
+max 101 8
+hi/pl 101
+max 102 10
+hi/pl 102
+max 103 10
+hi/pl 103
+hi/pl 104
+selnt 1
+set pass 3
+text 2.5 15  'Konstante  y = a0' 0.25
+text 13.5 14.7 'Gerade  y = a0 + a1 x ' 0.25
+text 2.5 8.3  'Parabel  y = a0 + a1 x + a2 x^2! ' 0.25
+text 11.2 8.3 'Polynom  y = a0 + a1 x + ... an x^n! ' 0.25
+text 4. 4.4  ' Normierung y = a exp(-x) ' 0.25
+close 21
+*
+return

@@ -1,0 +1,138 @@
+\begin{slide}
+\pagestyle{headings}
+\small
+\sf 
+\header{Overview of Linear least square fit section}
+%\renewcommand{\arraystretch}{5.5}
+\begin{table}
+\setlength{\tabcolsep}{6pt}
+\hspace*{-5mm}
+\scriptsize
+\begin{tabular}{|l|l|l|}
+\hline
+Part I & Part II & Part III \\
+\hline
+\begin{minipage}{3.6cm}
+\vspace*{1mm}
+%\begin{itemize}
+\begin{list}{\labelitemi}{\leftmargin=1em}
+\item
+Reminder of $\chi^2$-fit method 
+\item
+Linear $\chi^2$-fit examples (Constant, straight
+line, parabola, etc.)
+\item
+{\bfseries \blue Fit of a constant (averaging measurements)}
+\item 
+One single measurement:
+$\chi^2_{min}$ and $\chi^2_{min}+1$,
+Hesse matrix
+\item
+{\magenta Exercise: Two measurements:
+perform fit by adding $\chi^2$-parabolas}
+\item
+Averaging many measurements, results
+\item
+ {\magenta Exercise: Compare
+weighted vs unweighted average}
+\end{list}
+%\end{itemize}
+\end{minipage}
+&
+\begin{minipage}{5.5cm}
+\vspace*{1mm}
+\begin{list}{\labelitemi}{\leftmargin=1em}
+%\begin{itemize}
+\item
+{\blue \bfseries $\chi^2$-fit-quality test:}
+Example: $\chi^2$ of two measurements
+and known true value
+\item
+$\chi^2$-function for $n$ degrees of freedom
+and $\chi^2$-fit probability
+%\item
+{\scriptsize \red Exercise: plot and study features
+of the $\chi^2$-function vs $n$ using the parameterised function}
+{\red New: Generate 1000 random experiments with n degrees of
+freedom and obtain $\chi^2$ and $\chi^2$-fit probability distributions} 
+%\item
+%
+%\item
+%{\red exercise: 
+%plot and study features
+%of the $\chi^2$-fit-probability}
+\item
+$\chi^2$ for two measurements with unknown true value
+\item
+{\red \scriptsize New exercise: Track position measurement in test beam
+using 10 detector layers, in each detector 99\%
+chance for signal hit and 1\% for random noise hit
+$\rightarrow$  Generate 1000 tracks and corresponding
+hits and obtain $\chi^2$, $\chi^2$-fit probability 
+and measured parameter distributions. 
+Try to reject outliers: Method 1: reject track fits with
+small $\chi^2$-fit probability, Method 2: iterative,
+repeat track-fit and downweight outliers}
+\item
+{\red Exercise: {\blue \bfseries Outlier rejection}, case
+world average of $m_W$, {\scriptsize  study how
+the rejection of certain measurements 
+change the average and the $\chi^2$-fit probability}}
+\item
+%{\scriptsize \darkgreen Averaging data with unknown errors}
+%\item
+{\red New exercise: Upscaling of errors a la PDG to obtain reasonable $\chi^2$}
+\item
+{\red New exercise: Pulls of single measurements to 
+the average}
+%\end{itemize}
+\end{list}
+\end{minipage}
+& 
+\begin{minipage}{5.cm}
+\vspace*{1mm}
+\begin{list}{\labelitemi}{\leftmargin=1em}
+%\begin{itemize}
+\item
+General form of linear $\chi^2$
+\item
+Solution by normal equations
+%\item
+%General features:
+%(Consistency, Unbiasedness, efficiency)
+\item
+Normal equation solution for 
+{\blue \bfseries straight line
+fit}
+\item
+{\magenta Exercise: Learn qualitative features
+of straight line fits, e.g. importance of lever arm}
+\item
+{\red Exercise: Straight line fit and 
+detailed error analysis (error ellipse, trajectory
+error band)}
+\item
+{\red New exercise: Coordinate transformation such that the
+coordinate center is in the middle of the points $\rightarrow$
+study the effect on the parameter errors and correlation}
+\item 
+{\red New exercise: Add a very precise point at the origin of
+the track such that the $p_0$ parameter is basically fixed.
+Repeat the track-fit and study the effect on the slope and error}
+\item
+{\red Exercise: {\blue \bfseries Parabola track fit},
+complete analysis: {\it \scriptsize fit, outlier-rejection, 
+parameter errors/correlation, trajectory uncertainty,
+{\blue \bfseries momentum calculation}}}
+%\item
+%{\red Exercise: {\blue \bfseries Guessing the right fit function
+%for smooth data (polynomial fit of background}}
+%\end{itemize}
+\end{list}
+\vspace*{1mm}
+\end{minipage}
+\\
+\hline
+\end{tabular}
+\end{table}
+\end{slide}

@@ -1,0 +1,80 @@
+#!/usr/bin/perl
+$file='file.tmp';
+#
+$CURRENT_DIR = `pwd`;
+print "Get all your jobs from zenith....................";
+print "written by S.Chekanov (ANL) ";
+print "\n";
+print "Current directory is $CURRENT_DIR" ;
+@out0 = `cd $CURRENT_DIR` ;
+@out0 = `zarah-jobq -c  > file.tmp` ;
+# @out0 = `sed '1,2d' file.tmp > aa.tmp` ;
+# @out0 = `mv aa.tmp $file` ;
+#
+@bigarray = ();
+# read heardings
+$var = 1;
+#
+open(FILE, "$file") || die "Can't open `myfile'\n";
+while (<FILE>) {
+    chop;
+    next if /^\s+$/;
+    next if /^-----/;
+    next if /^\s+Jobid/;
+    push(@bigarray, $_);
+    ++$var;
+    }
+close(FILE);
+
+# print $var;
+
+# open file
+# create complite string
+for ($i = 0; $i < $var-1; ++$i)
+{
+# print $bigarray[$i];
+
+$bigarray[$i]=~/(\w+)/;
+
+$jobid = $1 ;
+
+# print "\n";
+# print $jobid;
+## print ouput into the file
+print $jobid . "\n";
+@output=`zarah-jobls $jobid`;
+@out=`rm -f label.tmp`;
+open(FILE, ">label.tmp" ) || die "Can't open `myfile'\n";
+print FILE @output;
+print FILE "\n";
+close( FILE );
+@out=`rm -f label1.tmp`;
+# turn spaces into newlines
+@out1=`tr ' ' '\12' < label.tmp > label1.tmp `;
+
+@out=`rm -f label2.tmp`;
+# delate all lines which do not contain tup
+@out = `sed /root/!d label1.tmp > label2.tmp`;
+# read this file
+#
+# get output ntuple name
+$myntuple = `tail -1 label2.tmp`;
+
+# remove space in the front
+$myntuple =~ s/^\s+//;
+# remove space at the end
+$myntuple =~ s/\s+$//;
+# create name for log file
+$logfile = $myntuple . ".log";
+# print $logfile;
+$getcmd = "zarah-jobget --yes --nodir  --force --jobid $jobid  eaze_example.log $myntuple";
+print $getcmd."\n";
+$out5 = `$getcmd`;
+$out6 = `bash -c "mv -f eaze_example.log $logfile" `;
+print "\n";
+
+}
+$out5 = ` rm -f *.tmp `;
+print "All done!\n";
+exit;
+

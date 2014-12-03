@@ -1,0 +1,91 @@
+\documentclass[portrait,pstricks,fancybox,epsfig,colordvi,semcolor,semlayer,a4,rotate]{seminar}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{rotating}
+\input{comdef}
+\input{color}
+%
+%--- Slide options
+%
+\centerslidestrue
+\extraslideheight{10in}
+\slidesmag{3}
+\slidewidth 25cm
+\slideheight 18.5cm
+\slideframe{none}
+\renewcommand{\slidefuzz}{2.5cm}
+\renewcommand{\slidestretch}{1.}
+\renewcommand{\slidetopmargin}{0.0in}
+%
+%--- Header lines
+%
+\newcommand{\header}[1]{
+{\red
+\begin{center}
+\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{0mm}
+\begin{tabular}{c}
+{\huge \black #1} \\[0.6mm]
+\hline
+\end{tabular}
+\end{center}}}
+
+\newcommand{\bheader}[1]{
+{\blue
+\begin{center}
+\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{0mm}
+\begin{tabular}{c}
+{\huge \black #1} \\[0.6mm]
+\hline
+\end{tabular}
+\end{center}}}
+
+\newcommand{\eheader}[1]{
+{\red
+\begin{center}
+\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{0mm}
+\begin{tabular}{c}
+{\huge \black #1} \\[0.6mm]
+\end{tabular}
+\end{center}}}
+%
+\newcommand{\dd}{\displaystyle}
+\newcommand{\hitb}{{\large\black $\bullet\;$}}
+\newcommand{\hiti}{{\huge\blue $\bullet$}}
+\newcommand{\iti}{{\Large\red $\bullet$}}
+\newcommand{\itii}{{\darkgreen $\blacktriangleright$}}
+\newcommand{\htab}{\rule[-1mm]{0mm}{6mm}}
+\newcommand{\hhtab}{\rule[-5mm]{0mm}{12mm}}
+%
+%--- Pagestyle
+%
+\pagestyle{headings}
+%\pagestyle{cern}
+%\pagestyle{pssections}
+%\pagestyle{empty}
+%
+%
+%
+\begin{document}
+\input{ladvorg}
+\input{lov}
+%\input{ltemplate}
+\input{l1_cont}
+\input{lintro}
+\input{lc1}
+\input{lc2}
+\input{papueb/lex1}
+\input{lc_many}
+\input{e_wav}
+%\input{papueb/lex1a}
+\input{l2_cont}
+\input{lco1}
+\input{l3_cont}
+\input{normaleq}
+%%%% skip \input{linanp_eig}
+\input{geradenfit}
+\input{ueb11}
+\end{document}
+%

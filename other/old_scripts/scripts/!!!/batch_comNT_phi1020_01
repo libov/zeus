@@ -1,0 +1,4 @@
+#!  /bin/bash
+export DCACHE_RAHEAD=1
+export DCACHE_RA_BUFFER=102400
+root /data/zenith220a/aushev/Phys_analysis/Phi1020/ComNTbatch/comNT_phi1020_dc_01.cxx -q -b

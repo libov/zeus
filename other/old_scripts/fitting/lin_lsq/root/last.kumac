@@ -1,0 +1,12 @@
+*** Begin of history file: Wed Mar 18 10:37:58 2009
+fun1 100 prob(x,2) 100 0. 10.
+fun1 100 prob(x,2) 100 0. 20.
+fun1 100 prob(x,3) 100 0. 20.
+hi/pl 100
+fun1 100 prob(x,2) 100 0. 20.
+fun1 100 chisin(x,1) 100 0. 10
+fun1 100 chisin(x,1) 100 0. 1.
+fun1 100 prob(x,2) 100 0. 20.
+fun1 100 prob(x,14) 100 0. 20.
+exit
+*** End   of history file: Wed Mar 18 10:39:45 2009

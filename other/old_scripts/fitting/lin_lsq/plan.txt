@@ -1,0 +1,92 @@
+
+Pull,
+Effect of outlier on results
+
+
+Real Track-fit with and without vertex constraint
+Adding one precise point to the track
+
+
+Parabola fit?
+When is a parameter significant and needed?
+Fit a track circle in magnetic field
+which is almost straight and determine the momentum
+and its error
+
+
+
+
+Lecture plan for lecture linear least square method:
+
+* Reminder least square method
+  y = f(t,x)  t continuous parameter, x = vector o 
+  chisquare = Sum (y - f(t,x)^2/sigma_y^2
+  min -> solution for x
+
+* Linear fit problems, f(t,x) = A x + b 
+  examples: constant, straight line,
+  parabola, polynom, exponential with normalisation factor
+
+* Most simple problem, constant fit:
+  x = a
+  e.g. averaging of different measurements
+   
+* constant fit: 
+  'stupid' example only one measurement value \hat{a} with
+  error \sigma_a
+  Min. chisquare from d\chi2/da = 0
+  at a = a0
+= 0 for a = \hat{a}
+  probability for true value (inverse probability)
+  prob = e^{-chi2/2) =  e^{- (a-\hat{a})^2/sigma_a}     
+  Important relations:
+  - Min chisquare: dchi2/da = 0
+  what about the error? obviously the error is sigma_a
+  This can be also retrieved from
+  - sigma_a =   (d2chi2/da2|min}^{-1/2}
+  - for a+- sigma_a --> chi2 --> 0 + 1 
+
+* generalised for all cases:
+  \hat{x} = estimator for parameters x
+  --> chi2(x) = chi2(\hat{x}) + d2chi2/dx*(x-xhat) + 2. Ordnung
+  --> der Fehler ist  sigma_a =   (d2chi2/da2|min}^{-1/2}
+  chi^2= chi^2min +1 
+
+* 2 measurements of a constant:
+  - Add parabolas graphically MINI-EXERCISE
+  - Analytical solution 
+  - Result = weighted average
+  - chisquare_min = (a2-a1)^2/(sigma_1^2+sigma^2)
+    --> this should just follow again e^{-chi2/2) gauss
+        distribution 
+  - fitprobability for 1 degree of freedom
+
+*  Probability for 2 measurements chisquare for know
+   true value --> chi2 for 2 degrees of freedom
+   generalisation for n degrees of freedom
+   
+* n measurements of a constant
+  formulas  
+  Mini exercises with calculating probabilities
+  outlier rejection
+
+
+* Straight line fit:
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+

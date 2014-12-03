@@ -1,0 +1,62 @@
+macro f2btheo_ben  x shift yellow=1 line=0
+
+v/read  bq,bx,bc,bu,bd  F2b_curves_zeuss.csv
+
+
+
+n=49
+
+v/crea bbq([n])
+v/crea bbc([n])
+v/crea bbu([n])
+v/crea bbd([n])
+
+m=0
+do i=1,[n]
+  xtmp=bx([i])
+  if  [xtmp]=[x] then
+      m=[m]+1
+      v/inp bbq([m]) bq([i])
+      v/inp bbc([m]) bc([i])
+      v/inp bbu([m]) bu([i])
+      v/inp bbd([m]) bd([i])
+  endif
+enddo
+
+m2=2*[m]+1
+do i=1,[m]
+      mm=[m]-[i]+1
+      j=[m]+[i]
+      v/inp bbq([j]) bbq([mm])
+      v/inp bbd([j]) bbu([mm])
+enddo
+v/inp bbq([m2]) bbq(1)
+v/inp bbd([m2]) bbd(1)
+
+sigma bbds=bbd+[shift]
+sigma bbcs=bbc+[shift]
+
+
+if [yellow]=0 then
+ set ltyp 2
+ SET FAIS 3          
+ SET FASI 245
+ set border 1 
+else
+ set FAIS 1
+ set FACI 5
+ set border 0
+endif
+ graph [m2] bbq bbds  'F'
+
+if [line]>0 then
+ set ltyp 1
+ set lwid 4
+ graph [m]  bbq bbcs  'L'
+endif
+ set *col
+ set faci
+ set plci
+
+*v/del bbds,bbcs,bbd,bbc,bbu,bbq,bq,bu,bd,bc
+

@@ -1,0 +1,244 @@
+macro herapdf15 q2=20 xmin=0.0001 xmax=0.1 herapdf10=0
+mess herapdf15 : hello q2=[q2]
+v/crea f2v(161,161) r
+v/crea f2u(161,161) r
+v/crea f2d(161,161) r
+
+v/crea q2pass(1) r
+v/crea result(1) r
+
+v/inp q2pass(1) [q2]
+
+n=20
+
+sigma lx0=log10([xmin])
+sigma lx1=log10([xmax])
+sigma dlx=(lx1-lx0)/([n]-1)
+llx0=lx0(1)
+dllx=dlx(1)
+
+v/crea s([n]) r
+v/crea sp([n]) r
+v/crea sm([n]) r
+v/crea f([n]) r
+v/crea fp([n]) r
+v/crea fm([n]) r
+
+do i=1,10
+  v/crea mod[i]([n]) r 
+enddo
+
+
+v/crea ii([n]) r 
+do i=1,[n]
+  v/inp ii([i]) [i]
+enddo
+v/crea zz([n]) r [n]*0
+
+sigma  xval=10**([llx0]+[dllx]*ii)
+
+*v/read f2v,f2u,f2d sigredcc_glaz_150.dat
+*** central mc=1.5
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_mc15_exp.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+* v/pri result
+ v/inp s([i]) result(1)
+enddo
+
+*** mc=1.35
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigredcc_glaz_135.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp sp([i]) result(1)
+enddo
+
+*** mc=1.65
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigredcc_glaz_165.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp sm([i]) result(1)
+enddo
+
+*** exp +
+v/read f2u,f2v,f2d sigred_herapdf15_m15/sigred_cc_mc15_exp.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp fp([i]) result(1)
+enddo
+
+*** exp -
+v/read f2d,f2u,f2v sigred_herapdf15_m15/sigred_cc_mc15_exp.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp fm([i]) result(1)
+enddo
+
+****
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_EuvandDDbar.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod1([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_EuvandDuv.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod2([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_fs23.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod3([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_fs38.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod4([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_mb43.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod5([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_mb50.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod6([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_q2015.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod7([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_q2025.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod8([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_q2cut25.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod9([i]) result(1)
+enddo
+v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_q2cut5.dat
+do i=1,[n]
+ xx=xval([i])
+ call f2qcdfine.f([xx])
+ v/inp mod10([i]) result(1)
+enddo
+
+** mass var
+sigma xesp=sp-s
+sigma xesm=sm-s
+
+*** exp var
+sigma epdfm=(fm-s)
+sigma epdfp=(fp-s)
+
+*** 
+v/crea tp2([n]) r
+v/crea tm2([n]) r
+do i=1,10
+ if ([i].ne.8) then
+  sigma dp2=(max(mod[i]-s,0))**2
+  sigma dm2=(min(mod[i]-s,0))**2
+  *mess variant: [i]
+  sigma rp=sqrt(dp2)/s
+  sigma rm=sqrt(dm2)/s
+  *v/write rp,rm ! (2f15.10)
+  sigma tp2=tp2+dp2
+  sigma tm2=tm2+dm2
+ endif
+enddo
+**  uncertainty excluding mass variations
+sigma ttm=sqrt(tm2+epdfm*epdfm)
+sigma ttp=sqrt(tp2+epdfp*epdfp)
+
+** full uncertainty
+sigma d82=(mod8-s)**2
+*sigma tttm=sqrt(ttm**2+xesm**2+d82)
+sigma tttm=sqrt(ttm**2+xesm**2)
+sigma tttp=sqrt(ttp**2+xesp**2)
+
+set mtyp
+
+set hcol 1505
+*set htyp 254
+set lwid
+*gra/hplo/aerror xval s zz zz xesm xesp [n] ! .001 3
+gra/hplo/aerror xval s zz zz tttm tttp [n] ! .001 3
+set lwid 2
+
+*set hcol 1707
+set hcol 1303
+*set htyp 245
+gra/hplo/aerror xval s zz zz ttm ttp [n] ! .001 3
+
+*set hcol 1303
+*set hcol 1202
+*gra/hplo/aerror xval s zz zz epdfm epdfp [n] ! .001 3
+
+
+sigma lxval=log10(xval)
+set lwid 2
+set plci 
+pline [n] lxval s
+set plci
+
+
+*** herapdf1.0
+if [herapdf10]>0 then
+ v/crea hera10([n]) r
+ v/read f2v,f2u,f2d sigred_herapdf15_m15/sigred_cc_herapdf1.0_mc15.dat
+ do i=1,[n]
+  xx=xval([i])
+  call f2qcdfine.f([xx])
+  v/inp hera10([i]) result(1)
+ enddo
+ set lwid 2
+ set plci 2
+ set ltyp 2 
+ pline [n] lxval hera10
+ set plci
+ set ltyp
+endif
+
+
+v/del f2v
+v/del f2u
+v/del f2d
+v/del q2pass
+v/del result
+v/del s
+v/del sp
+v/del sm
+v/del f
+v/del fp
+v/del fm
+v/del ii
+v/del zz
+v/del tp2
+v/del tm2
+v/del qqz
+do i=1,10
+v/del mod[i]
+enddo
+mess herapdf15 : bye
+
+
+*wait 
+return

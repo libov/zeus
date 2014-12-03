@@ -1,0 +1,103 @@
+Sender: LSF System <lsfzeus@zenith84.desy.de>
+Subject: Job 741254: <0001002914> Done
+
+Job <0001002914> was submitted from host <zarah4.desy.de> by user <libov>.
+Job was executed on host(s) <zenith84.desy.de>, in queue <S>, as user <libov>.
+</tmp/.lsbtmp15643> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Wed Mar 18 22:40:29 2009
+Results reported at Wed Mar 18 22:41:16 2009
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+K0s_analysis_K0K0_comb.exe
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :     37.41 sec.
+    Max Memory :        45 MB
+    Max Swap   :        92 MB
+
+    Max Processes  :         5
+    Max Threads    :         6
+
+The output (if any) follows:
+
++ '[' zarah4.desy.de == zarah1.desy.de ']'
++ echo 'submitted using JSP'
+submitted using JSP
++ /usr/share/lsf/mnt/conf/lsbatch/zeus/scripts/java_job_starter.sh K0s_analysis_K0K0_comb.exe
+=============== 741254 ==============
+Wed Mar 18 22:40:32 CET 2009
+-----------------------------------------
+/tmp
+-----------------------------------------
+-----------------------------------------
+NEW JOB
+K0s_analysis_K0K0_comb.exe
+/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/Released/Support/root/i586-sl4-linux/5.20.00/bin:/afs/desy.de/user/l/libov/bin.Linux_RHEL:/afs/desy.de/user/l/libov/bin:/etc/local/groups/zeus/bin:/etc/local/groups/zeus/scripts:/usr/share/lsf/bin:/usr/sue/bin:/opt/products/scripts:/opt/products/bin:/bin:/usr/bin:/usr/bin/X11:/usr/local/X11/bin:/usr/local/bin:/usr/kerberos/bin:/cern/pro/bin:.:.:/zeus/bin:/usr/sbin:/afs/desy.de/common/usr/local/bin:/afs/desy.de/common/usr/local/X11/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd
+EXECUTING USER SCRIPT
+**********   ANALYSIS CUTS   **********
+TrackPtMIN = 0.1
+TrackType = 2
+ProtonPionMassMIN = 1.121
+collinearity2DMAX = 0.12
+collinearity3DMAX = 0.24
+K0sPtMIN = 0.3
+K0sAbsEtaMAX = 1.75
+InnerLayoutMAX = 1
+OuterLayoutMIN = 3
+ElectronPositronMassMIN = 0.05
+K0sMassMIN = 0.4777
+K0sMassMAX = 0.5177
+RootFileName = MCbeautyPHP05v1_basic.root
+***************************************
+*****   Samples to be analyzed:   *****
+/data/zenith226a/libov/results/K0sK0s_trees/K0sK0s/COMMON_NTUPLES/MCbeautyPHP05v1/*.root
+***************************************
+2292934 events here
+100000 events processed
+200000 events processed
+300000 events processed
+400000 events processed
+500000 events processed
+600000 events processed
+700000 events processed
+800000 events processed
+900000 events processed
+1000000 events processed
+1100000 events processed
+1200000 events processed
+1300000 events processed
+1400000 events processed
+1500000 events processed
+1600000 events processed
+1700000 events processed
+1800000 events processed
+1900000 events processed
+2000000 events processed
+2100000 events processed
+2200000 events processed
+Bin 0 : 0
+Bin 1 : 0
+Bin 2 : 3.06938e+06
+Bin 3 : 3.06938e+06
+Bin 4 : 3.06938e+06
+Bin 5 : 2.8641e+06
+Bin 6 : 2.41275e+06
+Bin 7 : 2.09598e+06
+Bin 8 : 1.8314e+06
+Bin 9 : 1.75678e+06
+Bin 10 : 1.75678e+06
+Bin 11 : 1.75678e+06
+3.06938e+06 3.06938e+06 2.8641e+06 2.09598e+06
+0 errors
+MCbeautyPHP05v1_basic.root created
+OK
+./$1  32.92s user 2.07s system 79% cpu 44.268 total
++ exit 0

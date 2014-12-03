@@ -1,0 +1,42 @@
+#!/bin/sh 
+#
+UTIME=4; 
+#  
+CURRENT_DIR=`pwd`
+#
+mydir='../cards/make04/' 
+name='control.cards_04p_'
+
+# how many files - full smaple 
+NTOT=121
+#
+#
+n=0
+#------------------------------ start loop ----------------------------
+while  [ $n -lt $NTOT ]
+do
+let "n = $n + 1"
+file[$n]=`echo $n`
+# FULLNAME=$name${file[$n]}
+# echo $FULLNAME
+done
+
+
+#
+n=0
+#------------------------------ start loop ----------------------------
+while  [ $n -lt $NTOT ]
+do
+#
+let "n = $n + 1"
+#
+FULLNAME=$name${file[$n]}
+# 
+cp -f $mydir$FULLNAME  ../cards/control.cards
+echo "----> send $FULLNAME " 
+run_zenith
+#
+sleep $UTIME 
+#
+done
+date 

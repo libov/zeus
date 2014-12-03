@@ -1,0 +1,1 @@
+for m in `cat myfiles`; do dccp -P -t -1 $m  if [ $? -neq 0]; then dccp -P $am fi done

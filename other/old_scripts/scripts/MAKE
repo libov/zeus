@@ -1,0 +1,2 @@
+#/bin/sh
+gcc K0s_analysis_part1.cxx -I. Mother.cxx Daughter.cxx -o K0s_analysis_part1.exe `root-config --libs --cflags`

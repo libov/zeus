@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# define time for your job  
+#
+CLASS="S"
+#
+# define computer  
+#MACHINE="zenithsub"
+#
+#
+#... The Program Name
+#
+PROGRAM=eaze_example
+#
+#
+EXE_TYPE=.exe
+#
+PROGRAM_EXE=${PROGRAM}${EXE_TYPE}
+#
+#jobsub  -h $MACHINE -q $CLASS  eaze_run.zenith -f eaze_run.zenith ../exe/i586-suse82-linux/$PROGRAM_EXE  ../cards/control.cards ../dat/*.txt  $ZSOFT_ROOT/zeus/ZeusUtil/phantom/v2005a/doc/Detectors/UCAL/noise/*.list
+/afs/desy.de/group/zeus/jobs/released/jobs/cmd/zarah-jobsub -q $CLASS -s eaze_run.zenith ../exe/i586-suse82-linux/$PROGRAM_EXE  ../cards/control.cards ../dat/*.txt
+echo ''
+echo ' ------------------------------------------------------- '
+echo ''
+date

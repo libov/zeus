@@ -1,0 +1,39 @@
+\begin{slide}
+\Large
+\pagestyle{headings}
+\sf
+\header{Solution via normal equations}
+Linear fit $\rightarrow$ determines estimator for $\vec{a}$
+\[ \chi^2 = (\vec{y} - A\vec{a})^{t} V^{-1} 
+            (\vec{y} - A\vec{a}) \]
+\[Min. \chi^2 \;\rightarrow \;\frac{d\chi^2}{d\vec{a}^{\,t}}  = 0 \]
+\[ \rightarrow \;-2 A^t V^{-1} (\vec{y} - A \vec{a}) = 0
+\]
+\[ \rightarrow \; A^t V^{-1} A \vec{a} = A^{t} V^{-1} \vec{y} \]
+
+\noindent
+{\em Side remark: why can't we just set: 
+$\vec{y} = A \vec{a}$ ??? Because 
+$\vec{y}$ has dimension
+$n$ and $\vec{a}$ has dimension $m$ !!!
+}
+\noindent
+\underline{Solution:}
+\[ 
+\begin{array}{||lll||} 
+\hline
+\hline
+\vec{a} &  = &   (A^t V^{-1} A)^{-1} A^t V^{-1} \vec{y}  \\
+ & = & H^{-1} A^t V^{-1} \vec{y} \\
+ & = & U A^t V^{-1} \vec{y} \\
+ & & \mbox{with}\; U= H^{-1} = Cov(a) \\ 
+\hline
+\hline
+\end{array}
+\quad
+\mbox{\blue \em Normal equations}
+\]
+%
+%
+\end{slide} 
+

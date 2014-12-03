@@ -1,0 +1,33 @@
+macro abkmf2x x=.002 shift=0 qmin=3 qmax=3000 f=ffn3_nnlo o=f2bb 
+filecase keep
+
+dir=/home/corradi/f2c/ABKMF2B
+file=[dir]/[o][x]_[f]
+
+v/read  q2,f2   [file]
+
+n=$vdim(f2,1)
+v/crea qplot([n])
+v/crea fplot([n])
+
+j=0
+do i=1,[n]
+ qtmp=q2([i])
+ ftmp=f2([i])+[shift]
+ if ([qtmp]>[qmin]).and.([qtmp]<[qmax]) then
+   j=[j]+1
+   v/inp  qplot([j]) [qtmp]
+   v/inp  fplot([j]) [ftmp] 
+ endif
+enddo
+
+
+ set ltyp 1
+ set lwid 4
+ set plci 2
+ graph [j] qplot fplot  'L'
+
+
+*v/del q2,f2,qplot,fplot
+
+

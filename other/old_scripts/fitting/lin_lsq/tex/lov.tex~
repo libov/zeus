@@ -1,0 +1,119 @@
+\begin{slide}
+\pagestyle{headings}
+\small
+\sf 
+\header{Overview of Linear least square fit section}
+%\renewcommand{\arraystretch}{5.5}
+\begin{table}
+\setlength{\tabcolsep}{6pt}
+\hspace*{-5mm}
+\begin{tabular}{|l|l|l|}
+\hline
+Part I & Part II & Part III \\
+\hline
+\begin{minipage}{3.6cm}
+\vspace*{1mm}
+%\begin{itemize}
+\begin{list}{\labelitemi}{\leftmargin=1em}
+\item
+Reminder of $\chi^2$-fit method 
+\item
+Linear $\chi^2$-fit examples (Constant, straight
+line, parabola, etc.)
+\item
+{\bfseries \blue Fit of a constant (averaging measurements)}
+\item 
+One single measurement:
+$\chi^2_{min}$ and $\chi^2_{min}+1$,
+Hesse matrix
+\item
+{\magenta Exercise: Two measurements:
+perform fit by adding $\chi^2$-parabolas}
+\item
+Averaging many measurements, results
+\item
+ {\magenta Exercise: Compare
+weighted vs unweighted average}
+\end{list}
+%\end{itemize}
+\end{minipage}
+&
+\begin{minipage}{5.5cm}
+\vspace*{1mm}
+\begin{list}{\labelitemi}{\leftmargin=1em}
+%\begin{itemize}
+\item
+{\blue \bfseries $\chi^2$-fit-quality test:}
+Example: $\chi^2$ of two measurements
+and known true value
+\item
+$\chi^2$-function for $n$ degrees of freedom
+%\item
+{\red exercise: plot and study features
+of the $\chi^2$-function vs $n$}
+\item
+$\chi^2$-fit probability
+%\item
+{\red exercise: 
+plot and study features
+of the $\chi^2$-fit-probability}
+\item
+$\chi^2$ for two measurements with unknown true value
+\item
+{\red Exercise: {\blue \bfseries Outlier rejection}, case
+world average of $m_W$, {\scriptsize  study how
+the rejection of certain measurements 
+change the average and the $\chi^2$-fit probability}}
+\item
+{\scriptsize 
+\darkgreen
+Pulls of single measurements to 
+the average}
+\item
+{\scriptsize \darkgreen Averaging data with unknown errors}
+\item
+{\scriptsize \darkgreen Upscaling of errors a la PDG to obtain reasonable
+$\chi^2$}
+%\end{itemize}
+\end{list}
+\end{minipage}
+& 
+\begin{minipage}{5.cm}
+\vspace*{1mm}
+\begin{list}{\labelitemi}{\leftmargin=1em}
+%\begin{itemize}
+\item
+General form of linear $\chi^2$
+\item
+Solution by normal equations
+\item
+General features:
+(Consistency, Unbiasedness, efficiency)
+\item
+Normal equation solution for 
+{\blue \bfseries straight line
+fit}
+\item
+{\magenta Exercise: Learn qualitative features
+of straight line fits, e.g. importance of lever arm}
+\item
+{\red Exercise: Straight line fit and 
+detailed error analysis (error ellipse, trajectory
+error band)}
+\item
+{\red Exercise: {\blue \bfseries Parabola track fit},
+complete analysis: {\it \scriptsize fit, outlier-rejection, 
+parameter errors/correlation, trajectory uncertainty,
+{\blue \bfseries momentum calculation}}}
+\item
+{\red Exercise: {\blue \bfseries Guessing the right fit function
+for smooth data (polynomial fit of background}}
+%\end{itemize}
+\end{list}
+\vspace*{1mm}
+\end{minipage}
+\\
+\hline
+\end{tabular}
+\end{table}
+\end{slide}

@@ -1,0 +1,36 @@
+\begin{slide}
+\pagestyle{headings}
+\sf
+\header{Interactive practical work: gain from weighted average}
+A radioactive source is completely surrounded by two
+hemispherical counters, one with 100\% efficiency and the other
+with 10\% efficiency only. 
+%
+An experimenter observes within one minutes $100\pm 10$ decays
+in the first counter and $9\pm 3$ in the second.
+%
+\begin{itemize}
+\item Estimate the total decay rate of the source per minute\\
+Method 1: {\it unweighted average:}
+\begin{enumerate}
+\item 
+Correct for each counter the observed number for the counter inefficiency
+\item
+Sum the corrected ``true'' numbers in both counters to the total
+number of decays and determine the uncertainty from errorpropagation
+\end{enumerate}
+Method 2: {\it weighted average:}
+\begin{enumerate}
+\item
+Assume that without any inefficiency each of the counters
+has 50\% geometrical acceptance, i.e. would see half of the
+decays. Determine two separate measurements of the total
+decay rate by correcting for each counter the efficiency corrected
+rate additionally by the geometric acceptance
+\item
+Calculate the weighted mean of the two separate measurements
+and an error (use formulas for the weighted mean, e.g. from the lecture)
+\end{enumerate}
+\end{itemize}
+%
+\end{slide}

@@ -1,0 +1,136 @@
+**********************************************
+* Some Macros for specific plots needed
+* For illustatration of statistics related
+* things
+**********************************************
+
+Macro feyn
+exec nice2
+*exec gauss1
+exec chisqp1
+*exec chisqp2
+return
+
+**********************************************
+* MACRO gauss1
+* Illustration of gauss-function
+* for inverse probability
+**********************************************
+*
+Macro gauss1
+fun1 100 0.4*exp(-(x-2)**2/2) 100 -1. 5. 
+set ndvx 1
+set ndvy 5
+opt utit
+for/file 21 gauss1.eps
+meta 21 -113
+nul -1 5. 0 0.5
+set fwid 10
+set dmod 1
+hi/pl 100 s
+arrow 2 3 0.02 0.02 -0.6
+set asiz 0.7
+set xlab 1.4
+atit 'a' ''
+*'e^-(a-a?1^)^2?/2[s]^2!!'
+set chhe .6
+*itx 1.9 -0.02 'a?1!' 
+*itx 2.4 0.05 '[s]?1!'
+set chhe 0.6
+*itx 0. 0.42 '1./sqrt(2[p])[s]?1! exp(-(a-a?1!)^2!/2[s]?1!^2!)'
+close 21
+return
+
+**********************************************
+* MACRO chisqp1
+* Illustration of chisq = chisq_min+1
+* for 1 sigma deviation
+**********************************************
+*
+Macro chisqp1
+fun1 100 (x-2)**2 100 1. 3. 
+set ndvx 1
+set ndvy 10
+for/file 21 chisqp1.eps
+meta 21 -113
+nul 0.5 3.5 0 1.5
+set fwid 10
+hi/pl 100 s
+arrow 2 3 1.03 1.03 -0.6
+set asiz 0.7
+set xlab 1.4
+atit 'a' '[v]^2!(a)'
+set chhe .6
+*itx 1.9 -0.08 'a?1!' 
+*itx 2.4 1.08 '[s]?1!'
+close 21
+return
+
+**********************************************
+* MACRO chisqp2
+* Illustration of chisq = chisq_min+1
+* for 1 sigma deviation
+**********************************************
+*
+Macro chisqp2
+fun1 100 (x-2)**2+0.4 100 1. 3. 
+set ndvx 1
+set ndvy 5
+for/file 21 chisqp2.eps
+meta 21 -113
+nul 0.5 3.8 0 1.8
+set fwid 10
+hi/pl 100 s
+arrow 2 3 1.43 1.43 -0.6
+set asiz 0.7
+set xlab 1.4
+atit 'a' '[v]^2!(a)'
+set chhe .6
+itx 1.9 -0.08 'a' 
+itx 2.4 1.48 '[s]'
+set chhe .55
+itx 2.4 0.4 '[v]^2?min!'
+itx 3.1 1.4 '[v]^2?min!+1'
+itx 0.9 -0.08 'a-[s]'
+itx 2.9 -0.08 'a+[s]'
+
+
+close 21
+return
+
+**********************************************
+* nice2
+*
+* some nice layout options for presentations
+* from http://hep.bu.edu/~fdufour/readme/paw/
+*
+***********************************************
+*
+macro nice2
+
+opt zfl1
+opt nbox
+set vfon -20
+set vsiz 0.35
+* set vsiz 0.45
+set hwid 2
+set fwid 3
+set xmgl 3
+set ymgu 3
+set txfp -20
+set chhe 0.5
+set tsiz 0.5
+set tfon -20
+set mtyp 20
+set mscf 0.5
+set ksiz 0.4
+*set ksiz 0.5
+set gsiz 0.6
+set gfon -20
+set asiz 0.4
+set lfon -20
+set xlab 2
+
+set *fon -20
+return
+*

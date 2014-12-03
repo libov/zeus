@@ -1,0 +1,259 @@
+\documentclass[12pt]{article}
+%\usepackage[germanb]{babel}
+\usepackage{epsfig,a4,pstricks}
+%
+\pagestyle{empty}
+\textheight 245mm
+\textwidth 160mm
+\oddsidemargin 25mm
+\evensidemargin 25mm
+\topmargin 0mm \headheight 22mm \headsep 0mm \topskip 6mm
+\footskip 13mm
+\voffset -25mm
+\hoffset -25mm
+%
+%
+\intextsep8mm
+%
+\renewcommand{\baselinestretch}{1.1}
+\renewcommand{\textfraction}{0.}
+\renewcommand{\topfraction}{0.9999}
+\newcommand{\dd}{\displaystyle}
+%
+\begin{document}
+%
+\section{Overview of session on linear least square fits}
+\subsection{Intro and fit
+of a constant} 
+{\em \underline{Lecture part (20 min)}}:
+\begin{itemize}
+\item
+Reminder $\chi^2$ fit method
+\item 
+Linear $\chi^2$ fit problems and examples (constant, straight line,
+parabola, etc.)
+\item
+Fit of a constant:
+\begin{itemize}
+\item 
+One single measurement: introduce the
+fundamental $\chi^2$ fit ingredients, e.g.
+$\chi^2_{min}+1$ for error estimate and Hesse matrix
+\item
+Weighted average of several measurements
+\end{itemize}
+\end{itemize}
+%
+{\em \underline{Exercises (25+ min)}}:
+{\bf Averaging of two measurements:}
+\begin{enumerate}
+\item
+Graphical exercise:
+{\bf Adding the two $\chi^2$ parabolas of the separate measurements to
+a new single parabola}, read off the value where the min $\chi^2$ is
+and the errors from $\chi^2_{min}+1$;
+see what happens if one of the two measurements has much larger
+errors; $\Rightarrow$ Learn that linear least square fits are
+in general maps from measurements with gaussian errors to another
+gaussian, in $\chi^2$ space maps of parabolas to another parabola.
+\item
+Computational exercise:
+{\bf How much can be gained by weighted average compared to unweighted},
+take as an example the case of one poor and one very precise
+measurement $\Rightarrow$ See that weighted average is much better
+%\end{itemize}
+%\item
+%
+\end{enumerate}
+%
+%
+\newpage
+\subsection{$\chi^2$ fit quality test}
+{\em \underline{Lecture part (20 min)}}:
+\begin{itemize}
+\item
+Discuss example: $\chi^2$ for two measurements to
+a known value $\rightarrow$ simple case with two degrees
+of freedom
+\item
+generalise to any $ndf$; introduce the $\chi^2$ 
+probability density function $f(\chi^2,n)$ for $n= ndf$,
+mapping values of constant $\chi^2$ values on $n-dim$
+spheres (``Kugelschalen'')  onto a 1-dim density. 
+\item
+{\bf Plot (exercise?) and discuss features of  $f(\chi^2,n)$,
+e.g. mean values, variance etc.}
+$\Rightarrow$ Learn that for higher $ndf$ 
+$f(\chi^2,n)/n$ becomes more and more a narrow peak
+at unity.
+\item 
+Introduce $\chi^2$-fit probability. 
+{\bf Plot (exercise?) fit-probability for different ndf as function of $\chi^2$}
+$\Rightarrow$ Learn that a flat density distribution is
+expected and discuss what a deviation from it can mean
+(background, uncalibrated errors)
+\item 
+For the case of averaging two measurements 
+$y_1 \pm \sigma_1$ and $y_2\pm \sigma_2$: Derive that
+$\chi^2_{min}= \frac{1}{\sigma_1^2+\sigma_2^2}(y_1 - y_2)^2$
+$\Rightarrow$ helps to obtain an intuitive understanding that
+this $\chi^2$ with one degree freedom should just follow 
+a simple gaussian 
+\end{itemize}
+%
+{\em \underline{Exercises (25+ min)}}:
+{\bf Averaging of many measurements} such as {\bf 
+%\begin{enumerate}
+%\item
+$ m_W$} or 
+%and another one is 
+%\item 
+{\bf $ \alpha_s$}, 
+%\end{enumerate}
+%
+tasks:
+\begin{enumerate}
+\item
+{\bf Determine the weighted average, the
+$\chi^2_{min}$ and the fit-probability}
+$\Rightarrow$ Learn to get routine in these basic fit things
+\item
+Repeat the procedure but this time rejecting the measurement with the
+largest single $\chi^2$ contribution
+$\Rightarrow$ 
+Learn that sometimes there are {\bf ``outliers''}
+which lead to several not so nice features:
+\begin{itemize} 
+\item
+Outliers with small errors can cause a drastic change of
+the average value due to the quadratic weighting
+\item
+Rejecting an outlier can restore a reasonable fit-quality
+as indicated by the resulting $\chi^2$ and $\chi^2$ fit-probability.
+\end{itemize}
+%\end{itemize}
+\item {\bf Upscaling of errors:}
+Example with averaging several measurements with a resulting
+bad $\chi^2$ but not caused by a single measurement $\rightarrow$
+Apply the procedure adopted by the PDG do scale up the errors
+until a reasonable  $\chi^2/ndf$ is obtained.
+$\Rightarrow$ Learn that this is a problematic procedure that may
+destroy the precision of the good measurements
+\item{\bf Estimating errors of data of unknown precision}
+Example with averaging several measurements with unknown errors,
+$\rightarrow$ calculate the unweighted mean and estimate the 
+single errors from the RMS of the distribution (can be done
+graphically)
+\item {\bf Pulls of individual measurements:}
+Example with averaging a large number of measurements, determine
+the residuum and pull=residuum/error
+of one selected measurement to the average
+using a) all other measurementss b) all measurements including
+the one under study
+$\Rightarrow$ Learn to construct correct pulls.
+\end{enumerate}
+%
+%Evaluate $\chi^2$ and fit probability 
+%
+\newpage
+\subsection{General solution, straight line, parabola and
+higher order polynomial fits}
+{\em \underline{Lecture part (20 min)}}:
+\begin{itemize}
+\item
+General form of linear least square fits in matrix vector
+notation
+\item 
+Solution of general form by {\em normal equations}
+\item
+Complete derivation of normal equation solution 
+for straight line fit: Example Track fit $y = a_0 + a_1 x$
+with N equidistant detector layers of 
+same precision $\sigma_i = \sigma$
+\item
+Discuss general features of linear least square fits:
+{\em consistency, unbiasedness, efficiency (Gauss-Markov-Theorem)}
+\end{itemize}
+
+{\em \underline{Exercises part (25+ min)}}:
+{\bf Straight Line fit, for above example of track fit
+with N equidistant detector layers of same precision:}
+\begin{enumerate}
+\item From derived solution of normal equations get to the
+{\bf essentials of the problem}
+Evaluate improvement of precision of fitted parameters
+for: a) doubling the number of measurement points,
+b) keeping the number of measurement points but doubling
+   their distance
+c) improving the resolution of the detector layers by
+   a factor 2 
+$\Rightarrow$ Learn that the overall distance of the measurement 
+points is most crucial for determining the slope (trivial)
+\item
+{\bf Plot the error ellipse of the two parameters}, repeat the
+fit with the coordinate system transformed to have its
+origin in the middle of the detector
+$\Rightarrow$ Learn that the choice of the coordinate
+system origin has a large impact on the correlation of
+the intercept and slope of the straight line fit
+\item
+Estimate the {\bf $1\sigma$ error band of the trajectory 
+(Fehlereinhuellende) }
+\item 
+Evaluate the improvement of the track fit by adding
+another measurement point, the beam spot information,
+exploiting the knowledge that the track originated
+from the primary vertex.
+$\Rightarrow$ Learn that a primary vertex constraint/info
+helps a lot!
+\end{enumerate}
+{\bf Extension to full $r\phi$ track fit in magnetic field}, example
+from H1 or ZEUS of a muon track with $p_T = 100+\infty - 100$ GeV,
+measured in a system of silicon detectors (3 layers) and
+a drift chamber (72 measurements)  
+transverse momentum
+\begin{enumerate}
+\item
+Try to reject obvious outlier hits
+\item
+Fit the track with a parabola
+$a_0 + a_1 \cdot x + \frac{1}{2} \, a_2 \cdot x^2$.
+Is the curvature term $a_2$ significantly
+away from zero?
+Determine the
+transverse momentum and its error
+using the relation $p_T = const/a_2$ and simple
+errorpropagation.
+$\Rightarrow$ learn that the error on $p_T$ can
+be strongly asymmetric.
+\end{enumerate}
+%
+{\bf Guessing the right fit function for smooth data:}
+A histogram is given, fit it with polynomials of
+different order and try to find a suitable choice
+$\Rightarrow$ Learn to apply phenomenological
+fits of smooth polynomial functions on data shapes,
+e.g. as often needed for fits of background 
+distributions and learn to stop increasing
+the order when the $\chi^2/ndf$ gets close to 1
+and is saturated.
+%
+%
+\subsection{Possible extensions}
+\begin{itemize}
+\item
+$\chi^2-fit$ of data with correlated errors 
+\end{itemize}
+%\item
+%Straight line fit
+%
+%\begin{itemize}
+%\item
+%\input{intro}
+%\input{linf}
+%\input{fitc1}
+%\input{fitc2}
+%\input{fitc_many}
+%\input{normaleq}
+%
+\end{document}

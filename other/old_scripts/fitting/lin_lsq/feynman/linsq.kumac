@@ -1,0 +1,315 @@
+*
+* Macro for making illustrative plots
+* for linear least square fit lecture
+*
+macro linsq
+exec nice2
+*exec l1
+*exec lco1
+*exec lco2
+exec lco3
+return
+
+*****************************************************
+*
+* Macro l1: linear particle trajectory in detector
+*
+*****************************************************
+*
+macro l1
+*
+opt ngrid
+set fwid 5
+set ndvx 10
+set ndvy 10
+set vsiz 0.18
+set mtyp 20
+set dmod 1
+set txci 
+v/crea x(6) r 2. 4. 6. 8. 
+v/crea y(6) r 0.3 0.5 0.8 0.9
+v/crea exl(6) r  
+v/crea exu(6) r 
+v/crea eyl(6) r 0.05 0.05 0.2 0.2
+v/crea eyu(6) r 0.05 0.05 0.2 0.2 
+title 'Particle trajectory fit, model y = a x'
+for/file 21 l1.eps
+meta 21 -113
+nul 0 10. 0. 1.4
+set plci 5
+set lwid 70.
+*dline 0. 0. 8. 0.
+*set plci 1
+*set lwid 1
+*dline 0 0 8 0
+meta 21 -113
+set plci 2
+set dmod 1
+set lwid 2
+dline 2 2 0.05 1.2
+dline 4 4 0.05 1.2
+dline 6 6 0.05 1.2
+dline 8 8 0.05 1.2
+set hwid 10
+aerrors x y exl exu eyl eyu 4
+set dmod 2
+set lwid 3
+set plci 4
+dline 0. 10. 0. 1.25 
+set chhe 0.5
+itx 1.5 1.25 'Det 1'
+itx 3.5 1.25 'Det 2'
+itx 5.5 1.25 'Det 3'
+itx 7.5 1.25 'Det 4'
+*set txci 4
+*itx 8.4 0.97 'Model:' 
+*itx 8.5 0.9 'y = a x'
+set txci 1
+atit 'x (cm)' 'y (cm)'
+close 21
+*
+return
+*
+
+
+
+*****************************************************
+*
+* Macro lco1: Consistency of two measurements
+* reasonable chisquare
+*
+*****************************************************
+*
+macro lco1
+*
+title 'Reasonable [h]^2!'
+opt ngrid
+set fwid 5
+set ndvx 3
+set ndvy 1
+set vsiz 0.18
+set mtyp 20
+set dmod 1
+set txci 
+v/crea x(6) r 1. 2. 
+v/crea y(6) r 0.5 0.3
+v/crea exl(6) r  
+v/crea exu(6) r 
+v/crea eyl(6) r 0.1 0.1
+v/crea eyu(6) r 0.1 0.1
+for/file 21 lco1.eps
+meta 21 -113
+nul 0 3. 0. 0.8 a
+set plci 5
+set lwid 70.
+meta 21 -113
+set hwid 10
+aerrors x y exl exu eyl eyu 4
+set dmod 2
+set lwid 3
+set plci 4
+*dline 0. 10. 0. 1.25 
+set chhe 0.5
+itx 1.1 0.55 'y?1!'
+itx 2.1 0.35 'y?2!'
+itx -0.1 0.4 'a'
+set txci 1
+*atit 'Measurements' ''
+set plci 2
+set lwid 5
+dline 0. 3. 0.4 0.4
+close 21
+*
+return
+*
+*****************************************************
+*
+* Macro lco2: Consistency of two measurements
+* bad chisquare
+*
+*****************************************************
+*
+macro lco2
+*
+title 'Bad [h]^2!'
+*
+opt ngrid
+set fwid 5
+set ndvx 3
+set ndvy 1
+set vsiz 0.18
+set mtyp 20
+set dmod 1
+set txci 
+v/crea x(6) r 1. 2. 
+v/crea y(6) r 0.6 0.2
+v/crea exl(6) r  
+v/crea exu(6) r 
+v/crea eyl(6) r 0.1 0.1
+v/crea eyu(6) r 0.1 0.1
+for/file 21 lco2.eps
+meta 21 -113
+nul 0 3. 0. 0.8 a
+set plci 5
+set lwid 70.
+meta 21 -113
+set hwid 10
+aerrors x y exl exu eyl eyu 4
+set dmod 2
+set lwid 3
+set plci 4
+*dline 0. 10. 0. 1.25 
+set chhe 0.5
+itx 1.1 0.65 'y?1!'
+itx 2.1 0.25 'y?2!'
+itx -0.1 0.4 'a'
+set txci 1
+*atit 'Measurements' ''
+set plci 2
+set lwid 5
+dline 0. 3. 0.4 0.4
+close 21
+*
+return
+*
+
+*****************************************************
+*
+* Macro lco3: Consistency of two measurements
+* bad chisquare
+*
+*****************************************************
+*
+macro lco3
+*
+opt ngrid
+set fwid 5
+set ndvx 3
+set ndvy 1
+set vsiz 0.18
+set mtyp 20
+set dmod 1
+set txci 
+for/file 21 lco3.eps
+meta 21 -113
+nul -5 5. -5. 5 ab
+set lwid 5
+arc 0. 0. 2. 
+arc 0. 0. 4. 
+arrow -5. 5. 0. 0. 0.4
+arrow 0. 0. -5. 5. 0.4
+*
+set txci 1
+itx 4.2 -.6 'y?1!'
+itx -1. 4.2 'y?2!'
+itx 1.5 1.5 '[h]^2! = const' 
+*
+close 21
+*
+return
+*
+
+
+
+******************************************************
+* Weighted average of measurements
+* - Outlier-rejection
+* - scaling of errors to get reasonable chis/ndof
+******************************************************
+*
+macro wav
+opt ndate
+opt utit
+opt grid
+opt nbox
+*
+*--- Werte mit 2 krassen Outliern
+*
+set fwid 5
+set ndvx 40
+set ndvy 8
+set vsiz 0.18
+v/crea x(6) r -10. 1. -2. 2. -1. 10.
+v/crea y(6) r 6.2 5.2 4.2 3.2 1.2 2.2 
+v/crea exl(6) r 2. 1. 2. 2. 1. 2. 
+v/crea exu(6) r 2. 1. 2. 2. 1. 2. 
+v/crea exl(6) r 2. 1. 2. 2. 1. 2. 
+v/crea eyl(6) r 
+v/crea eyu(6) r 
+for/file 21 wav_outlier.eps
+meta 21 -113
+nul -15 15. 0. 8.
+set plci 5
+set lwid 70.
+dline 0. 0. 8. 0.
+set plci 1
+set lwid 1
+dline 0 0 8 0
+meta 21 -113
+set hwid 10
+aerrors x y exl exu eyl eyu 6 
+close 21
+*
+*--- 2 Werte die nicht zusammenpassen
+* --> Fehler hochskalieren
+*
+v/crea x(2) r -2. 2. 
+v/crea y(2) r 2.2 1.2  
+v/crea exl(2) r 1. 1.  
+v/crea exu(2) r 1. 1. 
+v/crea eyl(2) r 
+v/crea eyu(2) r 
+set ndvx 10
+set ndvy 4
+for/file 21 wav_scalechis.eps
+meta 21 -113
+set plci 5
+set lwid 240.
+nul -5. 5. 0. 3. 
+dline 0. 0. 3. 0.
+set plci 1
+set lwid 1
+dline 0 0 0 3
+aerrors x y exl exu eyl eyu 6 
+close 21
+return
+
+
+
+
+
+**********************************************
+* nice2
+*
+* some nice layout options for presentations
+* from http://hep.bu.edu/~fdufour/readme/paw/
+*
+***********************************************
+*
+macro nice2
+
+opt zfl1
+opt nbox
+set vfon -20
+set vsiz 0.35
+* set vsiz 0.45
+set hwid 2
+set fwid 3
+set xmgl 3
+set ymgu 3
+set txfp -20
+set chhe 0.5
+set tsiz 0.5
+set tfon -20
+set mtyp 20
+set mscf 0.5
+set ksiz 0.4
+*set ksiz 0.5
+set gsiz 0.6
+set gfon -20
+set asiz 0.4
+set lfon -20
+set xlab 2
+set *fon -20
+return
+*

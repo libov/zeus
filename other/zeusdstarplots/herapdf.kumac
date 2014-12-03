@@ -1,0 +1,280 @@
+macro herapdf  q2 x1 x2  first=1
+if [first]>0 then
+  exec Load
+endif
+
+      set fcol 2
+      set ltyp 1
+      set lwid 3.
+      icol=2
+      exec redxs_herapdf xstyp=1 xqmin=[x1] xqmax=[x2] npts=400 xqfix=$rsigma([q2]) hcol=120[icol] xq2=x fact=1.
+      mess  redxs_herapdf called
+     wait
+* central predictions
+      set fcol 2
+      fun1 8 redx(x,$rsigma([q2]),4,0) 5000 [x1] [x2] s
+      mess redx called
+      set fcol 1
+
+      wait
+return
+
+
+
+******************************************************************
+macro ccep doExp=0
+******************************************************************
+*...Load fortran functions
+exec Load
+
+*...Settings
+exec Settings
+
+*...Read in info
+v/read q2,xm,y,f2,uncor,corr,tot,totu,totd f2c_combined.dat
+
+if ([doExp]=1) then
+*  add here original points
+endif
+
+*...Plot each Q2 bin
+zone 3 4
+vec/cre etmp(46) r 46*0.0
+vec/cre qq(11) r 2. 4. 6.5 12. 20. 35. 60. 120. 200. 400. 1000.
+
+* set color
+color_table 7 0.25 0.25 1.0
+
+do i=1,11
+  exec Plot_Q2_Bin [i] [doExp]
+  wait
+enddo
+
+if ([doExp]=1) then
+   pict/pri f2c-exp.eps
+else
+   pict/pri f2c.eps
+endif
+
+
+return 
+******************************************************************
+
+******************************************************************
+macro Load
+******************************************************************
+* Load COMIS functions
+  appl comis
+    !clear
+    !file redx.f
+    !file zpdfn.f
+    !file gridx.f
+    !file gridq.f
+    !file fillxs.f
+    exit
+
+return
+******************************************************************
+
+******************************************************************
+macro Settings
+******************************************************************
+set *
+opt zfl1
+opt logx
+opt nbox
+set txfp -20
+set *fon -20
+set chhe .28
+set lwid 1
+set fwid 3
+set xwin 0.0000001
+set ywin 0.0000001
+set xmgl 2.3
+set xmgr 2.
+set gsiz 0.5
+set ymgu 2.5
+set asiz 0.45
+set ylab 0.5
+set xlab 1.5
+set ltyp 1
+set dmod 1
+set pmci 1
+
+return
+******************************************************************
+macro Plot_Q2_Bin binnr=1 doExp=0
+******************************************************************
+set xval 9999.
+set yval 9999.
+
+q2l = qq([binnr])
+
+if ([binnr]=1) then
+    nmin=1; nmax=5; nn=5;
+    xm=2.2E-5;
+    title 'H1 and ZEUS'
+    set xval 0.4
+    null 2.E-5 5.E-2 0. 0.3
+    atitle ' ' 'F?2!(charm)'
+    itx  2.E-4 0.25 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=2) then
+    nmin=6; nmax=9; nn=4
+    xm=4.E-5; 
+    null 2.E-5 5.E-2 0. 0.3 
+    itx  2.E-4 0.25 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=3) then
+    nmin=10; nmax=15; nn=6
+    xm=7.E-5; 
+    null 2.E-5 5.E-2 0. 0.3 
+    itx  2.E-4 0.25 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=4) then
+    set xval 0.4
+    nmin=16; nmax=20; nn=5
+    xm=1.E-4; 
+    null 2.E-5 5.E-2 0. 0.59 
+    itx  2.E-4 0.5 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=5) then
+    nmin=21; nmax=26; nn=6
+    xm=2.E-4; 
+    null 2.E-5 5.E-2 0. 0.59 
+    itx  2.E-4 0.5 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=6) then
+    nmin=27; nmax=32; nn=6
+    xm=4.E-4; 
+    null 2.E-5 5.E-2 0. 0.59 
+    itx  7.E-4 0.5 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=7) then
+    set xval 0.4
+    nmin=33; nmax=36; nn=4
+    xm=1.E-3; 
+    null 2.E-5 5.E-2 0. 0.59 
+    itx  2.E-4 0.5 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=8) then
+    nmin=37; nmax=41; nn=5
+    xm=1.2E-3; 
+    null 2.E-5 5.E-2 0. 0.59 
+    itx  2.E-4 0.5 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=9) then
+    set yval 0.25
+    nmin=42; nmax=43; nn=2
+    xm=3.E-3; 
+    null 2.E-5 5.E-2 0. 0.59 
+    itx  2.E-4 0.5 'Q^2! = '//[q2l]//' GeV^2!' 
+    atitle 'x' ' '
+elseif ([binnr]=10) then
+    set yval 0.25
+    set xval 0.4
+    nmin=44; nmax=45; nn=2
+    xm=1.E-2; 
+    null 2.E-5 5.E-2 0. 0.29 
+    itx  2.E-4 0.25 'Q^2! = '//[q2l]//' GeV^2!' 
+elseif ([binnr]=11) then
+    set yval 0.25
+    nmin=46; nmax=46; nn=1
+    xm=2.E-2; 
+    null 2.E-5 5.E-2 0. 0.29 
+    itx  2.E-4 0.25 'Q^2! = '//[q2l]//' GeV^2!' 
+    atitle 'x' ' '
+    set csiz 0.35
+    key 0.3 0.15 20 ''
+    set chhe 0.35
+    itx 1. 0.14 'HERA (prel.)
+    set plci 4
+    icol=7
+    set csiz 0.15
+    key 0.5 0.10 7 ' ' 0.8 F
+    set chhe 0.35
+    itx 1. 0.09 'HERAPDF1.0'
+endif 
+
+*...Plot theory (HERAPDF1.0) prediction
+    if ([doExp]=0) then
+      set fcol 2
+      set ltyp 1
+      set lwid 3.
+      icol=2
+      exec redxs_herapdf xstyp=1 xqmin=[xm] xqmax=1. npts=400_
+      xqfix=$rsigma([q2l]) hcol=120[icol] xq2=x fact=1.
+     
+* central prediction§
+      set fcol 2
+      fun1 8 redx(x,$rsigma([q2l]),4,0) 5000 [xm] 5.E-2 s
+      set fcol 1
+    endif
+
+
+*...If flag set add H1 and Zeus points
+    if ([doExp]=1) then
+    endif
+
+
+
+*...Cross section points
+    set hwid 4
+    set hcol 1
+    hplot/aerr xm([nmin]:[nmax]) f2([nmin]:[nmax])_
+    etmp([nmin]:[nmax]) etmp([nmin]:[nmax]) totd([nmin]:[nmax])_
+    totu([nmin]:[nmax])  [nn] 20 0.20 1
+
+return
+******************************************************************
+******************************************************************
+macro redxs_herapdf xstyp=3 xqmin=1. xqmax=100. npts=100 xqfix=0.01_
+                     hcol=1105 xq2=q2 fact=1.
+******************************************************************
+v/del qqvec,xxvec,xxme,xsme,npts
+v/cre qqvec([npts]) r [npts]*0.
+v/cre xxvec([npts]) r [npts]*0.
+v/cre xxme([npts]) r [npts]*0.
+v/cre xsme([npts]) r [npts]*0.
+v/cre npts(1) I [npts]
+
+if [xq2]=q2 then
+ mess 'Using Q2 grid'
+ call gridq.f([xqmin],[xqmax],[npts])
+ sigma xxme=qqvec
+ iqx=1
+else
+ mess 'Using x grid'
+ call gridx.f([xqmin],[xqmax],[npts])
+ sigma xxme=xxvec
+ iqx=2
+endif
+
+if ([xstyp]=1) then
+  call fillxs.f([xqfix],[xstyp],1,[iqx])
+else
+  call fillxs.f([xqfix],[xstyp],1,[iqx])
+endif
+sigma xsup=[fact]*xsme
+
+if ([xstyp]=1) then
+  call fillxs.f([xqfix],[xstyp],0,[iqx])
+else
+  call fillxs.f([xqfix],[xstyp],0,[iqx])
+endif
+sigma xscc=[fact]*xsme
+
+if ([xstyp]=1) then
+  call fillxs.f([xqfix],[xstyp],-1,[iqx])
+else
+  call fillxs.f([xqfix],[xstyp],-1,[iqx])
+endif
+sigma xsdn=[fact]*xsme
+sigma eu=xsup-xscc
+sigma ed=xscc-xsdn
+
+
+if ([xstyp]=1) then
+set hcol 1707
+else
+set hcol 1707
+endif
+
+v/cre dummy([npts]) r [npts]*0.
+aerr xxme xscc dummy dummy ed eu [npts] 0 0.1 e3
+set hcol
+
+return
+******************************************************************

@@ -1,0 +1,45 @@
+\begin{slide}
+\pagestyle{headings}
+\sf
+%
+\header{To be xchecked: Properties of linear least square fits}
+%
+\large 
+\sf
+\begin{enumerate}
+\item 
+\underline{consistency:} $\lim_{N\rightarrow \infty } \hat{\vec{a}} = \vec{a}$
+\hspace{1cm} (follows from next point)
+%$  \hspace{5mm}  ($\hat{\vec{a}} = B \vec{y}$  
+%und $\vec{y}$ konvergiert
+%) 
+\item 
+\underline{Unbiasedness}: 
+$\langle \hat{\vec{a}} \rangle = 
+\langle B \vec{y} \rangle = 
+B\, \langle \vec{y} \rangle = 
+B \,A \,\vec{a} = 
+(A^t\, V^{-1}\, A)^{-1}  \,A^t \,V^{-1}\, A \,\vec{a} = \vec{a}
+$\\
+$\rightarrow$ unbiased!
+\item \underline{Efficiency:} Gauss-Markov-Theorem: \\[2mm]
+\framebox{\begin{minipage}{14cm}
+For randomly distributed $\vec{y}$ 
+the linear least square fit is the most 
+efficient  estimator
+\end{minipage}
+}
+
+{\normalsize(Proof e.g. in Blobel/Lohrmann book)}
+%
+\item 
+%\underline{and}:
+For measurements $\vec{y}$ with gaussian errors and if
+$\vec{y} = A \vec{a}$ is the correct model,
+then $\chi^2$ follows 
+a $\chi^2$-distribution with 
+N-m degrees of freedom 
+(with N  = number of data points and m = number of fit parameters)
+\end{enumerate}
+%
+\end{slide}

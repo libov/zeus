@@ -1,0 +1,2 @@
+#/bin/sh
+gcc ISPROTIT_more.cxx -I. Mother.cxx Daughter.cxx -o is_more.exe `root-config --libs --cflags`

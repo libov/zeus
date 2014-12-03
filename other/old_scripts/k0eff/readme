@@ -1,0 +1,97 @@
+Track efficiency test with K0s
+------------------------------
+
+All files in this directory ~obehnke/zeus/k0
+
+* Method-description: 
+  obehnke080117.ps
+
+* Main program:
+  k0eff.f
+
+* Input-files:
+
+  1.  k0_da__00_xxxxxx.dat
+  --> the number of K0s candidates
+  in 48 x 64 bins of theta vs pt
+
+  2. pi_da__00_xxxxxx.dat 
+  --> The number of K0s in bins of the slow pion
+
+ [ Note, there are similar files for MC, see with ls -la 
+  but for these one has to adjust the filenames
+  in k0eff.f]
+
+
+* how to run it on a shell
+  1. gmake k0eff
+  2. k0eff 
+  (this takes about 4 minutes)
+
+* Output: 
+  iter/eff_da__00_xxxxxx.txt5  --> efficiency vs pt(pi) after 5th iteration
+  iter/exp_da__00_xxxxxx.txt5  --> unfolded true K0s spectrum vs pt
+
+* Paw-processing and making plots: with running k0eff.kumac
+
+
+--------------------------------------------------------------------------
+
+Details
+
+  1.  k0_da__00_xxxxxx.dat
+  the number of K0s candidates
+  in 48 x 64 bins of theta vs pt
+  in the total ranges
+  30<theta<150 and
+  0.4 < pt < 2 GeV
+
+  So this is plain files with numbers:
+
+  Notation: 
+  tbin = bin-number of theta bin
+  ptbin = bin-number of pt bin
+  #sr = #K0s candidates in signal mass region, e.g 0.467<m<0.527
+  #ls = lower sideband candidates, e.g. in 0.452<m<0.467
+  #us = upper sideband candidates, e.g. in 0.527<m<0.542
+
+
+  tbin ptbin #sr  #ls  #us  (#sr-#ls-#us)
+
+    1    1    2    1    0    1
+    1    2   23    7    3   13
+    1    3   50   22    1   27
+    1    4   90   35    5   50
+    . .   . . . . . . . . . .
+
+    1   62   24    1    9   14
+    1   63   19    5   10    4
+    1   64   20    1    5   14
+    2    1    4    0    0    4
+    2    2   20    8    4    8
+    2    3   60   13    3   44
+    2    4   84   26    3   55
+   . . . . .  . .    . . . . .
+
+    48   61    8    1    2    5
+    48   62    3    1    2    0
+    48   63   10    1    5    4
+    48   64    8    0    4    4
+
+
+  2. pi_da__00_xxxxxx.dat
+  The number of K0s in bins of the slow pion
+  (remember from the talk, only K0s are selected where
+  one pion has pt<400 MeV and the other above 400 MeV)
+  e.g. in 68 bins in the range 0.06 < pt < 0.4
+
+  ptbin #sr  #ls  #us  (#sr-#ls-#us)
+    1  267  146   81   40
+    2  822  440  235  147
+    3 1672  863  484  325
+    4 2541 1242  737  562
+    5 3239 1535  881  823
+    6 3696 1631  950 1115
+    ......................
+   68 1684   82   51 1551
+

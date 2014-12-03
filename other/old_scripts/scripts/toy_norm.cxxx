@@ -1,0 +1,15 @@
+int main()
+{
+
+	TRandom		*uni=new TRandom();
+	TH1F *h=new TH1F("h","Normal distribution",100,-10,10);
+
+	for (int i=0; i<1000;i++)
+	{
+		h->Fill(uni->Gaus(1,0.5));
+	}
+
+	TFile *f1 =new TFile("toy_norm.root","recreate");
+	h->Write();
+	return 0;
+}

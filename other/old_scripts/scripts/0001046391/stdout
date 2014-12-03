@@ -1,0 +1,3384 @@
+Sender: LSF System <lsfzeus@zenith186.desy.de>
+Subject: Job 797381: <0001046391> Done
+
+Job <0001046391> was submitted from host <zarah4.desy.de> by user <libov>.
+Job was executed on host(s) <zenith186.desy.de>, in queue <S>, as user <libov>.
+</tmp/.lsbtmp15643> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Mon Apr 27 18:33:34 2009
+Results reported at Mon Apr 27 18:57:02 2009
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+K0s_analysis_K0K0_comb.exe
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :   1024.10 sec.
+    Max Memory :        99 MB
+    Max Swap   :       156 MB
+
+    Max Processes  :         5
+    Max Threads    :         6
+
+The output (if any) follows:
+
++ '[' zarah4.desy.de == zarah1.desy.de ']'
++ echo 'submitted using JSP'
+submitted using JSP
++ /usr/share/lsf/mnt/conf/lsbatch/zeus/scripts/java_job_starter.sh K0s_analysis_K0K0_comb.exe
+=============== 797381 ==============
+Mon Apr 27 18:33:36 CEST 2009
+-----------------------------------------
+/tmp
+-----------------------------------------
+-----------------------------------------
+NEW JOB
+K0s_analysis_K0K0_comb.exe
+/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/Released/Support/root/i586-sl4-linux/5.20.00/bin:/afs/desy.de/user/l/libov/bin.Linux_RHEL:/afs/desy.de/user/l/libov/bin:/etc/local/groups/zeus/bin:/etc/local/groups/zeus/scripts:/usr/share/lsf/bin:/usr/sue/bin:/opt/products/scripts:/opt/products/bin:/bin:/usr/bin:/usr/bin/X11:/usr/local/X11/bin:/usr/local/bin:/usr/kerberos/bin:/cern/pro/bin:.:.:/zeus/bin:/usr/sbin:/afs/desy.de/common/usr/local/bin:/afs/desy.de/common/usr/local/X11/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd
+EXECUTING USER SCRIPT
+**********   ANALYSIS CUTS   **********
+TrackPtMIN = 0.1
+TrackType = 2
+ProtonPionMassMIN = 1.121
+collinearity2DMAX = 0.12
+collinearity3DMAX = 0.24
+K0sPtMIN = 0.3
+K0sAbsEtaMAX = 1.75
+InnerLayoutMAX = 1
+OuterLayoutMIN = 3
+ElectronPositronMassMIN = 0.05
+K0sMassMIN = 0.4777
+K0sMassMAX = 0.5177
+RootFileName = HERAII_4kaons.root
+***************************************
+*****   Samples to be analyzed:   *****
+/data/zenith226a/libov/results/K0sK0s_trees/K0sK0s/COMMON_NTUPLES/05ev3/*.root
+/data/zenith226a/libov/results/K0sK0s_trees/K0sK0s/COMMON_NTUPLES/06pv1/*.root
+/data/zenith226a/libov/results/K0sK0s_trees/K0sK0s/COMMON_NTUPLES/07pv1/*.root
+/data/zenith226a/libov/results/K0sK0s_trees/K0sK0s/zfiles/06eGR1/*.root
+/data/zenith226a/libov/results/K0sK0s_trees/K0sK0s/zfiles/04pGR1/*.root
+***************************************
+87596997 events here
+Run: 52284 Event: 74312
+Run: 52285 Event: 35198
+Run: 52285 Event: 55221
+Run: 52287 Event: 7473
+Run: 52365 Event: 25987
+100000 events processed
+Run: 52382 Event: 11478
+Run: 52393 Event: 54766
+Run: 52394 Event: 40721
+Run: 52408 Event: 26977
+200000 events processed
+Run: 52500 Event: 4859
+Run: 52501 Event: 380945
+Run: 52529 Event: 15954
+Run: 52529 Event: 54239
+300000 events processed
+Run: 52532 Event: 67053
+Run: 52532 Event: 67324
+Run: 52547 Event: 66753
+Run: 52596 Event: 16671
+400000 events processed
+Run: 53451 Event: 58507
+Run: 53455 Event: 66424
+Run: 53455 Event: 116388
+Run: 53455 Event: 145367
+Run: 53455 Event: 154199
+500000 events processed
+Run: 53456 Event: 85654
+Run: 53463 Event: 30369
+600000 events processed
+Run: 53476 Event: 41355
+Run: 53476 Event: 81851
+Run: 53478 Event: 57105
+700000 events processed
+Run: 53496 Event: 147039
+Run: 53496 Event: 147039
+Run: 53505 Event: 116656
+Run: 53505 Event: 319048
+800000 events processed
+Run: 53508 Event: 245666
+Run: 53519 Event: 58571
+900000 events processed
+Run: 53520 Event: 70885
+Run: 53530 Event: 14323
+Run: 53530 Event: 55271
+Run: 53533 Event: 33598
+Run: 53533 Event: 97323
+1000000 events processed
+Run: 53533 Event: 127591
+Run: 53533 Event: 150533
+Run: 53536 Event: 11117
+Run: 53536 Event: 13630
+Run: 53536 Event: 13630
+Run: 53536 Event: 95827
+Run: 53539 Event: 95218
+Run: 53540 Event: 919
+Run: 53540 Event: 39580
+Run: 53540 Event: 64361
+1100000 events processed
+Run: 53559 Event: 34834
+Run: 53559 Event: 45862
+Run: 53559 Event: 45862
+Run: 53565 Event: 59077
+1200000 events processed
+Run: 53583 Event: 86116
+Run: 53583 Event: 96361
+1300000 events processed
+Run: 53583 Event: 273864
+Run: 53583 Event: 275834
+Run: 53583 Event: 275834
+Run: 53583 Event: 332762
+Run: 53585 Event: 7559
+Run: 53586 Event: 1220
+Run: 53586 Event: 83399
+Run: 53591 Event: 58495
+Run: 53591 Event: 203229
+1400000 events processed
+Run: 53592 Event: 58253
+Run: 53593 Event: 130387
+Run: 53593 Event: 149421
+1500000 events processed
+Run: 53600 Event: 151573
+Run: 53600 Event: 163107
+Run: 53606 Event: 40625
+Run: 53607 Event: 134677
+1600000 events processed
+Run: 53615 Event: 13038
+Run: 53618 Event: 40308
+Run: 53618 Event: 71559
+Run: 53618 Event: 130442
+Run: 53618 Event: 246364
+1700000 events processed
+Run: 53625 Event: 237284
+Run: 53625 Event: 366278
+Run: 53632 Event: 56920
+1800000 events processed
+Run: 53632 Event: 108685
+Run: 53657 Event: 3435
+Run: 53657 Event: 47874
+Run: 53658 Event: 258260
+1900000 events processed
+Run: 53664 Event: 19543
+Run: 53672 Event: 26016
+Run: 53673 Event: 32029
+2000000 events processed
+Run: 53673 Event: 127564
+Run: 53673 Event: 218116
+Run: 53682 Event: 82575
+Run: 53682 Event: 89660
+Run: 53683 Event: 16286
+2100000 events processed
+Run: 53692 Event: 7788
+Run: 53699 Event: 30741
+Run: 53699 Event: 113700
+2200000 events processed
+Run: 53700 Event: 38182
+Run: 53721 Event: 36956
+Run: 53721 Event: 45510
+2300000 events processed
+Run: 53721 Event: 219625
+Run: 53721 Event: 256587
+Run: 53721 Event: 361377
+Run: 53721 Event: 365552
+Run: 53728 Event: 77955
+Run: 53728 Event: 122278
+Run: 53728 Event: 132359
+Run: 53728 Event: 159257
+2400000 events processed
+Run: 53732 Event: 10757
+Run: 53732 Event: 78689
+Run: 53732 Event: 134392
+Run: 53732 Event: 157518
+Run: 53732 Event: 176902
+Run: 53736 Event: 2376
+Run: 53751 Event: 412
+2500000 events processed
+Run: 53776 Event: 151035
+Run: 53778 Event: 8587
+Run: 53789 Event: 18622
+2600000 events processed
+Run: 53791 Event: 51839
+Run: 53792 Event: 77197
+Run: 53792 Event: 81654
+Run: 53792 Event: 121739
+Run: 53793 Event: 7894
+Run: 53793 Event: 19626
+Run: 53793 Event: 19626
+Run: 53793 Event: 26151
+Run: 53793 Event: 66411
+Run: 53793 Event: 67958
+Run: 53793 Event: 107963
+Run: 53793 Event: 121757
+Run: 53793 Event: 123175
+2700000 events processed
+Run: 53793 Event: 152330
+Run: 53797 Event: 6374
+Run: 53797 Event: 103544
+Run: 53798 Event: 24237
+Run: 53798 Event: 47871
+Run: 53798 Event: 152007
+2800000 events processed
+Run: 53801 Event: 1925
+Run: 53805 Event: 12636
+Run: 53805 Event: 12636
+Run: 53805 Event: 160765
+Run: 53806 Event: 103517
+Run: 53806 Event: 103517
+2900000 events processed
+Run: 53807 Event: 73609
+Run: 53807 Event: 118320
+Run: 53808 Event: 12312
+Run: 53821 Event: 10809
+Run: 53821 Event: 140126
+3000000 events processed
+Run: 53824 Event: 44012
+Run: 53824 Event: 53656
+Run: 53824 Event: 54899
+Run: 53824 Event: 54899
+Run: 53840 Event: 10397
+Run: 53841 Event: 28565
+Run: 53842 Event: 18478
+3100000 events processed
+Run: 53842 Event: 187243
+Run: 53843 Event: 2305
+Run: 53843 Event: 2506
+Run: 53843 Event: 38032
+Run: 53843 Event: 58388
+Run: 53861 Event: 12480
+3200000 events processed
+Run: 53865 Event: 106922
+Run: 53866 Event: 55839
+3300000 events processed
+Run: 53932 Event: 14850
+Run: 53932 Event: 29938
+Run: 53937 Event: 17153
+Run: 53938 Event: 89271
+Run: 53938 Event: 145095
+Run: 53938 Event: 145095
+3400000 events processed
+Run: 54021 Event: 73028
+3500000 events processed
+Run: 54021 Event: 141341
+Run: 54021 Event: 141894
+Run: 54035 Event: 14153
+Run: 54037 Event: 120422
+3600000 events processed
+Run: 54038 Event: 36238
+Run: 54048 Event: 62929
+Run: 54051 Event: 13313
+Run: 54051 Event: 13313
+Run: 54051 Event: 38954
+Run: 54052 Event: 49022
+3700000 events processed
+Run: 54055 Event: 7391
+Run: 54055 Event: 7391
+Run: 54058 Event: 22464
+Run: 54060 Event: 17930
+Run: 54060 Event: 27665
+Run: 54060 Event: 42508
+Run: 54076 Event: 25001
+Run: 54076 Event: 34635
+Run: 54076 Event: 49951
+3800000 events processed
+Run: 54115 Event: 3814
+Run: 54115 Event: 40816
+Run: 54115 Event: 51274
+Run: 52607 Event: 46719
+Run: 52612 Event: 113965
+Run: 52612 Event: 145997
+Run: 52612 Event: 161090
+Run: 52623 Event: 14808
+Run: 52626 Event: 21992
+3900000 events processed
+Run: 52641 Event: 10187
+4000000 events processed
+Run: 52674 Event: 4976
+Run: 52676 Event: 8509
+Run: 52676 Event: 21129
+Run: 52677 Event: 25468
+Run: 52701 Event: 70959
+Run: 52701 Event: 70959
+Run: 52703 Event: 19596
+Run: 52705 Event: 33074
+Run: 52811 Event: 45135
+Run: 52814 Event: 38892
+Run: 52814 Event: 41919
+4100000 events processed
+Run: 52821 Event: 19959
+Run: 52821 Event: 91309
+Run: 52822 Event: 745
+Run: 52822 Event: 9865
+Run: 52822 Event: 24783
+Run: 52822 Event: 59908
+4200000 events processed
+Run: 54116 Event: 3377
+Run: 54116 Event: 3377
+Run: 54116 Event: 9223
+Run: 54116 Event: 13566
+Run: 54116 Event: 28609
+Run: 54127 Event: 50390
+Run: 54128 Event: 974
+Run: 54128 Event: 6071
+Run: 54128 Event: 34479
+Run: 54128 Event: 52279
+4300000 events processed
+Run: 54128 Event: 131159
+Run: 54129 Event: 12823
+Run: 54129 Event: 19222
+Run: 54130 Event: 54117
+Run: 54131 Event: 14279
+Run: 54131 Event: 14279
+Run: 54131 Event: 19812
+Run: 54139 Event: 58375
+Run: 54140 Event: 45056
+4400000 events processed
+Run: 54142 Event: 10831
+Run: 54142 Event: 89459
+Run: 54142 Event: 217174
+Run: 54142 Event: 298067
+Run: 54142 Event: 303816
+Run: 54143 Event: 45680
+Run: 54143 Event: 63273
+4500000 events processed
+Run: 54143 Event: 99803
+Run: 54143 Event: 111551
+Run: 54153 Event: 36499
+Run: 54155 Event: 57979
+Run: 54157 Event: 27369
+Run: 54157 Event: 37374
+Run: 54157 Event: 171276
+Run: 54158 Event: 1779
+4600000 events processed
+Run: 54158 Event: 71927
+Run: 54158 Event: 103589
+Run: 54158 Event: 181568
+Run: 54164 Event: 15799
+Run: 54165 Event: 4832
+4700000 events processed
+Run: 54171 Event: 83819
+Run: 54172 Event: 18739
+Run: 54172 Event: 28168
+Run: 54172 Event: 86089
+Run: 54174 Event: 67516
+4800000 events processed
+Run: 54176 Event: 478
+Run: 54185 Event: 91660
+Run: 54187 Event: 22917
+Run: 54187 Event: 38299
+Run: 54189 Event: 12857
+Run: 54189 Event: 12857
+4900000 events processed
+Run: 54191 Event: 93382
+Run: 54192 Event: 8181
+Run: 54192 Event: 37897
+Run: 54192 Event: 37897
+Run: 54192 Event: 55970
+Run: 54221 Event: 84156
+5000000 events processed
+Run: 54221 Event: 313204
+Run: 54222 Event: 27335
+Run: 54222 Event: 119071
+Run: 54222 Event: 119071
+5100000 events processed
+Run: 54230 Event: 70768
+Run: 54230 Event: 132423
+Run: 54230 Event: 132423
+5200000 events processed
+Run: 54231 Event: 32558
+Run: 54233 Event: 3060
+Run: 54233 Event: 50749
+Run: 54242 Event: 36647
+Run: 54243 Event: 23113
+Run: 54243 Event: 41121
+Run: 54243 Event: 126577
+Run: 54243 Event: 166869
+5300000 events processed
+Run: 54243 Event: 242466
+Run: 54243 Event: 343520
+Run: 54243 Event: 365365
+Run: 54243 Event: 490342
+Run: 54243 Event: 490342
+Run: 54244 Event: 90394
+5400000 events processed
+Run: 54244 Event: 197752
+Run: 54245 Event: 5638
+Run: 54245 Event: 9923
+Run: 54245 Event: 12333
+Run: 54256 Event: 93406
+Run: 54256 Event: 93406
+Run: 54256 Event: 126223
+Run: 54256 Event: 164251
+Run: 54256 Event: 240612
+5500000 events processed
+Run: 54256 Event: 268209
+Run: 54256 Event: 270460
+Run: 54257 Event: 982
+Run: 54257 Event: 10730
+Run: 54257 Event: 49084
+Run: 54257 Event: 50792
+Run: 54257 Event: 108171
+Run: 54257 Event: 204457
+Run: 54264 Event: 12652
+5600000 events processed
+Run: 54270 Event: 47116
+Run: 54287 Event: 79207
+Run: 54287 Event: 79207
+5700000 events processed
+Run: 54296 Event: 89072
+Run: 54296 Event: 118488
+5800000 events processed
+Run: 54305 Event: 58570
+Run: 54314 Event: 131952
+Run: 54317 Event: 35206
+Run: 54317 Event: 72181
+5900000 events processed
+Run: 54328 Event: 13801
+6000000 events processed
+Run: 54330 Event: 611
+Run: 54330 Event: 8652
+Run: 54330 Event: 58248
+Run: 54330 Event: 63457
+Run: 54331 Event: 50173
+Run: 54331 Event: 50278
+Run: 54332 Event: 6664
+Run: 54332 Event: 108704
+Run: 54332 Event: 169764
+6100000 events processed
+Run: 54342 Event: 72667
+Run: 54344 Event: 91853
+Run: 54344 Event: 143591
+Run: 54345 Event: 17168
+6200000 events processed
+Run: 54357 Event: 72317
+Run: 54357 Event: 111995
+Run: 54357 Event: 153491
+Run: 54358 Event: 43351
+6300000 events processed
+Run: 54358 Event: 73500
+Run: 54359 Event: 52804
+Run: 54359 Event: 162217
+Run: 54359 Event: 172102
+Run: 54359 Event: 194989
+Run: 54359 Event: 317108
+6400000 events processed
+Run: 54363 Event: 10956
+Run: 54368 Event: 98794
+Run: 54370 Event: 22106
+Run: 54370 Event: 85633
+Run: 54370 Event: 143561
+Run: 54370 Event: 152517
+Run: 54370 Event: 152517
+Run: 54373 Event: 27632
+Run: 54373 Event: 32913
+Run: 54375 Event: 16701
+6500000 events processed
+Run: 54375 Event: 170704
+Run: 54375 Event: 170704
+Run: 54383 Event: 168
+Run: 54383 Event: 27735
+Run: 54383 Event: 125681
+Run: 54384 Event: 14540
+Run: 54388 Event: 16937
+6600000 events processed
+Run: 54389 Event: 22082
+Run: 54389 Event: 110883
+Run: 54403 Event: 54840
+Run: 54403 Event: 74783
+6700000 events processed
+Run: 54417 Event: 96447
+Run: 54417 Event: 113806
+Run: 54419 Event: 2041
+Run: 54432 Event: 6191
+Run: 54432 Event: 112200
+6800000 events processed
+Run: 54448 Event: 2027
+Run: 54448 Event: 24907
+Run: 54448 Event: 110213
+Run: 54449 Event: 114773
+6900000 events processed
+Run: 54452 Event: 88043
+Run: 54468 Event: 18907
+Run: 54468 Event: 18907
+Run: 54471 Event: 5299
+Run: 54471 Event: 151058
+7000000 events processed
+Run: 54471 Event: 161829
+Run: 54480 Event: 6088
+Run: 54480 Event: 38375
+Run: 54480 Event: 74965
+Run: 54480 Event: 148235
+Run: 54481 Event: 53890
+Run: 54481 Event: 72254
+Run: 54481 Event: 96385
+Run: 54481 Event: 140189
+Run: 54481 Event: 140189
+Run: 54481 Event: 166639
+7100000 events processed
+Run: 54481 Event: 326097
+Run: 54482 Event: 8864
+Run: 54482 Event: 52699
+Run: 54482 Event: 82843
+Run: 54482 Event: 141833
+Run: 54482 Event: 249163
+7200000 events processed
+Run: 54492 Event: 6122
+Run: 54492 Event: 13289
+Run: 54492 Event: 228257
+Run: 54492 Event: 321784
+Run: 54492 Event: 338174
+7300000 events processed
+Run: 54492 Event: 358740
+Run: 54492 Event: 358740
+Run: 54493 Event: 29356
+Run: 54493 Event: 80610
+Run: 54493 Event: 84140
+Run: 54493 Event: 93914
+Run: 54493 Event: 93914
+Run: 54494 Event: 85811
+7400000 events processed
+Run: 54500 Event: 119674
+Run: 54501 Event: 40912
+Run: 54501 Event: 40912
+Run: 54501 Event: 41302
+Run: 54502 Event: 108293
+7500000 events processed
+Run: 54502 Event: 280829
+Run: 54502 Event: 281516
+Run: 54502 Event: 297595
+Run: 54502 Event: 412236
+Run: 54512 Event: 37489
+Run: 54512 Event: 58159
+7600000 events processed
+Run: 54517 Event: 61049
+Run: 54517 Event: 97454
+Run: 54519 Event: 36495
+Run: 54519 Event: 83345
+Run: 54520 Event: 203194
+7700000 events processed
+Run: 54521 Event: 129121
+Run: 54521 Event: 129121
+7800000 events processed
+Run: 54530 Event: 247478
+Run: 54530 Event: 294748
+Run: 54530 Event: 508271
+Run: 54530 Event: 563091
+Run: 54531 Event: 14890
+7900000 events processed
+Run: 54534 Event: 50854
+Run: 54534 Event: 55955
+Run: 54546 Event: 52479
+Run: 54546 Event: 52479
+Run: 54546 Event: 93818
+Run: 54546 Event: 188130
+Run: 54547 Event: 13477
+Run: 54547 Event: 107896
+8000000 events processed
+Run: 54547 Event: 134860
+Run: 54549 Event: 16186
+Run: 54549 Event: 16186
+Run: 54549 Event: 22831
+Run: 54549 Event: 83547
+8100000 events processed
+Run: 54561 Event: 72541
+Run: 54562 Event: 11457
+Run: 54565 Event: 98479
+Run: 54566 Event: 37380
+Run: 54566 Event: 37380
+Run: 54567 Event: 21217
+Run: 54567 Event: 21217
+8200000 events processed
+Run: 54568 Event: 43979
+Run: 54569 Event: 45254
+Run: 54571 Event: 66230
+Run: 54581 Event: 46326
+Run: 54581 Event: 49978
+8300000 events processed
+Run: 54581 Event: 242487
+Run: 54582 Event: 50615
+Run: 54587 Event: 135831
+8400000 events processed
+Run: 52862 Event: 209693
+Run: 52863 Event: 12130
+Run: 52864 Event: 13957
+Run: 52871 Event: 49602
+Run: 52873 Event: 43726
+Run: 52873 Event: 77519
+Run: 52873 Event: 87081
+Run: 52873 Event: 87081
+8500000 events processed
+Run: 52889 Event: 78347
+Run: 52889 Event: 177782
+Run: 52890 Event: 9826
+Run: 52890 Event: 54111
+Run: 52890 Event: 67282
+8600000 events processed
+Run: 52891 Event: 43051
+Run: 52900 Event: 22715
+Run: 52900 Event: 22715
+Run: 52900 Event: 22715
+Run: 52901 Event: 42861
+Run: 52902 Event: 974
+Run: 52902 Event: 48980
+Run: 52903 Event: 23811
+Run: 52903 Event: 23811
+Run: 52903 Event: 129970
+8700000 events processed
+Run: 52915 Event: 8836
+Run: 52917 Event: 92
+Run: 52918 Event: 57186
+Run: 54588 Event: 1820
+Run: 54589 Event: 100017
+Run: 54593 Event: 59
+8800000 events processed
+Run: 54593 Event: 55921
+Run: 54593 Event: 66819
+Run: 54593 Event: 131425
+Run: 54593 Event: 131425
+Run: 54593 Event: 150631
+Run: 54593 Event: 186979
+Run: 54593 Event: 229013
+Run: 54596 Event: 23946
+Run: 54597 Event: 33287
+Run: 54597 Event: 61742
+8900000 events processed
+Run: 54599 Event: 30741
+Run: 54599 Event: 98288
+Run: 54599 Event: 98368
+Run: 54599 Event: 101619
+Run: 54599 Event: 126754
+Run: 54601 Event: 72189
+9000000 events processed
+Run: 54615 Event: 99637
+Run: 54615 Event: 171838
+Run: 54615 Event: 171838
+Run: 54616 Event: 129506
+Run: 54616 Event: 170913
+9100000 events processed
+Run: 54624 Event: 75374
+Run: 54624 Event: 142444
+Run: 54624 Event: 142444
+Run: 54624 Event: 256205
+Run: 54624 Event: 287179
+Run: 54624 Event: 303351
+Run: 54624 Event: 303351
+9200000 events processed
+Run: 54627 Event: 79965
+Run: 54628 Event: 20764
+Run: 54628 Event: 20764
+Run: 54628 Event: 24181
+Run: 54629 Event: 2004
+Run: 54639 Event: 11758
+Run: 54639 Event: 11758
+Run: 54639 Event: 73423
+Run: 54642 Event: 49085
+9300000 events processed
+Run: 54648 Event: 183720
+Run: 54648 Event: 187119
+Run: 54648 Event: 210237
+Run: 54648 Event: 236782
+Run: 54649 Event: 15318
+Run: 54650 Event: 63443
+Run: 54650 Event: 80099
+Run: 54650 Event: 97681
+Run: 54650 Event: 100223
+9400000 events processed
+Run: 54650 Event: 118635
+Run: 54650 Event: 158235
+Run: 54650 Event: 171569
+Run: 54657 Event: 279855
+Run: 54662 Event: 65589
+9500000 events processed
+Run: 54663 Event: 152035
+9600000 events processed
+Run: 54672 Event: 35912
+Run: 54672 Event: 86316
+Run: 54672 Event: 258446
+Run: 54672 Event: 274698
+Run: 54672 Event: 288350
+Run: 54672 Event: 291608
+9700000 events processed
+Run: 54672 Event: 370975
+Run: 54672 Event: 413684
+Run: 54672 Event: 457499
+Run: 54673 Event: 54434
+Run: 54673 Event: 83458
+Run: 54679 Event: 48866
+Run: 54680 Event: 14059
+Run: 54680 Event: 46722
+9800000 events processed
+Run: 54682 Event: 12235
+Run: 54682 Event: 52838
+Run: 54684 Event: 9764
+Run: 54684 Event: 85056
+Run: 54758 Event: 15543
+Run: 54759 Event: 12264
+Run: 54765 Event: 5986
+Run: 54765 Event: 23789
+9900000 events processed
+Run: 54768 Event: 44569
+Run: 54783 Event: 52074
+Run: 54784 Event: 10811
+Run: 54793 Event: 34233
+10000000 events processed
+Run: 54807 Event: 14832
+Run: 54807 Event: 14832
+Run: 54824 Event: 33500
+10100000 events processed
+Run: 54824 Event: 69696
+Run: 54833 Event: 29076
+Run: 54833 Event: 50145
+Run: 54836 Event: 65073
+Run: 54836 Event: 88876
+Run: 54836 Event: 122633
+Run: 54837 Event: 12108
+Run: 54844 Event: 169
+Run: 54856 Event: 18947
+Run: 54863 Event: 40381
+10200000 events processed
+Run: 54864 Event: 3881
+Run: 54868 Event: 24859
+Run: 54868 Event: 35016
+Run: 54874 Event: 51797
+Run: 54874 Event: 51797
+Run: 54874 Event: 129181
+Run: 54874 Event: 138514
+10300000 events processed
+Run: 54874 Event: 195725
+Run: 54889 Event: 20579
+Run: 54889 Event: 27710
+Run: 54890 Event: 60036
+Run: 54890 Event: 100391
+Run: 54890 Event: 111738
+10400000 events processed
+Run: 54898 Event: 58546
+Run: 54898 Event: 84863
+Run: 54904 Event: 5650
+Run: 54904 Event: 10963
+10500000 events processed
+Run: 54907 Event: 35142
+Run: 54907 Event: 259637
+Run: 54907 Event: 266234
+Run: 54907 Event: 266234
+Run: 54907 Event: 269723
+Run: 54907 Event: 281021
+Run: 54907 Event: 300421
+Run: 54908 Event: 4881
+10600000 events processed
+Run: 54921 Event: 22925
+Run: 54933 Event: 77173
+10700000 events processed
+Run: 54933 Event: 144717
+Run: 54933 Event: 154662
+Run: 54934 Event: 59959
+Run: 54934 Event: 67133
+Run: 54934 Event: 81847
+Run: 54934 Event: 81847
+Run: 54934 Event: 144609
+Run: 54942 Event: 28982
+10800000 events processed
+Run: 54942 Event: 206094
+Run: 54942 Event: 283217
+10900000 events processed
+Run: 54970 Event: 118484
+Run: 54970 Event: 204683
+Run: 54976 Event: 54278
+Run: 54977 Event: 97916
+11000000 events processed
+Run: 54979 Event: 87466
+Run: 54979 Event: 92949
+Run: 54982 Event: 61349
+Run: 55010 Event: 14320
+11100000 events processed
+Run: 55010 Event: 74034
+Run: 55010 Event: 143685
+Run: 55010 Event: 169080
+Run: 55011 Event: 24473
+Run: 55011 Event: 37999
+Run: 55011 Event: 89883
+Run: 55019 Event: 53906
+Run: 55021 Event: 2899
+Run: 55021 Event: 36964
+Run: 55021 Event: 58129
+11200000 events processed
+Run: 55022 Event: 155
+Run: 55023 Event: 173838
+11300000 events processed
+Run: 55036 Event: 66341
+Run: 55036 Event: 147574
+Run: 55036 Event: 235792
+Run: 55036 Event: 311558
+Run: 55036 Event: 330716
+11400000 events processed
+Run: 55038 Event: 4363
+Run: 55043 Event: 221808
+Run: 55044 Event: 21289
+Run: 55044 Event: 77281
+11500000 events processed
+Run: 55044 Event: 182079
+Run: 55050 Event: 63
+Run: 55060 Event: 3632
+Run: 55060 Event: 9653
+11600000 events processed
+Run: 55060 Event: 124944
+Run: 55060 Event: 124944
+Run: 55060 Event: 157590
+Run: 55060 Event: 226260
+Run: 55064 Event: 3847
+Run: 55064 Event: 86581
+11700000 events processed
+Run: 55065 Event: 42208
+Run: 55065 Event: 52121
+Run: 55065 Event: 69048
+Run: 55065 Event: 69048
+Run: 55065 Event: 69643
+Run: 55066 Event: 136868
+Run: 55071 Event: 8392
+Run: 55071 Event: 8392
+Run: 55071 Event: 55579
+11800000 events processed
+Run: 55072 Event: 24340
+Run: 55081 Event: 92680
+11900000 events processed
+Run: 55081 Event: 121566
+Run: 55082 Event: 108773
+Run: 55083 Event: 2824
+Run: 55083 Event: 11411
+Run: 55084 Event: 13462
+12000000 events processed
+Run: 55084 Event: 87272
+Run: 55087 Event: 90695
+Run: 55090 Event: 53584
+12100000 events processed
+Run: 55090 Event: 129275
+Run: 55099 Event: 30355
+Run: 55101 Event: 20072
+12200000 events processed
+Run: 55102 Event: 126418
+Run: 55120 Event: 22750
+Run: 55120 Event: 37899
+Run: 55120 Event: 40510
+Run: 55120 Event: 119875
+Run: 55120 Event: 119875
+12300000 events processed
+Run: 55135 Event: 9320
+Run: 55137 Event: 154268
+Run: 55148 Event: 19243
+12400000 events processed
+Run: 55149 Event: 40012
+Run: 55149 Event: 83008
+Run: 55149 Event: 83008
+Run: 55149 Event: 259573
+Run: 55159 Event: 93069
+12500000 events processed
+Run: 55163 Event: 91735
+Run: 55163 Event: 142230
+Run: 55163 Event: 151358
+Run: 55164 Event: 105942
+12600000 events processed
+Run: 55171 Event: 6319
+Run: 55172 Event: 5389
+Run: 55172 Event: 75749
+Run: 55172 Event: 110328
+Run: 55172 Event: 140337
+Run: 55172 Event: 183219
+Run: 55172 Event: 301279
+Run: 55172 Event: 320510
+12700000 events processed
+Run: 55172 Event: 381733
+Run: 55172 Event: 391018
+Run: 52949 Event: 29440
+Run: 52951 Event: 155827
+Run: 52952 Event: 37177
+Run: 52953 Event: 33096
+Run: 52953 Event: 33096
+12800000 events processed
+Run: 52954 Event: 15815
+Run: 52965 Event: 30020
+Run: 52965 Event: 137333
+Run: 52965 Event: 151156
+Run: 52965 Event: 170156
+Run: 52965 Event: 176468
+Run: 52965 Event: 310196
+Run: 52965 Event: 353498
+12900000 events processed
+Run: 52973 Event: 8070
+Run: 52973 Event: 65307
+Run: 52975 Event: 1539
+Run: 52990 Event: 150431
+Run: 52990 Event: 160420
+Run: 52990 Event: 181367
+13000000 events processed
+Run: 52991 Event: 54436
+Run: 53002 Event: 73610
+Run: 53015 Event: 76556
+Run: 55173 Event: 4924
+Run: 55173 Event: 31210
+13100000 events processed
+Run: 55179 Event: 131748
+Run: 55179 Event: 229842
+Run: 55180 Event: 182554
+13200000 events processed
+Run: 55191 Event: 24696
+Run: 55192 Event: 56968
+13300000 events processed
+Run: 55202 Event: 90960
+Run: 55204 Event: 2217
+13400000 events processed
+Run: 55218 Event: 52393
+Run: 55218 Event: 59344
+Run: 55218 Event: 70862
+Run: 55222 Event: 3311
+Run: 55222 Event: 11722
+Run: 55222 Event: 11722
+Run: 55234 Event: 1891
+Run: 55251 Event: 17551
+Run: 55252 Event: 28061
+13500000 events processed
+Run: 55253 Event: 48042
+Run: 55253 Event: 84429
+Run: 55300 Event: 11289
+Run: 55311 Event: 52097
+13600000 events processed
+Run: 55313 Event: 90477
+Run: 55313 Event: 90477
+Run: 55313 Event: 90477
+Run: 55320 Event: 90568
+13700000 events processed
+Run: 55326 Event: 187483
+13800000 events processed
+Run: 55327 Event: 37154
+Run: 55333 Event: 256323
+Run: 55335 Event: 15739
+13900000 events processed
+Run: 55336 Event: 4187
+Run: 55339 Event: 66708
+Run: 55339 Event: 107406
+Run: 55339 Event: 119424
+Run: 55346 Event: 59583
+14000000 events processed
+Run: 55349 Event: 89954
+14100000 events processed
+Run: 55353 Event: 3577
+Run: 55353 Event: 69687
+Run: 55354 Event: 73813
+Run: 55354 Event: 106803
+Run: 55354 Event: 147719
+14200000 events processed
+Run: 55358 Event: 191846
+Run: 55358 Event: 236279
+Run: 55358 Event: 255049
+14300000 events processed
+Run: 55376 Event: 11776
+Run: 55385 Event: 40357
+Run: 55389 Event: 32642
+14400000 events processed
+Run: 55399 Event: 8140
+Run: 55400 Event: 29542
+Run: 55408 Event: 13376
+Run: 55417 Event: 17152
+Run: 55423 Event: 75
+14500000 events processed
+Run: 55423 Event: 57916
+Run: 55425 Event: 31699
+Run: 55473 Event: 98982
+Run: 55473 Event: 98982
+Run: 55474 Event: 23196
+Run: 55475 Event: 58462
+14600000 events processed
+Run: 55482 Event: 93104
+Run: 55482 Event: 146807
+Run: 55482 Event: 152094
+Run: 55484 Event: 22488
+Run: 55499 Event: 65392
+Run: 55499 Event: 129404
+14700000 events processed
+Run: 55499 Event: 252870
+Run: 55499 Event: 336629
+Run: 55499 Event: 336629
+Run: 55499 Event: 567310
+Run: 55506 Event: 70103
+14800000 events processed
+Run: 55507 Event: 61220
+Run: 55515 Event: 25145
+14900000 events processed
+Run: 55543 Event: 50034
+Run: 55686 Event: 39262
+15000000 events processed
+Run: 55688 Event: 204424
+Run: 55688 Event: 210354
+Run: 55692 Event: 66997
+Run: 55692 Event: 121515
+Run: 55692 Event: 176559
+Run: 55692 Event: 181419
+15100000 events processed
+Run: 55698 Event: 67209
+Run: 55698 Event: 313853
+Run: 55700 Event: 43627
+15200000 events processed
+Run: 55707 Event: 249257
+Run: 55707 Event: 338584
+Run: 55707 Event: 432973
+15300000 events processed
+Run: 55707 Event: 486838
+Run: 55707 Event: 529313
+Run: 55707 Event: 529313
+Run: 55711 Event: 8219
+Run: 55711 Event: 163757
+Run: 55711 Event: 170068
+Run: 55711 Event: 205146
+Run: 55720 Event: 30436
+15400000 events processed
+Run: 55722 Event: 161612
+Run: 55723 Event: 70605
+Run: 55725 Event: 111020
+15500000 events processed
+Run: 55731 Event: 45197
+Run: 55732 Event: 150045
+Run: 55732 Event: 325178
+15600000 events processed
+Run: 55732 Event: 391691
+Run: 55738 Event: 50127
+15700000 events processed
+Run: 55743 Event: 31633
+Run: 55745 Event: 10231
+Run: 55745 Event: 11776
+Run: 55747 Event: 48359
+Run: 55747 Event: 59620
+Run: 55753 Event: 9651
+Run: 55760 Event: 142642
+15800000 events processed
+Run: 55762 Event: 231967
+Run: 55762 Event: 325114
+Run: 55762 Event: 348688
+Run: 55762 Event: 348688
+Run: 55762 Event: 361565
+Run: 55768 Event: 776
+Run: 55768 Event: 10640
+Run: 55774 Event: 2755
+15900000 events processed
+Run: 55786 Event: 23578
+Run: 55792 Event: 3130
+Run: 55793 Event: 22607
+Run: 55793 Event: 169025
+Run: 55793 Event: 247777
+16000000 events processed
+Run: 55793 Event: 297733
+Run: 55799 Event: 32425
+16100000 events processed
+Run: 55826 Event: 73028
+16200000 events processed
+Run: 55827 Event: 27502
+Run: 55828 Event: 31044
+Run: 55830 Event: 35561
+Run: 55830 Event: 55390
+Run: 55830 Event: 71577
+Run: 55843 Event: 35815
+Run: 55843 Event: 35815
+Run: 55845 Event: 6058
+Run: 55845 Event: 6058
+Run: 55845 Event: 64152
+Run: 55851 Event: 12146
+16300000 events processed
+Run: 55858 Event: 12001
+Run: 55859 Event: 18719
+Run: 55860 Event: 47736
+Run: 55862 Event: 1155
+Run: 55873 Event: 158765
+Run: 55873 Event: 158765
+16400000 events processed
+Run: 55874 Event: 8572
+Run: 55927 Event: 5603
+Run: 55935 Event: 12111
+Run: 55936 Event: 166718
+Run: 55936 Event: 211728
+16500000 events processed
+Run: 55945 Event: 55334
+Run: 55950 Event: 5792
+Run: 55950 Event: 14675
+Run: 55950 Event: 57431
+Run: 55950 Event: 57842
+Run: 55959 Event: 2938
+Run: 55960 Event: 119435
+16600000 events processed
+Run: 55965 Event: 15191
+Run: 55974 Event: 20324
+Run: 55974 Event: 59426
+Run: 55974 Event: 212685
+Run: 55974 Event: 212685
+Run: 55975 Event: 50538
+Run: 55975 Event: 72470
+16700000 events processed
+Run: 55975 Event: 175808
+Run: 55982 Event: 10026
+Run: 55994 Event: 10197
+Run: 55994 Event: 12815
+16800000 events processed
+Run: 55998 Event: 130059
+Run: 55998 Event: 191668
+Run: 55998 Event: 191668
+Run: 55998 Event: 191668
+Run: 56008 Event: 47739
+Run: 56008 Event: 47739
+16900000 events processed
+Run: 56009 Event: 36398
+Run: 56009 Event: 52835
+Run: 56016 Event: 55638
+Run: 56016 Event: 91595
+Run: 53031 Event: 69725
+17000000 events processed
+Run: 53031 Event: 98810
+Run: 53051 Event: 6095
+17100000 events processed
+Run: 53051 Event: 217380
+Run: 53051 Event: 217380
+Run: 53051 Event: 286489
+Run: 53096 Event: 13855
+Run: 53098 Event: 10198
+Run: 53099 Event: 89077
+Run: 53099 Event: 89077
+Run: 53115 Event: 19633
+17200000 events processed
+Run: 53117 Event: 21822
+Run: 53117 Event: 86457
+Run: 53118 Event: 38506
+Run: 53118 Event: 38506
+Run: 53118 Event: 153324
+Run: 53118 Event: 187714
+17300000 events processed
+Run: 53126 Event: 73022
+Run: 53126 Event: 88412
+Run: 56017 Event: 58656
+Run: 56021 Event: 949
+Run: 56021 Event: 45466
+Run: 56021 Event: 45466
+17400000 events processed
+Run: 56039 Event: 78211
+Run: 56039 Event: 126656
+Run: 56040 Event: 1542
+Run: 56040 Event: 12536
+Run: 56047 Event: 16025
+17500000 events processed
+Run: 56057 Event: 83314
+Run: 56070 Event: 144072
+17600000 events processed
+Run: 56070 Event: 300438
+Run: 56071 Event: 7341
+Run: 56072 Event: 4381
+Run: 56072 Event: 7800
+Run: 56073 Event: 6246
+Run: 56075 Event: 51576
+Run: 56075 Event: 53251
+Run: 56075 Event: 57060
+Run: 56075 Event: 60434
+Run: 56075 Event: 76527
+17700000 events processed
+Run: 56081 Event: 112219
+Run: 56082 Event: 11628
+Run: 56082 Event: 55015
+Run: 56082 Event: 55015
+17800000 events processed
+Run: 56082 Event: 269148
+Run: 56082 Event: 269148
+Run: 56082 Event: 299463
+Run: 56082 Event: 427712
+Run: 56086 Event: 58579
+Run: 56087 Event: 28467
+17900000 events processed
+Run: 56089 Event: 6406
+Run: 56092 Event: 57650
+Run: 56101 Event: 33504
+18000000 events processed
+Run: 56101 Event: 167990
+Run: 56101 Event: 167990
+Run: 56101 Event: 196605
+Run: 56101 Event: 207852
+Run: 56101 Event: 234408
+Run: 56102 Event: 62482
+18100000 events processed
+Run: 56118 Event: 35526
+Run: 56118 Event: 58470
+Run: 56118 Event: 60190
+Run: 56118 Event: 240890
+Run: 56118 Event: 265791
+Run: 56132 Event: 26636
+Run: 56137 Event: 1772
+Run: 56138 Event: 22448
+Run: 56148 Event: 4755
+18200000 events processed
+Run: 56148 Event: 22267
+Run: 56148 Event: 84638
+Run: 56149 Event: 9516
+Run: 56149 Event: 9516
+18300000 events processed
+Run: 56165 Event: 23198
+Run: 56172 Event: 53009
+Run: 56172 Event: 197900
+18400000 events processed
+Run: 56175 Event: 17109
+Run: 56175 Event: 279397
+Run: 56175 Event: 291064
+18500000 events processed
+Run: 56179 Event: 145805
+Run: 56180 Event: 51302
+Run: 56181 Event: 12507
+18600000 events processed
+Run: 56190 Event: 55782
+Run: 56190 Event: 120875
+Run: 56190 Event: 148187
+Run: 56190 Event: 150493
+Run: 56191 Event: 18926
+Run: 56191 Event: 93768
+Run: 56191 Event: 101687
+18700000 events processed
+Run: 56192 Event: 114132
+Run: 56193 Event: 112509
+Run: 56193 Event: 145864
+Run: 56193 Event: 155217
+Run: 56193 Event: 280915
+Run: 56193 Event: 285173
+Run: 56195 Event: 6778
+18800000 events processed
+Run: 56195 Event: 53720
+Run: 56195 Event: 100785
+Run: 56200 Event: 36834
+Run: 56200 Event: 78536
+Run: 56200 Event: 104376
+Run: 56200 Event: 106985
+Run: 56200 Event: 174538
+18900000 events processed
+Run: 56201 Event: 68840
+Run: 56201 Event: 221620
+19000000 events processed
+Run: 56306 Event: 45849
+Run: 56312 Event: 4018
+Run: 56312 Event: 6747
+Run: 56313 Event: 47531
+Run: 56313 Event: 80922
+19100000 events processed
+Run: 56331 Event: 34072
+Run: 56339 Event: 27768
+19200000 events processed
+Run: 56340 Event: 83551
+Run: 56341 Event: 856
+Run: 56341 Event: 63533
+19300000 events processed
+Run: 56350 Event: 143648
+Run: 56350 Event: 143648
+Run: 56350 Event: 227293
+Run: 56350 Event: 295766
+Run: 56350 Event: 372684
+Run: 56350 Event: 373793
+Run: 56351 Event: 1156
+Run: 56351 Event: 17926
+Run: 56356 Event: 8938
+Run: 56357 Event: 34602
+Run: 56357 Event: 34602
+19400000 events processed
+Run: 56359 Event: 61787
+Run: 56359 Event: 121946
+Run: 56360 Event: 58728
+Run: 56360 Event: 85656
+Run: 56360 Event: 87237
+Run: 56366 Event: 850
+Run: 56371 Event: 19516
+Run: 56371 Event: 62617
+19500000 events processed
+Run: 56372 Event: 17742
+Run: 56372 Event: 83200
+Run: 56372 Event: 106075
+Run: 56379 Event: 2367
+Run: 56394 Event: 12245
+19600000 events processed
+Run: 56394 Event: 97709
+Run: 56395 Event: 156915
+Run: 56395 Event: 173063
+Run: 56395 Event: 257965
+Run: 56395 Event: 310295
+Run: 56395 Event: 310295
+19700000 events processed
+Run: 56402 Event: 105210
+Run: 56402 Event: 118215
+Run: 56402 Event: 119402
+Run: 56402 Event: 127580
+Run: 56403 Event: 101240
+Run: 56404 Event: 69439
+19800000 events processed
+Run: 56406 Event: 9017
+Run: 56415 Event: 59360
+Run: 56431 Event: 6606
+Run: 56431 Event: 6606
+19900000 events processed
+Run: 56432 Event: 45392
+Run: 56432 Event: 86049
+Run: 56437 Event: 20212
+Run: 56439 Event: 110747
+20000000 events processed
+Run: 56476 Event: 26627
+Run: 56476 Event: 34021
+Run: 56502 Event: 4901
+Run: 56509 Event: 5383
+Run: 56509 Event: 24424
+20100000 events processed
+Run: 56509 Event: 170338
+20200000 events processed
+Run: 56533 Event: 29536
+Run: 56533 Event: 93185
+Run: 56534 Event: 46091
+Run: 56534 Event: 74355
+Run: 56534 Event: 148534
+Run: 56534 Event: 211568
+Run: 56542 Event: 45608
+20300000 events processed
+Run: 56543 Event: 86042
+Run: 56544 Event: 22406
+Run: 56553 Event: 38562
+20400000 events processed
+Run: 56554 Event: 10756
+Run: 56555 Event: 21133
+Run: 56560 Event: 75090
+Run: 56560 Event: 132139
+20500000 events processed
+Run: 56572 Event: 8606
+Run: 56572 Event: 8606
+Run: 56579 Event: 16676
+Run: 56579 Event: 16676
+20600000 events processed
+Run: 56617 Event: 59737
+Run: 56628 Event: 2215
+Run: 56629 Event: 75783
+Run: 56629 Event: 119059
+20700000 events processed
+Run: 56630 Event: 78570
+Run: 56630 Event: 78570
+Run: 56630 Event: 84723
+Run: 56630 Event: 159821
+Run: 56630 Event: 173702
+Run: 56632 Event: 21210
+20800000 events processed
+Run: 56640 Event: 99675
+Run: 56641 Event: 176070
+Run: 56642 Event: 67238
+20900000 events processed
+Run: 56643 Event: 4419
+Run: 56643 Event: 38488
+21000000 events processed
+Run: 56659 Event: 82095
+Run: 56659 Event: 82095
+Run: 56659 Event: 89203
+Run: 53127 Event: 52222
+Run: 53127 Event: 52222
+Run: 53127 Event: 136275
+Run: 53127 Event: 136275
+Run: 53127 Event: 138055
+Run: 53127 Event: 175440
+21100000 events processed
+Run: 53143 Event: 33690
+Run: 53145 Event: 90093
+Run: 53159 Event: 109349
+21200000 events processed
+Run: 53160 Event: 57943
+Run: 53168 Event: 51545
+21300000 events processed
+Run: 53169 Event: 3753
+Run: 53169 Event: 3753
+Run: 53169 Event: 173317
+Run: 53170 Event: 6704
+Run: 53170 Event: 22699
+Run: 56659 Event: 174083
+Run: 56659 Event: 196571
+Run: 56660 Event: 40212
+Run: 56660 Event: 57831
+Run: 56660 Event: 62714
+21400000 events processed
+Run: 56661 Event: 33556
+Run: 56661 Event: 38392
+Run: 56662 Event: 40759
+Run: 56666 Event: 151594
+Run: 56666 Event: 198459
+21500000 events processed
+Run: 56677 Event: 85369
+Run: 56679 Event: 7302
+21600000 events processed
+Run: 56698 Event: 1904
+Run: 56699 Event: 20715
+Run: 56701 Event: 8876
+Run: 56702 Event: 53834
+Run: 56702 Event: 55427
+21700000 events processed
+Run: 56702 Event: 201144
+Run: 56702 Event: 356171
+Run: 56707 Event: 12458
+Run: 56708 Event: 9218
+Run: 56708 Event: 73982
+Run: 56708 Event: 109132
+Run: 56708 Event: 109132
+Run: 56708 Event: 160945
+21800000 events processed
+Run: 56714 Event: 7389
+Run: 56720 Event: 75629
+Run: 56722 Event: 11872
+Run: 56722 Event: 91946
+21900000 events processed
+Run: 56723 Event: 159302
+Run: 56723 Event: 183971
+Run: 56730 Event: 10952
+Run: 56730 Event: 130072
+Run: 56730 Event: 132011
+Run: 56730 Event: 183943
+22000000 events processed
+Run: 56734 Event: 60788
+Run: 56734 Event: 110685
+22100000 events processed
+Run: 56740 Event: 51800
+Run: 56749 Event: 32620
+Run: 56749 Event: 108504
+22200000 events processed
+Run: 56756 Event: 40870
+Run: 56756 Event: 50992
+Run: 56756 Event: 105621
+Run: 56758 Event: 32470
+Run: 56758 Event: 69182
+22300000 events processed
+Run: 56765 Event: 72247
+Run: 56765 Event: 97703
+Run: 56765 Event: 164536
+Run: 56765 Event: 169361
+Run: 56768 Event: 9430
+Run: 56775 Event: 48947
+22400000 events processed
+Run: 56775 Event: 94955
+Run: 56775 Event: 98604
+Run: 56775 Event: 98604
+Run: 56779 Event: 63757
+Run: 56779 Event: 85501
+22500000 events processed
+Run: 56779 Event: 345541
+Run: 56789 Event: 15862
+Run: 56789 Event: 57972
+Run: 56789 Event: 86429
+Run: 56790 Event: 10807
+Run: 56790 Event: 151628
+Run: 56790 Event: 159473
+Run: 56790 Event: 159473
+22600000 events processed
+Run: 56790 Event: 220057
+Run: 56803 Event: 41628
+Run: 56803 Event: 41628
+Run: 56804 Event: 10117
+Run: 56804 Event: 41819
+Run: 56805 Event: 4931
+Run: 56806 Event: 132274
+Run: 56806 Event: 149672
+Run: 56806 Event: 197447
+22700000 events processed
+Run: 56813 Event: 55939
+Run: 56813 Event: 403937
+Run: 56813 Event: 419944
+22800000 events processed
+Run: 56818 Event: 195171
+Run: 56818 Event: 201787
+Run: 56820 Event: 12381
+22900000 events processed
+Run: 56826 Event: 171132
+Run: 56828 Event: 1666
+23000000 events processed
+Run: 56833 Event: 79852
+Run: 56833 Event: 149838
+Run: 56833 Event: 159853
+Run: 56833 Event: 186610
+Run: 56834 Event: 30720
+Run: 56835 Event: 137992
+23100000 events processed
+Run: 56842 Event: 53462
+Run: 56842 Event: 71970
+Run: 56852 Event: 68673
+Run: 56852 Event: 87660
+Run: 56853 Event: 61962
+23200000 events processed
+Run: 56860 Event: 79631
+Run: 56862 Event: 5767
+Run: 56868 Event: 13826
+Run: 56873 Event: 139453
+Run: 56873 Event: 149849
+23300000 events processed
+Run: 56876 Event: 73684
+Run: 56876 Event: 87307
+Run: 56883 Event: 1848
+23400000 events processed
+Run: 56884 Event: 109884
+Run: 56884 Event: 166905
+Run: 56884 Event: 277505
+23500000 events processed
+Run: 56898 Event: 46546
+Run: 56898 Event: 61485
+23600000 events processed
+Run: 56915 Event: 36067
+Run: 56915 Event: 124434
+Run: 56915 Event: 307964
+Run: 56918 Event: 38335
+23700000 events processed
+Run: 56919 Event: 2027
+Run: 56922 Event: 40986
+Run: 56922 Event: 145270
+Run: 56922 Event: 158527
+23800000 events processed
+Run: 56934 Event: 178794
+23900000 events processed
+Run: 56934 Event: 265074
+24000000 events processed
+Run: 56942 Event: 412952
+Run: 56942 Event: 449123
+Run: 56954 Event: 156351
+Run: 56954 Event: 160763
+24100000 events processed
+Run: 56954 Event: 198314
+Run: 56958 Event: 15216
+Run: 56958 Event: 15216
+Run: 56958 Event: 99072
+Run: 56958 Event: 108100
+Run: 56958 Event: 108427
+24200000 events processed
+Run: 56967 Event: 27576
+Run: 56968 Event: 63576
+Run: 56968 Event: 109512
+Run: 56976 Event: 3529
+24300000 events processed
+Run: 56980 Event: 39009
+Run: 56980 Event: 39009
+Run: 56993 Event: 49004
+Run: 56994 Event: 98110
+Run: 56996 Event: 6767
+Run: 56998 Event: 9988
+Run: 56999 Event: 62353
+24400000 events processed
+Run: 57014 Event: 106041
+Run: 57016 Event: 9973
+24500000 events processed
+Run: 57018 Event: 2641
+Run: 57030 Event: 30564
+24600000 events processed
+Run: 57031 Event: 162905
+Run: 57035 Event: 12329
+Run: 57041 Event: 40302
+Run: 57041 Event: 40302
+24700000 events processed
+Run: 57041 Event: 133084
+Run: 57041 Event: 135630
+Run: 57043 Event: 11959
+Run: 57044 Event: 28759
+Run: 57045 Event: 21065
+Run: 57051 Event: 72496
+Run: 57051 Event: 98206
+24800000 events processed
+Run: 57054 Event: 66052
+Run: 57055 Event: 43602
+Run: 57055 Event: 51360
+Run: 57055 Event: 51360
+Run: 57056 Event: 27290
+Run: 57056 Event: 144396
+Run: 57056 Event: 205375
+24900000 events processed
+Run: 53179 Event: 57679
+Run: 53181 Event: 97270
+Run: 53181 Event: 134160
+Run: 53181 Event: 187114
+Run: 53183 Event: 10669
+Run: 53184 Event: 34990
+Run: 53184 Event: 47553
+Run: 53185 Event: 515
+Run: 53194 Event: 6054
+25000000 events processed
+25100000 events processed
+Run: 53214 Event: 40524
+Run: 53214 Event: 61360
+Run: 53214 Event: 86918
+Run: 53220 Event: 84660
+Run: 53222 Event: 38915
+Run: 53222 Event: 40258
+25200000 events processed
+Run: 53222 Event: 152768
+Run: 53224 Event: 14614
+Run: 57066 Event: 110227
+Run: 57066 Event: 110227
+Run: 57066 Event: 110227
+Run: 57066 Event: 159682
+Run: 57066 Event: 257357
+25300000 events processed
+Run: 57067 Event: 145779
+Run: 57071 Event: 13614
+25400000 events processed
+Run: 57074 Event: 65739
+Run: 57074 Event: 80221
+Run: 57074 Event: 108819
+Run: 57074 Event: 148543
+Run: 57085 Event: 58223
+25500000 events processed
+Run: 57085 Event: 357113
+Run: 57085 Event: 362279
+Run: 57086 Event: 82725
+Run: 57087 Event: 10015
+Run: 57087 Event: 39852
+25600000 events processed
+Run: 57102 Event: 18831
+Run: 57102 Event: 130973
+Run: 57102 Event: 138237
+Run: 57103 Event: 20651
+Run: 57104 Event: 118950
+25700000 events processed
+Run: 57104 Event: 217658
+Run: 57111 Event: 3275
+Run: 57111 Event: 52728
+Run: 57113 Event: 3589
+25800000 events processed
+Run: 57120 Event: 160183
+Run: 57120 Event: 160183
+Run: 57123 Event: 13870
+Run: 57123 Event: 14218
+Run: 53235 Event: 28651
+25900000 events processed
+Run: 53235 Event: 136750
+Run: 53235 Event: 143432
+Run: 53236 Event: 19260
+Run: 53243 Event: 35332
+Run: 53243 Event: 124152
+26000000 events processed
+Run: 53244 Event: 77940
+Run: 53244 Event: 102675
+Run: 53244 Event: 126805
+Run: 53245 Event: 17243
+Run: 53245 Event: 124482
+Run: 53245 Event: 124482
+Run: 53255 Event: 44574
+Run: 53255 Event: 77316
+26100000 events processed
+Run: 53255 Event: 217468
+Run: 53256 Event: 102526
+Run: 53258 Event: 1549
+Run: 53275 Event: 46292
+26200000 events processed
+Run: 53278 Event: 5114
+Run: 53280 Event: 2372
+Run: 53280 Event: 2372
+Run: 53280 Event: 2372
+Run: 53282 Event: 46368
+Run: 53300 Event: 135086
+Run: 53302 Event: 3397
+Run: 53302 Event: 3397
+Run: 53302 Event: 27005
+26300000 events processed
+Run: 53303 Event: 26057
+Run: 53304 Event: 21842
+Run: 53304 Event: 23770
+Run: 53305 Event: 20649
+Run: 53314 Event: 49030
+26400000 events processed
+Run: 53326 Event: 60135
+Run: 53326 Event: 104921
+Run: 53326 Event: 175550
+Run: 53330 Event: 84114
+Run: 53331 Event: 13501
+Run: 53331 Event: 20140
+26500000 events processed
+Run: 53340 Event: 49957
+Run: 53356 Event: 160536
+26600000 events processed
+Run: 53360 Event: 27008
+Run: 53362 Event: 30524
+Run: 53363 Event: 1099
+Run: 53375 Event: 144917
+Run: 53375 Event: 148242
+26700000 events processed
+Run: 53376 Event: 124626
+Run: 53376 Event: 124626
+Run: 53394 Event: 76033
+Run: 53394 Event: 178239
+Run: 53394 Event: 188069
+Run: 53395 Event: 54731
+26800000 events processed
+Run: 53395 Event: 109165
+Run: 53396 Event: 84786
+Run: 53434 Event: 14243
+Run: 53437 Event: 31523
+Run: 53437 Event: 119922
+Run: 53437 Event: 120606
+26900000 events processed
+Run: 53437 Event: 209877
+Run: 53437 Event: 262515
+Run: 53440 Event: 38527
+Run: 53441 Event: 367
+27000000 events processed
+Run: 60028 Event: 29215
+Run: 60028 Event: 64070
+27100000 events processed
+Run: 60073 Event: 153225
+Run: 60075 Event: 34189
+27200000 events processed
+Run: 60089 Event: 66894
+Run: 60093 Event: 134626
+27300000 events processed
+Run: 60563 Event: 34660
+Run: 60564 Event: 44576
+Run: 60565 Event: 47777
+27400000 events processed
+Run: 60569 Event: 1566
+Run: 60577 Event: 103510
+27500000 events processed
+Run: 60600 Event: 8387
+Run: 60600 Event: 15439
+Run: 60600 Event: 35186
+Run: 60600 Event: 71581
+27600000 events processed
+Run: 60609 Event: 23048
+Run: 60609 Event: 56250
+27700000 events processed
+Run: 60609 Event: 178611
+Run: 60609 Event: 202539
+Run: 60609 Event: 230832
+Run: 60609 Event: 241297
+Run: 60609 Event: 272826
+Run: 60609 Event: 320377
+27800000 events processed
+Run: 60619 Event: 243585
+Run: 60619 Event: 243585
+Run: 60619 Event: 253902
+Run: 60619 Event: 288720
+27900000 events processed
+Run: 60631 Event: 67857
+28000000 events processed
+Run: 60636 Event: 42100
+Run: 60638 Event: 1943
+Run: 60646 Event: 58583
+28100000 events processed
+Run: 60652 Event: 69658
+Run: 60661 Event: 10128
+Run: 60661 Event: 10128
+28200000 events processed
+Run: 60689 Event: 60170
+Run: 60693 Event: 24904
+Run: 60693 Event: 24904
+28300000 events processed
+Run: 60694 Event: 44493
+Run: 60698 Event: 14191
+Run: 60698 Event: 79740
+Run: 60704 Event: 4110
+Run: 60704 Event: 13264
+28400000 events processed
+Run: 60708 Event: 21304
+28500000 events processed
+Run: 60715 Event: 7018
+Run: 60715 Event: 7018
+Run: 60715 Event: 88633
+Run: 60722 Event: 18900
+28600000 events processed
+Run: 60732 Event: 142327
+28700000 events processed
+Run: 60736 Event: 34600
+Run: 60740 Event: 37041
+28800000 events processed
+28900000 events processed
+Run: 60774 Event: 25128
+Run: 60774 Event: 144984
+29000000 events processed
+Run: 60778 Event: 136178
+Run: 60779 Event: 4265
+Run: 60779 Event: 90363
+29100000 events processed
+29200000 events processed
+Run: 60794 Event: 83398
+Run: 60794 Event: 88716
+Run: 60794 Event: 167135
+Run: 60800 Event: 17115
+29300000 events processed
+Run: 60809 Event: 96630
+Run: 60812 Event: 68557
+Run: 60812 Event: 202740
+29400000 events processed
+Run: 60812 Event: 291844
+Run: 60820 Event: 123344
+29500000 events processed
+Run: 60821 Event: 62243
+Run: 60821 Event: 202821
+Run: 60821 Event: 202821
+Run: 60824 Event: 12635
+29600000 events processed
+Run: 60834 Event: 1999
+Run: 60841 Event: 75961
+Run: 60841 Event: 75961
+Run: 60841 Event: 127459
+Run: 60841 Event: 129354
+Run: 60847 Event: 48256
+29700000 events processed
+Run: 60854 Event: 27267
+29800000 events processed
+29900000 events processed
+Run: 60868 Event: 7493
+Run: 60873 Event: 18967
+Run: 60873 Event: 125510
+30000000 events processed
+Run: 60881 Event: 26510
+30100000 events processed
+30200000 events processed
+Run: 60893 Event: 106515
+Run: 60897 Event: 178533
+Run: 60897 Event: 183005
+30300000 events processed
+Run: 60901 Event: 191384
+30400000 events processed
+Run: 60912 Event: 1547
+Run: 60912 Event: 7600
+Run: 60912 Event: 22905
+Run: 60918 Event: 62529
+Run: 60921 Event: 94428
+30500000 events processed
+Run: 60925 Event: 95923
+Run: 60927 Event: 14527
+30600000 events processed
+Run: 60931 Event: 46701
+Run: 60932 Event: 77758
+Run: 60932 Event: 152997
+Run: 60934 Event: 5508
+Run: 60934 Event: 96393
+Run: 60934 Event: 126244
+Run: 60934 Event: 175323
+30700000 events processed
+Run: 60939 Event: 182917
+Run: 60939 Event: 182917
+30800000 events processed
+Run: 60108 Event: 64099
+Run: 60112 Event: 42395
+Run: 60113 Event: 115570
+Run: 60113 Event: 119680
+Run: 60128 Event: 33530
+30900000 events processed
+Run: 60132 Event: 46870
+Run: 60133 Event: 45883
+31000000 events processed
+31100000 events processed
+Run: 60941 Event: 6631
+Run: 60951 Event: 1912
+Run: 60951 Event: 23100
+Run: 60951 Event: 60314
+Run: 60951 Event: 64050
+31200000 events processed
+Run: 60958 Event: 98778
+Run: 60958 Event: 124904
+31300000 events processed
+Run: 60962 Event: 127522
+Run: 60963 Event: 18019
+Run: 60964 Event: 23894
+Run: 60964 Event: 48591
+31400000 events processed
+Run: 60976 Event: 16675
+Run: 60976 Event: 259762
+Run: 60977 Event: 40416
+31500000 events processed
+Run: 60978 Event: 123276
+Run: 60983 Event: 68107
+Run: 60984 Event: 17803
+31600000 events processed
+31700000 events processed
+Run: 60995 Event: 43069
+Run: 60998 Event: 59001
+Run: 60998 Event: 70509
+Run: 60998 Event: 137458
+31800000 events processed
+Run: 61013 Event: 190752
+Run: 61017 Event: 47647
+Run: 61017 Event: 65414
+Run: 61017 Event: 65414
+31900000 events processed
+Run: 61017 Event: 236298
+Run: 61018 Event: 117299
+Run: 61018 Event: 155904
+32000000 events processed
+Run: 61024 Event: 257901
+Run: 61024 Event: 316469
+Run: 61034 Event: 53905
+32100000 events processed
+Run: 61034 Event: 175614
+Run: 61036 Event: 202136
+Run: 61036 Event: 233797
+32200000 events processed
+32300000 events processed
+Run: 61045 Event: 157209
+Run: 61053 Event: 28773
+Run: 61053 Event: 42024
+Run: 61053 Event: 116689
+Run: 61053 Event: 116689
+Run: 61053 Event: 116689
+32400000 events processed
+Run: 61057 Event: 39840
+Run: 61057 Event: 39840
+32500000 events processed
+Run: 61065 Event: 86109
+Run: 61065 Event: 301919
+32600000 events processed
+Run: 61068 Event: 41437
+Run: 61068 Event: 42083
+Run: 61078 Event: 30463
+Run: 61079 Event: 49316
+32700000 events processed
+32800000 events processed
+Run: 61089 Event: 167694
+32900000 events processed
+Run: 61100 Event: 24234
+Run: 61100 Event: 103888
+33000000 events processed
+Run: 61107 Event: 91010
+Run: 61108 Event: 1621
+33100000 events processed
+Run: 61116 Event: 124542
+33200000 events processed
+Run: 61118 Event: 152051
+Run: 61118 Event: 208367
+Run: 61123 Event: 49474
+33300000 events processed
+Run: 61125 Event: 17215
+Run: 61125 Event: 197596
+Run: 61125 Event: 197596
+Run: 61126 Event: 42156
+33400000 events processed
+Run: 61127 Event: 8955
+Run: 61127 Event: 70800
+Run: 61145 Event: 46807
+33500000 events processed
+Run: 61155 Event: 74553
+33600000 events processed
+Run: 61166 Event: 54298
+33700000 events processed
+33800000 events processed
+Run: 61177 Event: 137321
+Run: 61180 Event: 45772
+Run: 61180 Event: 125860
+Run: 61183 Event: 30536
+Run: 61184 Event: 61631
+33900000 events processed
+Run: 61186 Event: 142069
+Run: 61190 Event: 10040
+Run: 61190 Event: 60117
+Run: 61190 Event: 110165
+Run: 61195 Event: 73251
+34000000 events processed
+Run: 61200 Event: 27878
+Run: 61201 Event: 69262
+Run: 61201 Event: 82166
+Run: 61202 Event: 79621
+Run: 61202 Event: 85357
+Run: 61203 Event: 25838
+Run: 61204 Event: 50345
+34100000 events processed
+Run: 61208 Event: 27774
+Run: 61210 Event: 47079
+Run: 61211 Event: 23243
+Run: 61212 Event: 42916
+Run: 61214 Event: 8804
+Run: 61214 Event: 22239
+34200000 events processed
+Run: 61226 Event: 182518
+34300000 events processed
+Run: 61237 Event: 53794
+34400000 events processed
+Run: 61242 Event: 258906
+34500000 events processed
+Run: 61278 Event: 66788
+Run: 61290 Event: 26773
+34600000 events processed
+Run: 60162 Event: 37783
+Run: 60162 Event: 37783
+34700000 events processed
+Run: 60187 Event: 98483
+34800000 events processed
+Run: 60233 Event: 89267
+34900000 events processed
+Run: 60249 Event: 8125
+35000000 events processed
+Run: 61300 Event: 3980
+Run: 61300 Event: 42848
+35100000 events processed
+Run: 61300 Event: 315800
+Run: 61304 Event: 50069
+Run: 61309 Event: 47607
+Run: 61309 Event: 141120
+35200000 events processed
+Run: 61315 Event: 46732
+Run: 61315 Event: 273760
+35300000 events processed
+Run: 61320 Event: 68978
+Run: 61321 Event: 16651
+35400000 events processed
+Run: 61331 Event: 17112
+Run: 61334 Event: 47506
+35500000 events processed
+Run: 61334 Event: 163585
+Run: 61339 Event: 6017
+Run: 61342 Event: 102292
+Run: 61342 Event: 185099
+35600000 events processed
+Run: 61342 Event: 280120
+Run: 61344 Event: 43538
+35700000 events processed
+Run: 61349 Event: 43559
+Run: 61349 Event: 49234
+Run: 61351 Event: 55578
+35800000 events processed
+35900000 events processed
+Run: 61363 Event: 20260
+Run: 61363 Event: 98709
+Run: 61366 Event: 86009
+Run: 61366 Event: 117662
+Run: 61366 Event: 117662
+Run: 61366 Event: 123328
+Run: 61366 Event: 340856
+36000000 events processed
+Run: 61370 Event: 9241
+Run: 61376 Event: 8496
+Run: 61376 Event: 8496
+36100000 events processed
+Run: 61380 Event: 10349
+36200000 events processed
+Run: 61388 Event: 114122
+Run: 61388 Event: 178323
+36300000 events processed
+Run: 61391 Event: 131310
+Run: 61391 Event: 225313
+Run: 61391 Event: 229647
+36400000 events processed
+Run: 61396 Event: 152922
+Run: 61396 Event: 179714
+Run: 61397 Event: 116742
+Run: 61397 Event: 162469
+36500000 events processed
+Run: 61403 Event: 106414
+Run: 61408 Event: 48980
+36600000 events processed
+Run: 61408 Event: 133682
+Run: 61411 Event: 41366
+36700000 events processed
+Run: 61418 Event: 68697
+Run: 61430 Event: 95380
+Run: 61431 Event: 6676
+Run: 61431 Event: 21369
+Run: 61431 Event: 21369
+Run: 61431 Event: 75909
+Run: 61431 Event: 75909
+36800000 events processed
+Run: 61431 Event: 100642
+Run: 61439 Event: 91372
+36900000 events processed
+Run: 61439 Event: 240315
+Run: 61446 Event: 32032
+37000000 events processed
+Run: 61446 Event: 121728
+Run: 61450 Event: 31444
+Run: 61450 Event: 31444
+Run: 61451 Event: 63276
+Run: 61451 Event: 221788
+37100000 events processed
+Run: 61453 Event: 74575
+Run: 61453 Event: 216303
+Run: 61455 Event: 30233
+Run: 61455 Event: 30233
+Run: 61456 Event: 77433
+37200000 events processed
+Run: 61457 Event: 138934
+Run: 61458 Event: 83423
+Run: 61458 Event: 83423
+Run: 61458 Event: 83423
+37300000 events processed
+Run: 61469 Event: 153028
+Run: 61471 Event: 52674
+Run: 61471 Event: 52674
+Run: 61471 Event: 126576
+37400000 events processed
+Run: 61482 Event: 37599
+37500000 events processed
+Run: 61490 Event: 14483
+Run: 61492 Event: 115303
+Run: 61497 Event: 7580
+37600000 events processed
+Run: 61499 Event: 22789
+Run: 61505 Event: 80351
+Run: 61505 Event: 80351
+37700000 events processed
+Run: 61508 Event: 15919
+Run: 61510 Event: 145179
+37800000 events processed
+Run: 61516 Event: 32189
+Run: 61516 Event: 57618
+37900000 events processed
+Run: 61516 Event: 212708
+Run: 61516 Event: 225957
+Run: 61520 Event: 22910
+38000000 events processed
+Run: 61522 Event: 74988
+38100000 events processed
+Run: 61526 Event: 99638
+Run: 61534 Event: 134469
+Run: 61534 Event: 161691
+38200000 events processed
+Run: 61538 Event: 71744
+Run: 61538 Event: 71744
+38300000 events processed
+Run: 61539 Event: 102651
+Run: 61539 Event: 103029
+Run: 61539 Event: 146205
+Run: 61542 Event: 27645
+38400000 events processed
+Run: 61552 Event: 33985
+Run: 61552 Event: 77842
+Run: 61554 Event: 33178
+Run: 61554 Event: 39257
+Run: 61554 Event: 45628
+Run: 61557 Event: 268733
+Run: 61559 Event: 5113
+Run: 61559 Event: 5502
+38500000 events processed
+Run: 61567 Event: 62802
+Run: 60260 Event: 119814
+Run: 60261 Event: 39945
+Run: 60269 Event: 30851
+38600000 events processed
+Run: 60270 Event: 96744
+Run: 60275 Event: 28317
+Run: 60275 Event: 138206
+Run: 60275 Event: 187582
+Run: 60275 Event: 198010
+Run: 60276 Event: 10686
+38700000 events processed
+Run: 60301 Event: 85156
+38800000 events processed
+38900000 events processed
+Run: 61567 Event: 257057
+Run: 61567 Event: 309687
+Run: 61567 Event: 309687
+39000000 events processed
+Run: 61587 Event: 95355
+Run: 61596 Event: 25919
+Run: 61597 Event: 16150
+39100000 events processed
+Run: 61604 Event: 71464
+Run: 61604 Event: 204423
+Run: 61608 Event: 138249
+39200000 events processed
+Run: 61614 Event: 19885
+39300000 events processed
+Run: 61624 Event: 30127
+Run: 61624 Event: 30127
+Run: 61624 Event: 30127
+Run: 61624 Event: 30127
+Run: 61627 Event: 23917
+Run: 61627 Event: 87301
+39400000 events processed
+Run: 61632 Event: 89309
+Run: 61636 Event: 30475
+Run: 61636 Event: 132481
+Run: 61636 Event: 135304
+39500000 events processed
+Run: 61638 Event: 23714
+Run: 61638 Event: 23714
+Run: 61641 Event: 76117
+Run: 61641 Event: 191016
+39600000 events processed
+Run: 61642 Event: 120321
+Run: 61642 Event: 130184
+39700000 events processed
+Run: 61649 Event: 47902
+Run: 61649 Event: 56693
+Run: 61653 Event: 141677
+39800000 events processed
+Run: 61654 Event: 153002
+Run: 61661 Event: 86786
+Run: 61661 Event: 189601
+39900000 events processed
+Run: 61663 Event: 89929
+Run: 61664 Event: 41535
+Run: 61664 Event: 161832
+40000000 events processed
+Run: 61666 Event: 377307
+Run: 61670 Event: 20038
+Run: 61674 Event: 16911
+40100000 events processed
+Run: 61681 Event: 21249
+Run: 61681 Event: 70413
+Run: 61681 Event: 88670
+40200000 events processed
+Run: 61681 Event: 133295
+Run: 61681 Event: 216670
+Run: 61682 Event: 81287
+Run: 61687 Event: 8823
+Run: 61690 Event: 65639
+40300000 events processed
+Run: 61697 Event: 207076
+Run: 61699 Event: 1033
+40400000 events processed
+Run: 61711 Event: 26700
+40500000 events processed
+Run: 61721 Event: 39926
+Run: 61722 Event: 170638
+40600000 events processed
+Run: 61727 Event: 25916
+Run: 61728 Event: 19938
+Run: 61737 Event: 52148
+40700000 events processed
+Run: 61739 Event: 22746
+Run: 61739 Event: 22746
+40800000 events processed
+Run: 60311 Event: 64914
+Run: 60312 Event: 25123
+Run: 60312 Event: 36543
+Run: 60312 Event: 36543
+40900000 events processed
+Run: 60318 Event: 251147
+Run: 60322 Event: 290
+Run: 60324 Event: 4762
+41000000 events processed
+41100000 events processed
+Run: 60337 Event: 10440
+Run: 60337 Event: 80748
+Run: 60337 Event: 235289
+41200000 events processed
+Run: 60344 Event: 17797
+Run: 60344 Event: 17797
+41300000 events processed
+Run: 60348 Event: 79017
+Run: 60348 Event: 79017
+Run: 60353 Event: 59910
+41400000 events processed
+Run: 60358 Event: 19653
+Run: 60358 Event: 69536
+Run: 60358 Event: 95881
+Run: 60360 Event: 10772
+Run: 60368 Event: 67803
+41500000 events processed
+Run: 60368 Event: 329331
+Run: 60368 Event: 330056
+Run: 60369 Event: 30320
+Run: 60379 Event: 16385
+Run: 60379 Event: 130031
+Run: 60379 Event: 132752
+41600000 events processed
+Run: 60385 Event: 155846
+41700000 events processed
+Run: 60387 Event: 246626
+Run: 60390 Event: 13094
+Run: 60393 Event: 71801
+Run: 60394 Event: 30298
+41800000 events processed
+Run: 60395 Event: 62515
+Run: 60395 Event: 70287
+Run: 60398 Event: 99420
+41900000 events processed
+Run: 60416 Event: 32779
+Run: 60417 Event: 31142
+42000000 events processed
+Run: 60421 Event: 4035
+Run: 60447 Event: 18617
+42100000 events processed
+Run: 60455 Event: 61150
+Run: 60467 Event: 132697
+42200000 events processed
+Run: 60473 Event: 99271
+Run: 60473 Event: 126483
+Run: 60475 Event: 13073
+42300000 events processed
+Run: 60482 Event: 79180
+42400000 events processed
+Run: 60496 Event: 51244
+Run: 60498 Event: 23178
+Run: 60498 Event: 59510
+Run: 60498 Event: 95140
+42500000 events processed
+Run: 60507 Event: 5460
+42600000 events processed
+Run: 60531 Event: 157394
+Run: 60532 Event: 9278
+Run: 60532 Event: 56331
+Run: 60534 Event: 4749
+42700000 events processed
+Run: 60547 Event: 31640
+42800000 events processed
+Run: 60549 Event: 15995
+42900000 events processed
+Run: 60559 Event: 214987
+Run: 60559 Event: 214987
+Run: 60560 Event: 49428
+Run: 60560 Event: 65784
+Run: 60560 Event: 95162
+Run: 60560 Event: 160834
+Run: 60560 Event: 160834
+Run: 61747 Event: 106663
+43000000 events processed
+Run: 61750 Event: 45170
+Run: 61750 Event: 134789
+Run: 61755 Event: 23778
+Run: 61755 Event: 24326
+43100000 events processed
+Run: 61759 Event: 3288
+43200000 events processed
+Run: 61768 Event: 37453
+43300000 events processed
+Run: 62074 Event: 10533
+Run: 62084 Event: 26086
+Run: 62085 Event: 67193
+43400000 events processed
+Run: 62093 Event: 106526
+Run: 62093 Event: 106526
+Run: 62093 Event: 117831
+Run: 62093 Event: 117831
+Run: 62093 Event: 150321
+Run: 62093 Event: 160846
+Run: 62099 Event: 986
+43500000 events processed
+Run: 62104 Event: 69169
+43600000 events processed
+Run: 62121 Event: 140166
+Run: 62121 Event: 170256
+Run: 62123 Event: 37280
+Run: 62123 Event: 37280
+43700000 events processed
+Run: 62126 Event: 153340
+Run: 62128 Event: 159163
+43800000 events processed
+Run: 62132 Event: 37857
+Run: 62138 Event: 44508
+43900000 events processed
+Run: 62143 Event: 170015
+Run: 62151 Event: 65292
+44000000 events processed
+Run: 62156 Event: 39569
+Run: 62157 Event: 1058
+Run: 62157 Event: 30920
+Run: 62157 Event: 66495
+44100000 events processed
+Run: 62162 Event: 47698
+Run: 62172 Event: 11956
+Run: 62172 Event: 69923
+44200000 events processed
+Run: 62173 Event: 10630
+Run: 62173 Event: 60969
+Run: 62174 Event: 149455
+Run: 62174 Event: 149455
+Run: 62174 Event: 149917
+Run: 62180 Event: 195579
+44300000 events processed
+Run: 62186 Event: 37673
+Run: 62186 Event: 125494
+Run: 62192 Event: 27335
+44400000 events processed
+Run: 62201 Event: 31272
+44500000 events processed
+Run: 62229 Event: 117040
+Run: 62232 Event: 52979
+Run: 62232 Event: 165493
+Run: 62233 Event: 53142
+44600000 events processed
+Run: 62243 Event: 60030
+Run: 62252 Event: 30183
+Run: 62252 Event: 78801
+44700000 events processed
+Run: 62259 Event: 163980
+Run: 62265 Event: 106674
+Run: 62265 Event: 157659
+44800000 events processed
+Run: 62271 Event: 15801
+Run: 62282 Event: 57911
+44900000 events processed
+Run: 62290 Event: 85778
+Run: 62291 Event: 100398
+Run: 62296 Event: 2622
+45000000 events processed
+Run: 62296 Event: 42841
+Run: 62297 Event: 20107
+Run: 62310 Event: 104834
+Run: 62310 Event: 104834
+Run: 62313 Event: 9722
+45100000 events processed
+Run: 62332 Event: 2153
+45200000 events processed
+Run: 62345 Event: 144548
+Run: 62346 Event: 20596
+Run: 62346 Event: 103040
+45300000 events processed
+45400000 events processed
+45500000 events processed
+Run: 62389 Event: 59926
+Run: 62389 Event: 72730
+Run: 62389 Event: 85391
+45600000 events processed
+Run: 62405 Event: 197240
+Run: 62408 Event: 14148
+45700000 events processed
+Run: 62423 Event: 15480
+Run: 62432 Event: 239
+Run: 62438 Event: 5232
+Run: 62441 Event: 15556
+Run: 62458 Event: 43528
+45800000 events processed
+Run: 62459 Event: 76909
+Run: 62464 Event: 86167
+Run: 62464 Event: 97287
+Run: 62470 Event: 9663
+Run: 62479 Event: 110938
+Run: 62480 Event: 349
+45900000 events processed
+Run: 62484 Event: 40282
+Run: 62484 Event: 40282
+Run: 62492 Event: 3876
+46000000 events processed
+Run: 62494 Event: 16607
+Run: 62498 Event: 63032
+Run: 62516 Event: 109618
+Run: 62517 Event: 4147
+Run: 62517 Event: 35055
+46100000 events processed
+Run: 62520 Event: 94647
+Run: 62521 Event: 47320
+Run: 62522 Event: 120618
+Run: 62523 Event: 15756
+Run: 62526 Event: 48662
+46200000 events processed
+Run: 62528 Event: 164803
+Run: 62534 Event: 70827
+46300000 events processed
+Run: 62537 Event: 222003
+Run: 62537 Event: 244969
+Run: 62542 Event: 740
+Run: 62542 Event: 51779
+46400000 events processed
+Run: 62566 Event: 12003
+Run: 62566 Event: 12003
+Run: 62566 Event: 12003
+Run: 62566 Event: 12003
+46500000 events processed
+Run: 61773 Event: 254729
+Run: 61773 Event: 282542
+46600000 events processed
+Run: 61778 Event: 251418
+Run: 61778 Event: 259597
+Run: 61791 Event: 155401
+46700000 events processed
+Run: 61801 Event: 26351
+Run: 61801 Event: 48369
+Run: 61802 Event: 238718
+46800000 events processed
+Run: 61803 Event: 59663
+Run: 62567 Event: 52084
+Run: 62570 Event: 59586
+46900000 events processed
+Run: 62577 Event: 64592
+Run: 62577 Event: 134794
+Run: 62588 Event: 67023
+Run: 62588 Event: 67492
+47000000 events processed
+Run: 62596 Event: 206125
+Run: 62596 Event: 206125
+Run: 62597 Event: 24623
+Run: 62597 Event: 96853
+47100000 events processed
+Run: 62600 Event: 84447
+Run: 62600 Event: 122897
+Run: 62601 Event: 10033
+Run: 62601 Event: 146660
+47200000 events processed
+Run: 62606 Event: 25211
+Run: 62616 Event: 49779
+47300000 events processed
+Run: 62629 Event: 108782
+Run: 62630 Event: 57509
+Run: 62630 Event: 113557
+Run: 62630 Event: 113557
+Run: 62636 Event: 6550
+Run: 61804 Event: 15780
+Run: 61807 Event: 71244
+47400000 events processed
+Run: 61812 Event: 11127
+Run: 61812 Event: 121212
+47500000 events processed
+Run: 61816 Event: 232159
+Run: 61818 Event: 79046
+47600000 events processed
+Run: 61824 Event: 19345
+47700000 events processed
+Run: 61826 Event: 118335
+Run: 61826 Event: 118335
+Run: 61826 Event: 144994
+Run: 61827 Event: 66101
+Run: 61828 Event: 77850
+47800000 events processed
+Run: 61837 Event: 6087
+47900000 events processed
+Run: 61840 Event: 209509
+Run: 61843 Event: 11264
+Run: 61844 Event: 42343
+Run: 61844 Event: 89237
+Run: 61844 Event: 98561
+48000000 events processed
+48100000 events processed
+Run: 61856 Event: 106841
+Run: 61856 Event: 112760
+Run: 61856 Event: 157972
+48200000 events processed
+Run: 61860 Event: 81710
+48300000 events processed
+48400000 events processed
+Run: 61872 Event: 95991
+Run: 61872 Event: 104348
+Run: 61876 Event: 179692
+48500000 events processed
+Run: 61880 Event: 241347
+Run: 61882 Event: 70913
+Run: 61887 Event: 26765
+48600000 events processed
+Run: 61887 Event: 294333
+Run: 61890 Event: 2468
+Run: 61890 Event: 26357
+Run: 61890 Event: 28773
+48700000 events processed
+Run: 61902 Event: 1523
+Run: 61902 Event: 35020
+48800000 events processed
+Run: 61903 Event: 33959
+Run: 61905 Event: 112499
+48900000 events processed
+Run: 61916 Event: 238885
+Run: 61917 Event: 48079
+Run: 61924 Event: 51901
+Run: 61924 Event: 51901
+Run: 61925 Event: 98572
+49000000 events processed
+Run: 61929 Event: 203063
+Run: 61930 Event: 158850
+49100000 events processed
+Run: 61934 Event: 127503
+Run: 61934 Event: 127503
+49200000 events processed
+Run: 61944 Event: 16394
+Run: 61944 Event: 21705
+Run: 61944 Event: 64897
+Run: 61944 Event: 166405
+49300000 events processed
+Run: 61946 Event: 24256
+Run: 61946 Event: 194525
+Run: 61947 Event: 21154
+49400000 events processed
+49500000 events processed
+49600000 events processed
+Run: 61974 Event: 221
+Run: 61978 Event: 116024
+Run: 61978 Event: 128426
+49700000 events processed
+Run: 61989 Event: 94985
+49800000 events processed
+Run: 61997 Event: 6911
+Run: 61997 Event: 10612
+Run: 62002 Event: 30270
+Run: 62002 Event: 30270
+Run: 62003 Event: 96789
+Run: 62003 Event: 119675
+Run: 62003 Event: 119675
+49900000 events processed
+Run: 62069 Event: 45316
+Run: 62070 Event: 5245
+50000000 events processed
+Run: 58861 Event: 40462
+50100000 events processed
+Run: 58866 Event: 37873
+Run: 58873 Event: 71114
+50200000 events processed
+Run: 58874 Event: 107977
+50300000 events processed
+50400000 events processed
+Run: 58892 Event: 33013
+50500000 events processed
+Run: 58914 Event: 37945
+Run: 58915 Event: 4271
+50600000 events processed
+Run: 58930 Event: 3791
+Run: 58930 Event: 4553
+Run: 58930 Event: 31321
+Run: 58930 Event: 32508
+50700000 events processed
+Run: 58930 Event: 45467
+50800000 events processed
+Run: 58416 Event: 30278
+50900000 events processed
+Run: 58435 Event: 3628
+51000000 events processed
+Run: 58457 Event: 136605
+51100000 events processed
+Run: 58459 Event: 107167
+Run: 58469 Event: 21430
+51200000 events processed
+51300000 events processed
+51400000 events processed
+Run: 58479 Event: 90088
+Run: 58483 Event: 26285
+51500000 events processed
+Run: 58496 Event: 59900
+51600000 events processed
+Run: 58502 Event: 75758
+51700000 events processed
+Run: 58505 Event: 23670
+51800000 events processed
+51900000 events processed
+Run: 58515 Event: 195052
+52000000 events processed
+52100000 events processed
+Run: 58534 Event: 27253
+52200000 events processed
+Run: 58535 Event: 39250
+Run: 58541 Event: 9605
+Run: 58541 Event: 9605
+Run: 58542 Event: 57993
+Run: 58542 Event: 57993
+Run: 58542 Event: 79209
+52300000 events processed
+52400000 events processed
+52500000 events processed
+52600000 events processed
+Run: 58577 Event: 51901
+Run: 58599 Event: 29945
+52700000 events processed
+Run: 58602 Event: 58299
+52800000 events processed
+Run: 58624 Event: 26907
+52900000 events processed
+Run: 58628 Event: 10350
+53000000 events processed
+Run: 58636 Event: 61091
+Run: 58636 Event: 86911
+Run: 58636 Event: 86911
+53100000 events processed
+53200000 events processed
+53300000 events processed
+Run: 58647 Event: 25579
+53400000 events processed
+53500000 events processed
+Run: 58649 Event: 24936
+53600000 events processed
+Run: 58667 Event: 81111
+53700000 events processed
+53800000 events processed
+53900000 events processed
+54000000 events processed
+Run: 58696 Event: 79605
+54100000 events processed
+Run: 58696 Event: 151036
+Run: 58697 Event: 13650
+54200000 events processed
+54300000 events processed
+Run: 58703 Event: 269495
+54400000 events processed
+Run: 58707 Event: 85108
+Run: 58707 Event: 85108
+54500000 events processed
+Run: 58931 Event: 91752
+54600000 events processed
+Run: 58933 Event: 21480
+54700000 events processed
+Run: 58941 Event: 45974
+54800000 events processed
+Run: 58723 Event: 7598
+54900000 events processed
+55000000 events processed
+Run: 58725 Event: 289843
+55100000 events processed
+55200000 events processed
+Run: 58734 Event: 127164
+Run: 58734 Event: 136840
+Run: 58734 Event: 136840
+Run: 58734 Event: 164793
+55300000 events processed
+55400000 events processed
+Run: 58737 Event: 159129
+Run: 58748 Event: 938
+Run: 58751 Event: 26004
+55500000 events processed
+Run: 58754 Event: 153461
+55600000 events processed
+Run: 58759 Event: 12166
+55700000 events processed
+Run: 58765 Event: 20353
+55800000 events processed
+55900000 events processed
+Run: 58781 Event: 65857
+Run: 58782 Event: 21954
+56000000 events processed
+56100000 events processed
+56200000 events processed
+Run: 58799 Event: 24672
+Run: 58799 Event: 30610
+Run: 58799 Event: 70501
+Run: 58799 Event: 70883
+56300000 events processed
+Run: 58803 Event: 50933
+Run: 58803 Event: 50933
+Run: 58811 Event: 41030
+56400000 events processed
+Run: 58816 Event: 145114
+Run: 58816 Event: 175767
+56500000 events processed
+Run: 58829 Event: 30501
+56600000 events processed
+56700000 events processed
+Run: 58838 Event: 211455
+Run: 58838 Event: 211455
+Run: 58844 Event: 68622
+56800000 events processed
+56900000 events processed
+57000000 events processed
+57100000 events processed
+57200000 events processed
+Run: 58992 Event: 58872
+57300000 events processed
+57400000 events processed
+Run: 58998 Event: 76034
+57500000 events processed
+57600000 events processed
+Run: 59000 Event: 19481
+57700000 events processed
+Run: 59015 Event: 120260
+57800000 events processed
+Run: 59016 Event: 112318
+57900000 events processed
+Run: 59027 Event: 41741
+58000000 events processed
+Run: 59027 Event: 277696
+58100000 events processed
+Run: 59038 Event: 67670
+58200000 events processed
+58300000 events processed
+Run: 59040 Event: 146977
+Run: 59040 Event: 152875
+58400000 events processed
+58500000 events processed
+Run: 59075 Event: 259
+58600000 events processed
+Run: 59075 Event: 111309
+58700000 events processed
+Run: 59097 Event: 33869
+Run: 59101 Event: 19327
+58800000 events processed
+Run: 59106 Event: 225824
+58900000 events processed
+59000000 events processed
+59100000 events processed
+Run: 59117 Event: 93496
+Run: 59117 Event: 121206
+59200000 events processed
+Run: 59117 Event: 157665
+Run: 59118 Event: 3935
+Run: 59118 Event: 3935
+Run: 59119 Event: 45228
+Run: 59120 Event: 31607
+59300000 events processed
+59400000 events processed
+Run: 59130 Event: 190770
+59500000 events processed
+Run: 59132 Event: 74396
+Run: 59132 Event: 77971
+59600000 events processed
+59700000 events processed
+59800000 events processed
+Run: 59141 Event: 39151
+59900000 events processed
+60000000 events processed
+60100000 events processed
+Run: 59150 Event: 16748
+Run: 59151 Event: 14604
+60200000 events processed
+Run: 59151 Event: 111430
+Run: 59153 Event: 88436
+60300000 events processed
+Run: 59165 Event: 4381
+Run: 59165 Event: 19069
+60400000 events processed
+60500000 events processed
+60600000 events processed
+Run: 59520 Event: 60182
+60700000 events processed
+Run: 59520 Event: 150422
+Run: 59528 Event: 26985
+Run: 59528 Event: 26985
+60800000 events processed
+60900000 events processed
+Run: 59538 Event: 21628
+Run: 59538 Event: 22769
+Run: 59539 Event: 2310
+Run: 59539 Event: 36811
+61000000 events processed
+61100000 events processed
+61200000 events processed
+Run: 59548 Event: 15807
+Run: 59549 Event: 77554
+Run: 59549 Event: 87174
+61300000 events processed
+61400000 events processed
+Run: 59553 Event: 21753
+61500000 events processed
+61600000 events processed
+Run: 59557 Event: 120093
+61700000 events processed
+61800000 events processed
+Run: 59562 Event: 66777
+61900000 events processed
+Run: 59577 Event: 48388
+Run: 59577 Event: 154725
+Run: 59577 Event: 154725
+62000000 events processed
+Run: 59579 Event: 70681
+Run: 59579 Event: 99197
+62100000 events processed
+Run: 59586 Event: 26610
+Run: 59587 Event: 47936
+62200000 events processed
+62300000 events processed
+Run: 59596 Event: 70636
+62400000 events processed
+Run: 59598 Event: 63458
+62500000 events processed
+62600000 events processed
+62700000 events processed
+Run: 59610 Event: 4571
+Run: 59610 Event: 4571
+Run: 59610 Event: 4571
+62800000 events processed
+62900000 events processed
+Run: 59615 Event: 59271
+Run: 59615 Event: 152383
+63000000 events processed
+Run: 59622 Event: 13616
+63100000 events processed
+Run: 59622 Event: 116892
+Run: 59622 Event: 152232
+63200000 events processed
+Run: 59623 Event: 160331
+63300000 events processed
+63400000 events processed
+Run: 59649 Event: 19546
+63500000 events processed
+Run: 59651 Event: 57010
+Run: 59651 Event: 57010
+Run: 59653 Event: 109213
+63600000 events processed
+Run: 59655 Event: 56699
+63700000 events processed
+Run: 59658 Event: 124782
+63800000 events processed
+63900000 events processed
+64000000 events processed
+64100000 events processed
+Run: 59672 Event: 13051
+Run: 59680 Event: 2409
+64200000 events processed
+Run: 59682 Event: 93656
+64300000 events processed
+Run: 59174 Event: 5549
+Run: 59177 Event: 81254
+64400000 events processed
+64500000 events processed
+Run: 59188 Event: 13423
+Run: 59188 Event: 13423
+64600000 events processed
+64700000 events processed
+Run: 59696 Event: 77744
+64800000 events processed
+Run: 59696 Event: 99192
+Run: 59696 Event: 151102
+Run: 59696 Event: 153274
+64900000 events processed
+65000000 events processed
+Run: 59720 Event: 205220
+Run: 59722 Event: 3086
+Run: 59722 Event: 3086
+Run: 59723 Event: 4085
+Run: 59727 Event: 16632
+65100000 events processed
+Run: 59728 Event: 123076
+Run: 59728 Event: 195416
+65200000 events processed
+65300000 events processed
+65400000 events processed
+Run: 59739 Event: 5798
+65500000 events processed
+Run: 59741 Event: 55986
+Run: 59741 Event: 73784
+Run: 59741 Event: 91333
+Run: 59742 Event: 10977
+Run: 59742 Event: 37558
+65600000 events processed
+65700000 events processed
+Run: 59756 Event: 112674
+65800000 events processed
+65900000 events processed
+66000000 events processed
+66100000 events processed
+66200000 events processed
+Run: 59781 Event: 158254
+66300000 events processed
+Run: 59788 Event: 62779
+Run: 59788 Event: 90933
+Run: 59788 Event: 90933
+Run: 59795 Event: 83151
+66400000 events processed
+Run: 59796 Event: 116188
+Run: 59797 Event: 9029
+Run: 59809 Event: 2567
+Run: 59809 Event: 2567
+66500000 events processed
+66600000 events processed
+Run: 59837 Event: 16348
+Run: 59841 Event: 21810
+66700000 events processed
+Run: 59844 Event: 37555
+66800000 events processed
+66900000 events processed
+Run: 59855 Event: 25393
+67000000 events processed
+Run: 59855 Event: 113174
+Run: 59857 Event: 48971
+Run: 59857 Event: 94085
+67100000 events processed
+Run: 59861 Event: 67895
+Run: 59861 Event: 170871
+67200000 events processed
+Run: 59862 Event: 89401
+Run: 59865 Event: 43498
+67300000 events processed
+Run: 59871 Event: 146224
+67400000 events processed
+Run: 59882 Event: 9346
+67500000 events processed
+67600000 events processed
+Run: 59204 Event: 197167
+Run: 59204 Event: 197167
+67700000 events processed
+67800000 events processed
+Run: 59213 Event: 31969
+67900000 events processed
+Run: 59214 Event: 26749
+Run: 59221 Event: 2449
+68000000 events processed
+Run: 59227 Event: 52898
+68100000 events processed
+Run: 59227 Event: 92080
+Run: 59227 Event: 194505
+68200000 events processed
+Run: 59233 Event: 4047
+Run: 59233 Event: 65026
+68300000 events processed
+68400000 events processed
+Run: 59296 Event: 95330
+68500000 events processed
+68600000 events processed
+68700000 events processed
+Run: 59316 Event: 196094
+68800000 events processed
+68900000 events processed
+Run: 59321 Event: 38114
+Run: 59328 Event: 129509
+69000000 events processed
+Run: 59329 Event: 56467
+69100000 events processed
+69200000 events processed
+Run: 59331 Event: 102962
+69300000 events processed
+Run: 59362 Event: 82001
+Run: 59363 Event: 33789
+69400000 events processed
+Run: 59370 Event: 175594
+69500000 events processed
+Run: 59371 Event: 26955
+Run: 59371 Event: 83476
+Run: 59371 Event: 83476
+Run: 59377 Event: 26885
+69600000 events processed
+Run: 59379 Event: 4452
+69700000 events processed
+Run: 59383 Event: 43800
+69800000 events processed
+Run: 59442 Event: 18394
+Run: 59442 Event: 50483
+Run: 59442 Event: 62768
+69900000 events processed
+Run: 59442 Event: 208373
+70000000 events processed
+Run: 59448 Event: 160763
+Run: 59449 Event: 5077
+Run: 59456 Event: 37722
+70100000 events processed
+70200000 events processed
+Run: 59900 Event: 56658
+70300000 events processed
+Run: 59907 Event: 196168
+70400000 events processed
+Run: 59908 Event: 134159
+70500000 events processed
+Run: 59922 Event: 71168
+70600000 events processed
+70700000 events processed
+70800000 events processed
+Run: 59943 Event: 24093
+70900000 events processed
+71000000 events processed
+Run: 49469 Event: 85799
+Run: 49472 Event: 28078
+71100000 events processed
+71200000 events processed
+71300000 events processed
+71400000 events processed
+Run: 49519 Event: 61523
+Run: 49520 Event: 743
+71500000 events processed
+71600000 events processed
+Run: 48193 Event: 9834
+Run: 48194 Event: 32936
+71700000 events processed
+Run: 48210 Event: 16296
+71800000 events processed
+71900000 events processed
+Run: 48262 Event: 6659
+Run: 48265 Event: 8050
+72000000 events processed
+72100000 events processed
+Run: 48314 Event: 47128
+72200000 events processed
+Run: 48319 Event: 22066
+72300000 events processed
+Run: 48354 Event: 999
+Run: 48424 Event: 34094
+72400000 events processed
+72500000 events processed
+72600000 events processed
+Run: 48489 Event: 26889
+72700000 events processed
+72800000 events processed
+Run: 48607 Event: 37956
+72900000 events processed
+73000000 events processed
+Run: 48643 Event: 85041
+73100000 events processed
+Run: 47196 Event: 29032
+73200000 events processed
+Run: 48707 Event: 4620
+73300000 events processed
+73400000 events processed
+73500000 events processed
+Run: 48781 Event: 12191
+73600000 events processed
+Run: 48808 Event: 9961
+Run: 48809 Event: 10370
+73700000 events processed
+73800000 events processed
+73900000 events processed
+Run: 48890 Event: 642
+74000000 events processed
+Run: 48910 Event: 16109
+Run: 48910 Event: 25663
+74100000 events processed
+Run: 48915 Event: 11159
+Run: 48917 Event: 33208
+74200000 events processed
+74300000 events processed
+74400000 events processed
+74500000 events processed
+74600000 events processed
+Run: 49175 Event: 27761
+Run: 49190 Event: 12446
+74700000 events processed
+Run: 49191 Event: 2153
+Run: 49191 Event: 8057
+Run: 49227 Event: 47746
+74800000 events processed
+74900000 events processed
+75000000 events processed
+Run: 49288 Event: 2954
+Run: 49548 Event: 51336
+75100000 events processed
+Run: 49553 Event: 22160
+Run: 49570 Event: 11596
+Run: 49598 Event: 16479
+75200000 events processed
+75300000 events processed
+Run: 49637 Event: 9353
+75400000 events processed
+Run: 49302 Event: 13736
+75500000 events processed
+Run: 49373 Event: 15832
+Run: 49379 Event: 15583
+Run: 49400 Event: 4389
+75600000 events processed
+Run: 49402 Event: 2685
+75700000 events processed
+Run: 49431 Event: 69062
+75800000 events processed
+Run: 49651 Event: 16318
+75900000 events processed
+Run: 49674 Event: 119742
+76000000 events processed
+76100000 events processed
+Run: 49688 Event: 12370
+76200000 events processed
+Run: 49718 Event: 21294
+Run: 49719 Event: 15499
+76300000 events processed
+Run: 49744 Event: 6098
+Run: 49744 Event: 6098
+Run: 49750 Event: 15503
+76400000 events processed
+Run: 49751 Event: 26876
+Run: 49751 Event: 30741
+76500000 events processed
+Run: 49767 Event: 34560
+Run: 49781 Event: 10556
+76600000 events processed
+Run: 49783 Event: 17279
+Run: 49783 Event: 31398
+Run: 49785 Event: 4419
+76700000 events processed
+76800000 events processed
+Run: 47395 Event: 3091
+76900000 events processed
+77000000 events processed
+77100000 events processed
+Run: 47629 Event: 7099
+Run: 47632 Event: 24629
+77200000 events processed
+77300000 events processed
+Run: 47690 Event: 7411
+77400000 events processed
+77500000 events processed
+Run: 47834 Event: 29171
+Run: 47856 Event: 27616
+Run: 47856 Event: 27616
+Run: 47856 Event: 27616
+77600000 events processed
+77700000 events processed
+77800000 events processed
+77900000 events processed
+Run: 48116 Event: 1931
+78000000 events processed
+78100000 events processed
+78200000 events processed
+78300000 events processed
+Run: 49799 Event: 46741
+Run: 49804 Event: 9075
+78400000 events processed
+78500000 events processed
+78600000 events processed
+Run: 49886 Event: 9684
+78700000 events processed
+Run: 49891 Event: 14724
+78800000 events processed
+Run: 49917 Event: 10765
+Run: 49920 Event: 21706
+Run: 49921 Event: 10871
+78900000 events processed
+Run: 50442 Event: 16415
+Run: 50442 Event: 16415
+79000000 events processed
+Run: 50448 Event: 13927
+79100000 events processed
+Run: 50469 Event: 440
+79200000 events processed
+Run: 50472 Event: 20353
+Run: 50479 Event: 20801
+79300000 events processed
+79400000 events processed
+Run: 50488 Event: 25736
+79500000 events processed
+Run: 50488 Event: 162560
+Run: 50548 Event: 4768
+Run: 50558 Event: 12465
+79600000 events processed
+79700000 events processed
+Run: 50573 Event: 64688
+Run: 50573 Event: 145006
+79800000 events processed
+Run: 50583 Event: 14551
+79900000 events processed
+80000000 events processed
+Run: 50591 Event: 42639
+Run: 50596 Event: 117242
+80100000 events processed
+Run: 50610 Event: 115
+80200000 events processed
+Run: 50614 Event: 26232
+Run: 50631 Event: 93042
+80300000 events processed
+80400000 events processed
+80500000 events processed
+80600000 events processed
+Run: 50652 Event: 11252
+Run: 50652 Event: 21058
+Run: 50652 Event: 35631
+80700000 events processed
+80800000 events processed
+Run: 50705 Event: 2031
+80900000 events processed
+Run: 50727 Event: 57448
+81000000 events processed
+Run: 50728 Event: 86
+Run: 50728 Event: 86
+81100000 events processed
+81200000 events processed
+Run: 50746 Event: 17305
+Run: 50746 Event: 20786
+Run: 50746 Event: 20786
+Run: 50754 Event: 39536
+81300000 events processed
+Run: 50782 Event: 4362
+81400000 events processed
+Run: 50786 Event: 2416
+Run: 50799 Event: 14091
+81500000 events processed
+Run: 50817 Event: 13457
+81600000 events processed
+81700000 events processed
+Run: 50843 Event: 6272
+Run: 50843 Event: 52912
+81800000 events processed
+81900000 events processed
+Run: 50853 Event: 42083
+82000000 events processed
+82100000 events processed
+82200000 events processed
+Run: 50926 Event: 119248
+82300000 events processed
+82400000 events processed
+Run: 50955 Event: 21064
+Run: 50955 Event: 134271
+82500000 events processed
+Run: 50957 Event: 28993
+82600000 events processed
+82700000 events processed
+Run: 49948 Event: 1106
+82800000 events processed
+82900000 events processed
+Run: 49987 Event: 2053
+Run: 49987 Event: 54849
+83000000 events processed
+Run: 50005 Event: 22380
+83100000 events processed
+83200000 events processed
+Run: 51004 Event: 79775
+83300000 events processed
+83400000 events processed
+Run: 51041 Event: 52311
+Run: 51041 Event: 52311
+83500000 events processed
+Run: 51043 Event: 142280
+83600000 events processed
+83700000 events processed
+Run: 51062 Event: 249
+Run: 51062 Event: 3567
+Run: 51064 Event: 16163
+Run: 51065 Event: 78983
+83800000 events processed
+Run: 51076 Event: 53604
+83900000 events processed
+Run: 51077 Event: 30972
+Run: 51077 Event: 37780
+Run: 51078 Event: 153141
+84000000 events processed
+Run: 51078 Event: 240213
+84100000 events processed
+84200000 events processed
+84300000 events processed
+Run: 51120 Event: 44571
+Run: 51120 Event: 46689
+Run: 51126 Event: 2794
+Run: 51127 Event: 11417
+84400000 events processed
+84500000 events processed
+Run: 51138 Event: 110314
+84600000 events processed
+Run: 51142 Event: 102362
+Run: 51142 Event: 149101
+Run: 51142 Event: 157274
+Run: 51143 Event: 86373
+84700000 events processed
+Run: 51144 Event: 2092
+Run: 51144 Event: 33428
+Run: 51146 Event: 20585
+Run: 51146 Event: 114751
+84800000 events processed
+Run: 51146 Event: 126165
+Run: 51146 Event: 162322
+Run: 51186 Event: 33467
+84900000 events processed
+Run: 51220 Event: 3227
+Run: 51226 Event: 14453
+85000000 events processed
+Run: 51238 Event: 35129
+85100000 events processed
+Run: 50021 Event: 7378
+Run: 50023 Event: 24798
+85200000 events processed
+85300000 events processed
+Run: 50051 Event: 10377
+85400000 events processed
+Run: 50075 Event: 47993
+Run: 50078 Event: 5474
+85500000 events processed
+Run: 50097 Event: 31502
+85600000 events processed
+85700000 events processed
+Run: 50163 Event: 1546
+Run: 50170 Event: 18372
+85800000 events processed
+85900000 events processed
+Run: 50204 Event: 37687
+Run: 50205 Event: 16639
+86000000 events processed
+Run: 50222 Event: 14196
+Run: 50224 Event: 5625
+86100000 events processed
+86200000 events processed
+86300000 events processed
+86400000 events processed
+86500000 events processed
+86600000 events processed
+Run: 50299 Event: 104391
+86700000 events processed
+86800000 events processed
+Run: 50324 Event: 28297
+86900000 events processed
+87000000 events processed
+Run: 50343 Event: 42371
+87100000 events processed
+Run: 50352 Event: 44338
+87200000 events processed
+Run: 50359 Event: 10708
+87300000 events processed
+Run: 50367 Event: 9592
+Run: 50372 Event: 22945
+Run: 50376 Event: 11832
+87400000 events processed
+87500000 events processed
+Bin 0 : 0
+Bin 1 : 0
+Bin 2 : 1.67772e+07
+Bin 3 : 1.67772e+07
+Bin 4 : 1.67772e+07
+Bin 5 : 1.67772e+07
+Bin 6 : 1.67772e+07
+Bin 7 : 1.67772e+07
+Bin 8 : 1.67772e+07
+Bin 9 : 1.67772e+07
+Bin 10 : 1.67772e+07
+Bin 11 : 1.67772e+07
+1.65513e+08 1.65513e+08 1.53981e+08 5.46929e+07
+0 errors
+HERAII_4kaons.root created
+OK
+./$1  965.43s user 57.46s system 72% cpu 23:24.85 total
++ exit 0

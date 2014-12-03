@@ -1,0 +1,1533 @@
+macro makeplots  plots=0 data=0 comb=1 kl=0 theo=15 old=0 nd=156 np=52 nk=52 no=31 doz=1
+
+opt tic
+color 3 .2 .6 .2 
+color 5 .8 .85 .0
+
+ color 8 0.4 0.6 0.9
+ color 9 0.9 0.6 0.4
+ color 10 0.1 0.5 0.7
+ color 11 0.5 0.2 0.7
+ color 12 0.9 0.2 0.1
+ color 13 0.6 0.8 0.7
+
+sym10=26 
+sym11=27
+sym12=28
+sym13=29
+sym4=21
+sym2=22
+sym6=23
+sym8=24
+sym9=25
+
+shi10=-.05
+shi11=-.05
+shi12=-.1
+shi13=-.1
+shi4=+.1
+shi2=+.075
+shi6=+.075
+shi8=+.05
+shi9=+.05
+
+v/crea xxx([np])
+v/crea xxxk([np])
+v/crea qqq([np])
+v/crea qqqk([np])
+
+v/cre  zk([np]) r
+v/cre  zke([np]) r
+
+
+
+set mscf .3
+set ksiz .3
+
+SET *FON -60 
+set txfp -60
+*set txfp -50
+*set tfon
+***set chhe .5
+set chhe .4
+set csiz 0.4
+
+if [data]=0 then
+ title 'ZEUS'
+endif
+
+
+opt nbox
+*opt ntic
+set *wid 3
+set pass 2
+
+
+set ysiz 25
+set xsiz 25
+*set xmgl 2.5
+*set ymgl 2.5
+
+
+set xwin 0.0001
+set ywin 0.0001
+*set vsiz 0.0001
+set vsiz
+set asiz .8
+
+exec h1style
+
+
+* reads data points
+
+if ([comb]<2) then
+
+  *datafile=111102_uncor3_syst10_s0_mcmc/table.txt
+  *datafile=111115_uncor10_syst10_mode/table.txt
+  *datafile=111130_uncor10_syst10_mode/table.txt
+
+   datafile=dstarhera2_forplot.dat
+*   sh source strip_table.sh [datafile]
+
+   v/read q2,x,v,e0,e1,e2,e3,e4  [datafile]
+   sigma e=e0*v/100
+   sigma esm=sqrt(e0**2+e1**2)*v/100
+   sigma esp=sqrt(e0**2+e2**2)*v/100
+   sigma etm=sqrt(e0**2+e1**2+e3**2)*v/100
+   sigma etp=sqrt(e0**2+e2**2+e4**2)*v/100
+   nz=$vdim(e)
+
+else
+   v/read q2,x,y,v,es,ec,e kl_paper_v3.out
+endif
+
+* reads results by KL
+if [kl]>0 then
+* v/read kq,kx,ky,kv,ke,kec,ket kl_paper_v2.out
+ v/read kq,kx,ky,kv,ke,kec,ket kl_paper_v3_ucost.out
+ sigma tpp=ket
+ sigma tpm=ket
+
+ v/write kv,ket,p1,p2,tpp,tpm ! 6f10.5
+ *sigma kxs=kx*1.05
+sigma kxs=kx*1.00
+endif
+
+v/crea qq(12) r 2.5 5 7 12 18 32 60 120 200 350 650 2000
+
+* READ D+
+v/read dpq2,dpx,dpv,dpe0,dpsp,dpsm,dptp,dptm dplus.dat
+sigma dpp=sqrt(dpe0**2+dpsp**2+dptp**2)
+sigma dpm=sqrt(dpe0**2+dpsm**2+dptm**2)
+
+*** define the x at which data are displayed
+*sigma st=int((xi+0.04)*10-int(xi+0.04)*10)
+*sigma sx=int((xi*10-int(xi)*10)/3)
+*sigma xds=xd*(1.03+0.03*st)
+*sigma xds=xd*(0.95+0.1*sx)
+
+if [plots]=0 then
+ *f/fil 80 plotz.[data].[comb].[kl].[theo].eps
+ *meta 80 -111
+ f/fil 80 plotz.[data].[comb].[kl].[theo].eps
+ meta 80 -113
+ 
+endif
+
+if [data]>0 then
+ set ywin 0.8
+ set yval 0.1
+ set ymgu 0.4
+endif
+
+opt logx
+if [plots]=0 then
+mess QUQUA
+
+ if [doz]=0 then
+ zone 3 4
+ else
+ zone 3 3
+ endif
+else
+ zone 1 1
+endif
+
+v/crea z(100) r
+
+ ii=0
+ iik=0
+
+first=1
+
+k=0
+do i=1,12
+ opt tic
+ qbox=qq([i])
+ if (([doz]=0).or.(([qbox]>5).and.([qbox]<650)).or.([i]=11)) then
+  if (([doz]>0).and.([i]=11)) then
+   qbox=-1
+   opt ntic
+  endif
+  k=[k]+1
+  if [plots]=0 then
+   if [data]>0 then
+     exec dobox3 [i] [qbox] [theo]
+   else
+     exec doboxz [k] [theo]
+   endif
+  else
+   exec dobox2
+  endif
+** THEORY
+ if [theo]>0 then
+   exec theory [qbox] [theo] [first]
+ endif
+
+
+** DATA
+ if [data]>0 then
+  mess 'plotting old data'
+  mess q2=[qbox]
+  do j=1,[nd]
+   qdat=qd([j])
+   if [qdat]=[qbox] then
+*     xset=st([j])+1
+     if [j]<26 then
+      xset=10
+     elseif [j]<34 then
+      xset=4
+     elseif [j]<60 then
+      xset=12
+     elseif ([j]<69) then
+      xset=2
+     elseif ([j]<78) then
+      xset=6
+     elseif ([j]<109) then
+      xset=8
+     elseif ([j]<130) then
+      xset=9
+     elseif ([j]<140) then
+      xset=13
+     else
+      xset=11
+     endif
+
+     set *col [xset]
+     set pmci [xset]
+     mess color=[xset] symbol=[sym[xset]]
+*     if ([j]>108) then
+*       dsymb=5
+*     elseif ([j]>69).and.([j]<78) then
+*       dsymb=3
+*     else
+*       dsymb=24
+*     endif
+     sigma xds=xd*(1+[shi[xset]])
+     gra/hplo/erro xds([j]) d([j]) z ed([j]) 1 [sym[xset]] .2 1
+     gra/hplo/aerrors xds([j]) d([j]) z z edm([j]) edp([j]) 1 [sym[xset]] .2 
+     v/write  xds([j]),d([j]) ! 2f8.3
+   endif
+  enddo
+ endif
+
+
+*** COMB
+ if [kl]>0 then
+  mess 'plotting h1zeus combined data' 
+  if [comb]>0 then
+   set pmci 2
+   set *col 2
+  else
+   set *col 1
+   set pmci 1
+  endif
+  do j=1,[nk]
+   qtmp=kq([j])
+   if [qtmp]=[qbox] then
+     gra/hplo/erro  kxs([j]) kv([j]) z    ke([j])          1 24 .25  1	
+     gra/hplo/aerro kxs([j]) kv([j]) z z tpm([j]) tpp([j]) 1 24 .25
+     iik=[iik]+1
+     v/copy kx([j]) xxxk([iik])
+     v/inp qqqk([iik]) [qbox]
+   endif
+  enddo
+ endif
+
+** ZEUS
+* if [comb]>0 then
+*  mess 'plotting new zeus D+' 
+*  set *col 4
+*  set pmci 4
+*  do j=1,14
+*   qtmp=dpq2([j])
+*   if [qtmp]=[qbox] then
+*      gra/hplo/error dpx([j]) dpv([j])  z   dpe0([j]) 1 25 .25 1
+*      gra/hplo/aerror dpx([j]) dpv([j]) z z dpm([j]) dpp([j]) 1 25 .25 
+*     ii=[ii]+1
+*   endif
+*  enddo
+* endif
+
+
+** ZEUS
+ if [comb]>0 then
+  mess 'plotting new zeus D*' 
+  set *col 1
+  set pmci 1
+  do j=1,[nz]
+   qtmp=q2([j])
+   if [qtmp]=[qbox] then
+      gra/hplo/aerror x([j]) v([j])  z  z esm([j]) esp([j]) 1 20 .22 1
+      gra/hplo/aerror x([j]) v([j])  z  z etm([j]) etp([j]) 1 20 .22  
+     ii=[ii]+1
+     * mess [ii]
+     v/copy x([j]) xxx([ii])
+     v/inp qqq([ii]) [qbox]
+   endif
+  enddo
+ endif
+
+
+** OLD
+ if [old]>0 then
+  set *col 4
+  set pmci 4
+  do j=1,[no]
+   qo=q2([j])
+   if [qo]=[qbox] then
+     gra/hplo/erro ox([j]) ov([j]) z oe([j]) 1 20 .15
+   endif
+  enddo
+ endif
+ set *col
+ set *pmci
+
+ SET TXFP -60                          
+ SET CHHE .4
+
+if [doz]=0 then
+ if [data]=0 then
+  if [i]=1 then
+   itx   .001 .25 'Q^2!='
+   itx   .004 .25 [qbox]
+   itx   .014 .25 'GeV^2!'
+  elseif [i]<4 then
+   itx   .001 .25 'Q^2!='
+   itx   .004 .25 [qbox]
+   itx   .008 .25 'GeV^2!'
+  elseif [i]<8 then
+   itx   .001 .5 'Q^2!='
+   itx   .004 .5 [qbox]
+   itx   .010 .5 'GeV^2!'
+  elseif [i]<10 then
+   itx   .0008 .5 'Q^2!='
+   itx   .003 .5 [qbox]
+   itx   .012 .5 'GeV^2!'
+  elseif [i]<12 then
+   itx   .00004 .25 'Q^2!='
+   itx   .00015 .25 [qbox]
+   itx   .0006 .25 'GeV^2!'
+  else
+   itx   .000025 .25 'Q^2!='
+   itx   .0001 .25 [qbox]
+   itx   .0006  .25 'GeV^2!'
+  endif
+ endif
+else
+  if [k]=1 then
+   itx   .0013 .43 'Q^2!='
+   itx   .004 .43 [qbox]
+   itx   .0075 .43 'GeV^2!'
+  elseif [k]<6 then
+   itx   .0013 .43 'Q^2!='
+   itx   .004 .43 [qbox]
+   itx   .010 .43 'GeV^2!'
+  elseif [k]<9 then
+   itx   .001 .43 'Q^2!='
+   itx   .003 .43 [qbox]
+   itx   .010 .43 'GeV^2!'
+  endif
+
+endif
+
+
+ if (([qbox]=2000).or.([qbox]=-1)) then
+  if (([theo]=1).and.([comb]>0)) then
+   set plci 4
+   set ltyp 1
+   key .0001 .45  6 'MSTW08 NNLO' ! w 
+   set plci 4
+   set ltyp 2
+   key .0001 .4  6 'MSTW08 NLO' ! w 
+   set plci 3
+   set ltyp 1
+   key .0001 .35  8 'CTEQ 6.6' ! w
+   set plci 3
+   set ltyp 1
+   key .0001 .3  6 'GJR08' ! w
+   set plci 2
+   set ltyp 1
+   key .0001 .25  6 'ABKM BMSN' ! w
+   set ltyp 2
+   key .0001 .2  6 'ABKM FFNS NLO' ! w
+   set ltyp 3
+   key .0001 .15  6 'ABKM FFNS NNLO' ! w
+  endif
+
+
+ if ([theo]=5) then
+   set ltyp 1
+   set plci 7
+   set csiz .25
+   key .00008 .22 7  'MSTW08 NLO' ! f
+   set plci 6
+   set ltyp 1
+   key .00008 .22 3  '' ! W
+   set ltyp 2 
+   key .00008 .175 3  'MSTW08 NLO opt' ! W
+   set csiz
+ endif
+ if (([theo]=6).or.([theo]=12)) then
+   set ltyp 1
+   set plci 7
+   set csiz .33
+   set plci 6
+   set ltyp 1
+   key .00008 .25 3  'MSTW08 NNLO std' ! W
+   set ltyp 2 
+   key .00008 .20 3  'MSTW08 NNLO opt' ! W
+   set ltyp
+   key .00008 .15 7  'pdf uncertainty' ! f
+   set csiz
+ endif
+ if ([theo]=8) then
+   set plci 2
+   set ltyp 1
+   key .00005 .22  6 'Herapdf1.0 rt' ! w
+ endif
+ if ([theo]=9) then
+   set plci 5
+   set ltyp 1
+   set csiz .25
+   key .00008 .22  5 'NNPDF2.1 NLO FONLL-b' ! f
+   set plci 
+   key .00008 .22  3 '' ! w
+   set ltyp 2
+   key .00008 .175  3 'NNPDF2.1 NLO FONLL-a' ! w
+   set csiz
+   set ltyp
+ endif
+ if ([theo]=10) then
+   set plci 5
+   set ltyp 1
+   key .00005 .22  6 'nnpdf2.1 nlo fonll-b' ! w
+ endif
+ if (([theo]=11).or.([theo]=12)) then
+   set plci 4
+   set ltyp 2
+   set hcol 4
+   set *col 4
+   set csiz .33
+   set faci 4
+   key .00008 .08 354 'NNPDF2.1 FONLL-c' ! h
+   set ltyp 2
+   set faci
+*   key .00008 .08  3 '' ! w
+   set csiz
+ endif
+ if ([theo]=20) then
+   set plci 
+   set csiz .35
+   set plci 4
+   itx .0002  .25 Hvqdis
+   key .00008 .20  4 'HERAPDF1.0 FFNS' ! w
+   key .00008 .15  7 'scale uncertainty' ! f
+   key .00008 .10  5 'mass + scale unc.' ! f
+   set ltyp 2
+   set plci 2
+   key .00008 .05  4 'MSTW08 FFNS' ! w
+   set plci
+   set ltyp
+ endif
+ if ([theo]=15) then
+  * set csiz .35
+   set csiz .4 	
+   set plci 
+   set ksiz 0.0001
+   key .00003 .26  0 'HERAPDF1.5 NLO'    ! p
+   set ksiz 
+   set csiz .35
+   key .00008 .20  5 'm?c!=1.5 GeV' ! w
+
+  * key .00018 .20  0 'm?c!=1.5"A#0.15GeV' ! p
+
+   key .00008 .15  5 'total uncertainty' ! f   
+   key .00008 .10  3 'excluding m?c!' ! f
+   *key .00008 .05  3 'exp.' ! f 
+   set plci
+ endif
+    set ksiz .3
+*    set *wid .5
+*    set lwid .5
+    
+    set csiz .4
+    set pmci 1
+**    key .00004 .38 20 'ZEUS D* 363 pb^-1!' .2 p
+    key .00004 .34 20 'ZEUS D* 363 pb^-1!' .2 p
+    *set pmci 4
+    *key .00004 .38 21 'ZEUS D^+! 354 pb^-1!' .2 p
+    *set pmci 0
+    *set ksiz .2
+    *key .00004 .38 21 '' .2 p
+    set plci
+    set pmci
+    if [kl]>0 then
+      set pmci 2
+      set ksiz .3
+      key .00004 .32 20 'HERA' .2 p
+      set pmci 0
+      set ksiz .2
+      key .00004 .32 20 '' .2 p
+      set plci
+      set pmci
+    endif
+   set csiz
+
+
+ endif
+
+
+ first=0
+
+endif
+enddo
+close 80
+**********************
+wait
+
+
+if [kl]>0 then
+ do i=1,[np]
+  tmpq=q2([i])
+  tmpx=x([i])
+  do j=1,[nk]
+   if ((kq([j])=[tmpq]).and.(kx([j])=[tmpx])) then
+     v/inp zk([i]) kv([j])
+     v/inp zke([i]) ket([j])
+   endif
+  enddo
+ enddo
+endif
+
+if [plots]=0 then
+exec dobox 12 [theo]
+
+ if [data]>0 then
+
+  v/crea x24(10) r 10*.0001  
+  v/crea y24(10) r  .55 .5 .44 .38  .32  .26 .20  .14  .08 0.02
+
+  key .0001  .58 20 'HERA  (prel.)' .0 p 
+
+* h1 d*(hera2)  10
+  set pmci 10
+  gra/hplo/error x24(2) y24(2) z z 1 [sym10] 
+  key .0001  .50 [sym10] 'H1 D* HERA II (prel.)' .0 p
+
+
+* h1 d*(hera1)  11
+  set pmci 11
+  gra/hplo/error x24(3) y24(3) z z 1 [sym11]
+  key .0001  .44  [sym11] 'H1 D* HERA I' .0 p
+
+
+* h1 vtx(hera2) 12 
+  set pmci 12
+  gra/hplo/error x24(4) y24(4) z z 1 [sym12] 
+  key .0001  .38 [sym12] 'H1 LTT HERA II (prel.)' .0 p
+
+* h1 vtx(hera1) 13
+  set pmci 13
+  gra/hplo/error x24(5) y24(5) z z 1 [sym13] 
+  key .0001  .32   [sym13] 'H1 LTT HERA I' .0 p
+
+
+
+* zeus mu       4
+  set pmci 4
+  gra/hplo/error x24(6) y24(6) z z 1 [sym4] 
+  key .0001  .26 [sym4] 'ZEUS [m] 05' .0 p
+
+* zeus d+       2
+  set pmci 2
+  gra/hplo/error x24(7) y24(7) z z 1 [sym2] 
+  key .0001  .2 [sym2] 'ZEUS D^+! 05' .0 p
+
+* zeus d0       6
+  set pmci 6
+  gra/hplo/error x24(8) y24(8) z z 1 [sym6] 
+  key .0001  .14 [sym6] 'ZEUS D^0! 05' .0 p
+
+* zeus d*       8
+  set pmci 8
+  gra/hplo/error x24(9) y24(9) z z 1 [sym8] 
+  key .0001  0.08 [sym8] 'ZEUS D* 99-00' .0 p
+
+
+* zeus d*9697   9
+  set pmci 9
+  gra/hplo/error x24(10) y24(10) z z 1 [sym9]
+  key .0001  0.02     [sym9] 'ZEUS D* 96-97' .0 p
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ endif
+
+ if [comb]>0 then
+  set pmci 
+  key .0001 .5 20 'MC' .0 p
+ endif
+
+ if [kl]>0 then
+  if [comb]=0 then
+   set pmci 
+*   if [data]=0 then
+*   endif
+  else
+   set pmci 2
+   key .0001 .55 20 'h1zeus combination' .0 p
+  endif
+ endif
+
+  if (([theo]>0).and.([comb]=0).and.([kl]=1)) then
+   if [theo]=3 then
+    key .0001 .35 20 'HERA (prel.)' .0 p
+    set plci 3
+    set ltyp 1
+    key .0001  .2   6 'GJR08 FFNS' ! w
+    set plci 2
+    set ltyp 2
+    key .0001 .1  6 'ABKM FFNS NLO' ! w
+    set ltyp 3
+    key .0001 .01   6 'ABKM FFNS NNLO' ! w
+   elseif [theo]=7 then
+    key .0001 .35 20 'HERA (prel.)' .0 p
+
+    set plci 4
+    set ltyp 1
+    key .0001 .25  6 'MSTW08 NNLO' ! w 
+    set plci 4
+    set ltyp 2
+    key .0001 .17  6 'MSTW08 NLO' ! w 
+    set plci 5
+    set ltyp 1
+    key .0001 .09  8 'CTEQ 6.6' ! w
+    set plci 2
+    set ltyp 1
+    key .0001 .01  6 'ABKM BMSN' ! w
+   elseif [theo]=1 then
+    key .0001 .55 20 'HERA (prel.)' .0 p
+
+    set plci 4
+    set ltyp 1
+    key .0001 .45  6 'MSTW08 NNLO' ! w 
+    set plci 4
+    set ltyp 2
+    key .0001 .375  6 'MSTW08 NLO' ! w 
+    set plci 5
+    set ltyp 1
+    key .0001 .3  8 'CTEQ 6.6' ! w
+    set plci 3
+    set ltyp 1
+    key .0001 .225  6 'GJR08' ! w
+    set plci 2
+    set ltyp 1
+    key .0001 .15  6 'ABKM BMSN' ! w
+    set ltyp 2
+    key .0001  .075  6 'ABKM FFNS NLO' ! w
+    set ltyp 3
+    key .0001 .0  6 'ABKM FFNS NNLO' ! w
+   elseif [theo]=8 then
+    key .0001 .35 20 'HERA (prel.)' .0 p
+    key .0001 .2 7 'HERAPDF1.0' ! F
+    set plci 2
+    key .0001 .2 6 '' ! W
+   elseif [theo]>9 then
+    key .0001 .35 20 'HERA (prel.)' .0 p
+    key .0001 .2 7 'NNPDF' ! F
+    set plci 2
+    key .0001 .2 6 '' ! W
+    set plci 4
+    set ltyp 1
+    key .0001 .1  6 'MSTW08 NNLO' ! w 
+    set plci 4
+    set ltyp 2
+    key .0001 .01  6 'MSTW08 NLO' ! w 
+
+   endif
+
+
+
+
+  endif
+
+
+
+
+
+*endif
+
+endif
+
+close 80
+
+*---------------------
+
+f/fil 80 errors.[data].[comb].[kl].eps
+meta 80 -113
+
+if [old]>0 then
+ sigma ro=oe/ov
+ sigma ox=x*(1-0.1)		
+endif
+if [kl]>0 then
+ sigma rk=ket/kv
+ sigma kxs=kx*1.1
+ if [kl]=1 then
+   sigma rtp=tpp/kv
+   sigma rtm=tpm/kv
+ endif
+endif
+sigma rv=e/v
+sigma rvtp=etp/v
+sigma rvtm=etm/v
+
+
+opt logx
+zone 3 4
+
+
+do i=1,12
+  exec doboxe [i] 0.4
+  qbox=qq([i])
+
+ if [comb]>0 then
+  set *col 1
+  set pmci 1
+  do j=1,[nz]
+   qres=q2([j])
+   if [qres]=[qbox] then
+     gra/hplo/erro x([j]) z z rv([j]) 1 20 .15 1
+     gra/hplo/aerror x([j]) z z z rvtm([j]) rvtp([j]) 1 20 .15  
+   endif
+  enddo
+ endif
+
+*** KL
+ if [kl]>0 then
+  set pmci 2
+  set *col 2
+  set ltyp 1
+  do j=1,[nk]
+   qres=kq([j])
+   if [qres]=[qbox] then
+     if [kl]=1 then
+      gra/hplo/erro  kxs([j]) z z rk([j])           1 24 .1 1
+      gra/hplo/aerro kxs([j]) z z z rtm([j]) rtp([j]) 1 24 .1
+     else
+      gra/hplo/erro kxs([j]) z z rk([j]) 1 24 .1
+     endif
+   endif
+  enddo
+ endif
+
+** OLD
+ if [old]>0 then
+  set *col 4
+  set pmci 4
+  do j=1,[no]
+   qo=q2([j])
+   if [qo]=[qbox] then
+     gra/hplo/erro ox([j]) z z ro([j]) 1 20 .15
+   endif
+  enddo
+ endif
+ set *col
+ set *pmci
+
+ set ltyp 2
+ line -5  .05  -1 .05
+ line -5 -.05 -1 -.05
+ set ltyp
+enddo
+
+*exec dobox 9 [theo]
+
+
+ set pmci 2
+ key .0001 .3 20 'KL' .0 p
+
+ set pmci 
+ key .0001 .35 20 'MC' .0 p
+
+
+close 80
+
+
+*---------------------
+
+f/fil 80 shift.[data].[comb].[kl].eps
+meta 80 -113
+
+if [kl]>0 then
+  sigma kxs=kxs*1.05
+  v/crea vvv([nz]) r
+  do i=1,[nk]
+    qkk=kq([i])
+    xkk=kx([i])
+    do j=1,[nz]
+      qc=q2([j])
+      xc=x([j])
+*      mess [qc] [qkk] [xc] [xkk]
+      if [qc]=[qkk] then
+        if [xc]=[xkk] then
+*         mess match!!
+         v/inp vvv([j]) kv([i])
+         v/inp epvvv([j]) kv([i])
+        endif
+      endif
+    enddo
+  enddo
+
+sigma shift = (v - vvv)/vvv
+
+
+
+endif
+
+set ltyp
+opt logx
+zone 3 4
+
+do i=1,12
+  exec doboxe [i] 0.8
+  qbox=qq([i])
+
+*** KL
+ if [kl]>0 then
+  set pmci 2
+  set *col 2
+  do j=1,[nk]
+   qres=kq([j])
+   if [qres]=[qbox] then
+     gra/hplo/erro kx([j]) z z rk([j]) 1 20 .15
+   endif
+  enddo
+ endif
+
+
+sigma rv2=rv*v/vvv
+sigma rvtm2=rvtm*v/vvv
+sigma rvtp2=rvtp*v/vvv
+
+
+ if [comb]>0 then
+  set *col 1
+  set pmci 1
+  do j=1,[np]
+   qres=q2([j])
+   if [qres]=[qbox] then
+     gra/hplo/erro   x([j]) shift([j]) z rv2([j]) 1 20 .15 1
+     gra/hplo/aerror x([j]) shift([j]) z z rvtm2([j]) rvtp2([j]) 1 20 .15  
+   endif
+  enddo
+ endif
+
+
+ set *col
+ set *pmci
+
+ set ltyp 2
+ line -5 .05  -1  .05
+ line -5 -.05 -1 -.05
+ set ltyp
+
+SET TXFP -20                          
+SET CHHE .3
+ itx   .0018 .3 'Q^2!='
+ itx   .005 .3 [qbox]
+ itx   .018 .3 'GeV^2!'
+* atitle 'x' 'F2c'
+enddo
+
+ set pmci 2
+ key .00003 .5 20 'hera comb' .0 p
+
+ set pmci 
+ key .00003 .3 20 'ZEUS D*' .0 p
+
+close 80
+
+
+
+
+
+return
+
+
+macro dobox i theo=0
+SET TXFP -20                          
+SET CHHE .3
+mess ---- dobox called XXX ----------
+
+set xval 9999
+set yval 9999
+
+if (([i]=1).or.([i]=4).or.([i]=7).or.([i]=10)) then
+ set xval
+endif
+if ([i]>9) then
+ set yval
+endif
+*if [theo]>1 then
+* if [i]=9 then
+*   set yval
+* endif
+*endif
+
+if [i]<4 then
+ set ndvx 510
+ set ndvy 510
+ nul 0.00001 0.099 0.000 .2999
+elseif [i]<10 then
+ set ndvx 510
+ set ndvy 510
+ nul 0.00001 0.099 0.000 .5999
+elseif [i]<13 then
+ set ndvx 510
+ set ndvy 510
+ nul 0.00001 0.099 0.000 .2999
+else
+ nul 0.00001 0.099 0.000 .5999 AB
+endif
+
+if [i]=12 then
+  atitle 'x'
+elseif [i]=3 then
+  set xlab 0.7
+  set asiz 0.43
+  *ATITLE '' 'October 2009 ' ! ! R 
+  set asiz 0.65
+elseif [i]=6 then
+  set xlab 0.7
+  set asiz 0.43
+  *ATITLE '' 'HERA Heavy Flavour Working Group ' ! ! R 
+  set asiz 0.65
+elseif [i]=1 then
+  *atitle '' 'F?2!^&  cc&^_!'
+  atitle '' '[s]?red!^&  cc&^_!'
+endif
+
+if [i]=10 then
+ atitle 'x'
+endif
+
+set yval
+set xval
+return
+
+
+macro dobox2
+
+mess --------- dobox 2 called ---------
+
+
+nul 0.00002 0.05 0 .6
+
+  *  atitle 'x'
+  *atitle '' 'F^c!'
+  *atitle '' '?2!'
+  atitle '' '[s]?red!^c!'
+  *atitle '' '?2!'
+
+
+  set pmci 2
+* key .00005 .55 24 'H1 D^*! (prel.) 347 pb^-1!' .0 p
+  key .00005 .55 24 'H1 D^*!' .0 p
+  set pmci 3
+* key .00005 .525 24 'H1 LTT (prel.) 189 pb^-1!' .0 p
+  key .00005 .525 24 'H1 LTT' .0 p
+  set pmci 5
+  key .00005 .5 24 'ZEUS [m] 126 pb^-1!' .0 p
+  set pmci 5
+  key .00005 .475 24 'ZEUS D^+!/D^0! 134 pb^-1!' .0 p
+  set pmci 6
+  key .00005 .450 24 'ZEUS D^*! HERA-I 37+82 pb^-1!' .0 p
+
+return
+
+
+macro doboxe i  ymax=0.3
+
+set yval 999
+set xval 999
+if (([i]=1).or.([i]=4).or.([i]=7).or.([i]=10)) then
+ set xval
+endif
+if ([i]>9) then
+ set yval
+endif
+
+nul 0.00001 0.1 -[ymax] [ymax]
+
+line -5 0 .0 0
+
+if [i]=12 then
+  atitle 'x'
+elseif [i]=1 then
+  atitle '' 'total relative uncertainty'
+ * atitle '' '?2!'
+endif
+
+* atitle 'x' 'F2c'
+
+return
+
+macro theory q2 theo first=1
+
+
+mess theory called with q2=[q2]  theo=[theo]
+
+
+*** theo=1 : ALL
+***      2 : one of a kind
+***      3 : FFNS
+***      4 : Alek
+***      5 : MSTW
+***      6 : NNLO
+***      7 : GMVFNS
+***      8 : HERAPDF1.0 TR
+***      9 : NNPDF2.1 NLO a+b
+***     10 : NNPDF2.1 NLO b
+***     11 : NNPDF2.1 NNLO c
+***     12 : NNLO : MSTW08 + NNPDF2.1
+***     15 : HERAPDF1.5 TR
+***     20 : hvqdis
+x1=[q2]/101000/1	      
+*x2=[q2]/101000/0.001
+x2=1
+
+
+
+if (([theo]=5).or.([theo]=6).or.([theo]=12)) then
+    if ([theo]=5) then 	    
+      READING MSTW NLO 
+      v/read mx,mq,ms,msd,msu sigcharmnlo.out
+      v/read mox,moq,mos sigcharmnloopt.out
+    elseif (([theo]=6).or.([theo]=12)) then
+      mess READING MSTW NNLO
+      v/read mx,mq,ms,msd,msu sigcharmnnlo.out
+      v/read mox,moq,mos sigcharmnnloopt.out
+    endif
+
+    nn=$vlen(mq,1)
+    sigma me=(msu-msd)/2
+    sigma mc=(msu+msd)/2
+    v/crea tmpx(100) r
+    v/crea tmps(100) r
+    v/crea tmpc(100) r
+    v/crea tmpe(100) r 
+    v/crea moz(100) r 100*0.0 
+    nok=0
+
+    mess MSTW called [nn]	
+    do ii=1,[nn]
+     qtmp=mq([ii])
+     xtmp=mx([ii])
+    *    mess [qtmp] [q2] [xtmp] [x1] [nok] [ii]
+     if (([qtmp]=[q2]).and.([xtmp]>[x1])) then
+     	nok=[nok]+1
+     	v/copy mx([ii]) tmpx([nok])
+     	v/copy ms([ii]) tmps([nok])
+     	v/copy mc([ii]) tmpc([nok])
+     	v/copy me([ii]) tmpe([nok])
+     endif
+    enddo
+    set hcol 1707
+    gra/hplo/error tmpx tmpc moz tmpe [nok]  ! 0 3
+    set plci 6
+    set lwid 3
+    set ltyp 1
+    sigma tlog=log10(tmpx)
+    gra/prim/pline [nok] tlog tmps 
+    
+    v/del tmpx
+    v/del tmps
+    v/del tmpc
+    v/del tmpe
+    v/del moz
+
+
+    wait
+
+
+    nn=$vlen(moq,1)
+    v/crea tmpx(100) r
+    v/crea tmps(100) r
+    v/crea tmpe(100) r 100*.00025 
+    v/crea moz(100) r 100*0.0 
+    nok=0
+    * mess MSTW optimal called [nn]	
+    do ii=1,[nn]
+     qtmp=moq([ii])
+     xtmp=mox([ii])
+        * mess [qtmp] [q2] [xtmp] [x1] [nok] [ii]
+     if (([qtmp]=[q2]).and.([xtmp]>[x1])) then
+     	nok=[nok]+1
+     	v/copy mox([ii]) tmpx([nok])
+     	v/copy mos([ii]) tmps([nok])
+     endif
+    enddo
+*    set hcol 1606
+*    gra/hplo/error tmpx tmps moz tmpe [nok]  ! 0 3
+    set plci 6
+    set lwid 3
+    set ltyp 2
+    sigma tlog=log10(tmpx)
+    gra/prim/pline [nok] tlog tmps 
+
+    v/del tmpx
+    v/del tmps
+    v/del tmpe
+    v/del moz
+
+
+endif
+
+if ([theo]=8) then
+   exec herapdf [q2] [x1] [x2] [first]
+   first=0 
+endif
+
+if (([theo]=9).or.([theo]=10).or.([theo]=11).or.([theo]=12)) then
+  mess READING fonll
+  if ([theo]=9) then 
+   v/read nnxa,nnqa,nnza,nnsa,nnea sigmaredcc_nnpdf21nlo_fonlla.res
+   v/read nnx,nnq,nnz,nns,nne sigmaredcc_nnpdf21nlo_fonllb.res
+  elseif ([theo]=10) then
+   v/read nnx,nnq,nnz,nns,nne sigmaredcc_nnpdf21nlo_fonllb.res
+  elseif (([theo]=11).or.([theo]=12)) then
+   mess READING fonllc
+   v/read nnx,nnq,nnz,nns,nne sigmaredcc_nnpdf21nnlo_fonllc.res
+  endif
+  nn=$vlen(nnq,1)
+  v/crea tmpx(100) r
+  v/crea tmps(100) r
+  v/crea tmpsa(100) r
+  v/crea tmpe(100) r
+  nok=0
+  do ii=1,[nn]
+    qtmp=nnq([ii])
+    xtmp=nnx([ii])
+    if (([qtmp]=[q2]).and.([xtmp]>[x1])) then
+     nok=[nok]+1
+     v/copy nnx([ii]) tmpx([nok])
+     v/copy nns([ii]) tmps([nok])
+     v/copy nne([ii]) tmpe([nok])
+     if ([theo]=9) then
+       v/copy nnsa([ii]) tmpsa([nok])
+     endif
+    endif
+  enddo
+  set hcol 4
+  set htyp 354
+  gra/hplo/error tmpx tmps nnz tmpe [nok]  ! 0 3
+  set htyp
+  sigma tlog=log10(tmpx)
+  set lwid 3
+  set plci 
+  set ltyp 1
+*  pline [nok] tlog tmps
+  if ([theo].eq.9) then
+    set ltyp 2
+    pline [nok] tlog tmpsa
+  endif
+  v/del tmpx
+  v/del tmps
+  v/del tmpsa
+  v/del tmpe
+
+endif
+
+
+
+
+if (([theo]<3).or.([theo]=7)) then
+
+** CTEQ ***
+
+v/crea xq2(11)  r  2       4      6.5    12     20      35    60   120  200  400  1000
+v/crea xmin(11) r  .000028 .00006 .00012 .00021  .00035 .0006 .001 .002 .004 .007 .02
+v/crea xmax(11) r .001   .003  .003  .01    .01   .02  .05   .05  .05  .05 .05  
+do i=1,11
+  xq=xq2([i])
+  if [q2]=[xq] then
+    x1=xmin([i])
+    x2=xmax([i])
+  endif
+enddo
+
+set hcol
+set htyp
+**set fcol 6
+set fcol 5
+set fwid 8
+set ltyp 1
+set dmod 1
+exec cteqvsx f2c.ctq66m.grid.dat  [q2] [x1] [x2] 1
+set dmod 1
+
+endif
+
+
+
+
+if ([theo]<4) then
+*** GJR FFNS NLO
+set fcol 3
+set lwid 6
+set fwid 6
+set ltyp 1
+set dmod 1
+x1=[q2]/101000/0.7
+x2=[q2]/101000/0.01
+exec gjrplot [q2]  [x1] [x2]
+set plci
+endif
+
+
+
+*** Alekhin
+*opt logx
+*nul 0.00002 0.05 0 .6  SAB
+set plci 2
+set fcol 2
+set lwid 5
+set ltyp 1
+if (([theo]<3).or.([theo]=4).or.([theo]=7)) then
+  exec alekhin bmsn [q2] 
+endif
+if (([theo]=1).or.([theo]=3).or.([theo]=4)) then
+ set ltyp 2
+ exec alekhin ffn3 [q2] 
+endif
+
+if ([theo]=15) then
+mess herapdf1.5
+set fwid 6
+set fcol 4
+x1=[q2]/101000/0.95
+x2=[q2]/101000/0.02
+exec herapdf15 [q2] [x1] [x2]
+
+endif
+
+set ltyp
+set plci
+
+
+
+
+if [theo]>19 then
+** HVQDIS
+ if $vexist(hvqq2)=0 then
+   mess reading hvqdis table
+   v/read hvqq2,hvqx,hvqs       ../hvqdis/sigmarhs/stdhs/table.txt
+   v/read hvqq2mp,hvqxmp,hvqsmp ../hvqdis/sigmarhs/mcphs/table.txt
+   v/read hvqq2mm,hvqxmm,hvqsmm ../hvqdis/sigmarhs/mcmhs/table.txt
+   v/read hvqq2mup,hvqxmup,hvqsmup ../hvqdis/sigmarhs/muxphs/table.txt
+   v/read hvqq2mum,hvqxmum,hvqsmum ../hvqdis/sigmarhs/muxmhs/table.txt
+   v/read hvqq2ct,hvqxct,hvqsct ../hvqdis/sigmarhs/mstw/table.txt
+  endif
+v/crea xl(20) r
+v/crea xsl(20) r
+v/crea xslmm(20) r
+v/crea xslmp(20) r
+v/crea xslmum(20) r
+v/crea xslmup(20) r
+v/crea el(20) r 20*0.0002
+nxs=0
+nhvq=$vdim(hvqq2)
+do i=1,[nhvq]
+  hq=hvqq2([i])
+  if [q2]=[hq] then
+   nxs=[nxs]+1
+   v/inp xl([nxs]) hvqx([i])
+   v/inp xsl([nxs]) hvqs([i])
+   v/inp xslmp([nxs]) hvqsmp([i])
+   v/inp xslmm([nxs]) hvqsmm([i])
+   v/inp xslmup([nxs]) hvqsmup([i])
+   v/inp xslmum([nxs]) hvqsmum([i])
+  endif
+enddo
+
+sigma emm=min(xslmm-xsl,xslmp-xsl)
+sigma emp=max(xslmm-xsl,xslmp-xsl)
+sigma emum=min(xslmum-xsl,xslmup-xsl)
+sigma emup=max(xslmum-xsl,xslmup-xsl)
+
+sigma sump=sqrt(emp**2+emup**2)
+sigma summ=sqrt(emm**2+emum**2)
+
+set hcol 1005
+gra/hplo/aerror xl xsl z z summ sump [nxs] 1 .1 3 
+set hcol 1007
+set plci 
+*set hcol 
+gra/hplo/aerror xl xsl z z emum emup [nxs] 1 .1 3 
+set hcol 4
+gra/hplo/error xl xsl z el  [nxs] 1 .1 3  
+
+nxs=0
+nhvq=$vdim(hvqq2ct)
+do i=1,[nhvq]
+  hq=hvqq2ct([i])
+  if [q2]=[hq] then
+   nxs=[nxs]+1
+   v/inp xl([nxs]) hvqxct([i])
+   v/inp xsl([nxs]) hvqsct([i])
+  endif
+enddo
+sigma  lxl=log10(xl)
+set plci 2
+set ltyp 2
+pline [nxs] lxl xsl
+set plci
+set ltyp
+
+wait
+*   v/read hvqq2ct,hvqxct,hvqsct ../hvqdis/sigmarhs/ct10/table.txt
+*   v/read hvqq2ct,hvqxct,hvqsct ../hvqdis/sigmarhs/nnpdf/table.txt
+
+
+
+v/del xl
+v/del xsl
+v/del xslmm
+v/del xslmp
+v/del xslmum
+v/del xslmup
+v/del el
+v/del emm
+v/del emp
+v/del emum
+v/del emup
+
+
+endif
+
+
+return
+
+
+
+macro  cteqvsx file=f2c.ctq66m.grid.dat qq=130 min=.00005 max=0.01 load=1 
+** CTEQ NLO
+if [load]>0 then
+ sh rm fort.15
+ sh ln -s [file] fort.15
+endif
+
+
+v/crea vvx(1)   r [qq]
+v/crea vvshift(1) r 0
+v/crea ifix(1) i 0
+fun1 998 readgrid.f(x) 1000 [min] [max] S
+h/del 998
+v/del vvshift
+v/del vvx
+v/del ifix
+
+return
+
+
+
+
+
+
+macro h1style
+
+ set chhe 0.5
+* set xmgl 3.4
+* set xmgr 1.
+
+ set xmgl 3.4
+ set xmgr 1.5
+
+ set ymgl 2.4
+ set ymgu 2.
+** set vsiz 0.5
+ set vsiz 0.4
+ set pass 3
+ set asiz 0.65
+* set ylab 1.4
+** set ylab .8
+  set ylab .6
+ set yval 0.2
+** set xlab 2.2
+ set xlab 2
+ set xval 0.7
+ set hwid 5 
+ set bwid 5
+ set fwid 5
+ set lwid 6 
+ set lfon -60 
+ set vfon -60 
+ set tfon -60 
+ set gfon -20 
+ set cfon -60
+ set txfp -60
+ *set hcol 1
+ set gsiz 0.6
+ set ygti 1.0
+ set ytic 0.3
+ set xtic 0.3
+ set ywid 3
+ set xwid 3
+ set ywin 0.0001
+ set xwin 0.001
+
+return
+
+
+
+macro dobox3 i qbox theo=0
+
+mess DOBOX3 called
+
+set yval 0.1
+set ymgu 0.4
+set vsiz .3
+
+*set yval 999
+set xval 999
+if (([i]=1).or.([i]=4).or.([i]=7).or.([i]=10)) then
+ set xval
+endif
+if ([i]>9) then
+ set yval
+endif
+
+x1=0.00005
+x2=0.5
+
+*x1=[qbox]/100000
+*x2=[qbox]/1000
+
+set ndvx 510
+set ndvy 505
+
+if [i]<4 then
+ y=0.4
+elseif [i]>9 then
+ y=0.35
+else
+ y=0.6
+endif
+
+nul [x1] [x2] 0 [y]
+ set chhe 0.4
+ yy=0.8*[y]
+ xq=[x1]*5
+ itx  [xq] [yy] 'Q^2!='
+ xv=[x1]*9
+ itx  [xv] [yy] [qbox]
+
+ if [i]<3 then
+  xg=[x1]*11
+ elseif [i]<8 then
+  xg=[x1]*14
+ elseif [i]<11 then
+  xg=[x1]*16
+ else
+  xg=[x1]*20	
+ endif
+ itx  [xg] [yy] 'GeV^2!'
+
+if [i]=1 then
+*  atitle '' 'F?2!^&  cc&^_!'
+  atitle '' '[s]?red!^&  cc&^_!'
+elseif [i]=3 then
+  set xlab 0.7
+  set asiz 0.43
+  *ATITLE '' 'October 2009 ' ! ! R 
+  set asiz 0.65
+elseif [i]=6 then
+  set xlab 0.7
+  set asiz 0.43
+  *ATITLE '' 'HERA Heavy Flavour Working Group ' ! ! R 
+  set asiz 0.65
+elseif [i]=12 then
+  atitle 'x'
+endif
+set yval
+set xval
+
+return
+
+
+
+macro doboxz i theo=0
+SET TXFP -20                          
+SET CHHE .3
+v/crea qqz(8) r 7 12 18 32 60 120 200 350 
+
+mess ---- doboxz called [i]
+
+set xval 9999
+set yval 9999
+if ([i]>5) then
+ set yval
+endif
+if (([i]=1).or.([i]=4).or.([i]=7)) then
+ set xval
+endif
+ set ndvx 510
+ set ndvy 510
+if [i]<9 then
+** nul 0.00006 0.049 0.000 .4999
+ nul 0.00005 0.049 0.000 .4999
+else
+ nul 0.00001 0.04 0.000 .4999 AB
+endif
+
+if (([i]=8).or.([i]=6)) then
+  atitle 'x'
+elseif [i]=1 then
+  *atitle '' 'F?2!^&  cc&^_!'
+  *atitle '' '[s]?red!^&  cc&^_!'
+   atitle '' '[s]?red!'
+   atitle '' '^cc&^_!'
+endif
+
+*qqq=qqz([i])
+*   itx   .001 .42 'Q^2!='
+*   itx   .004 .42 [qqq]
+*   itx   .014 .42 'GeV^2!'
+
+set yval
+set xval
+
+return

@@ -1,0 +1,40 @@
+ opt *
+ zone 1
+ opt zfl
+ opt nbox
+ set pmci 1
+ set dmod 1
+ set chhe 0.5
+ set xmgl 3.4
+ set xmgr 1.
+ set ymgl 2.4
+ set ymgu 2.
+ set vsiz 0.5
+ set pass 3
+ set asiz 0.65
+ set ylab 1.4
+ set yval 0.2
+ set xlab 2.2
+ set xval 0.7
+ set ndvx 510
+ set ndvy 505
+ set hwid 5 
+ set bwid 5
+ set fwid 5
+ set lwid 6 
+ set lfon -60 
+ set vfon -60 
+ set tfon -60 
+ set gfon -60 
+ set cfon -60
+ set txfp -60
+ set hcol 1
+ set gsiz 0.6
+ set ygti 1.0
+ set ytic 0.5
+ set xtic 0.5
+ set ywid 3
+ set xwid 3
+ set ywin 0.0001
+ set xwin 0.001
+

@@ -1,0 +1,35 @@
+/**********************************************************************************
+ * Statistics WS at DESY                                                          *
+ * chi^2 distributin                                                              *
+ * Author: Martin Goebel                                                          *
+ **********************************************************************************/
+#include "TMath.h"
+#include "TString.h"
+#include "TLegend.h"
+#include "TLatex.h"
+#include "TF1.h"
+#include <iostream>
+
+//using namespace std;
+
+// define number of degree of freedom and chi^2 for p-value calcultion
+const Int_t n_dof = 2;
+
+void Chi2d()
+{
+
+  //   TCanvas* c = new TCanvas( "c", "chi^2 Distribution", 0, 0, 1200, 800 );
+   TF1* chif = new TF1("chif",chi2Dist, 0.,10.);
+   chif-> SetParameter(0,n_dof);
+   chif-> Draw("E");
+}
+
+// chi^2 distribution is function of chi^2 and n_dof
+Double_t chi2Dist(Double_t *x, Double_t *par)
+{
+   Double_t ndof = par[0];
+   Double_t chi2 = x[0];
+
+   return 1./( TMath::Power(2.,ndof/2.)*TMath::Gamma(ndof/2.) )
+      *TMath::Power(chi2,ndof/2.-1)*TMath::Exp(-chi2/2.);
+}

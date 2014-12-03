@@ -1,0 +1,568 @@
+ZEUSIO-INFI /zeus/data/mini06p/r061342.z
+ZEUSIO-INFI /zeus/data/mini06p/r061343.z
+ZEUSIO-INFI /zeus/data/mini06p/r061344.z
+ZEUSIO-INFI /zeus/data/mini06p/r061345.z
+*
+ORANGE-NTFNAM   test.tup
+C      version 2004a.1 from 25.07.04
+C
+C Enable ORANGE
+OREAZE-ENABLE ON
+C ==========================================================
+C Switches and paramters for each of the major code sections
+C These cards determine which ORANGE common blocks are filled
+C and also how they are filled. To determine which common blocks
+C are written to the ntuple, see the ORANGE-NTBLOCKS cards below
+C ==========================================================
+C
+C Fill trigger information
+ORANGE-TRIGFILL ON
+C
+C Collect information for diffractive analyses
+ORANGE-DIFFFILL OFF
+C
+C ======= JET FINDING ========
+C Jet finding master switch
+ORANGE-JETSFILL OFF
+C
+C Cone jet finding algorithm
+ORANGE-CONEJET OFF
+C mode 0=CAL cells, 1=zufos, 2=hadron level, 3=cone islands, 4=CAL+FPC cells
+ORANGE-CONEMODE 0
+ORANGE-CNETAMIN -2.0
+ORANGE-CNETAMAX 3.2
+ORANGE-CNPTMIN  2.5
+ORANGE-CNSEED   0.5
+ORANGE-CNRCONE  1.0
+C 0=no ele rejection, 1=rej EM ele, 2=rej Sira ele
+ORANGE-CNEREJ   1
+C
+C KT jet finding algorithm
+C Four finders A,B,C,D, each fully variable, but with a
+C different set of defaults (see manual).
+ORANGE-KTJETSA OFF
+ORANGE-KTJETSB OFF
+ORANGE-KTJETSC OFF
+ORANGE-KTJETSD OFF
+C the cards below are suffixed {A-D} for KTJETS{A-D}
+C mode 0=CAL cells (default), 1=zufos, 2=hadron level, 3=cone islands,
+C                                                     4=CAL+FPC cells
+ORANGE-JETMODEA 1
+ORANGE-KTMODEA 3212
+C recombination scheme
+ORANGE-KTRECOA 2
+C 0=no ele rejection, 1=reject EM electron, 2=reject Sira electron
+ORANGE-EREJECTA 1
+C frame boost: 0=no boost, 1=Breit frame, 2=gamma-p frame
+ORANGE-JETBSTA 0
+C scale:
+C  > 0. inclusive mode is used. and  ycut = setscale.
+C =  0.  -> use KTCLUS default (E_tot)
+C = -1.  -> use (E_tot-E_el)*scvar
+C = -2.  -> use E_t_el*scvar
+C = -3.  -> use Q_el*scvar
+ORANGE-SETSCLA 1.0
+ORANGE-SCVARA 0.8
+C value of ycut
+C ORANGE-RCUTA  0.0
+C resolution parameter for macro jet separation
+C ORANGE-RMACA  0.0
+C Minimum Et, minimum and maximum eta
+ORANGE-ETCUTA   4.0
+ORANGE-ETAMINA -2.5
+ORANGE-ETAMAXA  2.5
+C maximum number of jets to store in the ntuple (3 by default)
+ORANGE-NJTSTRA 5
+C ============================
+C------------
+C Do stuff for heavy flavours
+C ORANGE-DOCHARM  OFF ! obsolete card
+C
+ORANGE-BWRDFILL OFF
+C Fill Monte Carlo truth information
+ORANGE-MCFILL   ON
+C
+C --- PARAMETERS FOR MC JET FINDING ---
+C
+C General: ETJ_CUT, RAPCUTH,RAPCUTL,FINDER,ONWHAT
+C FINDER: 0=none,1=ktclus,2=eucell,3=pucell
+C ONWHAT: 1=final state particles, 2=partons
+C AMAJET-GEN 1. 6. 0. 1 1
+C KTCLUS: KTTYPE,KTANGL,KTMONO,KTRECO
+C AMAJET-KTCLUS 3 2 1 2
+C EUCELL: EUC_ETACMX,EUC_ETACMN,EUC_ETSEED,CONE
+C AMAJET-EUCELL
+C pucell OP(10)
+C AMAJET-PUCELLOP -1.0 1.0 1.0 7*-1.0
+C pucell EC(10)
+C AMAJET-PUCELLEC 0.05 0.1 0.3 7*-1.0
+C
+C --- PARAMETERS FOR MC SUMS ---
+C
+C sums(6)=fbeam,rbeam,xfet,xret,vo,vi
+C AMASUM-SUMS 0.0384 3.080 .01 3.080 3.080 2.36
+C --- ---
+C
+C
+C Do CAL cell clustering to islands (OFF by default)
+C ORANGE-DOISLES   OFF
+C
+C Do SRTD calibration for 98-00 data (ON by default)
+C ORANGE-SRTCALIB   ON
+C
+C Do SRTD reconstruction (OFF by default)
+C Please switch it ON explicitely ! Otherwise SIRA will not use SRTD.
+ORANGE-SRTDRECO   ON
+C
+C Do electron finding
+ORANGE-DOELE    ON
+C Do electron finding with Sinistra95
+ORANGE-DOSIRA95 ON
+C findis option (see Findis documentation)
+ORANGE-FDISOPT  5
+C Sinistra OUTCUT (recommended 0.9)
+ORANGE-OUTCUT   0.9
+C min energy used to select Sinistra electrons (4 by default)
+ORANGE-SIEMIN   6.
+C max number of stored Sinistra electrons (2 by default)
+C ORANGE-SINCAN   1
+C
+C Do electron finding with EM
+ORANGE-DOEM     OFF
+C max number of stored EM electrons (2 by default)
+C ORANGE-EMNCAN   1
+C
+C do track match in EM (ON by default)
+C ORANGE-emTrkMat   ON
+C
+C do island isolation in EM (ON by default) 
+C ORANGE-emIslIso   ON
+C
+C do combining of nearby islands (ON by default)
+C Bruce Straub recommends "ORANGE-emJoin OFF"
+C for low-Q2 analyses (electron in RCAL)
+C ORANGE-emJoin     ON
+C
+C do ZUFOS with CAL+CTD (OFF by default)
+ORANGE-DOZUFOS  OFF
+C
+C 0=remove no ele cells (used by default)
+C 1=rm EM best cand, 2=rm Sira best cand
+C 3=remove no ele cells and do not subtract backsplash (for PhP)
+C   this option (3) prevents backsplash subtr. in ZUFOS and CC blocks
+ORANGE-ZUFORMVE 2
+C
+C Use dead material maps for correcting of CAL zufos (OFF by default)
+ORANGE-ZUFODMCO OFF
+C
+C do ZUFOS in FPC (OFF by default)
+C ORANGE-DOZUFPC  ON
+C
+C Use muons for zufo correcting (OFF by default)
+C ORANGE-MUZUFO OFF
+C
+C Do BRMUON dead LST simulation
+C ORANGE-DOMUDLST ON
+C
+C Do muon finding (OFF by default)
+ORANGE-DOMUON   OFF
+C
+C Do "old" muon finding (ON by default)
+C ORANGE-DOMUON1   ON
+C Do "new" muon finding (ON by default)
+C ORANGE-DOMUON2   ON
+C
+C Fill BPC variables
+ORANGE-DOBPC    OFF
+C Fill BPT variables
+ORANGE-DOBPT    OFF
+C Fill LPS variables
+ORANGE-DOLPS    OFF
+ORANGE-DOBITS   OFF
+C Fill FNC variables
+ORANGE-DOFNC    OFF
+C Fill FPC variables
+ORANGE-DOFPC    OFF
+ORANGE-DOBAC    OFF
+C 44m tagger information
+ORANGE-DO44MTAG OFF
+C  8m tagger information
+ORANGE-DO8MTAG  OFF
+C LUMI tagger information
+ORANGE-DOLUMI   OFF
+C Fill PRT variables
+ORANGE-DOPRT    OFF
+C Fill Charged Current DIS info
+ORANGE-DOCCDIS  OFF
+ORANGE-LOWGVTX  OFF
+ORANGE-GAMMA0C 0.4
+C
+C delete NC electron to simulate CC
+C 0=no ele del. (default), 1=del. EM electron, 2=del. Sira electron
+C ORANGE-ELECREMO 0
+C
+C Do KF vertexing (vertex recognition for ZTT tracking)
+C ORANGE-doKFvert  OFF
+C
+C Use KFrecon cards if You want to change the below Orange's defaults
+C -------------------- refit ------------------------
+C
+C Do KF refit (ZTT track fit)
+C ORANGE-doKFfit  ON
+C KFFIT-UsePR      0
+C KFFIT-thrMVD     0
+C KFFIT-MultScat   1
+C KFFIT-HitErr     1
+C KFFIT-MVDOnly    1
+C KFFIT-DrawEvt    0
+C KFFIT-DumpEvt    0
+C KFFIT-SaveMtup   0
+C KFFIT-Geometry   1
+C KFFIT-Debug      0
+C
+C to get best alignment
+C MVRECO-DOALGN  2 to get best alignment
+C to get best alignment
+C KFFIT-UsePR    0
+C card format changed
+C KFFIT-thrMVD   0
+C revertexing
+C ORANGE-doDAFVtx ON
+C DAFVTX-BeamCstr OFF
+C
+C ------------------------------------------------------
+C
+C
+C KFVTX-Debug 0
+C KFVTX-Mode 1
+C KFVTX-RunByRun 0
+C KFVTX-BeamPos 1.92 0.175 0.
+C KFVTX-Tracks 0
+C
+C Fill tracking variables
+C
+ORANGE-DOTRACK  ON
+C
+C Select tracking mode(s) CTD = CTD only, REG = Regular, ZTT = Kalman filter
+C This card determines which tracking package(s) appear in the Tracking
+C ntuple block. The first mode listed on the card determines which
+C tracking package is used for everything else (e.g. vertex block, ZUFOs,
+C electron finders, charm finders etc.)
+C
+ORANGE-TRACKING ZTT
+C
+C tracks to select: 1 - only primary vertex tracks
+C                   2 - primary and secondary vertex tracks
+C                   3 - all tracks
+C ORANGE-TRKPRSEC  3
+C
+C Select reference position for impact parameter (trk_imp block)
+C          1:Use beamspot from bspot block
+C          2:Use z corrected beamspot from bspot block
+C          3:Use beamspot from ascii file (beamspot.txt)
+C          4:Use z corrected beamspot from ascii file (beamspot.txt)
+C          5:Use Primary vertex
+C          6:Use Monte Carlo vertex as reference
+ORANGE-TRKIMPAR 1
+C
+C tracking parameters
+C minimum number of the CTD outer superlayer
+C ORANGE-TRKSLMIN  3
+C minimum Pt  for tracks in the TRACKING block
+C ORANGE-TRKPTMIN  0.10
+C minimum, maximum eta for tracks in the TRACKING block
+C ORANGE-TRKETAMN -10.
+C ORANGE-TRKETAMX  10.
+C minimum number of stereo hits for tracks in the TRACKING block
+C ORANGE-TRKSTREO  0
+C maximum track fit chi2/ndf for tracks in the TRACKING block
+C ORANGE-TRKCHI2M  1000.
+C
+C select only tracks with .gt. 3 superlayers for the VCTPAR and VCTRHL blocks
+C (does not effect other Tracking blocks)
+C ORANGE-HISL3    OFF
+C in the VCTRHL block, select only tracks which are also in VCTPAR
+C (does not effect other Tracking blocks)
+C ORANGE-RHLINPAR OFF
+C
+C V0 search is activated by request V0 ntuple block
+C For the search, You can electron track
+C 0=no ele rejection (default), 1=rej EM ele, 2=rej Sira ele
+ORANGE-V0RMVE 2
+C
+C CTD dEdx corrections, 0 - no corrections (trkdedxctdcr=aint(VCTRHL_dEdx))
+C                     1 - all corrections (default)
+C                     2 - run-by-run corrections (average dE/dx from pions)
+C                      3 - plus air pressure correction (if available)
+C                      4 - plus  wire, truncation area and changed saturation correction
+C                      5 - plus neighbourhood corrections
+C                      6 - plus threshold correction and correction on run by run corrections
+C                      7 - plus corrections for space charge effect
+C                      8 - plus pt corrections (same as option 1)
+ORANGE-CTDEDXCR  1
+C
+C Charm finding code switches (OFF by default)
+C switch for charm-specific tracking:
+ORANGE-DOZCHARM OFF
+C switch for D* finder: D*->D0(->K,pi),pi-s
+ORANGE-DODSTAR1 OFF
+C switch for D* finder: D*->D0(->K,pi-1,pi-2,pi-3),pi-s
+ORANGE-DODSTAR2 OFF
+C switch for D0 finder: D0->K-,pi+ (and charge conj.)
+ORANGE-DODZERO  OFF
+C switch for D+- finder:D+ -> K- pi+ pi+ (and charge conj.)
+ORANGE-DODPLUS  OFF
+C switch for D_s+- finder:D+ -> Phi(->K+K-)pi+ (and charge conj.)
+ORANGE-DODSS    OFF
+C switch for Lambda finder:Lambda_c+ -> K- p+ pi+ (and charge conj.)
+ORANGE-DOLAMBDA OFF
+C
+C Tracking code for Charm finding parameters: SEE orange_Dmesons.fpp
+C ORANGE-CHITRAK -1
+C ORANGE-CHIVERT  0
+C ORANGE-CHICORR  0
+C ORANGE-CHISLMIN 0
+C ORANGE-CHIETSEL 0
+C ORANGE-CHIPTSEL 0
+C ORANGE-CHETTRMN 0.
+C ORANGE-CHETTRMX 0.
+C ORANGE-CHPTTRMN 0.
+C
+C Cuts for Dstar1 finder
+C ORANGE-DS1PTDMN 0.
+C ORANGE-DS1ETDMN 0.
+C ORANGE-DS1ETDMX 0.
+C ORANGE-DS1PTKPI 0.
+C ORANGE-DS1M0MN1 0.
+C ORANGE-DS1M0MX1 0.
+C ORANGE-DS1DMMX1 0.
+C ORANGE-DS1M0MN2 0.
+C ORANGE-DS1M0MX2 0.
+C ORANGE-DS1DMMX2 0.
+C
+C Cuts for Dstar2 finder
+C ORANGE-DS2PTDMN 0.
+C ORANGE-DS2ETDMN 0.
+C ORANGE-DS2ETDMX 0.
+C ORANGE-DS2PTKPI 0.
+C ORANGE-DS2M0MN1 0.
+C ORANGE-DS2M0MX1 0.
+C ORANGE-DS2DMMX1 0.
+C ORANGE-DS2M0MN2 0.
+C ORANGE-DS2M0MX2 0.
+C ORANGE-DS2DMMX2 0.
+C ORANGE-DS2WRONG 0
+C
+C Cuts for Dzero finder
+C ORANGE-D0PTDMN 0.
+C ORANGE-D0ETDMN 0.
+C ORANGE-D0ETDMX 0.
+C ORANGE-D0PTKPI 0.
+C ORANGE-D0M0MN  0.
+C ORANGE-D0M0MX  0.
+C
+C Cuts for Dplus finder
+C ORANGE-DCHPTDMN 0.
+C ORANGE-DCHETDMN 0.
+C ORANGE-DCHETDMX 0.
+C ORANGE-DCHPTKPI 0.
+C ORANGE-DCHMCHMN 0.
+C ORANGE-DCHMCHMX 0.
+C
+C Cuts for Dss finder
+C ORANGE-DSSPTDMN 0.
+C ORANGE-DSSETDMN 0.
+C ORANGE-DSSETDMX 0.
+C ORANGE-DSSPTKK  0.
+C ORANGE-DSSPTPI  0.
+C ORANGE-DSSPhiMX 0.
+C ORANGE-DSSMSSMN 0.
+C ORANGE-DSSMSSMX 0.
+C
+C Cuts for Lambda_c finder
+C ORANGE-DLAPTDMN 0.
+C ORANGE-DLAETDMN 0.
+C ORANGE-DLAETDMX 0.
+C ORANGE-DLAPTKPP 0.
+C ORANGE-DLAMLAMN 0.
+C ORANGE-DLAMLAMX 0.
+C
+C Use EVTAKE to reject known bad runs/events
+ORANGE-EVTAKE  ON 
+C
+C Get FMCKIN tables (OFF by default but activated automatically
+C if FMCkin block is requested)
+C ORANGE-DOFMCKIN OFF
+C
+C =============================================================
+C   Switch on ntuple blocks
+C =============================================================
+C
+C Put run and event numbers in ntuple
+ORANGE-NTBLOCKS Event
+C
+C Put MVD/STT/TPOL/LPOL take information in ntuple
+ORANGE-NTBLOCKS TakeInfo
+C
+C Put Trigger information in ntuple
+ORANGE-NTBLOCKS Trigger
+C
+C Put GFLT, GSLT and TLT online/funnel information in ntuple
+C ORANGE-NTBLOCKS GFLT_onl GSLT_onl TLT_onl
+C
+C Put GFLT simulation information in ntuple
+C ORANGE-NTBLOCKS GFLT_sim
+C
+C Use these 2 cards for GFLT simulation:
+C (ZCFLT-Config 1995 - for 95 data; ZCFLT-Config 1996 for all others)
+C
+C ZCFLT-Config 1996
+C ZGANA-LPCDATA .FALSE.
+C 
+C Put GTT information in ntuple
+C ORANGE-NTBLOCKS GTTRK1 GTVTX GTBEVT
+C
+C Electron candidates found with EM
+C ORANGE-NTBLOCKS EM EM_TRK EM_Det EM_HAD EM_KIN
+C
+C Electron candidates found with Sinistra
+ORANGE-NTBLOCKS SIRA SI_TRK SI_Det SI_HAD SI_KIN
+C
+C Calorimeter sums etc.
+ORANGE-NTBLOCKS CAL
+C
+C Sums from FCAL 1st and 2nd inner rings
+C ORANGE-NTBLOCKS FCALIR
+C
+C Sums from RCAL 1st inner rings
+C ORANGE-NTBLOCKS RCALIR
+C
+C Zufo's stuff
+C ORANGE-NTBLOCKS ZUFOS
+C
+C Zufo's sums etc. in FPC
+C ORANGE-NTBLOCKS ZUFOFPC ZUFOFPC2
+C
+C Lumi
+C ORANGE-NTBLOCKS LUMI
+C
+C LPS
+C ORANGE-NTBLOCKS LPS
+C
+C FNC
+C ORANGE-NTBLOCKS FNC
+C
+C FPC
+C ORANGE-NTBLOCKS FPC
+C
+C BAC
+C ORANGE-NTBLOCKS BAC
+C
+C  Kt jet finder A
+C ORANGE-NTBLOCKS ktJETS_A
+C
+C muon finding
+C ORANGE-NTBLOCKS MUON
+C
+C ORANGE-NTBLOCKS GMUON GMU_JET
+C
+C Charm hadrons
+C =============
+C
+C Professional mode : write to ntuple tracks and the D-meson word
+C which can be used for selection in PAW (and in ZUANAL)
+C
+C ORANGE-NTBLOCKS CHARMTRK DMESWD
+C
+C Pedestrian mode : write to ntuple all candidates. You can use
+C either blocks with 10 times reduced sizes :
+C
+C ORANGE-NTBLOCKS DSTAR1SH DSTAR2SH DZEROSH DSSSH DCHGDSH LAMBDASH
+C
+C or full size blocks :
+C
+C ORANGE-NTBLOCKS DSTAR1 DSTAR2 DZERO DSS DCHGD LAMBDA
+C
+C Monte Carlo truth information
+C ORANGE-NTBLOCKS MCKINE MCKINECR
+C
+C CALTRU table (LARGE!)
+C ORANGE-NTBLOCKS CALTRU
+C
+C VCTRHL table
+C ORANGE-NTBLOCKS VCTRHLa  VCTRHLb  VCTRHLc
+C VCTPAR table
+C ORANGE-NTBLOCKS VCTPAR
+C
+C tracking
+ORANGE-NTBLOCKS TRACKING Trk_Vtx Trk_Qual TrkHelix Trk_vert Trk_MVD
+C
+C Vertex
+ORANGE-NTBLOCKS VERTEX
+C
+C V0's
+C ORANGE-NTBLOCKS V0
+C
+C V0's
+ORANGE-NTBLOCKS V0LITE
+C ========
+C Printout
+C ========
+C Level of debug printout (0=minimal)
+ORANGE-PRINTLVL 0
+C Print a status line every n events
+ORANGE-PRINTEVR 1000
+C
+C =====================================
+C Orange ntuple properties
+C =====================================
+C this card determines the name of your ntuple file
+C ORANGE-NTFNAM orange.ntp
+ORANGE-NTNNAM ORANGE
+C
+C do not change defaults unless it is really needed
+C ORANGE-NTPLUN 11
+C ORANGE-NTRECL 1024
+C ORANGE-NTUPID 1
+C
+C ===== END OF ORANGE CARDS =====
+C
+C limit on number of events
+ZRLIMIT-NEVT 10000
+C
+C ============= THIS IS FOR DATA using event directories ============
+C
+C ----------> DST bits selection can be used
+C
+ZeusIO-ZCLASS b9
+C
+C ----------> driver is IE and ZED for event directory files
+C
+ZEUSIO-IOPT DRIVER=IE,ZED
+C
+C ============= THIS IS FOR MONTE CARLO =============================
+C
+C ZEUSIO-IOPT MEDIUM=COMP,FILFOR=EXCH,DRIVER=FZ
+C
+C ZeusIO-INFI ZEUSMC.XBWR321.F4104.HW6301C.BGF.CT46GR03.DA001.Z00
+C ZeusIO-INFI ZEUSMC.XBWR321.F4104.HW6301C.BGF.CT46GR03.DA001.Z01
+C 
+C ============================ MAGNETIC FIELD MAP =============
+ZEUSBFLD-MAP  2 0 0  0
+ZEUSBFLD-MSCALE 1=1000 3=1000  2=792  4=1000   5=7*1000
+C
+C ------------------------------
+C FLT-BMU specific control cards
+C ------------------------------
+C
+BMUFLT-BMCNTR 3
+BMUFLT-RMCNTR 2
+BMUFLT-MBDTYPE 'RAW'
+C
+ZG3xxTn-BMUO   1 (geometry) 1 (hits)
+C
+STOP
+
+
+
+
