@@ -1,0 +1,5 @@
+This folder contains programs to calculate hadronisation corrections for "charm and beauty with secondary vertices" paper, DESY-14-083.
+
+In order to run, the fastJet libraries must be installed, and the paths in the Makefile need to be adapted.
+
+Please contact vladyslav.libov@desy.de for more details.
