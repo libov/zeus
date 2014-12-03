@@ -1,0 +1,376 @@
+C -----------------------------------------------------------------------
+C Cards for generating inclusive charm/beauty DIS MC
+C Taken from Philipp Roloff
+C http://www-zeus.desy.de/~roloff/monte_carlo/
+C Modified slightly by V.Libov (October 2009):
+C * Photon resolved processes selected
+C -- charm/beauty excitation=IRPC; IRPA,IRPE=0  or
+C -- other resolved process: gg->QQbar, qqbar->QQbar
+C    IRPA=IRPC=IRPE=1 (default); NFLQCDC=3, ensuring
+C    that excitation is not possible (following Leonid's cards)
+C * D-meson filter turned off, cuts commented out
+C * Q2min cut changed
+C * Pt cut set to 0.0 GeV for AE and 1 GeV for C (PT2CUT 18 switch, following Leonid's card)
+C * NFLQCDC changed to 5 for beauty (although seems that
+C    result is the same if NFLQCDC=4 - ask Hannes!)
+C
+C * 22.01.2010 --> now also for BGF
+C ------------------------------------------------------------------------
+C
+C-- Output file
+ZEUSIO-OUFI     output
+ZEUSIO-OOPT     MEDIUM=DISK,DRIVER=FZ,FILFOR=EXCH
+ZEUSIO-ODFL     FMCEvent
+C
+* Use local version of particle tables.
+ZDIN-PATH /afs/desy.de/group/zeus.zsmsm/gaf/linux/
+ZDIN-CAT  /afs/desy.de/group/zeus.zsmsm/gaf/linux/zdd_load.rz
+C-- Time limit per event (default = 20s)
+ZRLIMIT-TLFT 20.
+C
+C-- Institute (just for documentation)
+AMADEUS-INST DESY
+C
+C Turn on debug output 0=OFF, 1=ON
+AMADEUS-AMADBG 0
+C
+C Turn on the orange ntuple
+AMADEUS-AMANT 0
+C
+C-- Standard ZDIS stuff: generator is RAPGAP
+AMADEUS-GEN RAPGAP
+C
+C Set Charm and tau particles stable='T' or unstable='F'
+AMADEUS-CHSTAB F
+C
+C Run number. Be careful, this can screw up MOZART/ZEPHYR if
+C you don't make it =1 !
+AMADEUS-RUNNUM 1
+C
+C --- read random number seed / write last random number
+C ---    file (LUN = 10 ) must be provided
+C start random number chain
+AMADEUS-RNDCHAIN 1
+C
+C-- Now onto RAPGAP: chose incoming lepton (HEPEVT) ID
+C -11 = positron, 11 = electron)
+C RAPGAP-LEPIN    -11
+C--Set beam energies
+RAPGAP-EMMTM    -27.56
+RAPGAP-PMMTM     920.0
+C ntuple - if commented out, doesn't produce an output
+C RAPGAP-NTUPLE rg_ccbar.ntp
+C
+C RAPGAP-NODECAY 1
+C
+C-- Parton shower model
+C   (0=off, 1=initial state, 2=final state, 3=inital + final state
+C       10=ariadne)
+RAPGAP-IFPS 3
+C
+C-- Alpha_s fixed/running
+RAPGAP-IRUNA 1
+C
+C-- Type of events (0=diffractive dis, 1=standard dis)
+C   If you want (1), you're better off using DJANGO, anyway
+RAPGAP-IDIR 1
+C
+RAPGAP-IDISDIF 0
+C
+C-- Number of active flavours (default = 5)
+RAPGAP-NFLAV 5
+C-- Order for matrix elements (0=q/qbar only, 1=include BGF)
+RAPGAP-IFULL 1
+C
+C-- Pomeron structure function
+C     (D=0) gluon density in pomeron
+C     <0 user supplied via SUBROUTINE USDIFFR
+C    -10 = H1 94 fit 1 (Quarks Only)
+C    -11 = H1 94 fit 2 (Quarks + Flat Gluon)
+C    -12 = H1 94 fit 3 (Quarks + Flat Gluon)
+C    -13, -14, -15 + fits in LO
+C     15 = Old H1 fit (input data file required, use NPOM=0, EPSP=0.139)
+C     20 = pi+- exchange
+C     21 = pi0 exchange
+C     30 = Nikolaev Zakharov model
+C     40 = hard pomeron M.Wuestoff
+C     41 = hard pomeron  Bartels,Lotter,Wuesthoff
+C     42 = 2 - glu pomeron(soft)  M.Diehl
+C     45 = Buchmueller/McDermott/Hebecker
+C RAPGAP-NG -14
+C
+C                              choice of   proton structure function
+C                              3031  -  MRS D-'
+C                              3039  -  MRS (A')
+C                              3041  -  MRS (G)
+C                              4030  -  CTEQ 3M
+C                              4046  -  CTEQ 5L
+C                              4047  -  CTEQ 5D
+C                              4051  -  CTEQ 5F3
+C                              5006  -  GRV 94 HO
+C                              5007  -  GRV 94 HO, DIS
+C                              5012  -  GRV 98 LO
+C                              5013  -  GRV 98 HO
+C                              5014  -  GRV 98 HO, DIS
+C-- Structure function
+C        10^6*NPTYPE+1000*NGROUP+NSET encoding
+C        NPTYPE = 1 for protons
+RAPGAP-MSTP 51 1004046
+C for pion:
+C RAPGAP-MSTP 52 2005002
+C
+C the following card is now added by python script
+C for photon:
+C RAPGAP-MSTP 56 3005003
+C
+RAPGAP-Q2SUPP 10.
+C
+C-- Pomeron distribution, sometimes ignored depending on NG
+C  =-10 H1 94 fit scheme, Pomeron only, for NG=-10,-11,or-12
+C  =-11 H1 94 fit scheme, Meson only, for NG=-10,-11,or-12
+C  =-12 H1 94 fit scheme, Meson+Pomeron, for NG=-10,-11,or-12
+C  =0 streng density ,
+C  =1 Ingelman density,
+C  =2 Donnachie Landshoff density,
+C  =20 pion exchange
+C  =30 Nikolaev Zakharov model
+C  =40 hard pomeron M.Wuestoff
+C  =41 hard pomeron  Bartels,Lotter,Wuesthoff
+C  =42 2 - glu pomeron(soft)  M.Diehl
+C  =45 Buchmueller/McDermott/Hebecker
+C RAPGAP-NPOM -12
+C
+C-- Epsilon for rising of cross section in DL Pomeron,
+C   sometimes ignored depending on NG
+C RAPGAP-EPSP 0.139
+C
+C-- RN2
+C RAPGAP-RN2 4.0
+C
+C-- Alpha-Pomeron
+C RAPGAP-ALPHP 0.25
+C
+C-- Mimimum xf
+C RAPGAP-XF 0.90
+C
+C-- Maximum t
+C RAPGAP-T2MAX 5.0
+C
+C**********************************************************************
+C      scale for alpha_s
+C      1:  q2 = m**2
+C      2:  q2 = shat
+C      3:  q2 = m**2 + pt**2
+C      4:  q2 = Q2
+C      5:  q2 = Q2 + pt**2
+RAPGAP-IQ2 5
+C
+C-- Rapgap fragmentation. Default = 1; 10 is a better fit for diffraction.
+C RAPGAP-NFRAG   10
+C
+C ---------------------------
+C
+C-- Primordial kt (0=off, 1=on) as in aligned-jet model
+C change slope of exponential with KTSLOPE (D=-5.5)
+C RAPGAP-IALMKT 0
+C RAPGAP-KTSLOPE -1.5
+C
+C-- Switch for vector meson production
+C      0 = No special selection
+C      1 = light VM
+C    443 = J/Psi
+C    553 = Upsilon
+RAPGAP-IVM 0
+C
+C
+C-- Minimum Y
+RAPGAP-YMI 0.0
+C
+C-- Maximum Y
+RAPGAP-YMA 1.0
+C
+C-- Pt^2_hat cut for light quark matrix elements
+RAPGAP-PT2CUT 10 0.
+RAPGAP-PT2CUT 13 0.
+RAPGAP-PT2CUT 14 0.
+RAPGAP-PT2CUT 15 0.
+C
+C-- Maximum theta angle of scattered electron
+RAPGAP-THEMA 180.0
+C
+C-- Minimum theta angle of scattered electron
+RAPGAP-THEMI 0.0
+C
+C-- HERACLES in RAPGAP: magic cut variables
+RAPGAP-ICUT 3
+C reason for crash?
+CRAPGAP-XMIN 0.0
+CRAPGAP-XMAX 1.0
+C below are values from Ramoona's cards
+RAPGAP-XMIN 0.00001
+RAPGAP-XMAX 0.999
+C
+C With radiative corrections:
+C
+RAPGAP-LPARIN 2 1
+RAPGAP-LPARIN 4 1
+C
+C Only Born term:
+C
+C RAPGAP-LPARIN 2 0
+C RAPGAP-LPARIN 4 0
+C
+C-- HERACLES in RAPGAP: magic sample/integration parameters
+RAPGAP-NPOVEG       50000
+C  
+RAPGAP-INT2       1         1
+RAPGAP-INT3       1        20
+RAPGAP-INT3       2        20
+RAPGAP-INT3       3        20
+C
+RAPGAP-ISAM2      1         1
+RAPGAP-ISAM3      1         1
+RAPGAP-ISAM3      2         1
+RAPGAP-ISAM3      3         1
+C RAPGAP-INT2       1         1
+C RAPGAP-INT2       2         0
+C RAPGAP-INT3       1         5
+C RAPGAP-INT3       2         5
+C RAPGAP-INT3       3         5
+C
+C RAPGAP-ISAM2      1         1
+C RAPGAP-ISAM3      1         1
+C RAPGAP-ISAM3      2         1
+C RAPGAP-ISAM3      3         1
+C
+C c/b masses :
+C
+PYTHIA-PMAS      4       1      1.5
+PYTHIA-PMAS      5       1      4.75
+C
+C     alphas parameters
+C ----------------------------
+C FOR CTEQ5L:
+C
+PYTHIA-MSTU 112 5
+PYTHIA-PARU 112 0.146
+C
+C JETSET-MSTU 112 4
+C JETSET-PARU 112 0.192
+C ----------------------------
+C change JETSET parameters to accomodate 3 flavors
+C with lambda_QCD = 0.2
+C JETSET-MSTU 111 2
+C JETSET-MSTU 112 3
+C JETSET-MSTU 114 3
+C     lambda QCD
+C JETSET-PARU 112 0.2
+*
+* -------------------------- AMADEUS filter stuff ---------------------------
+*
+* This file contains example control cards and documentation
+* for the filters available in genutil. The filters use the contents of the 
+* ZES_MC common blocks. You can write your own filters
+* in ZDUEVT, using the variables in the ZES MC common blocks.
+*
+* Last update 14/11/05, MAB
+*
+* ------------------------------------------------------------------------
+* Cut          Description                              Person responsible
+* AMACUTS(1) = Single jet demand                           (General)
+* AMACUTS(2) = Dijet demand (with optional boost, mass cuts)
+* AMACUTS(3) = Three jet demand (with optional mass cut)
+* AMACUTS(4) = Kinematic Cuts for Exotic background generation.(M.VanHook)
+* AMACUTS(5) = vacant
+* AMACUTS(6) = Delta Eta cut                               (J.Butterworth)
+* AMACUTS(7) = K0s, Lambda filter                          (A. Wilson)
+* AMACUTS(8) = vacant
+* AMACUTS(9) = FNC filter (with optional jet cuts)         (M.Khakzad)
+* AMACUTS(10)= Prompt photon                               (T.Vaiciulis)
+* AMACUTS(11)= D* filter                                   (M.Sutton)
+* AMACUTS(12)= Lambda_c -> K0p filter                      (Myself)
+* AMACUTS(13)= Lambda_c -> Lambda pi filter                (Myself)
+* AMACUTS(14)= Lambda_c -> p K pi filter                   (Myself)
+* AMACUTS(15)= D+/- -> K0 pi filter                        (Myself)
+* ------------------------------------------------------------------------
+*
+* The user can turn any number of these sets of cuts with the
+* following control card (0=off,1=on);
+*             CUT1  CUT2  CUT3   CUT4   CUT5  CUT6  CUT7
+*             1JET  2JET  3JET   SUMS     -   DETA  K0
+AMACUT-CUTSON  0     0      0      0      0     0   0
+*             CUT8  CUT9  CUT10  CUT11  CUT12  CUT13  CUT14
+*              -    FNC   PROMPT   D*
+               0     0      0      0      0      0      0
+*             CUT15
+*
+                0
+*
+* If more than one set of cuts is turned on, events are 
+* written out if they pass any of the cuts (logical .OR.)  
+*
+* Change parameters for CUT1 **************************************
+*                       minEt     max_eta  min_eta
+C AMACUT-CUT1              6.0        3.0     -3.0
+*
+* Change parameters for CUT2 **************************************
+*                 minEt1  minEt2  max_eta  min_eta  min_mass   max_boost
+C AMACUT-CUT2       4.0     4.0     3.0      -3.0        0.0      99999.
+*
+* Change parameters for CUT3 **************************************
+*                 minEt1  minEt2  max_eta  min_eta  min_mass
+C AMACUT-CUT3       4.0       5.0    3.0      -3.0        0.0
+*
+* Change parameters for CUT4  *************************************
+* Value zero means default is taken.
+*              EPZ    ETMIN    EVETO
+C AMACUT-CUT4    5.     10.0     0.1
+*
+* Change parameters for CUT6  *************************************
+*             minEt1    minEt2  max_eta  min_eta     DETAHIGH   DETALOW
+C AMACUT-CUT6       4.0      5.0     3.0      -3.0        2.0      1.0
+*
+* Change parameters for CUT7 **************************************
+*                       minEt     max_eta  min_eta
+C AMACUT-CUT7              6.0        3.0     -3.0
+*
+* Change parameters for CUT9  *************************************
+*          HMIN     HMAX    VMIN    VMAX  minEt1  minEt2  max_eta  min_eta
+C AMACUT-CUT9   0.       0.      0.      0.     6.0    5.0  3.0      -3.0
+*
+*
+* Change parameters for CUT10 *************************************
+* If WOT=1.0 then background events are generated.
+* If WOT=2.0 then events with high p_T photons radiated from quarks
+* are generated
+* Otherwise enriched prompt photon events are produced.
+*                YMIN    YMAX    MINETA  MAXETA   MINPT   WOT  ET
+C AMACUT-CUT10      0.      1.0      -4.     4.      3.     0.   3.5
+*
+* Change parameters for CUT11  *************************************
+*                PT(D*)
+C AMACUT-CUT11      0.5
+*
+C AMACUT-CUT12      0.0
+*
+C AMACUT-CUT13      0.0
+*
+C AMACUT-CUT14      0.0
+*
+C AMACUT-CUT15      0.0
+*
+USER-DISLIST 5
+C ---- now switches that are added automatically by generator script
+C
+C-- Subprocess type
+C	18 - resolved photon processes
+C	1200 - use HERACLES for eq -> e'q'
+C	1400 - use HERACLES for HQ production via BGF : eg -> e'QQ-bar
+RAPGAP-IPRO 1400
+C  IHFLA = 4 - charm
+C          5 - beauty
+RAPGAP-IHFLA 4
+C-- Minimum Q2
+RAPGAP-QMI 1.5
+C-- Incoming lepton: 11=e-, -11=e+
+RAPGAP-LEPIN    -11

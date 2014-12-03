@@ -1,0 +1,12 @@
+*** Instructions on how to run AUTOGEN
+
+1. Prepare a conig file (or a set of config files) analogously to config.<suffix>.cfg in this folder
+2. Edit script called submit-steer.sh, namely change variable called CONFIGSET to set of config files you want to process
+3. login to zarah
+4. ./submit-steer.sh > logfile
+
+
+*** some old remarks
+--> config AE was splitted in 0304p and others (0304p was submitted while others not - wrong incoming lepton)
+
+--> if running manually, don't forget to rm heracles.dat (22.01.2010)

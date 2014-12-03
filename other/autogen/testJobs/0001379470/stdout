@@ -1,0 +1,76 @@
+Sender: LSF System <lsfzeus@zenith185.desy.de>
+Subject: Job 361350: <0001379470> Exited
+
+Job <0001379470> was submitted from host <zarah4.desy.de> by user <libov>.
+Job was executed on host(s) <zenith185.desy.de>, in queue <S>, as user <libov>.
+</tmp/.lsbtmp15643> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Fri Jan 22 15:06:27 2010
+Results reported at Fri Jan 22 15:08:48 2010
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+generate_zarah.sh
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time   :    136.24 sec.
+    Max Memory :        33 MB
+    Max Swap   :       247 MB
+
+    Max Processes  :         9
+    Max Threads    :        15
+
+The output (if any) follows:
+
++ '[' zarah4.desy.de == zarah1.desy.de ']'
++ echo 'submitted using JSP'
+submitted using JSP
++ /usr/share/lsf/mnt/conf/lsbatch/zeus/scripts/java_job_starter.sh generate_zarah.sh
+=============== 361350 ==============
+Fri Jan 22 15:06:38 CET 2010
+-----------------------------------------
+/tmp
+-----------------------------------------
+-----------------------------------------
+NEW JOB
+generate_zarah.sh
+/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/Released/Support/root/i586-sl4-linux/5.20.00/bin:/afs/desy.de/user/l/libov/bin.Linux_RHEL4:/afs/desy.de/user/l/libov/bin:/etc/local/groups/zeus/bin:/etc/local/groups/zeus/scripts:/usr/share/lsf/bin:/usr/sue/bin:/opt/products/scripts:/opt/products/bin:/bin:/usr/bin:/usr/bin/X11:/usr/local/X11/bin:/usr/local/bin:/usr/kerberos/bin:/cern/pro/bin:.:.:/zeus/bin:/usr/sbin:/afs/desy.de/common/usr/local/bin:/afs/desy.de/common/usr/local/X11/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd
+EXECUTING USER SCRIPT
+
+............... Large MC samples generator ...............
+
+beauty, Q^2> 1 GeV^2, BGF
+start cross section job
+
+...generating job #0
+Running RAPGAP inside Amadeus.
+Trying to use control cards from current.cards
+Output goes to current.log
+job #0: generation complete
+cross section job finished
+Cross Section Given by Generator= 0.9076329
+charm, Q^2> 1.5 GeV^2, BGF
+start cross section job
+
+...generating job #0
+Running RAPGAP inside Amadeus.
+Trying to use control cards from current.cards
+Output goes to current.log
+job #0: generation complete
+cross section job finished
+Traceback (most recent call last):
+  File "steer.py", line 113, in ?
+    evaluateCrossSections()
+  File "steer.py", line 65, in evaluateCrossSections
+    z._calculateCrossSect()
+  File "/execspool/361350/sample.py", line 235, in _calculateCrossSect
+    log.seek(num)
+IOError: [Errno 22] Invalid argument
+./$1  128.86s user 0.42s system 99% cpu 2:10.30 total
++ exit 1

@@ -1,0 +1,27 @@
+#!/bin/csh -f
+echo $PWD
+echo $ZARCH_TYPE
+
+if ($#argv > 0 ) then
+	set cardname = $1
+else
+	echo "No Card Specified"
+endif
+
+echo "Running RAPGAP inside Amadeus."
+echo "Trying to use control cards from ${cardname}.cards"
+echo "Output goes to ${cardname}.log"
+
+rm -f fort.7
+# rm -f fort.10
+
+ln -s ${cardname}.cards fort.7
+# ln -s amadeus.rndm       fort.10
+
+#set amadir = $ZSOFT_ROOT/Support/Monte_Carlo/Generators/amadeus/v2006a/exe/$ZARCH_TYPE
+#set amadir = $ZSOFT_ROOT/Support/Monte_Carlo/Generators/amadeus/v2008g/exe/$ZARCH_TYPE
+set amadir = /data/zenith226a/libov/amadeus/v2008g/exe/$ZARCH_TYPE
+#set amadir = /data/zenith226a/libov/amadeus/v2008g/exe/i586-sl3-linux
+$amadir/amadeus_rapgap30.exe >& ${cardname}.log
+
+

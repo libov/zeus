@@ -1,0 +1,76 @@
+Sender: LSF System <lsfzeus@zenith81.desy.de>
+Subject: Job 360660: <0001379366> Done
+
+Job <0001379366> was submitted from host <zarah4.desy.de> by user <libov>.
+Job was executed on host(s) <zenith81.desy.de>, in queue <S>, as user <libov>.
+</tmp/.lsbtmp15643> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Fri Jan 22 11:17:49 2010
+Results reported at Fri Jan 22 11:20:34 2010
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+generate_zarah.sh
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :    157.92 sec.
+    Max Memory :        33 MB
+    Max Swap   :       247 MB
+
+    Max Processes  :         9
+    Max Threads    :        15
+
+The output (if any) follows:
+
++ '[' zarah4.desy.de == zarah1.desy.de ']'
++ echo 'submitted using JSP'
+submitted using JSP
++ /usr/share/lsf/mnt/conf/lsbatch/zeus/scripts/java_job_starter.sh generate_zarah.sh
+=============== 360660 ==============
+Fri Jan 22 11:17:58 CET 2010
+-----------------------------------------
+/tmp
+-----------------------------------------
+-----------------------------------------
+NEW JOB
+generate_zarah.sh
+/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/Released/Support/root/i586-sl4-linux/5.20.00/bin:/afs/desy.de/user/l/libov/bin.Linux_RHEL:/afs/desy.de/user/l/libov/bin:/etc/local/groups/zeus/bin:/etc/local/groups/zeus/scripts:/usr/share/lsf/bin:/usr/sue/bin:/opt/products/scripts:/opt/products/bin:/bin:/usr/bin:/usr/bin/X11:/usr/local/X11/bin:/usr/local/bin:/usr/kerberos/bin:/cern/pro/bin:.:.:/zeus/bin:/usr/sbin:/afs/desy.de/common/usr/local/bin:/afs/desy.de/common/usr/local/X11/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd/bin:/afs/desy.de/group/zeus.zsmsm/ZEUSSysSoft/cmd
+EXECUTING USER SCRIPT
+
+............... Large MC samples generator ...............
+
+beauty, subprocess: BGF, Q^2> 1 GeV^2
+files go to: /data/zenith226a/libov/amadeus/events/rgap30/evse26.f15643.bbbar.rg30.Q2g1.BGF/
+20000 events/job
+1.32 pb^-1 to be generated
+start cross section job
+
+...generating job #0
+Running RAPGAP inside Amadeus.
+Trying to use control cards from current.cards
+Output goes to current.log
+job #0: generation complete
+cross section job finished
+Cross Section Given by Generator= 0.9076329
+Total number Of events to be generated: 1198
+Number of jobs with 20000 events/job: 0
+Number of events in additional job: 1198
+
+...generating job #1
+Running RAPGAP inside Amadeus.
+Trying to use control cards from current.cards
+Output goes to current.log
+job #1: generation complete
+evse26.f15643.bbbar.rg30.Q2g1.BGF.1.gz exists: True
+evse26.f15643.bbbar.rg30.Q2g1.BGF.1.zdi exists: True
+
+........................ COMPLETE .........................
+
+./$1  153.45s user 0.30s system 98% cpu 2:36.08 total
++ exit 0
