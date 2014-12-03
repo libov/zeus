@@ -1,0 +1,136 @@
+\section{/examples/CCTest2.cc}
+An example of a program using the C++ interface to \doxyref{LHAPDF}{p.}{namespaceLHAPDF} to calculate PDF errors.
+
+
+
+\begin{DocInclude}\begin{verbatim}1 
+2 // Program to demonstrate usage of the MRST 2006 NNLO PDFs.    //
+3 // to calculate errors.                                        //
+5 #include "LHAPDF/LHAPDF.h"
+6 #include <iostream>
+7 #include <cmath>
+8 #include <cstdio>
+9 #include <cstdlib>
+10 using namespace std;
+11 
+12 using namespace LHAPDF;
+13 
+14 
+15 double logdist_x(double xmin, double xmax, size_t ix, size_t nx) {
+16   const double log10xmin = log10(xmin);
+17   const double log10xmax = log10(xmax);
+18   const double log10x = log10xmin + (ix/static_cast<double>(nx-1))*(log10xmax-log10xmin);
+19   const double x = pow(10.0, log10x);
+20   return x;
+21 }
+22 
+23 
+24 int main() {
+25   // Show initialisation banner only once
+26   setVerbosity(LOWKEY); // or SILENT, for no banner at all
+27 
+28   // You could explicitly set the path to the PDFsets directory
+29   // setPDFPath("/home/whalley/local/share/lhapdf/PDFsets");
+30   
+31   // Initialize PDF sets
+32   const string NAME = "MRST2006nnlo";
+33   initPDFSetM(1, NAME, LHGRID);
+34   initPDFSetM(2, NAME, LHGRID);
+35   initPDFSetM(3, NAME, LHGRID);
+36   
+37   // Find the number of eigensets from numberPDF()
+38   const int neigen = numberPDFM(1)/2;
+39   cout << "Number of eigensets in this fit = " << neigen << endl;
+40   // Find the min and max values of x and Q2 
+41   const double xmin = getXmin(0);
+42   const double xmax = getXmax(0);
+43   cout << "Valid x-range = [" << xmin << ", " << xmax << "]" << endl;
+44   // Number of x values to sample
+45   const int nx = 10;
+46   // Set the Q scale and flavour
+47   double q = 10;
+48   int flav = 4;
+49 
+50   // Get x's and central PDF values
+51   initPDFM(1, 0);
+52   vector<double> fc(nx), x(nx);
+53   for (int ix = 0; ix < nx; ++ix) {
+54     x[ix] = logdist_x(xmin, 0.9*xmax, ix, nx);
+55     fc[ix] = xfxM(1, x[ix], q, flav);
+56   }
+57 
+58   // Sum over error contributions (two ways, depending on how LHDPAF was compiled)
+59   vector<double> summax(nx), summin(nx), sum(nx);
+60   #ifndef LHAPDF_LOWMEM
+61   // This is the normal, efficient, way to do this, with the error
+62   // sets being initialised the minimum number of times
+63   cout << "Using efficient set looping" << endl;
+64   for (int ieigen = 1; ieigen <= neigen; ++ieigen) {
+65     initPDFM(2, 2*ieigen-1);
+66     initPDFM(3, 2*ieigen);
+67     for (int ix = 0; ix < nx; ++ix) {
+68       // Find central and plus/minus values
+69       const double fp = xfxM(2, x[ix], q, flav);
+70       const double fm = xfxM(3, x[ix], q, flav);
+71       // Construct shifts
+72       const double plus = max(max(fp-fc[ix], fm-fc[ix]),0.0);
+73       const double minus = min(min(fp-fc[ix], fm-fc[ix]),0.0);
+74       const double diff = fp-fm;
+75       // Add it together
+76       summax[ix] += plus*plus;
+77       summin[ix] += minus*minus;
+78       sum[ix] += diff*diff;
+79     }
+80   }
+81   #else
+82   // In low memory mode, the sets need to be re-initialised with every 
+83   // change of member. Using the approach above gives wrong answers, and
+84   // reinitialising in all the nested loops is sloooooow! The best way is 
+85   // to calculate the values, plus and minus errors separately.
+86   cout << "Using low-mem mode set looping" << endl;
+87   for (int ieigen = 1; ieigen <= neigen; ++ieigen) {
+88     vector<double> fp(nx), fm(nx);
+89     initPDFM(2, 2*ieigen-1);
+90     for (int ix = 0; ix < nx; ++ix) {
+91       fp[ix] = xfxM(2, x[ix], q, flav);
+92     }
+93     initPDFM(3, 2*ieigen);
+94     for (int ix = 0; ix < nx; ++ix) {
+95       fm[ix] = xfxM(3, x[ix], q, flav);
+96     }
+97     for (int ix = 0; ix < nx; ++ix) {
+98       // Construct shifts
+99       const double plus = max(max(fp[ix]-fc[ix], fm[ix]-fc[ix]), 0.0);
+100       const double minus = min(min(fp[ix]-fc[ix], fm[ix]-fc[ix]), 0.0);
+101       const double diff = fp[ix]-fm[ix];
+102       // Add it together
+103       summax[ix] += plus*plus;
+104       summin[ix] += minus*minus;
+105       sum[ix] += diff*diff;
+106     }
+107   }
+108   #endif
+109 
+110   // Print out results
+111   cout << "flavour = " << flav << "               Asymmetric (%)   Symmetric (%)" << endl;
+112   cout << "     x    Q**2    xf(x)    plus    minus      +-      " << endl;
+113   for  (int ix = 0; ix < nx; ++ix) {
+114     printf("%0.7f %.0f %10.2E %8.2f %8.2f %8.2f \n",
+115            x[ix], q*q, fc[ix], 
+116            sqrt(summax[ix])*100/fc[ix],
+117            sqrt(summin[ix])*100/fc[ix],
+118            0.5*sqrt(sum[ix])*100/fc[ix]);
+119   }
+120   
+121   return EXIT_SUCCESS;
+122 }
+123 
+124 
+125 
+126 #include "FortranWrappers.h"
+127 #ifdef FC_DUMMY_MAIN
+128 int FC_DUMMY_MAIN() { return 1; }
+129 #endif
+\end{verbatim}
+\end{DocInclude}
+ 

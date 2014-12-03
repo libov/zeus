@@ -1,0 +1,522 @@
+\section{LHAPDF Namespace Reference}
+\label{namespaceLHAPDF}\index{LHAPDF@{LHAPDF}}
+Namespace containing all the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} wrapper functions.  
+
+
+\subsection*{Classes}
+\begin{CompactItemize}
+\item 
+class \bf{PDFSet\-Info}
+\begin{CompactList}\small\item\em Structure containing metadata about a PDF set. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Global setup functions}
+\begin{CompactItemize}
+\item 
+std::string \bf{get\-Version} ()\label{namespaceLHAPDF_9292fee2d872d5592f9afff84efbfb66}
+
+\begin{CompactList}\small\item\em Get \doxyref{LHAPDF}{p.}{namespaceLHAPDF} version string. \item\end{CompactList}\item 
+void \bf{init\-LHAPDF} ()\label{namespaceLHAPDF_f16c1c783a107ad076c9ed13de3e7e56}
+
+\begin{CompactList}\small\item\em Global initialisation. \item\end{CompactList}\item 
+void \bf{set\-Verbosity} (\bf{Verbosity} noiselevel)\label{namespaceLHAPDF_54d0a3e29ef9a2bf17777da61c99ad3e}
+
+\begin{CompactList}\small\item\em Choose level of noisiness. \item\end{CompactList}\item 
+void \bf{extrapolate} (bool extrapolate=true)\label{namespaceLHAPDF_29dfd88a6e2d9533baa59f0d582e51a7}
+
+\begin{CompactList}\small\item\em Extrapolate beyond grid edges. \item\end{CompactList}\item 
+void \bf{set\-PDFPath} (const std::string \&path)\label{namespaceLHAPDF_fd9066c0aa856955bb1fe831bc0b7683}
+
+\begin{CompactList}\small\item\em Set the LHAPATH variable (the location of the PDF sets directory). \item\end{CompactList}\item 
+void \bf{set\-Parameter} (const std::string \&parm)\label{namespaceLHAPDF_d16517342d79beed3a6e1d1533e42ad5}
+
+\begin{CompactList}\small\item\em Set a steering parameter (direct map to Fortran {\tt setlhaparm(parm)} function). \item\end{CompactList}\end{CompactItemize}
+\subsection*{Set metadata}
+\begin{CompactItemize}
+\item 
+std::ostream \& \textbf{operator$<$$<$} (std::ostream \&os, const \bf{PDFSet\-Info} \&info)\label{namespaceLHAPDF_fe1f375146a659271cde01380c3e12ac}
+
+\item 
+\bf{PDFSet\-Info} \bf{get\-PDFSet\-Info} (const std::string \&filename, int memid)\label{namespaceLHAPDF_8467272b263e318f87ddf26c0f82802b}
+
+\begin{CompactList}\small\item\em Get a PDF set info object by filename and member number. \item\end{CompactList}\item 
+\bf{PDFSet\-Info} \bf{get\-PDFSet\-Info} (int id)\label{namespaceLHAPDF_50046d1fd4b0cfe38f6cd4698e3e55ab}
+
+\begin{CompactList}\small\item\em Get a PDF set info object by the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} ID number. \item\end{CompactList}\item 
+std::vector$<$ \bf{PDFSet\-Info} $>$ \bf{get\-All\-PDFSet\-Info} ()\label{namespaceLHAPDF_cf264901e05432c4f9c97dbe13d14719}
+
+\begin{CompactList}\small\item\em Get a vector of PDF set info objects for all known sets. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Path info functions}
+\begin{CompactItemize}
+\item 
+std::string \bf{prefix\-Path} ()\label{namespaceLHAPDF_678a28f95507a68dd167164dc16f2048}
+
+\begin{CompactList}\small\item\em Get path to \doxyref{LHAPDF}{p.}{namespaceLHAPDF} installation (the \char`\"{}prefix\char`\"{} path). \item\end{CompactList}\item 
+std::string \bf{pdfsets\-Path} ()\label{namespaceLHAPDF_c3bda95b9904400ad85a47e4ff02f4a2}
+
+\begin{CompactList}\small\item\em Get path to \doxyref{LHAPDF}{p.}{namespaceLHAPDF} PDF sets directory. \item\end{CompactList}\item 
+std::string \bf{pdfsets\-Index\-Path} ()\label{namespaceLHAPDF_812d693051e1cba73e379606ac766370}
+
+\begin{CompactList}\small\item\em Get path to \doxyref{LHAPDF}{p.}{namespaceLHAPDF} PDF sets index file. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Initialisation functions}
+\doxyref{LHAPDF}{p.}{namespaceLHAPDF} functions for initialising PDF sets. If you need to use more than one set simultaneously, use the multi-set functions, which have a integer {\tt nset} first argument. \begin{CompactItemize}
+\item 
+void \bf{init\-PDFSet} (int setid, int member)\label{namespaceLHAPDF_a10ba6e937b19cbc9d58ec0f5aaf2564}
+
+\begin{CompactList}\small\item\em Initialise {\em member\/} in PDF set {\em setid\/}. \item\end{CompactList}\item 
+void \bf{init\-PDFSet} (int nset, int setid, int member)\label{namespaceLHAPDF_f9ab8e566194fd2d109640eb56a4aa7a}
+
+\begin{CompactList}\small\item\em Initialise {\em member\/} in PDF set {\em setid\/} (multi-set version). \item\end{CompactList}\item 
+void \bf{init\-PDFSet} (const std::string \&name, \bf{Set\-Type} type, int member=0)\label{namespaceLHAPDF_9e5e576f03afc3510bc9241cd983c663}
+
+\begin{CompactList}\small\item\em Initialise {\em member\/} in PDF set {\em name\/}, of type {\em type\/}. \item\end{CompactList}\item 
+void \bf{init\-PDFSet} (int nset, const std::string \&name, \bf{Set\-Type} type, int member=0)\label{namespaceLHAPDF_c5f88624070d78d31432f1a4b9e55e2a}
+
+\begin{CompactList}\small\item\em Initialise {\em member\/} in PDF set {\em name\/}, of type {\em type\/} (multi-set version). \item\end{CompactList}\item 
+void \bf{init\-PDFSet} (const std::string \&filename, int member=0)\label{namespaceLHAPDF_68d26168f85bb625f837ea441c5fc128}
+
+\begin{CompactList}\small\item\em Initialise {\em member\/} in PDF set file {\em filename\/}. If {\em filename\/} contains a \char`\"{}/\char`\"{} character, it will be used as a path, otherwise it will be assumed to be a PDF file in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} {\tt PDFsets} directory. \item\end{CompactList}\item 
+void \bf{init\-PDFSet} (int nset, const std::string \&filename, int member=0)\label{namespaceLHAPDF_caff4e453e4a42afb068e09a434c17a6}
+
+\begin{CompactList}\small\item\em Initialise {\em member\/} in PDF set file {\em filename\/} (multi-set version). If {\em filename\/} contains a \char`\"{}/\char`\"{} character, it will be used as a path, otherwise it will be assumed to be a PDF file in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} {\tt PDFsets} directory. \item\end{CompactList}\item 
+void \bf{use\-PDFMember} (int member)\label{namespaceLHAPDF_4e41bc18ecd60849953c939578789e84}
+
+\begin{CompactList}\small\item\em Use {\em member\/} in current PDF set. This operation is computationally cheap. \item\end{CompactList}\item 
+void \bf{use\-PDFMember} (int nset, int member)\label{namespaceLHAPDF_68cff41a9e5091c179321992fff9b303}
+
+\begin{CompactList}\small\item\em Use {\em member\/} in PDF set {\em nset\/} (multi-set version). This operation is computationally cheap. \item\end{CompactList}\end{CompactItemize}
+\subsection*{PDF set information}
+\begin{CompactItemize}
+\item 
+void \bf{get\-Description} ()\label{namespaceLHAPDF_04cf7f990740e452d0fe736947b343ae}
+
+\begin{CompactList}\small\item\em Prints a brief description of the current PDF set to stdout. \item\end{CompactList}\item 
+void \bf{get\-Description} (int nset)\label{namespaceLHAPDF_d37b4a48a16c4d452319e87a11e453aa}
+
+\begin{CompactList}\small\item\em Prints a brief description of the current PDF set to stdout. \item\end{CompactList}\item 
+bool \bf{has\-Photon} ()\label{namespaceLHAPDF_03393559d824a420c5f3542bcc1ea89f}
+
+\begin{CompactList}\small\item\em Does the current set have a photon member? \item\end{CompactList}\item 
+int \bf{number\-PDF} ()\label{namespaceLHAPDF_4cfecd0693992eff5c0febc2838ed376}
+
+\begin{CompactList}\small\item\em Number of members available in the current set. \item\end{CompactList}\item 
+int \bf{number\-PDF} (int nset)\label{namespaceLHAPDF_f19a2e61f8832754de0223a408135a1f}
+
+\begin{CompactList}\small\item\em Number of members available in the current set. \item\end{CompactList}\item 
+double \bf{alphas\-PDF} (double Q)\label{namespaceLHAPDF_38560c4ffe9c677e332e7b79ee1f430c}
+
+\begin{CompactList}\small\item\em $ \alpha_\mathrm{s} $ used by the current PDF. \item\end{CompactList}\item 
+double \bf{alphas\-PDF} (int nset, double Q)\label{namespaceLHAPDF_d29c1f879f4037d650d1c5135ce92e3a}
+
+\begin{CompactList}\small\item\em $ \alpha_\mathrm{s} $ used by the current PDF. \item\end{CompactList}\item 
+int \bf{get\-Order\-PDF} ()\label{namespaceLHAPDF_18f83a309678f560e5be15a8b51bea5a}
+
+\begin{CompactList}\small\item\em Get order at which the PDF was fitted. \item\end{CompactList}\item 
+int \bf{get\-Order\-PDF} (int nset)\label{namespaceLHAPDF_d321146698c37d11ec8b20a2550cfab5}
+
+\begin{CompactList}\small\item\em Get order at which the PDF was fitted. \item\end{CompactList}\item 
+int \bf{get\-Order\-Alpha\-S} ()\label{namespaceLHAPDF_550873e5d7fe446d28648e9789d2e54d}
+
+\begin{CompactList}\small\item\em Perturbative order of parton evolution and $ \alpha_\mathrm{s} $ respectively. \item\end{CompactList}\item 
+int \bf{get\-Order\-Alpha\-S} (int nset)\label{namespaceLHAPDF_2eb396ef1b57f0d51a3f1ca1c8acf827}
+
+\begin{CompactList}\small\item\em Perturbative order of parton evolution and $ \alpha_\mathrm{s} $ respectively. \item\end{CompactList}\item 
+double \bf{get\-QMass} (int f)\label{namespaceLHAPDF_193b98ea2d7f3edbc79e7c1e3ab5193b}
+
+\begin{CompactList}\small\item\em Quark mass used for flavour {\em f\/}. \item\end{CompactList}\item 
+double \bf{get\-QMass} (int nset, int f)\label{namespaceLHAPDF_5972a1d76c4d52b32331f90f4a16d87a}
+
+\begin{CompactList}\small\item\em Quark mass used for flavour {\em f\/}. \item\end{CompactList}\item 
+double \bf{get\-Threshold} (int f)\label{namespaceLHAPDF_a45c90d4f06a2349152bce8bb1833be8}
+
+\begin{CompactList}\small\item\em Threshold for flavour {\em f\/}. \item\end{CompactList}\item 
+double \bf{get\-Threshold} (int nset, int f)\label{namespaceLHAPDF_e98741ccc26dd87254300d4ff6217773}
+
+\begin{CompactList}\small\item\em Threshold for flavour {\em f\/}. \item\end{CompactList}\item 
+int \bf{get\-Nf} ()\label{namespaceLHAPDF_06455b0d04084767234687d2157fbaac}
+
+\begin{CompactList}\small\item\em Number of flavours used in the current PDF set. \item\end{CompactList}\item 
+int \bf{get\-Nf} (int nset)\label{namespaceLHAPDF_fce250ff7543c576466ee97e0680165b}
+
+\begin{CompactList}\small\item\em Number of flavours used in the current PDF set. \item\end{CompactList}\item 
+double \bf{get\-Lam4} (int m)\label{namespaceLHAPDF_b93e76e23f624496bf6efe20dcb0871d}
+
+\begin{CompactList}\small\item\em Value of QCD $ \lambda_4 $ for member {\em m\/}. \item\end{CompactList}\item 
+double \bf{get\-Lam4} (int nset, int m)\label{namespaceLHAPDF_2d4b830a264fb3ef371bd0ce91a2bb04}
+
+\begin{CompactList}\small\item\em Value of QCD $ \lambda_4 $ for member {\em m\/}. \item\end{CompactList}\item 
+double \bf{get\-Lam5} (int m)\label{namespaceLHAPDF_45ac2af896fdc4d28e8e5457a46a68b7}
+
+\begin{CompactList}\small\item\em Value of QCD $ \lambda_5 $ for member {\em m\/}. \item\end{CompactList}\item 
+double \bf{get\-Lam5} (int nset, int m)\label{namespaceLHAPDF_82c826db9bbaa4f0af4f55ab5920b6e9}
+
+\begin{CompactList}\small\item\em Value of QCD $ \lambda_5 $ for member {\em m\/}. \item\end{CompactList}\item 
+double \bf{get\-Xmin} (int m)\label{namespaceLHAPDF_4b68147f30e452ed7bbe300630b46a3f}
+
+\begin{CompactList}\small\item\em Minimum $ x $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\item 
+double \bf{get\-Xmin} (int nset, int m)\label{namespaceLHAPDF_20614c6c094711be5b706a674ac6247b}
+
+\begin{CompactList}\small\item\em Minimum $ x $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\item 
+double \bf{get\-Xmax} (int m)\label{namespaceLHAPDF_9674750111bc08eee46291537f5aca71}
+
+\begin{CompactList}\small\item\em Maximum $ x $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\item 
+double \bf{get\-Xmax} (int nset, int m)\label{namespaceLHAPDF_73b1a4239342776c908b2bf68c32fd6b}
+
+\begin{CompactList}\small\item\em Maximum $ x $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\item 
+double \bf{get\-Q2min} (int m)\label{namespaceLHAPDF_af8a27a30e2a01de0456096492804a9e}
+
+\begin{CompactList}\small\item\em Minimum $ Q^2 $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\item 
+double \bf{get\-Q2min} (int nset, int m)\label{namespaceLHAPDF_6bcb06437a5d2370be110b8f44fe131d}
+
+\begin{CompactList}\small\item\em Minimum $ Q^2 $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\item 
+double \bf{get\-Q2max} (int m)\label{namespaceLHAPDF_d4db3b12b4887db4389adb37987c2c77}
+
+\begin{CompactList}\small\item\em Maximum $ Q^2 $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\item 
+double \bf{get\-Q2max} (int nset, int m)\label{namespaceLHAPDF_b164cb1918169f30e379e95b90c54c5d}
+
+\begin{CompactList}\small\item\em Maximum $ Q^2 $ value considered valid for this set, as specified by the set authors. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Nucleon PDFs}
+These PDFs are defined for protons --- neutron PDFs are usually obtained by isospin conjugation. \begin{CompactItemize}
+\item 
+std::vector$<$ double $>$ \bf{xfx} (double x, double Q)
+\item 
+std::vector$<$ double $>$ \bf{xfx} (int nset, double x, double Q)
+\item 
+void \bf{xfx} (double x, double Q, double $\ast$results)
+\item 
+void \bf{xfx} (int nset, double x, double Q, double $\ast$results)
+\item 
+double \bf{xfx} (double x, double Q, int fl)
+\item 
+double \bf{xfx} (int nset, double x, double Q, int fl)
+\end{CompactItemize}
+\subsection*{Photon PDFs}
+\begin{CompactItemize}
+\item 
+std::vector$<$ double $>$ \bf{xfxp} (double x, double Q, double P2, int ip)
+\item 
+std::vector$<$ double $>$ \bf{xfxp} (int nset, double x, double Q, double P2, int ip)
+\item 
+void \bf{xfxp} (double x, double Q, double P2, int ip, double $\ast$results)
+\item 
+void \bf{xfxp} (int nset, double x, double Q, double P2, int ip, double $\ast$results)
+\item 
+double \bf{xfxp} (double x, double Q, double P2, int ip, int fl)
+\item 
+double \bf{xfxp} (int nset, double x, double Q, double P2, int ip, int fl)
+\end{CompactItemize}
+\subsection*{Nuclear PDFs}
+\begin{CompactItemize}
+\item 
+std::vector$<$ double $>$ \bf{xfxa} (double x, double Q, double a)
+\item 
+std::vector$<$ double $>$ \bf{xfxa} (int nset, double x, double Q, double a)
+\item 
+void \bf{xfxa} (double x, double Q, double a, double $\ast$results)
+\item 
+void \bf{xfxa} (int nset, double x, double Q, double a, double $\ast$results)
+\item 
+double \bf{xfxa} (double x, double Q, double a, int fl)
+\item 
+double \bf{xfxa} (int nset, double x, double Q, double a, int fl)
+\end{CompactItemize}
+\subsection*{Nucleon MRST QED PDF}
+These functions only apply to the MRST QED PDF set, since they return an extra element for the additional photon. \begin{CompactItemize}
+\item 
+std::vector$<$ double $>$ \bf{xfxphoton} (double x, double Q)
+\item 
+std::vector$<$ double $>$ \bf{xfxphoton} (int nset, double x, double Q)
+\item 
+void \bf{xfxphoton} (double x, double Q, double $\ast$results)
+\item 
+void \bf{xfxphoton} (int nset, double x, double Q, double $\ast$results)
+\item 
+double \bf{xfxphoton} (double x, double Q, int fl)
+\item 
+double \bf{xfxphoton} (int nset, double x, double Q, int fl)
+\end{CompactItemize}
+\subsection*{Deprecated initialisation functions}
+\doxyref{LHAPDF}{p.}{namespaceLHAPDF} functions for initialising PDF sets. If you need to use more than one set simultaneously, use the multi-set functions, which have a integer {\tt nset} first argument. \begin{Desc}
+\item[\bf{Deprecated}]These init methods are deprecated. \end{Desc}
+\begin{CompactItemize}
+\item 
+void \bf{init\-PDFSet\-By\-Name} (const std::string \&name, \bf{Set\-Type} type)\label{namespaceLHAPDF_9311274d147b883e287e69834b711999}
+
+\begin{CompactList}\small\item\em The PDF set by name and type, see subdir {\tt PDFsets} of \doxyref{LHAPDF}{p.}{namespaceLHAPDF} for choices. \item\end{CompactList}\item 
+void \bf{init\-PDFSet\-By\-Name} (int nset, const std::string \&name, \bf{Set\-Type} type)\label{namespaceLHAPDF_01c3a7c0442b194cb39683e1f8d82465}
+
+\begin{CompactList}\small\item\em The PDF set by name and type, see subdir {\tt PDFsets} of \doxyref{LHAPDF}{p.}{namespaceLHAPDF} for choices. \item\end{CompactList}\item 
+void \bf{init\-PDFSet\-By\-Name} (const std::string \&filename)\label{namespaceLHAPDF_61c8531ff8cbecd5da3bd7d1f46d883a}
+
+\begin{CompactList}\small\item\em The PDF set by filename, see subdir {\tt PDFsets} of \doxyref{LHAPDF}{p.}{namespaceLHAPDF} for choices. \item\end{CompactList}\item 
+void \bf{init\-PDFSet\-By\-Name} (int nset, const std::string \&filename)\label{namespaceLHAPDF_06383e905e954dd607687f9a3f9513e2}
+
+\begin{CompactList}\small\item\em The PDF set by filename, see subdir {\tt PDFsets} of \doxyref{LHAPDF}{p.}{namespaceLHAPDF} for choices. \item\end{CompactList}\item 
+void \bf{init\-PDF} (int memset)\label{namespaceLHAPDF_8db3179ee46b8fcdb742eba2c00837dd}
+
+\begin{CompactList}\small\item\em The choice of PDF member out of one distribution. \item\end{CompactList}\item 
+void \bf{init\-PDF} (int nset, int memset)\label{namespaceLHAPDF_090a464114c3fa4d6d20132593e10c6f}
+
+\begin{CompactList}\small\item\em The choice of PDF member out of one distribution. \item\end{CompactList}\item 
+void \bf{init\-PDFBy\-Name} (const std::string \&name, \bf{Set\-Type} type, int memset)
+\begin{CompactList}\small\item\em Convenient initializer with PDF set {\em name\/}, set type {\em type\/} and member {\em memset\/}. \item\end{CompactList}\item 
+void \bf{init\-PDFBy\-Name} (int nset, const std::string \&name, \bf{Set\-Type} type, int memset)
+\begin{CompactList}\small\item\em Typical initializer for multiple PDF sets with PDF set {\em name\/} and member {\em memset\/}. \item\end{CompactList}\item 
+void \bf{init\-PDFBy\-Name} (const std::string \&filename, int memset)
+\begin{CompactList}\small\item\em Convenient initializer with PDF set {\em filename\/} and member {\em memset\/}. \item\end{CompactList}\item 
+void \bf{init\-PDFBy\-Name} (int nset, const std::string \&filename, int memset)
+\begin{CompactList}\small\item\em Typical initializer for multiple PDF sets with PDF set {\em name\/} and member {\em memset\/}. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum \bf{Flavour} \{ \par
+\textbf{TBAR} =  -6, 
+\textbf{BBAR} =  -5, 
+\textbf{CBAR} =  -4, 
+\textbf{SBAR} =  -3, 
+\par
+\textbf{UBAR} =  -2, 
+\textbf{DBAR} =  -1, 
+\textbf{GLUON} =  0, 
+\textbf{DOWN} =  1, 
+\par
+\textbf{UP} =  2, 
+\textbf{STRANGE} =  3, 
+\textbf{CHARM} =  4, 
+\textbf{BOTTOM} =  5, 
+\par
+\textbf{TOP} =  6, 
+\textbf{PHOTON} =  7
+ \}
+\begin{CompactList}\small\item\em Enum of flavours which map to \doxyref{LHAPDF}{p.}{namespaceLHAPDF} integer codes. Useful for improving readability of client code. Note that these codes can't be used to access elements of returned {\tt vector$<$double$>$}, which don't use the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} scheme (they use \char`\"{}LHAPDF code + 6\char`\"{}). \item\end{CompactList}\item 
+enum \bf{Set\-Type} \{ \textbf{EVOLVE} =  0, 
+\textbf{LHPDF} =  0, 
+\textbf{INTERPOLATE} =  1, 
+\textbf{LHGRID} =  1
+ \}
+\begin{CompactList}\small\item\em Distinction between evolution or interpolation PDF sets. Enum to choose whether evolution (i.e. {\tt LHpdf} data file) or interpolation (i.e. {\tt LHgrid} data file) is used. \item\end{CompactList}\item 
+enum \bf{Verbosity} \{ \textbf{SILENT} = 0, 
+\textbf{LOWKEY} = 1, 
+\textbf{DEFAULT} = 2
+ \}
+\begin{CompactList}\small\item\em Level of noisiness. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Namespace containing all the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} wrapper functions. 
+
+\subsection{Function Documentation}
+\index{LHAPDF@{LHAPDF}!xfx@{xfx}}
+\index{xfx@{xfx}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfx (double {\em x}, double {\em Q})}\label{namespaceLHAPDF_1c64cf2da56507d8640034dcdb412b31}
+
+
+Nucleon PDF: returns a vector $ x f_i(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!xfx@{xfx}}
+\index{xfx@{xfx}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfx (int {\em nset}, double {\em x}, double {\em Q})}\label{namespaceLHAPDF_fd70a61a033e76200720d80d617f1290}
+
+
+Nucleon PDF: returns a vector {\tt x} f\_\-i(x, Q) with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!xfx@{xfx}}
+\index{xfx@{xfx}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfx (double {\em x}, double {\em Q}, double $\ast$ {\em results})}\label{namespaceLHAPDF_6454ed7a68460fc748bf34712db5b62f}
+
+
+Nucleon PDF: fills primitive 13 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!xfx@{xfx}}
+\index{xfx@{xfx}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfx (int {\em nset}, double {\em x}, double {\em Q}, double $\ast$ {\em results})}\label{namespaceLHAPDF_c9eb938f76afc6bd022138bc74ac4019}
+
+
+Nucleon PDF: fills primitive 13 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!xfx@{xfx}}
+\index{xfx@{xfx}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfx (double {\em x}, double {\em Q}, int {\em fl})}\label{namespaceLHAPDF_04c7120d3e3bddd7ee019b812e745465}
+
+
+Nucleon PDF: returns $ x f(x, Q) $ for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!xfx@{xfx}}
+\index{xfx@{xfx}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfx (int {\em nset}, double {\em x}, double {\em Q}, int {\em fl})}\label{namespaceLHAPDF_8b1d37b5c2e0a4f40e65c4a07c725acf}
+
+
+Nucleon PDF: returns {\tt x} f(x, Q) for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!xfxp@{xfxp}}
+\index{xfxp@{xfxp}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfxp (double {\em x}, double {\em Q}, double {\em P2}, int {\em ip})}\label{namespaceLHAPDF_9d80ad75ba4ea16d389085178c974ed9}
+
+
+Photon PDF: returns a vector $ x f_i(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em P2\/} and {\em ip\/} params. \index{LHAPDF@{LHAPDF}!xfxp@{xfxp}}
+\index{xfxp@{xfxp}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfxp (int {\em nset}, double {\em x}, double {\em Q}, double {\em P2}, int {\em ip})}\label{namespaceLHAPDF_b3341d047dfb64151b10a94057a9802d}
+
+
+Photon PDF: returns a vector $ x f_i(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em P2\/} and {\em ip\/} params. \index{LHAPDF@{LHAPDF}!xfxp@{xfxp}}
+\index{xfxp@{xfxp}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfxp (double {\em x}, double {\em Q}, double {\em P2}, int {\em ip}, double $\ast$ {\em results})}\label{namespaceLHAPDF_7d7cb97bc07c3bfa90828d74c92691af}
+
+
+Photon PDF: fills primitive 13 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em P2\/} and {\em ip\/} params. \index{LHAPDF@{LHAPDF}!xfxp@{xfxp}}
+\index{xfxp@{xfxp}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfxp (int {\em nset}, double {\em x}, double {\em Q}, double {\em P2}, int {\em ip}, double $\ast$ {\em results})}\label{namespaceLHAPDF_42cbe3f23693f03faf0eddd5c29cd6dd}
+
+
+Photon PDF: fills primitive 13 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em P2\/} and {\em ip\/} params. \index{LHAPDF@{LHAPDF}!xfxp@{xfxp}}
+\index{xfxp@{xfxp}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfxp (double {\em x}, double {\em Q}, double {\em P2}, int {\em ip}, int {\em fl})}\label{namespaceLHAPDF_f09a906113b44ac3e130a161ce405bb4}
+
+
+Photon PDF: returns $ x f(x, Q) $ for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em P2\/} and {\em ip\/} params. \index{LHAPDF@{LHAPDF}!xfxp@{xfxp}}
+\index{xfxp@{xfxp}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfxp (int {\em nset}, double {\em x}, double {\em Q}, double {\em P2}, int {\em ip}, int {\em fl})}\label{namespaceLHAPDF_9d5b9436da9a05b78c03644007f09436}
+
+
+Photon PDF: returns $ x f(x, Q) $ for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em P2\/} and {\em ip\/} params. \index{LHAPDF@{LHAPDF}!xfxa@{xfxa}}
+\index{xfxa@{xfxa}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfxa (double {\em x}, double {\em Q}, double {\em a})}\label{namespaceLHAPDF_368ce70b971381bc7aef8246e1a33ffa}
+
+
+Nuclear PDF: returns a vector $ x f_i(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em a\/} param for atomic mass number. \index{LHAPDF@{LHAPDF}!xfxa@{xfxa}}
+\index{xfxa@{xfxa}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfxa (int {\em nset}, double {\em x}, double {\em Q}, double {\em a})}\label{namespaceLHAPDF_9e99358cefce5b2e2ca34fbc68219b9b}
+
+
+Nuclear PDF: returns a vector $ x f_i(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em a\/} param for atomic mass number. \index{LHAPDF@{LHAPDF}!xfxa@{xfxa}}
+\index{xfxa@{xfxa}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfxa (double {\em x}, double {\em Q}, double {\em a}, double $\ast$ {\em results})}\label{namespaceLHAPDF_60bc428d4815b6ff8c9daf98c36ac3fe}
+
+
+Nuclear PDF: fills primitive 13 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em a\/} param for atomic mass number. \index{LHAPDF@{LHAPDF}!xfxa@{xfxa}}
+\index{xfxa@{xfxa}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfxa (int {\em nset}, double {\em x}, double {\em Q}, double {\em a}, double $\ast$ {\em results})}\label{namespaceLHAPDF_062ea8ef0795eddb36bdcb1f99f8128d}
+
+
+Nuclear PDF: fills primitive 13 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em a\/} param for atomic mass number. \index{LHAPDF@{LHAPDF}!xfxa@{xfxa}}
+\index{xfxa@{xfxa}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfxa (double {\em x}, double {\em Q}, double {\em a}, int {\em fl})}\label{namespaceLHAPDF_3430d739becde194dceeee18e4b1a260}
+
+
+Nuclear PDF: returns $ x f(x, Q) $ for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em a\/} param for atomic mass number. \index{LHAPDF@{LHAPDF}!xfxa@{xfxa}}
+\index{xfxa@{xfxa}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfxa (int {\em nset}, double {\em x}, double {\em Q}, double {\em a}, int {\em fl})}\label{namespaceLHAPDF_8f69f9e0c74ba3a618069f3be299c991}
+
+
+Nuclear PDF: returns $ x f(x, Q) $ for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $.\end{itemize}
+NB. Extra {\em a\/} param for atomic mass number. \index{LHAPDF@{LHAPDF}!xfxphoton@{xfxphoton}}
+\index{xfxphoton@{xfxphoton}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfxphoton (double {\em x}, double {\em Q})}\label{namespaceLHAPDF_6b6fb7a16afa2d4d37bad3d5ce45df99}
+
+
+MRST QED PDF: returns a vector $ x f_i(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $; \item 13 = $ \gamma $.\end{itemize}
+NB. Note extra element in this set for MRST photon. \index{LHAPDF@{LHAPDF}!xfxphoton@{xfxphoton}}
+\index{xfxphoton@{xfxphoton}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ LHAPDF::xfxphoton (int {\em nset}, double {\em x}, double {\em Q})}\label{namespaceLHAPDF_463d9b3f6b571b815a57e47ee8eeee29}
+
+
+MRST QED PDF: returns a vector $ x f_i(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $; \item 13 = $ \gamma $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!xfxphoton@{xfxphoton}}
+\index{xfxphoton@{xfxphoton}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfxphoton (double {\em x}, double {\em Q}, double $\ast$ {\em results})}\label{namespaceLHAPDF_6a38b72d7eaf373ae8c7fb6ad0641909}
+
+
+MRST QED PDF: fills primitive 14 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $. \item 13 = $ \gamma $.\end{itemize}
+NB. Note extra element in this set for MRST photon. \index{LHAPDF@{LHAPDF}!xfxphoton@{xfxphoton}}
+\index{xfxphoton@{xfxphoton}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::xfxphoton (int {\em nset}, double {\em x}, double {\em Q}, double $\ast$ {\em results})}\label{namespaceLHAPDF_ef2d9c264811707b755fdea1c1b14f37}
+
+
+MRST QED PDF: fills primitive 14 element array pointed at by {\em results\/} with $ x f(x, Q) $ with index $ 0 < i < 12 $. \begin{itemize}
+\item 0..5 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 6 = $ g $; \item 7..12 = $ d $, $ u $, ..., $ t $. \item 13 = $ \gamma $.\end{itemize}
+NB. Note extra element in this set for MRST photon. \index{LHAPDF@{LHAPDF}!xfxphoton@{xfxphoton}}
+\index{xfxphoton@{xfxphoton}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfxphoton (double {\em x}, double {\em Q}, int {\em fl})}\label{namespaceLHAPDF_1e44b13e08d0dfb906bbe5eeefb232de}
+
+
+MRST QED PDF: returns $ x f(x, Q) $ for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $; \item 7 = $ \gamma $.\end{itemize}
+NB. Note extra element in this set for MRST photon. \index{LHAPDF@{LHAPDF}!xfxphoton@{xfxphoton}}
+\index{xfxphoton@{xfxphoton}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double LHAPDF::xfxphoton (int {\em nset}, double {\em x}, double {\em Q}, int {\em fl})}\label{namespaceLHAPDF_f02df4c46d81ab8aec396ce454dbff71}
+
+
+MRST QED PDF: returns $ x f(x, Q) $ for flavour {\em fl\/} - this time the flavour encoding is as in the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} manual. \begin{itemize}
+\item -6..-1 = $ \bar{t} $, ..., $ \bar{u} $, $ \bar{d} $; \item 0 = $ g $ \item 1..6 = $ d $, $ u $, ..., $ t $; \item 7 = $ \gamma $. \end{itemize}
+\index{LHAPDF@{LHAPDF}!initPDFByName@{initPDFByName}}
+\index{initPDFByName@{initPDFByName}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::init\-PDFBy\-Name (const std::string \& {\em name}, Set\-Type {\em type}, int {\em memset})}\label{namespaceLHAPDF_9154d38db7c5017b1b3f42b28f7a37be}
+
+
+Convenient initializer with PDF set {\em name\/}, set type {\em type\/} and member {\em memset\/}. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The name of the desired set. \item[{\em type}]The type of PDF set (grid or data) by enum. \item[{\em memset}]PDF number within set {\em name\/}. Equivalent to {\tt init\-PDFSet\-By\-Name} + {\tt init\-PDF}. \end{description}
+\end{Desc}
+\index{LHAPDF@{LHAPDF}!initPDFByName@{initPDFByName}}
+\index{initPDFByName@{initPDFByName}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::init\-PDFBy\-Name (int {\em nset}, const std::string \& {\em name}, Set\-Type {\em type}, int {\em memset})}\label{namespaceLHAPDF_ed2bd8610096c476820bc268bde3f8d3}
+
+
+Typical initializer for multiple PDF sets with PDF set {\em name\/} and member {\em memset\/}. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em nset}]Specifies the reference number for the set to be initialized. \item[{\em name}]Name of the desired set. \item[{\em type}]The type of PDF set (grid or data) by enum. \item[{\em memset}]PDF number within set {\em name\/}. Equivalent to {\tt init\-PDFSet\-By\-Name\-M} + {\tt init\-PDFM}. \end{description}
+\end{Desc}
+\index{LHAPDF@{LHAPDF}!initPDFByName@{initPDFByName}}
+\index{initPDFByName@{initPDFByName}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::init\-PDFBy\-Name (const std::string \& {\em filename}, int {\em memset})}\label{namespaceLHAPDF_cda83d9880feca774211ddef37941249}
+
+
+Convenient initializer with PDF set {\em filename\/} and member {\em memset\/}. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em filename}]The name of the grid or data file of the desired set. \item[{\em memset}]PDF number within set {\em name\/}. Equivalent to {\tt init\-PDFSet\-By\-Name} + {\tt init\-PDF}. \end{description}
+\end{Desc}
+\index{LHAPDF@{LHAPDF}!initPDFByName@{initPDFByName}}
+\index{initPDFByName@{initPDFByName}!LHAPDF@{LHAPDF}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void LHAPDF::init\-PDFBy\-Name (int {\em nset}, const std::string \& {\em filename}, int {\em memset})}\label{namespaceLHAPDF_64ade413b78af673bf71f8883b6054a0}
+
+
+Typical initializer for multiple PDF sets with PDF set {\em name\/} and member {\em memset\/}. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em nset}]Specifies the reference number for the set to be initialized. \item[{\em filename}]Name of the grid or data file of the desired set. \item[{\em memset}]PDF number within set {\em name\/}. Equivalent to {\tt init\-PDFSet\-By\-Name\-M} + {\tt init\-PDFM}. \end{description}
+\end{Desc}

@@ -1,0 +1,9 @@
+\section{Introduction}\label{index_intro}
+The \doxyref{LHAPDF}{p.}{namespaceLHAPDF} library provides a set of C++ wrapper functions for its Fortran subroutines. New users should browse this documentation and take a look at the {\tt CCTest1.cc} and {\tt CCTest2.cc} example program source files, which are good examples of how the wrapper is used.\section{Recent changes}\label{index_changes}
+The \doxyref{LHAPDF}{p.}{namespaceLHAPDF} wrapper has been improved in several ways for the \doxyref{LHAPDF}{p.}{namespaceLHAPDF} v5.4 release:
+
+\begin{itemize}
+\item String passing to the Fortran functions from C++ now correctly passes the hidden length argument, fixing problems on 64 bit systems; \item The {\tt \doxyref{LHAPDFWrap}{p.}{classLHAPDFWrap}} class has been deprecated in favour of a set of wrapper functions in the {\tt \doxyref{LHAPDF}{p.}{namespaceLHAPDF}} namespace. The class interface was misleading, since no persistent state was involved and two class instances would not have been independent; \item Proper C++ {\tt std::string} arguments can now be used for set names: {\tt char$\ast$} string arguments can still be passed, due to implicit conversion via the string(char$\ast$) constructor.\end{itemize}
+\section{Credits}\label{index_credits}
+\begin{itemize}
+\item Originally by Stefan Gieseke. \item Adapted for LHAPDFv4 by Mike Whalley. \item Adapted for LHAPDFv5 by Craig Group/Mike Whalley. \item v5.4: Fortran portability, tidying, extensions and conversion to namespaced functions by Andy Buckley. \item v5.4.1: Rationalised init functions and deprecated \char`\"{}M\char`\"{} functions by Andy Buckley. \item v5.5.1: Added PDFSet\-Info set metadata struct, and associated querying based on reading the PDFsets.index file. \end{itemize}
